@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-var program = require('commander');
+var program = require ('commander');
+
+function wpkgManager ()
+{
+  this.install = function (action)
+  {
+    console.log ('[stage2] [wpkg] ' + action);
+  }
+}
+
+var wpkg = new wpkgManager;
 
 program
-  .version('0.0.1')
-  .option('-p, --peppers', 'Add peppers')
-  .option('-P, --pineapple', 'Add pineapple')
-  .option('-b, --bbq', 'Add bbq sauce')
-  .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
-  .parse(process.argv);
-
-console.log('you ordered a pizza with:');
-if (program.peppers) console.log('  - peppers');
-if (program.pineapple) console.log('  - pineapple');
-if (program.bbq) console.log('  - bbq');
-console.log('  - %s cheese', program.cheese);
+  .version ('0.0.1')
+  .option ('-w, --wpkg [action]', 'Manage the wpkg installation', wpkg.install)
+  .parse (process.argv);
