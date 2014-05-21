@@ -2,17 +2,57 @@
 
 var program = require ('commander');
 
-function wpkgManager ()
+function wpkgManager (pkg)
 {
-  this.install = function (action)
+  var package = pkg;
+
+  /**
+   * \brief Get the package from an URL.
+   */
+  this.get = function ()
   {
-    console.log ('[stage2] [wpkg] ' + action);
+    
+  }
+  
+  /**
+   * \brief Install the package in /tools.
+   */
+  this.install = function ()
+  {
+    
+  }
+  
+  /**
+   * \brief Uninstall the package from /tools.
+   */
+  this.uninstall = function ()
+  {
+  
+  }
+  
+  /**
+   * \brief Actions called from commander with --wpkg.
+   */
+  this.action = function (act)
+  {
+    console.log ('[stage2] [' + package + '] ' + act);
+	
+	try
+	{
+	   var wpkg = new wpkgManager (package);
+	   wpkg[act] ();
+	}
+	catch (err)
+	{
+	  console.log ('[stage2] [' + package + ']: ' + err);
+	}
   }
 }
 
-var wpkg = new wpkgManager;
+var wpkg = new wpkgManager ('wpkg');
 
+process.chdir (__dirname + '/..');
 program
   .version ('0.0.1')
-  .option ('-w, --wpkg [action]', 'Manage the wpkg installation', wpkg.install)
+  .option ('-w, --wpkg [action]', 'Manage the wpkg installation', wpkg.action)
   .parse (process.argv);
