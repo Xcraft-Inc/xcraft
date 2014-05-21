@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-var program = require ('commander');
-
 function wpkgManager (pkg)
 {
   var package = pkg;
@@ -50,6 +48,7 @@ function wpkgManager (pkg)
 }
 
 var wpkg = new wpkgManager ('wpkg');
+var program = require ('commander');
 
 process.chdir (__dirname + '/..');
 program
