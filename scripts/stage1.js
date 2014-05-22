@@ -10,7 +10,7 @@ try
 }
 catch (err)
 {
-  console.log ('[stage1]: ' + err);
+  console.log ('[stage1] ' + err);
 }
 
 function puts(error, stdout, stderr)
@@ -26,5 +26,5 @@ try
 }
 catch (err)
 {
-  console.log ('[stage1]: ' + err);
+  console.log ('[stage1] ' + err);
 }

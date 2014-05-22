@@ -35,7 +35,7 @@ exports.wpkgManager = function (pkg)
    */
   this.action = function (act)
   {
-    console.log ('[stage2] [' + package + '] ' + act);
+    console.log ('[stage2:' + package + '] ' + act);
   
     try
     {
@@ -44,7 +44,7 @@ exports.wpkgManager = function (pkg)
     }
     catch (err)
     {
-      console.log ('[stage2] [' + package + ']: ' + err);
+      console.log ('[stage2:' + package + ']: ' + err);
     }
   }
 }
