@@ -21,7 +21,7 @@ function puts(error, stdout, stderr)
 console.log ('[stage1] install commander');
 try
 {
-  exec ("npm install commander", puts);
+  exec ('npm install commander', puts);
   console.log ('[stage1] end of stage one');
 }
 catch (err)
