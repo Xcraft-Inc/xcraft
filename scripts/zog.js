@@ -3,13 +3,20 @@
 function wpkgManager (pkg)
 {
   var package = pkg;
+  var pkgDir = '../packages/base/';
+  var pkgConfig = require (pkgDir + package + '/config.json');
 
   /**
    * \brief Get the package from an URL.
    */
   this.get = function ()
   {
+	var zogPlatform = require ('./lib/zogPlatform');
+    var inputFile = pkgConfig.bin[zogPlatform.getOs ()];
+    var outputFile = pkgConfig.out;
     
+	var zogHttp = require ('./lib/zogHttp.js');
+    zogHttp.get (inputFile, outputFile);
   }
   
   /**
