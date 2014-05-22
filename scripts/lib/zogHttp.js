@@ -7,7 +7,6 @@ exports.get = function (file_url, output_file)
   var path  = require ('path');
  
   var zogFs       = require ('./zogFs.js');
-  var zogPlatform = require ('./zogPlatform');
   
   var options =
   {
@@ -20,7 +19,7 @@ exports.get = function (file_url, output_file)
   zogFs.mkdir (output_dir);
 
   var file_name = url.parse (file_url).pathname.split ('/').pop ();
-  var file = fs.createWriteStream (output_file + zogPlatform.getExecExt ());
+  var file = fs.createWriteStream (output_file);
 
   http.get (options, function (res)
   {
