@@ -1,6 +1,8 @@
 
 exports.wpkgManager = function (pkg)
 {
+  var zogPlatform = require ('./lib/zogPlatform');
+
   var package = pkg;
   var pkgDir = '../packages/base/';
   var pkgConfig = require (pkgDir + package + '/config.json');
@@ -10,12 +12,11 @@ exports.wpkgManager = function (pkg)
    */
   this.install = function ()
   {
-    var zogPlatform = require ('./lib/zogPlatform');
     var inputFile = pkgConfig.bin[zogPlatform.getOs ()];
     var outputFile = pkgConfig.out;
     
     var zogHttp = require ('./lib/zogHttp.js');
-    zogHttp.get (inputFile, outputFile);
+    zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt ());
   }
   
   /**
@@ -26,7 +27,7 @@ exports.wpkgManager = function (pkg)
     var fs = require ('fs');
     
     var outputFile = pkgConfig.out;
-    fs.unlinkSync (outputFile);
+    fs.unlinkSync (outputFile + zogPlatform.getExecExt ());
   }
   
   /**
