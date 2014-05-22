@@ -13,18 +13,23 @@ catch (err)
   console.log ('[stage1] ' + err);
 }
 
-function puts(error, stdout, stderr)
+function stage2(error, stdout, stderr)
 {
   sys.puts (stdout)
+  
+  if (error === null)
+  {
+    console.log ('[stage1] end of stage one');
+    exec ('zog -w install', function (error, stdout, stderr) {
+      sys.puts (stdout)
+    });
+  }
 }
 
 console.log ('[stage1] install commander');
 try
 {
-  exec ('npm install commander', puts);
-  console.log ('[stage1] end of stage one');
-  
-  exec ('zog -w install', puts);
+  exec ('npm install commander', stage2);
 }
 catch (err)
 {
