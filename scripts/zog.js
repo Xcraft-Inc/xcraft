@@ -34,16 +34,16 @@ function wpkgManager (pkg)
   this.action = function (act)
   {
     console.log ('[stage2] [' + package + '] ' + act);
-	
-	try
-	{
-	   var wpkg = new wpkgManager (package);
-	   wpkg[act] ();
-	}
-	catch (err)
-	{
-	  console.log ('[stage2] [' + package + ']: ' + err);
-	}
+  
+  try
+  {
+     var wpkg = new wpkgManager (package);
+     wpkg[act] ();
+  }
+  catch (err)
+  {
+    console.log ('[stage2] [' + package + ']: ' + err);
+  }
   }
 }
 
