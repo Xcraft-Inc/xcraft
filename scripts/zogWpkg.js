@@ -23,7 +23,10 @@ exports.wpkgManager = function (pkg)
    */
   this.uninstall = function ()
   {
-  
+    var fs = require ('fs');
+    
+    var outputFile = pkgConfig.out;
+    fs.unlinkSync (outputFile);
   }
   
   /**
