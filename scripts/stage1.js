@@ -23,6 +23,8 @@ try
 {
   exec ('npm install commander', puts);
   console.log ('[stage1] end of stage one');
+  
+  exec ('zog -w install', puts);
 }
 catch (err)
 {
