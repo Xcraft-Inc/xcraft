@@ -6,9 +6,9 @@ exports.wpkgManager = function (pkg)
   var pkgConfig = require (pkgDir + package + '/config.json');
 
   /**
-   * \brief Get the package from an URL.
+   * \brief Install the package in /tools.
    */
-  this.get = function ()
+  this.install = function ()
   {
     var zogPlatform = require ('./lib/zogPlatform');
     var inputFile = pkgConfig.bin[zogPlatform.getOs ()];
@@ -16,14 +16,6 @@ exports.wpkgManager = function (pkg)
     
     var zogHttp = require ('./lib/zogHttp.js');
     zogHttp.get (inputFile, outputFile);
-  }
-  
-  /**
-   * \brief Install the package in /tools.
-   */
-  this.install = function ()
-  {
-    
   }
   
   /**
