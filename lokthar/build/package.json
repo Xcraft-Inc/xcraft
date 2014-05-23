@@ -1,5 +1,5 @@
 {
-  "name": "hello-atom-build",
+  "name": "lokthar-atom-build",
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "^0.4.4",
