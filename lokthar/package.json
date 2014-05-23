@@ -1,0 +1,8 @@
+{
+  "name": "lokthar",
+  "version": "0.1.0",
+  "main": "main.js",
+  "devDependencies": {
+    "grunt-download-atom-shell": "~0.7.2"
+  }
+}
