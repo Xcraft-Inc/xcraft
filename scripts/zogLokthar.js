@@ -20,6 +20,8 @@ var build = function ()
     sys.puts (stdout);
     if (error === null)
       grunt ();
+    else
+      sys.puts (stderr);
   });
 }
 
@@ -33,6 +35,8 @@ var grunt = function ()
     {
       
     }
+    else
+      sys.puts (stderr);
   });
 }
 
@@ -46,6 +50,8 @@ cmd.run = function ()
     {
       
     }
+    else
+      sys.puts (stderr);
   });
 }
 
@@ -58,6 +64,8 @@ cmd.install = function ()
       sys.puts (stdout);
       if (error === null)
         build ();
+      else
+        sys.puts (stderr);
     });
   }
   catch (err)
