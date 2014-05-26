@@ -6,7 +6,7 @@ exports.get = function (file_url, output_file)
   var http  = require ('http');
   var path  = require ('path');
  
-  var zogFs       = require ('./zogFs.js');
+  var zogFs = require ('./zogFs.js');
   
   var options =
   {
