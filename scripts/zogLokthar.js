@@ -10,6 +10,7 @@ var buildDir      = path.join (__dirname, '../lokthar/build/');
 var atomDir       = path.join (__dirname, '../lokthar/build/atom-shell/');
 var loktharAppDir = path.join (__dirname, '../lokthar/lokthar-app');
 
+var gruntBin = {};
 var cmd = {};
 
 
@@ -28,7 +29,7 @@ var build = function ()
 var grunt = function ()
 {
   var gruntfile = path.join (buildDir, 'gruntfile.js');
-  exec ('grunt --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
+  exec ('node ' + gruntBin + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
   {
     sys.puts (stdout);
     if (error === null)
@@ -63,7 +64,10 @@ cmd.install = function ()
     {
       sys.puts (stdout);
       if (error === null)
+      {
+        gruntBin = path.join (__dirname, '../node_modules/grunt-cli/bin/grunt');
         build ();
+      }
       else
         sys.puts (stderr);
     });
