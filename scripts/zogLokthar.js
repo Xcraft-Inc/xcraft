@@ -35,7 +35,7 @@ var grunt = function ()
 
 cmd.run = function ()
 {
-  exec (atomDir + 'atom.exe ' + loktharAppDir, function (error, stdout, stderr)
+  exec (atomDir + 'atom' + zogPlatform.getExecExt () + ' ' + loktharAppDir, function (error, stdout, stderr)
   {
     sys.puts (stdout);
     if (error === null)
