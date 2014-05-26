@@ -25,7 +25,8 @@ var build = function ()
 
 var grunt = function ()
 {
-  exec ('grunt --gruntfile '+ buildDir + 'gruntfile.js' + ' download-atom-shell', function (error, stdout, stderr)
+  var gruntfile = path.join (buildDir, 'gruntfile.js');
+  exec ('grunt --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
   {
     sys.puts (stdout);
     if (error === null)
@@ -37,7 +38,8 @@ var grunt = function ()
 
 cmd.run = function ()
 {
-  exec (atomDir + 'atom' + zogPlatform.getExecExt () + ' ' + loktharAppDir, function (error, stdout, stderr)
+  var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
+  exec (atom + ' ' + loktharAppDir, function (error, stdout, stderr)
   {
     sys.puts (stdout);
     if (error === null)
