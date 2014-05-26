@@ -5,9 +5,11 @@ var exec        = require ('child_process').exec;
 var zogPlatform = require ('./lib/zogPlatform');
 
 var package = 'lokthar';
-var buildDir = path.join (__dirname, "../lokthar/build/");
-var atomDir = path.join (__dirname, "../lokthar/build/atom-shell/");
-var loktharAppDir = path.join (__dirname, "../lokthar/lokthar-app");
+
+var buildDir      = path.join (__dirname, '../lokthar/build/');
+var atomDir       = path.join (__dirname, '../lokthar/build/atom-shell/');
+var loktharAppDir = path.join (__dirname, '../lokthar/lokthar-app');
+
 var cmd = {};
 
 
