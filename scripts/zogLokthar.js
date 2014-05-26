@@ -12,7 +12,6 @@ var cmd = {};
 
 var build = function ()
 {
-  console.log(buildDir);
   exec ('npm install --prefix ' + buildDir + ' ' + buildDir, function (error, stdout, stderr) {
     sys.puts (stdout);
       if(error === null)
