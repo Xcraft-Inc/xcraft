@@ -1,5 +1,7 @@
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var app           = require('app');
+var ipc           = require('ipc');
+var shell         = require('shell');
+var BrowserWindow = require('browser-window');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -7,6 +9,14 @@ require('crash-reporter').start();
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
+
+ipc.on('open-console', function(event, arg) {
+  BrowserWindow.getFocusedWindow().toggleDevTools();
+});
+
+ipc.on('close-app', function(event, arg) {
+  app.quit();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -18,7 +28,7 @@ app.on('window-all-closed', function() {
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 960, height: 600});
 
   // and load the index.html of the app.
   mainWindow.loadUrl('file://' + __dirname + '/index.html');

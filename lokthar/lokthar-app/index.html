@@ -17,13 +17,40 @@
         <script src="lokthar.js"></script>
     </head>
     <body class="uk-height-1-1">
-        <nav class="uk-navbar">
+        <nav class="uk-navbar" ng-controller="HomeController">
+            <a class="uk-navbar-brand" href="#/home">Epsitec Toolchain</a>
             <ul class="uk-navbar-nav">
-                <li><a href="#/packages">Packages</a></li>
-                <li><a href="#/config"  >Configuration</a></li>
-                <li><a href="#/profile" >profile</a></li>
+                <li class="uk-parent uk-active" data-uk-dropdown="">
+                    <a href="#/home"><i class="uk-icon-home"></i> Home</a>
+                    <div class="uk-dropdown uk-dropdown-navbar">
+                        <ul class="uk-nav uk-nav-navbar">
+                            <li><a href="#/profile">Mon profile</a></li>
+                            <li class="uk-nav-header">Mon syst&egrave;me</li>
+                            <li><a href="#" ng-click="openSysroot()">Ouvrir le sysroot</a></li>
+                            <li><a href="#/config">Configurer</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#" ng-click="openConsole()">Console</a></li>
+                            <li><a href="#/about">A propos</a></li>
+                        </ul>
+                    </div>
+
+                </li>
             </ul>
+            <div class="uk-navbar-content"><a href="https://git.epsitec.ch" target="_blank">GitLab</a></div>
+            <div class="uk-navbar-content uk-hidden-small">
+                <form class="uk-form uk-margin-remove uk-display-inline-block">
+                    <input type="text" placeholder="Nom du paquet">
+                    <button class="uk-button uk-button-primary">Rechercher</button>
+                </form>
+            </div>
+            <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+                <div class="uk-button-group">
+                    <a class="uk-button uk-button-success" href="#/packages">Packages</a>
+                    <button class="uk-button uk-button-danger" ng-click="quit()">Quitter</button>
+                </div>
+            </div>
         </nav>
+
         <div class="ng-view"></div>
     </body>
 </html>

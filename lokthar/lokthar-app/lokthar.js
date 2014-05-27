@@ -19,6 +19,10 @@ app.config(['$routeProvider',
 			templateUrl: 'partials/profile.html',
 			controller: 'ProfileController'
 		})
+		.when('/about', {
+			templateUrl: 'partials/about.html',
+			controller: 'AboutController'
+		})
 		.otherwise({
 			redirectTo: '/home'
 		});
@@ -38,5 +42,25 @@ app.controller('ProfileController', ['$scope', '$routeParams', function ($scope,
 }]);
 
 app.controller('HomeController', ['$scope', '$routeParams', function ($scope, $routeParams){
+	$scope.openConsole = function ()
+	{
+		var ipc = require('ipc');
+		ipc.send('open-console', '');
+	}
+
+	$scope.quit = function ()
+	{
+		var ipc = require('ipc');
+		ipc.send('close-app', '');
+	}
+
+	$scope.openSysroot = function ()
+	{
+		var shell = require('shell');
+		shell.openItem(__dirname +"../../../");
+	}
+}]);
+
+app.controller('AboutController', ['$scope', '$routeParams', function ($scope, $routeParams){
 
 }]);
