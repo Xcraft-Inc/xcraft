@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="lokthar">
     <head>
-        <title>Lokthar!</title>
-        <link rel="stylesheet" href="css/uikit.min.css" />  
+        <title>Lokthar - &copy;Epsitec 2014</title>
+        <link rel="stylesheet" href="css/uikit.min.css" />
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
         <script src="js/jquery.js"></script>      
         <script> //Fix for jquery loading
           try {
@@ -12,27 +14,16 @@
           } catch(e) {}
         </script>
         <script src="js/uikit.min.js"></script>
+        <script src="lokthar.js"></script>
     </head>
     <body class="uk-height-1-1">
-    <div class="uk-vertical-align uk-text-center uk-height-1-1">
-        <div class="uk-vertical-align-middle" style="width: 250px;">
-            <h1>Lokthar!</h1>
-            <form class="uk-panel uk-panel-box uk-form">
-                <div class="uk-form-row">
-                    <input class="uk-width-1-1 uk-form-large" type="text" placeholder="Username">
-                </div>
-                <div class="uk-form-row">
-                    <input class="uk-width-1-1 uk-form-large" type="text" placeholder="Password">
-                </div>
-                <div class="uk-form-row">
-                    <a class="uk-width-1-1 uk-button uk-button-primary uk-button-large" href="#">Login</a>
-                </div>
-                <div class="uk-form-row uk-text-small">
-                    <label class="uk-float-left"><input type="checkbox"> Remember Me</label>
-                    <a class="uk-float-right uk-link uk-link-muted" href="#">Forgot Password?</a>
-                </div>
-            </form>
-        </div>
-    </div>
-  <div class="uk-tooltip"></div></body>
+        <nav class="uk-navbar">
+            <ul class="uk-navbar-nav">
+                <li><a href="#/packages">Packages</a></li>
+                <li><a href="#/config"  >Configuration</a></li>
+                <li><a href="#/profile" >profile</a></li>
+            </ul>
+        </nav>
+        <div class="ng-view"></div>
+    </body>
 </html>
