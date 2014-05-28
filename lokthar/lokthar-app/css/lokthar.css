@@ -1,0 +1,27 @@
+/*
+ * Component:       Lokthar CSS
+ * Description:     Defines styles customization for UIkit
+ ========================================================================== */
+
+
+/* Fonts
+ ========================================================================== */
+
+@font-face {
+    font-family: 'Exo';
+    src: url('../fonts/Exo-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, h1, h2, h3, h4, h5, h6,
+.uk-navbar-nav > li > a { font-family: "Exo", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+
+/* Override
+ ========================================================================== */
+
+.uk-badge {
+    font-weight: normal;
+    font-size:  12px;
+}

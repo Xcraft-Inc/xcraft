@@ -3,9 +3,10 @@
     <head>
         <title>Lokthar - &copy;Epsitec 2014</title>
         <link rel="stylesheet" href="css/uikit.min.css" />
+        <link rel="stylesheet" href="css/lokthar.css">
         <link rel="stylesheet" href="css/cssterm.css">
         <script src="js/angular.min.js"></script>
-        <script src="js/angular-route.min.js"></script>
+        <script src="js/angular-ui-router.min.js"></script>
         <script src="js/jquery.js"></script>      
         <script> //Fix for jquery loading
           try {
@@ -16,37 +17,33 @@
         </script>
         <script src="js/uikit.min.js"></script>
         <script src="lokthar.js"></script>
-
+        <script src="modules/packages/module.js"></script>
         <style>
-        html { 
-              margin:0;
-              padding:0;
-              background: url(partials/homebg.png) no-repeat center fixed; 
-              -webkit-background-size: cover;
-            }
+        
         </style>
     </head>
     <body class="uk-height-1-1">
         <nav class="uk-navbar" ng-controller="HomeController">
-            <a class="uk-navbar-brand" href="#/home">Epsitec Toolchain</a>
+            <a class="uk-navbar-brand" ui-sref="home"><i class="uk-icon-rocket"></i> Epsitec Toolchain</a>
             <ul class="uk-navbar-nav">
                 <li class="uk-parent uk-active" data-uk-dropdown="">
-                    <a href="#/home"><i class="uk-icon-home"></i> Home</a>
+                    <a ui-sref="home"><i class="uk-icon-star"></i> Navigation</a>
                     <div class="uk-dropdown uk-dropdown-navbar">
                         <ul class="uk-nav uk-nav-navbar">
-                            <li><a href="#/profile">Mon profile</a></li>
+                            <li class="uk-nav-header">Epsitec</li>
+                            <li><a ui-sref="profile"><i class="uk-icon-user"></i> Mon profile</a></li>
+                            <li><a ng-click="openGitlab()"><i class="uk-icon-flask"></i> Gitlab</a></li>
                             <li class="uk-nav-header">Mon syst&egrave;me</li>
-                            <li><a href="#" ng-click="openSysroot()">Ouvrir le sysroot</a></li>
-                            <li><a href="#/config">Configurer</a></li>
+                            <li><a ng-click="openSysroot()"><i class="uk-icon-folder-open-o"></i> Ouvrir le sysroot</a></li>
+                            <li><a ui-sref="config"><i class="uk-icon-cog"></i> Configurer</a></li>
                             <li class="uk-nav-divider"></li>
-                            <li><a href="#" ng-click="openConsole()">Console</a></li>
-                            <li><a href="#/about">A propos</a></li>
+                            <li><a ng-click="openConsole()"><i class="uk-icon-bug"></i> Debug</a></li>
+                            <li><a ui-sref="about"><i class="uk-icon-question"></i> A propos</a></li>
                         </ul>
                     </div>
 
                 </li>
             </ul>
-            <div class="uk-navbar-content"><a href="https://git.epsitec.ch" target="_blank">GitLab</a></div>
             <div class="uk-navbar-content uk-hidden-small">
                 <form class="uk-form uk-margin-remove uk-display-inline-block">
                     <input type="text" placeholder="Nom du paquet">
@@ -55,12 +52,11 @@
             </div>
             <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
                 <div class="uk-button-group">
-                    <a class="uk-button uk-button-success" href="#/packages">Packages</a>
-                    <button class="uk-button uk-button-danger" ng-click="quit()">Quitter</button>
+                    <a class="uk-button uk-button-success" ui-sref="packages"><i class="uk-icon-puzzle-piece"></i> Packages</a>
+                    <button class="uk-button uk-button-danger" ng-click="quit()"><i class="uk-icon-power-off"></i> Quitter</button>
                 </div>
             </div>
         </nav>
-
-        <div class="ng-view"></div>
+        <div ui-view></div>
     </body>
 </html>

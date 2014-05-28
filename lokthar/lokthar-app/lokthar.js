@@ -1,51 +1,68 @@
-var app = angular.module('lokthar', ['ngRoute']);
+var app = angular.module('lokthar', ['ui.router','packageManager']);
 
-app.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider
-		.when('/home', {
-			templateUrl: 'partials/home.html',
-			controller: 'HomeController'
-		})
-		.when('/packages', {
-			templateUrl: 'partials/packages.html',
-			controller: 'PackagesController'
-		})
-		.when('/config', {
-			templateUrl: 'partials/config.html',
-			controller: 'ConfigController'
-		})
-		.when('/profile', {
-			templateUrl: 'partials/profile.html',
-			controller: 'ProfileController'
-		})
-		.when('/about', {
-			templateUrl: 'partials/about.html',
-			controller: 'AboutController'
-		})
-		.otherwise({
-			redirectTo: '/home'
-		});
+app.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise("/home");
+  $stateProvider
+    .state('home', {
+      url: "/home",
+      templateUrl: 'partials/home.html',
+	  controller: 'HomeController' 
+    })
+    .state('packages', {
+      templateUrl: 'partials/packages.html',
+	  controller: 'PackagesController'
+    })
+    .state('config', {
+      url: "/config",
+        templateUrl: 'partials/config.html',
+		controller: 'ConfigController'
+    })
+    .state('profile', {
+      url: "/profile",
+        templateUrl: 'partials/profile.html',
+		controller: 'ProfileController'
+    })
+    .state('about', {
+      url: "/about",
+        templateUrl: 'partials/about.html',
+		controller: 'AboutController'
+    })
+});
+
+app.controller('ConfigController', ['$scope', function ($scope){
+	$scope.title = 'Configuration';
+	$scope.badge = 'dev';
+	$scope.icon = 'cog'
 }]);
 
-
-app.controller('PackagesController', ['$scope', '$routeParams', function ($scope, $routeParams){
-
+app.controller('ProfileController', ['$scope', function ($scope){
+	$scope.title = 'Mon profile';
+	$scope.badge = 'dev';
+	$scope.icon = 'user'
 }]);
 
-app.controller('ConfigController', ['$scope', '$routeParams', function ($scope, $routeParams){
+app.controller('HomeController', ['$scope',  function ($scope){
+	$scope.title = 'Lokthar';
+	$scope.badge = 'v0.1a';
+	$scope.icon = 'home'
 
-}]);
 
-app.controller('ProfileController', ['$scope', '$routeParams', function ($scope, $routeParams){
+	$scope.openGitlab = function ()
+	{
+		var shell = require('shell');
+		shell.openExternal('https://git.epsitec.ch');
+	}
 
-}]);
-
-app.controller('HomeController', ['$scope', '$routeParams', function ($scope, $routeParams){
 	$scope.openConsole = function ()
 	{
 		var ipc = require('ipc');
 		ipc.send('open-console', '');
+	}
+
+	$scope.openSysroot = function ()
+	{
+		var shell = require('shell');
+		shell.openItem(__dirname +'../../../');
 	}
 
 	$scope.quit = function ()
@@ -53,14 +70,10 @@ app.controller('HomeController', ['$scope', '$routeParams', function ($scope, $r
 		var ipc = require('ipc');
 		ipc.send('close-app', '');
 	}
-
-	$scope.openSysroot = function ()
-	{
-		var shell = require('shell');
-		shell.openItem(__dirname +"../../../");
-	}
 }]);
 
-app.controller('AboutController', ['$scope', '$routeParams', function ($scope, $routeParams){
-
+app.controller('AboutController', ['$scope', function ($scope){
+	$scope.title = 'A propos';
+	$scope.badge = 'dev';
+	$scope.icon = 'question'
 }]);

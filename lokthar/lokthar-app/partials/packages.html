@@ -1,13 +1,17 @@
-<div id="terminal-window">
-	<div id="terminal-toolbar">
-	<div class="terminal-top">
-		<div class="terminal-menu">
-		</div>
-		<div id="terminal-title">
-			Package Manager Output
-		</div>
+
+<div class="uk-panel uk-panel-box">
+    <div class="uk-panel-badge uk-badge">{{badge}}</div>
+    <h3 class="uk-panel-title"><i class="uk-icon-{{icon}}"></i> {{title}}</h3>
+	<div class="uk-grid">
+	    <div class="uk-width-medium-1-4">
+	        <ul class="uk-nav uk-nav-side">
+	            <li ui-sref-active="uk-active"><a ui-sref="packages.manager">Gestion</a></li>
+	        	<li ui-sref-active="uk-active"><a ui-sref="packages.editor">Editeur</a></li>
+	        </ul>
+	    </div>
+	    <div class="uk-width-medium-3-4">
+	    	<div ui-view></div>
+	    </div>
 	</div>
 </div>
-<div id="terminal-body">
-	<p>//TODO</p>
-</div>
+
