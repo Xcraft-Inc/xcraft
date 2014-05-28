@@ -15,7 +15,7 @@ catch (err)
 
 function stage2(error, stdout, stderr)
 {
-  sys.puts (stdout)
+  sys.puts (stdout);
   
   if (error === null)
   {
@@ -24,6 +24,8 @@ function stage2(error, stdout, stderr)
       sys.puts (stdout)
     });
   }
+  else
+    sys.puts (stderr);
 }
 
 console.log ('[stage1] install commander');
