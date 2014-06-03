@@ -62,7 +62,8 @@ app.controller('HomeController', ['$scope', function ($scope){
 	$scope.openSysroot = function ()
 	{
 		var shell = require('shell');
-		shell.openItem(__dirname +'../../../');
+		var path  = require('path');
+		shell.openItem(path.join(__dirname, '../../../'));
 	}
 
 	$scope.quit = function ()

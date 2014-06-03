@@ -1,4 +1,5 @@
 
+var fs          = require ('fs');
 var sys         = require ('sys');
 var path        = require ('path');
 var exec        = require ('child_process').exec;
@@ -34,7 +35,9 @@ var grunt = function ()
     sys.puts (stdout);
     if (error === null)
     {
-      
+      var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
+      /* chmod +x flag to atom for Unix, ignored on Windows. */
+      fs.chmodSync (atom, 0755);
     }
     else
       sys.puts (stderr);
