@@ -1,5 +1,6 @@
 var app = angular.module('lokthar', ['ui.router','packageManager']);
 
+
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/home");
   $stateProvider
@@ -41,11 +42,10 @@ app.controller('ProfileController', ['$scope', function ($scope){
 	$scope.icon = 'user'
 }]);
 
-app.controller('HomeController', ['$scope',  function ($scope){
+app.controller('HomeController', ['$scope', function ($scope){
 	$scope.title = 'Lokthar';
 	$scope.badge = 'v0.1a';
 	$scope.icon = 'home'
-
 
 	$scope.openGitlab = function ()
 	{

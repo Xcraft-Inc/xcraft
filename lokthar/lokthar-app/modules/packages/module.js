@@ -1,6 +1,6 @@
 var module = angular.module('packageManager', []);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+module.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/packages.manager");
   $stateProvider
     .state('packages.manager', {
