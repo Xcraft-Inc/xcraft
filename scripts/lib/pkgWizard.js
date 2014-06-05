@@ -114,7 +114,7 @@ exports.dependency =
 [
   {
     "type": "confirm",
-    "name": "hasMoreDependency",
+    "name": "hasDependency",
     "message": "Add a dependency",
     "default": false
   },
@@ -125,7 +125,7 @@ exports.dependency =
     "choices": zogFs.lsdir (zogConfig.pkgProductsRoot),
     "when": function (answers)
     {
-      return answers.hasMoreDependency;
+      return answers.hasDependency;
     }
   },
   {
@@ -140,7 +140,7 @@ exports.dependency =
     },
     "when": function (answers)
     {
-      return answers.hasMoreDependency;
+      return answers.hasDependency;
     }
   }
 ];
