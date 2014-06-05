@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 
-var sys  = require ('sys');
-var exec = require ('child_process').exec;
+var moduleName = 'stage1';
+
+var sys    = require ('sys');
+var exec   = require ('child_process').exec;
+var zogLog = require ('./lib/zogLog.js')(moduleName);
 
 try
 {
   process.chdir (__dirname + '/..');
-  console.log ('[stage1] go to the toolchain directory: ' + process.cwd ());
+  zogLog.info ('go to the toolchain directory: ' + process.cwd ());
 }
 catch (err)
 {
-  console.log ('[stage1] ' + err);
+  zogLog.err (err);
 }
 
 function stage2(error, stdout, stderr)
@@ -19,21 +22,22 @@ function stage2(error, stdout, stderr)
   
   if (error === null)
   {
-    console.log ('[stage1] end of stage one');
-    exec ('zog -w install', function (error, stdout, stderr) {
+    zogLog.info ('end of stage one');
+    exec ('zog -w install', function (error, stdout, stderr)
+    {
       sys.puts (stdout)
     });
   }
   else
-    sys.puts (stderr);
+    zogLog.err ('unable to install zog depedencies\n' + stderr);
 }
 
-console.log ('[stage1] install zog dependencies');
+zogLog.info ('install zog dependencies');
 try
 {
   exec ('npm install commander inquirer cli-color', stage2);
 }
 catch (err)
 {
-  console.log ('[stage1] ' + err);
+  zogLog.err (err);
 }
