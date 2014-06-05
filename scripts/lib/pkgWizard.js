@@ -135,7 +135,7 @@ exports.dependency =
     "validate": function (value)
     {
       var rangeRegex = /((<[<=]|>[>=])|=)/;
-      var regex = new RegExp ('^' + rangeRegex.source + '[ ]{1}' + versionRegex.source + '$');
+      var regex = new RegExp ('^(|' + rangeRegex.source + '[ ]{1}' + versionRegex.source + ')$');
       return regex.test (value);
     },
     "when": function (answers)
