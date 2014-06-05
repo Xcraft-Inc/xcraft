@@ -3,13 +3,14 @@ var fs          = require ('fs');
 var sys         = require ('sys');
 var path        = require ('path');
 var exec        = require ('child_process').exec;
-var zogPlatform = require ('./lib/zogPlatform');
+var zogPlatform = require ('./lib/zogPlatform.js');
+var zogConfig   = require ('./lib/zogConfig.js');
 
 var package = 'lokthar';
 
-var buildDir      = path.join (__dirname, '../lokthar/build/');
-var atomDir       = path.join (__dirname, '../lokthar/build/atom-shell/');
-var loktharAppDir = path.join (__dirname, '../lokthar/lokthar-app');
+var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
+var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
+var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
 
 var gruntBin = {};
 var cmd = {};
@@ -68,7 +69,7 @@ cmd.install = function ()
       sys.puts (stdout);
       if (error === null)
       {
-        gruntBin = path.join (__dirname, '../node_modules/grunt-cli/bin/grunt');
+        gruntBin = path.join (zogConfig.nodeModulesRoot, '/grunt-cli/bin/grunt');
         build ();
       }
       else

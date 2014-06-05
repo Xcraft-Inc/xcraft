@@ -1,9 +1,8 @@
 
-var path     = require ('path');
-var inquirer = require ('inquirer');
-var zogFs    = require ('../lib/zogFs.js');
-
-var pkgDir = path.normalize ('./packages/products/');
+var path      = require ('path');
+var inquirer  = require ('inquirer');
+var zogFs     = require ('./zogFs.js');
+var zogConfig = require ('./zogConfig.js');
 
 /* Version rules by Debian:
  * http://windowspackager.org/documentation/implementation-details/debian-version
@@ -123,7 +122,7 @@ exports.dependency =
     "type": "rawlist",
     "name": "dependency",
     "message": "Package's name",
-    "choices": zogFs.lsdir (pkgDir),
+    "choices": zogFs.lsdir (zogConfig.pkgProductsRoot),
     "when": function (answers)
     {
       return answers.hasMoreDependency;

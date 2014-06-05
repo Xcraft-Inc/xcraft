@@ -1,11 +1,11 @@
 
 var path        = require ('path');
-var zogPlatform = require ('./lib/zogPlatform');
+var zogPlatform = require ('./lib/zogPlatform.js');
+var zogConfig   = require ('./lib/zogConfig.js');
 
 var package = 'wpkg';
 
-var pkgDir    = path.normalize ('../packages/base/');
-var pkgConfig = require (path.join (pkgDir, package, 'config.json'));
+var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, package, 'config.json'));
 var cmd = {};
 
 /**
