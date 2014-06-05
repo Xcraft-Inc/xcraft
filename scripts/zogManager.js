@@ -13,7 +13,7 @@ var promptForDependency = function (wizard, package)
     if (answers.hasMoreDependency)
       promptForDependency (wizard, package);
     else
-      console.log (package);
+      zogLog.verb ('JSON output:\n' + JSON.stringify (package, null, '  '));
   });
 }
 

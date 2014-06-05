@@ -18,14 +18,14 @@ catch (err)
 
 function stage2(error, stdout, stderr)
 {
-  sys.puts (stdout);
+  zogLog.verb ('zog dependencies outputs:\n' + stdout);
   
   if (error === null)
   {
     zogLog.info ('end of stage one');
     exec ('zog -w install', function (error, stdout, stderr)
     {
-      sys.puts (stdout)
+      zogLog.verb ('wpkg install outputs:\n' + stdout);
     });
   }
   else

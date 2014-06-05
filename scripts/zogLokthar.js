@@ -21,7 +21,8 @@ var build = function ()
 {
   exec ('npm install --prefix ' + buildDir + ' ' + buildDir, function (error, stdout, stderr)
   {
-    sys.puts (stdout);
+    zogLog.verb ('build lokthar outputs:\n' + stdout);
+
     if (error === null)
       grunt ();
     else
@@ -34,7 +35,8 @@ var grunt = function ()
   var gruntfile = path.join (buildDir, 'gruntfile.js');
   exec ('node ' + gruntBin + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
   {
-    sys.puts (stdout);
+    zogLog.verb ('grunt lokthar outputs:\n' + stdout);
+
     if (error === null)
     {
       var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
@@ -51,7 +53,8 @@ cmd.run = function ()
   var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
   exec (atom + ' ' + loktharAppDir, function (error, stdout, stderr)
   {
-    sys.puts (stdout);
+    zogLog.verb ('atom outputs:\n' + stdout);
+
     if (error === null)
     {
       
@@ -67,7 +70,8 @@ cmd.install = function ()
   {
     exec ('npm install grunt-cli', function (error, stdout, stderr)
     {
-      sys.puts (stdout);
+      zogLog.verb ('grunt-cli install outputs:\n' + stdout);
+
       if (error === null)
       {
         gruntBin = path.join (zogConfig.nodeModulesRoot, '/grunt-cli/bin/grunt');

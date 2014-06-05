@@ -17,6 +17,12 @@ module.exports = function (module)
   }
 
   return {
+    verb: function (format)
+    {
+      var args = [ clc.cyanBright ('Verb') ];
+      log.apply (this, args.concat (Array.prototype.slice.call (arguments)));
+    },
+
     info: function (format)
     {
       var args = [ clc.greenBright ('Info') ];
