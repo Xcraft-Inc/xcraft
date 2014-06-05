@@ -1,8 +1,11 @@
 
 var moduleName = 'manager';
 
+var path     = require ('path');
 var inquirer = require ('inquirer');
 var zogLog   = require ('./lib/zogLog.js')(moduleName);
+
+process.chdir (path.join (__dirname, '/..'));
 
 var promptForDependency = function (wizard, package)
 {

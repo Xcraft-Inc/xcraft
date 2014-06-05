@@ -3,12 +3,11 @@
 var program = require ('commander');
 var path    = require ('path');
 
+var zogManager = require ('./zogManager.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
-var zogManager = require ('./zogManager.js');
 var zogLog     = require ('./lib/zogLog.js')('zog');
 
-process.chdir (path.join (__dirname, '/..'));
 program
   .version ('0.0.1')
   .option ('-w, --wpkg <action>', 'manage the wpkg installation', zogWpkg.action)
