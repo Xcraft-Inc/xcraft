@@ -1,12 +1,12 @@
 
 var mainModuleName = 'zog';
+var currentLevel = 0;
 
 var clc = require ('cli-color');
 
 module.exports = function (module)
 {
   var moduleName = module;
-  var currentLevel = 0;
   var levels =
   [
     clc.cyanBright ('Verb'),
@@ -51,6 +51,13 @@ module.exports = function (module)
     err: function (format)
     {
       log.apply (this, [ 3 ].concat (Array.prototype.slice.call (arguments)));
+    },
+
+    verbosity: function (level)
+    {
+      if (level < 0 || level > 3)
+        return;
+      currentLevel = level;
     }
   };
 }

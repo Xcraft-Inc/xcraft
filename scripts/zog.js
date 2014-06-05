@@ -6,11 +6,13 @@ var path    = require ('path');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
 var zogManager = require ('./zogManager.js');
+var zogLog     = require ('./lib/zogLog.js')('zog');
 
 process.chdir (path.join (__dirname, '/..'));
 program
   .version ('0.0.1')
   .option ('-w, --wpkg <action>', 'manage the wpkg installation', zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation', zogLokthar.action)
+  .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 0)', zogLog.verbosity)
   .option ('create <package>', 'create a new empty package', zogManager.create)
   .parse (process.argv);
