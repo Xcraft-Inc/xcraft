@@ -28,10 +28,10 @@ function stage2(error, stdout, stderr)
     sys.puts (stderr);
 }
 
-console.log ('[stage1] install commander');
+console.log ('[stage1] install zog dependencies');
 try
 {
-  exec ('npm install commander', stage2);
+  exec ('npm install commander inquirer', stage2);
 }
 catch (err)
 {
