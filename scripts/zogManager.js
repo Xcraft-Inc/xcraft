@@ -18,7 +18,7 @@ exports.create = function (packageName)
 {
   console.log ('[zog:create] package wizard');
 
-  var wizard = require ('./data/pkgWizard.js');
+  var wizard = require ('./lib/pkgWizard.js');
 
   var package = [];
   package.package = packageName;
