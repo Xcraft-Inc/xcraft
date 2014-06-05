@@ -6,11 +6,27 @@ var clc = require ('cli-color');
 module.exports = function (module)
 {
   var moduleName = module;
+  var currentLevel = 0;
+  var levels =
+  [
+    clc.cyanBright ('Verb'),
+    clc.greenBright ('Info'),
+    clc.yellowBright ('Warn'),
+    clc.redBright ('Err')
+  ];
+
+  var testLevel = function (level)
+  {
+    return level >= currentLevel;
+  }
 
   var log = function (level, format)
   {
+    if (!testLevel (level))
+      return;
+
     var zog = clc.whiteBright.bold (mainModuleName);
-    var args = [ zog + ' [%s] %s: ' + format, clc.whiteBright.bold (moduleName), level ];
+    var args = [ zog + ' [%s] %s: ' + format, clc.whiteBright.bold (moduleName), levels[level] ];
     args = args.concat (Array.prototype.slice.call (arguments, 2));
 
     console.log.apply (this, args);
@@ -19,26 +35,22 @@ module.exports = function (module)
   return {
     verb: function (format)
     {
-      var args = [ clc.cyanBright ('Verb') ];
-      log.apply (this, args.concat (Array.prototype.slice.call (arguments)));
+      log.apply (this, [ 0 ].concat (Array.prototype.slice.call (arguments)));
     },
 
     info: function (format)
     {
-      var args = [ clc.greenBright ('Info') ];
-      log.apply (this, args.concat (Array.prototype.slice.call (arguments)));
+      log.apply (this, [ 1 ].concat (Array.prototype.slice.call (arguments)));
     },
 
     warn: function (format)
     {
-      var args = [ clc.yellowBright ('Warn') ];
-      log.apply (this, args.concat (Array.prototype.slice.call (arguments)));
+      log.apply (this, [ 2 ].concat (Array.prototype.slice.call (arguments)));
     },
 
     err: function (format)
     {
-      var args = [ clc.redBright ('Err') ];
-      log.apply (this, args.concat (Array.prototype.slice.call (arguments)));
+      log.apply (this, [ 3 ].concat (Array.prototype.slice.call (arguments)));
     }
   };
 }
