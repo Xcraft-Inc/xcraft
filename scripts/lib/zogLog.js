@@ -1,4 +1,6 @@
 
+var mainModuleName = 'zog';
+
 var clc = require ('cli-color');
 
 module.exports = function (module)
@@ -7,7 +9,7 @@ module.exports = function (module)
 
   var log = function (level, format)
   {
-    var zog = clc.whiteBright.bold ('zog');
+    var zog = clc.whiteBright.bold (mainModuleName);
     var args = [ zog + ' [%s] %s: ' + format, clc.whiteBright.bold (moduleName), level ];
     args = args.concat (Array.prototype.slice.call (arguments, 2));
 
