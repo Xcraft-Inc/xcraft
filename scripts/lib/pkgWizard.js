@@ -131,7 +131,7 @@ exports.dependency =
   {
     "type": "input",
     "name": "version",
-    "message": "Range operator (>>, >=, =, <= or <<) with package version (like >= 1.0):",
+    "message": "Empty string or range operator (>>, >=, =, <= or <<) with version (like >= 1.0):",
     "validate": function (value)
     {
       var rangeRegex = /((<[<=]|>[>=])|=)/;
