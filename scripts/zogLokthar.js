@@ -1,12 +1,13 @@
 
+var moduleName = 'lokthar';
+
 var fs          = require ('fs');
 var sys         = require ('sys');
 var path        = require ('path');
 var exec        = require ('child_process').exec;
 var zogPlatform = require ('./lib/zogPlatform.js');
 var zogConfig   = require ('./lib/zogConfig.js');
-
-var package = 'lokthar';
+var zogLog      = require ('./lib/zogLog.js')(moduleName);
 
 var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
 var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
@@ -24,7 +25,7 @@ var build = function ()
     if (error === null)
       grunt ();
     else
-      sys.puts (stderr);
+      zogLog.err ('unable to build lokthar\n' + stderr);
   });
 }
 
@@ -41,7 +42,7 @@ var grunt = function ()
       fs.chmodSync (atom, 0755);
     }
     else
-      sys.puts (stderr);
+      zogLog.err ('unable to grunt lokthar\n' + stderr);
   });
 }
 
@@ -56,7 +57,7 @@ cmd.run = function ()
       
     }
     else
-      sys.puts (stderr);
+      zogLog.err ('unable to exec atom\n' + stderr);
   });
 }
 
@@ -73,12 +74,12 @@ cmd.install = function ()
         build ();
       }
       else
-        sys.puts (stderr);
+        zogLog.err ('unable to install grunt-cli\n', stderr);
     });
   }
   catch (err)
   {
-    console.log ('[' + package + '] ' + err);
+    zogLog.err (err);
   }
 }
 
@@ -89,7 +90,7 @@ cmd.uninstall = function ()
 
 exports.action = function (act)
 {
-  console.log ('[' + package + '] ' + act);
+  zogLog.info ('run action ' + act);
 
   try
   {
@@ -97,6 +98,6 @@ exports.action = function (act)
   }
   catch (err)
   {
-    console.log ('[' + package + '] ' + err);
+    zogLog.err (err);
   }
 }
