@@ -31,7 +31,7 @@ function stage2(error, stdout, stderr)
 console.log ('[stage1] install zog dependencies');
 try
 {
-  exec ('npm install commander inquirer', stage2);
+  exec ('npm install commander inquirer cli-color', stage2);
 }
 catch (err)
 {
