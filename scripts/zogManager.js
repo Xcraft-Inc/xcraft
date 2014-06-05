@@ -1,5 +1,8 @@
 
+var moduleName = 'manager';
+
 var inquirer = require ('inquirer');
+var zogLog   = require ('./lib/zogLog.js')(moduleName);
 
 var promptForDependency = function (wizard, package)
 {
@@ -16,7 +19,7 @@ var promptForDependency = function (wizard, package)
 
 exports.create = function (packageName)
 {
-  console.log ('[zog:create] package wizard');
+  zogLog.info ('create a new package: ' + packageName);
 
   var wizard = require ('./lib/pkgWizard.js');
 
