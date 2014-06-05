@@ -85,7 +85,7 @@ cmd.install = function ()
 
 cmd.uninstall = function ()
 {
-  
+  zogLog.warn ('the uninstall action is not implemented');
 }
 
 exports.action = function (act)
