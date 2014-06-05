@@ -1,11 +1,12 @@
 
+var moduleName = 'wpkg';
+
 var path        = require ('path');
 var zogPlatform = require ('./lib/zogPlatform.js');
 var zogConfig   = require ('./lib/zogConfig.js');
+var zogLog      = require ('./lib/zogLog.js')(moduleName);
 
-var package = 'wpkg';
-
-var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, package, 'config.json'));
+var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json'));
 var cmd = {};
 
 /**
@@ -36,7 +37,7 @@ cmd.uninstall = function ()
  */
 exports.action = function (act)
 {
-  console.log ('[stage2:' + package + '] ' + act);
+  zogLog.info ('run action ' + act);
 
   try
   {
@@ -44,6 +45,6 @@ exports.action = function (act)
   }
   catch (err)
   {
-    console.log ('[stage2:' + package + ']: ' + err);
+    zogLog.err (act, err);
   }
 }
