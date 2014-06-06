@@ -24,7 +24,7 @@ exports.create = function (packageName)
 {
   zogLog.info ('create a new package: ' + packageName);
 
-  var wizard = require ('./lib/pkgWizard.js');
+  var wizard = require ('./manager/pkgWizard.js');
 
   var package = [];
   package.package = packageName;
