@@ -45,8 +45,8 @@ app.controller('ProfileController', ['$scope', function ($scope){
 app.controller('HomeController', ['$scope', function ($scope){
 	$scope.title = 'Lokthar';
 	$scope.badge = 'v0.1a';
-	$scope.icon = 'home'
-
+	$scope.icon = 'home';
+	
 	$scope.openGitlab = function ()
 	{
 		var shell = require('shell');
