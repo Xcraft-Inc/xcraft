@@ -36,7 +36,7 @@ app.controller('ConfigController', ['$scope', function ($scope){
 	$scope.icon = 'cog'
 
 	//Link relative zogConfig lib
-	var zogConfig 			= require ('../../scripts/lib/zogConfig.js');
+	var zogConfig 			= require ('../../scripts/zogConfig.js');
   	$scope.libRoot   		= zogConfig.libRoot;
   	$scope.productsRoot 	= zogConfig.pkgProductsRoot;
   	$scope.nodeModulesRoot  = zogConfig.nodeModulesRoot;

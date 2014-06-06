@@ -1,8 +1,8 @@
 
 var path      = require ('path');
 var inquirer  = require ('inquirer');
+var zogConfig = require ('../zogConfig.js');
 var zogFs     = require ('./zogFs.js');
-var zogConfig = require ('./zogConfig.js');
 
 /* Version rules by Debian:
  * http://windowspackager.org/documentation/implementation-details/debian-version
