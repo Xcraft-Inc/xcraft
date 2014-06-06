@@ -34,6 +34,19 @@ app.controller('ConfigController', ['$scope', function ($scope){
 	$scope.title = 'Configuration';
 	$scope.badge = 'dev';
 	$scope.icon = 'cog'
+
+	//Link relative zogConfig lib
+	var zogConfig 			= require ('../../scripts/lib/zogConfig.js');
+  	$scope.libRoot   		= zogConfig.libRoot;
+  	$scope.productsRoot 	= zogConfig.pkgProductsRoot;
+  	$scope.nodeModulesRoot  = zogConfig.nodeModulesRoot;
+
+  	$scope.openFolder = function (path)
+	{
+		var shell = require('shell');
+		shell.openItem(path);
+	}
+
 }]);
 
 app.controller('ProfileController', ['$scope', function ($scope){

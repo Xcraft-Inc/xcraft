@@ -1,4 +1,4 @@
-var module = angular.module('packageManager', []);
+var module      = angular.module('packageManager', []);
 
 module.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/packages.manager");
@@ -29,5 +29,6 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 }]);
 
 module.controller('PackageEditorController', ['$scope', function ($scope){
+
 
 }]);
