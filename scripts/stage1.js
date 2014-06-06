@@ -4,40 +4,41 @@ var moduleName = 'stage1';
 
 var sys    = require ('sys');
 var exec   = require ('child_process').exec;
-var zogLog = require ('./lib/zogLog.js')(moduleName);
 
 try
 {
   process.chdir (__dirname + '/..');
-  zogLog.info ('go to the toolchain directory: ' + process.cwd ());
+  console.log ('[' + moduleName + '] Info: go to the toolchain directory: ' + process.cwd ());
 }
 catch (err)
 {
-  zogLog.err (err);
+  console.log ('[' + moduleName + '] Err: ' + err);
 }
 
 function stage2(error, stdout, stderr)
 {
-  zogLog.verb ('zog dependencies outputs:\n' + stdout);
+  console.log ('[' + moduleName + '] Verb: zog dependencies outputs:\n' + stdout);
   
   if (error === null)
   {
-    zogLog.info ('end of stage one');
+    console.log ('[' + moduleName + '] Info: end of stage one');
+
+    var zogLog = require ('./lib/zogLog.js')('stage2');
     exec ('zog -w install', function (error, stdout, stderr)
     {
       zogLog.verb ('wpkg install outputs:\n' + stdout);
     });
   }
   else
-    zogLog.err ('unable to install zog depedencies\n' + stderr);
+    console.log ('[' + moduleName + '] Err: unable to install zog depedencies\n' + stderr);
 }
 
-zogLog.info ('install zog dependencies');
+console.log ('[' + moduleName + '] Info: install zog dependencies');
 try
 {
   exec ('npm install commander inquirer cli-color', stage2);
 }
 catch (err)
 {
-  zogLog.err (err);
+  console.log ('[' + moduleName + '] Err: ' + err);
 }
