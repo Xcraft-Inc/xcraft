@@ -20,6 +20,15 @@ body, h1, h2, h3, h4, h5, h6,
 html {
 
 }
+
+.uk-fixed-navigation {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 1030;
+}
+
 /* Override
  ========================================================================== */
 
