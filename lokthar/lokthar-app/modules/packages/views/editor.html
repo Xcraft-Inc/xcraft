@@ -7,7 +7,7 @@
                     <input 
                         name="package"
                         type="text"
-                        ng-class="{'uk-form-danger': headerForm.package.$invalid}"
+                        ng-class="{'uk-form-danger': headerForm.package.$invalid,'uk-form-success': headerForm.package.$valid}"
                         ng-model="package.package"
                         placeholder="Package name" 
                         required>
@@ -23,7 +23,7 @@
                                 <input
                                     name="input" 
                                     type="text" 
-                                    ng-class="{'uk-form-danger': form.input.$invalid}"
+                                    ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
                                     ng-model="package[field.name]" 
                                     validator="field.validate" 
                                     placeholder="{{field.message}}">
