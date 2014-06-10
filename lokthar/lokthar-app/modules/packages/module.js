@@ -42,13 +42,17 @@ module.directive('validator', [function () {
         restrict: 'A',
         scope: {
           action: '&validator',
+          model:  '=ngModel',
         },
         require: 'ngModel',  
         link: function (scope, elem, attrs, control) {
-              var result = scope.action(scope.$eval(attrs.ngModel)); 
-              scope.$watch(result, function (n) {
-                control.$setValidity("unique", n);
-              });                               
+              scope.$watch('model', function (data) {
+                var action = scope.action();
+                if(action !== undefined)
+                {
+                  control.$setValidity("valid", action(scope.model));
+                }
+              });                       
         }
     };
 }]);
