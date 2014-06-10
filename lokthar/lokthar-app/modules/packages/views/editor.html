@@ -53,13 +53,16 @@
     </form>
     </div>
     <div class="uk-width-5-10">
+        Preview:
         <div class="uk-panel uk-panel-box">
             <div class="uk-panel-badge uk-badge uk-badge-danger">v{{package.version}}</div>
-            <h3 class="uk-panel-title">{{package.package}}</h3>
-            <h6>{{package.descriptionBrief}}</h6>
-            <p>Description:</p>
-            <p>{{package.descriptionLong}}</p>
-            
+            <h3 class="uk-panel-title uk-text-bold"><a href="" class="uk-icon-button uk-icon-puzzle-piece"></a> {{package.package}}</h3>
+            <small class="uk-text-muted uk-text-right"><i class="uk-icon-beer"></i> {{package.maintainerName}}</small>
+            <small class="uk-text-muted uk-text-right"><i class="uk-icon-envelope-o"></i> {{package.maintainerEmail}}</small>
+            <p class="uk-text-large">{{package.descriptionBrief}}</p>
+            <p class="uk-text-small">{{package.descriptionLong}}</p>
         </div>
+        <br>
+        <button class="uk-button uk-width-1-1 uk-margin-small-bottom"><i class="uk-icon-gears"></i> create package </button>
     </div>
 </div>
