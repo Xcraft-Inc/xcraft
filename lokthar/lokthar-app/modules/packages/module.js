@@ -6,20 +6,20 @@ module.config(function($stateProvider, $urlRouterProvider) {
     .state('packages.manager', {
       url: "/packages/manager",
       templateUrl: 'modules/packages/views/manager.html',
-	  controller: 'PackageManagerController' 
+    controller: 'PackageManagerController' 
     })
     .state('packages.editor', {
       url: "/packages/editor",
       templateUrl: 'modules/packages/views/editor.html',
-	  controller: 'PackageEditorController' 
+    controller: 'PackageEditorController' 
     })
 });
 
 
 module.controller('PackagesController', ['$scope', function ($scope){
-	$scope.title = 'Packages';
-	$scope.badge = 'beta';
-	$scope.icon = 'puzzle-piece';
+  $scope.title = 'Packages';
+  $scope.badge = 'beta';
+  $scope.icon = 'puzzle-piece';
 }]);
 
 
@@ -29,9 +29,7 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 }]);
 
 module.controller('PackageEditorController', ['$scope', function ($scope){
-  var zogConfig       = require ('../../scripts/zogConfig.js');
-  var wizard          = require (zogConfig.pkgWizard);
-
+  var wizard            = require (zogConfig.pkgWizard);
   $scope.headerFields   = wizard.header;
   $scope.package  = [];
 
