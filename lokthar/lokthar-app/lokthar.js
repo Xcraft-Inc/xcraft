@@ -1,6 +1,6 @@
 //Link relative zogConfig lib
 var zogConfig   = require ('../../scripts/zogConfig.js');
-var app         = angular.module('lokthar', ['ui.router','packageManager']);
+var app         = angular.module('lokthar', ['ui.router','packageManager','checklist-model']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/home");
@@ -69,7 +69,6 @@ app.controller('HomeController', ['$scope', function ($scope){
   {
     var ipc = require('ipc');
     ipc.send('open-console', '');
-    zogLog.info('open-console');
   }
 
   $scope.openSysroot = function ()
