@@ -31,7 +31,13 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 module.controller('PackageEditorController', ['$scope', function ($scope){
   var wizard            = require (zogConfig.pkgWizard);
   $scope.headerFields   = wizard.header;
-  $scope.package  = [];
+  $scope.package      = [];
+  $scope.package.architecture = [];
+
+  $scope.buildPackage = function ()
+  {
+    $scope.json = $scope.package.architecture;
+  }
 
 }]);
 

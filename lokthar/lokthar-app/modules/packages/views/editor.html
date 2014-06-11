@@ -5,13 +5,13 @@
                 <label class="uk-form-label">Package name</label>
                 <div class="uk-form-controls">
                     <input 
-                        name="package"
-                        type="text"
-                        ng-class="{'uk-form-danger': headerForm.package.$invalid,'uk-form-success': headerForm.package.$valid}"
-                        ng-model="package.package"
-                        placeholder="Package name" 
-                        required>
-                        <span ng-show="headerForm.package.$invalid" class="uk-text-warning">required</span>
+                    name="package"
+                    type="text"
+                    ng-class="{'uk-form-danger': headerForm.package.$invalid,'uk-form-success': headerForm.package.$valid}"
+                    ng-model="package.package"
+                    placeholder="Package name" 
+                    required>
+                    <span ng-show="headerForm.package.$invalid" class="uk-text-warning">required</span>
                 </div>
             </div>
             <div ng-repeat="field in headerFields" class="uk-form-row">
@@ -20,17 +20,26 @@
                         <ng-form name="form">
                             <label class="uk-form-label">{{field.message}}</label>
                             <div class="uk-form-controls">
-                                <input
-                                    name="input" 
-                                    type="text" 
-                                    ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
-                                    ng-model="package[field.name]" 
-                                    validator="field.validate" 
-                                    placeholder="{{field.message}}">
+                                <input 
+                                ng-show="field.loktharType!='multi-line'" 
+                                name="input" 
+                                type="text" 
+                                ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
+                                ng-model="package[field.name]" 
+                                validator="field.validate" 
+                                placeholder="{{field.message}}" />
+                                <textarea 
+                                ng-show="field.loktharType=='multi-line'" 
+                                name="input"  
+                                ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
+                                ng-model="package[field.name]" 
+                                validator="field.validate" 
+                                placeholder="{{field.message}}" ></textarea>
+
                                 <span ng-show="form.input.$invalid" class="uk-text-warning">invalid</span>
                             </div>
-                        </ngform>
-                    </div>
+                        </ng-form>
+                    </div>                                          
                     <div ng-switch-when="checkbox">
                         <span class="uk-form-label">{{field.message}}</span>
                         <div class="uk-form-controls uk-form-controls-text">
@@ -40,17 +49,16 @@
                                         <p>{{choice.line}}</p>
                                     </div>
                                     <div ng-switch-default>
-                                        <input type="checkbox" ng-checked="{{choice.checked}}"> 
+                                        <input type="checkbox" checklist-model="package[field.name]" checklist-value="choice.name" ng-false-value="" ng-checked="{{choice.checked}}"> 
                                         <label>{{choice.name}}</label><br>
                                     </div>
                                 </div>                   
                             </div>
                         </div>
                     </div>
-
                 </div>          
             </div>
-    </form>
+        </form>
     </div>
     <div class="uk-width-5-10">
         Preview:
@@ -59,10 +67,12 @@
             <h3 class="uk-panel-title uk-text-bold"><a href="" class="uk-icon-button uk-icon-puzzle-piece"></a> {{package.package}}</h3>
             <small class="uk-text-muted uk-text-right"><i class="uk-icon-beer"></i> {{package.maintainerName}}</small>
             <small class="uk-text-muted uk-text-right"><i class="uk-icon-envelope-o"></i> {{package.maintainerEmail}}</small>
+            <small ng-repeat="arch in package.architecture"><span class="uk-badge">{{arch}}</span></small>
             <p class="uk-text-large">{{package.descriptionBrief}}</p>
             <p class="uk-text-small">{{package.descriptionLong}}</p>
         </div>
         <br>
-        <button class="uk-button uk-width-1-1 uk-margin-small-bottom"><i class="uk-icon-gears"></i> create package </button>
+        <button class="uk-button uk-width-1-1 uk-margin-small-bottom" ng-click="buildPackage()"><i class="uk-icon-gears"></i> create package </button>
+        <textarea cols="" rows="" placeholder="">{{packageJSON}}</textarea>
     </div>
 </div>
