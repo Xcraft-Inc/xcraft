@@ -106,7 +106,8 @@ exports.header =
   {
     "type": "input",
     "name": "descriptionLong",
-    "message": "Long description"
+    "message": "Long description",
+    "loktharType" : "multi-line"
   }
 ];
 
