@@ -101,7 +101,17 @@ exports.header =
   {
     "type": "input",
     "name": "descriptionBrief",
-    "message": "Brief description"
+    "message": "Brief description",
+    "validate": function (value)
+    {
+      if (value.length > 70)
+        return "The brief description must not be longer than 70 characters.";
+
+      if (!value.trim ())
+        return "The brief description is mandatory."
+
+      return true;
+    }
   },
   {
     "type": "input",
