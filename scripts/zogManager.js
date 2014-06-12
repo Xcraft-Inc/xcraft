@@ -40,3 +40,8 @@ exports.create = function (packageName)
     promptForDependency (wizard, package);
   });
 }
+
+exports.make = function (packageName)
+{
+  zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
+}

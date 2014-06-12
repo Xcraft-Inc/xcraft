@@ -18,4 +18,8 @@ program
   .option ('-w, --wpkg <action>', 'manage the wpkg installation', zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation', zogLokthar.action)
   .option ('create <package>', 'create a new empty package', zogManager.create)
+  .option ('make [package]', 'make all or only the [package]')
   .parse (process.argv);
+
+if (program.make)
+  zogManager.make (program.make === true ? false : program.make);
