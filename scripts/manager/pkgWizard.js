@@ -24,7 +24,14 @@ exports.header =
   {
     "type": "input",
     "name": "maintainerName",
-    "message": "Maintainer's name"
+    "message": "Maintainer's name",
+    "validate": function (value)
+    {
+      if (!value.trim ())
+        return "The maintainer's name is mandatory."
+
+      return true;
+    }
   },
   {
     "type": "input",
