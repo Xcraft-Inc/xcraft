@@ -4,7 +4,9 @@ var moduleName = 'manager';
 var path     = require ('path');
 var util     = require ('util');
 var inquirer = require ('inquirer');
-var zogLog   = require ('./lib/zogLog.js')(moduleName);
+
+var zogConfig = require ('./zogConfig.js');
+var zogLog    = require ('./lib/zogLog.js')(moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
 
@@ -41,10 +43,61 @@ var inquirerToPackage = function (inquirerPkg)
   return package;
 }
 
+/**
+ * \brief Create a package template for the toolchain.
+ *
+ * The definition file is named config.yaml. 
+ */
 var createPackageTemplate = function (inquirerPkg)
 {
+  zogLog.info ('create the package definition for ' + inquirerPkg[0].package);
+
   var package = inquirerToPackage (inquirerPkg);
   zogLog.verb ('JSON output (package):\n' + JSON.stringify (package, null, '  '));
+
+  var fs = require ('fs');
+
+  var pkgDir = path.join (zogConfig.pkgProductsRoot, package.name);
+
+  try
+  {
+    try
+    {
+      var st = fs.statSync (pkgDir);
+
+      if (!st.isDirectory ())
+      {
+        var err = new Error (pkgDir + ' exists and it is not a directory');
+        throw err;
+      }
+    }
+    catch (err)
+    {
+      if (err.code == 'ENOENT')
+      {
+        fs.mkdirSync (pkgDir, 0777, function (err)
+        {
+          if (err)
+            throw err;
+        });
+      }
+      else
+        throw err;
+    }
+
+    var yaml = require ('js-yaml');
+
+    var yamlPkg = yaml.safeDump (package);
+    fs.writeFileSync (path.join (pkgDir, 'config.yaml'), yamlPkg, [], function (err)
+    {
+      if (err)
+        throw err;
+    });
+  }
+  catch (err)
+  {
+    zogLog.err (err);
+  }
 }
 
 var promptForDependency = function (wizard, package)
