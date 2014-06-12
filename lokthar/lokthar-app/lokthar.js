@@ -58,6 +58,7 @@ app.controller('HomeController', ['$scope', function ($scope){
   $scope.title = 'Lokthar';
   $scope.badge = 'v0.1a';
   $scope.icon = 'home';
+  $scope.maximized = false;
   
   $scope.openGitlab = function ()
   {
@@ -76,6 +77,28 @@ app.controller('HomeController', ['$scope', function ($scope){
     var shell = require('shell');
     var path  = require('path');
     shell.openItem(path.join(__dirname, '../../../'));
+  }
+
+  $scope.minimize = function ()
+  {
+    var ipc = require('ipc');
+    ipc.send('minimize', '');
+  }
+
+  $scope.maximize = function ()
+  {
+    var ipc = require('ipc');
+    if(!$scope.maximized)
+    {
+      ipc.send('maximize', '');
+      $scope.maximized = true;
+    }
+    else
+    {
+      ipc.send('unmaximize', '');
+      $scope.maximized = false;
+    }
+    
   }
 
   $scope.quit = function ()

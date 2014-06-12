@@ -23,6 +23,18 @@ ipc.on('create-package', function(event, arg) {
   pkgCreate.pkgTemplate (template);
 });
 
+ipc.on('minimize', function(event, arg) {
+  mainWindow.minimize();
+});
+
+ipc.on('unmaximize', function(event, arg) {
+  mainWindow.unmaximize();
+});
+
+ipc.on('maximize', function(event, arg) {
+  mainWindow.maximize();
+});
+
 ipc.on('close-app', function(event, arg) {
   app.quit();
 });

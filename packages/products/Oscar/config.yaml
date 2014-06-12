@@ -1,0 +1,11 @@
+name: Oscar
+version: "0.001"
+maintainer:
+  name: SL
+  email: "sl@sl.ch"
+architecture:
+  - mswindows-i386
+description:
+  brief: A
+  long: AA
+dependency: {}

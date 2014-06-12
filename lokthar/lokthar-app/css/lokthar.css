@@ -34,14 +34,14 @@ button, a {
     right: 0;
     left: 0;
     top: 0;
-    z-index: 1010;
+    z-index: 1030;
 }
 
 .uk-fixed-navigation {
     position: fixed;
     right: 0;
-    left: 10px;
-    top: 44px;
+    left: 280px;
+    top: 40px;
     z-index: 1020;
 }
 

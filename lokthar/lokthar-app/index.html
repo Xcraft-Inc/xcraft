@@ -28,14 +28,14 @@
             <a class="uk-navbar-brand" ui-sref="home"><i class="uk-icon-button uk-icon-rocket"></i> Epsitec Toolchain</a>
             <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
                 <div class="uk-button-group">
-                    <button class="uk-button" ng-click=""><i class="uk-icon-compress"></i></button>
-                    <button class="uk-button" ng-click=""><i class="uk-icon-expand"></i></button>
+                    <button class="uk-button" ng-click="minimize()"><i class="uk-icon-minus"></i></button>
+                    <button class="uk-button" ng-click="maximize()"><i ng-class="{'uk-icon-expand': maximized==false, 'uk-icon-compress' : maximized}"></i></button>
                     <button class="uk-button uk-button-danger" ng-click="quit()"><i class="uk-icon-power-off"></i></button>
                 </div>
             </div>
         </nav>
-        <nav class="uk-navbar" ng-controller="HomeController">
-            <ul class="uk-navbar-nav uk-fixed-navigation">
+        <nav class="uk-navbar uk-fixed-navigation" ng-controller="HomeController">
+            <ul class="uk-navbar-nav">
                 <li class="uk-parent" data-uk-dropdown="" ui-sref-active="uk-active">
                     <a ui-sref="home"><i class="uk-icon-star"></i> Navigation</a>
                     <div class="uk-dropdown uk-dropdown-navbar">
