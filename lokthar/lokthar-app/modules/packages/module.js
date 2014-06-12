@@ -31,13 +31,23 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 module.controller('PackageEditorController', ['$scope', function ($scope){
   var wizard            = require (zogConfig.pkgWizard);
   $scope.headerFields   = wizard.header;
-  $scope.package      = [];
+  $scope.package        = [];
   $scope.package.architecture = [];
 
   $scope.buildPackage = function ()
   {
     $scope.json = $scope.package.architecture;
   }
+
+  $scope.checkAllArch = function() {
+    $scope.package.architecture = angular.copy($scope.package.architecture);
+  };
+  $scope.uncheckAllArch = function() {
+    $scope.package.architecture = [];
+  };
+  $scope.checkDefaultArch = function(value) {
+    $scope.package.architecture.push(value);
+  };
 
 }]);
 
