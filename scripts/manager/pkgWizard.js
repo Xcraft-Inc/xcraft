@@ -101,7 +101,7 @@ exports.header =
   {
     "type": "input",
     "name": "descriptionBrief",
-    "message": "Brief description",
+    "message": "Brief description (max 70 characters):",
     "validate": function (value)
     {
       if (value.length > 70)
