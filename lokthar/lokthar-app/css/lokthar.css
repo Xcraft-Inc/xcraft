@@ -11,7 +11,7 @@
     font-family: 'Exo';
     src: url('../fonts/Exo-Regular.otf');
     font-weight: normal;
-    font-style: normal;
+    font-style: normal;file:///S:/GIT/bootstrap-windev/sysroot/toolchain/lokthar/lokthar-app/index.html#/home
 }
 
 body, h1, h2, h3, h4, h5, h6,
@@ -21,12 +21,32 @@ html {
 
 }
 
-.uk-fixed-navigation {
+nav {
+    -webkit-app-region: drag;
+}
+
+button, a {
+  -webkit-app-region: no-drag;
+}
+
+.uk-fixed-titlebar {
     position: fixed;
     right: 0;
     left: 0;
     top: 0;
-    z-index: 1030;
+    z-index: 1010;
+}
+
+.uk-fixed-navigation {
+    position: fixed;
+    right: 0;
+    left: 10px;
+    top: 44px;
+    z-index: 1020;
+}
+
+.content-pusher {
+    margin-top: 80px;
 }
 
 /* Override

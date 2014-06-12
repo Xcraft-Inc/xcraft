@@ -1,12 +1,12 @@
 //Link relative zogConfig lib
 var zogConfig   = require ('../../scripts/zogConfig.js');
-var app         = angular.module('lokthar', ['ui.router','packageManager','checklist-model']);
+var app         = angular.module('lokthar', ['ui.router', 'packageManager', 'checklist-model']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/home");
+  $urlRouterProvider.otherwise('/home');
   $stateProvider
     .state('home', {
-      url: "/home",
+      url: '/home',
       templateUrl: 'partials/home.html',
     controller: 'HomeController' 
     })
@@ -15,17 +15,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'PackagesController'
     })
     .state('config', {
-      url: "/config",
+      url: '/config',
         templateUrl: 'partials/config.html',
     controller: 'ConfigController'
     })
     .state('profile', {
-      url: "/profile",
+      url: '/profile',
         templateUrl: 'partials/profile.html',
     controller: 'ProfileController'
     })
     .state('about', {
-      url: "/about",
+      url: '/about',
         templateUrl: 'partials/about.html',
     controller: 'AboutController'
     })
