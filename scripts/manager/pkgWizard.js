@@ -24,7 +24,14 @@ exports.header =
   {
     "type": "input",
     "name": "maintainerName",
-    "message": "Maintainer's name"
+    "message": "Maintainer's name",
+    "validate": function (value)
+    {
+      if (!value.trim ())
+        return "The maintainer's name is mandatory."
+
+      return true;
+    }
   },
   {
     "type": "input",
@@ -101,7 +108,17 @@ exports.header =
   {
     "type": "input",
     "name": "descriptionBrief",
-    "message": "Brief description"
+    "message": "Brief description (max 70 characters):",
+    "validate": function (value)
+    {
+      if (value.length > 70)
+        return "The brief description must not be longer than 70 characters.";
+
+      if (!value.trim ())
+        return "The brief description is mandatory."
+
+      return true;
+    }
   },
   {
     "type": "input",

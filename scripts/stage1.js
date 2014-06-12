@@ -36,7 +36,7 @@ function stage2(error, stdout, stderr)
 console.log ('[' + moduleName + '] Info: install zog dependencies');
 try
 {
-  exec ('npm install commander inquirer cli-color', stage2);
+  exec ('npm install commander inquirer cli-color js-yaml', stage2);
 }
 catch (err)
 {
