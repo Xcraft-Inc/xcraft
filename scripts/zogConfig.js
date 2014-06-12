@@ -6,6 +6,7 @@ process.chdir (path.join (__dirname, '/..'));
 exports.libRoot         = path.resolve ('./scripts/lib/');
 exports.pkgBaseRoot     = path.resolve ('./packages/base/');
 exports.pkgProductsRoot = path.resolve ('./packages/products/');
+exports.pkgCreate       = path.resolve ('./scripts/manager/pkgCreate.js');
 exports.pkgWizard       = path.resolve ('./scripts/manager/pkgWizard.js');
 exports.loktharRoot     = path.resolve ('./lokthar/');
 exports.nodeModulesRoot = path.resolve ('./node_modules/');
