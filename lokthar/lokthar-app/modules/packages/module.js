@@ -31,12 +31,13 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 module.controller('PackageEditorController', ['$scope', function ($scope){
   var wizard            = require (zogConfig.pkgWizard);
   $scope.headerFields   = wizard.header;
-  $scope.package        = [];
+  $scope.package        = {};
   $scope.package.architecture = [];
 
-  $scope.buildPackage = function ()
+  $scope.createPackage = function ()
   {
-    $scope.json = $scope.package.architecture;
+    var ipc = require('ipc');
+    ipc.send('create-package', $scope.package);
   }
 
   $scope.checkAllArch = function() {
@@ -61,11 +62,14 @@ module.directive('validator', [function () {
         require: 'ngModel',  
         link: function (scope, elem, attrs, control) {
               scope.$watch('model', function (data) {
-                var action = scope.action();
-                if(action !== undefined)
+                if(scope.model!==undefined)
                 {
-                  control.$setValidity("valid", action(scope.model));
-                }
+                  var action = scope.action();
+                  if(action !== undefined)
+                  {
+                    control.$setValidity("valid", action(scope.model));
+                  }
+                }           
               });                       
         }
     };

@@ -1,3 +1,5 @@
+//Link relative zogConfig lib
+var zogConfig     = require ('../../scripts/zogConfig.js');
 var app           = require('app');
 var ipc           = require('ipc');
 var shell         = require('shell');
@@ -12,6 +14,13 @@ var mainWindow = null;
 
 ipc.on('open-console', function(event, arg) {
   BrowserWindow.getFocusedWindow().toggleDevTools();
+});
+
+ipc.on('create-package', function(event, arg) {
+  var pkgCreate = require (zogConfig.pkgCreate);
+  var template = [];
+  template.push(arg);
+  pkgCreate.pkgTemplate (template);
 });
 
 ipc.on('close-app', function(event, arg) {
