@@ -94,7 +94,7 @@ var defToControl = function (packageDef)
       control += util.format ('%s: %s\n', controlMap[entry], result);
   });
 
-  zogLog.verb (control);
+  zogLog.verb ('Control file:\n' + control);
 }
 
 exports.pkgMake = function (packageName)
