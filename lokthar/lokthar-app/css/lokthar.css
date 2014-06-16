@@ -49,10 +49,20 @@ button, a {
     margin-top: 80px;
 }
 
+.bg-blue {
+    background: #005187;
+    
+}
+
 /* Override
  ========================================================================== */
 
 .uk-badge {
     font-weight: normal;
     font-size:  12px;
+}
+
+.uk-navbar-brand {
+    font-size: 22px;
+    color: white;
 }
