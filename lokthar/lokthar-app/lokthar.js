@@ -1,6 +1,6 @@
 //Link relative zogConfig lib
 var zogConfig   = require ('../../scripts/zogConfig.js');
-var app         = angular.module('lokthar', ['ui.router', 'packageManager', 'checklist-model']);
+var app         = angular.module('lokthar', ['ui.router', 'packageManager']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
@@ -44,7 +44,7 @@ app.controller('ConfigController', ['$scope', function ($scope){
   {
     var shell = require('shell');
     shell.openItem(path);
-  }
+  };
 
 }]);
 
@@ -64,26 +64,26 @@ app.controller('HomeController', ['$scope', function ($scope){
   {
     var shell = require('shell');
     shell.openExternal('https://git.epsitec.ch');
-  }
+  };
 
   $scope.openConsole = function ()
   {
     var ipc = require('ipc');
     ipc.send('open-console', '');
-  }
+  };
 
   $scope.openSysroot = function ()
   {
     var shell = require('shell');
     var path  = require('path');
     shell.openItem(path.join(__dirname, '../../../'));
-  }
+  };
 
   $scope.minimize = function ()
   {
     var ipc = require('ipc');
     ipc.send('minimize', '');
-  }
+  };
 
   $scope.maximize = function ()
   {
@@ -99,13 +99,14 @@ app.controller('HomeController', ['$scope', function ($scope){
       $scope.maximized = false;
     }
     
-  }
+  };
 
   $scope.quit = function ()
   {
     var ipc = require('ipc');
     ipc.send('close-app', '');
-  }
+  };
+  
 }]);
 
 app.controller('AboutController', ['$scope', function ($scope){

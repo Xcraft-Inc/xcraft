@@ -18,9 +18,7 @@ ipc.on('open-console', function(event, arg) {
 
 ipc.on('create-package', function(event, arg) {
   var pkgCreate = require (zogConfig.pkgCreate);
-  var template = [];
-  template.push(arg);
-  pkgCreate.pkgTemplate (template);
+  pkgCreate.pkgTemplate (arg);
 });
 
 ipc.on('minimize', function(event, arg) {

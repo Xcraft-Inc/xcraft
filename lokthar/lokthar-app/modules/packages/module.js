@@ -1,4 +1,4 @@
-var module      = angular.module('packageManager', []);
+var module      = angular.module('packageManager', ['checklist-model', 'selectlist-model']);
 
 module.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/packages.manager");
@@ -29,25 +29,38 @@ module.controller('PackageManagerController', ['$scope', function ($scope){
 }]);
 
 module.controller('PackageEditorController', ['$scope', function ($scope){
-  var wizard            = require (zogConfig.pkgWizard);
-  $scope.headerFields   = wizard.header;
-  $scope.package        = {};
+  var wizard                  = require (zogConfig.pkgWizard);
+  $scope.headerFields         = wizard.header;
+  $scope.dependencyFields     = wizard.dependency;
+  $scope.dependencyModel      = {};
+
+  $scope.packageTemplate      = [];
+
+  $scope.package              = {};
   $scope.package.architecture = [];
+  $scope.dependencies   = [];
 
   $scope.createPackage = function ()
   {
-    var ipc = require('ipc');
-    ipc.send('create-package', $scope.package);
-  }
+    $scope.packageTemplate.push($scope.package);
+    for(var d in $scope.dependencies)
+    {
+      $scope.packageTemplate.push($scope.dependencies[d]);
+    }
 
-  $scope.checkAllArch = function() {
-    $scope.package.architecture = angular.copy($scope.package.architecture);
+    var ipc = require('ipc');
+    ipc.send('create-package', $scope.packageTemplate);
   };
-  $scope.uncheckAllArch = function() {
-    $scope.package.architecture = [];
-  };
-  $scope.checkDefaultArch = function(value) {
-    $scope.package.architecture.push(value);
+
+  $scope.addDependency = function ()
+  {  
+    var key = $scope.dependencyModel.package; 
+    $scope.dependencies[key] = {};
+    $scope.dependencies[key].hasDependency  = true;
+    $scope.dependencies[key].dependency     = $scope.dependencyModel.package;
+    $scope.dependencies[key].version        = $scope.dependencyModel.version;
+    
+    $scope.dependencyModel      = {};
   };
 
 }]);
