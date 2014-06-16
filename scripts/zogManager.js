@@ -9,6 +9,9 @@ var pkgCreate = require ('./manager/pkgCreate.js');
 
 process.chdir (path.join (__dirname, '/..'));
 
+/**
+ * \brief Create a new package template or modify an existing package config file.
+ */
 exports.create = function (packageName)
 {
   zogLog.info ('create a new package: ' + packageName);
@@ -40,6 +43,9 @@ exports.create = function (packageName)
   });
 }
 
+/**
+ * \brief Make the Control file for WPKG by using a package config file.
+ */
 exports.make = function (packageName)
 {
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
