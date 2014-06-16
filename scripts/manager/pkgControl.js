@@ -61,7 +61,7 @@ var defToControl = function (packageDef)
       case 'description':
         result = util.format ('%s', packageDef[it].brief);
         if (packageDef[it].long.length > 0)
-          result += util.format ('\n%s', packageDef[it].long);
+          result += util.format ('\n  %s', packageDef[it].long);
         break;
 
       case 'dependency':
