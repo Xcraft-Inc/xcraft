@@ -44,4 +44,8 @@ exports.create = function (packageName)
 exports.make = function (packageName)
 {
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
+
+  var pkgControl = require ('./manager/pkgControl.js');
+
+  pkgControl.pkgMake (packageName);
 }
