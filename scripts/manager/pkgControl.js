@@ -113,6 +113,8 @@ var saveControlFiles = function (packageName)
   var def     = exports.loadPackageDef (packageName);
   var control = defToControl (def);
 
+  var controlFiles = [];
+
   Object.keys (control).forEach (function (arch)
   {
     var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
@@ -123,14 +125,25 @@ var saveControlFiles = function (packageName)
 
     zogFs.mkdir (controlDir);
     fs.writeFileSync (controlFile, control[arch]);
+
+    controlFiles.push (controlFile);
   });
+
+  return controlFiles;
 }
 
 exports.pkgMake = function (packageName)
 {
   try
   {
-    saveControlFiles (packageName);
+    controlFiles = saveControlFiles (packageName);
+
+    var wpkgEngine = require ('./wpkgEngine.js');
+    controlFiles.forEach (function (controlFile)
+    {
+      var packagePath = path.resolve (path.dirname (controlFile), '..');
+      wpkgEngine.build (packagePath);
+    });
   }
   catch (err)
   {
