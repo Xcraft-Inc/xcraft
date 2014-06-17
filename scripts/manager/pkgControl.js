@@ -6,7 +6,7 @@ var util      = require ('util');
 var zogConfig = require ('../zogConfig.js');
 var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
-var loadPackageDef = function (packageName)
+exports.loadPackageDef = function (packageName)
 {
   var pkgConfig = path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName);
 
