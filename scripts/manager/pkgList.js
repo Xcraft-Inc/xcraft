@@ -5,6 +5,7 @@ var path       = require ('path');
 var zogConfig  = require ('../zogConfig.js');
 var zogFs      = require ('../lib/zogFs.js');
 var zogLog     = require ('../lib/zogLog.js')(moduleName);
+var pkgControl = require ('./pkgControl.js');
 
 /**
  * \brief return a product packages list
@@ -18,8 +19,7 @@ exports.listProducts = function ()
 
   for (var p in packagesDir)
   {
-    var configFilePath = path.join (zogConfig.pkgProductsRoot, packagesDir[p], zogConfig.pkgCfgFileName);
-    var doc            = yaml.safeLoad (fs.readFileSync (configFilePath, 'utf8'));
+    var doc = pkgControl.loadPackageDef (packagesDir[p]);
     products.push (doc);
   }
 
