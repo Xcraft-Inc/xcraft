@@ -13,7 +13,7 @@ var loadPackageDef = function (packageName)
   var yaml = require ('js-yaml');
   var fs   = require ('fs');
 
-  var data = fs.readFileSync(pkgConfig, 'utf8');
+  var data = fs.readFileSync (pkgConfig, 'utf8');
 
   var def = yaml.safeLoad (data);
   zogLog.verb ('JSON output (package):\n' + JSON.stringify (def, null, '  '));
