@@ -117,7 +117,7 @@ var saveControlFiles = function (packageName)
 
   Object.keys (control).forEach (function (arch)
   {
-    var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
+    var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'wpkg');
     var controlFile = path.join (controlDir, 'control');
 
     if (fs.existsSync (controlFile))
