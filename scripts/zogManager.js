@@ -55,6 +55,16 @@ exports.make = function (packageName)
 
   var pkgControl = require (zogConfig.libPkgControl);
 
-  if (packageName)
+  if (packageName && packageName != 'all')
     pkgControl.pkgMake (packageName);
+  else if (packageName == 'all')
+  {
+    var zogFs = require ('./lib/zogFs.js');
+    var packagesDir = zogFs.lsdir (zogConfig.pkgProductsRoot);
+
+    packagesDir.forEach (function (packageName)
+    {
+      pkgControl.pkgMake (packageName);
+    });
+  }
 }
