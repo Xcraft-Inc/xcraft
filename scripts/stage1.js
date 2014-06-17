@@ -5,6 +5,13 @@ var moduleName = 'stage1';
 var sys    = require ('sys');
 var exec   = require ('child_process').exec;
 
+var depsForZog = [
+  'cli-color',
+  'commander',
+  'inquirer',
+  'js-yaml'
+];
+
 try
 {
   process.chdir (__dirname + '/..');
@@ -18,7 +25,7 @@ catch (err)
 function stage2(error, stdout, stderr)
 {
   console.log ('[' + moduleName + '] Verb: zog dependencies outputs:\n' + stdout);
-  
+
   if (error === null)
   {
     console.log ('[' + moduleName + '] Info: end of stage one');
@@ -36,7 +43,8 @@ function stage2(error, stdout, stderr)
 console.log ('[' + moduleName + '] Info: install zog dependencies');
 try
 {
-  exec ('npm install commander inquirer cli-color js-yaml', stage2);
+  var list = depsForZog.toString ().replace (/,/g, ' ');
+  exec ('npm install ' + list, stage2);
 }
 catch (err)
 {
