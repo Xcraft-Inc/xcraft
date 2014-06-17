@@ -7,7 +7,9 @@ var zogConfig = require ('../zogConfig.js');
 var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
 /**
- * \brief Convert an inquirer answer to a package definition.
+ * Convert an inquirer answer to a package definition.
+ * @param {Object} inquirerPkg - The Inquirer answers.
+ * @returns {Object} The zog package definition.
  */
 var inquirerToPackage = function (inquirerPkg)
 {
@@ -40,7 +42,8 @@ var inquirerToPackage = function (inquirerPkg)
 }
 
 /**
- * \brief Create a package template for the toolchain.
+ * Create a package template for the toolchain.
+ * @param {Object} inquirerPkg - The Inquirer answers.
  */
 exports.pkgTemplate = function (inquirerPkg)
 {

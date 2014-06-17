@@ -8,7 +8,8 @@ var zogLog     = require ('../lib/zogLog.js')(moduleName);
 var pkgControl = require ('./pkgControl.js');
 
 /**
- * \brief return a product packages list
+ * Return a product packages list.
+ * @returns {string[]} The list of packages.
  */
 exports.listProducts = function ()
 {

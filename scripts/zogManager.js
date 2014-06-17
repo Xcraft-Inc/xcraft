@@ -11,7 +11,8 @@ var pkgCreate = require (zogConfig.libPkgCreate);
 process.chdir (path.join (__dirname, '/..'));
 
 /**
- * \brief Create a new package template or modify an existing package config file.
+ * Create a new package template or modify an existing package config file.
+ * @param {string} packageName
  */
 exports.create = function (packageName)
 {
@@ -45,7 +46,8 @@ exports.create = function (packageName)
 }
 
 /**
- * \brief Make the Control file for WPKG by using a package config file.
+ * Make the Control file for WPKG by using a package config file.
+ * @param {string} packageName
  */
 exports.make = function (packageName)
 {
