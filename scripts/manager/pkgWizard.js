@@ -115,11 +115,15 @@ exports.header =
         answer.push (os + '-any');
       };
 
-      mergeArch ('mswindows');
-      mergeArch ('linux');
-      mergeArch ('darwin');
-      mergeArch ('solaris');
-      mergeArch ('freebsd');
+      [
+        'mswindows',
+        'linux',
+        'darwin',
+        'solaris',
+        'freebsd'
+      ].forEach (function (os) {
+        mergeArch (os);
+      });
 
       return answer;
     }
