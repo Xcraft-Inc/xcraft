@@ -77,10 +77,9 @@
             <br>
             <small ng-repeat="arch in package.architecture"><span class="uk-badge">{{arch}}</span></small>
             Depends on:
-            {{dependencies}}
             <br>
             <div ng-repeat="dep in dependencies">
-                <span class="uk-badge uk-badge-danger">{{dependencies[dep].dependency}} {{dep.version}}</span>
+                <span class="uk-badge uk-badge-danger">{{dependencies.dependency}} {{dep.version}}</span>
             </div>        
         </div>
         <br>

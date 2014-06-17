@@ -1,4 +1,4 @@
-var module      = angular.module('packageManager', ['checklist-model', 'selectlist-model']);
+var module      = angular.module('packageManager', ['checklist-model']);
 
 module.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/packages.manager");
