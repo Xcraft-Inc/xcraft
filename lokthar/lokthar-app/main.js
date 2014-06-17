@@ -21,6 +21,11 @@ ipc.on('create-package', function(event, arg) {
   pkgCreate.pkgTemplate (arg);
 });
 
+ipc.on('list-product-packages', function(event, arg) {
+  var pkgList       = require (zogConfig.pkgList);
+  event.returnValue = pkgList.listProducts();
+});
+
 ipc.on('minimize', function(event, arg) {
   mainWindow.minimize();
 });

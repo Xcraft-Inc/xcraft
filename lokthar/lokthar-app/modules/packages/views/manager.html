@@ -1,3 +1,41 @@
+<button ng-click="listProducts()">list</button>
+
+
+
+<div class="uk-grid">
+	<div ng-repeat="p in products" class="uk-form-row">
+		<div class="uk-panel uk-panel-box">
+			<div class="uk-panel-badge uk-badge uk-badge-danger">
+				v{{p.version}}
+			</div>
+			<h3 class="uk-panel-title uk-text-bold">
+				<i class="uk-icon-button uk-icon-puzzle-piece"></i>
+				{{p.name}}
+			</h3>
+			<small class="uk-text-muted uk-text-right">
+				<i class="uk-icon-beer"></i> {{p.maintainer.name}}
+			</small>
+			<small class="uk-text-muted uk-text-right">
+				<i class="uk-icon-envelope-o"></i> {{p.maintainer.email}}
+			</small>
+			<p class="uk-text-large">{{p.description.brief}}</p>
+			<p class="uk-text-small">{{p.description.long}}</p>
+			Runs on:
+			<br>
+			<small ng-repeat="arch in p.architecture">
+				<span class="uk-badge">{{arch}}</span>
+			</small>
+			Depends on:
+			<br>
+			<small ng-repeat="dep in dependency">
+				<span class="uk-badge uk-badge-danger">{{dep}}</span>
+			</small>
+		</div>
+	</div>
+</div>
+
+
+
 <div id="terminal-window">
 	<div id="terminal-toolbar">
 		<div class="terminal-top">
@@ -6,6 +44,6 @@
 		</div>
 	</div>
 	<div id="terminal-body">
-		<p>//TODO</p>
+		<p>{{products}}</p>
 	</div>
 </div>
