@@ -28,7 +28,7 @@ var wpkgArgs = function (wpkgBin)
     {
       run ('--build', packagePath);
     }
-  }
+  };
 };
 
 exports.build = function (packagePath)
