@@ -107,7 +107,7 @@ exports.header =
         var ms0 = answer.indexOf (os + '-i386');
         var ms1 = answer.indexOf (os + '-amd64');
         if (ms0 < 0 || ms1 < 0)
-        return;
+          return;
 
         answer.splice (ms0, 1);
         ms1 = answer.indexOf (os + '-amd64');
