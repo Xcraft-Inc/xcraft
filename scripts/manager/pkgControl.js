@@ -108,7 +108,7 @@ exports.pkgMake = function (packageName)
     var def     = loadPackageDef (packageName);
     var control = defToControl (def);
 
-    var controlDir  = path.join (zogConfig.pkgTempRoot, packageName);
+    var controlDir  = path.join (zogConfig.pkgTempRoot, packageName, 'WPKG');
     var controlFile = path.join (controlDir, 'control');
 
     zogFs.mkdir (controlDir);
