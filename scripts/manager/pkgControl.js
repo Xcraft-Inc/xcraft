@@ -27,7 +27,7 @@ var defToControl = function (packageDef)
   {
     "name"        : "Package",
     "version"     : "Version",
-    "architecture": "Architectures",
+    "architecture": "Architecture",
     "maintainer"  : "Maintainer",
     "description" : "Description",
     "dependency"  : "Depends"
