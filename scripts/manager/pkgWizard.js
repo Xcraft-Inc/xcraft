@@ -102,6 +102,25 @@ exports.header =
       if (answer.indexOf ('all') != -1)
         return [ 'all' ];
 
+      var mergeArch = function (os)
+      {
+        var ms0 = answer.indexOf (os + '-i386');
+        var ms1 = answer.indexOf (os + '-amd64');
+        if (ms0 < 0 || ms1 < 0)
+        return;
+
+        answer.splice (ms0, 1);
+        ms1 = answer.indexOf (os + '-amd64');
+        answer.splice (ms1, 1);
+        answer.push (os + '-any');
+      };
+
+      mergeArch ('mswindows');
+      mergeArch ('linux');
+      mergeArch ('darwin');
+      mergeArch ('solaris');
+      mergeArch ('freebsd');
+
       return answer;
     }
   },
