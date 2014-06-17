@@ -103,24 +103,29 @@ var defToControl = function (packageDef)
   return controlList;
 }
 
+var saveControlFiles = function (packageName)
+{
+  var fs    = require ('fs');
+  var zogFs = require ('../lib/zogFs.js');
+
+  var def     = loadPackageDef (packageName);
+  var control = defToControl (def);
+
+  Object.keys (control).forEach (function (arch)
+  {
+    var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
+    var controlFile = path.join (controlDir, 'control');
+
+    zogFs.mkdir (controlDir);
+    fs.writeFileSync (controlFile, control[arch]);
+  });
+}
+
 exports.pkgMake = function (packageName)
 {
   try
   {
-    var fs    = require ('fs');
-    var zogFs = require ('../lib/zogFs.js');
-
-    var def     = loadPackageDef (packageName);
-    var control = defToControl (def);
-
-    Object.keys (control).forEach (function (arch)
-    {
-      var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
-      var controlFile = path.join (controlDir, 'control');
-
-      zogFs.mkdir (controlDir);
-      fs.writeFileSync (controlFile, control[arch]);
-    });
+    saveControlFiles (packageName);
   }
   catch (err)
   {
