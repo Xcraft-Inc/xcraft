@@ -55,7 +55,7 @@ cmd.run = function ()
 
     if (error === null)
     {
-      
+
     }
     else
       zogLog.err ('unable to exec atom\n' + stderr);
@@ -88,6 +88,18 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
+}
+
+exports.args = function ()
+{
+  var list = [];
+
+  Object.keys (cmd).forEach (function (action)
+  {
+    list.push (action);
+  });
+
+  return list;
 }
 
 exports.action = function (act)

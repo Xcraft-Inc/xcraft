@@ -32,6 +32,18 @@ cmd.uninstall = function ()
   fs.unlinkSync (outputFile + zogPlatform.getExecExt ());
 }
 
+exports.args = function ()
+{
+  var list = [];
+
+  Object.keys (cmd).forEach (function (action)
+  {
+    list.push (action);
+  });
+
+  return list;
+}
+
 /**
  * Actions called from commander with --wpkg.
  * @param {string} act - The action [install, uninstall].
