@@ -1,125 +1,166 @@
 <div class="uk-grid">
-    <div class="uk-width-5-10">
-        <h2> Package header </h2>
-        <form name="headerForm" class="uk-form uk-form-horizontal">
-            <div class="uk-form-row">
-                <label class="uk-form-label">Package name</label>
-                <div class="uk-form-controls">
-                    <input
-                    name="package"
-                    type="text"
-                    ng-class="{'uk-form-danger': headerForm.package.$invalid,'uk-form-success': headerForm.package.$valid}"
-                    ng-model="header.package"
-                    placeholder="Package name"
-                    required>
-                    <span ng-show="headerForm.package.$invalid" class="uk-text-warning">required</span>
-                </div>
-            </div>
-            <div ng-repeat="field in headerFields" class="uk-form-row">
-                <div ng-switch="field.type">
-                    <div ng-switch-when="input">
-                        <ng-form name="form">
-                            <label class="uk-form-label">{{field.message}}</label>
-                            <div class="uk-form-controls">
-                                <input
-                                ng-show="field.loktharType!='multi-line'"
-                                name="input"
-                                type="text"
-                                ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
-                                ng-model="header[field.name]"
-                                validator="field.validate"
-                                placeholder="{{field.message}}" />
-                                <textarea
-                                ng-show="field.loktharType=='multi-line'"
-                                name="input"
-                                ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
-                                ng-model="header[field.name]"
-                                validator="field.validate"
-                                placeholder="{{field.message}}" ></textarea>
+  <div class="uk-width-5-10">
+    <form name="packageForm" class="uk-form uk-form-horizontal">
 
-                                <span ng-show="form.input.$invalid" class="uk-text-warning">invalid</span>
-                            </div>
-                        </ng-form>
-                    </div>
-                    <div ng-switch-when="checkbox">
-                        <span class="uk-form-label">{{field.message}}</span>
-                        <div class="uk-form-controls uk-form-controls-text">
-                            <div ng-repeat="choice in field.choices">
-                                <div ng-switch="choice.type">
-                                    <div ng-switch-when="separator">
-                                        <p>{{choice.line}}</p>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <input
-                                        type="checkbox"
-                                        checklist-model="header[field.name]"
-                                        checklist-value="choice.name" >
-                                        <label>{{choice.name}}</label><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="uk-width-5-10">
-        Preview:
-        <div class="uk-panel uk-panel-box">
-            <div class="uk-panel-badge uk-badge uk-badge-danger">v{{header.version}}</div>
-            <h3 class="uk-panel-title uk-text-bold"><a href="" class="uk-icon-button uk-icon-puzzle-piece"></a> {{header.package}}</h3>
-            <small class="uk-text-muted uk-text-right"><i class="uk-icon-beer"></i> {{header.maintainerName}}</small>
-            <small class="uk-text-muted uk-text-right"><i class="uk-icon-envelope-o"></i> {{header.maintainerEmail}}</small>
-            <p class="uk-text-large">{{header.descriptionBrief}}</p>
-            <p class="uk-text-small">{{header.descriptionLong}}</p>
-            Runs on:
-            <br>
-            <small ng-repeat="arch in header.architecture"><span class="uk-badge">{{arch}}</span></small>
-            Depends on:
-            <br>
-            <small ng-repeat="(key,dep) in dependencies"><span class="uk-badge uk-badge-danger">{{key}}:{{dep.version}}</span></small>
+      <h2> Package header </h2>
+
+      <div class="uk-form-row">
+        <label class="uk-form-label">Package name</label>
+        <div class="uk-form-controls">
+            <input
+            name="package"
+            type="text"
+            ng-class="{'uk-form-danger': packageForm.package.$invalid,
+                       'uk-form-success': packageForm.package.$valid}"
+            ng-model="header.package"
+            placeholder="Package name"
+            required>
+            <span
+            ng-show="packageForm.package.$invalid"
+            class="uk-text-warning">required</span>
         </div>
-        <br>
-        <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" ng-click="createPackage()"><i class="uk-icon-gears"></i> create package </button>
-        <br>
+      </div>
 
-        <h2> Package dependencies </h2>
-        <form name="dependencyForm" class="uk-form uk-form-horizontal">
-            <div ng-repeat="field in dependencyFields">
-                <ng-switch on="field.type">
-                    <div ng-switch-when="input">
-                        <ng-form name="form">
-                            <label class="uk-form-label">{{field.message}}</label>
-                            <div class="uk-form-controls">
-                                <input
-                                name="input"
-                                ng-show="field.loktharType!='multi-line'"
-                                type="text"
-                                ng-class="{'uk-form-danger': form.input.$invalid,'uk-form-success': form.input.$valid}"
-                                ng-model="dependency.version"
-                                validator="field.validate"
-                                placeholder="{{field.message}}" />
-                            </div>
-                        </ng-form>
-                    </div>
-                    <div ng-switch-when="rawlist">
-                        <label class="uk-form-label">{{field.message}}</label>
-                        <div class="uk-form-controls">
-                            <select
-                            ng-model="dependency.package"
-                            ng-options="o as o for o in field.choices">
-                            </select>
-                        </div>
-                    </div>
-                </ng-switch>
+      <div ng-repeat="field in headerFields" class="uk-form-row">
+        <div ng-switch="field.type">
+          <div ng-switch-when="input">
+              <ng-form name="form">
+                  <label class="uk-form-label">{{field.message}}</label>
+                  <div class="uk-form-controls">
+                    <input
+                    ng-show="field.loktharType!='multi-line'"
+                    name="input"
+                    type="text"
+                    ng-class="{'uk-form-danger' : form.input.$invalid,
+                               'uk-form-success': form.input.$valid}"
+                    ng-model="header[field.name]"
+                    validator="field.validate"
+                    placeholder="{{field.message}}"
+                    required/>
+
+                    <textarea
+                    ng-show="field.loktharType=='multi-line'"
+                    name="input"
+                    ng-class="{'uk-form-danger' : form.input.$invalid,
+                               'uk-form-success': form.input.$valid}"
+                    ng-model="header[field.name]"
+                    validator="field.validate"
+                    placeholder="{{field.message}}"
+                    required >
+                    </textarea>
+
+                    <span
+                    ng-show="form.input.$invalid"
+                    class="uk-text-warning">invalid</span>
+                  </div>
+              </ng-form>
+          </div>
+          <div ng-switch-when="checkbox">
+              <span class="uk-form-label">{{field.message}}</span>
+              <div class="uk-form-controls uk-form-controls-text">
+                  <div ng-repeat="choice in field.choices">
+                      <div ng-switch="choice.type">
+                          <div ng-switch-when="separator">
+                              <p>{{choice.line}}</p>
+                          </div>
+                          <div ng-switch-default>
+                              <input
+                              type="checkbox"
+                              checklist-model="header[field.name]"
+                              checklist-value="choice.name">
+                              <label>{{choice.name}}</label><br>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
-            <br>
-            <button
-            class="uk-button uk-width-1-1 uk-margin-small-bottom"
-            ng-click="addDependency()">
-            <i class="uk-icon-plus"></i> add
-            </button>
-        </form>
+        </div>
+      </div>
+
+      <h2> Package dependencies </h2>
+
+      <div ng-repeat="field in dependencyFields">
+        <ng-switch on="field.type">
+          <div ng-switch-when="input">
+              <ng-form name="form">
+                  <label class="uk-form-label">{{field.message}}</label>
+                  <div class="uk-form-controls">
+                      <input
+                      name="input"
+                      ng-show="field.loktharType!='multi-line'"
+                      type="text"
+                      ng-class="{'uk-form-danger':form.input.$invalid,
+                                 'uk-form-success': form.input.$valid}"
+                      ng-model="dependency.version"
+                      validator="field.validate"
+                      placeholder="{{field.message}}" />
+                  </div>
+              </ng-form>
+          </div>
+          <div ng-switch-when="rawlist">
+            <label class="uk-form-label">{{field.message}}</label>
+            <div class="uk-form-controls">
+                <select
+                ng-model="dependency.package"
+                ng-options="o as o for o in field.choices">
+                </select>
+            </div>
+          </div>
+        </ng-switch>
+      </div>
+
+      <br>
+
+      <button
+      ng-disabled="!dependency.package || !dependency.version"
+      class="uk-button uk-width-1-1 uk-margin-small-bottom"
+      ng-click="addDependency()">
+      <i class="uk-icon-plus"></i> add
+      </button>
+
+      <br>
+
+      <button
+      ng-disabled="packageForm.$invalid || header.architecture.length == 0"
+      class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
+      ng-click="createPackage()">
+      <i class="uk-icon-gears"></i> create package
+      </button>
+
+    </form>
+  </div>
+
+  <div class="uk-width-5-10">
+    Preview:
+
+    <div class="uk-panel uk-panel-box">
+      <div class="uk-panel-badge uk-badge uk-badge-danger">
+        v{{header.version}}
+      </div>
+      <h3 class="uk-panel-title uk-text-bold">
+        <i class="uk-icon-button uk-icon-puzzle-piece"></i>
+        {{header.package}}
+      </h3>
+      <small class="uk-text-muted uk-text-right">
+        <i class="uk-icon-beer"></i> {{header.maintainerName}}
+      </small>
+      <small class="uk-text-muted uk-text-right">
+        <i class="uk-icon-envelope-o"></i> {{header.maintainerEmail}}
+      </small>
+      <p class="uk-text-large">{{header.descriptionBrief}}</p>
+      <p class="uk-text-small">{{header.descriptionLong}}</p>
+      Runs on:
+      <br>
+      <small ng-repeat="arch in header.architecture">
+        <span class="uk-badge">{{arch}}</span>
+      </small>
+      Depends on:
+      <br>
+      <small ng-repeat="(key,dep) in dependencies">
+        <span class="uk-badge uk-badge-danger">{{key}} ({{dep.version}})</span>
+      </small>
     </div>
+
+  </div>
+
 </div>
