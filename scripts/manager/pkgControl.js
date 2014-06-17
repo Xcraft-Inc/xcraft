@@ -95,14 +95,24 @@ var defToControl = function (packageDef)
   });
 
   zogLog.verb ('Control file:\n' + control);
+  return control;
 }
 
 exports.pkgMake = function (packageName)
 {
   try
   {
+    var fs    = require ('fs');
+    var zogFs = require ('../lib/zogFs.js');
+
     var def     = loadPackageDef (packageName);
     var control = defToControl (def);
+
+    var controlDir  = path.join (zogConfig.pkgTempRoot, packageName);
+    var controlFile = path.join (controlDir, 'control');
+
+    zogFs.mkdir (controlDir);
+    fs.writeFileSync (controlFile, control);
   }
   catch (err)
   {
