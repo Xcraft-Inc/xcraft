@@ -33,69 +33,74 @@ var defToControl = function (packageDef)
     "dependency"  : "Depends"
   };
 
-  var control = '';
+  var controlList = {};
 
-  Object.keys (packageDef).forEach (function (entry)
+  packageDef['architecture'].forEach (function (arch)
   {
-    if (!controlMap.hasOwnProperty (entry))
-      return;
+    var control = '';
 
-    var fctValue = function (it)
+    Object.keys (packageDef).forEach (function (entry)
     {
-      var result = '';
-      switch (it)
+      if (!controlMap.hasOwnProperty (entry))
+        return;
+
+      var fctValue = function (it)
       {
-      case 'architecture':
-        packageDef[it].forEach (function (arch)
+        var result = '';
+        switch (it)
         {
-          result += ' ' + arch;
-        })
-        break;
+        case 'architecture':
+          result = arch;
+          break;
 
-      case 'maintainer':
-        result = util.format ('"%s" <%s>',
-                              packageDef[it].name,
-                              packageDef[it].email);
-        break;
+        case 'maintainer':
+          result = util.format ('"%s" <%s>',
+                                packageDef[it].name,
+                                packageDef[it].email);
+          break;
 
-      case 'description':
-        result = util.format ('%s', packageDef[it].brief);
-        if (packageDef[it].long.length > 0)
-          result += util.format ('\n  %s', packageDef[it].long);
-        break;
+        case 'description':
+          result = util.format ('%s', packageDef[it].brief);
+          if (packageDef[it].long.length > 0)
+            result += util.format ('\n  %s', packageDef[it].long);
+          break;
 
-      case 'dependency':
-        var cnt = 0;
-        Object.keys (packageDef[it]).forEach (function (dep)
-        {
-          packageDef[it][dep].forEach (function (version)
+        case 'dependency':
+          var cnt = 0;
+          Object.keys (packageDef[it]).forEach (function (dep)
           {
-            result += util.format ('%s%s', cnt > 0 ? ', ' : '', dep);
-            if (version.length > 0)
-              result += util.format (' (%s)', version);
-            cnt++;
+            packageDef[it][dep].forEach (function (version)
+            {
+              result += util.format ('%s%s', cnt > 0 ? ', ' : '', dep);
+              if (version.length > 0)
+                result += util.format (' (%s)', version);
+              cnt++;
+            });
           });
-        });
-        break;
+          break;
 
-      default:
-        if (!packageDef.hasOwnProperty (it))
-          return;
+        default:
+          if (!packageDef.hasOwnProperty (it))
+            return;
 
-        result = packageDef[it];
-        break;
-      }
+          result = packageDef[it];
+          break;
+        }
 
-      return result.trim ();
-    };
+        return result.trim ();
+      };
 
-    var result = fctValue (entry);
-    if (result.length > 0)
-      control += util.format ('%s: %s\n', controlMap[entry], result);
+      var result = fctValue (entry);
+      if (result.length > 0)
+        control += util.format ('%s: %s\n', controlMap[entry], result);
+    });
+
+    controlList[arch] = control;
+
+    zogLog.verb (util.format ('Control file (%s):\n%s', arch, control));
   });
 
-  zogLog.verb ('Control file:\n' + control);
-  return control;
+  return controlList;
 }
 
 exports.pkgMake = function (packageName)
@@ -108,11 +113,14 @@ exports.pkgMake = function (packageName)
     var def     = loadPackageDef (packageName);
     var control = defToControl (def);
 
-    var controlDir  = path.join (zogConfig.pkgTempRoot, packageName, 'WPKG');
-    var controlFile = path.join (controlDir, 'control');
+    Object.keys (control).forEach (function (arch)
+    {
+      var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
+      var controlFile = path.join (controlDir, 'control');
 
-    zogFs.mkdir (controlDir);
-    fs.writeFileSync (controlFile, control);
+      zogFs.mkdir (controlDir);
+      fs.writeFileSync (controlFile, control[arch]);
+    });
   }
   catch (err)
   {
