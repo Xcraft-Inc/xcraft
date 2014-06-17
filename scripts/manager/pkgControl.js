@@ -105,6 +105,8 @@ var defToControl = function (packageDef)
 
 var saveControlFiles = function (packageName)
 {
+  zogLog.info ('save the control files for ' + packageName);
+
   var fs    = require ('fs');
   var zogFs = require ('../lib/zogFs.js');
 
@@ -115,6 +117,9 @@ var saveControlFiles = function (packageName)
   {
     var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
     var controlFile = path.join (controlDir, 'control');
+
+    if (fs.existsSync (controlFile))
+      zogLog.warn ('the control file will be overwritten: ' + controlFile);
 
     zogFs.mkdir (controlDir);
     fs.writeFileSync (controlFile, control[arch]);
