@@ -23,9 +23,15 @@ module.controller('PackagesController', ['$scope', function ($scope){
 
 module.controller('PackageManagerController', ['$scope', function ($scope){
 
+  $scope.listProducts = function () {
+    var ipc         = require('ipc');
+    $scope.products = ipc.sendSync('list-product-packages');
+  };
+
 }]);
 
-module.controller('PackageEditorController', ['$scope', function ($scope){
+module.controller('PackageEditorController', ['$scope','$state',
+function ($scope, $state) {
   //Contains packages definitions fields for header and deps
   var wizard                  = require (zogConfig.pkgWizard);
   //final template for package creation
@@ -53,6 +59,7 @@ module.controller('PackageEditorController', ['$scope', function ($scope){
     //send template to browser side, for package creation
     var ipc = require('ipc');
     ipc.send('create-package', packageTemplate);
+    $state.go('packages.manager');
   };
 
   $scope.addDependency = function ()
