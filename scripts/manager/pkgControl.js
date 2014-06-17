@@ -8,7 +8,7 @@ var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
 var loadPackageDef = function (packageName)
 {
-  var pkgConfig = path.join (zogConfig.pkgProductsRoot, packageName, 'config.yaml');
+  var pkgConfig = path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName);
 
   var yaml = require ('js-yaml');
   var fs   = require ('fs');

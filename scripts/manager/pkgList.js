@@ -21,7 +21,7 @@ exports.listProducts = function ()
 
   for(var p in packagesDir)
   {
-    var configFilePath = path.join(zogConfig.pkgProductsRoot, packagesDir[p],'/config.yaml');
+    var configFilePath = path.join(zogConfig.pkgProductsRoot, packagesDir[p], zogConfig.pkgCfgFileName);
     var doc            = yaml.safeLoad(fs.readFileSync(configFilePath, 'utf8'));
     products.push(doc);
   }

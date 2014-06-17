@@ -3,6 +3,8 @@ var path = require ('path');
 
 process.chdir (path.join (__dirname, '/..'));
 
+exports.pkgCfgFileName  = 'config.yaml';
+
 exports.toolchainRoot   = path.resolve ('./');
 exports.libRoot         = path.resolve ('./scripts/lib/');
 exports.loktharRoot     = path.resolve ('./lokthar/');

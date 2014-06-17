@@ -41,8 +41,6 @@ var inquirerToPackage = function (inquirerPkg)
 
 /**
  * \brief Create a package template for the toolchain.
- *
- * The definition file is named config.yaml. 
  */
 exports.pkgTemplate = function (inquirerPkg)
 {
@@ -84,7 +82,7 @@ exports.pkgTemplate = function (inquirerPkg)
     var yaml = require ('js-yaml');
 
     var yamlPkg = yaml.safeDump (package);
-    fs.writeFileSync (path.join (pkgDir, 'config.yaml'), yamlPkg, [], function (err)
+    fs.writeFileSync (path.join (pkgDir, zogConfig.pkgCfgFileName), yamlPkg, [], function (err)
     {
       if (err)
         throw err;
