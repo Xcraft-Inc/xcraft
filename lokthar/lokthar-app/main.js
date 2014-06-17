@@ -17,12 +17,12 @@ ipc.on('open-console', function(event, arg) {
 });
 
 ipc.on('create-package', function(event, arg) {
-  var pkgCreate = require (zogConfig.pkgCreate);
+  var pkgCreate = require (zogConfig.libPkgCreate);
   pkgCreate.pkgTemplate (arg);
 });
 
 ipc.on('list-product-packages', function(event, arg) {
-  var pkgList       = require (zogConfig.pkgList);
+  var pkgList       = require (zogConfig.libPkgList);
   event.returnValue = pkgList.listProducts();
 });
 

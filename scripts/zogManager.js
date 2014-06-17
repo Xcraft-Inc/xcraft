@@ -4,8 +4,9 @@ var moduleName = 'manager';
 var path     = require ('path');
 var inquirer = require ('inquirer');
 
+var zogConfig = require ('./zogConfig.js');
 var zogLog    = require ('./lib/zogLog.js')(moduleName);
-var pkgCreate = require ('./manager/pkgCreate.js');
+var pkgCreate = require (zogConfig.libPkgCreate);
 
 process.chdir (path.join (__dirname, '/..'));
 
@@ -16,7 +17,7 @@ exports.create = function (packageName)
 {
   zogLog.info ('create a new package: ' + packageName);
 
-  var wizard = require ('./manager/pkgWizard.js');
+  var wizard = require (zogConfig.libPkgWizard);
   var package = [];
 
   var promptForDependency = function (wizard, package)
@@ -50,7 +51,7 @@ exports.make = function (packageName)
 {
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
 
-  var pkgControl = require ('./manager/pkgControl.js');
+  var pkgControl = require (zogConfig.libPkgControl);
 
   pkgControl.pkgMake (packageName);
 }

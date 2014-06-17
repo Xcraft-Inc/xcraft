@@ -13,6 +13,7 @@ exports.pkgTempRoot     = path.resolve ('./tmp/');
 exports.pkgBaseRoot     = path.resolve ('./packages/base/');
 exports.pkgProductsRoot = path.resolve ('./packages/products/');
 
-exports.pkgCreate       = path.resolve ('./scripts/manager/pkgCreate.js');
-exports.pkgList         = path.resolve ('./scripts/manager/pkgList.js');
-exports.pkgWizard       = path.resolve ('./scripts/manager/pkgWizard.js');
+exports.libPkgCreate    = path.resolve ('./scripts/manager/pkgCreate.js');
+exports.libPkgList      = path.resolve ('./scripts/manager/pkgList.js');
+exports.libPkgWizard    = path.resolve ('./scripts/manager/pkgWizard.js');
+exports.libPkgControl   = path.resolve ('./scripts/manager/pkgControl.js');
