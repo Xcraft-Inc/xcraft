@@ -110,7 +110,7 @@ var saveControlFiles = function (packageName)
   var fs    = require ('fs');
   var zogFs = require ('../lib/zogFs.js');
 
-  var def     = loadPackageDef (packageName);
+  var def     = exports.loadPackageDef (packageName);
   var control = defToControl (def);
 
   Object.keys (control).forEach (function (arch)
