@@ -55,5 +55,6 @@ exports.make = function (packageName)
 
   var pkgControl = require (zogConfig.libPkgControl);
 
-  pkgControl.pkgMake (packageName);
+  if (packageName)
+    pkgControl.pkgMake (packageName);
 }
