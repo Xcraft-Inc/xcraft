@@ -4,9 +4,11 @@ var path = require ('path');
 
 exports.mkdir = function (location, root)
 {
-  var dirs = location.split ('/');
+  var zogPlatform = require ('./zogPlatform.js');
+
+  var dirs = location.split (path.sep);
   var dir  = dirs.shift ();
-  var root = (root || '') + dir + '/';
+  var root = (root || '') + dir + path.sep;
 
   try
   {
@@ -18,7 +20,7 @@ exports.mkdir = function (location, root)
       throw new Error (err);
   }
 
-  return !dirs.length || this.mkdir (dirs.join ('/'), root);
+  return !dirs.length || this.mkdir (dirs.join (path.sep), root);
 }
 
 exports.lsdir = function (location)
