@@ -14,8 +14,6 @@ var pkgControl = require ('./pkgControl.js');
 exports.listProducts = function ()
 {
   var products    = [];
-  var yaml        = require ('js-yaml');
-  var fs          = require ('fs');
   var packagesDir = zogFs.lsdir (zogConfig.pkgProductsRoot);
 
   for (var p in packagesDir)
