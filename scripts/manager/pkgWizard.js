@@ -15,7 +15,7 @@ exports.header =
     "type": "input",
     "name": "version",
     "message": "Package version",
-    "validate": function (value)
+    validate: function (value)
     {
       regex = new RegExp ('^' + versionRegex.source + '$');
       return regex.test (value);
@@ -25,7 +25,7 @@ exports.header =
     "type": "input",
     "name": "maintainerName",
     "message": "Maintainer's name",
-    "validate": function (value)
+    validate: function (value)
     {
       if (!value.trim ())
         return "The maintainer's name is mandatory."
@@ -37,7 +37,7 @@ exports.header =
     "type": "input",
     "name": "maintainerEmail",
     "message": "Maintainer's email",
-    "validate": function (value)
+    validate: function (value)
     {
       var mailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return mailRegex.test (value);
@@ -90,14 +90,14 @@ exports.header =
         "name": "freebsd-amd64",
       }
     ],
-    "validate": function (value)
+    validate: function (value)
     {
       if (value.length < 1)
         return "You must choose at least one topping.";
 
       return true;
     },
-    "filter": function (answer)
+    filter: function (answer)
     {
       if (answer.indexOf ('all') != -1)
         return [ 'all' ];
@@ -132,7 +132,7 @@ exports.header =
     "type": "input",
     "name": "descriptionBrief",
     "message": "Brief description (max 70 characters):",
-    "validate": function (value)
+    validate: function (value)
     {
       if (value.length > 70)
         return "The brief description must not be longer than 70 characters.";
@@ -164,7 +164,7 @@ exports.dependency =
     "name": "dependency",
     "message": "Package's name",
     "choices": zogFs.lsdir (zogConfig.pkgProductsRoot),
-    "when": function (answers)
+    when: function (answers)
     {
       return answers.hasDependency;
     }
@@ -173,13 +173,13 @@ exports.dependency =
     "type": "input",
     "name": "version",
     "message": "Empty string or range operator (>>, >=, =, <= or <<) with version (like >= 1.0):",
-    "validate": function (value)
+    validate: function (value)
     {
       var rangeRegex = /((<[<=]|>[>=])|=)/;
       var regex = new RegExp ('^(|' + rangeRegex.source + '[ ]{1}' + versionRegex.source + ')$');
       return regex.test (value);
     },
-    "when": function (answers)
+    when: function (answers)
     {
       return answers.hasDependency;
     }
