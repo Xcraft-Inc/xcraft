@@ -12,15 +12,15 @@ module.exports = function (grunt)
 {
   var srcYaml = zogFs.lsdir (zogConfig.pkgProductsRoot);
 
-  var i = 0;
   var initNewer = {};
   srcYaml.forEach (function (packageName)
   {
     var destControl = pkgControl.controlFiles (packageName, false);
 
+    var i = 0;
     destControl.forEach (function (controlFile)
     {
-      initNewer[i.toString ()] =
+      initNewer[packageName + '.Arch[' + i.toString () +']'] =
       {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
         dest: controlFile,
