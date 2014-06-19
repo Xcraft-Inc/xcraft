@@ -60,12 +60,23 @@ exports.make = function (packageName)
 
   if (packageName == 'all')
   {
-    var zogFs = require ('./lib/zogFs.js');
-    var packagesDir = zogFs.lsdir (zogConfig.pkgProductsRoot);
+    // We use a grunt task for this job (with mtime check).
+    var spawn = require ('child_process').spawn;
+    var grunt = spawn ('node', [ zogConfig.binGrunt ]);
 
-    packagesDir.forEach (function (packageName)
+    grunt.stdout.on ('data', function (data)
     {
-      pkgControl.pkgMake (packageName);
+      zogLog.info ('grunt task:\n' + data);
+    });
+
+    grunt.stderr.on ('data', function (data)
+    {
+      zogLog.err ('grunt task:\n' + data);
+    });
+
+    grunt.on ('error', function (data)
+    {
+      zogLog.err (data);
     });
   }
   else
