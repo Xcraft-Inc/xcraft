@@ -64,17 +64,7 @@ exports.make = function (packageName)
   {
     /* We use a grunt task for this job (with mtime check). */
     var spawn = require ('child_process').spawn;
-    var grunt = spawn ('node', [ zogConfig.binGrunt ]);
-
-    grunt.stdout.on ('data', function (data)
-    {
-      zogLog.info ('grunt task:\n' + data);
-    });
-
-    grunt.stderr.on ('data', function (data)
-    {
-      zogLog.err ('grunt task:\n' + data);
-    });
+    var grunt = spawn ('node', [ zogConfig.binGrunt ], { stdio: 'inherit' });
 
     grunt.on ('error', function (data)
     {
