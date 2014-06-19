@@ -78,6 +78,11 @@ exports.make = function (packageName)
     {
       zogLog.err (data);
     });
+
+    grunt.on ('close', function (code)
+    {
+      zogLog.info ('grunt task terminated');
+    });
   }
   else
     pkgControl.pkgMake (packageName);
