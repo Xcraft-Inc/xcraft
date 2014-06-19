@@ -9,7 +9,7 @@ var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
 var zogLog     = require ('./lib/zogLog.js')('zog');
 
-// Display help if zog is called without argument.
+/* Display help if zog is called without argument. */
 if (process.argv.length < 3)
   process.argv.push ('-h');
 

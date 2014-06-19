@@ -10,7 +10,7 @@ var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.j
 var cmd = {};
 
 /**
- * Install the package in /tools.
+ * Install the wpkg package.
  */
 cmd.install = function ()
 {
@@ -22,7 +22,7 @@ cmd.install = function ()
 }
 
 /**
- * Uninstall the package from /tools.
+ * Uninstall the wpkg package.
  */
 cmd.uninstall = function ()
 {
@@ -32,6 +32,10 @@ cmd.uninstall = function ()
   fs.unlinkSync (outputFile + zogPlatform.getExecExt ());
 }
 
+/**
+ * Retrieve the list of available commands.
+ * @returns {string[]} The list of commands.
+ */
 exports.args = function ()
 {
   var list = [];

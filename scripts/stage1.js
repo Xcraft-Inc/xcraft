@@ -25,6 +25,9 @@ catch (err)
   console.log ('[' + moduleName + '] Err: ' + err);
 }
 
+/**
+ * The second stage installs wpkg.
+ */
 function stage2(error, stdout, stderr)
 {
   console.log ('[' + moduleName + '] Verb: zog dependencies outputs:\n' + stdout);

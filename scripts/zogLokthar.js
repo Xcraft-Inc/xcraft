@@ -45,6 +45,10 @@ var grunt = function ()
   });
 }
 
+/**
+ * Run the lokthar frontend.
+ * Lokthar is based on atom-shell.
+ */
 cmd.run = function ()
 {
   var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
@@ -61,6 +65,9 @@ cmd.run = function ()
   });
 }
 
+/**
+ * Install the lokthar frontend.
+ */
 cmd.install = function ()
 {
   try
@@ -73,11 +80,18 @@ cmd.install = function ()
   }
 }
 
+/**
+ * Uninstall the lokthar frontend.
+ */
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
 }
 
+/**
+ * Retrieve the list of available commands.
+ * @returns {string[]} The list of commands.
+ */
 exports.args = function ()
 {
   var list = [];

@@ -60,7 +60,7 @@ exports.make = function (packageName)
 
   if (packageName == 'all')
   {
-    // We use a grunt task for this job (with mtime check).
+    /* We use a grunt task for this job (with mtime check). */
     var spawn = require ('child_process').spawn;
     var grunt = spawn ('node', [ zogConfig.binGrunt ]);
 
