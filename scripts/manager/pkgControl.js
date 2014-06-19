@@ -30,12 +30,12 @@ var defToControl = function (packageDef)
 {
   var controlMap =
   {
-    "name"        : "Package",
-    "version"     : "Version",
-    "architecture": "Architecture",
-    "maintainer"  : "Maintainer",
-    "description" : "Description",
-    "dependency"  : "Depends"
+    'name'        : 'Package',
+    'version'     : 'Version',
+    'architecture': 'Architecture',
+    'maintainer'  : 'Maintainer',
+    'description' : 'Description',
+    'dependency'  : 'Depends'
   };
 
   var controlList = {};
