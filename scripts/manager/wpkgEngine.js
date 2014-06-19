@@ -9,17 +9,33 @@ var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'
 
 var wpkgArgs = function (wpkgBin)
 {
-  var exec = require ('child_process').exec;
-  var bin  = wpkgBin;
+  var spawn = require ('child_process').spawn;
+  var bin   = wpkgBin;
 
   var run = function (arg, packagePath)
   {
-    exec (bin + ' ' + arg + ' "' + packagePath + '"', function (error, stdout, stderr)
-    {
-      zogLog.verb ('wpkg build for ' + packagePath + '\n' + stdout);
+    zogLog.info ('wpkg build for ' + packagePath);
 
-      if (error)
-        zogLog.err ('unable to build the package\n' + stderr);
+    var wpkg = spawn (bin, [arg,  packagePath]);
+
+    wpkg.stdout.on ('data', function (data)
+    {
+      zogLog.verb ('wpkg :\n' + data);
+    });
+
+    wpkg.stderr.on ('data', function (data)
+    {
+      zogLog.err ('wpkg:\n' + data);
+    });
+
+    wpkg.on ('error', function (data)
+    {
+      zogLog.err (data);
+    });
+
+    wpkg.on ('close', function (code)
+    {
+      zogLog.info ('wpkg build terminated for ' + packagePath);
     });
   };
 
