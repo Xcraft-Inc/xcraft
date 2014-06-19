@@ -21,6 +21,9 @@ exports.create = function (packageName)
   var wizard = require (zogConfig.libPkgWizard);
   var packageDef = [];
 
+  /* The first question is the package's name, then we set the default value. */
+  wizard.header[0].default = packageName;
+
   var promptForDependency = function ()
   {
     inquirer.prompt (wizard.dependency, function (answers)
@@ -39,7 +42,6 @@ exports.create = function (packageName)
 
   inquirer.prompt (wizard.header, function (answers)
   {
-    answers.package = packageName;
     packageDef.push (answers);
     promptForDependency ();
   });

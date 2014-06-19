@@ -13,6 +13,20 @@ exports.header =
 [
   {
     "type": "input",
+    "name": "package",
+    "message": "Package name",
+    validate: function (value)
+    {
+      /* Naming rules by Debian:
+       * Must consist only of lower case letters (a-z), digits (0-9), plus (+) and
+       * minus (-) signs, and periods (.). They must be at least two characters long
+       * and must start with an alphanumeric character.
+       */
+      return /^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value);
+    }
+  },
+  {
+    "type": "input",
     "name": "version",
     "message": "Package version",
     validate: function (value)
