@@ -21,6 +21,11 @@ exports.loadPackageDef = function (packageName)
   return def;
 }
 
+/**
+ * Convert a zog package definition to control definitions.
+ * @param {Object} packageDef
+ * @returns {Object[]} A control definition by architecture.
+ */
 var defToControl = function (packageDef)
 {
   var controlMap =
@@ -103,6 +108,12 @@ var defToControl = function (packageDef)
   return controlList;
 }
 
+/**
+ * Generate and save all control files accordingly to the config.yaml files.
+ * @param {string} packageName
+ * @param {boolean} saveFiles - Saves the control files.
+ * @returns {string[]} The list of all control file paths.
+ */
 exports.controlFiles = function (packageName, saveFiles)
 {
   if (saveFiles)
@@ -126,6 +137,7 @@ exports.controlFiles = function (packageName, saveFiles)
       if (fs.existsSync (controlFile))
         zogLog.warn ('the control file will be overwritten: ' + controlFile);
 
+      /* A directory by architecture is created. */
       zogFs.mkdir (controlDir);
       fs.writeFileSync (controlFile, control[arch]);
     }
