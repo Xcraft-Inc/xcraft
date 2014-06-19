@@ -1,6 +1,6 @@
 
 var mainModuleName = 'zog';
-var currentLevel = 0;
+var currentLevel = 1;
 
 var clc = require ('cli-color');
 

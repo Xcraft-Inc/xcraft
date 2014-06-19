@@ -20,7 +20,7 @@ var argsPrettify = function (args)
 
 program
   .version ('0.0.1')
-  .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 0)', zogLog.verbosity)
+  .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.args), zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
