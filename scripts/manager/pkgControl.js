@@ -103,9 +103,10 @@ var defToControl = function (packageDef)
   return controlList;
 }
 
-var saveControlFiles = function (packageName)
+exports.controlFiles = function (packageName, saveFiles)
 {
-  zogLog.info ('save the control files for ' + packageName);
+  if (saveFiles)
+    zogLog.info ('save the control files for ' + packageName);
 
   var fs    = require ('fs');
   var zogFs = require ('../lib/zogFs.js');
@@ -120,11 +121,14 @@ var saveControlFiles = function (packageName)
     var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'wpkg');
     var controlFile = path.join (controlDir, 'control');
 
-    if (fs.existsSync (controlFile))
-      zogLog.warn ('the control file will be overwritten: ' + controlFile);
+    if (saveFiles)
+    {
+      if (fs.existsSync (controlFile))
+        zogLog.warn ('the control file will be overwritten: ' + controlFile);
 
-    zogFs.mkdir (controlDir);
-    fs.writeFileSync (controlFile, control[arch]);
+      zogFs.mkdir (controlDir);
+      fs.writeFileSync (controlFile, control[arch]);
+    }
 
     controlFiles.push (controlFile);
   });
@@ -136,7 +140,7 @@ exports.pkgMake = function (packageName)
 {
   try
   {
-    controlFiles = saveControlFiles (packageName);
+    var controlFiles = exports.controlFiles (packageName, true);
 
     var wpkgEngine = require ('./wpkgEngine.js');
     controlFiles.forEach (function (controlFile)
