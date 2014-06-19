@@ -13,7 +13,6 @@ var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
 var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
 var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
 
-var gruntBin = {};
 var cmd = {};
 
 
@@ -33,7 +32,7 @@ var build = function ()
 var grunt = function ()
 {
   var gruntfile = path.join (buildDir, 'gruntfile.js');
-  exec ('node ' + gruntBin + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
+  exec ('node ' + zogConfig.binGrunt + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
   {
     zogLog.verb ('grunt lokthar outputs:\n' + stdout);
 
@@ -66,7 +65,6 @@ cmd.install = function ()
 {
   try
   {
-    gruntBin = path.join (zogConfig.nodeModulesRoot, '/grunt-cli/bin/grunt');
     build ();
   }
   catch (err)

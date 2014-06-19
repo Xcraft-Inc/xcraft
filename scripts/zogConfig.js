@@ -17,3 +17,5 @@ exports.libPkgCreate    = path.resolve ('./scripts/manager/pkgCreate.js');
 exports.libPkgList      = path.resolve ('./scripts/manager/pkgList.js');
 exports.libPkgWizard    = path.resolve ('./scripts/manager/pkgWizard.js');
 exports.libPkgControl   = path.resolve ('./scripts/manager/pkgControl.js');
+
+exports.binGrunt        = path.join (exports.nodeModulesRoot, 'grunt-cli/bin/grunt');
