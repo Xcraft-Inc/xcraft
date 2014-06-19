@@ -66,18 +66,8 @@ cmd.install = function ()
 {
   try
   {
-    exec ('npm install grunt-cli', function (error, stdout, stderr)
-    {
-      zogLog.verb ('grunt-cli install outputs:\n' + stdout);
-
-      if (error === null)
-      {
-        gruntBin = path.join (zogConfig.nodeModulesRoot, '/grunt-cli/bin/grunt');
-        build ();
-      }
-      else
-        zogLog.err ('unable to install grunt-cli\n', stderr);
-    });
+    gruntBin = path.join (zogConfig.nodeModulesRoot, '/grunt-cli/bin/grunt');
+    build ();
   }
   catch (err)
   {
