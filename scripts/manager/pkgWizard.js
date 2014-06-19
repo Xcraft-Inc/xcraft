@@ -12,9 +12,9 @@ var versionRegex = /(|[0-9]+:)([0-9][-+:~.0-9a-zA-Z]*)(|-[+~.0-9a-zA-Z]+)/;
 exports.header =
 [
   {
-    "type": "input",
-    "name": "package",
-    "message": "Package name",
+    type: 'input',
+    name: 'package',
+    message: 'Package name',
     validate: function (value)
     {
       /* Naming rules by Debian:
@@ -26,9 +26,9 @@ exports.header =
     }
   },
   {
-    "type": "input",
-    "name": "version",
-    "message": "Package version",
+    type: 'input',
+    name: 'version',
+    message: 'Package version',
     validate: function (value)
     {
       regex = new RegExp ('^' + versionRegex.source + '$');
@@ -36,21 +36,21 @@ exports.header =
     }
   },
   {
-    "type": "input",
-    "name": "maintainerName",
-    "message": "Maintainer's name",
+    type: 'input',
+    name: 'maintainerName',
+    message: 'Maintainer\'s name',
     validate: function (value)
     {
       if (!value.trim ())
-        return "The maintainer's name is mandatory."
+        return 'The maintainer\'s name is mandatory.'
 
       return true;
     }
   },
   {
-    "type": "input",
-    "name": "maintainerEmail",
-    "message": "Maintainer's email",
+    type: 'input',
+    name: 'maintainerEmail',
+    message: 'Maintainer\'s email',
     validate: function (value)
     {
       var mailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -58,56 +58,56 @@ exports.header =
     }
   },
   {
-    "type": "checkbox",
-    "name": "architecture",
-    "message": "Host architecture",
-    "choices":
+    type: 'checkbox',
+    name: 'architecture',
+    message: 'Host architecture',
+    choices:
     [
-      new inquirer.Separator ("== Common =="),
+      new inquirer.Separator ('== Common =='),
       {
-        "name": "all",
+        name: 'all',
       },
       {
-        "name": "mswindows-i386",
-        "checked": true
+        name: 'mswindows-i386',
+        checked: true
       },
       {
-        "name": "mswindows-amd64",
-        "checked": true
+        name: 'mswindows-amd64',
+        checked: true
       },
       {
-        "name": "linux-i386",
+        name: 'linux-i386',
       },
       {
-        "name": "linux-amd64",
+        name: 'linux-amd64',
       },
       {
-        "name": "darwin-i386",
+        name: 'darwin-i386',
       },
       {
-        "name": "darwin-amd64",
+        name: 'darwin-amd64',
       },
       {
-        "name": "source"
+        name: 'source'
       },
-      new inquirer.Separator ("== Extras =="),
+      new inquirer.Separator ('== Extras =='),
       {
-        "name": "solaris-i386",
-      },
-      {
-        "name": "solaris-amd64",
+        name: 'solaris-i386',
       },
       {
-        "name": "freebsd-i386",
+        name: 'solaris-amd64',
       },
       {
-        "name": "freebsd-amd64",
+        name: 'freebsd-i386',
+      },
+      {
+        name: 'freebsd-amd64',
       }
     ],
     validate: function (value)
     {
       if (value.length < 1)
-        return "You must choose at least one topping.";
+        return 'You must choose at least one topping.';
 
       return true;
     },
@@ -143,50 +143,50 @@ exports.header =
     }
   },
   {
-    "type": "input",
-    "name": "descriptionBrief",
-    "message": "Brief description (max 70 characters):",
+    type: 'input',
+    name: 'descriptionBrief',
+    message: 'Brief description (max 70 characters):',
     validate: function (value)
     {
       if (value.length > 70)
-        return "The brief description must not be longer than 70 characters.";
+        return 'The brief description must not be longer than 70 characters.';
 
       if (!value.trim ())
-        return "The brief description is mandatory."
+        return 'The brief description is mandatory.'
 
       return true;
     }
   },
   {
-    "type": "input",
-    "name": "descriptionLong",
-    "message": "Long description",
-    "loktharType" : "multi-line"
+    type: 'input',
+    name: 'descriptionLong',
+    message: 'Long description',
+    loktharType : 'multi-line'
   }
 ];
 
 exports.dependency =
 [
   {
-    "type": "confirm",
-    "name": "hasDependency",
-    "message": "Add a dependency",
-    "default": false
+    type: 'confirm',
+    name: 'hasDependency',
+    message: 'Add a dependency',
+    default: false
   },
   {
-    "type": "rawlist",
-    "name": "dependency",
-    "message": "Package's name",
-    "choices": zogFs.lsdir (zogConfig.pkgProductsRoot),
+    type: 'rawlist',
+    name: 'dependency',
+    message: 'Package\'s name',
+    choices: zogFs.lsdir (zogConfig.pkgProductsRoot),
     when: function (answers)
     {
       return answers.hasDependency;
     }
   },
   {
-    "type": "input",
-    "name": "version",
-    "message": "Empty string or range operator (>>, >=, =, <= or <<) with version (like >= 1.0):",
+    type: 'input',
+    name: 'version',
+    message: 'Empty string or range operator (>>, >=, =, <= or <<) with version (like >= 1.0):',
     validate: function (value)
     {
       var rangeRegex = /((<[<=]|>[>=])|=)/;
