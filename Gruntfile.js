@@ -1,0 +1,50 @@
+
+var path = require ('path');
+
+var zogConfig  = require ('./scripts/zogConfig.js');
+var zogFs      = require (path.join (zogConfig.libRoot, 'zogFs.js'));
+var zogLog     = require (path.join (zogConfig.libRoot, 'zogLog.js'));
+var pkgControl = require (zogConfig.libPkgControl);
+
+module.exports = function (grunt)
+{
+  var srcYaml = zogFs.lsdir (zogConfig.pkgProductsRoot);
+
+  var i = 0;
+  var initNewer = {};
+  srcYaml.forEach (function (packageName)
+  {
+    var destControl = pkgControl.controlFiles (packageName, false);
+
+    destControl.forEach (function (controlFile)
+    {
+      initNewer[i.toString ()] =
+      {
+        src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
+        dest: controlFile,
+        options:
+        {
+          tasks: [ 'zogMake:' + packageName]
+        }
+      };
+      i++;
+    });
+  });
+
+  grunt.initConfig (
+  {
+    pkg: grunt.file.readJSON ('package.json'),
+    zogMake: {},
+    newer: initNewer
+  });
+
+  grunt.loadNpmTasks ('grunt-newer-explicit');
+
+  grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
+  {
+    zogLog.info ('make the control file for ' + target);
+    pkgControl.pkgMake (target);
+  });
+
+  grunt.registerTask('default', ['newer']);
+};
