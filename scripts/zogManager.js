@@ -19,20 +19,20 @@ exports.create = function (packageName)
   zogLog.info ('create a new package: ' + packageName);
 
   var wizard = require (zogConfig.libPkgWizard);
-  var package = [];
+  var packageDef = [];
 
-  var promptForDependency = function (wizard, package)
+  var promptForDependency = function (wizard, packageDef)
   {
     inquirer.prompt (wizard.dependency, function (answers)
     {
-      package.push (answers);
+      packageDef.push (answers);
 
       if (answers.hasDependency)
-        promptForDependency (wizard, package);
+        promptForDependency (wizard, packageDef);
       else
       {
-        zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (package, null, '  '));
-        pkgCreate.pkgTemplate (package);
+        zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
+        pkgCreate.pkgTemplate (packageDef);
       }
     });
   }
@@ -40,8 +40,8 @@ exports.create = function (packageName)
   inquirer.prompt (wizard.header, function (answers)
   {
     answers.package = packageName;
-    package.push (answers);
-    promptForDependency (wizard, package);
+    packageDef.push (answers);
+    promptForDependency (wizard, packageDef);
   });
 }
 

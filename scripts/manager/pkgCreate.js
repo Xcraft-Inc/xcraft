@@ -13,32 +13,32 @@ var zogLog    = require ('../lib/zogLog.js')(moduleName);
  */
 var inquirerToPackage = function (inquirerPkg)
 {
-  var package = {};
+  var packageDef = {};
 
   inquirerPkg.forEach (function (it)
   {
     if (it.hasOwnProperty ('package'))
     {
-      package.name              = it.package;
-      package.version           = it.version;
-      package.maintainer        = {};
-      package.maintainer.name   = it.maintainerName;
-      package.maintainer.email  = it.maintainerEmail;
-      package.architecture      = it.architecture;
-      package.description       = {};
-      package.description.brief = it.descriptionBrief;
-      package.description.long  = it.descriptionLong;
-      package.dependency        = {};
+      packageDef.name              = it.package;
+      packageDef.version           = it.version;
+      packageDef.maintainer        = {};
+      packageDef.maintainer.name   = it.maintainerName;
+      packageDef.maintainer.email  = it.maintainerEmail;
+      packageDef.architecture      = it.architecture;
+      packageDef.description       = {};
+      packageDef.description.brief = it.descriptionBrief;
+      packageDef.description.long  = it.descriptionLong;
+      packageDef.dependency        = {};
     }
     else if (it.hasOwnProperty ('hasDependency') && it.hasDependency == true)
     {
-      if (!util.isArray (package.dependency[it.dependency]))
-        package.dependency[it.dependency] = [];
-      package.dependency[it.dependency].push (it.version);
+      if (!util.isArray (packageDef.dependency[it.dependency]))
+        packageDef.dependency[it.dependency] = [];
+      packageDef.dependency[it.dependency].push (it.version);
     }
   });
 
-  return package;
+  return packageDef;
 }
 
 /**
@@ -49,12 +49,12 @@ exports.pkgTemplate = function (inquirerPkg)
 {
   zogLog.info ('create the package definition for ' + inquirerPkg[0].package);
 
-  var package = inquirerToPackage (inquirerPkg);
-  zogLog.verb ('JSON output (package):\n' + JSON.stringify (package, null, '  '));
+  var packageDef = inquirerToPackage (inquirerPkg);
+  zogLog.verb ('JSON output (package):\n' + JSON.stringify (packageDef, null, '  '));
 
   var fs = require ('fs');
 
-  var pkgDir = path.join (zogConfig.pkgProductsRoot, package.name);
+  var pkgDir = path.join (zogConfig.pkgProductsRoot, packageDef.name);
 
   try
   {
@@ -84,7 +84,7 @@ exports.pkgTemplate = function (inquirerPkg)
 
     var yaml = require ('js-yaml');
 
-    var yamlPkg = yaml.safeDump (package);
+    var yamlPkg = yaml.safeDump (packageDef);
     fs.writeFileSync (path.join (pkgDir, zogConfig.pkgCfgFileName), yamlPkg, [], function (err)
     {
       if (err)
