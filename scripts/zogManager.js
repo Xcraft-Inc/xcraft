@@ -21,7 +21,7 @@ exports.create = function (packageName)
   var wizard = require (zogConfig.libPkgWizard);
   var packageDef = [];
 
-  var promptForDependency = function (wizard, packageDef)
+  var promptForDependency = function ()
   {
     inquirer.prompt (wizard.dependency, function (answers)
     {
@@ -41,7 +41,7 @@ exports.create = function (packageName)
   {
     answers.package = packageName;
     packageDef.push (answers);
-    promptForDependency (wizard, packageDef);
+    promptForDependency ();
   });
 }
 
