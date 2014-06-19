@@ -8,6 +8,9 @@ var exec   = require ('child_process').exec;
 var depsForZog = [
   'cli-color',
   'commander',
+  'grunt',
+  'grunt-cli',
+  'grunt-newer-explicit',
   'inquirer',
   'js-yaml'
 ];
