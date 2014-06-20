@@ -16,7 +16,7 @@ var wpkgArgs = function (wpkgBin)
   {
     zogLog.info ('wpkg build for ' + packagePath);
 
-    var wpkg = spawn (bin, [arg,  packagePath], { stdio: 'inherit' });
+    var wpkg = spawn (bin, [arg, packagePath], { stdio: 'inherit' });
 
     wpkg.on ('error', function (data)
     {
