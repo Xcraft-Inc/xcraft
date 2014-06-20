@@ -27,8 +27,20 @@ program
            + argsPrettify (zogLokthar.args) + '\n', zogLokthar.action)
 
   .option ('create <package>', 'create a new empty package', zogManager.create)
-  .option ('make [package]', 'make all or only the [package]')
-  .parse (process.argv);
+  .option ('make [package]', 'make all or only the [package]');
+
+program.on ('--help', function ()
+{
+  console.log ('  Examples:');
+  console.log ('');
+  console.log ('    $ zog --lokthar install');
+  console.log ('    $ zog -l run');
+  console.log ('    $ zog create libfoobar');
+  console.log ('    $ zog make');
+  console.log ('');
+});
+
+program.parse (process.argv);
 
 if (program.make)
   zogManager.make (program.make === true ? false : program.make);
