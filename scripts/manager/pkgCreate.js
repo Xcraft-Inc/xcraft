@@ -36,6 +36,12 @@ var inquirerToPackage = function (inquirerPkg)
         packageDef.dependency[it.dependency] = [];
       packageDef.dependency[it.dependency].push (it.version);
     }
+    else if (it.hasOwnProperty ('uri'))
+    {
+      packageDef.data      = {};
+      packageDef.data.uri  = it.uri;
+      packageDef.data.type = it.type;
+    }
   });
 
   return packageDef;
