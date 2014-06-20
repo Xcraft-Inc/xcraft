@@ -45,6 +45,8 @@ module.exports = function (grunt)
 
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
   {
+    var done = this.async ();
+
     zogLog.info ('make the control file for ' + target);
 
     /* Note that this pkgMake will make all architectures for this package.
