@@ -67,7 +67,7 @@ exports.make = function (packageName)
     var gruntFile = path.join (zogConfig.toolchainRoot, 'Gruntfile.js');
     var zogMake   = require (gruntFile)(grunt);
 
-    grunt.tasks ([ 'default' ]);
+    grunt.tasks ([ 'newer' ]);
   }
   else
     pkgControl.pkgMake (packageName);

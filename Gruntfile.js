@@ -57,6 +57,4 @@ module.exports = function (grunt)
      */
     pkgControl.pkgMake (target);
   });
-
-  grunt.registerTask('default', ['newer']);
 };
