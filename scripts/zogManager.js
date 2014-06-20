@@ -63,18 +63,11 @@ exports.make = function (packageName)
   if (packageName == 'all')
   {
     /* We use a grunt task for this job (with mtime check). */
-    var spawn = require ('child_process').spawn;
-    var grunt = spawn ('node', [ zogConfig.binGrunt ], { stdio: 'inherit' });
+    var grunt     = require ('grunt');
+    var gruntFile = path.join (zogConfig.toolchainRoot, 'Gruntfile.js');
+    var zogMake   = require (gruntFile)(grunt);
 
-    grunt.on ('error', function (data)
-    {
-      zogLog.err (data);
-    });
-
-    grunt.on ('close', function (code)
-    {
-      zogLog.info ('grunt task terminated');
-    });
+    grunt.tasks ([ 'default' ]);
   }
   else
     pkgControl.pkgMake (packageName);
