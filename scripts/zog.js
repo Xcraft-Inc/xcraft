@@ -36,7 +36,7 @@ program.on ('--help', function ()
   console.log ('    $ zog --lokthar install');
   console.log ('    $ zog -l run');
   console.log ('    $ zog create libfoobar');
-  console.log ('    $ zog make');
+  console.log ('    $ zog -v 0 make');
   console.log ('');
 });
 
