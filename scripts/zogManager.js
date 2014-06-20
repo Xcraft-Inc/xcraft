@@ -34,8 +34,13 @@ exports.create = function (packageName)
         promptForDependency (wizard, packageDef);
       else
       {
-        zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
-        pkgCreate.pkgTemplate (packageDef);
+        inquirer.prompt (wizard.data, function (answers)
+        {
+          packageDef.push (answers);
+
+          zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
+          pkgCreate.pkgTemplate (packageDef);
+        });
       }
     });
   }
