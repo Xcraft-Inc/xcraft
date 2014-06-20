@@ -18,9 +18,9 @@ exports.header =
     validate: function (value)
     {
       /* Naming rules by Debian:
-       * Must consist only of lower case letters (a-z), digits (0-9), plus (+) and
-       * minus (-) signs, and periods (.). They must be at least two characters long
-       * and must start with an alphanumeric character.
+       * Must consist only of lower case letters (a-z), digits (0-9), plus (+)
+       * and minus (-) signs, and periods (.). They must be at least two
+       * characters long and must start with an alphanumeric character.
        */
       return /^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value);
     }
