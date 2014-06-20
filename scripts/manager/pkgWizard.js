@@ -199,3 +199,33 @@ exports.dependency =
     }
   }
 ];
+
+exports.data =
+[
+  {
+    type: 'input',
+    name: 'uri',
+    message: 'URI',
+  },
+  {
+    type: 'list',
+    name: 'type',
+    message: 'Type of data',
+    /* TOTO: it must be a dynamic list like for the products. */
+    choices:
+    [
+      {
+        name: 'bin'
+      },
+      {
+        name: 'zip'
+      },
+      {
+        name: 'git'
+      },
+      {
+        name: 'svn'
+      }
+    ]
+  }
+];
