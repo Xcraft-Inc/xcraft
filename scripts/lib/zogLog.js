@@ -1,11 +1,12 @@
 
 var mainModuleName = 'zog';
 
+var currentLevel = 1;
+
 module.exports = function (module)
 {
   var moduleName = module;
   var clc = require ('cli-color');
-  var currentLevel = 1;
   var levels =
   [
     clc.cyanBright ('Verb'),
