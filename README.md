@@ -78,7 +78,7 @@ file with your preferred text editor.
 
 For example:
 
-```
+```yaml
 name: libfoobar
 version: 0.1.0
 maintainer:
