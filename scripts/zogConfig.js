@@ -7,7 +7,7 @@ process.chdir (path.join (__dirname, '/..'));
 exports.pkgCfgFileName  = 'config.yaml';
 exports.chestServerName = '127.0.0.1';
 exports.chestServerPort = 8080;
-exports.chestServerPid  = './var/pid/chestd.pid'
+exports.chestServerPid  = './var/run/chestd.pid'
 exports.chestServerRepo = path.resolve ('./chest/');
 
 /* Path helpers. */
