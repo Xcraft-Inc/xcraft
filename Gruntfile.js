@@ -29,7 +29,7 @@ module.exports = function (grunt)
         dest: controlFile,
         options:
         {
-          tasks: [ 'zogMake:' + packageName]
+          tasks: [ 'zogMake:' + packageName ]
         }
       };
       i++;
