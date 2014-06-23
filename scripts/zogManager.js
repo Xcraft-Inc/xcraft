@@ -60,7 +60,7 @@ exports.make = function (packageName)
 {
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
 
-  var pkgControl = require (zogConfig.libPkgControl);
+  var pkgMake = require (zogConfig.libPkgMake);
 
   if (!packageName)
     packageName = 'all';
@@ -75,5 +75,5 @@ exports.make = function (packageName)
     grunt.tasks ([ 'newer' ]);
   }
   else
-    pkgControl.pkgMake (packageName);
+    pkgMake.package (packageName);
 }

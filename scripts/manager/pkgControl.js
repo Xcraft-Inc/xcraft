@@ -147,24 +147,3 @@ exports.controlFiles = function (packageName, saveFiles)
 
   return controlFiles;
 }
-
-exports.pkgMake = function (packageName)
-{
-  try
-  {
-    var controlFiles = exports.controlFiles (packageName, true);
-
-    var wpkgEngine = require ('./wpkgEngine.js');
-    controlFiles.forEach (function (controlFile)
-    {
-      var packagePath = path.resolve (path.dirname (controlFile), '..');
-
-      /* Build the package with wpkg. */
-      wpkgEngine.build (packagePath);
-    });
-  }
-  catch (err)
-  {
-    zogLog.err (err);
-  }
-}

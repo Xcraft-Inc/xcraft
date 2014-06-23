@@ -7,6 +7,7 @@ var zogConfig  = require ('./scripts/zogConfig.js');
 var zogFs      = require (path.join (zogConfig.libRoot, 'zogFs.js'));
 var zogLog     = require (path.join (zogConfig.libRoot, 'zogLog.js'))(moduleName);
 var pkgControl = require (zogConfig.libPkgControl);
+var pkgMake    = require (zogConfig.libPkgMake);
 
 module.exports = function (grunt)
 {
@@ -55,6 +56,6 @@ module.exports = function (grunt)
      * The best way will be to make only the package by architecture. It should
      * be a second argument for pkgMake().
      */
-    pkgControl.pkgMake (target);
+    pkgMake.package (target);
   });
 };
