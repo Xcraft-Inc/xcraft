@@ -158,6 +158,8 @@ exports.pkgMake = function (packageName)
     controlFiles.forEach (function (controlFile)
     {
       var packagePath = path.resolve (path.dirname (controlFile), '..');
+
+      /* Build the package with wpkg. */
       wpkgEngine.build (packagePath);
     });
   }
