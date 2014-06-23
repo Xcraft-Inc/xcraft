@@ -16,7 +16,7 @@ if (process.argv.length < 3)
 
 var argsPrettify = function (args)
 {
-  return clc.blackBright ('[' + args ().toString ().replace (/,/g, ', ') + ']');
+  return clc.cyan ('[' + args ().toString ().replace (/,/g, ', ') + ']');
 }
 
 program
