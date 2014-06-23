@@ -5,6 +5,10 @@ process.chdir (path.join (__dirname, '/..'));
 
 /* Const helpers. */
 exports.pkgCfgFileName  = 'config.yaml';
+exports.chestServerName = '127.0.0.1';
+exports.chestServerPort = 8080;
+exports.chestServerPid  = './var/pid/chestd.pid'
+exports.chestServerRepo = path.resolve ('./chest/');
 
 /* Path helpers. */
 exports.toolchainRoot   = path.resolve ('./');
@@ -14,6 +18,7 @@ exports.nodeModulesRoot = path.resolve ('./node_modules/');
 exports.pkgTempRoot     = path.resolve ('./tmp/');
 exports.pkgBaseRoot     = path.resolve ('./packages/base/');
 exports.pkgProductsRoot = path.resolve ('./packages/products/');
+exports.chestServer     = path.resolve ('./scripts/chest/chestServer.js');
 
 /* Lib helpers. */
 exports.libPkgCreate    = path.resolve ('./scripts/manager/pkgCreate.js');
