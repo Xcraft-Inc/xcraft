@@ -46,7 +46,7 @@ var stage2 = function (error, stdout, stderr)
     });
   }
   else
-    console.log ('[' + moduleName + '] Err: unable to install zog depedencies\n' + stderr);
+    console.log ('[' + moduleName + '] Err: unable to install zog dependencies\n' + stderr);
 }
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
