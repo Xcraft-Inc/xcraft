@@ -66,6 +66,15 @@ cmd.stop = function ()
 }
 
 /**
+ * Restart the chest server.
+ */
+cmd.restart = function ()
+{
+  cmd.stop ();
+  cmd.start ();
+}
+
+/**
  * Send a file to the chest server.
  */
 cmd.send = function (file)
