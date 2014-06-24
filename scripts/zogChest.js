@@ -88,7 +88,10 @@ cmd.send = function (file)
   zogLog.info ('send ' + file + ' to the chest');
 
   var zogHttp = require ('./lib/zogHttp.js');
-  zogHttp.post (file, zogConfig.chestServerName, zogConfig.chestServerPort);
+  zogHttp.post (file,
+                zogConfig.chestServerName,
+                zogConfig.chestServerPort,
+                '/upload');
 }
 
 /**
