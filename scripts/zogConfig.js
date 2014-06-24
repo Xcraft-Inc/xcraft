@@ -13,17 +13,20 @@ module.exports = function ()
   var fs       = require ('fs');
   var inquirer = require ('inquirer');
 
+  var userYaml    = './zog.yaml';
+  var defaultYaml = './scripts/zog.yaml';
+
   var data = '';
 
   try
   {
     /* Try with the user config file if possible. */
-    data = fs.readFileSync ('./zog.yaml', 'utf8');
+    data = fs.readFileSync (userYaml, 'utf8');
   }
   catch (err)
   {
     /* Else, we use the default config file. */
-    data = fs.readFileSync ('./scripts/zog.yaml', 'utf8');
+    data = fs.readFileSync (defaultYaml, 'utf8');
   }
 
   var conf = yaml.safeLoad (data);
@@ -56,7 +59,7 @@ module.exports = function ()
         if (hasChanged)
         {
           data = yaml.safeDump (conf);
-          fs.writeFileSync ('./zog.yaml', data);
+          fs.writeFileSync (userYaml, data);
         }
       });
     },
