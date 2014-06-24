@@ -56,6 +56,9 @@ module.exports = function (grunt)
      * The best way will be to make only the package by architecture. It should
      * be a second argument for pkgMake().
      */
-    pkgMake.package (target);
+    pkgMake.package (target, function (error)
+    {
+      done (error);
+    });
   });
 };

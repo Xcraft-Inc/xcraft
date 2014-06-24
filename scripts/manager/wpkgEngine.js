@@ -7,7 +7,7 @@ var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
 var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'));
 
-var wpkgArgs = function (wpkgBin)
+var wpkgArgs = function (wpkgBin, callbackDone)
 {
   var spawn = require ('child_process').spawn;
   var bin   = wpkgBin;
@@ -31,11 +31,15 @@ var wpkgArgs = function (wpkgBin)
     wpkg.on ('error', function (data)
     {
       zogLog.err (data);
+      if (callbackDone)
+        callbackDone (false);
     });
 
     wpkg.on ('close', function (code)
     {
       zogLog.info ('wpkg build terminated for ' + packagePath);
+      if (callbackDone)
+        callbackDone (true);
     });
   };
 
@@ -47,8 +51,8 @@ var wpkgArgs = function (wpkgBin)
   };
 };
 
-exports.build = function (packagePath)
+exports.build = function (packagePath, callbackDone)
 {
-  var wpkg = new wpkgArgs (path.resolve (zogConfig.toolchainRoot, pkgConfig.out));
+  var wpkg = new wpkgArgs (path.resolve (zogConfig.toolchainRoot, pkgConfig.out), callbackDone);
   wpkg.build (packagePath);
 }
