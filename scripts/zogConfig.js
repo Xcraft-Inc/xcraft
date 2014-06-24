@@ -1,32 +1,89 @@
 
-var path = require ('path');
+var moduleName = 'config';
+
+var path       = require ('path');
+var confWizard = require ('./config/confWizard.js')
+var zogLog     = require ('./lib/zogLog.js')(moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
 
-/* Const helpers. */
-exports.pkgCfgFileName  = 'config.yaml';
-exports.chestServerName = '127.0.0.1';
-exports.chestServerPort = 8080;
-exports.chestServerPid  = path.resolve ('./var/run/chestd.pid');
-exports.chestServerLog  = path.resolve ('./var/log/chestd.log');
-exports.chestServerRepo = path.resolve ('./chest/');
+module.exports = function ()
+{
+  var yaml     = require ('js-yaml');
+  var fs       = require ('fs');
+  var inquirer = require ('inquirer');
 
-/* Path helpers. */
-exports.toolchainRoot   = path.resolve ('./');
-exports.libRoot         = path.resolve ('./scripts/lib/');
-exports.loktharRoot     = path.resolve ('./lokthar/');
-exports.nodeModulesRoot = path.resolve ('./node_modules/');
-exports.pkgTempRoot     = path.resolve ('./var/tmp/wpkg/');
-exports.pkgBaseRoot     = path.resolve ('./packages/base/');
-exports.pkgProductsRoot = path.resolve ('./packages/products/');
-exports.chestServer     = path.resolve ('./scripts/chest/chestServer.js');
+  var data = '';
 
-/* Lib helpers. */
-exports.libPkgCreate    = path.resolve ('./scripts/manager/pkgCreate.js');
-exports.libPkgList      = path.resolve ('./scripts/manager/pkgList.js');
-exports.libPkgWizard    = path.resolve ('./scripts/manager/pkgWizard.js');
-exports.libPkgControl   = path.resolve ('./scripts/manager/pkgControl.js');
-exports.libPkgMake      = path.resolve ('./scripts/manager/pkgMake.js');
+  try
+  {
+    /* Try with the user config file if possible. */
+    data = fs.readFileSync ('./zog.yaml', 'utf8');
+  }
+  catch (err)
+  {
+    /* Else, we use the default config file. */
+    data = fs.readFileSync ('./scripts/zog.yaml', 'utf8');
+  }
 
-/* Bin helpers. */
-exports.binGrunt        = path.join (exports.nodeModulesRoot, 'grunt-cli/bin/grunt');
+  var conf = yaml.safeLoad (data);
+  confWizard.chest.forEach (function (item)
+  {
+    item.default = conf.chest[item.name];
+  });
+
+  return {
+    /* TODO: add support to configure other parts. */
+    configure: function ()
+    {
+      zogLog.info ('configure zog (chest server)');
+
+      inquirer.prompt (confWizard.chest, function (answers)
+      {
+        var hasChanged = false;
+
+        zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
+
+        Object.keys (answers).forEach (function (item)
+        {
+          if (conf.chest[item] !== answers[item])
+          {
+            conf.chest[item] = answers[item];
+            hasChanged = true;
+          }
+        });
+
+        if (hasChanged)
+        {
+          data = yaml.safeDump (conf);
+          fs.writeFileSync ('./zog.yaml', data);
+        }
+      });
+    },
+
+    chest: conf.chest,
+
+    /* FIXME: must have a better handling. */
+    pkgCfgFileName  : 'config.yaml',
+
+    /* Path helpers. */
+    toolchainRoot   : path.resolve ('./'),
+    libRoot         : path.resolve ('./scripts/lib/'),
+    loktharRoot     : path.resolve ('./lokthar/'),
+    nodeModulesRoot : path.resolve ('./node_modules/'),
+    pkgTempRoot     : path.resolve ('./var/tmp/wpkg/'),
+    pkgBaseRoot     : path.resolve ('./packages/base/'),
+    pkgProductsRoot : path.resolve ('./packages/products/'),
+    chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
+
+    /* Lib helpers. */
+    libPkgCreate    : path.resolve ('./scripts/manager/pkgCreate.js'),
+    libPkgList      : path.resolve ('./scripts/manager/pkgList.js'),
+    libPkgWizard    : path.resolve ('./scripts/manager/pkgWizard.js'),
+    libPkgControl   : path.resolve ('./scripts/manager/pkgControl.js'),
+    libPkgMake      : path.resolve ('./scripts/manager/pkgMake.js'),
+
+    /* Bin helpers. */
+    binGrunt        : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
+  };
+}

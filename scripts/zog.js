@@ -9,6 +9,7 @@ var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
 var zogChest   = require ('./zogChest.js');
 var zogLog     = require ('./lib/zogLog.js')('zog');
+var zogConfig  = require ('./zogConfig.js')();
 
 /* Display help if zog is called without argument. */
 if (process.argv.length < 3)
@@ -30,6 +31,7 @@ program
   .option ('-c, --chest <action> [file]', 'manage a file chest '
            + argsPrettify (zogChest.args) + '\n')
 
+  .option ('configure', 'change settings for the toolchain', zogConfig.configure)
   .option ('create <package>', 'create a new empty package', zogManager.create)
   .option ('make [package]', 'make all or only the [package]');
 

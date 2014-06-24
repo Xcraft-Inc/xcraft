@@ -1,5 +1,5 @@
 //Link relative zogConfig lib
-var zogConfig   = require ('../../scripts/zogConfig.js');
+var zogConfig   = require ('../../scripts/zogConfig.js')();
 var app         = angular.module('lokthar', ['ui.router', 'packageManager']);
 
 app.config(function($stateProvider, $urlRouterProvider) {

@@ -1,5 +1,5 @@
 //Link relative zogConfig lib
-var zogConfig     = require ('../../scripts/zogConfig.js');
+var zogConfig     = require ('../../scripts/zogConfig.js')();
 var app           = require('app');
 var ipc           = require('ipc');
 var shell         = require('shell');

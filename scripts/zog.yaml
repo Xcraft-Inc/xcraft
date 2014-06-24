@@ -1,0 +1,6 @@
+chest:
+  host: 127.0.0.1
+  port: 8080
+  pid: ./var/run/chestd.pid
+  log: ./var/log/chestd.log
+  repository: ./chest/

@@ -3,7 +3,7 @@ var moduleName = 'grunt';
 
 var path = require ('path');
 
-var zogConfig  = require ('./scripts/zogConfig.js');
+var zogConfig  = require ('./scripts/zogConfig.js')();
 var zogFs      = require (path.join (zogConfig.libRoot, 'zogFs.js'));
 var zogLog     = require (path.join (zogConfig.libRoot, 'zogLog.js'))(moduleName);
 var pkgControl = require (zogConfig.libPkgControl);

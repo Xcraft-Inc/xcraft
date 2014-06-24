@@ -5,7 +5,7 @@ var fs          = require ('fs');
 var sys         = require ('sys');
 var path        = require ('path');
 var exec        = require ('child_process').exec;
-var zogConfig   = require ('./zogConfig.js');
+var zogConfig   = require ('./zogConfig.js')();
 var zogPlatform = require ('./lib/zogPlatform.js');
 var zogLog      = require ('./lib/zogLog.js')(moduleName);
 
