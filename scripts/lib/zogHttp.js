@@ -7,23 +7,21 @@ var path = require ('path');
 
 var zogLog = require ('../lib/zogLog.js')(moduleName);
 
-exports.get = function (file_url, output_file)
+exports.get = function (fileUrl, outputFile)
 {
   var url   = require ('url');
   var zogFs = require ('./zogFs.js');
 
   var options =
   {
-    host: url.parse (file_url).host,
+    host: url.parse (fileUrl).host,
     port: 80,
-    path: url.parse (file_url).pathname
+    path: url.parse (fileUrl).pathname
   };
 
-  var output_dir = path.dirname (output_file);
-  zogFs.mkdir (output_dir);
+  zogFs.mkdir (path.dirname (outputFile));
 
-  var file_name = url.parse (file_url).pathname.split ('/').pop ();
-  var file = fs.createWriteStream (output_file);
+  var file = fs.createWriteStream (outputFile);
 
   http.get (options, function (res)
   {
