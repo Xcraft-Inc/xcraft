@@ -31,7 +31,7 @@ exports.create = function (packageName)
       packageDef.push (answers);
 
       if (answers.hasDependency)
-        promptForDependency (wizard, packageDef);
+        promptForDependency ();
       else
       {
         inquirer.prompt (wizard.data, function (answers)
