@@ -105,6 +105,9 @@ exports.pkgTemplate = function (inquirerPkg)
                        zogConfig.chest.host,
                        zogConfig.chest.port,
                        file);
+
+          var chestClient = require ('../chest/chestClient.js');
+          chestClient.upload (answers.localPath);
         }
       });
     }
