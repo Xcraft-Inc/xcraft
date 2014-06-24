@@ -1,5 +1,8 @@
 
+var moduleName = 'chest';
+
 var zogConfig = require ('../zogConfig.js')();
+var zogLog    = require ('./lib/zogLog.js')(moduleName);
 
 exports.upload = function (file)
 {
