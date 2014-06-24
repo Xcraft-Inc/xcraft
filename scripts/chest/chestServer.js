@@ -13,6 +13,7 @@ zogLog.color (false);
 zogLog.verb ('settings:');
 zogLog.verb ('  host: ' + zogConfig.chestServerName);
 zogLog.verb ('  port: ' + zogConfig.chestServerPort);
+zogLog.verb ('  repository: ' + zogConfig.chestServerRepo);
 
 zogLog.info ('the chest server is listening');
 
@@ -23,10 +24,9 @@ express.post ('/upload', function (req, res)
   var repoFile = path.join (zogConfig.chestServerRepo, req.headers['zog-upload-filename'])
   var wstream = fs.createWriteStream (repoFile);
 
-  zogLog.info ('start a file upload: %s (%d) by %s',
+  zogLog.info ('start a file upload: %s (%d bytes)',
                req.headers['zog-upload-filename'],
-               req.headers['content-length'],
-               req.headers['host']);
+               req.headers['content-length']);
 
   req.on ('data', function (data)
   {
