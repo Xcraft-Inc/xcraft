@@ -39,8 +39,8 @@ cmd.start = function ()
       return;
   }
 
-  var logout = fs.openSync(zogConfig.chestServerLog, 'a');
-  var logerr = fs.openSync(zogConfig.chestServerLog, 'a');
+  var logout = fs.openSync (zogConfig.chestServerLog, 'a');
+  var logerr = fs.openSync (zogConfig.chestServerLog, 'a');
   var chest = spawn ('node', [ zogConfig.chestServer ],
   {
     detached: true,
