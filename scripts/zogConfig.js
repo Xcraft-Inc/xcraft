@@ -30,16 +30,17 @@ module.exports = function ()
   }
 
   var conf = yaml.safeLoad (data);
-  confWizard.chest.forEach (function (item)
-  {
-    item.default = conf.chest[item.name];
-  });
 
   return {
     /* TODO: add support to configure other parts. */
     configure: function ()
     {
       zogLog.info ('configure zog (chest server)');
+
+      confWizard.chest.forEach (function (item)
+      {
+        item.default = conf.chest[item.name];
+      });
 
       inquirer.prompt (confWizard.chest, function (answers)
       {
