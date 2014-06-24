@@ -43,7 +43,7 @@ exports.create = function (packageName)
         });
       }
     });
-  }
+  };
 
   inquirer.prompt (wizard.header, function (answers)
   {
