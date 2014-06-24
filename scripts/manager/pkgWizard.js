@@ -229,3 +229,22 @@ exports.data =
     ]
   }
 ];
+
+exports.chest =
+[
+  {
+    type: 'confirm',
+    name: 'mustUpload',
+    message: 'Upload your file to the chest server',
+    default: false
+  },
+  {
+    type: 'input',
+    name: 'localPath',
+    message: 'Location on the file to upload',
+    when: function (answers)
+    {
+      return answers.mustUpload;
+    }
+  }
+];
