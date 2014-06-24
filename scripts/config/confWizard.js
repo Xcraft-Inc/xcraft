@@ -4,7 +4,7 @@ exports.chest =
   {
     type: 'input',
     name: 'host',
-    message: 'hostname or IP',
+    message: 'hostname or IP'
   },
   {
     type: 'input',
@@ -14,16 +14,16 @@ exports.chest =
   {
     type: 'input',
     name: 'pid',
-    message: 'pid filename',
+    message: 'pid filename'
   },
   {
     type: 'input',
     name: 'log',
-    message: 'log filename',
+    message: 'log filename'
   },
   {
     type: 'input',
     name: 'repository',
-    message: 'path to the repository',
+    message: 'path to the repository'
   }
 ];
