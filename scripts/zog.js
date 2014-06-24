@@ -22,6 +22,7 @@ var argsPrettify = function (args)
 program
   .version ('0.0.1')
   .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
+  .option ('-n, --nocolor', 'disable the color with the zog outputs')
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.args), zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
@@ -45,6 +46,8 @@ program.on ('--help', function ()
 
 program.parse (process.argv);
 
+if (program.nocolor)
+  zogLog.color (false);
 if (program.make)
   zogManager.make (program.make === true ? false : program.make);
 if (program.chest)
