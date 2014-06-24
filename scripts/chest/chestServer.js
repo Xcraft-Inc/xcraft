@@ -7,12 +7,25 @@ var express   = require ('express')();
 var zogConfig = require ('../zogConfig.js');
 var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
+zogLog.verbosity (0);
+
+zogLog.verb ('settings:');
+zogLog.verb ('  host: ' + zogConfig.chestServerName);
+zogLog.verb ('  port: ' + zogConfig.chestServerPort);
+
+zogLog.info ('the chest server is listening');
+
 express.listen (zogConfig.chestServerPort);
 
 express.post ('/upload', function (req, res)
 {
   var repoFile = path.join (zogConfig.chestServerRepo, req.headers['zog-upload-filename'])
   var wstream = fs.createWriteStream (repoFile);
+
+  zogLog.info ('start a file upload: %s (%d) by %s',
+               req.headers['zog-upload-filename'],
+               req.headers['content-length'],
+               req.headers['host']);
 
   req.on ('data', function (data)
   {
@@ -22,7 +35,10 @@ express.post ('/upload', function (req, res)
   req.on ('end', function ()
   {
     wstream.end ();
-    res.end ("end of file transfer");
+    res.end ("end of file upload");
+
+    zogLog.info ('end of file upload: %s',
+                 req.headers['zog-upload-filename']);
   });
 
   req.on ('error', function (err)

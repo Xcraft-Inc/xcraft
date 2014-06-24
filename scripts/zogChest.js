@@ -39,7 +39,13 @@ cmd.start = function ()
       return;
   }
 
-  var chest = spawn ('node', [ zogConfig.chestServer ], { detached: true, stdio: 'ignore' });
+  var logout = fs.openSync(zogConfig.chestServerLog, 'a');
+  var logerr = fs.openSync(zogConfig.chestServerLog, 'a');
+  var chest = spawn ('node', [ zogConfig.chestServer ],
+  {
+    detached: true,
+    stdio: [ 'ignore', logout, logerr ]
+  });
 
   zogLog.verb ('chest server PID: ' + chest.pid);
   fs.writeFileSync (zogConfig.chestServerPid, chest.pid);
