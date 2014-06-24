@@ -58,7 +58,9 @@ exports.pkgTemplate = function (inquirerPkg)
   var packageDef = inquirerToPackage (inquirerPkg);
   zogLog.verb ('JSON output (package):\n' + JSON.stringify (packageDef, null, '  '));
 
-  var fs = require ('fs');
+  var fs       = require ('fs');
+  var inquirer = require ('inquirer');
+  var wizard   = require (zogConfig.libPkgWizard).chest;
 
   var pkgDir = path.join (zogConfig.pkgProductsRoot, packageDef.name);
 
@@ -86,6 +88,25 @@ exports.pkgTemplate = function (inquirerPkg)
       }
       else
         throw err;
+    }
+
+    /* We look for chest:// and we propose to upload the file. */
+    if (/^chest:\/\//.test (packageDef.data.uri))
+    {
+      var file = packageDef.data.uri.replace (/^chest:\/\//, '');
+
+      inquirer.prompt (wizard, function (answers)
+      {
+        /* Async */
+        if (answers.mustUpload)
+        {
+          zogLog.info ('upload %s to chest://%s:%d/%s',
+                       answers.localPath,
+                       zogConfig.chest.host,
+                       zogConfig.chest.port,
+                       file);
+        }
+      });
     }
 
     var yaml = require ('js-yaml');
