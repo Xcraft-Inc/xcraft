@@ -1,3 +1,3 @@
 @echo off
 
-node scripts\zog.js %*
+node .\scripts\zog.js %*
