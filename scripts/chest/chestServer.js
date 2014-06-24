@@ -9,6 +9,7 @@ var zogLog    = require ('../lib/zogLog.js')(moduleName);
 
 zogLog.verbosity (0);
 zogLog.color (false);
+zogLog.datetime (true);
 
 zogLog.verb ('settings:');
 zogLog.verb ('  host: ' + zogConfig.chestServerName);
