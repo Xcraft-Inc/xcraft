@@ -205,7 +205,7 @@ exports.data =
   {
     type: 'input',
     name: 'uri',
-    message: 'URI',
+    message: 'URI'
   },
   {
     type: 'list',
