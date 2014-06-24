@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/home',
       templateUrl: 'partials/home.html',
-    controller: 'HomeController' 
+    controller: 'HomeController'
     })
     .state('packages', {
       templateUrl: 'partials/packages.html',
@@ -59,7 +59,7 @@ app.controller('HomeController', ['$scope', function ($scope){
   $scope.badge = 'v0.1a';
   $scope.icon = 'home';
   $scope.maximized = false;
-  
+
   $scope.openGitlab = function ()
   {
     var shell = require('shell');
@@ -98,7 +98,7 @@ app.controller('HomeController', ['$scope', function ($scope){
       ipc.send('unmaximize', '');
       $scope.maximized = false;
     }
-    
+
   };
 
   $scope.quit = function ()
@@ -106,7 +106,7 @@ app.controller('HomeController', ['$scope', function ($scope){
     var ipc = require('ipc');
     ipc.send('close-app', '');
   };
-  
+
 }]);
 
 app.controller('AboutController', ['$scope', function ($scope){
