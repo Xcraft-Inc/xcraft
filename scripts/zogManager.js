@@ -24,6 +24,17 @@ exports.create = function (packageName)
   /* The first question is the package's name, then we set the default value. */
   wizard.header[0].default = packageName;
 
+  var promptForData = function ()
+  {
+    inquirer.prompt (wizard.data, function (answers)
+    {
+      packageDef.push (answers);
+
+      zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
+      pkgCreate.pkgTemplate (packageDef);
+    });
+  };
+
   var promptForDependency = function ()
   {
     inquirer.prompt (wizard.dependency, function (answers)
@@ -33,15 +44,7 @@ exports.create = function (packageName)
       if (answers.hasDependency)
         promptForDependency ();
       else
-      {
-        inquirer.prompt (wizard.data, function (answers)
-        {
-          packageDef.push (answers);
-
-          zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
-          pkgCreate.pkgTemplate (packageDef);
-        });
-      }
+        promptForData ();
     });
   };
 
