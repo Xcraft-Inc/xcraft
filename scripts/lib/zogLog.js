@@ -3,6 +3,7 @@ var mainModuleName = 'zog';
 
 var currentLevel = 1;
 var currentUseColor = true;
+var currentUseDatetime = false;
 
 module.exports = function (module)
 {
@@ -39,8 +40,9 @@ module.exports = function (module)
     var zog = whiteBrightBold (mainModuleName);
     var args =
     [
-      zog + ' [%s] %s: ' + format,
+      zog + ' [%s]%s%s: ' + format,
       whiteBrightBold (moduleName),
+      currentUseDatetime ? ' (' + new Date ().toISOString () + ') ' : ' ',
       levels[currentUseColor][level]
     ];
     args = args.concat (Array.prototype.slice.call (arguments, 2));
@@ -79,6 +81,11 @@ module.exports = function (module)
     color: function (useColor)
     {
       currentUseColor = useColor;
+    },
+
+    datetime: function (useDatetime)
+    {
+      currentUseDatetime = useDatetime;
     }
   };
 }
