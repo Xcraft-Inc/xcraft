@@ -10,6 +10,10 @@ exports.chest =
     type: 'input',
     name: 'port',
     message: 'listening port',
+    validate: function (value)
+    {
+      return /^[0-9]{1,}$/.test (value);
+    }
   },
   {
     type: 'input',
