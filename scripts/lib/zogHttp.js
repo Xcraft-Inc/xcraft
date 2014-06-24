@@ -35,13 +35,13 @@ exports.get = function (fileUrl, outputFile)
   });
 }
 
-exports.post = function (inputFile, server, port, path)
+exports.post = function (inputFile, server, port, urlPath)
 {
   var options =
   {
     hostname: server,
     port    : port,
-    path    : path,
+    path    : urlPath,
     method  : 'POST',
     headers :
     {
