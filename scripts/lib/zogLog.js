@@ -2,18 +2,24 @@
 var mainModuleName = 'zog';
 
 var currentLevel = 1;
+var currentUseColor = true;
 
 module.exports = function (module)
 {
   var moduleName = module;
   var clc = require ('cli-color');
+  var levelsText = [ 'Verb', 'Info', 'Warn', 'Err' ];
   var levels =
-  [
-    clc.cyanBright ('Verb'),
-    clc.greenBright ('Info'),
-    clc.yellowBright ('Warn'),
-    clc.redBright ('Err')
-  ];
+  {
+    true:
+    [
+      clc.cyanBright   (levelsText[0]),
+      clc.greenBright  (levelsText[1]),
+      clc.yellowBright (levelsText[2]),
+      clc.redBright    (levelsText[3])
+    ],
+    false: levelsText
+  };
 
   var testLevel = function (level)
   {
@@ -25,8 +31,18 @@ module.exports = function (module)
     if (!testLevel (level))
       return;
 
-    var zog = clc.whiteBright.bold (mainModuleName);
-    var args = [ zog + ' [%s] %s: ' + format, clc.whiteBright.bold (moduleName), levels[level] ];
+    var whiteBrightBold = function (str)
+    {
+      return currentUseColor ? clc.whiteBright.bold (str) : str;
+    };
+
+    var zog = whiteBrightBold (mainModuleName);
+    var args =
+    [
+      zog + ' [%s] %s: ' + format,
+      whiteBrightBold (moduleName),
+      levels[currentUseColor][level]
+    ];
     args = args.concat (Array.prototype.slice.call (arguments, 2));
 
     console.log.apply (this, args);
@@ -58,6 +74,11 @@ module.exports = function (module)
       if (level < 0 || level > 3)
         return;
       currentLevel = level;
+    },
+
+    color: function (useColor)
+    {
+      currentUseColor = useColor;
     }
   };
 }
