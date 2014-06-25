@@ -24,6 +24,19 @@ exports.create = function (packageName)
   /* The first question is the package's name, then we set the default value. */
   wizard.header[0].default = packageName;
 
+  try
+  {
+    var def = pkgControl.loadPackageDef (packageName);
+    wizard.header[1].default = def.version;
+    wizard.header[2].default = def.maintainer.name;
+    wizard.header[3].default = def.maintainer.email;
+    /* FIXME: handle -any architectures. */
+    wizard.header[4].default = def.architecture;
+    wizard.header[5].default = def.description.brief;
+    wizard.header[6].default = def.description.long;
+  }
+  catch (err) {}
+
   var promptForData = function ()
   {
     inquirer.prompt (wizard.data, function (answers)
