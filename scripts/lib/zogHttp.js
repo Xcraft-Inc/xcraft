@@ -40,10 +40,10 @@ exports.post = function (inputFile, server, port, urlPath)
   var options =
   {
     hostname: server,
-    port    : port,
-    path    : urlPath,
-    method  : 'POST',
-    headers :
+    port: port,
+    path: urlPath,
+    method: 'POST',
+    headers:
     {
       'Content-Type'       : 'application/octet-stream',
       'Content-Length'     : fs.statSync (inputFile).size.toString (),
