@@ -85,6 +85,10 @@ cmd.restart = function ()
  */
 cmd.send = function (file)
 {
+  var path = require ('path');
+
+  file = path.resolve (file);
+
   zogLog.info ('send ' + file + ' to the chest');
 
   var chestClient = require ('./chest/chestClient.js');
