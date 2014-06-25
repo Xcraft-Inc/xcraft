@@ -46,8 +46,8 @@ exports.post = function (inputFile, server, port, urlPath)
     rejectUnauthorized: false,
     headers:
     {
-      'Content-Type'       : 'application/octet-stream',
-      'Content-Length'     : fs.statSync (inputFile).size.toString (),
+      'Content-Type': 'application/octet-stream',
+      'Content-Length': fs.statSync (inputFile).size.toString (),
       'Zog-Upload-Filename': path.basename (inputFile)
     }
   };
