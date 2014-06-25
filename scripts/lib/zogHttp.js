@@ -2,13 +2,13 @@
 var moduleName = 'http';
 
 var fs   = require ('fs');
-var http = require ('http');
 var path = require ('path');
 
 var zogLog = require ('../lib/zogLog.js')(moduleName);
 
 exports.get = function (fileUrl, outputFile)
 {
+  var http  = require ('http');
   var url   = require ('url');
   var zogFs = require ('./zogFs.js');
 
@@ -37,6 +37,7 @@ exports.get = function (fileUrl, outputFile)
 
 exports.post = function (inputFile, server, port, urlPath)
 {
+  var http = port == 443 ? require ('https') : require ('http');
   var options =
   {
     hostname: server,
