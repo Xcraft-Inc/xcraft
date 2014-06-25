@@ -1,0 +1,60 @@
+#!/bin/bash
+
+PATH=/home/zog/bin:$PATH
+DAEMON_PATH="/home/zog/bootstrap-nixdev/sysroot/toolchain/"
+
+DAEMON=zog
+PIDFILE="${DAEMON_PATH}var/run/chestd.pid"
+
+NAME=zog
+DESC="The zog chest server"
+SCRIPTNAME=/etc/init.d/$NAME
+
+case "$1" in
+start)
+	printf "%-20s\n" "Starting $NAME..."
+	cd $DAEMON_PATH
+        ./$DAEMON -c start
+	PID=`cat $PIDFILE 2>/dev/null`
+	#echo "Saving PID" $PID " to " $PIDFILE
+        if [ -z $PID ]; then
+            printf "%s\n" "Fail"
+        else
+            echo $PID > $PIDFILE
+            printf "%s\n" "Ok"
+        fi
+;;
+status)
+        printf "%-20s" "Checking $NAME..."
+        if [ -f $PIDFILE ]; then
+            PID=`cat $PIDFILE`
+            if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+                printf "%s\n" "Process dead but pidfile exists"
+            else
+                echo "Running"
+            fi
+        else
+            printf "%s\n" "Service not running"
+        fi
+;;
+stop)
+        printf "%-20s\n" "Stopping $NAME"
+        PID=`cat $PIDFILE 2>/dev/null`
+        cd $DAEMON_PATH
+        ./$DAEMON -c stop
+        if [ -f $PIDFILE ]; then
+            kill -HUP $PID
+            printf "%s\n" "Ok"
+            rm -f $PIDFILE
+        fi
+;;
+
+restart)
+  	$0 stop
+  	$0 start
+;;
+
+*)
+        echo "Usage: $0 {status|start|stop|restart}"
+        exit 1
+esac
