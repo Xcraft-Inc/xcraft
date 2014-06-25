@@ -38,6 +38,8 @@ exports.get = function (fileUrl, outputFile)
 exports.post = function (inputFile, server, port, urlPath)
 {
   var http = port == 443 ? require ('https') : require ('http');
+
+  var length = fs.statSync (inputFile).size;
   var options =
   {
     hostname: server,
@@ -48,7 +50,7 @@ exports.post = function (inputFile, server, port, urlPath)
     headers:
     {
       'Content-Type': 'application/octet-stream',
-      'Content-Length': fs.statSync (inputFile).size.toString (),
+      'Content-Length': length.toString (),
       'Transfer-Encoding': 'chunked',
       'Zog-Upload-Filename': path.basename (inputFile)
     }
