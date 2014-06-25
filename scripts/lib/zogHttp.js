@@ -43,6 +43,7 @@ exports.post = function (inputFile, server, port, urlPath)
     port: port,
     path: urlPath,
     method: 'POST',
+    rejectUnauthorized: false,
     headers:
     {
       'Content-Type'       : 'application/octet-stream',
