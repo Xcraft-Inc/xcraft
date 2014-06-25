@@ -77,9 +77,9 @@ exports.post = function (inputFile, server, port, urlPath)
 
   var stream = fs.createReadStream (inputFile);
 
-  stream.on ('data', function (data)
+  stream.on ('data', function (chunk)
   {
-    request.write (data);
+    request.write (chunk);
   }).on ('end', function ()
   {
     zogLog.verb ('end of http POST request');
