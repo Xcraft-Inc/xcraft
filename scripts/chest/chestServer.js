@@ -29,6 +29,7 @@ app.post ('/upload', function (req, res)
   var file = req.headers['zog-upload-filename'];
   var repoFile = path.join (zogConfig.chest.repository, file);
   var wstream = fs.createWriteStream (repoFile);
+  var mustDrain = false;
 
   zogLog.info ('start a file upload: %s (%d bytes)',
                file, req.headers['content-length']);
@@ -47,12 +48,22 @@ app.post ('/upload', function (req, res)
     else
     {
       if (ok)
-        socketList[file].emit ('received', total);
-      else
+      {
+        if (!mustDrain)
+          socketList[file].emit ('received', total);
+      }
+      else if (!mustDrain)
+      {
+        mustDrain = true;
         wstream.once ('drain', function ()
         {
-          socketList[file].emit ('received', total);
+          if (socketList[file])
+            socketList[file].emit ('received', total);
+          else
+            wstream.end ();
+          mustDrain = false;
         });
+      }
     }
   });
 
