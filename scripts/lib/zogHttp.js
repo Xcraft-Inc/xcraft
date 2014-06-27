@@ -39,7 +39,9 @@ exports.get = function (fileUrl, outputFile)
 
 exports.post = function (inputFile, server, port, urlPath)
 {
-  var http = port == 443 ? require ('https') : require ('http');
+  var protocol = port === 443 ? 'https' : 'http';
+  var http = require (protocol);
+  var progress = require ('progress');
 
   var length = fs.statSync (inputFile).size;
   var options =
@@ -58,33 +60,102 @@ exports.post = function (inputFile, server, port, urlPath)
     }
   };
 
-  var request = http.request (options, function (res)
+  var bar = new progress ('                 uploading [:bar] :percent :etas',
   {
-    var body = '';
-
-    res.on ('data', function (chunk)
-    {
-      body += chunk;
-    }).on ('end', function ()
-    {
-      zogLog.verb (body);
-    }).on ('error', function (err)
-    {
-      zogLog.err ('problem with request: ' + err.message);
-    });
-  }).on ('error', function (err)
-  {
-    zogLog.err ('problem with request: ' + err.message);
+    complete: '=',
+    incomplete: ' ',
+    width: 40,
+    total: length,
+    stream: process.stdout
   });
 
-  var stream = fs.createReadStream (inputFile);
+  var socket = require ('socket.io-client') (protocol + '://' + server + ':' + port);
 
-  stream.on ('data', function (chunk)
+  socket.on ('connect', function ()
   {
-    request.write (chunk);
-  }).on ('end', function ()
-  {
-    zogLog.verb ('end of http POST request');
-    request.end ();
-  })
+    var total = 0;
+
+    zogLog.verb ('connected to the chest server');
+
+    /* We inform the server that we will upload something. */
+    socket.emit ('register', path.basename (inputFile));
+
+    socket.on ('disconnect', function ()
+    {
+      zogLog.verb ('disconnected from the chest server');
+    });
+
+    /* It is the server acknowledge. */
+    socket.on ('registered', function (error)
+    {
+      /* It happens when a file with the same name is already uploaded by
+       * someone else.
+       */
+      if (error)
+      {
+        zogLog.err (error);
+        return;
+      }
+
+      zogLog.info ('begin file upload');
+
+      var stream = fs.createReadStream (inputFile);
+
+      /* The chest server sends the data.length that are saved on its side.
+       * Then it is possible to slow down the reader othwerwise the javascript
+       * garbage collector will use a lot of memory in order to store the
+       * stream (like very large files of several gigabytes).
+       * The server emit the 'received' signal for each chunk of data.
+       */
+      socket.on ('received', function (data)
+      {
+        /* We pause the stream only when the reader is 1.2x faster than the
+         * server.
+         */
+        if (total / data > 1.2)
+          stream.pause ();
+        else
+          stream.resume ();
+      });
+
+      var request = http.request (options, function (res)
+      {
+        var body = '';
+
+        res.on ('data', function (chunk)
+        {
+          body += chunk;
+        });
+
+        res.on ('end', function ()
+        {
+          zogLog.verb (body);
+        });
+
+        res.on ('error', function (err)
+        {
+          zogLog.err ('problem with request: ' + err.message);
+        });
+      });
+
+      request.on ('error', function (err)
+      {
+        zogLog.err ('problem with request: ' + err.message);
+      });
+
+      /* Send the data to the chest server. */
+      stream.on ('data', function (chunk)
+      {
+        request.write (chunk);
+        total += chunk.length;
+        bar.tick (chunk.length);
+      });
+
+      stream.on ('end', function ()
+      {
+        zogLog.verb ('end of the POST request');
+        request.end ();
+      });
+    });
+  });
 }
