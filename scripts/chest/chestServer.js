@@ -35,14 +35,7 @@ app.post ('/upload', function (req, res)
 
   req.on ('data', function (data)
   {
-    var write = function ()
-    {
-      var ok = wstream.write (data);
-
-      if (!ok)
-        wstream.once ('drain', write);
-    }
-
+    var ok = wstream.write (data);
     total += data.length;
 
     if (!socketList[file])
@@ -52,7 +45,15 @@ app.post ('/upload', function (req, res)
       zogLog.warn ('no more socket for ' + file);
     }
     else
-      socketList[file].emit ('received', total);
+    {
+      if (ok)
+        socketList[file].emit ('received', total);
+      else
+        wstream.once ('drain', function ()
+        {
+          socketList[file].emit ('received', total);
+        });
+    }
   });
 
   req.on ('end', function ()
