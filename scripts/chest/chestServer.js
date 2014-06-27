@@ -35,7 +35,14 @@ app.post ('/upload', function (req, res)
 
   req.on ('data', function (data)
   {
-    wstream.write (data);
+    var write = function ()
+    {
+      var ok = wstream.write (data);
+
+      if (!ok)
+        wstream.once ('drain', write);
+    }
+
     total += data.length;
 
     if (!socketList[file])
