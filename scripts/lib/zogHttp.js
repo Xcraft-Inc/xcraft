@@ -39,7 +39,7 @@ exports.get = function (fileUrl, outputFile)
 
 exports.post = function (inputFile, server, port, urlPath)
 {
-  var protocol = port === 443 ? 'https' : 'http';
+  var protocol = port == 443 ? 'https' : 'http';
   var http = require (protocol);
   var progress = require ('progress');
 
