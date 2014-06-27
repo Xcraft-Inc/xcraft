@@ -4,8 +4,8 @@ var moduleName = 'chest';
 var fs        = require ('fs');
 var path      = require ('path');
 var express   = require ('express')();
-var zogConfig = require ('../zogConfig.js')();
-var zogLog    = require ('../lib/zogLog.js')(moduleName);
+var zogConfig = require ('../zogConfig.js') ();
+var zogLog    = require ('../lib/zogLog.js') (moduleName);
 
 zogLog.verbosity (0);
 zogLog.color (false);
