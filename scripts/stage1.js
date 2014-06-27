@@ -13,7 +13,10 @@ var depsForZog = [
   'grunt-cli',
   'grunt-newer-explicit',
   'inquirer',
-  'js-yaml'
+  'js-yaml',
+  'progress',
+  'socket.io',
+  'socket.io-client'
 ];
 
 try
