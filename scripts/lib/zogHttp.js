@@ -125,4 +125,9 @@ exports.post = function (inputFile, server, port, urlPath)
       stream.pipe (progressCalc).pipe (reqFile);
     });
   });
+
+  socket.on ('connect_error', function (error)
+  {
+    zogLog.err (error);
+  });
 }
