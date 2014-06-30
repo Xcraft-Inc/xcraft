@@ -21,6 +21,11 @@ zogLog.info ('the chest server is listening');
 
 var socketList = [];
 
+app.get ('/', function (req, res)
+{
+  res.send ('The zog chest server');
+});
+
 app.post ('/upload', function (req, res)
 {
   var file = req.headers['zog-upload-filename'];
