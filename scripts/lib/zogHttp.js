@@ -69,6 +69,9 @@ exports.post = function (inputFile, server, port, urlPath)
     stream: process.stdout
   });
 
+  /* FIXME: it should be a socket.io-client option. */
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   var socket = require ('socket.io-client') (remoteUri, { reconnection: false });
 
   socket.on ('connect', function ()
