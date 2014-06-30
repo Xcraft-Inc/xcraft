@@ -79,6 +79,9 @@ app.post ('/upload', function (req, res)
 
   req.on ('error', function (err)
   {
+    if (socketList[file])
+      socketList[file].disconnect ();
+
     zogLog.err (err.message);
   });
 });
