@@ -19,8 +19,6 @@ zogLog.verb ('  repository: ' + zogConfig.chest.repository);
 
 zogLog.info ('the chest server is listening');
 
-server.listen (zogConfig.chest.port);
-
 var socketList = [];
 
 app.post ('/upload', function (req, res)
@@ -128,3 +126,5 @@ io.on ('connection', function (socket)
     });
   });
 });
+
+server.listen (zogConfig.chest.port);
