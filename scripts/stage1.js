@@ -15,6 +15,7 @@ var depsForZog = [
   'inquirer',
   'js-yaml',
   'progress',
+  'progress-stream',
   'socket.io',
   'socket.io-client'
 ];
