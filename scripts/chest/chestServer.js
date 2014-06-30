@@ -6,6 +6,7 @@ var path      = require ('path');
 var app       = require ('express') ();
 var server    = require ('http').Server (app);
 var zogConfig = require ('../zogConfig.js') ();
+var zogFs     = require ('../lib/zogFs.js');
 var zogLog    = require ('../lib/zogLog.js') (moduleName);
 
 zogLog.verbosity (0);
@@ -29,6 +30,9 @@ app.get ('/', function (req, res)
 app.post ('/upload', function (req, res)
 {
   var file = req.headers['zog-upload-filename'];
+
+  zogFs.mkdir (zogConfig.chest.repository);
+
   var repoFile = path.join (zogConfig.chest.repository, file);
   var wstream = fs.createWriteStream (repoFile);
 
