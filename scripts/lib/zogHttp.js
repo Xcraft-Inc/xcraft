@@ -123,6 +123,7 @@ exports.post = function (inputFile, server, port, urlPath)
       stream.on ('end', function ()
       {
         zogLog.verb ('end of the POST request');
+        zogLog.info ('the uploaded file is synchronizing in the repository...');
       });
 
       /* Send the file to the server. */
