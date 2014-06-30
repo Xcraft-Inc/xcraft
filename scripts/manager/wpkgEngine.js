@@ -12,11 +12,12 @@ var wpkgArgs = function (wpkgBin, callbackDone)
   var spawn = require ('child_process').spawn;
   var bin   = wpkgBin;
 
-  var run = function (arg, packagePath)
+  var run = function (args, packagePath)
   {
     zogLog.info ('wpkg build for ' + packagePath);
 
-    var wpkg = spawn (bin, [arg, packagePath]);
+    args.push (packagePath);
+    var wpkg = spawn (bin, args);
 
     wpkg.stdout.on ('data', function (data)
     {
@@ -46,7 +47,13 @@ var wpkgArgs = function (wpkgBin, callbackDone)
   return {
     build: function (packagePath)
     {
-      run ('--build', packagePath);
+      var args =
+      [
+        '--output-dir', zogConfig.pkgDebRoot,
+        '--build'
+      ];
+
+      run (args, packagePath);
     }
   };
 };

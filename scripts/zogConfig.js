@@ -76,6 +76,7 @@ module.exports = function ()
     loktharRoot     : path.resolve ('./lokthar/'),
     nodeModulesRoot : path.resolve ('./node_modules/'),
     pkgTempRoot     : path.resolve ('./var/tmp/wpkg/'),
+    pkgDebRoot      : path.resolve ('./var/wpkg/'),
     pkgBaseRoot     : path.resolve ('./packages/base/'),
     pkgProductsRoot : path.resolve ('./packages/products/'),
     chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
