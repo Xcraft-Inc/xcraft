@@ -42,15 +42,16 @@ exports.post = function (inputFile, server, port, urlPath)
   var protocol = port == 443 ? 'https' : 'http';
   var http = require (protocol);
   var progress = require ('progress');
+  var progressStream = require ('progress-stream');
+  var request = require ('request');
 
   var length = fs.statSync (inputFile).size;
+  var remoteUri = protocol + '://' + server + ':' + port;
   var options =
   {
-    hostname: server,
-    port: port,
-    path: urlPath,
+    uri: remoteUri + urlPath,
     method: 'POST',
-    rejectUnauthorized: false,
+    strictSSL: false,
     headers:
     {
       'Content-Type': 'application/octet-stream',
@@ -69,12 +70,10 @@ exports.post = function (inputFile, server, port, urlPath)
     stream: process.stdout
   });
 
-  var socket = require ('socket.io-client') (protocol + '://' + server + ':' + port);
+  var socket = require ('socket.io-client') (remoteUri, { reconnection: false });
 
   socket.on ('connect', function ()
   {
-    var total = 0;
-
     zogLog.verb ('connected to the chest server');
 
     /* We inform the server that we will upload something. */
@@ -100,63 +99,31 @@ exports.post = function (inputFile, server, port, urlPath)
 
       zogLog.info ('begin file upload');
 
+      var progressCalc = progressStream ({ length: length });
+
+      progressCalc.on ('progress', function (progress)
+      {
+        bar.tick (progress.delta);
+      });
+
       var stream = fs.createReadStream (inputFile);
 
-      /* The chest server sends the data.length that are saved on its side.
-       * Then it is possible to slow down the reader othwerwise the javascript
-       * garbage collector will use a lot of memory in order to store the
-       * stream (like very large files of several gigabytes).
-       * The server emit the 'received' signal for each chunk of data.
-       */
-      socket.on ('received', function (data)
+      var reqFile = request (options, function (error, response, body)
       {
-        /* We pause the stream only when the reader is 1.2x faster than the
-         * server.
-         */
-        if (total / data > 1.2)
-          stream.pause ();
-        else
-          stream.resume ();
-      });
+        if (error)
+          zogLog.err ('problem with request: ' + error);
 
-      var request = http.request (options, function (res)
-      {
-        var body = '';
-
-        res.on ('data', function (chunk)
-        {
-          body += chunk;
-        });
-
-        res.on ('end', function ()
-        {
+        if (body)
           zogLog.verb (body);
-        });
-
-        res.on ('error', function (err)
-        {
-          zogLog.err ('problem with request: ' + err.message);
-        });
-      });
-
-      request.on ('error', function (err)
-      {
-        zogLog.err ('problem with request: ' + err.message);
-      });
-
-      /* Send the data to the chest server. */
-      stream.on ('data', function (chunk)
-      {
-        request.write (chunk);
-        total += chunk.length;
-        bar.tick (chunk.length);
       });
 
       stream.on ('end', function ()
       {
         zogLog.verb ('end of the POST request');
-        request.end ();
       });
+
+      /* Send the file to the server. */
+      stream.pipe (progressCalc).pipe (reqFile);
     });
   });
 }
