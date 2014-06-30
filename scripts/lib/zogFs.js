@@ -2,6 +2,11 @@
 var fs   = require ('fs');
 var path = require ('path');
 
+exports.cp = function (src, dst)
+{
+  fs.createReadStream (src).pipe (fs.createWriteStream (dst));
+}
+
 exports.mkdir = function (location, root)
 {
   var zogPlatform = require ('./zogPlatform.js');
