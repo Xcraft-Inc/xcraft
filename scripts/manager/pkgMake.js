@@ -20,7 +20,7 @@ exports.package = function (packageName, callbackDone)
       wpkgEngine.build (packagePath, function (error)
       {
         /* When we reach the last item, then we have done all async work. */
-        if (controlFile == controlFiles[controlFiles.length - 1])
+        if (callbackDone && controlFile == controlFiles[controlFiles.length - 1])
           callbackDone (true);
       });
     });
