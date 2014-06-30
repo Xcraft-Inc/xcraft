@@ -68,6 +68,7 @@ exports.post = function (inputFile, server, port, urlPath)
     total: length,
     stream: process.stdout
   });
+  var progressSpeed = 0;
 
   /* FIXME: it should be a socket.io-client option. */
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -106,6 +107,7 @@ exports.post = function (inputFile, server, port, urlPath)
 
       progressCalc.on ('progress', function (progress)
       {
+        progressSpeed = progress.speed;
         bar.tick (progress.delta);
       });
 
@@ -122,7 +124,7 @@ exports.post = function (inputFile, server, port, urlPath)
 
       stream.on ('end', function ()
       {
-        zogLog.verb ('end of the POST request');
+        zogLog.info ('transfer average speed: %d [Mbps]', parseInt (progressSpeed * 8 / 1000) / 1000);
         zogLog.info ('the uploaded file is synchronizing in the repository...');
       });
 
