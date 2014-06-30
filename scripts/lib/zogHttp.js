@@ -83,7 +83,8 @@ exports.post = function (inputFile, server, port, urlPath)
 
     socket.on ('disconnect', function ()
     {
-      bar.terminate ();
+      if (!bar.complete)
+        bar.terminate ();
       zogLog.verb ('disconnected from the chest server');
     });
 
