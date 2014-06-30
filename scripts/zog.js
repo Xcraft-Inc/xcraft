@@ -23,7 +23,7 @@ var argsPrettify = function (args)
 program
   .version ('0.0.1')
   .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
-  .option ('-n, --nocolor', 'disable the color with the zog outputs')
+  .option ('-n, --nocolor', 'disable the color output')
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.args), zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
@@ -31,8 +31,8 @@ program
   .option ('-c, --chest <action> [file]', 'manage a file chest '
            + argsPrettify (zogChest.args) + '\n')
 
-  .option ('configure', 'change settings for the toolchain', zogConfig.configure)
-  .option ('create <package>', 'create a new empty package', zogManager.create)
+  .option ('configure', 'change settings', zogConfig.configure)
+  .option ('create <package>', 'create or edit a package', zogManager.create)
   .option ('make [package]', 'make all or only the [package]');
 
 program.on ('--help', function ()
