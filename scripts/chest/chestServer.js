@@ -23,47 +23,14 @@ var socketList = [];
 
 app.post ('/upload', function (req, res)
 {
-  var total = 0;
   var file = req.headers['zog-upload-filename'];
   var repoFile = path.join (zogConfig.chest.repository, file);
   var wstream = fs.createWriteStream (repoFile);
-  var mustDrain = false;
 
   zogLog.info ('start a file upload: %s (%d bytes)',
                file, req.headers['content-length']);
 
-  req.on ('data', function (data)
-  {
-    var ok = wstream.write (data);
-    total += data.length;
-
-    if (!socketList[file])
-    {
-      /* The client is disconnected (client problem). */
-      wstream.end ();
-      zogLog.warn ('no more socket for ' + file);
-    }
-    else
-    {
-      if (ok)
-      {
-        if (!mustDrain)
-          socketList[file].emit ('received', total);
-      }
-      else if (!mustDrain)
-      {
-        mustDrain = true;
-        wstream.once ('drain', function ()
-        {
-          if (socketList[file])
-            socketList[file].emit ('received', total);
-          else
-            wstream.end ();
-          mustDrain = false;
-        });
-      }
-    }
-  });
+  req.pipe (wstream);
 
   req.on ('end', function ()
   {
