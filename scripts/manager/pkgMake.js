@@ -9,6 +9,7 @@ var pkgControl = require ('./pkgControl.js');
 
 var copyTemplateFiles = function (packagePath, postInstDir)
 {
+  var fs          = require ('fs');
   var zogPlatform = require ('../lib/zogPlatform.js');
 
   var installerFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgInstaller);
@@ -19,7 +20,12 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   var postinstFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgPostinst);
   var postinstFileOut = path.join (packagePath, 'wpkg', zogConfig.pkgPostinst);
 
-  zogFs.cp (postinstFileIn, postinstFileOut);
+  /* FIXME: experimental, not tested. */
+  var data = fs.readFileSync (postinstFileIn, 'utf8');
+  data = data.replace (/__ACTION__/g, 'install');
+  data = data.replace (/__SYSROOT__/g, '..');
+  data = data.replace (/__PRODUCTSHARE__/g, path.relative (packagePath, postInstDir));
+  fs.writeFileSync (postinstFileOut, data, 'utf8');
 }
 
 exports.package = function (packageName, callbackDone)
