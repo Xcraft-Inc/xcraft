@@ -1,0 +1,8 @@
+@echo off
+
+set PEON=peon.js
+set ACTION=__ACTION__
+set SYSROOT=__SYSROOT__
+set PRODUCTSHARE=__PRODUCTSHARE__
+
+node %SYSROOT%\%PRODUCTSHARE%\%PEON% %ACTION%%
