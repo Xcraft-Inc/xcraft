@@ -1,8 +1,9 @@
 {
   "name": "wpkg",
   "version": "0.9.3",
-  "bin": {
-    "unix": "",
+  "bin":
+  {
+    "unix": "http://softlayer-ams.dl.sourceforge.net/project/unigw/wpkg/0.9.3/wpkg_0.9.3.tar.gz"
     "win": "http://softlayer-ams.dl.sourceforge.net/project/unigw/wpkg/0.9.3/wpkg64_0.9.3.exe"
   },
   "out": "tools/bin/wpkg"
