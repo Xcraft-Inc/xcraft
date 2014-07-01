@@ -1,8 +1,8 @@
 
 var moduleName = 'chest';
 
-var zogConfig = require ('../zogConfig.js')();
-var zogLog    = require ('../lib/zogLog.js')(moduleName);
+var zogConfig = require ('../zogConfig.js') ();
+var zogLog    = require ('../lib/zogLog.js') (moduleName);
 
 var chestUpload = function (inputFile, server, port)
 {
@@ -42,7 +42,10 @@ var chestUpload = function (inputFile, server, port)
   /* FIXME: it should be a socket.io-client option. */
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-  var socket = require ('socket.io-client') (remoteUri, { reconnection: false });
+  var socket = require ('socket.io-client') (remoteUri,
+  {
+    reconnection: false
+  });
 
   socket.on ('connect', function ()
   {
@@ -93,7 +96,8 @@ var chestUpload = function (inputFile, server, port)
 
       stream.on ('end', function ()
       {
-        zogLog.info ('transfer average speed: %d [Mbps]', parseInt (progressSpeed * 8 / 1000) / 1000);
+        zogLog.info ('transfer average speed: %d [Mbps]',
+                     parseInt (progressSpeed * 8 / 1000) / 1000);
         zogLog.info ('the uploaded file is synchronizing in the repository...');
       });
 
