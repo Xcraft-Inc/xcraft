@@ -76,7 +76,7 @@ var chestUpload = function (inputFile, server, port)
 
       progressCalc.on ('progress', function (progress)
       {
-        progressSpeed = progress.speed;
+        progressSpeed = (progressSpeed + progress.speed) / 2;
         bar.tick (progress.delta);
       });
 
