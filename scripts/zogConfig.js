@@ -13,6 +13,8 @@ module.exports = function ()
   var fs       = require ('fs');
   var inquirer = require ('inquirer');
 
+  var zogPlatform = require ('./lib/zogPlatform.js');
+
   var userYaml    = './zog.yaml';
   var defaultYaml = './scripts/zog.yaml';
 
@@ -69,6 +71,8 @@ module.exports = function ()
 
     /* FIXME: must have a better handling. */
     pkgCfgFileName  : 'config.yaml',
+    pkgInstaller    : 'peon.js',
+    pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
 
     /* Path helpers. */
     toolchainRoot   : path.resolve ('./'),
@@ -79,6 +83,7 @@ module.exports = function ()
     pkgDebRoot      : path.resolve ('./var/wpkg/'),
     pkgBaseRoot     : path.resolve ('./packages/base/'),
     pkgProductsRoot : path.resolve ('./packages/products/'),
+    pkgTemplatesRoot: path.resolve ('./templates/wpkg/'),
     chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
 
     /* Lib helpers. */
