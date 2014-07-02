@@ -20,12 +20,21 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   var postinstFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgPostinst);
   var postinstFileOut = path.join (packagePath, 'wpkg', zogConfig.pkgPostinst);
 
+  var placeHolders =
+  {
+    '__INSTALLERJS__' : zogConfig.pkgInstaller,
+    '__ACTION__'      : 'install',
+    '__SYSROOT__'     : '..',
+    '__PRODUCTSHARE__': path.relative (packagePath, postInstDir)
+  };
+
   /* FIXME: experimental, not tested. */
   var data = fs.readFileSync (postinstFileIn, 'utf8');
-  data = data.replace (/__INSTALLERJS__/g, zogConfig.pkgInstaller);
-  data = data.replace (/__ACTION__/g, 'install');
-  data = data.replace (/__SYSROOT__/g, '..');
-  data = data.replace (/__PRODUCTSHARE__/g, path.relative (packagePath, postInstDir));
+  Object.keys (placeHolders).forEach (function (it)
+  {
+    data = data.replace (it, placeHolders[it]);
+  });
+
   fs.writeFileSync (postinstFileOut, data, 'utf8');
 }
 
