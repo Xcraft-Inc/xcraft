@@ -68,12 +68,11 @@ exports.header =
         name: 'all',
       },
       {
-        name: 'mswindows-i386',
+        name: 'win32',
         checked: true
       },
       {
-        name: 'mswindows-amd64',
-        checked: true
+        name: 'win64'
       },
       {
         name: 'linux-i386',
