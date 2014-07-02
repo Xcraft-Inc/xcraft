@@ -3,8 +3,8 @@ var moduleName = 'manager';
 
 var path      = require ('path');
 var util      = require ('util');
-var zogConfig = require ('../zogConfig.js')();
-var zogLog    = require ('../lib/zogLog.js')(moduleName);
+var zogConfig = require ('../zogConfig.js') ();
+var zogLog    = require ('../lib/zogLog.js') (moduleName);
 
 exports.loadPackageDef = function (packageName)
 {

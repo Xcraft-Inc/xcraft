@@ -8,8 +8,8 @@ var zogManager = require ('./zogManager.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
 var zogChest   = require ('./zogChest.js');
-var zogLog     = require ('./lib/zogLog.js')('zog');
-var zogConfig  = require ('./zogConfig.js')();
+var zogLog     = require ('./lib/zogLog.js') ('zog');
+var zogConfig  = require ('./zogConfig.js') ();
 
 /* Display help if zog is called without argument. */
 if (process.argv.length < 3)

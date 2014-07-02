@@ -2,8 +2,8 @@
 var moduleName = 'chest';
 
 var fs        = require ('fs');
-var zogConfig = require ('./zogConfig.js')();
-var zogLog    = require ('./lib/zogLog.js')(moduleName);
+var zogConfig = require ('./zogConfig.js') ();
+var zogLog    = require ('./lib/zogLog.js') (moduleName);
 
 var cmd = {};
 

@@ -2,9 +2,9 @@
 var moduleName = 'wpkg';
 
 var path        = require ('path');
-var zogConfig   = require ('./zogConfig.js')();
+var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('./lib/zogPlatform.js');
-var zogLog      = require ('./lib/zogLog.js')(moduleName);
+var zogLog      = require ('./lib/zogLog.js') (moduleName);
 
 var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json'));
 var cmd = {};
