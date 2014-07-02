@@ -1,6 +1,6 @@
 @echo off
 
-set PEON=peon.js
+set PEON=__INSTALLERJS__
 set ACTION=__ACTION__
 set SYSROOT=__SYSROOT__
 set PRODUCTSHARE=__PRODUCTSHARE__

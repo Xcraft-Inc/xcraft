@@ -22,6 +22,7 @@ var copyTemplateFiles = function (packagePath, postInstDir)
 
   /* FIXME: experimental, not tested. */
   var data = fs.readFileSync (postinstFileIn, 'utf8');
+  data = data.replace (/__INSTALLERJS__/g, zogConfig.pkgInstaller);
   data = data.replace (/__ACTION__/g, 'install');
   data = data.replace (/__SYSROOT__/g, '..');
   data = data.replace (/__PRODUCTSHARE__/g, path.relative (packagePath, postInstDir));
