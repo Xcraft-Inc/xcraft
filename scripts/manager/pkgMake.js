@@ -10,7 +10,7 @@ var pkgControl = require ('./pkgControl.js');
 var copyTemplateFiles = function (packagePath, postInstDir)
 {
   var fs          = require ('fs');
-  var zogPlatform = require ('../lib/zogPlatform.js');
+  var zogPlatform = require ('zogPlatform');
 
   var installerFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgInstaller);
   var installerFileOut = path.join (postInstDir, zogConfig.pkgInstaller);
