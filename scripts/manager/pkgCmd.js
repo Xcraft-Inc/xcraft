@@ -37,26 +37,26 @@ exports.install = function (packageRef)
     return;
   }
 
-    wpkgEngine.admindir (arch, function (done)
+  wpkgEngine.admindir (arch, function (done)
+  {
+    if (!done)
+    {
+      zogLog.err ('impossible to create the admin directory');
+      return;
+    }
+
+    var source = util.format ('wpkg file://%s/ %s',
+                              path.join (zogConfig.pkgDebRoot, arch).replace (/\\/g, '/'),
+                              zogConfig.pkgRepository);
+    wpkgEngine.addSources (source, arch, function (done)
     {
       if (!done)
       {
-        zogLog.err ('impossible to create the admin directory');
+        zogLog.err ('impossible to add de source path');
         return;
       }
 
-      var source = util.format ('wpkg file://%s/ %s',
-                                path.join (zogConfig.pkgDebRoot, arch).replace (/\\/g, '/'),
-                                zogConfig.pkgRepository);
-      wpkgEngine.addSources (source, arch, function (done)
-      {
-        if (!done)
-        {
-          zogLog.err ('impossible to add de source path');
-          return;
-        }
-
-        updateAndInstall (packageName, arch);
-      })
-    });
+      updateAndInstall (packageName, arch);
+    })
+  });
 }
