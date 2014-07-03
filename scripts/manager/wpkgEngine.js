@@ -21,12 +21,26 @@ var wpkgArgs = function (callbackDone)
 
     wpkg.stdout.on ('data', function (data)
     {
-      zogLog.verb (data);
+      data.toString ().trim ().split ('\n').forEach (function (line)
+      {
+        if (/^error/.test (line))
+          zogLog.err (line);
+        else
+          zogLog.verb (line);
+      });
     });
 
     wpkg.stderr.on ('data', function (data)
     {
-      zogLog.info (data);
+      data.toString ().trim ().split ('\n').forEach (function (line)
+      {
+        if (/^wpkg:debug/.test (line))
+          zogLog.verb (line);
+        else if (/^wpkg:info/.test (line))
+          zogLog.info (line);
+        else
+          zogLog.err (line);
+      });
     });
 
     wpkg.on ('error', function (data)
