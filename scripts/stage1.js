@@ -42,7 +42,7 @@ var stage2 = function (error, stdout, stderr)
   {
     console.log ('[' + moduleName + '] Info: end of stage one');
 
-    var zogLog = require ('./lib/zogLog.js')('stage2');
+    var zogLog = require ('zogLog') ('stage2');
 
     zogLog.info ('install wpkg');
     exec ('zog -w install', function (error, stdout, stderr)
