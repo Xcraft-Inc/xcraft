@@ -74,6 +74,54 @@ var wpkgArgs = function (callbackDone)
       ];
 
       run (args, packagePath);
+    },
+
+    install: function (packageName, arch)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--install'
+      ];
+
+      run (args, packageName);
+    },
+
+    admindir: function (controlFile, arch)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--create-admindir'
+      ];
+
+      run (args, controlFile);
+    },
+
+    addSources: function (source, arch)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--add-sources'
+      ];
+
+      run (args, source);
+    },
+
+    update: function (arch)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--update'
+      ];
+
+      run (args);
     }
   };
 };
@@ -82,4 +130,36 @@ exports.build = function (packagePath, callbackDone)
 {
   var wpkg = new wpkgArgs (callbackDone);
   wpkg.build (packagePath);
+}
+
+exports.install = function (packageName, arch, callbackDone)
+{
+  var wpkg = new wpkgArgs (callbackDone);
+  wpkg.install (packageName, arch);
+}
+
+exports.admindir = function (arch, callbackDone)
+{
+  var util = require ('util');
+  var fs   = require ('fs');
+
+  var controlFile = path.join (zogConfig.tempRoot, 'control');
+  var data = util.format ('Architecture: %s\nMaintainer: "Zog Toolchain" <zog@epsitec.ch>\n', arch);
+
+  fs.writeFileSync (controlFile, data);
+
+  var wpkg = new wpkgArgs (callbackDone);
+  wpkg.admindir (controlFile, arch);
+}
+
+exports.addSources = function (sourcePath, arch, callbackDone)
+{
+  var wpkg = new wpkgArgs (callbackDone);
+  wpkg.addSources (sourcePath, arch);
+}
+
+exports.update = function (arch, callbackDone)
+{
+  var wpkg = new wpkgArgs (callbackDone);
+  wpkg.update (arch);
 }

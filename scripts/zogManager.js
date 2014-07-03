@@ -97,3 +97,16 @@ exports.make = function (packageName)
   else
     pkgMake.package (packageName);
 }
+
+/**
+ * Try to install the developement package.
+ * @param {string} packageName
+ */
+exports.install = function (packageRef)
+{
+  zogLog.info ('install developement package: ' + packageRef);
+
+  var pkgCmd = require (zogConfig.libPkgCmd);
+
+  pkgCmd.install (packageRef);
+}

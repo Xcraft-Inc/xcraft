@@ -33,7 +33,8 @@ program
 
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('create <package>', 'create or edit a package', zogManager.create)
-  .option ('make [package]', 'make all or only the [package]');
+  .option ('make [package]', 'make all or only the [package]')
+  .option ('install <package:arch>', 'install the developement <package>', zogManager.install);
 
 program.on ('--help', function ()
 {

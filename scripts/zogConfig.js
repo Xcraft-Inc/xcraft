@@ -86,6 +86,7 @@ module.exports = function ()
     pkgBaseRoot     : path.resolve ('./packages/base/'),
     pkgProductsRoot : path.resolve ('./packages/products/'),
     pkgTemplatesRoot: path.resolve ('./templates/wpkg/'),
+    pkgTargetRoot   : path.resolve ('./var/devroot/'),
     chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
 
     /* Lib helpers. */
@@ -94,6 +95,7 @@ module.exports = function ()
     libPkgWizard    : path.resolve ('./scripts/manager/pkgWizard.js'),
     libPkgControl   : path.resolve ('./scripts/manager/pkgControl.js'),
     libPkgMake      : path.resolve ('./scripts/manager/pkgMake.js'),
+    libPkgCmd       : path.resolve ('./scripts/manager/pkgCmd.js'),
 
     /* Bin helpers. */
     binGrunt        : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
