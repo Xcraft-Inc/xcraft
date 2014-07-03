@@ -104,7 +104,7 @@ exports.make = function (packageName)
  */
 exports.install = function (packageRef)
 {
-  zogLog.info ('install developement package: ' + packageRef);
+  zogLog.info ('install development package: ' + packageRef);
 
   var pkgCmd = require (zogConfig.libPkgCmd);
 
