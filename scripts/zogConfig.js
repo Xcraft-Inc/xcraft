@@ -3,7 +3,7 @@ var moduleName = 'config';
 
 var path       = require ('path');
 var confWizard = require ('./config/confWizard.js')
-var zogLog     = require ('./lib/zogLog.js') (moduleName);
+var zogLog     = require ('zogLog') (moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
 
@@ -13,7 +13,7 @@ module.exports = function ()
   var fs       = require ('fs');
   var inquirer = require ('inquirer');
 
-  var zogPlatform = require ('./lib/zogPlatform.js');
+  var zogPlatform = require ('zogPlatform');
 
   var userYaml    = './zog.yaml';
   var defaultYaml = './scripts/zog.yaml';

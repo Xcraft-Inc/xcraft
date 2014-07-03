@@ -3,8 +3,8 @@ var moduleName = 'manager';
 
 var path       = require ('path');
 var zogConfig  = require ('../zogConfig.js') ();
-var zogFs      = require ('../lib/zogFs.js');
-var zogLog     = require ('../lib/zogLog.js') (moduleName);
+var zogFs      = require ('zogFs');
+var zogLog     = require ('zogLog') (moduleName);
 var pkgControl = require ('./pkgControl.js');
 
 var copyTemplateFiles = function (packagePath, postInstDir)

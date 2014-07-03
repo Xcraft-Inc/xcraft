@@ -3,7 +3,7 @@ var moduleName = 'manager';
 
 var path      = require ('path');
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('../lib/zogLog.js') (moduleName);
+var zogLog    = require ('zogLog') (moduleName);
 
 var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'));
 

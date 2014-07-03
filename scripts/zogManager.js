@@ -5,7 +5,7 @@ var path     = require ('path');
 var inquirer = require ('inquirer');
 
 var zogConfig = require ('./zogConfig.js') ();
-var zogLog    = require ('./lib/zogLog.js') (moduleName);
+var zogLog    = require ('zogLog') (moduleName);
 var pkgCreate = require (zogConfig.libPkgCreate);
 
 process.chdir (path.join (__dirname, '/..'));

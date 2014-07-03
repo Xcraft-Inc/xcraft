@@ -6,8 +6,8 @@ var path      = require ('path');
 var app       = require ('express') ();
 var server    = require ('http').Server (app);
 var zogConfig = require ('../zogConfig.js') ();
-var zogFs     = require ('../lib/zogFs.js');
-var zogLog    = require ('../lib/zogLog.js') (moduleName);
+var zogFs     = require ('zogFs');
+var zogLog    = require ('zogLog') (moduleName);
 
 zogLog.verbosity (0);
 zogLog.color (false);

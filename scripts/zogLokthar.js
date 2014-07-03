@@ -6,8 +6,8 @@ var sys         = require ('sys');
 var path        = require ('path');
 var exec        = require ('child_process').exec;
 var zogConfig   = require ('./zogConfig.js') ();
-var zogPlatform = require ('./lib/zogPlatform.js');
-var zogLog      = require ('./lib/zogLog.js') (moduleName);
+var zogPlatform = require ('zogPlatform');
+var zogLog      = require ('zogLog') (moduleName);
 
 var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
 var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');

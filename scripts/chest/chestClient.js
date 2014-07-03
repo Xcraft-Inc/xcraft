@@ -2,7 +2,7 @@
 var moduleName = 'chest';
 
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('../lib/zogLog.js') (moduleName);
+var zogLog    = require ('zogLog') (moduleName);
 
 var chestUpload = function (inputFile, server, port)
 {

@@ -4,7 +4,7 @@ var moduleName = 'manager';
 var path      = require ('path');
 var util      = require ('util');
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('../lib/zogLog.js') (moduleName);
+var zogLog    = require ('zogLog') (moduleName);
 
 /**
  * Convert an inquirer answer to a package definition.

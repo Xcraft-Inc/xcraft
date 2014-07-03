@@ -4,7 +4,7 @@ var moduleName = 'manager';
 var path      = require ('path');
 var util      = require ('util');
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('../lib/zogLog.js') (moduleName);
+var zogLog    = require ('zogLog') (moduleName);
 
 exports.loadPackageDef = function (packageName)
 {
@@ -120,7 +120,7 @@ exports.controlFiles = function (packageName, saveFiles)
     zogLog.info ('save the control files for ' + packageName);
 
   var fs    = require ('fs');
-  var zogFs = require ('../lib/zogFs.js');
+  var zogFs = require ('zogFs');
 
   var def     = exports.loadPackageDef (packageName);
   var control = defToControl (def);
