@@ -61,12 +61,16 @@ var wpkgArgs = function (callbackDone)
   return {
     build: function (packagePath)
     {
+      var pathObj = packagePath.split (path.sep);
+
+      /* Retrieve the architecture which is in the packagePath. */
+      var arch = pathObj[pathObj.length - 2];
       var args =
       [
         '--verbose',
         '--build',
-        '--create-index', 'index.tar',
-        '--output-repository-dir', zogConfig.pkgDebRoot
+        '--create-index', path.join (zogConfig.pkgRepository, 'index.tar.gz'),
+        '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch)
       ];
 
       run (args, packagePath);
