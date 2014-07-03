@@ -68,8 +68,7 @@ exports.header =
         name: 'all',
       },
       {
-        name: 'win32',
-        checked: true
+        name: 'win32'
       },
       {
         name: 'win64'
