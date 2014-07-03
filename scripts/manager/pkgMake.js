@@ -86,6 +86,7 @@ var copyZogModules = function (postInstDir)
     var outDir = path.join (postInstDir, 'node_modules', mod);
 
     zogLog.verb (inDir + ' -> ' + outDir);
+    zogFs.mkdir (outDir);
     wrench.copyDirSyncRecursive (inDir, outDir,
     {
       forceDelete: true
