@@ -26,7 +26,7 @@ var wpkgArgs = function (wpkgBin, callbackDone)
 
     wpkg.stderr.on ('data', function (data)
     {
-      zogLog.err (data);
+      zogLog.info (data);
     });
 
     wpkg.on ('error', function (data)
