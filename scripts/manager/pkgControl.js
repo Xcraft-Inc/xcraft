@@ -35,7 +35,8 @@ var defToControl = function (packageDef)
     'architecture': 'Architecture',
     'maintainer'  : 'Maintainer',
     'description' : 'Description',
-    'dependency'  : 'Depends'
+    'dependency'  : 'Depends',
+    'distribution': 'Distribution'
   };
 
   var controlList = {};

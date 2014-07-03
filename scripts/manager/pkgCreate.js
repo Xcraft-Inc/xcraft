@@ -47,6 +47,8 @@ var inquirerToPackage = function (inquirerPkg)
     }
   });
 
+  packageDef.distribution = 'toolchain';
+
   return packageDef;
 }
 
