@@ -4,12 +4,12 @@ exports.chest =
   {
     type: 'input',
     name: 'host',
-    message: 'hostname or IP'
+    message: 'hostname or IP [client or server]:'
   },
   {
     type: 'input',
     name: 'port',
-    message: 'listening port',
+    message: 'listening port [client or server]:',
     validate: function (value)
     {
       return /^[0-9]{1,}$/.test (value);
@@ -18,16 +18,16 @@ exports.chest =
   {
     type: 'input',
     name: 'pid',
-    message: 'pid filename'
+    message: 'pid filename [server]:'
   },
   {
     type: 'input',
     name: 'log',
-    message: 'log filename'
+    message: 'log filename [server]:'
   },
   {
     type: 'input',
     name: 'repository',
-    message: 'path to the repository'
+    message: 'path to the repository [server]:'
   }
 ];
