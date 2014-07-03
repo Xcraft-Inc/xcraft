@@ -18,7 +18,8 @@ var depsForZog = [
   'progress-stream',
   'request',
   'socket.io',
-  'socket.io-client'
+  'socket.io-client',
+  'wrench'
 ];
 
 try
