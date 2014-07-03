@@ -17,7 +17,7 @@ cmd.install = function ()
   var inputFile  = pkgConfig.bin[zogPlatform.getOs ()];
   var outputFile = path.normalize (pkgConfig.out);
 
-  var zogHttp = require ('./lib/zogHttp.js');
+  var zogHttp = require ('zogHttp');
   zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt ());
 }
 
