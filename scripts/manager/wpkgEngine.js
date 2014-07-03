@@ -14,7 +14,7 @@ var wpkgArgs = function (callbackDone)
 
   var run = function (args, packagePath)
   {
-    zogLog.info ('wpkg build for ' + packagePath);
+    zogLog.info ('wpkg command for ' + packagePath);
 
     args.push (packagePath);
     var wpkg = spawn (bin, args);
@@ -38,7 +38,7 @@ var wpkgArgs = function (callbackDone)
 
     wpkg.on ('close', function (code)
     {
-      zogLog.info ('wpkg build terminated for ' + packagePath);
+      zogLog.info ('wpkg command terminated for ' + packagePath);
       if (callbackDone)
         callbackDone (true);
     });
