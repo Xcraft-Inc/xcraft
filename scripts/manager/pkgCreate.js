@@ -38,8 +38,8 @@ var inquirerToPackage = function (inquirerPkg)
     }
     else if (it.hasOwnProperty ('uri'))
     {
-      packageDef.data      = {};
-      packageDef.data.uri  = it.uri;
+      packageDef.data              = {};
+      packageDef.data.uri          = it.uri;
       packageDef.data.type         = it.fileType;
     }
   });
