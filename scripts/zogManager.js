@@ -86,7 +86,7 @@ exports.make = function (packageName)
     /* We use a grunt task for this job (with mtime check). */
     var grunt     = require ('grunt');
     var gruntFile = path.join (zogConfig.toolchainRoot, 'Gruntfile.js');
-    var zogMake   = require (gruntFile)(grunt);
+    var zogMake   = require (gruntFile) (grunt);
 
     grunt.tasks ([ 'newer' ]);
   }
