@@ -80,6 +80,7 @@ module.exports = function ()
     libRoot         : path.resolve ('./scripts/lib/'),
     loktharRoot     : path.resolve ('./lokthar/'),
     nodeModulesRoot : path.resolve ('./node_modules/'),
+    tempRoot        : path.resolve ('./var/tmp/'),
     pkgTempRoot     : path.resolve ('./var/tmp/wpkg/'),
     pkgDebRoot      : path.resolve ('./var/wpkg/'),
     pkgBaseRoot     : path.resolve ('./packages/base/'),
