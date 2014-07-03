@@ -216,7 +216,7 @@ exports.data =
         name: 'bin'
       },
       {
-        name: 'zip'
+        name: 'src'
       },
       {
         name: 'git'
@@ -225,6 +225,34 @@ exports.data =
         name: 'svn'
       }
     ]
+  },
+  {
+    type: 'list',
+    name: 'installType',
+    message: 'How to install',
+    /* TODO: it must be a dynamic list like for the products. */
+    choices:
+    [
+      {
+        name: 'exec'
+      },
+      {
+        name: 'copy'
+      }
+    ],
+    when: function (answers)
+    {
+      return answers.fileType == 'bin';
+    }
+  },
+  {
+    type: 'input',
+    name: 'installArgs',
+    message: 'Arguments for the installer',
+    when: function (answers)
+    {
+      return answers.installType == 'exec';
+    }
   }
 ];
 
