@@ -7,10 +7,10 @@ var zogLog    = require ('zogLog') (moduleName);
 
 var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'));
 
-var wpkgArgs = function (wpkgBin, callbackDone)
+var wpkgArgs = function (callbackDone)
 {
   var spawn = require ('child_process').spawn;
-  var bin   = wpkgBin;
+  var bin   = path.resolve (zogConfig.toolchainRoot, pkgConfig.out);
 
   var run = function (args, packagePath)
   {
@@ -62,6 +62,6 @@ var wpkgArgs = function (wpkgBin, callbackDone)
 
 exports.build = function (packagePath, callbackDone)
 {
-  var wpkg = new wpkgArgs (path.resolve (zogConfig.toolchainRoot, pkgConfig.out), callbackDone);
+  var wpkg = new wpkgArgs (callbackDone);
   wpkg.build (packagePath);
 }
