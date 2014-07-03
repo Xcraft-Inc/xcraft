@@ -74,6 +74,25 @@ var createConfigJson = function (packageName, postInstDir)
   fs.writeFileSync (outFile, data, 'utf8');
 }
 
+var copyZogModules = function (postInstDir)
+{
+  var wrench = require ('wrench');
+
+  var zogModules = zogFs.lsdir (zogConfig.nodeModulesRoot, /^zog/);
+
+  zogModules.forEach (function (mod)
+  {
+    var inDir  = path.join (zogConfig.nodeModulesRoot, mod);
+    var outDir = path.join (postInstDir, 'node_modules', mod);
+
+    zogLog.verb (inDir + ' -> ' + outDir);
+    wrench.copyDirSyncRecursive (inDir, outDir,
+    {
+      forceDelete: true
+    });
+  });
+}
+
 exports.package = function (packageName, callbackDone)
 {
   try
@@ -95,6 +114,7 @@ exports.package = function (packageName, callbackDone)
       copyTemplateFiles (packagePath, postInstDir);
 
       createConfigJson (packageName, postInstDir);
+      copyZogModules (postInstDir);
 
       /* Build the package with wpkg. */
       wpkgEngine.build (packagePath, function (error)
