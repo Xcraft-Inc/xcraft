@@ -207,7 +207,7 @@ exports.data =
   },
   {
     type: 'list',
-    name: 'type',
+    name: 'fileType',
     message: 'Type of data',
     /* TODO: it must be a dynamic list like for the products. */
     choices:

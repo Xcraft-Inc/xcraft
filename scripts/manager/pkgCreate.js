@@ -40,7 +40,7 @@ var inquirerToPackage = function (inquirerPkg)
     {
       packageDef.data      = {};
       packageDef.data.uri  = it.uri;
-      packageDef.data.type = it.type;
+      packageDef.data.type         = it.fileType;
     }
   });
 
