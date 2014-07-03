@@ -73,6 +73,7 @@ module.exports = function ()
     pkgCfgFileName  : 'config.yaml',
     pkgInstaller    : 'peon.js',
     pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
+    pkgRepository   : 'toolchain',
 
     /* Path helpers. */
     toolchainRoot   : path.resolve ('./'),

@@ -47,7 +47,7 @@ var inquirerToPackage = function (inquirerPkg)
     }
   });
 
-  packageDef.distribution = 'toolchain';
+  packageDef.distribution = zogConfig.pkgRepository;
 
   return packageDef;
 }
