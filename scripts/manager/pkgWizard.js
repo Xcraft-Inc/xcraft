@@ -209,7 +209,7 @@ exports.data =
     type: 'list',
     name: 'type',
     message: 'Type of data',
-    /* TOTO: it must be a dynamic list like for the products. */
+    /* TODO: it must be a dynamic list like for the products. */
     choices:
     [
       {
