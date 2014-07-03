@@ -40,14 +40,16 @@ var copyTemplateFiles = function (packagePath, postInstDir)
 
 var createConfigJson = function (packageName, postInstDir)
 {
-  var fs = require ('fs');
+  var fs  = require ('fs');
+  var url = require ('url');
 
   var def = pkgControl.loadPackageDef (packageName);
   var config = {};
 
   var uri = '';
 
-  if (/^chest:\/\//.test (def.data.uri))
+  var uriObj = url.parse (def.data.uri)
+  if (uriObj.protocol == 'chest:')
   {
     var util = require ('util');
 
