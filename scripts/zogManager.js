@@ -26,6 +26,7 @@ exports.create = function (packageName)
 
   try
   {
+    var pkgControl = require (zogConfig.libPkgControl);
     var def = pkgControl.loadPackageDef (packageName);
     wizard.header[1].default = def.version;
     wizard.header[2].default = def.maintainer.name;
