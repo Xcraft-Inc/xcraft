@@ -35,7 +35,10 @@ exports.create = function (packageName)
     wizard.header[5].default = def.description.brief;
     wizard.header[6].default = def.description.long;
   }
-  catch (err) {}
+  catch (err)
+  {
+    zogLog.err (err);
+  }
 
   var promptForData = function ()
   {
