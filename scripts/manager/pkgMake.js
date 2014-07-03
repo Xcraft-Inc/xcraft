@@ -38,6 +38,40 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   fs.writeFileSync (postinstFileOut, data, 'utf8');
 }
 
+var createConfigJson = function (packageName, postInstDir)
+{
+  var fs = require ('fs');
+
+  var def = pkgControl.loadPackageDef (packageName);
+  var config = {};
+
+  var uri = '';
+
+  if (/^chest:\/\//.test (def.data.uri))
+  {
+    var util = require ('util');
+
+    var protocol = 'http';
+    if (zogConfig.chest.port == 443)
+      protocol = 'https';
+
+    var server = util.format ('%s://%s:%d/',
+                              protocol,
+                              zogConfig.chest.host,
+                              zogConfig.chest.port);
+
+    uri = def.data.uri.replace ('chest://', server);
+  }
+  else
+    uri = def.data.uri
+
+  config.uri = uri;
+
+  var data = JSON.stringify (config, null, 2);
+  var outFile = path.join (postInstDir, 'config.json');
+  fs.writeFileSync (outFile, data, 'utf8');
+}
+
 exports.package = function (packageName, callbackDone)
 {
   try
@@ -57,6 +91,8 @@ exports.package = function (packageName, callbackDone)
        * a web-package and (or) an installer (msi-like) is used for example.
        */
       copyTemplateFiles (packagePath, postInstDir);
+
+      createConfigJson (packageName, postInstDir);
 
       /* Build the package with wpkg. */
       wpkgEngine.build (packagePath, function (error)
