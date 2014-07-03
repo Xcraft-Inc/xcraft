@@ -49,8 +49,9 @@ var wpkgArgs = function (wpkgBin, callbackDone)
     {
       var args =
       [
-        '--output-dir', zogConfig.pkgDebRoot,
-        '--build'
+        '--build',
+        '--create-index', 'index.tar',
+        '--output-repository-dir', zogConfig.pkgDebRoot
       ];
 
       run (args, packagePath);
