@@ -31,7 +31,12 @@ exports.install = function (packageRef)
   /* FIXME: check the architecture validity. */
 
   /* Check if the admindir exists; create if necessary. */
-  if (!fs.existsSync (path.join (zogConfig.pkgTargetRoot, arch, 'var', 'lib', 'wpkg')))
+  if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, arch, 'var', 'lib', 'wpkg')))
+  {
+    updateAndInstall (packageName, arch);
+    return;
+  }
+
     wpkgEngine.admindir (arch, function (done)
     {
       if (!done)
@@ -54,6 +59,4 @@ exports.install = function (packageRef)
         updateAndInstall (packageName, arch);
       })
     });
-  else
-    updateAndInstall (packageName, arch);
 }
