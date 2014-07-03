@@ -1,5 +1,5 @@
 
-var moduleName = 'manager';
+var moduleName = 'wpkg';
 
 var path      = require ('path');
 var zogConfig = require ('../zogConfig.js') ();
