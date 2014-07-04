@@ -100,6 +100,7 @@ var wpkgArgs = function (callbackDone)
       [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--repository', path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository),
         '--install'
       ];
 
