@@ -186,8 +186,25 @@ exports.build = function (packagePath, callbackDone)
 
 exports.install = function (packageName, arch, callbackDone)
 {
-  var wpkg = new wpkgArgs (callbackDone);
-  wpkg.install (packageName, arch);
+  var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
+  var list = [];
+
+  var wpkg = new wpkgArgs (function (done)
+  {
+    var debFile = list[packageName];
+    if (!debFile)
+    {
+      zogLog.warn ('the package %s is unavailable', packageName);
+      return;
+    }
+
+    debFile = path.join (repositoryPath, debFile);
+
+    var wpkg = new wpkgArgs (callbackDone);
+    wpkg.install (debFile, arch);
+  });
+
+  wpkg.listIndexPackages (repositoryPath, arch, list);
 }
 
 exports.createAdmindir = function (arch, callbackDone)
