@@ -28,7 +28,11 @@ exports.install = function (packageRef)
 
   zogLog.verb ('install package name: ' + packageName + ' on architecture: ' + arch);
 
-  /* FIXME: check the architecture validity. */
+  if (zogConfig.architectures.indexOf (arch) == -1)
+  {
+    zogLog.err ('the architecture ' + arch + ' is unknown');
+    return;
+  }
 
   /* Check if the admindir exists; create if necessary. */
   if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, arch, 'var', 'lib', 'wpkg')))
