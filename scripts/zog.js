@@ -32,9 +32,9 @@ program
            + argsPrettify (zogChest.args) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
-  .option ('create <package>', 'create or edit a package', zogManager.create)
+  .option ('create <package>', 'create or edit a package definition', zogManager.create)
   .option ('make [package]', 'make all or only the [package]')
-  .option ('install <package:arch>', 'install the development <package>', zogManager.install);
+  .option ('install <package:arch>', 'install the <package>', zogManager.install);
 
 program.on ('--help', function ()
 {
