@@ -115,3 +115,33 @@ exports.install = function (packageRef)
 
   pkgCmd.install (packageRef);
 }
+
+/**
+ * Remove all the generated files.
+ */
+exports.clean = function ()
+{
+  var wrench = require ('wrench');
+  var zogFs  = require ('zogFs');
+  var fs     = require ('fs');
+
+  zogLog.info ('clean all generated files');
+
+  zogLog.verb ('delete ' + zogConfig.pkgTargetRoot);
+  wrench.rmdirSyncRecursive (zogConfig.pkgTargetRoot, true);
+
+  zogLog.verb ('delete ' + zogConfig.pkgDebRoot);
+  wrench.rmdirSyncRecursive (zogConfig.pkgDebRoot, true);
+
+  zogFs.ls (zogConfig.tempRoot, /^(?!.*\.gitignore)/).forEach (function (file)
+  {
+    file = path.join (zogConfig.tempRoot, file);
+    zogLog.verb ('delete ' + file);
+
+    var st = fs.statSync (file);
+    if (st.isDirectory (file))
+      wrench.rmdirSyncRecursive (file, true);
+    else
+      fs.unlinkSync (file);
+  });
+}

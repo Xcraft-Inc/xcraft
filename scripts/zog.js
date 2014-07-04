@@ -34,10 +34,18 @@ program
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('create <package>', 'create or edit a package definition', zogManager.create)
   .option ('make [package]', 'make all or only the [package]')
-  .option ('install <package:arch>', 'install the <package>', zogManager.install);
+  .option ('install <package:arch>', 'install the <package>', zogManager.install)
+  .option ('clean', 'remove the devroot, the repository and the packages', zogManager.clean);
 
 program.on ('--help', function ()
 {
+  console.log ('  Informations:');
+  console.log ('');
+  console.log ('    Please be careful when using `zog clean` because the installed packages');
+  console.log ('    are not removed properly. For example, if a MSI was installed by a package,');
+  console.log ('    it will remains in the system. The reason is that only the devroot/ is');
+  console.log ('    deleted regardless of wpkg.');
+  console.log ('');
   console.log ('  Examples:');
   console.log ('');
   console.log ('    $ zog --lokthar install');
