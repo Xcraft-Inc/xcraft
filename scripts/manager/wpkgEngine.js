@@ -155,7 +155,7 @@ var wpkgArgs = function (callbackDone)
       {
         stdout.forEach (function (item)
         {
-          var result = item.match (/.* ([^ _]*)([^ ]*)\.ctrl$/)
+          var result = item.trim ().match (/.* ([^ _]*)([^ ]*)\.ctrl$/)
           var deb  = result[1] + result[2] + '.deb';
           var name = result[1];
 
