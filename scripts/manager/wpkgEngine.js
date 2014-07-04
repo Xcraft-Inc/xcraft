@@ -59,21 +59,28 @@ var wpkgArgs = function (callbackDone)
   };
 
   return {
-    build: function (packagePath)
+    build: function (packagePath, arch)
     {
-      var pathObj = packagePath.split (path.sep);
-
-      /* Retrieve the architecture which is in the packagePath. */
-      var arch = pathObj[pathObj.length - 2];
       var args =
       [
         '--verbose',
         '--build',
-        '--create-index', path.join (zogConfig.pkgRepository, 'index.tar.gz'),
         '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch)
       ];
 
       run (args, packagePath);
+    },
+
+    createIndex: function (repositoryPath, indexName)
+    {
+      var args =
+      [
+        '--verbose',
+        '--repository', repositoryPath,
+        '--create-index'
+      ];
+
+      run (args, path.join (repositoryPath, indexName));
     },
 
     install: function (packageName, arch)
@@ -128,8 +135,20 @@ var wpkgArgs = function (callbackDone)
 
 exports.build = function (packagePath, callbackDone)
 {
-  var wpkg = new wpkgArgs (callbackDone);
-  wpkg.build (packagePath);
+  var pathObj = packagePath.split (path.sep);
+
+  /* Retrieve the architecture which is in the packagePath. */
+  var arch = pathObj[pathObj.length - 2];
+
+  var wpkg = new wpkgArgs (function (done)
+  {
+    var wpkg = new wpkgArgs (callbackDone);
+    var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
+
+    wpkg.createIndex (repositoryPath, 'index.tar.gz');
+  });
+
+  wpkg.build (packagePath, arch);
 }
 
 exports.install = function (packageName, arch, callbackDone)
