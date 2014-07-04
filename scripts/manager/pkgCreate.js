@@ -43,7 +43,7 @@ var inquirerToPackage = function (inquirerPkg)
       packageDef.data.type         = it.fileType;
       packageDef.data.install      = {};
       packageDef.data.install.type = it.installType;
-      packageDef.data.install.args = it.installArgs;
+      packageDef.data.install.args = it.installArgs || '';
     }
   });
 
