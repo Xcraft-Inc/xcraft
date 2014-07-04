@@ -144,7 +144,10 @@ exports.createAdmindir = function (arch, callbackDone)
   var fs   = require ('fs');
 
   var controlFile = path.join (zogConfig.tempRoot, 'control');
-  var data = util.format ('Architecture: %s\nMaintainer: "Zog Toolchain" <zog@epsitec.ch>\n', arch);
+  var data = util.format ('Architecture: %s\n' +
+                          'Maintainer: "Zog Toolchain" <zog@epsitec.ch>\n' +
+                          'Distribution: %s\n',
+                          arch, zogConfig.pkgRepository);
 
   fs.writeFileSync (controlFile, data);
 
