@@ -37,7 +37,7 @@ exports.install = function (packageRef)
     return;
   }
 
-  wpkgEngine.admindir (arch, function (done)
+  wpkgEngine.createAdmindir (arch, function (done)
   {
     if (!done)
     {

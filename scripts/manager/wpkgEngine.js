@@ -88,7 +88,7 @@ var wpkgArgs = function (callbackDone)
       run (args, packageName);
     },
 
-    admindir: function (controlFile, arch)
+    createAdmindir: function (controlFile, arch)
     {
       var args =
       [
@@ -138,7 +138,7 @@ exports.install = function (packageName, arch, callbackDone)
   wpkg.install (packageName, arch);
 }
 
-exports.admindir = function (arch, callbackDone)
+exports.createAdmindir = function (arch, callbackDone)
 {
   var util = require ('util');
   var fs   = require ('fs');
@@ -149,7 +149,7 @@ exports.admindir = function (arch, callbackDone)
   fs.writeFileSync (controlFile, data);
 
   var wpkg = new wpkgArgs (callbackDone);
-  wpkg.admindir (controlFile, arch);
+  wpkg.createAdmindir (controlFile, arch);
 }
 
 exports.addSources = function (sourcePath, arch, callbackDone)
