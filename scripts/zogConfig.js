@@ -89,6 +89,7 @@ module.exports = function ()
     pkgInstaller    : 'peon.js',
     pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
     pkgRepository   : 'toolchain/',
+    pkgIndex        : 'index.tar.gz',
 
     /* Path helpers. */
     toolchainRoot   : path.resolve ('./'),

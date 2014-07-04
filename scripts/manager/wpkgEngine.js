@@ -152,7 +152,7 @@ var wpkgArgs = function (callbackDone)
         '--list-index-packages'
       ];
 
-      run (args, path.join (repositoryPath, 'index.tar.gz'), function (stdout)
+      run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (stdout)
       {
         stdout.forEach (function (item)
         {
@@ -179,7 +179,7 @@ exports.build = function (packagePath, callbackDone)
     var wpkg = new wpkgArgs (callbackDone);
     var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
 
-    wpkg.createIndex (repositoryPath, 'index.tar.gz');
+    wpkg.createIndex (repositoryPath, zogConfig.pkgIndex);
   });
 
   wpkg.build (packagePath, arch);
