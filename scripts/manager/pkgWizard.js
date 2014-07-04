@@ -61,47 +61,19 @@ exports.header =
     type: 'checkbox',
     name: 'architecture',
     message: 'Host architecture',
-    choices:
-    [
-      new inquirer.Separator ('== Common =='),
+    choices: function ()
+    {
+      var list = [];
+
+      list.push ({ name: 'all' });
+      list.push (new inquirer.Separator ('== Architectures =='));
+      zogConfig.architectures.forEach (function (arch)
       {
-        name: 'all',
-      },
-      {
-        name: 'win32'
-      },
-      {
-        name: 'win64'
-      },
-      {
-        name: 'linux-i386',
-      },
-      {
-        name: 'linux-amd64',
-      },
-      {
-        name: 'darwin-i386',
-      },
-      {
-        name: 'darwin-amd64',
-      },
-      {
-        name: 'source'
-      },
-      new inquirer.Separator ('== Extras =='),
-      {
-        name: 'solaris-i386',
-      },
-      {
-        name: 'solaris-amd64',
-      },
-      {
-        name: 'freebsd-i386',
-      },
-      {
-        name: 'freebsd-amd64',
-      }
-    ],
+        list.push ({ name: arch });
+      });
+
+      return list;
+    },
     validate: function (value)
     {
       if (value.length < 1)
