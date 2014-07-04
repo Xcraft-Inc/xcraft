@@ -12,8 +12,10 @@ var wpkgArgs = function (callbackDone)
   var spawn = require ('child_process').spawn;
   var bin   = path.resolve (zogConfig.toolchainRoot, pkgConfig.out);
 
-  var run = function (args, packagePath)
+  var run = function (args, packagePath, callbackStdout)
   {
+    var dataStdout = [];
+
     zogLog.info ('wpkg command for ' + packagePath);
 
     args.push (packagePath);
@@ -23,6 +25,9 @@ var wpkgArgs = function (callbackDone)
     {
       data.toString ().trim ().split ('\n').forEach (function (line)
       {
+        if (callbackStdout)
+          dataStdout.push (line);
+
         if (/^error/.test (line))
           zogLog.err (line);
         else
@@ -46,6 +51,9 @@ var wpkgArgs = function (callbackDone)
     wpkg.on ('error', function (data)
     {
       zogLog.err (data);
+
+      if (callbackStdout)
+        callbackStdout (dataStdout);
       if (callbackDone)
         callbackDone (false);
     });
@@ -53,6 +61,9 @@ var wpkgArgs = function (callbackDone)
     wpkg.on ('close', function (code)
     {
       zogLog.info ('wpkg command terminated for ' + packagePath);
+
+      if (callbackStdout)
+        callbackStdout (dataStdout);
       if (callbackDone)
         callbackDone (true);
     });
@@ -129,6 +140,28 @@ var wpkgArgs = function (callbackDone)
       ];
 
       run (args);
+    },
+
+    listIndexPackages: function (repositoryPath, arch, listOut)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--list-index-packages'
+      ];
+
+      run (args, path.join (repositoryPath, 'index.tar.gz'), function (stdout)
+      {
+        stdout.forEach (function (item)
+        {
+          var result = item.match (/.* ([^ _]*)([^ ]*)\.ctrl$/)
+          var deb  = result[1] + result[2] + '.deb';
+          var name = result[1];
+
+          listOut[name] = deb;
+        });
+      });
     }
   };
 };
