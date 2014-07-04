@@ -67,6 +67,21 @@ module.exports = function ()
       });
     },
 
+    architectures:
+    [
+      'win32',
+      'win64',
+      'linux-i386',
+      'linux-amd64',
+      'darwin-i386',
+      'darwin-amd64',
+      'solaris-i386',
+      'solaris-amd64',
+      'freebsd-i386',
+      'freebsd-amd64',
+      'source'
+    ],
+
     chest: conf.chest,
 
     /* FIXME: must have a better handling. */
