@@ -83,7 +83,7 @@ var wpkgArgs = function (callbackDone)
       run (args, path.join (repositoryPath, indexName));
     },
 
-    install: function (packageName, arch)
+    install: function (packagePath, arch)
     {
       var args =
       [
@@ -92,7 +92,7 @@ var wpkgArgs = function (callbackDone)
         '--install'
       ];
 
-      run (args, packageName);
+      run (args, packagePath);
     },
 
     createAdmindir: function (controlFile, arch)
