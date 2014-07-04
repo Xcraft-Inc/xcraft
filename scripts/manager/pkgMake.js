@@ -98,11 +98,14 @@ exports.package = function (packageName, callbackDone)
 {
   try
   {
+    var i = 0;
     var controlFiles = pkgControl.controlFiles (packageName, true);
 
     var wpkgEngine = require ('./wpkgEngine.js');
-    controlFiles.forEach (function (controlFile)
+
+    var nextCtrlFile = function ()
     {
+      var controlFile = controlFiles[i];
       var packagePath = path.resolve (path.dirname (controlFile), '..');
 
       /* Reserved directory for the post-installer. */
@@ -121,10 +124,20 @@ exports.package = function (packageName, callbackDone)
       wpkgEngine.build (packagePath, function (error)
       {
         /* When we reach the last item, then we have done all async work. */
-        if (callbackDone && controlFile == controlFiles[controlFiles.length - 1])
-          callbackDone (true);
+        if (i == controlFiles.length - 1)
+        {
+          if (callbackDone)
+            callbackDone (true);
+        }
+        else
+        {
+          i++;
+          nextCtrlFile ();
+        }
       });
-    });
+    };
+
+    nextCtrlFile ();
   }
   catch (err)
   {
