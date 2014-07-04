@@ -176,6 +176,9 @@ exports.build = function (packagePath, callbackDone)
 
   var wpkg = new wpkgArgs (function (done)
   {
+    if (!done)
+      return;
+
     var wpkg = new wpkgArgs (callbackDone);
     var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
 
@@ -192,6 +195,9 @@ exports.install = function (packageName, arch, callbackDone)
 
   var wpkg = new wpkgArgs (function (done)
   {
+    if (!done)
+      return;
+
     var debFile = list[packageName];
     if (!debFile)
     {
