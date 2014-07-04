@@ -28,8 +28,9 @@ var wpkgArgs = function (callbackDone)
   var run = function (args, lastArg, callbackStdout)
   {
     var dataStdout = [];
+    var cmdName = args[args.length - 1];
 
-    zogLog.info ('wpkg command for ' + lastArg);
+    zogLog.info ('begin command ' + cmdName);
 
     args.push (lastArg);
     var wpkg = spawn (bin, args);
@@ -73,7 +74,7 @@ var wpkgArgs = function (callbackDone)
 
     wpkg.on ('close', function (code)
     {
-      zogLog.info ('wpkg command terminated for ' + lastArg);
+      zogLog.info ('end command ' + cmdName);
 
       if (callbackStdout)
         callbackStdout (dataStdout);
@@ -88,8 +89,8 @@ var wpkgArgs = function (callbackDone)
       var args =
       [
         '--verbose',
-        '--build',
-        '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch)
+        '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch),
+        '--build'
       ];
 
       run (args, packagePath);
