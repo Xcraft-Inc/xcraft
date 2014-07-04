@@ -30,14 +30,14 @@ exports.create = function (packageName)
 
     try
     {
-    var def = pkgControl.loadPackageDef (packageName);
-    wizard.header[1].default = def.version;
-    wizard.header[2].default = def.maintainer.name;
-    wizard.header[3].default = def.maintainer.email;
-    /* FIXME: handle -any architectures. */
-    wizard.header[4].default = def.architecture;
-    wizard.header[5].default = def.description.brief;
-    wizard.header[6].default = def.description.long;
+      var def = pkgControl.loadPackageDef (packageName);
+      wizard.header[1].default = def.version;
+      wizard.header[2].default = def.maintainer.name;
+      wizard.header[3].default = def.maintainer.email;
+      /* FIXME: handle -any architectures. */
+      wizard.header[4].default = def.architecture;
+      wizard.header[5].default = def.description.brief;
+      wizard.header[6].default = def.description.long;
     }
     catch (err) {}
   }
