@@ -261,6 +261,7 @@ exports.createAdmindir = function (arch, callbackDone)
 {
   var util = require ('util');
   var fs   = require ('fs');
+  var zogFs = require ('zogFs');
 
   /* This control file is used in order to create a new admin directory. */
   var controlFile = path.join (zogConfig.tempRoot, 'control');
@@ -270,6 +271,9 @@ exports.createAdmindir = function (arch, callbackDone)
                           arch, zogConfig.pkgRepository);
 
   fs.writeFileSync (controlFile, data);
+
+  /* Create the target directory. */
+  zogFs.mkdir (path.join (zogConfig.pkgTargetRoot, arch));
 
   var wpkg = new wpkgArgs (callbackDone);
   wpkg.createAdmindir (controlFile, arch);
