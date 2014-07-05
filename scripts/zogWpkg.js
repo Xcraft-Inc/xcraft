@@ -2,6 +2,7 @@
 var moduleName = 'wpkg';
 
 var path        = require ('path');
+var spawn       = require ('child_process').spawn;
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
@@ -9,16 +10,134 @@ var zogLog      = require ('zogLog') (moduleName);
 var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json'));
 var cmd = {};
 
+
+/* TODO: must be generic. */
+var makeRun = function ()
+{
+  zogLog.info ('begin building of wpkg')
+
+  var os = require ('os');
+  var make = spawn ('make', [ '-j', os.cpus ().length, 'all', 'install' ]);
+
+  make.stdout.on ('data', function (data)
+  {
+    data.toString ().trim ().split ('\n').forEach (function (line)
+    {
+      zogLog.verb (line);
+    });
+  });
+
+  make.stderr.on ('data', function (data)
+  {
+    data.toString ().trim ().split ('\n').forEach (function (line)
+    {
+      zogLog.err (line);
+    });
+  });
+
+  make.on ('error', function (data)
+  {
+    zogLog.err (data);
+  });
+
+  make.on ('close', function (code)
+  {
+    zogLog.info ('wpkg is built and installed')
+  });
+}
+
+/* TODO: must be generic. */
+var cmakeRun = function (error)
+{
+  if (error)
+  {
+    zogLog.err (error);
+    return;
+  }
+
+  var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+
+  /* FIXME, TODO: use a backend (a module) for building with cmake. */
+  /* cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . && make all install */
+
+  var zogFs = require ('zogFs');
+  var buildDir = path.join (srcDir, '..', 'BUILD');
+  zogFs.mkdir (buildDir);
+
+  var args =
+  [
+    '-DCMAKE_INSTALL_PREFIX:PATH=' + path.resolve (pkgConfig.out, '..', '..'),
+    srcDir
+  ];
+
+  process.chdir (buildDir);
+  var cmake = spawn ('cmake', args);
+
+  cmake.stdout.on ('data', function (data)
+  {
+    data.toString ().trim ().split ('\n').forEach (function (line)
+    {
+      zogLog.verb (line);
+    });
+  });
+
+  cmake.stderr.on ('data', function (data)
+  {
+    data.toString ().trim ().split ('\n').forEach (function (line)
+    {
+      zogLog.err (line);
+    });
+  });
+
+  cmake.on ('error', function (data)
+  {
+    zogLog.err (data);
+  });
+
+  cmake.on ('close', function (code)
+  {
+    makeRun ();
+  });
+}
+
 /**
  * Install the wpkg package.
  */
 cmd.install = function ()
 {
-  var inputFile  = pkgConfig.bin[zogPlatform.getOs ()];
-  var outputFile = path.normalize (pkgConfig.out);
-
   var zogHttp = require ('zogHttp');
-  zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt ());
+  var os = zogPlatform.getOs ();
+
+  /* FIXME: use the sources with Windows too. */
+  if (os == 'win')
+  {
+    var inputFile  = pkgConfig.bin[os];
+    var outputFile = path.normalize (pkgConfig.out);
+
+    zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt ());
+  }
+  else
+  {
+    var archive = path.basename (pkgConfig.src);
+    var inputFile  = pkgConfig.src;
+    var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
+
+    zogHttp.get (inputFile, outputFile, function ()
+    {
+      /* FIXME: use a generic way (a module) for decompressing. */
+      var ext = path.extname (archive).replace (/\./g, '');
+      if (ext == 'gz')
+        ext = 'targz';
+
+      var decompress = require ('decompress');
+      var decomp = new decompress ();
+      decomp
+        .src (outputFile)
+        .dest (path.dirname (outputFile))
+        .use (decompress[ext] ({ strip: 0 }))
+        .decompress (cmakeRun);
+    });
+  }
 }
 
 /**
