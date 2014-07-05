@@ -259,8 +259,8 @@ exports.install = function (packageName, arch, callbackDone)
  */
 exports.createAdmindir = function (arch, callbackDone)
 {
-  var util = require ('util');
-  var fs   = require ('fs');
+  var util  = require ('util');
+  var fs    = require ('fs');
   var zogFs = require ('zogFs');
 
   /* This control file is used in order to create a new admin directory. */
