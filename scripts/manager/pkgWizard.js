@@ -66,6 +66,7 @@ exports.header =
       var list = [];
 
       list.push ({ name: 'all' });
+      list.push ({ name: 'source' });
       list.push (new inquirer.Separator ('== Architectures =='));
       zogConfig.architectures.forEach (function (arch)
       {

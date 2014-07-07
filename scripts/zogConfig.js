@@ -78,8 +78,7 @@ module.exports = function ()
       'solaris-i386',
       'solaris-amd64',
       'freebsd-i386',
-      'freebsd-amd64',
-      'source'
+      'freebsd-amd64'
     ],
 
     chest: conf.chest,
