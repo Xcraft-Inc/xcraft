@@ -27,6 +27,12 @@ var makeRun = function ()
   {
     if (done)
       zogLog.info ('wpkg is built and installed');
+  }, function (line)
+  {
+    zogLog.verb (line);
+  }, function (line)
+  {
+    zogLog.err (line);
   });
 }
 
@@ -59,6 +65,12 @@ var cmakeRun = function (error)
   {
     if (done)
       makeRun ();
+  }, function (line)
+  {
+    zogLog.verb (line);
+  }, function (line)
+  {
+    zogLog.err (line);
   });
 }
 
