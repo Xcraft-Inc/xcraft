@@ -23,7 +23,7 @@ var wpkgArgs = function (callbackDone)
    * @param {string[]} args - Arguments.
    * @param {string} [lastArg] - The last argument.
    * @param {function(stdout)} [callbackStdout]
-   * @param {string[]} callbackStdout.list - Array of stdout lines.
+   * @param {string[]} callbackStdout.line - The current stdout line.
    */
   var run = function (args, lastArg, callbackStdout)
   {
