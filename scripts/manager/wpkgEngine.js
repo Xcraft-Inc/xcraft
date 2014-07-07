@@ -35,10 +35,10 @@ var wpkgArgs = function (callbackDone)
     var wpkg = zogProcess.spawn (bin, args, function (done)
     {
       /* When the call is terminated. */
+      zogLog.info ('end command ' + cmdName);
+
       if (callbackDone)
         callbackDone (done);
-
-      zogLog.info ('end command ' + cmdName);
     }, function (line)
     {
       /* For each line in stdout. */
