@@ -130,7 +130,7 @@ exports.controlFiles = function (packageName, saveFiles)
 
   Object.keys (control).forEach (function (arch)
   {
-    var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, 'WPKG');
+    var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, zogConfig.pkgWPKG);
     var controlFile = path.join (controlDir, 'control');
 
     if (saveFiles)

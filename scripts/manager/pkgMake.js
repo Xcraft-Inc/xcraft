@@ -18,7 +18,7 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   zogFs.cp (installerFileIn, installerFileOut);
 
   var postinstFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgPostinst);
-  var postinstFileOut = path.join (packagePath, 'WPKG', zogConfig.pkgPostinst);
+  var postinstFileOut = path.join (packagePath, zogConfig.pkgWPKG, zogConfig.pkgPostinst);
 
   var placeHolders =
   {
