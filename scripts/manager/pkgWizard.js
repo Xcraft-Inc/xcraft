@@ -196,6 +196,15 @@ exports.data =
   },
   {
     type: 'input',
+    name: 'installBin',
+    message: 'Installer file name',
+    when: function (answers)
+    {
+      return answers.installType == 'exec';
+    }
+  },
+  {
+    type: 'input',
     name: 'installArgs',
     message: 'Arguments for the installer',
     when: function (answers)
