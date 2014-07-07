@@ -122,6 +122,7 @@ exports.controlFiles = function (packageName, saveFiles)
 
   var fs    = require ('fs');
   var zogFs = require ('zogFs');
+  var zogPlatform = require ('zogPlatform');
 
   var def     = exports.loadPackageDef (packageName);
   var control = defToControl (def);
@@ -130,6 +131,19 @@ exports.controlFiles = function (packageName, saveFiles)
 
   Object.keys (control).forEach (function (arch)
   {
+    /* Check OS support; we consider that Windows packages can be built only
+     * with Windows. The first reason is the post/pre scripts which have not the
+     * same name that on unix (.bat suffix under Windows).
+     */
+    var os = zogPlatform.getOs ();
+    if (   os == 'win' && !/^win/.test (arch)
+        || os != 'win' &&  /^win/.test (arch))
+    {
+      zogLog.warn ('package \'%s\' for %s unsupported on %s',
+                   packageName, arch, os);
+      return;
+    }
+
     var controlDir  = path.join (zogConfig.pkgTempRoot, arch, packageName, zogConfig.pkgWPKG);
     var controlFile = path.join (controlDir, 'control');
 
