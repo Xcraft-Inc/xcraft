@@ -15,5 +15,6 @@ data:
   type: bin
   install:
     type: exec
+    bin: winexpress_full.exe
     args: /Passive /NoRestart /NoRefresh /NoWeb /Full
 distribution: toolchain/
