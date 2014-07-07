@@ -15,8 +15,8 @@ var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'
  */
 var wpkgArgs = function (callbackDone)
 {
-  var spawn = require ('child_process').spawn;
-  var bin   = path.resolve (zogConfig.toolchainRoot, pkgConfig.out);
+  var zogProcess = require ('zogProcess');
+  var bin = path.resolve (zogConfig.toolchainRoot, pkgConfig.out);
 
   /**
    * Spawn wpkg and handle the outputs.
@@ -27,59 +27,37 @@ var wpkgArgs = function (callbackDone)
    */
   var run = function (args, lastArg, callbackStdout)
   {
-    var dataStdout = [];
     var cmdName = args[args.length - 1];
 
     zogLog.info ('begin command ' + cmdName);
 
     args.push (lastArg);
-    var wpkg = spawn (bin, args);
-
-    wpkg.stdout.on ('data', function (data)
+    var wpkg = zogProcess.spawn (bin, args, function (done)
     {
-      data.toString ().trim ().split ('\n').forEach (function (line)
-      {
-        if (callbackStdout)
-          dataStdout.push (line);
-
-        if (/^error/.test (line))
-          zogLog.err (line);
-        else
-          zogLog.verb (line);
-      });
-    });
-
-    wpkg.stderr.on ('data', function (data)
-    {
-      data.toString ().trim ().split ('\n').forEach (function (line)
-      {
-        if (/^wpkg:debug/.test (line))
-          zogLog.verb (line);
-        else if (/^wpkg:info/.test (line))
-          zogLog.info (line);
-        else
-          zogLog.err (line);
-      });
-    });
-
-    wpkg.on ('error', function (data)
-    {
-      zogLog.err (data);
-
-      if (callbackStdout)
-        callbackStdout (dataStdout);
+      /* When the call is terminated. */
       if (callbackDone)
-        callbackDone (false);
-    });
+        callbackDone (done);
 
-    wpkg.on ('close', function (code)
-    {
       zogLog.info ('end command ' + cmdName);
+    }, function (line)
+    {
+      /* For each line in stdout. */
+      if (/^error/.test (line))
+        zogLog.err (line);
+      else
+        zogLog.verb (line);
 
       if (callbackStdout)
-        callbackStdout (dataStdout);
-      if (callbackDone)
-        callbackDone (true);
+        callbackStdout (line)
+    }, function (line)
+    {
+      /* For each line in stderr. */
+      if (/^wpkg:debug/.test (line))
+        zogLog.verb (line);
+      else if (/^wpkg:info/.test (line))
+        zogLog.info (line);
+      else
+        zogLog.err (line);
     });
   };
 
@@ -166,16 +144,13 @@ var wpkgArgs = function (callbackDone)
         '--list-index-packages'
       ];
 
-      run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (stdout)
+      run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (line)
       {
-        stdout.forEach (function (item)
-        {
           var result = item.trim ().match (/.* ([^ _]*)([^ ]*)\.ctrl$/)
           var deb  = result[1] + result[2] + '.deb';
           var name = result[1];
 
           listOut[name] = deb;
-        });
       });
     }
   };
