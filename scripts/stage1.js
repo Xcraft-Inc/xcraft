@@ -2,8 +2,8 @@
 
 var moduleName = 'stage1';
 
-var sys    = require ('sys');
-var exec   = require ('child_process').exec;
+var sys = require ('sys');
+var zogProcess = require ('zogProcess');
 
 var depsForZog = [
   'cli-color',
@@ -36,32 +36,45 @@ catch (err)
 /**
  * The second stage installs wpkg.
  */
-var stage2 = function (error, stdout, stderr)
+var stage2 = function ()
 {
-  console.log ('[' + moduleName + '] Verb: zog dependencies outputs:\n' + stdout);
+  console.log ('[' + moduleName + '] Info: end of stage one');
 
-  if (error === null)
+  var zogLog = require ('zogLog') ('stage2');
+  zogLog.verbosity (0);
+
+  zogLog.info ('install wpkg');
+  var args =
+  [
+    '-v0',
+    '-w',
+    'install'
+  ];
+  zogProcess.spawn ('./zog', args, null, function (line)
   {
-    console.log ('[' + moduleName + '] Info: end of stage one');
-
-    var zogLog = require ('zogLog') ('stage2');
-    zogLog.verbosity (0);
-
-    zogLog.info ('install wpkg');
-    exec ('./zog -v0 -w install', function (error, stdout, stderr)
-    {
-      zogLog.verb ('wpkg install outputs:\n' + stdout);
-    });
-  }
-  else
-    console.log ('[' + moduleName + '] Err: unable to install zog dependencies\n' + stderr);
+    console.log (line);
+  }, function (line)
+  {
+    console.log (line);
+  });
 }
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
 try
 {
-  var list = depsForZog.toString ().replace (/,/g, ' ');
-  exec ('npm install ' + list, stage2);
+  var args = [ 'install' ];
+  args = args.concat (depsForZog);
+
+  zogProcess.spawn ('npm', args, function (done)
+  {
+   stage2 ();
+  }, function (line)
+  {
+    console.log ('[' + moduleName + '] Verb: ' + line);
+  }, function (line)
+  {
+    console.log ('[' + moduleName + '] Err: ' + line);
+  });
 }
 catch (err)
 {
