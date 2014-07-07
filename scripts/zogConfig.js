@@ -69,8 +69,8 @@ module.exports = function ()
 
     architectures:
     [
-      'win32',
-      'win64',
+      'win32-i386',
+      'win64-amd64',
       'linux-i386',
       'linux-amd64',
       'darwin-i386',
