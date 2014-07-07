@@ -40,10 +40,7 @@ var makeRun = function ()
 var cmakeRun = function (error)
 {
   if (error)
-  {
     zogLog.err (error);
-    return;
-  }
 
   var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
 
