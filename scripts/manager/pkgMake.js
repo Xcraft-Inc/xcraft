@@ -44,11 +44,11 @@ var createConfigJson = function (packageName, postInstDir)
   var url = require ('url');
 
   var def = pkgControl.loadPackageDef (packageName);
-  var config = {};
+  var config = def.data;
 
   var uri = '';
 
-  var uriObj = url.parse (def.data.uri)
+  var uriObj = url.parse (config.uri)
   if (uriObj.protocol == 'chest:')
   {
     var util = require ('util');
@@ -62,12 +62,8 @@ var createConfigJson = function (packageName, postInstDir)
                               zogConfig.chest.host,
                               zogConfig.chest.port);
 
-    uri = def.data.uri.replace ('chest://', server);
+    config.uri = config.uri.replace ('chest://', server);
   }
-  else
-    uri = def.data.uri
-
-  config.uri = uri;
 
   var data = JSON.stringify (config, null, 2);
   var outFile = path.join (postInstDir, 'config.json');
