@@ -2,7 +2,7 @@
 var moduleName = 'wpkg';
 
 var path        = require ('path');
-var spawn       = require ('child_process').spawn;
+var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
@@ -17,32 +17,16 @@ var makeRun = function ()
   zogLog.info ('begin building of wpkg')
 
   var os = require ('os');
-  var make = spawn ('make', [ '-j', os.cpus ().length, 'all', 'install' ]);
-
-  make.stdout.on ('data', function (data)
+  var args =
+  [
+    '-j', os.cpus ().length,
+    'all',
+    'install'
+  ];
+  var make = zogProcess.spawn ('make', args, function (done)
   {
-    data.toString ().trim ().split ('\n').forEach (function (line)
-    {
-      zogLog.verb (line);
-    });
-  });
-
-  make.stderr.on ('data', function (data)
-  {
-    data.toString ().trim ().split ('\n').forEach (function (line)
-    {
-      zogLog.err (line);
-    });
-  });
-
-  make.on ('error', function (data)
-  {
-    zogLog.err (data);
-  });
-
-  make.on ('close', function (code)
-  {
-    zogLog.info ('wpkg is built and installed')
+    if (done)
+      zogLog.info ('wpkg is built and installed');
   });
 }
 
@@ -71,32 +55,10 @@ var cmakeRun = function (error)
   ];
 
   process.chdir (buildDir);
-  var cmake = spawn ('cmake', args);
-
-  cmake.stdout.on ('data', function (data)
+  var cmake = zogProcess.spawn ('cmake', args, function (done)
   {
-    data.toString ().trim ().split ('\n').forEach (function (line)
-    {
-      zogLog.verb (line);
-    });
-  });
-
-  cmake.stderr.on ('data', function (data)
-  {
-    data.toString ().trim ().split ('\n').forEach (function (line)
-    {
-      zogLog.err (line);
-    });
-  });
-
-  cmake.on ('error', function (data)
-  {
-    zogLog.err (data);
-  });
-
-  cmake.on ('close', function (code)
-  {
-    makeRun ();
+    if (done)
+      makeRun ();
   });
 }
 
