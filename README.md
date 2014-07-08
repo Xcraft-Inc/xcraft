@@ -4,10 +4,10 @@ The main command is named `zog`.
 
 Look for `zog -h` for details.
 
-- [The package definitions](#pkgDef)
-- [How are created the packages](#pkgHowto)
+- [The package definitions](#the-package-definitions)
+- [How are created the packages](#how-are-created-the-packages)
 
-## <a name="pkgDef"></a>The package definitions
+## The package definitions
 
 The package definitions are located in the `products/` directory where you can
 find the sub-directories of the projects. Every project has a file named
@@ -102,6 +102,6 @@ dependency:
 distribution: toolchain/
 ```
 
-## <a name="pkgHowto"></a>How are created the packages$
+## How are created the packages
 
 TODO
