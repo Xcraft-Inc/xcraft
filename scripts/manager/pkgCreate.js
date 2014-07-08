@@ -45,6 +45,7 @@ var inquirerToPackage = function (inquirerPkg)
       packageDef.data.install.type = it.installType;
       packageDef.data.install.bin  = it.installBin || '';
       packageDef.data.install.args = it.installArgs || '';
+      packageDef.data.embedded     = it.embedded || true;
     }
   });
 

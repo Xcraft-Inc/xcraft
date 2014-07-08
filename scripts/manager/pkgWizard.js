@@ -211,6 +211,15 @@ exports.data =
     {
       return answers.installType == 'exec';
     }
+  },
+  {
+    type: 'confirm',
+    name: 'embedded',
+    message: 'Embed the installer in the package (only if less than 1GB)?',
+    when: function (answers)
+    {
+      return answers.installType == 'exec';
+    }
   }
 ];
 

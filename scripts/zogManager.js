@@ -43,6 +43,7 @@ exports.create = function (packageName)
       wizard.data[2].default = def.data.install.type;
       wizard.data[3].default = def.data.install.bin;
       wizard.data[4].default = def.data.install.args;
+      wizard.data[5].default = def.data.embedded;
     }
     catch (err) {}
   }
