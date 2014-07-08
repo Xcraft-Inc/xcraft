@@ -4,7 +4,10 @@ The main command is named `zog`.
 
 Look for `zog -h` for details.
 
-## The package definitions
+- [The package definitions](#pkgDef)
+- [How are created the packages](#pkgHowto)
+
+## <a name="pkgDef"></a>The package definitions
 
 The package definitions are located in the `products/` directory where you can
 find the sub-directories of the projects. Every project has a file named
@@ -43,9 +46,10 @@ Only public domain should be used for the email.
 ### Host architecture (required)
 
 You can choose all operating systems and CPU architecture where the software is
-supported. Note that a package will be built for each architecture. But when
-you choose for example `linux-i386` and `linux-amd64`, it is merged to one
-package named `linux-any`.
+supported. Note that a package will be built for each architecture. If the
+package has not dependency on an architecture (like the documentation for
+example) you must use 'all'. Of course, all package for sources must use the
+'source' architecture.
 
 ### Brief description (required)
 
@@ -85,9 +89,9 @@ maintainer:
   name: John Doe
   email: "john@doe.com"
 architecture:
-  - mswindows-i386
-  - linux-any
-  - darwin-any
+  - win32-i386
+  - linux-i386
+  - darwin-i386
 description:
   brief: The foobar library for testing.
   long: It is dedicated to a test for a package definition file.
@@ -95,4 +99,9 @@ dependency:
   libfoobar2:
     - ">= 1.0"
     - << 2.0
+distribution: toolchain/
 ```
+
+## <a name="pkgHowto"></a>How are created the packages$
+
+TODO
