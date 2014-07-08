@@ -35,12 +35,27 @@ var action = function ()
 
         if (/http[s]?:/.test (urlObj.protocol))
         {
+          var lastProgress = -1;
           var outputFile = path.join (__dirname, 'cache', path.basename (urlObj.pathname));
 
           console.log ('download %s to %s', config.uri, outputFile);
           zogHttp.get (config.uri, outputFile, function ()
           {
             runOrCopy (outputFile);
+          }, function (progress, total)
+          {
+            var currentProgress = parseInt (progress / total * 100);
+            if (currentProgress != lastProgress)
+            {
+              lastProgress = currentProgress;
+              /* Like '%3s' */
+              var strProgress = Array (4 - lastProgress.toString ().length).join (' ') + lastProgress;
+              var screenProgress = parseInt (lastProgress * 40 / 100);
+              console.log ('%s%% [%s%s]',
+                           strProgress,
+                           Array (screenProgress + 1).join ('='),
+                           Array (40 - screenProgress + 1).join (' '));
+            }
           });
         }
 
