@@ -37,6 +37,12 @@ exports.create = function (packageName)
       wizard.header[4].default = def.architecture;
       wizard.header[5].default = def.description.brief;
       wizard.header[6].default = def.description.long;
+
+      wizard.data[0].default = def.data.uri;
+      wizard.data[1].default = def.data.type;
+      wizard.data[2].default = def.data.install.type;
+      wizard.data[3].default = def.data.install.bin;
+      wizard.data[4].default = def.data.install.args;
     }
     catch (err) {}
   }
