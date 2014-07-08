@@ -4,6 +4,7 @@ var moduleName = 'stage1';
 
 var sys = require ('sys');
 var zogProcess = require ('zogProcess');
+var zogPlatform = require ('zogPlatform');
 
 var depsForZog = [
   'cli-color',
@@ -40,17 +41,22 @@ var stage2 = function ()
 {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
+  var util = require ('util');
   var zogLog = require ('zogLog') ('stage2');
   zogLog.verbosity (0);
 
   zogLog.info ('install wpkg');
+  var zog = util.format ('%szog%s',
+                         zogPlatform.getOs () !== 'win' ? './' : '',
+                         zogPlatform.getCmdExt ());
   var args =
   [
     '-v0',
     '-w',
     'install'
   ];
-  zogProcess.spawn ('./zog', args, null, function (line)
+
+  zogProcess.spawn (zog, args, null, function (line)
   {
     console.log (line);
   }, function (line)
@@ -62,10 +68,11 @@ var stage2 = function ()
 console.log ('[' + moduleName + '] Info: install zog dependencies');
 try
 {
+  var npm = 'npm' + zogPlatform.getCmdExt ();
   var args = [ 'install' ];
   args = args.concat (depsForZog);
 
-  zogProcess.spawn ('npm', args, function (done)
+  zogProcess.spawn (npm, args, function (done)
   {
     stage2 ();
   }, function (line)
