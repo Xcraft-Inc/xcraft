@@ -11,6 +11,18 @@ var action = function ()
 
   var config = require ('./config.json');
 
+  var runOrCopy = function (file)
+  {
+    switch (config.type)
+    {
+    case 'bin':
+      break;
+
+    default:
+      break;
+    }
+  };
+
   return {
     install: function ()
     {
@@ -26,18 +38,16 @@ var action = function ()
           var outputFile = path.join (__dirname, 'cache', path.basename (urlObj.pathname));
 
           console.log ('download %s to %s', config.uri, outputFile);
-          zogHttp.get (config.uri, outputFile);
+          zogHttp.get (config.uri, outputFile, function ()
+          {
+            runOrCopy (outputFile);
+          });
         }
+
+        /* TODO: handle the case without http[s]. */
       }
 
-      switch (config.type)
-      {
-      case 'bin':
-        break;
-
-      default:
-        break;
-      }
+      /* TODO: handle the case without URI. */
     },
 
     remove: function ()
