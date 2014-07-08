@@ -17,4 +17,5 @@ data:
     type: exec
     bin: winexpress_full.exe
     args: /Passive /NoRestart /NoRefresh /NoWeb /Full
+  embedded: false
 distribution: toolchain/
