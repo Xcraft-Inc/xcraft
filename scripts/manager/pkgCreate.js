@@ -88,7 +88,7 @@ exports.pkgTemplate = function (inquirerPkg)
     {
       if (err.code == 'ENOENT')
       {
-        fs.mkdirSync (pkgDir, 0755, function (err)
+        fs.mkdirSync (pkgDir, 493 /* 0755 */, function (err)
         {
           if (err)
             throw err;

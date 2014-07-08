@@ -39,7 +39,7 @@ var grunt = function ()
 
     var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
     /* chmod +x flag to atom for Unix, ignored on Windows. */
-    fs.chmodSync (atom, 0755);
+    fs.chmodSync (atom, 493 /* 0755 */);
 
     if (error)
       zogLog.err ('unable to grunt lokthar\n' + stderr);
