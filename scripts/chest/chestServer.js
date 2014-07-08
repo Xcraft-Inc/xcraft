@@ -3,7 +3,9 @@ var moduleName = 'chest';
 
 var fs        = require ('fs');
 var path      = require ('path');
-var app       = require ('express') ();
+var express   = require ('express');
+
+var app       = express ();
 var server    = require ('http').Server (app);
 var zogConfig = require ('../zogConfig.js') ();
 var zogFs     = require ('zogFs');
@@ -26,6 +28,8 @@ app.get ('/', function (req, res)
 {
   res.send ('The zog chest server');
 });
+
+app.use ('/resources', express.static (zogConfig.chest.repository));
 
 app.post ('/upload', function (req, res)
 {
