@@ -16,9 +16,9 @@ zogLog.color (false);
 zogLog.datetime (true);
 
 zogLog.verb ('settings:');
-zogLog.verb ('  host: ' + zogConfig.chest.host);
-zogLog.verb ('  port: ' + zogConfig.chest.port);
-zogLog.verb ('  repository: ' + zogConfig.chest.repository);
+zogLog.verb ('- host: ' + zogConfig.chest.host);
+zogLog.verb ('- port: ' + zogConfig.chest.port);
+zogLog.verb ('- repository: ' + zogConfig.chest.repository);
 
 zogLog.info ('the chest server is listening');
 
