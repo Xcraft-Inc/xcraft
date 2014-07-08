@@ -57,7 +57,7 @@ var createConfigJson = function (packageName, postInstDir)
     if (zogConfig.chest.port == 443)
       protocol = 'https';
 
-    var server = util.format ('%s://%s:%d/',
+    var server = util.format ('%s://%s:%d/resources/',
                               protocol,
                               zogConfig.chest.host,
                               zogConfig.chest.port);
