@@ -3,9 +3,9 @@ var moduleName = 'grunt';
 
 var path = require ('path');
 
-var zogConfig  = require ('./scripts/zogConfig.js')();
+var zogConfig  = require ('./scripts/zogConfig.js') ();
 var zogFs      = require ('zogFs');
-var zogLog     = require ('zogLog')(moduleName);
+var zogLog     = require ('zogLog') (moduleName);
 var pkgControl = require (zogConfig.libPkgControl);
 var pkgMake    = require (zogConfig.libPkgMake);
 
