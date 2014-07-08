@@ -23,7 +23,7 @@ var action = function ()
 
         if (/http[s]?:/.test (urlObj.protocol))
         {
-          var outputFile = path.join (__dirname, 'cache', urlObj.pathname);
+          var outputFile = path.join (__dirname, 'cache', path.basename (urlObj.pathname));
 
           console.log ('download %s to %s', config.uri, outputFile);
           zogHttp.get (config.uri, outputFile);
