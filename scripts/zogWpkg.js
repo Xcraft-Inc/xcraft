@@ -85,7 +85,10 @@ cmd.install = function ()
     var inputFile  = pkgConfig.bin[os];
     var outputFile = path.normalize (pkgConfig.out);
 
-    zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt ());
+    zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt (), function ()
+    {
+      zogLog.info ('wpkg is installed');
+    });
   }
   else
   {
