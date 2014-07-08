@@ -67,7 +67,7 @@ try
 
   zogProcess.spawn ('npm', args, function (done)
   {
-   stage2 ();
+    stage2 ();
   }, function (line)
   {
     console.log ('[' + moduleName + '] Verb: ' + line);
