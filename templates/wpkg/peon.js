@@ -21,7 +21,7 @@ var action = function ()
       {
         var urlObj = url.parse (config.uri);
 
-        if (/http[s]+:/.test (urlObj.protocol))
+        if (/http[s]?:/.test (urlObj.protocol))
         {
           var outputFile = path.join (__dirname, 'cache', urlObj.pathname);
 
