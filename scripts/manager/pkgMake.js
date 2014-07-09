@@ -13,11 +13,6 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   var fs          = require ('fs');
   var zogPlatform = require ('zogPlatform');
 
-  var installerFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgInstaller);
-  var installerFileOut = path.join (postInstDir, zogConfig.pkgInstaller);
-
-  zogFs.cp (installerFileIn, installerFileOut);
-
   var postinstFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgPostinst);
   var postinstFileOut = path.join (packagePath, zogConfig.pkgWPKG, zogConfig.pkgPostinst);
 
