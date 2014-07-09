@@ -111,7 +111,7 @@ var chestUpload = function (inputFile, server, port)
   {
     zogLog.err (error);
   });
-}
+};
 
 exports.upload = function (file)
 {
@@ -125,4 +125,4 @@ exports.upload = function (file)
   {
     zogLog.err (err.message);
   }
-}
+};

@@ -24,4 +24,4 @@ exports.listProducts = function ()
   }
 
   return products;
-}
+};

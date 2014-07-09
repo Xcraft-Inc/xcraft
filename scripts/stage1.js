@@ -64,7 +64,7 @@ var stage2 = function ()
   {
     console.log (line);
   });
-}
+};
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
 try

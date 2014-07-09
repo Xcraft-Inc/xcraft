@@ -82,7 +82,7 @@ exports.create = function (packageName)
     packageDef.push (answers);
     promptForDependency ();
   });
-}
+};
 
 /**
  * Make the Control file for WPKG by using a package config file.
@@ -108,7 +108,7 @@ exports.make = function (packageName)
   }
   else
     pkgMake.package (packageName);
-}
+};
 
 /**
  * Try to install the developement package.
@@ -121,7 +121,7 @@ exports.install = function (packageRef)
   var pkgCmd = require (zogConfig.libPkgCmd);
 
   pkgCmd.install (packageRef);
-}
+};
 
 /**
  * Remove all the generated files.
@@ -150,4 +150,4 @@ exports.clean = function ()
     else
       fse.unlinkSync (file);
   });
-}
+};

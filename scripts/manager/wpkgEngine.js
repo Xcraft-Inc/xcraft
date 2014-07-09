@@ -209,7 +209,7 @@ exports.build = function (packagePath, callbackDone)
   });
 
   wpkg.build (packagePath, arch);
-}
+};
 
 /**
  * Install a package with its dependencies.
@@ -250,7 +250,7 @@ exports.install = function (packageName, arch, callbackDone)
    * the package exists and in order to retrieve the full package name.
    */
   wpkg.listIndexPackages (repositoryPath, arch, list);
-}
+};
 
 /**
  * Create the administration directory in the target root.
@@ -279,7 +279,7 @@ exports.createAdmindir = function (arch, callbackDone)
 
   var wpkg = new wpkgArgs (callbackDone);
   wpkg.createAdmindir (controlFile, arch);
-}
+};
 
 /**
  * Add a new source in the target installation.
@@ -311,7 +311,7 @@ exports.addSources = function (sourcePath, arch, callbackDone)
   });
 
   wpkg.listSources (arch, list);
-}
+};
 
 /**
  * Update the list of available packages from the repository.
@@ -323,4 +323,4 @@ exports.update = function (arch, callbackDone)
 {
   var wpkg = new wpkgArgs (callbackDone);
   wpkg.update (arch);
-}
+};

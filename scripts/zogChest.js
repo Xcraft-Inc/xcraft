@@ -52,7 +52,7 @@ cmd.start = function ()
   fs.writeFileSync (zogConfig.chest.pid, chest.pid);
 
   chest.unref ();
-}
+};
 
 /**
  * Stop the chest server.
@@ -70,7 +70,7 @@ cmd.stop = function ()
     if (err.code != 'ENOENT')
       zogLog.err (err);
   }
-}
+};
 
 /**
  * Restart the chest server.
@@ -79,7 +79,7 @@ cmd.restart = function ()
 {
   cmd.stop ();
   cmd.start ();
-}
+};
 
 /**
  * Send a file to the chest server.
@@ -94,7 +94,7 @@ cmd.send = function (file)
 
   var chestClient = require ('./chest/chestClient.js');
   chestClient.upload (file);
-}
+};
 
 /**
  * Retrieve the list of available commands.
@@ -110,7 +110,7 @@ exports.args = function ()
   });
 
   return list;
-}
+};
 
 /**
  * Actions called from commander with --chest.
@@ -128,4 +128,4 @@ exports.action = function (act, opt)
   {
     zogLog.err (act, err);
   }
-}
+};

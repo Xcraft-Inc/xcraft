@@ -117,4 +117,4 @@ module.exports = function ()
     /* Bin helpers. */
     binGrunt        : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
   };
-}
+};

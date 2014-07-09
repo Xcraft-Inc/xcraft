@@ -19,7 +19,7 @@ if (process.argv.length < 3)
 var argsPrettify = function (args)
 {
   return clc.cyan ('[' + args ().toString ().replace (/,/g, ', ') + ']');
-}
+};
 
 program
   .version ('0.0.1')

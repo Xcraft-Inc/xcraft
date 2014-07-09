@@ -28,7 +28,7 @@ var build = function ()
     else
       zogLog.err ('unable to build lokthar\n' + stderr);
   });
-}
+};
 
 var grunt = function ()
 {
@@ -44,7 +44,7 @@ var grunt = function ()
     if (error)
       zogLog.err ('unable to grunt lokthar\n' + stderr);
   });
-}
+};
 
 /**
  * Run the lokthar frontend.
@@ -64,7 +64,7 @@ cmd.run = function ()
     else
       zogLog.err ('unable to exec atom\n' + stderr);
   });
-}
+};
 
 /**
  * Install the lokthar frontend.
@@ -79,7 +79,7 @@ cmd.install = function ()
   {
     zogLog.err (err);
   }
-}
+};
 
 /**
  * Uninstall the lokthar frontend.
@@ -87,7 +87,7 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
-}
+};
 
 /**
  * Retrieve the list of available commands.
@@ -103,7 +103,7 @@ exports.args = function ()
   });
 
   return list;
-}
+};
 
 exports.action = function (act)
 {
@@ -117,4 +117,4 @@ exports.action = function (act)
   {
     zogLog.err (err);
   }
-}
+};

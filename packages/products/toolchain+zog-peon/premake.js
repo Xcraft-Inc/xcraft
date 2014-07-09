@@ -35,4 +35,4 @@ module.exports = function (zogConfig, packagePath, sharePath)
       copyZogModules ();
     }
   };
-}
+};

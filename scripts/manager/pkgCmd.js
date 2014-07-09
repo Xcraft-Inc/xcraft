@@ -89,4 +89,4 @@ exports.install = function (packageRef)
       addRepositoryForAll (packageName, arch);
     })
   });
-}
+};

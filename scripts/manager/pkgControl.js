@@ -20,7 +20,7 @@ exports.loadPackageDef = function (packageName)
   zogLog.verb ('JSON output (package):\n' + JSON.stringify (def, null, '  '));
 
   return def;
-}
+};
 
 /**
  * Convert a zog package definition to control definitions.
@@ -108,7 +108,7 @@ var defToControl = function (packageDef)
   });
 
   return controlList;
-}
+};
 
 /**
  * Generate and save all control files accordingly to the config.yaml files.
@@ -163,4 +163,4 @@ exports.controlFiles = function (packageName, saveFiles)
   });
 
   return controlFiles;
-}
+};

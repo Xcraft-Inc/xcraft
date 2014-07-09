@@ -35,7 +35,7 @@ var makeRun = function ()
   {
     zogLog.err (line);
   });
-}
+};
 
 /* TODO: must be generic. */
 var cmakeRun = function (error)
@@ -70,7 +70,7 @@ var cmakeRun = function (error)
   {
     zogLog.err (line);
   });
-}
+};
 
 /**
  * Install the wpkg package.
@@ -113,7 +113,7 @@ cmd.install = function ()
         .decompress (cmakeRun);
     });
   }
-}
+};
 
 /**
  * Uninstall the wpkg package.
@@ -124,7 +124,7 @@ cmd.uninstall = function ()
 
   var outputFile = path.normalize (pkgConfig.out);
   fs.unlinkSync (outputFile + zogPlatform.getExecExt ());
-}
+};
 
 /**
  * Retrieve the list of available commands.
@@ -140,7 +140,7 @@ exports.args = function ()
   });
 
   return list;
-}
+};
 
 /**
  * Actions called from commander with --wpkg.
@@ -158,4 +158,4 @@ exports.action = function (act)
   {
     zogLog.err (act, err);
   }
-}
+};

@@ -53,7 +53,7 @@ var inquirerToPackage = function (inquirerPkg)
   packageDef.distribution = zogConfig.pkgRepository;
 
   return packageDef;
-}
+};
 
 /**
  * Create a package template for the toolchain.
@@ -133,4 +133,4 @@ exports.pkgTemplate = function (inquirerPkg)
   {
     zogLog.err (err);
   }
-}
+};
