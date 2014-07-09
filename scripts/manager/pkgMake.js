@@ -115,4 +115,4 @@ exports.package = function (packageName, callbackDone)
   {
     zogLog.err (err);
   }
-}
+};
