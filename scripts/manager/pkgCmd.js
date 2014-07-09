@@ -18,7 +18,7 @@ var updateAndInstall = function (packageName, arch)
     if (done)
       wpkgEngine.install (packageName, arch);
   });
-}
+};
 
 exports.install = function (packageRef)
 {
