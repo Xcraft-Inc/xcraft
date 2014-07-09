@@ -32,7 +32,7 @@ exports.header =
     message: 'Package version',
     validate: function (value)
     {
-      regex = new RegExp ('^' + versionRegex.source + '$');
+      var regex = new RegExp ('^' + versionRegex.source + '$');
       return regex.test (value);
     }
   },
