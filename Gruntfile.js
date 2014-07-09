@@ -23,7 +23,7 @@ module.exports = function (grunt)
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile)
     {
-      initNewer[packageName + '.Arch[' + i.toString () +']'] =
+      initNewer[packageName + '.Arch[' + i.toString () + ']'] =
       {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
         dest: controlFile,
