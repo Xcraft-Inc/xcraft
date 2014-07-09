@@ -86,6 +86,21 @@ exports.package = function (packageName, callbackDone)
       var sharePath   = path.join (packagePath, 'usr', 'share', namespace, name);
       zogFs.mkdir (sharePath);
 
+      /* Look for premake script. */
+      try
+      {
+        var productPath = path.join (zogConfig.pkgProductsRoot, packageName);
+        var premake = require (path.join (productPath, 'premake.js')) (zogConfig, packagePath, sharePath);
+        premake.copy ();
+      }
+      catch (err)
+      {
+        if (err.code === 'MODULE_NOT_FOUND')
+          zogLog.info ('no premake script for this package');
+        else
+          zogLog.err (err);
+      }
+
 
       copyTemplateFiles (packagePath, sharePath);
       createConfigJson (packageName, sharePath);
