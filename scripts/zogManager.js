@@ -128,27 +128,26 @@ exports.install = function (packageRef)
  */
 exports.clean = function ()
 {
-  var wrench = require ('wrench');
-  var zogFs  = require ('zogFs');
-  var fs     = require ('fs');
+  var fse   = require ('fs-extra');
+  var zogFs = require ('zogFs');
 
   zogLog.info ('clean all generated files');
 
   zogLog.verb ('delete ' + zogConfig.pkgTargetRoot);
-  wrench.rmdirSyncRecursive (zogConfig.pkgTargetRoot, true);
+  fse.removeSync (zogConfig.pkgTargetRoot);
 
   zogLog.verb ('delete ' + zogConfig.pkgDebRoot);
-  wrench.rmdirSyncRecursive (zogConfig.pkgDebRoot, true);
+  fse.removeSync (zogConfig.pkgDebRoot);
 
   zogFs.ls (zogConfig.tempRoot, /^(?!.*\.gitignore)/).forEach (function (file)
   {
     file = path.join (zogConfig.tempRoot, file);
     zogLog.verb ('delete ' + file);
 
-    var st = fs.statSync (file);
+    var st = fse.statSync (file);
     if (st.isDirectory (file))
-      wrench.rmdirSyncRecursive (file, true);
+      fse.removeSync (file);
     else
-      fs.unlinkSync (file);
+      fse.unlinkSync (file);
   });
 }

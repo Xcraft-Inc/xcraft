@@ -12,6 +12,7 @@ var depsForZog = [
   'commander',
   'decompress',
   'express',
+  'fs-extra',
   'grunt',
   'grunt-cli',
   'grunt-newer-explicit',
@@ -21,8 +22,7 @@ var depsForZog = [
   'progress-stream',
   'request',
   'socket.io',
-  'socket.io-client',
-  'wrench'
+  'socket.io-client'
 ];
 
 try
