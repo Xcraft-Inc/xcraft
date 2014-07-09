@@ -125,6 +125,23 @@ var wpkgArgs = function (callbackDone)
       run (args, source);
     },
 
+    listSources: function (arch, listOut)
+    {
+      var args =
+      [
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--list-sources'
+      ];
+
+      run (args, null, function (line)
+      {
+        if (!line.trim ().length)
+          return;
+
+        listOut.push (line.trim ());
+      });
+    },
+
     update: function (arch)
     {
       var args =
@@ -267,8 +284,25 @@ exports.createAdmindir = function (arch, callbackDone)
  */
 exports.addSources = function (sourcePath, arch, callbackDone)
 {
-  var wpkg = new wpkgArgs (callbackDone);
-  wpkg.addSources (sourcePath, arch);
+  var list = [];
+
+  var wpkg = new wpkgArgs (function (done)
+  {
+    if (!done)
+      return;
+
+    /* The list array is populated by listSources. */
+    if (list.indexOf (sourcePath) >= 0)
+    {
+      callbackDone (true);
+      return; /* already in the sources.list */
+    }
+
+    var wpkg = new wpkgArgs (callbackDone);
+    wpkg.addSources (sourcePath, arch);
+  });
+
+  wpkg.listSources (arch, list);
 }
 
 /**
