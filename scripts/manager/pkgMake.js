@@ -37,7 +37,7 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   });
 
   fs.writeFileSync (postinstFileOut, data, 'utf8');
-}
+};
 
 var createConfigJson = function (packageName, postInstDir)
 {
