@@ -57,7 +57,7 @@ exports.install = function (packageRef)
     {
       if (!done)
       {
-        zogLog.err ('impossible to add de source path');
+        zogLog.err ('impossible to add the source path for "%s"', arch);
         return;
       }
 
