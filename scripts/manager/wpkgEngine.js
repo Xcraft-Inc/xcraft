@@ -148,7 +148,7 @@ var wpkgArgs = function (callbackDone)
 
       run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (line)
       {
-        var result = line.trim ().match (/.* ([^ _]*)([^ ]*)\.ctrl$/)
+        var result = line.trim ().match (/.* ([^ _]*)([^ ]*)\.ctrl$/);
         var deb  = result[1] + result[2] + '.deb';
         var name = result[1];
 
