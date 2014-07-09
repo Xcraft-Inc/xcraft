@@ -4,6 +4,7 @@ var moduleName = 'command';
 
 var fs   = require ('fs');
 var path = require ('path');
+var util = require ('util');
 
 var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
@@ -20,10 +21,33 @@ var updateAndInstall = function (packageName, arch)
   });
 };
 
+var addRepositoryForAll = function (packageName, arch)
+{
+  /* This repository is useful for all architectures. */
+  var allRespository = path.join (zogConfig.pkgDebRoot, 'all');
+
+  if (fs.existsSync (allRespository))
+  {
+    var source = util.format ('wpkg file://%s/ %s',
+                              allRespository.replace (/\\/g, '/'),
+                              zogConfig.pkgRepository);
+    wpkgEngine.addSources (source, arch, function (done)
+    {
+      if (!done)
+      {
+        zogLog.err ('impossible to add the source path for "all"');
+        return;
+      }
+
+      updateAndInstall (packageName, arch);
+    })
+  }
+  else
+    updateAndInstall (packageName, arch);
+};
+
 exports.install = function (packageRef)
 {
-  var util = require ('util');
-
   var packageName = packageRef.replace (/:.*/, '');
   var arch        = packageRef.replace (/.*:/, '');
 
@@ -39,7 +63,7 @@ exports.install = function (packageRef)
   /* Check if the admindir exists; create if necessary. */
   if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, arch, 'var', 'lib', 'wpkg')))
   {
-    updateAndInstall (packageName, arch);
+    addRepositoryForAll (packageName, arch);
     return;
   }
 
@@ -62,7 +86,7 @@ exports.install = function (packageRef)
         return;
       }
 
-      updateAndInstall (packageName, arch);
+      addRepositoryForAll (packageName, arch);
     })
   });
 }
