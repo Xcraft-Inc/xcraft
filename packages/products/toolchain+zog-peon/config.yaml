@@ -1,0 +1,20 @@
+name: toolchain+zog-peon
+version: 0.1.0
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - all
+description:
+  brief: A core dependency for many packages.
+  long: ""
+dependency: {}
+data:
+  uri: root/
+  type: bin
+  rules:
+    type: copy
+    bin: ""
+    args: ""
+  embedded: true
+distribution: toolchain/
