@@ -3,6 +3,7 @@
 var moduleName = 'wpkg';
 
 var path      = require ('path');
+var fs        = require ('fs');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
@@ -90,13 +91,20 @@ var wpkgArgs = function (callbackDone)
 
     install: function (packagePath, arch)
     {
+      var allRepository = path.join (zogConfig.pkgDebRoot, 'all', zogConfig.pkgRepository);
       var args =
       [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
-        '--repository', path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository),
-        '--install'
+        '--repository',
+          path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository)
       ];
+
+      /* Maybe there is a 'all' repository, in this case we add this one. */
+      if (fs.existsSync (allRepository))
+        args.push (allRepository);
+
+      args.push ('--install');
 
       run (args, packagePath);
     },
