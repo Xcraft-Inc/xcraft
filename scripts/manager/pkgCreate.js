@@ -39,14 +39,14 @@ var inquirerToPackage = function (inquirerPkg)
     }
     else if (it.hasOwnProperty ('uri'))
     {
-      packageDef.data              = {};
-      packageDef.data.uri          = it.uri;
-      packageDef.data.type         = it.fileType;
-      packageDef.data.install      = {};
-      packageDef.data.install.type = it.installType;
-      packageDef.data.install.bin  = it.installBin || '';
-      packageDef.data.install.args = it.installArgs || '';
-      packageDef.data.embedded     = it.embedded || true;
+      packageDef.data            = {};
+      packageDef.data.uri        = it.uri;
+      packageDef.data.type       = it.fileType;
+      packageDef.data.rules      = {};
+      packageDef.data.rules.type = it.rulesType;
+      packageDef.data.rules.bin  = it.rulesBin || '';
+      packageDef.data.rules.args = it.rulesArgs || '';
+      packageDef.data.embedded   = it.embedded || true;
     }
   });
 

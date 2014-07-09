@@ -178,7 +178,7 @@ exports.data =
   },
   {
     type: 'list',
-    name: 'installType',
+    name: 'rulesType',
     message: 'How to install',
     /* TODO: it must be a dynamic list like for the products. */
     choices:
@@ -197,20 +197,20 @@ exports.data =
   },
   {
     type: 'input',
-    name: 'installBin',
+    name: 'rulesBin',
     message: 'Installer file name',
     when: function (answers)
     {
-      return answers.installType == 'exec';
+      return answers.rulesType == 'exec';
     }
   },
   {
     type: 'input',
-    name: 'installArgs',
+    name: 'rulesArgs',
     message: 'Arguments for the installer',
     when: function (answers)
     {
-      return answers.installType == 'exec';
+      return answers.rulesType == 'exec';
     }
   },
   {
@@ -219,7 +219,7 @@ exports.data =
     message: 'Embed the installer in the package (only if less than 1GB)?',
     when: function (answers)
     {
-      return answers.installType == 'exec';
+      return answers.rulesType == 'exec';
     }
   }
 ];

@@ -13,7 +13,7 @@ dependency: {}
 data:
   uri: "chest://vs2013.2-winexp-ret-enu.zip"
   type: bin
-  install:
+  rules:
     type: exec
     bin: winexpress_full.exe
     args: /Passive /NoRestart /NoRefresh /NoWeb /Full
