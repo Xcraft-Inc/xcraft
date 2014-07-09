@@ -5,9 +5,6 @@ module.exports = function (zogConfig, packagePath, sharePath)
   var path = require ('path');
   var fse  = require ('fs-extra');
 
-  var productPath = __dirname;
-  var packagePath = packagePath;
-
   var packageName = path.basename (__dirname);
   var sharePath   = sharePath;
 
