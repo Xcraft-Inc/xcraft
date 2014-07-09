@@ -29,6 +29,7 @@ exports.install = function (packageRef)
 
   zogLog.verb ('install package name: ' + packageName + ' on architecture: ' + arch);
 
+  /* FIXME: provide the possibility to install a package for 'all'. */
   if (zogConfig.architectures.indexOf (arch) == -1)
   {
     zogLog.err ('the architecture ' + arch + ' is unknown');
