@@ -81,15 +81,14 @@ exports.package = function (packageName, callbackDone)
       var packagePath = path.resolve (path.dirname (controlFile), '..');
 
       /* Reserved directory for the post-installer. */
-      var postInstDir = path.join (packagePath, 'usr', 'share', packageName);
-      zogFs.mkdir (postInstDir);
+      var namespace   = packageName.replace (/\+.*$/, '');
+      var name        = packageName.replace (/^[^+]*\+/, '');
+      var sharePath   = path.join (packagePath, 'usr', 'share', namespace, name);
+      zogFs.mkdir (sharePath);
 
-      /* TODO: the templates should be copy only when it is necessary; like when
-       * a web-package and (or) an installer (msi-like) is used for example.
-       */
-      copyTemplateFiles (packagePath, postInstDir);
 
-      createConfigJson (packageName, postInstDir);
+      copyTemplateFiles (packagePath, sharePath);
+      createConfigJson (packageName, sharePath);
 
       /* Build the package with wpkg. */
       wpkgEngine.build (packagePath, function (error)
