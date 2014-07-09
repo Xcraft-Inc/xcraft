@@ -9,7 +9,9 @@ architecture:
 description:
   brief: Microsoft Visual Studio Express 2013 with Update 2 for Windows.
   long: "You can use the tools in Visual Studio Express 2013 for Windows to create innovative and compelling Windows Phone and Windows Store apps on Windows 8.1. The tools include a full-featured code editor, a powerful debugger, a focused profiler, and rich language support that you can use to build apps that you write in HTML5/JavaScript, C++, C#, or Visual Basic. Visual Studio Express 2013 for Windows also includes tools for Windows Phone 8.0 development, a device simulator that you can use to test Windows Store apps on multiple kinds of devices, and Windows Phone emulators that you can use to test how your Windows Phone apps will run on different devices."
-dependency: {}
+dependency:
+  toolchain+zog-peon:
+    - ""
 data:
   uri: "chest://vs2013.2-winexp-ret-enu.zip"
   type: bin
