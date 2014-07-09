@@ -101,6 +101,18 @@ exports.package = function (packageName, callbackDone)
           zogLog.err (err);
       }
 
+      var packageDef = pkgControl.loadPackageDef (packageName);
+
+      /* Are the resources embedded in the package (less than 1GB)? */
+      if (packageDef.data.embedded)
+      {
+        var zogPeon = require ('zogPeon');
+
+        var dataType  = packageDef.data.type;
+        var rulesType = packageDef.data.rules.type;
+        var uri       = packageDef.data.uri;
+        zogPeon[dataType][rulesType] (uri);
+      }
 
       copyTemplateFiles (packagePath, sharePath);
       createConfigJson (packageName, sharePath);
