@@ -137,8 +137,9 @@ exports.controlFiles = function (packageName, saveFiles)
      * same name that on unix (.bat suffix under Windows).
      */
     var os = zogPlatform.getOs ();
-    if (   os == 'win' && !/^win/.test (arch)
-        || os != 'win' &&  /^win/.test (arch))
+    if (!/^(all|source)$/.test (arch)
+        && (   os == 'win' && !/^win/.test (arch)
+            || os != 'win' &&  /^win/.test (arch)))
     {
       zogLog.warn ('package \'%s\' for %s unsupported on %s',
                    packageName, arch, os);
