@@ -134,7 +134,8 @@ exports.package = function (packageName, callbackDone)
       });
     };
 
-    nextCtrlFile ();
+    if (controlFiles.length)
+      nextCtrlFile ();
   }
   catch (err)
   {
