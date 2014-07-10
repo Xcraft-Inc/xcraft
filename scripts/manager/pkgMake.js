@@ -65,9 +65,16 @@ exports.package = function (packageName, callbackDone)
       var packagePath = path.resolve (path.dirname (controlFile), '..');
 
       /* Reserved directory for the post-installer. */
-      var namespace   = packageName.replace (/\+.*$/, '');
-      var name        = packageName.replace (/^[^+]*\+/, '');
-      var sharePath   = path.join (packagePath, 'usr', 'share', namespace, name);
+      var namespace = '';
+      var name = packageName;
+      var fullName = packageName.match (/(.*)\+(.*)/);
+      if (fullName)
+      {
+        namespace = fullName[1];
+        name      = fullName[2];
+      }
+
+      var sharePath = path.join (packagePath, 'usr', 'share', namespace, name);
       zogFs.mkdir (sharePath);
 
       /* Look for premake script. */
