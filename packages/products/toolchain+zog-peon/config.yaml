@@ -10,7 +10,7 @@ description:
   long: ""
 dependency: {}
 data:
-  uri: package:///root
+  uri: "package:///root"
   type: bin
   rules:
     type: copy
