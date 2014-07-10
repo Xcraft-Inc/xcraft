@@ -20,7 +20,7 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   {
     '__INSTALLERJS__' : zogConfig.pkgInstaller,
     '__ACTION__'      : 'install',
-    '__SYSROOT__'     : './',
+    '__SYSROOT__'     : path.normalize ('./'),
     '__PRODUCTSHARE__': path.relative (packagePath, postInstDir)
   };
 
