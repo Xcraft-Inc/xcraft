@@ -106,7 +106,10 @@ exports.package = function (packageName, callbackDone)
         zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath);
       }
 
-      copyTemplateFiles (packagePath, sharePath);
+      /* Don't copy pre/post scripts with unsupported architectures. */
+      if (packageDef.architecture.indexOf ('all') === -1)
+        copyTemplateFiles (packagePath, sharePath);
+
       createConfigJson (packageName, sharePath);
 
       /* Build the package with wpkg. */
