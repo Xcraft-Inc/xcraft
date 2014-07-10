@@ -45,7 +45,7 @@ var createConfigJson = function (packageName, postInstDir)
   var uri = '';
 
   var uriObj = url.parse (config.uri)
-  if (uriObj.protocol == 'chest:')
+  if (uriObj.protocol === 'chest:')
   {
     var util = require ('util');
 
@@ -53,12 +53,14 @@ var createConfigJson = function (packageName, postInstDir)
     if (zogConfig.chest.port == 443)
       protocol = 'https';
 
-    var server = util.format ('%s://%s:%d/resources/',
-                              protocol,
-                              zogConfig.chest.host,
-                              zogConfig.chest.port);
+    var urlHttp = {};
+    urlHttp.protocol = protocol + ':';
+    urlHttp.slashes  = true;
+    urlHttp.hostname = zogConfig.chest.host;
+    urlHttp.port     = zogConfig.chest.port;
+    urlHttp.pathname = url.resolve ('/resources/', uriObj.pathname || uriObj.hostname);
 
-    config.uri = config.uri.replace ('chest://', server);
+    config.uri = url.format (urlHttp);
   }
 
   var data = JSON.stringify (config, null, 2);

@@ -67,6 +67,7 @@ exports.pkgTemplate = function (inquirerPkg)
   zogLog.verb ('JSON output (package):\n' + JSON.stringify (packageDef, null, '  '));
 
   var fs       = require ('fs');
+  var url      = require ('url');
   var inquirer = require ('inquirer');
   var wizard   = require (zogConfig.libPkgWizard).chest;
 
@@ -98,10 +99,11 @@ exports.pkgTemplate = function (inquirerPkg)
         throw err;
     }
 
-    /* We look for chest:// and we propose to upload the file. */
-    if (/^chest:\/\//.test (packageDef.data.uri))
+    /* We look for chest: and we propose to upload the file. */
+    var urlObj = url.parse (packageDef.data.uri);
+    if (urlObj.protocol === 'chest:')
     {
-      var file = packageDef.data.uri.replace (/^chest:\/\//, '');
+      var file = urlObj.pathname || urlObj.hostname;
 
       inquirer.prompt (wizard, function (answers)
       {
