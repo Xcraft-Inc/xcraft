@@ -18,10 +18,10 @@ var copyTemplateFiles = function (packagePath, postInstDir)
 
   var placeHolders =
   {
-    '__INSTALLERJS__' : zogConfig.pkgInstaller,
-    '__ACTION__'      : 'install',
-    '__SYSROOT__'     : './',
-    '__CONFIG__'      : 'etc/peon.json'
+    '__SHARE__'   : path.relative (packagePath, postInstDir),
+    '__ACTION__'  : 'install',
+    '__SYSROOT__' : './',
+    '__CONFIG__'  : 'etc/peon.json'
   };
 
   /* FIXME: experimental, not tested. */

@@ -3,14 +3,14 @@
 
 var moduleName = 'peon';
 
-var action = function ()
+var action = function (currentDir)
 {
   var fs      = require ('fs');
   var url     = require ('url');
   var path    = require ('path');
   var zogHttp = require ('zogHttp');
 
-  var config = require ('./config.json');
+  var config = require (path.join (currentDir, './config.json'));
 
   var runOrCopy = function (file)
   {
@@ -37,7 +37,7 @@ var action = function ()
         if (/http[s]?:/.test (urlObj.protocol))
         {
           var lastProgress = -1;
-          var outputFile = path.join (__dirname, 'cache', path.basename (urlObj.pathname));
+          var outputFile = path.join (currentDir, 'cache', path.basename (urlObj.pathname));
 
           console.log ('download %s to %s', config.uri, outputFile);
           zogHttp.get (config.uri, outputFile, function ()
@@ -73,10 +73,10 @@ var action = function ()
   }
 }
 
-var main = new action ();
-
-if (process.argv.length >= 3)
+if (process.argv.length >= 4)
 {
-  console.log ('run the action: ' + process.argv[2]);
-  main[process.argv[2]] ();
+  var main = new action (process.argv[2]);
+
+  console.log ('run the action: ' + process.argv[3]);
+  main[process.argv[3]] ();
 }
