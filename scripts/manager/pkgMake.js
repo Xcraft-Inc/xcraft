@@ -38,28 +38,12 @@ var createConfigJson = function (packageName, postInstDir)
 {
   var fs  = require ('fs');
   var url = require ('url');
+  var zogUri = require ('zogUri');
 
   var def = pkgControl.loadPackageDef (packageName);
   var config = def.data;
 
-  var uri = '';
-
-  var uriObj = url.parse (config.uri)
-  if (uriObj.protocol === 'chest:')
-  {
-    var protocol = 'http';
-    if (zogConfig.chest.port == 443)
-      protocol = 'https';
-
-    var urlHttp = {};
-    urlHttp.protocol = protocol + ':';
-    urlHttp.slashes  = true;
-    urlHttp.hostname = zogConfig.chest.host;
-    urlHttp.port     = zogConfig.chest.port;
-    urlHttp.pathname = url.resolve ('/resources/', uriObj.pathname || uriObj.hostname);
-
-    config.uri = url.format (urlHttp);
-  }
+  config.uri = zogUri.realUri (config.uri);
 
   var data = JSON.stringify (config, null, 2);
   var outFile = path.join (postInstDir, 'config.json');
