@@ -86,7 +86,6 @@ module.exports = function ()
 
     /* FIXME: must have a better handling. */
     pkgCfgFileName  : 'config.yaml',
-    pkgInstaller    : 'peon.js',
     pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
     pkgWPKG         : 'WPKG',
     pkgRepository   : 'toolchain/',
