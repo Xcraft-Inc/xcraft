@@ -13,7 +13,7 @@ dependency:
   toolchain+zog-peon:
     - ""
 data:
-  uri: "chest://vs2013.2-winexp-ret-enu.zip"
+  uri: "chest:vs2013.2-winexp-ret-enu.zip"
   type: bin
   rules:
     type: exec
