@@ -47,8 +47,6 @@ var createConfigJson = function (packageName, postInstDir)
   var uriObj = url.parse (config.uri)
   if (uriObj.protocol === 'chest:')
   {
-    var util = require ('util');
-
     var protocol = 'http';
     if (zogConfig.chest.port == 443)
       protocol = 'https';
