@@ -43,7 +43,7 @@ var createConfigJson = function (packageName, postInstDir)
   var def = pkgControl.loadPackageDef (packageName);
   var config = def.data;
 
-  config.uri = zogUri.realUri (config.uri);
+  config.uri = zogUri.realUri (config.uri, packageName);
 
   var data = JSON.stringify (config, null, 2);
   var outFile = path.join (postInstDir, 'config.json');
