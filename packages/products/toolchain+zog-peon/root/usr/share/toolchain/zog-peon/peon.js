@@ -18,7 +18,10 @@ var action = function (currentDir)
       zogPeon[config.type][config.rules.type] (config.uri, currentDir, function (done)
       {
         if (!done)
-          console.log ('can not %s %s', config.rules.type, config.type);
+        {
+          console.error ('can not %s %s', config.rules.type, config.type);
+          process.exit (1);
+        }
       });
     },
 
