@@ -94,6 +94,31 @@ exports.package = function (packageName, callbackDone)
 
       var packageDef = pkgControl.loadPackageDef (packageName);
 
+      var build = function ()
+      {
+        /* Don't copy pre/post scripts with unsupported architectures. */
+        if (packageDef.architecture.indexOf ('all') === -1)
+          copyTemplateFiles (packagePath, sharePath);
+
+        createConfigJson (packageName, sharePath);
+
+        /* Build the package with wpkg. */
+        wpkgEngine.build (packagePath, function (error)
+        {
+          /* When we reach the last item, then we have done all async work. */
+          if (i == controlFiles.length - 1)
+          {
+            if (callbackDone)
+              callbackDone (true);
+          }
+          else
+          {
+            i++;
+            nextCtrlFile ();
+          }
+        });
+      };
+
       /* Are the resources embedded in the package (less than 1GB)? */
       if (packageDef.data.embedded)
       {
@@ -103,30 +128,16 @@ exports.package = function (packageName, callbackDone)
         var dataType  = packageDef.data.type;
         var rulesType = packageDef.data.rules.type;
         var uri       = packageDef.data.uri;
-        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath);
+        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, function (done)
+        {
+          if (done)
+            build ();
+          else
+            zogLog.err ('can not build ' + packageName);
+        });
       }
-
-      /* Don't copy pre/post scripts with unsupported architectures. */
-      if (packageDef.architecture.indexOf ('all') === -1)
-        copyTemplateFiles (packagePath, sharePath);
-
-      createConfigJson (packageName, sharePath);
-
-      /* Build the package with wpkg. */
-      wpkgEngine.build (packagePath, function (error)
-      {
-        /* When we reach the last item, then we have done all async work. */
-        if (i == controlFiles.length - 1)
-        {
-          if (callbackDone)
-            callbackDone (true);
-        }
-        else
-        {
-          i++;
-          nextCtrlFile ();
-        }
-      });
+      else
+        build ();
     };
 
     if (controlFiles.length)

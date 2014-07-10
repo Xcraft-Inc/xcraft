@@ -8,63 +8,18 @@ var action = function (currentDir)
   var fs      = require ('fs');
   var url     = require ('url');
   var path    = require ('path');
-  var zogHttp = require ('zogHttp');
+  var zogPeon = require ('zogPeon');
 
   var config = require (path.join (currentDir, './config.json'));
-
-  var runOrCopy = function (file)
-  {
-    switch (config.type)
-    {
-    case 'bin':
-      break;
-
-    default:
-      break;
-    }
-  };
 
   return {
     install: function ()
     {
-      /* Looks if there is something to get and save the result in a cache/
-       * directory.
-       */
-      if (config.uri.length)
+      zogPeon[config.type][config.rules.type] (config.uri, currentDir, function (done)
       {
-        var urlObj = url.parse (config.uri);
-
-        if (/http[s]?:/.test (urlObj.protocol))
-        {
-          var lastProgress = -1;
-          var outputFile = path.join (currentDir, 'cache', path.basename (urlObj.pathname));
-
-          console.log ('download %s to %s', config.uri, outputFile);
-          zogHttp.get (config.uri, outputFile, function ()
-          {
-            runOrCopy (outputFile);
-          }, function (progress, total)
-          {
-            var currentProgress = parseInt (progress / total * 100);
-            if (currentProgress != lastProgress && !(currentProgress % 2))
-            {
-              lastProgress = currentProgress;
-              /* Like '%3s' */
-              var strProgress = Array (4 - lastProgress.toString ().length).join (' ') + lastProgress;
-              var screenProgress = parseInt (lastProgress * 40 / 100);
-              console.log ('%s%% %s%s %s MB',
-                           strProgress,
-                           Array (screenProgress + 1).join ('.'),
-                           Array (40 - screenProgress + 1).join (' '),
-                           parseInt (progress / 1000) / 1000);
-            }
-          });
-        }
-
-        /* TODO: handle the case without http[s]. */
-      }
-
-      /* TODO: handle the case without URI. */
+        if (!done)
+          console.log ('can not %s %s', config.rules.type, config.type);
+      });
     },
 
     remove: function ()
