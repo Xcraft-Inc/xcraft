@@ -91,11 +91,12 @@ exports.package = function (packageName, callbackDone)
       if (packageDef.data.embedded)
       {
         var zogPeon = require ('zogPeon');
+        var zogUri  = require ('zogUri');
 
         var dataType  = packageDef.data.type;
         var rulesType = packageDef.data.rules.type;
         var uri       = packageDef.data.uri;
-        zogPeon[dataType][rulesType] (uri);
+        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath);
       }
 
       copyTemplateFiles (packagePath, sharePath);
