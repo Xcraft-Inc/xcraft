@@ -46,7 +46,7 @@ var inquirerToPackage = function (inquirerPkg)
       packageDef.data.rules.type = it.rulesType;
       packageDef.data.rules.bin  = it.rulesBin || '';
       packageDef.data.rules.args = it.rulesArgs || '';
-      packageDef.data.embedded   = it.embedded || true;
+      packageDef.data.embedded   = it.embedded;
     }
   });
 
