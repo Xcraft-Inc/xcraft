@@ -216,11 +216,7 @@ exports.data =
   {
     type: 'confirm',
     name: 'embedded',
-    message: 'Embed the installer in the package (only if less than 1GB)?',
-    when: function (answers)
-    {
-      return answers.rulesType == 'exec';
-    }
+    message: 'Embed data in the package (only if less than 1GB)?'
   }
 ];
 
