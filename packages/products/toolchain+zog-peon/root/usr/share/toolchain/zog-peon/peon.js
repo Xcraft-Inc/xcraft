@@ -46,16 +46,17 @@ var action = function (currentDir)
           }, function (progress, total)
           {
             var currentProgress = parseInt (progress / total * 100);
-            if (currentProgress != lastProgress)
+            if (currentProgress != lastProgress && !(currentProgress % 2))
             {
               lastProgress = currentProgress;
               /* Like '%3s' */
               var strProgress = Array (4 - lastProgress.toString ().length).join (' ') + lastProgress;
               var screenProgress = parseInt (lastProgress * 40 / 100);
-              console.log ('%s%% [%s%s]',
+              console.log ('%s%% %s%s %s MB',
                            strProgress,
-                           Array (screenProgress + 1).join ('='),
-                           Array (40 - screenProgress + 1).join (' '));
+                           Array (screenProgress + 1).join ('.'),
+                           Array (40 - screenProgress + 1).join (' '),
+                           parseInt (progress / 1000) / 1000);
             }
           });
         }
