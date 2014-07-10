@@ -1,9 +1,10 @@
 #!/bin/sh
 set -e
 
-PEON=__INSTALLERJS__
 ACTION=__ACTION__
 SYSROOT=__SYSROOT__
-PRODUCTSHARE=__PRODUCTSHARE__
+CONFIG=__CONFIG__
 
-# node $SYSROOT/$PRODUCTSHARE/$PEON $ACTION
+PEON=$(node -e "process.stdout.write (require ('path').resolve (require ('%SYSROOT%%CONFIG%').bin));")
+
+node $PEON $ACTION

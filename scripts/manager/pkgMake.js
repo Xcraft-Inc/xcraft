@@ -20,8 +20,8 @@ var copyTemplateFiles = function (packagePath, postInstDir)
   {
     '__INSTALLERJS__' : zogConfig.pkgInstaller,
     '__ACTION__'      : 'install',
-    '__SYSROOT__'     : path.normalize ('./'),
-    '__PRODUCTSHARE__': path.relative (packagePath, postInstDir)
+    '__SYSROOT__'     : './',
+    '__CONFIG__'      : 'etc/peon.json'
   };
 
   /* FIXME: experimental, not tested. */

@@ -1,8 +1,9 @@
 @echo off
 
-set PEON=__INSTALLERJS__
 set ACTION=__ACTION__
 set SYSROOT=__SYSROOT__
-set PRODUCTSHARE=__PRODUCTSHARE__
+set CONFIG=__CONFIG__
 
-rem node %SYSROOT%\%PRODUCTSHARE%\%PEON% %ACTION%
+for /f "delims=" %%i in ('node -e "process.stdout.write (require ('path').resolve (require ('%SYSROOT%%CONFIG%').bin));"') do set PEON=%%i
+
+node %PEON% %ACTION%
