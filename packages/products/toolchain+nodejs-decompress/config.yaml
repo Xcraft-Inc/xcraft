@@ -1,0 +1,20 @@
+name: toolchain+nodejs-decompress
+version: 0.3.1
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - all
+description:
+  brief: Easily extract archives with node.js.
+  long: ""
+dependency: {}
+data:
+  uri: ""
+  type: bin
+  rules:
+    type: copy
+    bin: ""
+    args: ""
+  embedded: true
+distribution: toolchain/
