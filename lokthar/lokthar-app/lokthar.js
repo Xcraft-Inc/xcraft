@@ -1,6 +1,4 @@
-//Link relative zogConfig lib
-var zogConfig   = require ('../../scripts/zogConfig.js')();
-var app         = angular.module('lokthar', ['ui.router', 'packageManager']);
+var app         = angular.module('lokthar', ['ui.router', 'lk-packages','lk-configure']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
@@ -9,15 +7,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/home',
       templateUrl: 'partials/home.html',
     controller: 'HomeController'
-    })
-    .state('packages', {
-      templateUrl: 'partials/packages.html',
-    controller: 'PackagesController'
-    })
-    .state('config', {
-      url: '/config',
-        templateUrl: 'partials/config.html',
-    controller: 'ConfigController'
     })
     .state('profile', {
       url: '/profile',
@@ -30,23 +19,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'AboutController'
     })
 });
-
-app.controller('ConfigController', ['$scope', function ($scope){
-  $scope.title  = 'Configuration';
-  $scope.badge  = 'dev';
-  $scope.icon   = 'cog'
-
-  $scope.libRoot          = zogConfig.libRoot;
-  $scope.productsRoot     = zogConfig.pkgProductsRoot;
-  $scope.nodeModulesRoot  = zogConfig.nodeModulesRoot;
-
-  $scope.openFolder = function (path)
-  {
-    var shell = require('shell');
-    shell.openItem(path);
-  };
-
-}]);
 
 app.controller('ProfileController', ['$scope', function ($scope){
   $scope.title = 'Mon profile';
