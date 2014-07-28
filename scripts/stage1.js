@@ -10,7 +10,7 @@ var zogPlatform = require ('zogPlatform');
 var depsForZog = [
   'cli-color',
   'commander',
-  'decompress',
+  'decompress', /* deprecated */
   'express',
   'fs-extra',
   'grunt',
@@ -22,7 +22,8 @@ var depsForZog = [
   'progress-stream',
   'request',
   'socket.io',
-  'socket.io-client'
+  'socket.io-client',
+  'unzip'
 ];
 
 try
