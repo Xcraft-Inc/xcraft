@@ -1,17 +1,24 @@
-var module      = angular.module('packageManager', ['checklist-model']);
+///LoKthar Packages
+//
+var module      = angular.module('lk-packages', ['checklist-model','lk-helpers']);
 
 module.config(function($stateProvider, $urlRouterProvider) {
+  var module_root = 'modules/lkPackages/';
   $urlRouterProvider.otherwise("/packages.manager");
   $stateProvider
+    .state('packages', {
+      templateUrl: module_root + 'views/packages.html',
+      controller: 'PackagesController'
+    })
     .state('packages.manager', {
       url: "/packages/manager",
-      templateUrl: 'modules/packages/views/manager.html',
-    controller: 'PackageManagerController'
+      templateUrl:  module_root + 'views/manager.html',
+      controller: 'PackageManagerController'
     })
     .state('packages.editor', {
       url: "/packages/editor",
-      templateUrl: 'modules/packages/views/editor.html',
-    controller: 'PackageEditorController'
+      templateUrl: module_root + 'views/editor.html',
+      controller: 'PackageEditorController'
     })
 });
 
@@ -75,29 +82,4 @@ function ($scope, $state) {
     $scope.dependency        = {};
   };
 
-}]);
-
-//Validator directive, call action in attr, and set
-//validity for the form field.
-module.directive('validator', [function () {
-    return {
-        restrict: 'A',
-        scope: {
-          action: '&validator',
-          model:  '=ngModel',
-        },
-        require: 'ngModel',
-        link: function (scope, elem, attrs, control) {
-              scope.$watch('model', function (data) {
-                if(scope.model!==undefined)
-                {
-                  var action = scope.action();
-                  if(action !== undefined)
-                  {
-                    control.$setValidity("valid", action(scope.model));
-                  }
-                }
-              });
-        }
-    };
 }]);
