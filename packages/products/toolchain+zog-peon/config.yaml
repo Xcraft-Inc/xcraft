@@ -8,7 +8,9 @@ architecture:
 description:
   brief: A core dependency for many packages.
   long: ""
-dependency: {}
+dependency:
+  toolchain+nodejs-decompress:
+    - ">= 0.3.1"
 data:
   uri: "self:///root"
   type: bin
