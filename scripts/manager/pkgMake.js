@@ -62,6 +62,9 @@ exports.package = function (packageName, callbackDone)
     var nextCtrlFile = function ()
     {
       var controlFile = controlFiles[i];
+
+      zogLog.info ('process ' + controlFile);
+
       var packagePath = path.resolve (path.dirname (controlFile), '..');
 
       /* Reserved directory for the post-installer. */
