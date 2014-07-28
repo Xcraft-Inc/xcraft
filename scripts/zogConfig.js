@@ -104,6 +104,7 @@ module.exports = function ()
     pkgTemplatesRoot: path.resolve ('./templates/wpkg/'),
     pkgTargetRoot   : path.resolve ('./var/devroot/'),
     chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
+    confWizard      : path.resolve ('./scripts/config/confWizard.js'),
 
     /* Lib helpers. */
     libPkgCreate    : path.resolve ('./scripts/manager/pkgCreate.js'),

@@ -28,7 +28,7 @@
                   <label class="uk-form-label">{{field.message}}</label>
                   <div class="uk-form-controls">
                     <input
-                    ng-show="field.loktharType!='multi-line'"
+                    ng-if="field.loktharType!='multi-line'"
                     name="input"
                     type="text"
                     ng-class="{'uk-form-danger' : form.input.$invalid,
@@ -39,7 +39,7 @@
                     required/>
 
                     <textarea
-                    ng-show="field.loktharType=='multi-line'"
+                    ng-if="field.loktharType=='multi-line'"
                     name="input"
                     ng-class="{'uk-form-danger' : form.input.$invalid,
                                'uk-form-success': form.input.$valid}"
