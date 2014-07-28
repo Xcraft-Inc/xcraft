@@ -17,7 +17,7 @@ data:
   type: bin
   rules:
     type: exec
-    bin: winexpress_full.exe
+    bin: vs2013.2-winexp-ret-enu/winexpress_full.exe
     args: /Passive /NoRestart /NoRefresh /NoWeb /Full
   embedded: false
 distribution: toolchain/
