@@ -62,6 +62,9 @@ exports.package = function (packageName, callbackDone)
     var nextCtrlFile = function ()
     {
       var controlFile = controlFiles[i];
+
+      zogLog.info ('process ' + controlFile);
+
       var packagePath = path.resolve (path.dirname (controlFile), '..');
 
       /* Reserved directory for the post-installer. */
@@ -77,67 +80,77 @@ exports.package = function (packageName, callbackDone)
       var sharePath = path.join (packagePath, 'usr', 'share', namespace, name);
       zogFs.mkdir (sharePath);
 
+      var build = function ()
+      {
+        var packageDef = pkgControl.loadPackageDef (packageName);
+
+        var wpkgBuild = function ()
+        {
+          /* Don't copy pre/post scripts with unsupported architectures. */
+          if (packageDef.architecture.indexOf ('all') === -1)
+            copyTemplateFiles (packagePath, sharePath);
+
+          createConfigJson (packageName, sharePath);
+
+          /* Build the package with wpkg. */
+          wpkgEngine.build (packagePath, function (error)
+          {
+            /* When we reach the last item, then we have done all async work. */
+            if (i == controlFiles.length - 1)
+            {
+              if (callbackDone)
+                callbackDone (true);
+            }
+            else
+            {
+              i++;
+              nextCtrlFile ();
+            }
+          });
+        };
+
+        /* Are the resources embedded in the package (less than 1GB)? */
+        if (packageDef.data.embedded && packageDef.data.uri.length)
+        {
+          var zogPeon = require ('zogPeon');
+          var zogUri  = require ('zogUri');
+
+          var dataType  = packageDef.data.type;
+          var rulesType = packageDef.data.rules.type;
+          var uri       = packageDef.data.uri;
+          zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, function (done)
+          {
+            if (done)
+              wpkgBuild ();
+            else
+              zogLog.err ('can not build ' + packageName);
+          });
+        }
+        else
+          wpkgBuild ();
+      };
+
       /* Look for premake script. */
       try
       {
         var productPath = path.join (zogConfig.pkgProductsRoot, packageName);
         var premake = require (path.join (productPath, 'premake.js')) (zogConfig, packagePath, sharePath);
-        premake.copy ();
+        premake.copy (function (done)
+        {
+          if (done)
+            build ();
+        });
       }
       catch (err)
       {
         if (err.code === 'MODULE_NOT_FOUND')
+        {
           zogLog.info ('no premake script for this package');
+          build ();
+        }
         else
           zogLog.err (err);
       }
-
-      var packageDef = pkgControl.loadPackageDef (packageName);
-
-      var build = function ()
-      {
-        /* Don't copy pre/post scripts with unsupported architectures. */
-        if (packageDef.architecture.indexOf ('all') === -1)
-          copyTemplateFiles (packagePath, sharePath);
-
-        createConfigJson (packageName, sharePath);
-
-        /* Build the package with wpkg. */
-        wpkgEngine.build (packagePath, function (error)
-        {
-          /* When we reach the last item, then we have done all async work. */
-          if (i == controlFiles.length - 1)
-          {
-            if (callbackDone)
-              callbackDone (true);
-          }
-          else
-          {
-            i++;
-            nextCtrlFile ();
-          }
-        });
-      };
-
-      /* Are the resources embedded in the package (less than 1GB)? */
-      if (packageDef.data.embedded)
-      {
-        var zogPeon = require ('zogPeon');
-        var zogUri  = require ('zogUri');
-
-        var dataType  = packageDef.data.type;
-        var rulesType = packageDef.data.rules.type;
-        var uri       = packageDef.data.uri;
-        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, function (done)
-        {
-          if (done)
-            build ();
-          else
-            zogLog.err ('can not build ' + packageName);
-        });
-      }
-      else
-        build ();
     };
 
     if (controlFiles.length)

@@ -1,18 +1,16 @@
-name: toolchain+zog-peon
-version: 0.1.0
+name: toolchain+nodejs-decompress
+version: 0.3.1
 maintainer:
   name: Mathieu Schroeter
   email: "schroeter@epsitec.ch"
 architecture:
   - all
 description:
-  brief: A core dependency for many packages.
+  brief: Easily extract archives with node.js.
   long: ""
-dependency:
-  toolchain+nodejs-decompress:
-    - ">= 0.3.1"
+dependency: {}
 data:
-  uri: "self:///root"
+  uri: ""
   type: bin
   rules:
     type: copy
