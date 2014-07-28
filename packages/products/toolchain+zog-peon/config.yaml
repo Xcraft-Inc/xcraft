@@ -9,8 +9,8 @@ description:
   brief: A core dependency for many packages.
   long: ""
 dependency:
-  toolchain+nodejs-decompress:
-    - ">= 0.3.1"
+  toolchain+nodejs-unzip:
+    - ">= 0.1.9"
 data:
   uri: "self:///root"
   type: bin

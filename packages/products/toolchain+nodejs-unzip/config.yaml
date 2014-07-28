@@ -1,12 +1,12 @@
-name: toolchain+nodejs-decompress
-version: 0.3.1
+name: toolchain+nodejs-unzip
+version: 0.1.9
 maintainer:
   name: Mathieu Schroeter
   email: "schroeter@epsitec.ch"
 architecture:
   - all
 description:
-  brief: Easily extract archives with node.js.
+  brief: Easily extract zip archives with node.js.
   long: ""
 dependency: {}
 data:
