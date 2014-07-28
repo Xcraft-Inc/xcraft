@@ -27,9 +27,10 @@ module.exports = function (zogConfig, packagePath, sharePath)
   };
 
   return {
-    copy: function ()
+    copy: function (callbackDone)
     {
       copyZogModules ();
+      callbackDone (true);
     }
   };
 };
