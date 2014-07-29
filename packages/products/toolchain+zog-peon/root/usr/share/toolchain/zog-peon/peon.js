@@ -15,7 +15,7 @@ var action = function (currentDir)
   return {
     install: function ()
     {
-      zogPeon[config.type][config.rules.type] (config.uri, currentDir, function (done)
+      zogPeon[config.type][config.rules.type] (config.uri, currentDir, extra, function (done)
       {
         if (!done)
         {
