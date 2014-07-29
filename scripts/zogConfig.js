@@ -70,8 +70,8 @@ module.exports = function ()
 
     architectures:
     [
-      'win32-i386',
-      'win64-amd64',
+      'mswindows-i386',
+      'mswindows-amd64',
       'linux-i386',
       'linux-amd64',
       'darwin-i386',
