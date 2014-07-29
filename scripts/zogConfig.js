@@ -105,6 +105,8 @@ module.exports = function ()
     pkgTargetRoot   : path.resolve ('./var/devroot/'),
     chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
     confWizard      : path.resolve ('./scripts/config/confWizard.js'),
+    confDefaultFile : path.resolve ('./scripts/zog.yaml'),
+    confUserFile    : path.resolve ('./zog.yaml'),
 
     /* Lib helpers. */
     libPkgCreate    : path.resolve ('./scripts/manager/pkgCreate.js'),
