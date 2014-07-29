@@ -28,7 +28,7 @@ module.exports = function (zogConfig, packagePath, sharePath)
     [
       'install',
       '--prefix', nodeModules,
-      'unzip@' + packageDef.version
+      'tar.gz@' + packageDef.version
     ];
 
     zogProcess.spawn (npm, args, function (done)

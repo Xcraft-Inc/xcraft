@@ -1,12 +1,12 @@
-name: toolchain+nodejs-unzip
-version: 0.1.9
+name: toolchain+nodejs-targz
+version: 0.1.1
 maintainer:
   name: Mathieu Schroeter
   email: "schroeter@epsitec.ch"
 architecture:
   - all
 description:
-  brief: Easily extract zip archives with node.js.
+  brief: Easily extract tar.gz archives with node.js.
   long: ""
 dependency: {}
 data:
