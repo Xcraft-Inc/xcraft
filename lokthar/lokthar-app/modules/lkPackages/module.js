@@ -54,6 +54,10 @@ function ($scope, $state) {
   $scope.dependency           = {};
   $scope.dependencies         = {};
 
+  //package content related fields and initial model
+  $scope.packageContentFields = wizard.data;
+  $scope.packageContent       = {};
+
   $scope.createPackage = function ()
   {
     //add header to package template
