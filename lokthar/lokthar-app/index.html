@@ -47,7 +47,7 @@
                             <li><a ng-click="openGitlab()"><i class="uk-icon-flask"></i> Gitlab</a></li>
                             <li class="uk-nav-header">Mon syst&egrave;me</li>
                             <li><a ng-click="openSysroot()"><i class="uk-icon-folder-open-o"></i> Ouvrir le sysroot</a></li>
-                            <li><a ui-sref="configure"><i class="uk-icon-cog"></i> Configurer</a></li>
+                            <li><a ui-sref="configure.directories"><i class="uk-icon-cog"></i> Configurer</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a ng-click="openConsole()"><i class="uk-icon-bug"></i> Debug</a></li>
                             <li><a ui-sref="about"><i class="uk-icon-question"></i> A propos</a></li>
@@ -59,7 +59,8 @@
                 </li>
             </ul>
         </nav>
-        <div class="content-pusher"> </div>
+        <div class="content-pusher"></div>
         <div ui-view></div>
+        <div ui-view="module"></div>
     </body>
 </html>
