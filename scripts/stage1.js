@@ -23,7 +23,7 @@ var depsForZog = [
   'request',
   'socket.io',
   'socket.io-client',
-  'unzip'
+  'tar.gz'
 ];
 
 try
