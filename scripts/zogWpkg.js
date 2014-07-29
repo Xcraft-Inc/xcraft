@@ -38,11 +38,8 @@ var makeRun = function ()
 };
 
 /* TODO: must be generic. */
-var cmakeRun = function (error)
+var cmakeRun = function ()
 {
-  if (error)
-    zogLog.err (error);
-
   var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
 
   /* FIXME, TODO: use a backend (a module) for building with cmake. */
@@ -100,17 +97,14 @@ cmd.install = function ()
     zogHttp.get (inputFile, outputFile, function ()
     {
       /* FIXME: use a generic way (a module) for decompressing. */
-      var ext = path.extname (archive).replace (/\./g, '');
-      if (ext == 'gz')
-        ext = 'targz';
-
-      var decompress = require ('decompress');
-      var decomp = new decompress ();
-      decomp
-        .src (outputFile)
-        .dest (path.dirname (outputFile))
-        .use (decompress[ext] ({ strip: 0 }))
-        .decompress (cmakeRun);
+      var targz = require ('tar.gz');
+      var compress = new targz ().extract (outputFile, path.dirname (outputFile), function (err)
+      {
+        if (err)
+          zogLog.err (err);
+        else
+          cmakeRun ();
+      });
     });
   }
 };
