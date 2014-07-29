@@ -15,6 +15,12 @@ var action = function (currentDir)
   return {
     install: function ()
     {
+      var extra =
+      {
+        'bin' : config.rules.bin,
+        'args': config.rules.args
+      };
+
       zogPeon[config.type][config.rules.type] (config.uri, currentDir, extra, function (done)
       {
         if (!done)
