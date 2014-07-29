@@ -10,7 +10,6 @@ var zogPlatform = require ('zogPlatform');
 var depsForZog = [
   'cli-color',
   'commander',
-  'decompress', /* deprecated */
   'express',
   'fs-extra',
   'grunt',
