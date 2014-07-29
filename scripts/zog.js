@@ -33,6 +33,7 @@ program
            + argsPrettify (zogChest.args) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
+  .option ('list', 'list all available packages', zogManager.list)
   .option ('create <package>', 'create or edit a package definition', zogManager.create)
   .option ('make [package]', 'make all or only the [package]')
   .option ('install <package:arch>', 'install the <package>', zogManager.install)

@@ -11,6 +11,31 @@ var pkgCreate = require (zogConfig.libPkgCreate);
 
 process.chdir (path.join (__dirname, '/..'));
 
+exports.list = function ()
+{
+  var util = require ('util');
+
+  zogLog.info ('list of all products');
+
+  var pkgList = require (zogConfig.libPkgList);
+
+  var list = pkgList.listProducts ();
+  var header = util.format ('name%s version%s architectures',
+                            Array (40 - 'name'.length).join (' '),
+                            Array (15 - 'version'.length).join (' '));
+  console.log (header);
+  console.log (Array (header.length + 1).join ('-'));
+  list.forEach (function (def)
+  {
+    console.log ('%s%s %s%s',
+                 def.name,
+                 Array (40 - def.name.length).join (' '),
+                 def.version,
+                 Array (15 - def.version.toString ().length).join (' '),
+                 def.architecture.toString ().replace (/,/g, ', '));
+  });
+}
+
 /**
  * Create a new package template or modify an existing package config file.
  * @param {string} packageName
