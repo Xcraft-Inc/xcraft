@@ -94,7 +94,7 @@ var defToControl = function (packageDef)
           break;
         }
 
-        return result.trim ();
+        return result.toString ().trim ();
       };
 
       var result = fctValue (entry);
