@@ -117,6 +117,11 @@ var processCtrlFile = function (packageName, callbackDone)
         var rulesType = packageDef.data.rules.type;
         var uri       = packageDef.data.uri;
         zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, function (done)
+
+        /* FIXME: handle the case where we must embed an MSI. In this case
+         *        the 'exec' or 'copy' rules should not be called like for
+         *        the simple copy of files.
+         */
         {
           if (done)
             wpkgBuild (packageDef);
