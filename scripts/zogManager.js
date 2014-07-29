@@ -34,7 +34,7 @@ exports.list = function ()
                  Array (15 - def.version.toString ().length).join (' '),
                  def.architecture.toString ().replace (/,/g, ', '));
   });
-}
+};
 
 /**
  * Create a new package template or modify an existing package config file.
