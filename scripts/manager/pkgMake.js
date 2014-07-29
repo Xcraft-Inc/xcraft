@@ -120,7 +120,7 @@ var processCtrlFile = function (packageName, callbackDone)
         /* NOTE: even with the 'exec' rule, we prevent to pass the binary to
          *       execute because here we are not installing, but only packaging.
          */
-        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, {}, function (done)
+        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, sharePath, {}, function (done)
         {
           if (done)
             wpkgBuild (packageDef);

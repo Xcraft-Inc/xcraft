@@ -21,7 +21,7 @@ var action = function (currentDir)
         'args': config.rules.args
       };
 
-      zogPeon[config.type][config.rules.type] (config.uri, currentDir, extra, function (done)
+      zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)
       {
         if (!done)
         {
