@@ -138,8 +138,8 @@ exports.controlFiles = function (packageName, saveFiles)
      */
     var os = zogPlatform.getOs ();
     if (!/^(all|source)$/.test (arch)
-        && (   os == 'win' && !/^win/.test (arch)
-            || os != 'win' &&  /^win/.test (arch)))
+        && (   os == 'win' && !/^mswindows/.test (arch)
+            || os != 'win' &&  /^mwwindows/.test (arch)))
     {
       zogLog.warn ('package \'%s\' for %s unsupported on %s',
                    packageName, arch, os);
