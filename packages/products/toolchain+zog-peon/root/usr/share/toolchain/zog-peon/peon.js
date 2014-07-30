@@ -12,6 +12,20 @@ var action = function (currentDir)
 
   var config = require (path.join (currentDir, './config.json'));
 
+  var peonRun = function (extra)
+  {
+    console.log ('command: %s %s', extra.bin, extra.args);
+
+    zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)
+    {
+      if (!done)
+      {
+        console.error ('can not %s %s', config.rules.type, config.type);
+        process.exit (1);
+      }
+    });
+  };
+
   return {
     postinst: function ()
     {
@@ -21,14 +35,7 @@ var action = function (currentDir)
         'args': config.rules.args.install
       };
 
-      zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)
-      {
-        if (!done)
-        {
-          console.error ('can not %s %s', config.rules.type, config.type);
-          process.exit (1);
-        }
-      });
+      peonRun (extra);
     },
 
     prerm: function ()
