@@ -23,7 +23,6 @@ var depsForZog =
   'progress',
   'progress-stream',
   'request',
-  'simplebus',
   'socket.io',
   'socket.io-client',
   'tar.gz'
