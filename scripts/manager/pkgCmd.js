@@ -104,3 +104,15 @@ exports.install = function (packageRef)
     })
   });
 };
+
+exports.remove = function (packageRef)
+{
+  var pkg = parsePkgRef (packageRef);
+
+  zogLog.verb ('remove package name: ' + pkg.name + ' on architecture: ' + pkg.arch);
+
+  if (!checkArch (pkg.arch))
+    return;
+
+  wpkgEngine.remove (pkg.name, pkg.arch);
+};

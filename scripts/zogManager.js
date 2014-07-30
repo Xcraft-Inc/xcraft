@@ -149,6 +149,19 @@ exports.install = function (packageRef)
 };
 
 /**
+ * Try to remove the developement package.
+ * @param {string} packageName
+ */
+exports.remove = function (packageRef)
+{
+  zogLog.info ('remove development package: ' + packageRef);
+
+  var pkgCmd = require (zogConfig.libPkgCmd);
+
+  pkgCmd.remove (packageRef);
+};
+
+/**
  * Remove all the generated files.
  */
 exports.clean = function ()

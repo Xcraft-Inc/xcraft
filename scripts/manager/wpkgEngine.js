@@ -111,6 +111,18 @@ var wpkgArgs = function (callbackDone)
       run (args, packagePath);
     },
 
+    remove: function (packageName, arch)
+    {
+      var args =
+      [
+        '--verbose',
+        '--root', path.join (zogConfig.pkgTargetRoot, arch),
+        '--remove'
+      ];
+
+      run (args, packageName);
+    },
+
     createAdmindir: function (controlFile, arch)
     {
       var args =
@@ -275,6 +287,16 @@ exports.install = function (packageName, arch, callbackDone)
     });
   });
 };
+
+/**
+ * Remove a package.
+ * @param {string} packageName
+ * @param {string} arch - Architecture.
+ */
+exports.remove = function (packageName, arch)
+{
+  var wpkg = new wpkgArgs ();
+  wpkg.remove (packageName, arch);
 };
 
 /**

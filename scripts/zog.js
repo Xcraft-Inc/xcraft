@@ -37,6 +37,7 @@ program
   .option ('create <package>', 'create or edit a package definition', zogManager.create)
   .option ('make [package]', 'make all or only the [package]')
   .option ('install <package:arch>', 'install the <package>', zogManager.install)
+  .option ('remove <package:arch>', 'remove the <package>', zogManager.remove)
   .option ('clean', 'remove the devroot, the repository and the packages', zogManager.clean);
 
 program.on ('--help', function ()
