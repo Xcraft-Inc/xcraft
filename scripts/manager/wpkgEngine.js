@@ -73,6 +73,8 @@ var wpkgArgs = function (callbackDone)
       [
         '--verbose',
         '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch),
+        '--compressor', 'gz',
+        '--zlevel', 6,
         '--build'
       ];
 
