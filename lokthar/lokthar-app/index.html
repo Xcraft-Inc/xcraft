@@ -39,32 +39,33 @@
 
         <!-- off-canvas nav -->
         <div id="nav" class="uk-offcanvas" ng-controller="HomeController">
-            <div class="uk-offcanvas-bar" style="top: 40px;">
-              <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
-                <li class="uk-nav-header">Lokthar</li>
-                <li class="uk-parent">
-                  <a href="#"><i class="uk-icon-star"></i> Menu</a>
-                  <ul class="uk-nav-sub">
-                    <li class="uk-nav-header">Company</li>
-                    <li><a ui-sref="profile"><i class="uk-icon-user"></i> Profile</a></li>
-                    <li><a ng-click="openGitlab()"><i class="uk-icon-flask"></i> Gitlab</a></li>
-                    <li class="uk-nav-header">System</li>
-                    <li><a ng-click="openSysroot()"><i class="uk-icon-folder-open-o"></i> Open sysroot</a></li>
-                    <li class="uk-nav-header">Misc</li>
-                    <li><a ng-click="openConsole()"><i class="uk-icon-bug"></i> Debug</a></li>
-                    <li><a ui-sref="about"><i class="uk-icon-question"></i> About</a></li>
-                  </ul>
-                </li>
-                <li class="uk-nav-header">Modules</li>
-                <li ui-sref-active="uk-active">
-                    <a ui-sref="packages.manager" ><i class="uk-icon-puzzle-piece"></i> Packages</a>
-                </li>
-                <li ui-sref-active="uk-active">
-                    <a ui-sref="configure.directories" ><i class="uk-icon-cog"></i> Configure</a>
-                </li>
-              </ul>
-            </div>
+          <div class="uk-offcanvas-bar" style="top: 40px;">
+            <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+              <li class="uk-nav-header">Lokthar</li>
+              <li class="uk-parent">
+                <a href="#"><i class="uk-icon-star"></i> Menu</a>
+                <ul class="uk-nav-sub">
+                  <li class="uk-nav-header">Company</li>
+                  <li><a ui-sref="profile"><i class="uk-icon-user"></i> Profile</a></li>
+                  <li><a ng-click="openGitlab()"><i class="uk-icon-flask"></i> Gitlab</a></li>
+                  <li class="uk-nav-header">System</li>
+                  <li><a ng-click="openSysroot()"><i class="uk-icon-folder-open-o"></i> Open sysroot</a></li>
+                  <li class="uk-nav-header">Misc</li>
+                  <li><a ng-click="openConsole()"><i class="uk-icon-bug"></i> Debug</a></li>
+                  <li><a ui-sref="about"><i class="uk-icon-question"></i> About</a></li>
+                </ul>
+              </li>
+              <li class="uk-nav-header">Modules</li>
+              <li ui-sref-active="uk-active">
+                  <a ui-sref="packages.manager" ><i class="uk-icon-puzzle-piece"></i> Packages</a>
+              </li>
+              <li ui-sref-active="uk-active">
+                  <a ui-sref="configure.directories" ><i class="uk-icon-cog"></i> Configure</a>
+              </li>
+            </ul>
+          </div>
         </div>
+
         <div class="content-pusher"></div>
         <div ui-view></div>
         <div ui-view="module"></div>
