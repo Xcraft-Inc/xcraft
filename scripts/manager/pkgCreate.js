@@ -48,6 +48,7 @@ var inquirerToPackage = function (inquirerPkg)
       packageDef.data.embedded   = it.embedded;
       packageDef.data.rules.args         = {};
       packageDef.data.rules.args.install = it.rulesArgsInstall || '';
+      packageDef.data.rules.args.remove  = it.rulesArgsRemove || '';
     }
   });
 

@@ -19,5 +19,6 @@ data:
     bin: ""
     args:
       install: ""
+      remove: ""
   embedded: true
 distribution: toolchain/

@@ -214,6 +214,15 @@ exports.data =
     }
   },
   {
+    type: 'input',
+    name: 'rulesArgsRemove',
+    message: 'Arguments for the installer (to remove):',
+    when: function (answers)
+    {
+      return answers.rulesType == 'exec';
+    }
+  },
+  {
     type: 'confirm',
     name: 'embedded',
     message: 'Embed data in the package (only if less than 1GB)?'
