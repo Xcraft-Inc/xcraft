@@ -84,6 +84,7 @@ module.exports = function ()
 
     busCommanderPort : 9100,
     busNotifierPort  : 9200,
+    busHost          : '127.0.0.1',
 
     chest: conf.chest,
 

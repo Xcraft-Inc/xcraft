@@ -10,6 +10,7 @@ var zogPlatform = require ('zogPlatform');
 var depsForZog =
 [
   'async',
+  'axon',
   'cli-color',
   'commander',
   'express',
