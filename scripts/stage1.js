@@ -7,7 +7,9 @@ var sys = require ('sys');
 var zogProcess = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
-var depsForZog = [
+var depsForZog =
+[
+  'async',
   'cli-color',
   'commander',
   'express',
@@ -20,10 +22,9 @@ var depsForZog = [
   'progress',
   'progress-stream',
   'request',
+  'simplebus',
   'socket.io',
   'socket.io-client',
-  'simplebus',
-  'async',
   'tar.gz'
 ];
 
