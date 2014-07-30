@@ -22,6 +22,8 @@ var depsForZog = [
   'request',
   'socket.io',
   'socket.io-client',
+  'simplebus',
+  'async',
   'tar.gz'
 ];
 
