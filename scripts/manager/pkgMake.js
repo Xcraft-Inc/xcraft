@@ -8,30 +8,32 @@ var zogFs      = require ('zogFs');
 var zogLog     = require ('zogLog') (moduleName);
 var pkgControl = require ('./pkgControl.js');
 
-var copyTemplateFiles = function (packagePath, postInstDir)
+var copyTemplateFiles = function (packagePath, script, postInstDir)
 {
   var fs          = require ('fs');
   var zogPlatform = require ('zogPlatform');
 
-  var postinstFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgPostinst);
-  var postinstFileOut = path.join (packagePath, zogConfig.pkgWPKG, zogConfig.pkgPostinst);
+  var action = script.replace (/\..*$/, '');
+
+  var scriptFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgScript);
+  var scriptFileOut = path.join (packagePath, zogConfig.pkgWPKG, script);
 
   var placeHolders =
   {
     '__SHARE__'   : path.relative (packagePath, postInstDir),
-    '__ACTION__'  : 'install',
+    '__ACTION__'  : action,
     '__SYSROOT__' : './',
     '__CONFIG__'  : 'etc/peon.json'
   };
 
   /* FIXME: experimental, not tested. */
-  var data = fs.readFileSync (postinstFileIn, 'utf8');
+  var data = fs.readFileSync (scriptFileIn, 'utf8');
   Object.keys (placeHolders).forEach (function (it)
   {
     data = data.replace (it, placeHolders[it]);
   });
 
-  fs.writeFileSync (postinstFileOut, data, 'utf8');
+  fs.writeFileSync (scriptFileOut, data, 'utf8');
 };
 
 var createConfigJson = function (packageName, postInstDir)
@@ -84,7 +86,18 @@ var processCtrlFile = function (packageName, callbackDone)
       {
         /* Don't copy pre/post scripts with unsupported architectures. */
         if (packageDef.architecture.indexOf ('all') === -1)
-          copyTemplateFiles (packagePath, sharePath);
+        {
+          var scripts =
+          [
+            zogConfig.pkgPostinst,
+            zogConfig.pkgPrerm
+          ];
+
+          scripts.forEach (function (it)
+          {
+            copyTemplateFiles (packagePath, it, sharePath);
+          });
+        }
 
         createConfigJson (packageName, sharePath);
 
