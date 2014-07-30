@@ -82,43 +82,46 @@ module.exports = function ()
       'freebsd-amd64'
     ],
 
+    busCommanderPort : 9100,
+    busNotifierPort  : 9200,
+
     chest: conf.chest,
 
     /* FIXME: must have a better handling. */
-    pkgCfgFileName  : 'config.yaml',
-    pkgScript       : 'script' + zogPlatform.getShellExt (),
-    pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
-    pkgPrerm        : 'prerm' + zogPlatform.getShellExt (),
-    pkgWPKG         : 'WPKG',
-    pkgRepository   : 'toolchain/',
-    pkgIndex        : 'index.tar.gz',
+    pkgCfgFileName   : 'config.yaml',
+    pkgScript        : 'script' + zogPlatform.getShellExt (),
+    pkgPostinst      : 'postinst' + zogPlatform.getShellExt (),
+    pkgPrerm         : 'prerm' + zogPlatform.getShellExt (),
+    pkgWPKG          : 'WPKG',
+    pkgRepository    : 'toolchain/',
+    pkgIndex         : 'index.tar.gz',
 
     /* Path helpers. */
-    toolchainRoot   : path.resolve ('./'),
-    libRoot         : path.resolve ('./scripts/lib/'),
-    loktharRoot     : path.resolve ('./lokthar/'),
-    nodeModulesRoot : path.resolve ('./node_modules/'),
-    tempRoot        : path.resolve ('./var/tmp/'),
-    pkgTempRoot     : path.resolve ('./var/tmp/wpkg/'),
-    pkgDebRoot      : path.resolve ('./var/wpkg/'),
-    pkgBaseRoot     : path.resolve ('./packages/base/'),
-    pkgProductsRoot : path.resolve ('./packages/products/'),
-    pkgTemplatesRoot: path.resolve ('./templates/wpkg/'),
-    pkgTargetRoot   : path.resolve ('./var/devroot/'),
-    chestServer     : path.resolve ('./scripts/chest/chestServer.js'),
-    confWizard      : path.resolve ('./scripts/config/confWizard.js'),
-    confDefaultFile : path.resolve ('./scripts/zog.yaml'),
-    confUserFile    : path.resolve ('./zog.yaml'),
+    toolchainRoot    : path.resolve ('./'),
+    libRoot          : path.resolve ('./scripts/lib/'),
+    loktharRoot      : path.resolve ('./lokthar/'),
+    nodeModulesRoot  : path.resolve ('./node_modules/'),
+    tempRoot         : path.resolve ('./var/tmp/'),
+    pkgTempRoot      : path.resolve ('./var/tmp/wpkg/'),
+    pkgDebRoot       : path.resolve ('./var/wpkg/'),
+    pkgBaseRoot      : path.resolve ('./packages/base/'),
+    pkgProductsRoot  : path.resolve ('./packages/products/'),
+    pkgTemplatesRoot : path.resolve ('./templates/wpkg/'),
+    pkgTargetRoot    : path.resolve ('./var/devroot/'),
+    chestServer      : path.resolve ('./scripts/chest/chestServer.js'),
+    confWizard       : path.resolve ('./scripts/config/confWizard.js'),
+    confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
+    confUserFile     : path.resolve ('./zog.yaml'),
 
     /* Lib helpers. */
-    libPkgCreate    : path.resolve ('./scripts/manager/pkgCreate.js'),
-    libPkgList      : path.resolve ('./scripts/manager/pkgList.js'),
-    libPkgWizard    : path.resolve ('./scripts/manager/pkgWizard.js'),
-    libPkgControl   : path.resolve ('./scripts/manager/pkgControl.js'),
-    libPkgMake      : path.resolve ('./scripts/manager/pkgMake.js'),
-    libPkgCmd       : path.resolve ('./scripts/manager/pkgCmd.js'),
+    libPkgCreate     : path.resolve ('./scripts/manager/pkgCreate.js'),
+    libPkgList       : path.resolve ('./scripts/manager/pkgList.js'),
+    libPkgWizard     : path.resolve ('./scripts/manager/pkgWizard.js'),
+    libPkgControl    : path.resolve ('./scripts/manager/pkgControl.js'),
+    libPkgMake       : path.resolve ('./scripts/manager/pkgMake.js'),
+    libPkgCmd        : path.resolve ('./scripts/manager/pkgCmd.js'),
 
     /* Bin helpers. */
-    binGrunt        : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
+    binGrunt         : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
   };
 };
