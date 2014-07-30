@@ -13,7 +13,7 @@ dependency:
   toolchain+zog-peon:
     - ""
 data:
-  uri: "chest:VS2013_RTM_DskExp_ENU.tar.gz"
+  uri: "chest:vs2013_rtm_dskexp_enu.tar.gz"
   type: bin
   rules:
     type: exec
