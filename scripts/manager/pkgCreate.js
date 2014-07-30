@@ -39,16 +39,16 @@ var inquirerToPackage = function (inquirerPkg)
     }
     else if (it.hasOwnProperty ('uri'))
     {
-      packageDef.data            = {};
-      packageDef.data.uri        = it.uri;
-      packageDef.data.type       = it.fileType;
-      packageDef.data.rules      = {};
-      packageDef.data.rules.type = it.rulesType;
-      packageDef.data.rules.bin  = it.rulesBin || '';
-      packageDef.data.embedded   = it.embedded;
+      packageDef.data                    = {};
+      packageDef.data.uri                = it.uri;
+      packageDef.data.type               = it.fileType;
+      packageDef.data.rules              = {};
+      packageDef.data.rules.type         = it.rulesType;
+      packageDef.data.rules.bin          = it.rulesBin || '';
       packageDef.data.rules.args         = {};
       packageDef.data.rules.args.install = it.rulesArgsInstall || '';
       packageDef.data.rules.args.remove  = it.rulesArgsRemove || '';
+      packageDef.data.embedded           = it.embedded;
     }
   });
 
