@@ -40,7 +40,13 @@ var action = function (currentDir)
 
     prerm: function ()
     {
+      var extra =
+      {
+        'bin' : config.rules.bin,
+        'args': config.rules.args.remove
+      };
 
+      peonRun (extra);
     }
   }
 }
