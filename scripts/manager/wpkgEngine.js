@@ -59,7 +59,8 @@ var wpkgArgs = function (callbackDone)
         zogLog.verb (line);
       else if (/^wpkg:info/.test (line))
         zogLog.info (line);
-      else if (/^\(node\) warning/.test (line))
+      else if (   /^wpkg:warning/.test (line)
+               || /^\(node\) warning/.test (line))
         zogLog.warn (line);
       else
         zogLog.err (line);
