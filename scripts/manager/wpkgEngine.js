@@ -213,14 +213,7 @@ exports.build = function (packagePath, callbackDone)
   wpkg.build (packagePath, arch);
 };
 
-/**
- * Install a package with its dependencies.
- * @param {string} packageName
- * @param {string} arch - Architecture.
- * @param {function(done)} callbackDone
- * @param {boolean} callbackDone.done - True on success.
- */
-exports.install = function (packageName, arch, callbackDone)
+var lookForPackage = function (packageName, archRoot, arch, callbackDone)
 {
   var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
   var list = [];
@@ -234,7 +227,9 @@ exports.install = function (packageName, arch, callbackDone)
     var debFile = list[packageName];
     if (!debFile)
     {
-      zogLog.warn ('the package %s is unavailable', packageName);
+      zogLog.warn ('the package %s is unavailable in %s', packageName, arch);
+      if (callbackDone)
+        callbackDone (null);
       return;
     }
 
@@ -243,15 +238,43 @@ exports.install = function (packageName, arch, callbackDone)
      */
     debFile = path.join (repositoryPath, debFile);
 
-    var wpkg = new wpkgArgs (callbackDone);
-    wpkg.install (debFile, arch);
+    if (callbackDone)
+      callbackDone (debFile, arch);
   });
 
   /* wpkg is not able to install a package just by its name. The sources are
    * ignored in this case. Then we must look in the repository index file if
    * the package exists and in order to retrieve the full package name.
    */
-  wpkg.listIndexPackages (repositoryPath, arch, list);
+  wpkg.listIndexPackages (repositoryPath, archRoot, list);
+};
+
+/**
+ * Install a package with its dependencies.
+ * @param {string} packageName
+ * @param {string} arch - Architecture.
+ * @param {function(done)} callbackDone
+ * @param {boolean} callbackDone.done - True on success.
+ */
+exports.install = function (packageName, arch, callbackDone)
+{
+  lookForPackage (packageName, arch, arch, function (debFile)
+  {
+    var wpkg = new wpkgArgs (callbackDone);
+
+    if (debFile)
+    {
+      wpkg.install (debFile, arch);
+      return;
+    }
+
+    lookForPackage (packageName, arch, 'all', function (debFile)
+    {
+      if (debFile)
+        wpkg.install (debFile, arch);
+    });
+  });
+};
 };
 
 /**
