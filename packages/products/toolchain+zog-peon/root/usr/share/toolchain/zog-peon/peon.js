@@ -18,7 +18,7 @@ var action = function (currentDir)
       var extra =
       {
         'bin' : config.rules.bin,
-        'args': config.rules.args
+        'args': config.rules.args.install
       };
 
       zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)

@@ -17,6 +17,7 @@ data:
   rules:
     type: copy
     bin: ""
-    args: ""
+    args:
+      install: ""
   embedded: true
 distribution: toolchain/

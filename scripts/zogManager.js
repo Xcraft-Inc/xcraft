@@ -68,8 +68,8 @@ exports.create = function (packageName)
       wizard.data[1].default = def.data.type;
       wizard.data[2].default = def.data.rules.type;
       wizard.data[3].default = def.data.rules.bin;
-      wizard.data[4].default = def.data.rules.args;
       wizard.data[5].default = def.data.embedded;
+      wizard.data[4].default = def.data.rules.args.install;
     }
     catch (err) {}
   }

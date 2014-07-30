@@ -206,8 +206,8 @@ exports.data =
   },
   {
     type: 'input',
-    name: 'rulesArgs',
-    message: 'Arguments for the installer',
+    name: 'rulesArgsInstall',
+    message: 'Arguments for the installer (to install):',
     when: function (answers)
     {
       return answers.rulesType == 'exec';

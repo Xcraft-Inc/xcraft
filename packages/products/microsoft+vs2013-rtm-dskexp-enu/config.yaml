@@ -18,6 +18,7 @@ data:
   rules:
     type: exec
     bin: VS2013_RTM_DskExp_ENU/wdexpress_full.exe
-    args: /Passive /NoRestart /NoWeb /Full
+    args:
+      install: /Passive /NoRestart /NoWeb /Full
   embedded: true
 distribution: toolchain/
