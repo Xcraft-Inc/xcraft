@@ -86,7 +86,9 @@ module.exports = function ()
 
     /* FIXME: must have a better handling. */
     pkgCfgFileName  : 'config.yaml',
+    pkgScript       : 'script' + zogPlatform.getShellExt (),
     pkgPostinst     : 'postinst' + zogPlatform.getShellExt (),
+    pkgPrerm        : 'prerm' + zogPlatform.getShellExt (),
     pkgWPKG         : 'WPKG',
     pkgRepository   : 'toolchain/',
     pkgIndex        : 'index.tar.gz',

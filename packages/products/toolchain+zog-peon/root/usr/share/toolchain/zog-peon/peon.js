@@ -13,7 +13,7 @@ var action = function (currentDir)
   var config = require (path.join (currentDir, './config.json'));
 
   return {
-    install: function ()
+    postinst: function ()
     {
       var extra =
       {
@@ -31,7 +31,7 @@ var action = function (currentDir)
       });
     },
 
-    remove: function ()
+    prerm: function ()
     {
 
     }

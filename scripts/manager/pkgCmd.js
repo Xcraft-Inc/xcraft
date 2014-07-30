@@ -46,28 +46,42 @@ var addRepositoryForAll = function (packageName, arch)
     updateAndInstall (packageName, arch);
 };
 
-exports.install = function (packageRef)
+var parsePkgRef = function (packageRef)
 {
-  var packageName = packageRef.replace (/:.*/, '');
-  var arch        = packageRef.replace (/.*:/, '');
+  return {
+    'name': packageRef.replace (/:.*/, ''),
+    'arch': packageRef.replace (/.*:/, '')
+  };
+};
 
-  zogLog.verb ('install package name: ' + packageName + ' on architecture: ' + arch);
-
-  /* FIXME: provide the possibility to install a package for 'all'. */
+var checkArch = function (arch)
+{
   if (zogConfig.architectures.indexOf (arch) == -1)
   {
     zogLog.err ('the architecture ' + arch + ' is unknown');
-    return;
+    return false;
   }
+
+  return true;
+};
+
+exports.install = function (packageRef)
+{
+  var pkg = parsePkgRef (packageRef);
+
+  zogLog.verb ('install package name: ' + pkg.name + ' on architecture: ' + pkg.arch);
+
+  if (!checkArch (pkg.arch))
+    return;
 
   /* Check if the admindir exists; create if necessary. */
-  if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, arch, 'var', 'lib', 'wpkg')))
+  if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, pkg.arch, 'var', 'lib', 'wpkg')))
   {
-    addRepositoryForAll (packageName, arch);
+    addRepositoryForAll (pkg.name, pkg.arch);
     return;
   }
 
-  wpkgEngine.createAdmindir (arch, function (done)
+  wpkgEngine.createAdmindir (pkg.arch, function (done)
   {
     if (!done)
     {
@@ -76,17 +90,29 @@ exports.install = function (packageRef)
     }
 
     var source = util.format ('wpkg file://%s/ %s',
-                              path.join (zogConfig.pkgDebRoot, arch).replace (/\\/g, '/'),
+                              path.join (zogConfig.pkgDebRoot, pkg.arch).replace (/\\/g, '/'),
                               zogConfig.pkgRepository);
-    wpkgEngine.addSources (source, arch, function (done)
+    wpkgEngine.addSources (source, pkg.arch, function (done)
     {
       if (!done)
       {
-        zogLog.err ('impossible to add the source path for "%s"', arch);
+        zogLog.err ('impossible to add the source path for "%s"', pkg.arch);
         return;
       }
 
-      addRepositoryForAll (packageName, arch);
+      addRepositoryForAll (pkg.name, pkg.arch);
     })
   });
+};
+
+exports.remove = function (packageRef)
+{
+  var pkg = parsePkgRef (packageRef);
+
+  zogLog.verb ('remove package name: ' + pkg.name + ' on architecture: ' + pkg.arch);
+
+  if (!checkArch (pkg.arch))
+    return;
+
+  wpkgEngine.remove (pkg.name, pkg.arch);
 };
