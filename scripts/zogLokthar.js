@@ -105,6 +105,10 @@ exports.args = function ()
   return list;
 };
 
+/**
+ * Actions called from commander with --lokthar.
+ * @param {string} act - The action [install, uninstall, run].
+ */
 exports.action = function (act)
 {
   zogLog.info ('run action ' + act);

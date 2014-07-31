@@ -114,7 +114,7 @@ exports.args = function ()
 
 /**
  * Actions called from commander with --chest.
- * @param {string} act - The action [start, stop, send].
+ * @param {string} act - The action [start, stop, restart, send].
  */
 exports.action = function (act, opt)
 {
