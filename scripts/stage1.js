@@ -28,6 +28,19 @@ var depsForZog =
   'tar.gz'
 ];
 
+/* It is necessary in order to build cmake, because it is the path on
+ * sysroot/bin where are installed the MinGW tools.
+ * We should save the location somewhere in a config file for zog.
+ */
+if (process.argv.length > 1)
+{
+  var path = require ('path');
+
+  var list = process.env.PATH.split (path.delimiter);
+  list.unshift (path.resolve (process.argv[1]));
+  process.env.PATH = list.join (path.delimiter);
+}
+
 try
 {
   process.chdir (__dirname + '/..');
