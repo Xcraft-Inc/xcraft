@@ -4,7 +4,7 @@
 
 The packages are created with wpkg as presented in the following diagram.
 
-![Overview diagram](package.make.overview.svg)
+![Overview diagram](package.make.overview.png)
 
 The definitions for all packages are in the `packages/products/` directory.
 
