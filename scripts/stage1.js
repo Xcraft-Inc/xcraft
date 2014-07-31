@@ -4,6 +4,7 @@
 var moduleName = 'stage1';
 
 var sys         = require ('sys');
+var zogConfig   = require ('./zogConfig.js') ();
 var zogProcess  = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
@@ -32,13 +33,15 @@ var depsForZog =
  * sysroot/bin where are installed the MinGW tools.
  * We should save the location somewhere in a config file for zog.
  */
-if (process.argv.length > 1)
+if (process.argv.length > 2)
 {
-  var path = require ('path');
+  var zogrc =
+  {
+    'path': JSON.stringify (process.argv[2], null, '  ')
+  };
 
-  var list = process.env.PATH.split (path.delimiter);
-  list.unshift (path.resolve (process.argv[1]));
-  process.env.PATH = list.join (path.delimiter);
+  var fs = require ('fs');
+  fs.writeFileSync (zogConfig.zogRc, zogrc);
 }
 
 try
