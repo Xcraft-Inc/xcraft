@@ -83,12 +83,22 @@ module.exports = function ()
   return {
     configure: function ()
     {
-      zogLog.info ('configure zog (bus)');
-      runWizard ('bus', function ()
-      {
-        zogLog.info ('configure zog (chest server)');
-        runWizard ('chest');
-      });
+      var async = require ('async');
+
+      async.series (
+      [
+        function (callback)
+        {
+          zogLog.info ('configure zog (bus)');
+          runWizard ('bus', callback);
+        },
+        function (callback)
+        {
+          zogLog.info ('configure zog (chest server)');
+          runWizard ('chest', callback);
+        }
+      ]
+      );
     },
 
     architectures:
