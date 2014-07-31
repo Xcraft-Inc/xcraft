@@ -20,6 +20,7 @@ module.exports = function ()
   var defaultYaml = './scripts/zog.yaml';
 
   var data = '';
+  var dataOrig = fs.readFileSync (defaultYaml, 'utf8');
 
   try
   {
@@ -29,15 +30,27 @@ module.exports = function ()
   catch (err)
   {
     /* Else, we use the default config file. */
-    data = fs.readFileSync (defaultYaml, 'utf8');
+    data = dataOrig;
   }
 
   var conf = yaml.safeLoad (data);
+  var confOrig = yaml.safeLoad (dataOrig);
 
   var runWizard = function (wizName, callbackDone)
   {
+    var alwaysSave = false;
+
+    if (!conf.hasOwnProperty (wizName))
+    {
+      conf[wizName] = {};
+      alwaysSave = true;
+    }
+
     confWizard[wizName].forEach (function (item)
     {
+      if (!conf[wizName].hasOwnProperty (item.name))
+        conf[wizName][item.name] = confOrig[wizName][item.name];
+
       item.default = conf[wizName][item.name];
     });
 
@@ -56,7 +69,7 @@ module.exports = function ()
         }
       });
 
-      if (hasChanged)
+      if (alwaysSave || hasChanged)
       {
         data = yaml.safeDump (conf);
         fs.writeFileSync (userYaml, data);
