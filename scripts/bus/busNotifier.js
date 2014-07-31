@@ -8,7 +8,6 @@ var async     = require ('async');
 var axon      = require ('axon');
 var sock      = axon.socket ('pub');
 
-
 module.exports = function ()
 {
   return {
@@ -19,7 +18,7 @@ module.exports = function ()
       zogLog.info ('Notification bus started on %s:%d', host, port);
       setInterval(function() {
         sock.send('heartbeat','notification bus running');
-      }, 1000);  
+      }, 1000);
     }
   }
 }

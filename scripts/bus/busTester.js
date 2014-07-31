@@ -8,7 +8,7 @@ var buses     = require('./busboot');
 
 buses.on('ready', function() {
   console.log('buses are ready');
-  sock.connect(zogConfig.busNotifierPort, zogConfig.busHost);
+  sock.connect(zogConfig.bus.notifierPort, zogConfig.bus.host);
   sock.subscribe('heartbeat');
 
   sock.on('message', function(topic, msg){

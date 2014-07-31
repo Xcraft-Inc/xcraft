@@ -20,6 +20,7 @@ module.exports = function ()
   var defaultYaml = './scripts/zog.yaml';
 
   var data = '';
+  var dataOrig = fs.readFileSync (defaultYaml, 'utf8');
 
   try
   {
@@ -29,42 +30,71 @@ module.exports = function ()
   catch (err)
   {
     /* Else, we use the default config file. */
-    data = fs.readFileSync (defaultYaml, 'utf8');
+    data = dataOrig;
   }
 
   var conf = yaml.safeLoad (data);
+  var confOrig = yaml.safeLoad (dataOrig);
 
-  return {
-    /* TODO: add support to configure other parts. */
-    configure: function ()
+  var runWizard = function (wizName, callbackDone)
+  {
+    var alwaysSave = false;
+
+    if (!conf.hasOwnProperty (wizName))
     {
-      zogLog.info ('configure zog (chest server)');
+      conf[wizName] = {};
+      alwaysSave = true;
+    }
 
-      confWizard.chest.forEach (function (item)
+    confWizard[wizName].forEach (function (item)
+    {
+      if (!conf[wizName].hasOwnProperty (item.name))
+        conf[wizName][item.name] = confOrig[wizName][item.name];
+
+      item.default = conf[wizName][item.name];
+    });
+
+    inquirer.prompt (confWizard[wizName], function (answers)
+    {
+      var hasChanged = false;
+
+      zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
+
+      Object.keys (answers).forEach (function (item)
       {
-        item.default = conf.chest[item.name];
+        if (conf[wizName][item] != answers[item])
+        {
+          conf[wizName][item] = answers[item];
+          hasChanged = true;
+        }
       });
 
-      inquirer.prompt (confWizard.chest, function (answers)
+      if (alwaysSave || hasChanged)
       {
-        var hasChanged = false;
+        data = yaml.safeDump (conf);
+        fs.writeFileSync (userYaml, data);
+      }
 
-        zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
+      if (callbackDone)
+        callbackDone ();
+    });
+  };
 
-        Object.keys (answers).forEach (function (item)
-        {
-          if (conf.chest[item] != answers[item])
-          {
-            conf.chest[item] = answers[item];
-            hasChanged = true;
-          }
-        });
+  return {
+    configure: function ()
+    {
+      var async = require ('async');
 
-        if (hasChanged)
-        {
-          data = yaml.safeDump (conf);
-          fs.writeFileSync (userYaml, data);
-        }
+      var wizards = [];
+      Object.keys (confOrig).forEach (function (item)
+      {
+        wizards.push (item);
+      });
+
+      async.eachSeries (wizards, function (wiz, callback)
+      {
+        zogLog.info ('configure zog (%s)', wiz);
+        runWizard (wiz, callback);
       });
     },
 
@@ -82,10 +112,7 @@ module.exports = function ()
       'freebsd-amd64'
     ],
 
-    busCommanderPort : 9100,
-    busNotifierPort  : 9200,
-    busHost          : '127.0.0.1',
-
+    bus  : conf.bus,
     chest: conf.chest,
 
     /* FIXME: must have a better handling. */
