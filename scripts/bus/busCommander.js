@@ -4,7 +4,7 @@
 var moduleName = 'command-bus';
 var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
-var async      = require ('async');
+
 var axon       = require ('axon');
 var sock       = axon.socket ('pull');
 
@@ -22,8 +22,7 @@ module.exports = function ()
 
 sock.on('message', function(cmd, data) {
   zogLog.info ('command received: %s -> data:%s',
-                JSON.stringify(cmd,' ',0),
+                cmd,
                 JSON.stringify(data,' ',0));
   //TODO: handle commands
-
 });
