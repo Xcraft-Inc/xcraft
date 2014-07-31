@@ -55,10 +55,11 @@ var stage2 = function ()
    */
   if (process.argv.length > 2)
   {
+    var path      = require ('path');
     var zogConfig = require ('./zogConfig.js') ();
     var zogrc =
     {
-      'path': process.argv[2]
+      'path': path.resolve (process.argv[2])
     };
 
     var fs = require ('fs');
