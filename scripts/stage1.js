@@ -52,7 +52,7 @@ catch (err)
 }
 
 /**
- * The second stage installs wpkg.
+ * The second stage installs cmake and wpkg.
  */
 var stage2 = function ()
 {
@@ -62,24 +62,40 @@ var stage2 = function ()
   var zogLog = require ('zogLog') ('stage2');
   zogLog.verbosity (0);
 
-  zogLog.info ('install wpkg');
   var zog = util.format ('%szog%s',
                          zogPlatform.getOs () !== 'win' ? './' : '',
                          zogPlatform.getCmdExt ());
-  var args =
-  [
-    '-v0',
-    '-w',
-    'install'
-  ];
 
-  zogProcess.spawn (zog, args, null, function (line)
+  var installCmake = function ()
   {
-    console.log (line);
-  }, function (line)
+    zogLog.info ('install cmake');
+
+    var args =
+    [
+      '-v0',
+      '-m',
+      'install'
+    ];
+
+    zogProcess.spawn (zog, args);
+  };
+
+  var installWpkg = function ()
   {
-    console.log (line);
-  });
+    zogLog.info ('install wpkg');
+
+    var args =
+    [
+      '-v0',
+      '-w',
+      'install'
+    ];
+
+    zogProcess.spawn (zog, args);
+  };
+
+  installCmake ();
+  installWpkg ();
 };
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
