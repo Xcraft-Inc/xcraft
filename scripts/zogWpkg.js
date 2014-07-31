@@ -98,14 +98,32 @@ cmd.install = function ()
     zogHttp.get (inputFile, outputFile, function ()
     {
       /* FIXME: use a generic way (a module) for decompressing. */
-      var targz = require ('tar.gz');
-      var compress = new targz ().extract (outputFile, path.dirname (outputFile), function (err)
-      {
-        if (err)
-          zogLog.err (err);
-        else
+      var tar = require('tar');
+      var zlib = require('zlib');
+      var zogFs = require ('zogFs');
+
+      var dest = path.dirname (outputFile);
+
+      fs.createReadStream (outputFile)
+        .on ('error', zogLog.err)
+        .pipe (zlib.Unzip ())
+        .pipe (tar.Parse ())
+        .on ('entry', function (entry)
+        {
+          /* HACK: a very long filename exists in the tarball, then it is a
+           *       problem for node.js and the 260 chars limitation.
+           */
+          if (/very-very-very-long/.test (entry.path))
+            return;
+
+          var fullpath = path.join (dest, entry.path);
+          zogFs.mkdir (path.dirname (fullpath));
+          entry.pipe (fs.createWriteStream (fullpath));
+        })
+        .on ('end', function ()
+        {
           cmakeRun ();
-      });
+        });
     });
   }
 };
