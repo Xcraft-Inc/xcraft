@@ -10,7 +10,7 @@ var action = function (currentDir)
   var path    = require ('path');
   var zogPeon = require ('zogPeon');
 
-  var config = require (path.join (currentDir, './config.json'));
+  var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
   var peonRun = function (extra)
   {

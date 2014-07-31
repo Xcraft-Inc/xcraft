@@ -3,12 +3,13 @@
 var moduleName = 'cmake';
 
 var path        = require ('path');
+var fs          = require ('fs');
 var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
 
-var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json'));
+var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json')));
 var cmd = {};
 
 

@@ -7,7 +7,7 @@ var fs        = require ('fs');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-var pkgConfig = require (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json'));
+var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json')));
 
 /**
  * Create a wrapper on wpkg.
