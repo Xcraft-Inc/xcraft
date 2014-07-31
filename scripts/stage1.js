@@ -3,8 +3,8 @@
 
 var moduleName = 'stage1';
 
-var sys = require ('sys');
-var zogProcess = require ('zogProcess');
+var sys         = require ('sys');
+var zogProcess  = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
 var depsForZog =
