@@ -5,6 +5,7 @@ var program = require ('commander');
 var path    = require ('path');
 var clc     = require ('cli-color');
 
+var zogBoot    = require ('./zogBoot.js') ();
 var zogManager = require ('./zogManager.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
