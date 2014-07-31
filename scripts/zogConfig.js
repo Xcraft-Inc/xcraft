@@ -85,11 +85,11 @@ module.exports = function ()
     {
       var async = require ('async');
 
-      var wizards =
-      [
-        'bus',
-        'chest'
-      ];
+      var wizards = [];
+      Object.keys (confOrig).forEach (function (item)
+      {
+        wizards.push (item);
+      });
 
       async.eachSeries (wizards, function (wiz, callback)
       {
