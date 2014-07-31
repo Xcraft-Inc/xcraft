@@ -1,0 +1,11 @@
+{
+  "name": "cmake",
+  "version": "3.0.0",
+  "bin":
+  {
+    "unix": "",
+    "win": ""
+  },
+  "src": "",
+  "out": ""
+}

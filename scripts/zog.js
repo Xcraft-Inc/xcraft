@@ -7,6 +7,7 @@ var clc     = require ('cli-color');
 
 var zogBoot    = require ('./zogBoot.js') ();
 var zogManager = require ('./zogManager.js');
+var zogCMake   = require ('./zogCMake.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
 var zogChest   = require ('./zogChest.js');
@@ -26,6 +27,8 @@ program
   .version ('0.0.1')
   .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
   .option ('-n, --nocolor', 'disable the color output')
+  .option ('-m, --cmake <action>', 'manage the cmake installation '
+           + argsPrettify (zogCMake.args), zogCMake.action)
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.args), zogWpkg.action)
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
