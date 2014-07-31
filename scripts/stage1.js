@@ -66,36 +66,24 @@ var stage2 = function ()
                          zogPlatform.getOs () !== 'win' ? './' : '',
                          zogPlatform.getCmdExt ());
 
-  var installCmake = function ()
+  var async = require ('async');
+
+  async.eachSeries ([ '--cmake', '--wpkg' ], function (action, callback)
   {
-    zogLog.info ('install cmake');
+    zogLog.info ('install %s', action.replace (/^--/, ''));
 
     var args =
     [
       '-v0',
-      '-m',
+      action,
       'install'
     ];
 
-    zogProcess.spawn (zog, args);
-  };
-
-  var installWpkg = function ()
-  {
-    zogLog.info ('install wpkg');
-
-    var args =
-    [
-      '-v0',
-      '-w',
-      'install'
-    ];
-
-    zogProcess.spawn (zog, args);
-  };
-
-  installCmake ();
-  installWpkg ();
+    zogProcess.spawn (zog, args, function (done)
+    {
+      callback ();
+    });
+  });
 };
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
