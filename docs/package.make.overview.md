@@ -1,6 +1,6 @@
 # Package make process overview
 
-    TODO: some steps are not implemented...
+> TODO: some steps are not implemented...
 
 The packages are created with wpkg as presented in the following diagram.
 
