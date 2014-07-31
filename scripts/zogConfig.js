@@ -136,6 +136,7 @@ module.exports = function ()
     pkgProductsRoot  : path.resolve ('./packages/products/'),
     pkgTemplatesRoot : path.resolve ('./templates/wpkg/'),
     pkgTargetRoot    : path.resolve ('./var/devroot/'),
+    busBoot          : path.resolve ('./scripts/bus/busBoot.js'),
     chestServer      : path.resolve ('./scripts/chest/chestServer.js'),
     confWizard       : path.resolve ('./scripts/config/confWizard.js'),
     confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
