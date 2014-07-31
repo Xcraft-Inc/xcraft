@@ -4,7 +4,6 @@
 var moduleName = 'stage1';
 
 var sys         = require ('sys');
-var zogConfig   = require ('./zogConfig.js') ();
 var zogProcess  = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
@@ -29,21 +28,6 @@ var depsForZog =
   'tar.gz'
 ];
 
-/* It is necessary in order to build cmake, because it is the path on
- * sysroot/bin where are installed the MinGW tools.
- * We should save the location somewhere in a config file for zog.
- */
-if (process.argv.length > 2)
-{
-  var zogrc =
-  {
-    'path': JSON.stringify (process.argv[2], null, '  ')
-  };
-
-  var fs = require ('fs');
-  fs.writeFileSync (zogConfig.zogRc, zogrc);
-}
-
 try
 {
   process.chdir (__dirname + '/..');
@@ -64,6 +48,22 @@ var stage2 = function ()
   var util = require ('util');
   var zogLog = require ('zogLog') ('stage2');
   zogLog.verbosity (0);
+
+  /* It is necessary in order to build cmake, because it is the path on
+   * sysroot/bin where are installed the MinGW tools.
+   * We should save the location somewhere in a config file for zog.
+   */
+  if (process.argv.length > 2)
+  {
+    var zogConfig = require ('./zogConfig.js') ();
+    var zogrc =
+    {
+      'path': JSON.stringify (process.argv[2], null, '  ')
+    };
+
+    var fs = require ('fs');
+    fs.writeFileSync (zogConfig.zogRc, zogrc);
+  }
 
   var zog = util.format ('%szog%s',
                          zogPlatform.getOs () !== 'win' ? './' : '',
