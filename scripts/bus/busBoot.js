@@ -15,9 +15,9 @@ module.exports.boot = function ()
 {
   var startNotifier = function ()
   {
-    notifier.start ('127.0.0.1', 9200, module.exports.emit ('ready'));
+    notifier.start (zogConfig.bus.host, parseInt(zogConfig.bus.notifierPort), module.exports.emit ('ready'));
   };
 
-  commander.start ('127.0.0.1', 9100, startNotifier());
+  commander.start (zogConfig.bus.host, parseInt(zogConfig.bus.commanderPort), startNotifier());
 
 }

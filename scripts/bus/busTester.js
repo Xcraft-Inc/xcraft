@@ -9,7 +9,7 @@ var buses         = require('./busboot');
 
 buses.on('ready', function() {
   commands.connect (parseInt(zogConfig.bus.commanderPort), zogConfig.bus.host);
-  commands.send('zog');
+  commands.send('zog',{key: 'value'});
   notifications.connect (parseInt(zogConfig.bus.notifierPort), zogConfig.bus.host);
   notifications.subscribe ('heartbeat');
 

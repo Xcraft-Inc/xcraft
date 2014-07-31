@@ -20,8 +20,10 @@ module.exports = function ()
   }
 }
 
-sock.on('message', function(msg){
-  zogLog.info ('command received: %s',JSON.stringify(msg,' ',0));
+sock.on('message', function(cmd, data) {
+  zogLog.info ('command received: %s -> data:%s',
+                JSON.stringify(cmd,' ',0),
+                JSON.stringify(data,' ',0));
   //TODO: handle commands
 
 });
