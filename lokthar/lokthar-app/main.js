@@ -4,7 +4,11 @@ var app           = require('app');
 var ipc           = require('ipc');
 var shell         = require('shell');
 var BrowserWindow = require('browser-window');
-
+var async         = require('async');
+var axon          = require('axon');
+var notifications = axon.socket('sub');
+var commands      = axon.socket('push');
+var buses         = require(zogConfig.busBoot);
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -65,3 +69,21 @@ app.on('ready', function() {
     mainWindow = null;
   });
 });
+
+
+buses.on('ready', function() {
+  console.log('Lokthar Bus Online');
+  //command bus annonce
+  commands.connect (parseInt(zogConfig.bus.commanderPort), zogConfig.bus.host);
+  commands.send('login',{token: 'lokthar'});
+
+  //notification bus subscribe
+  notifications.connect (parseInt(zogConfig.bus.notifierPort), zogConfig.bus.host);
+  notifications.subscribe ('lokthar');
+  notifications.on ('message', function(topic, msg){
+    console.log(topic + ': ' + msg.toString());
+  });
+});
+
+// init
+buses.boot();
