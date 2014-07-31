@@ -7,7 +7,7 @@ var axon      = require('axon');
 
 var sock = axon.socket('sub');
 
-sock.connect(zogConfig.busNotifierPort, zogConfig.busHost);
+sock.connect(zogConfig.bus.notifierPort, zogConfig.bus.host);
 sock.subscribe('test');
 
 sock.on('message', function(topic, msg){

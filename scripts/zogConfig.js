@@ -34,37 +34,47 @@ module.exports = function ()
 
   var conf = yaml.safeLoad (data);
 
-  return {
-    /* TODO: add support to configure other parts. */
-    configure: function ()
+  var runWizard = function (wizName, callbackDone)
+  {
+    confWizard[wizName].forEach (function (item)
     {
-      zogLog.info ('configure zog (chest server)');
+      item.default = conf[wizName][item.name];
+    });
 
-      confWizard.chest.forEach (function (item)
+    inquirer.prompt (confWizard[wizName], function (answers)
+    {
+      var hasChanged = false;
+
+      zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
+
+      Object.keys (answers).forEach (function (item)
       {
-        item.default = conf.chest[item.name];
+        if (conf[wizName][item] != answers[item])
+        {
+          conf[wizName][item] = answers[item];
+          hasChanged = true;
+        }
       });
 
-      inquirer.prompt (confWizard.chest, function (answers)
+      if (hasChanged)
       {
-        var hasChanged = false;
+        data = yaml.safeDump (conf);
+        fs.writeFileSync (userYaml, data);
+      }
 
-        zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
+      if (callbackDone)
+        callbackDone ();
+    });
+  };
 
-        Object.keys (answers).forEach (function (item)
-        {
-          if (conf.chest[item] != answers[item])
-          {
-            conf.chest[item] = answers[item];
-            hasChanged = true;
-          }
-        });
-
-        if (hasChanged)
-        {
-          data = yaml.safeDump (conf);
-          fs.writeFileSync (userYaml, data);
-        }
+  return {
+    configure: function ()
+    {
+      zogLog.info ('configure zog (bus)');
+      runWizard ('bus', function ()
+      {
+        zogLog.info ('configure zog (chest server)');
+        runWizard ('chest');
       });
     },
 
@@ -82,10 +92,7 @@ module.exports = function ()
       'freebsd-amd64'
     ],
 
-    busCommanderPort : 9100,
-    busNotifierPort  : 9200,
-    busHost          : '127.0.0.1',
-
+    bus  : conf.bus,
     chest: conf.chest,
 
     /* FIXME: must have a better handling. */

@@ -11,7 +11,7 @@ var axon      = require('axon');
 
 var sock = axon.socket('pub');
 
-sock.bind(zogConfig.busNotifierPort);
+sock.bind(zogConfig.bus.notifierPort);
 console.log('push server started');
 
 setInterval(function(){
