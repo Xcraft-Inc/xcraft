@@ -11,7 +11,7 @@ var bootEnv = function ()
   list.unshift (path.resolve ('./var/devroot/bin/'));
   list.unshift (path.resolve ('./var/devroot/usr/bin/'));
 
-  var zogrc = fs.readFileSync (zogConfig.zogRc, 'utf8');
+  var zogrc = JSON.parse (fs.readFileSync (zogConfig.zogRc, 'utf8'));
   if (zogrc.hasOwnProperty ('path'))
     list.unshift (zogrc.path);
 
