@@ -115,6 +115,6 @@ exports.action = function (act)
   }
   catch (err)
   {
-    zogLog.err (err);
+    zogLog.err (act + ': ' + err.message);
   }
 };
