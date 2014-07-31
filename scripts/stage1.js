@@ -62,7 +62,7 @@ var stage2 = function ()
     };
 
     var fs = require ('fs');
-    fs.writeFileSync (zogConfig.zogRc, JSON.stringify (zogrc, null, '  ');
+    fs.writeFileSync (zogConfig.zogRc, JSON.stringify (zogrc, null, '  '));
   }
 
   var zog = util.format ('%szog%s',
