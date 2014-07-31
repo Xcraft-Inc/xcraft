@@ -58,11 +58,11 @@ var stage2 = function ()
     var zogConfig = require ('./zogConfig.js') ();
     var zogrc =
     {
-      'path': JSON.stringify (process.argv[2], null, '  ')
+      'path': process.argv[2]
     };
 
     var fs = require ('fs');
-    fs.writeFileSync (zogConfig.zogRc, zogrc);
+    fs.writeFileSync (zogConfig.zogRc, JSON.stringify (zogrc, null, '  ');
   }
 
   var zog = util.format ('%szog%s',
