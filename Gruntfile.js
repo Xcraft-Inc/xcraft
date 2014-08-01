@@ -17,7 +17,7 @@ var initNewer = function ()
   /* Loop for each package available in the products directory. */
   srcYaml.forEach (function (packageName)
   {
-    var destControl = pkgControl.controlFiles (packageName, false);
+    var destControl = pkgControl.controlFiles (packageName, null, false);
 
     var i = 0;
     /* Loop for each control file path. */
@@ -62,13 +62,7 @@ module.exports = function (grunt)
 
     zogLog.info ('make the control file for ' + packageName + ' on ' + arch);
 
-    /* Note that this pkgMake will make all architectures for this package.
-     * Then, the next targets provided by the newer module against the control
-     * files will return "Nothing change" for this package.
-     * The best way will be to make only the package by architecture. It should
-     * be a second argument for pkgMake().
-     */
-    pkgMake.package (packageName, function (error)
+    pkgMake.package (packageName, arch, function (error)
     {
       done (error);
     });

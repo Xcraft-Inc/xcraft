@@ -133,7 +133,7 @@ exports.make = function (packageName)
     grunt.tasks ([ 'newer' ]);
   }
   else
-    pkgMake.package (packageName);
+    pkgMake.package (packageName, null); /* TODO: arch support */
 };
 
 /**

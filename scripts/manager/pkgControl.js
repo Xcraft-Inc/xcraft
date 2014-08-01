@@ -113,10 +113,11 @@ var defToControl = function (packageDef)
 /**
  * Generate and save all control files accordingly to the config.yaml files.
  * @param {string} packageName
+ * @param {string} packageArch - null for all architectures.
  * @param {boolean} saveFiles - Saves the control files.
  * @returns {string[]} The list of all control file paths.
  */
-exports.controlFiles = function (packageName, saveFiles)
+exports.controlFiles = function (packageName, packageArch, saveFiles)
 {
   if (saveFiles)
     zogLog.info ('save the control files for ' + packageName);
@@ -132,6 +133,9 @@ exports.controlFiles = function (packageName, saveFiles)
 
   Object.keys (control).forEach (function (arch)
   {
+    if (packageArch && arch !== packageArch)
+      return;
+
     /* Check OS support; we consider that Windows packages can be built only
      * with Windows. The first reason is the post/pre scripts which have not the
      * same name that on unix (.bat suffix under Windows).

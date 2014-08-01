@@ -52,10 +52,10 @@ var createConfigJson = function (packageName, postInstDir)
   fs.writeFileSync (outFile, data, 'utf8');
 };
 
-var processCtrlFile = function (packageName, callbackDone)
+var processCtrlFile = function (packageName, arch, callbackDone)
 {
   var i = 0;
-  var controlFiles = pkgControl.controlFiles (packageName, true);
+  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
 
   var wpkgEngine = require ('./wpkgEngine.js');
 
@@ -172,11 +172,11 @@ var processCtrlFile = function (packageName, callbackDone)
     nextCtrlFile ();
 }
 
-exports.package = function (packageName, callbackDone)
+exports.package = function (packageName, arch, callbackDone)
 {
   try
   {
-    processCtrlFile (packageName, callbackDone);
+    processCtrlFile (packageName, arch, callbackDone);
   }
   catch (err)
   {
