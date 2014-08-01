@@ -23,13 +23,16 @@ var initNewer = function ()
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile)
     {
-      list[packageName + '.Arch[' + i.toString () + ']'] =
+      /* Retrieve the architecture with the control file location. */
+      var arch = path.basename (path.resolve (controlFile, path.join ('../../..')));
+
+      list[packageName + '/' + arch] =
       {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
         dest: controlFile,
         options:
         {
-          tasks: [ 'zogMake:' + packageName ]
+          tasks: [ 'zogMake:' + packageName + '/' + arch ]
         }
       };
       i++;
@@ -54,8 +57,10 @@ module.exports = function (grunt)
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
   {
     var done = this.async ();
+    var packageName = target.replace (/\/.*/, '');
+    var arch        = target.replace (/.*\//, '');
 
-    zogLog.info ('make the control file for ' + target);
+    zogLog.info ('make the control file for ' + packageName + ' on ' + arch);
 
     /* Note that this pkgMake will make all architectures for this package.
      * Then, the next targets provided by the newer module against the control
@@ -63,7 +68,7 @@ module.exports = function (grunt)
      * The best way will be to make only the package by architecture. It should
      * be a second argument for pkgMake().
      */
-    pkgMake.package (target, function (error)
+    pkgMake.package (packageName, function (error)
     {
       done (error);
     });
