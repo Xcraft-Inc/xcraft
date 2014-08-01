@@ -9,11 +9,11 @@ var zogLog     = require ('zogLog') (moduleName);
 var pkgControl = require (zogConfig.libPkgControl);
 var pkgMake    = require (zogConfig.libPkgMake);
 
-module.exports = function (grunt)
+var initNewer = function ()
 {
+  var list = {};
   var srcYaml = zogFs.lsdir (zogConfig.pkgProductsRoot);
 
-  var initNewer = {};
   /* Loop for each package available in the products directory. */
   srcYaml.forEach (function (packageName)
   {
@@ -23,7 +23,7 @@ module.exports = function (grunt)
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile)
     {
-      initNewer[packageName + '.Arch[' + i.toString () + ']'] =
+      list[packageName + '.Arch[' + i.toString () + ']'] =
       {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
         dest: controlFile,
@@ -36,10 +36,17 @@ module.exports = function (grunt)
     });
   });
 
+  return list;
+};
+
+var listNewer = initNewer ();
+
+module.exports = function (grunt)
+{
   grunt.initConfig (
   {
     zogMake: {},
-    newer: initNewer
+    newer: listNewer
   });
 
   grunt.loadNpmTasks ('grunt-newer-explicit');
