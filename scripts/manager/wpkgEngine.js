@@ -63,7 +63,10 @@ var wpkgArgs = function (callbackDone)
                || /^\(node\) warning/.test (line))
         zogLog.warn (line);
       else
+      {
         zogLog.err (line);
+        callbackDone (false);
+      }
     });
   };
 
