@@ -18,7 +18,21 @@ var cmd = {};
  */
 cmd.install = function ()
 {
-  zogLog.warn ('stub');
+  var zogHttp = require ('zogHttp');
+
+  var archive = path.basename (pkgConfig.src);
+  var inputFile  = pkgConfig.src;
+  var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
+
+  zogHttp.get (inputFile, outputFile, function ()
+  {
+    var zogExtract = require ('zogExtract');
+
+    zogExtract.targz (outputFile, path.dirname (outputFile), null, function (done)
+    {
+
+    });
+  });
 };
 
 /**
