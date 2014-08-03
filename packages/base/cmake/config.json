@@ -6,6 +6,6 @@
     "unix": "",
     "win": ""
   },
-  "src": "",
+  "src": "http://www.cmake.org/files/v3.0/cmake-3.0.0.tar.gz",
   "out": ""
 }
