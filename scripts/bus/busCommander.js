@@ -18,7 +18,7 @@ module.exports = function ()
       zogLog.info ('Command bus started on %s:%d', host, port);
     }
   }
-}
+};
 
 sock.on('message', function(cmd, data) {
   zogLog.info ('command received: %s -> data:%s',

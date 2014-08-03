@@ -20,4 +20,4 @@ module.exports.boot = function ()
 
   commander.start (zogConfig.bus.host, parseInt(zogConfig.bus.commanderPort), startNotifier());
 
-}
+};

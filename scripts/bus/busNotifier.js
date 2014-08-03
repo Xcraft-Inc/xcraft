@@ -19,6 +19,6 @@ module.exports = function ()
       setInterval(function() {
         sock.send('heartbeat','notification bus running');
       }, 1000);
-    }
-  }
-}
+    };
+  };
+};
