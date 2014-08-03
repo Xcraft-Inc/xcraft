@@ -163,7 +163,11 @@ exports.controlFiles = function (packageName, packageArch, saveFiles)
       fs.writeFileSync (controlFile, control[arch]);
     }
 
-    controlFiles.push (controlFile);
+    controlFiles.push (
+    {
+      'arch'   : arch,
+      'control': controlFile
+    });
   });
 
   return controlFiles;

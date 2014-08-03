@@ -61,7 +61,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
 
   var nextCtrlFile = function ()
   {
-    var controlFile = controlFiles[i];
+    var controlFile = controlFiles[i].control;
 
     zogLog.info ('process ' + controlFile);
 

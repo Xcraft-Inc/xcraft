@@ -23,16 +23,13 @@ var initNewer = function ()
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile)
     {
-      /* Retrieve the architecture with the control file location. */
-      var arch = path.basename (path.resolve (controlFile, path.join ('../../..')));
-
-      list[packageName + '/' + arch] =
+      list[packageName + '/' + controlFile.arch] =
       {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
-        dest: controlFile,
+        dest: controlFile.control,
         options:
         {
-          tasks: [ 'zogMake:' + packageName + '/' + arch ]
+          tasks: [ 'zogMake:' + packageName + '/' + controlFile.arch ]
         }
       };
       i++;
