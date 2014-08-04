@@ -14,7 +14,7 @@ var cmd = {};
 
 
 /* TODO: must be generic. */
-var bootstrap = function (cmakeDir)
+var bootstrapRun = function (cmakeDir)
 {
   /* FIXME, TODO: use a backend (a module) for building cmake. */
   /* bootstrap --prefix=/mingw && make && make install */
@@ -60,7 +60,7 @@ cmd.install = function ()
     zogExtract.targz (outputFile, outDir, null, function (done)
     {
       if (done)
-        bootstrap (path.join (outDir, path.basename (outputFile, 'tar.gz')));
+        bootstrapRun (path.join (outDir, path.basename (outputFile, 'tar.gz')));
     });
   });
 };
