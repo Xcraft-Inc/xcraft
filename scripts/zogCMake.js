@@ -13,6 +13,34 @@ var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, m
 var cmd = {};
 
 
+/* TODO: must be generic. */
+var bootstrap = function (cmakeDir)
+{
+  /* FIXME, TODO: use a backend (a module) for building cmake. */
+  /* bootstrap --prefix=/mingw && make && make install */
+
+  var zogFs = require ('zogFs');
+
+  var args =
+  [
+    'bootstrap',
+    '--prefix=' + path.resolve (pkgConfig.out)
+  ];
+
+  process.chdir (cmakeDir);
+  var cmake = zogProcess.spawn ('sh', args, function (done)
+  {
+    if (done)
+      ;
+  }, function (line)
+  {
+    zogLog.verb (line);
+  }, function (line)
+  {
+    zogLog.warn (line);
+  });
+};
+
 /**
  * Install the cmake package.
  */
@@ -27,10 +55,12 @@ cmd.install = function ()
   zogHttp.get (inputFile, outputFile, function ()
   {
     var zogExtract = require ('zogExtract');
+    var outDir = path.dirname (outputFile);
 
-    zogExtract.targz (outputFile, path.dirname (outputFile), null, function (done)
+    zogExtract.targz (outputFile, outDir, null, function (done)
     {
-
+      if (done)
+        bootstrap (path.join (outDir, path.basename (outputFile, 'tar.gz')));
     });
   });
 };
