@@ -21,10 +21,14 @@ var makeRun = function ()
   var os = require ('os');
   var args =
   [
-    '-j', os.cpus ().length,
     'all',
     'install'
   ];
+
+  /* The make from MSYS/MinGW seems bugged on Windows. */
+  if (zogPlatform.getOs () !== 'win')
+    args.unshift ('-j', os.cpus ().length);
+
   var make = zogProcess.spawn ('make', args, function (done)
   {
     if (done)
