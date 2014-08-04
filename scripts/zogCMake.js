@@ -14,6 +14,30 @@ var cmd = {};
 
 
 /* TODO: must be generic. */
+var makeRun = function ()
+{
+  zogLog.info ('begin building of cmake')
+
+  var os = require ('os');
+  var args =
+  [
+    'all',
+    'install'
+  ];
+  var make = zogProcess.spawn ('make', args, function (done)
+  {
+    if (done)
+      zogLog.info ('cmake is built and installed');
+  }, function (line)
+  {
+    zogLog.verb (line);
+  }, function (line)
+  {
+    zogLog.err (line);
+  });
+};
+
+/* TODO: must be generic. */
 var bootstrapRun = function (cmakeDir)
 {
   /* FIXME, TODO: use a backend (a module) for building cmake. */
@@ -31,7 +55,7 @@ var bootstrapRun = function (cmakeDir)
   var cmake = zogProcess.spawn ('sh', args, function (done)
   {
     if (done)
-      ;
+      makeRun ();
   }, function (line)
   {
     zogLog.verb (line);
