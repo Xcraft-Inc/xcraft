@@ -58,9 +58,16 @@ var stage2 = function ()
   {
     var path      = require ('path');
     var zogConfig = require ('./zogConfig.js') ();
+
+    var list = [];
+    process.argv.slice (2).forEach (function (location)
+    {
+      list.push (path.resolve (location));
+    });
+
     var zogrc =
     {
-      'path': path.resolve (process.argv[2])
+      'path': list
     };
 
     var fs = require ('fs');

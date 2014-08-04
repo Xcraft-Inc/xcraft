@@ -15,7 +15,12 @@ var bootEnv = function ()
   {
     var zogrc = JSON.parse (fs.readFileSync (zogConfig.zogRc, 'utf8'));
     if (zogrc.hasOwnProperty ('path'))
-      list.unshift (zogrc.path);
+    {
+      zogrc.path.forEach (function (location)
+      {
+        list.unshift (location);
+      });
+    }
   }
   catch (err)
   {
