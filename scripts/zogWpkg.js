@@ -43,10 +43,8 @@ var makeRun = function ()
 };
 
 /* TODO: must be generic. */
-var cmakeRun = function ()
+var cmakeRun = function (srcDir)
 {
-  var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
-
   /* FIXME, TODO: use a backend (a module) for building with cmake. */
   /* cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . && make all install */
 
@@ -111,8 +109,12 @@ cmd.install = function ()
        */
       zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
       {
-        if (done)
-          cmakeRun ();
+        if (!done)
+          return;
+
+        var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+
+          cmakeRun (srcDir);
       });
     });
   }
