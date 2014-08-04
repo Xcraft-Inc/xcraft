@@ -84,7 +84,7 @@ cmd.install = function ()
     zogExtract.targz (outputFile, outDir, null, function (done)
     {
       if (done)
-        bootstrapRun (path.join (outDir, path.basename (outputFile, 'tar.gz')));
+        bootstrapRun (path.join (outDir, path.basename (outputFile, '.tar.gz')));
     });
   });
 };
