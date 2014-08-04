@@ -75,6 +75,29 @@ var cmakeRun = function (srcDir)
   });
 };
 
+/* TODO: must be generic. */
+var patchRun = function (srcDir)
+{
+  var args =
+  [
+    '-p1',
+    srcDir,
+    path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch')
+  ];
+
+  var cmake = zogProcess.spawn ('patch', args, function (done)
+  {
+    if (done)
+      cmakeRun ();
+  }, function (line)
+  {
+    zogLog.verb (line);
+  }, function (line)
+  {
+    zogLog.err (line);
+  });
+};
+
 /**
  * Install the wpkg package.
  */
@@ -114,6 +137,9 @@ cmd.install = function ()
 
         var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
 
+        if (os === 'win')
+          patchRun (srcDir);
+        else
           cmakeRun (srcDir);
       });
     });
