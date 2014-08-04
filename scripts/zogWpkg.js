@@ -60,6 +60,9 @@ var cmakeRun = function ()
     srcDir
   ];
 
+  if (zogPlatform.getOs () === 'win')
+    args.unshift ('-G', 'MSYS Makefiles');
+
   process.chdir (buildDir);
   var cmake = zogProcess.spawn ('cmake', args, function (done)
   {
