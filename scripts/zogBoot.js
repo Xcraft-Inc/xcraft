@@ -8,8 +8,6 @@ var bootEnv = function ()
   var fs   = require ('fs');
 
   var list = process.env.PATH.split (path.delimiter);
-  list.unshift (path.resolve ('./var/devroot/bin/'));
-  list.unshift (path.resolve ('./var/devroot/usr/bin/'));
 
   try
   {
@@ -27,6 +25,9 @@ var bootEnv = function ()
     if (err.code !== 'ENOENT')
       throw err;
   }
+
+  list.unshift (path.resolve ('./var/devroot/usr/bin/'));
+  list.unshift (path.resolve ('./var/devroot/bin/'));
 
   process.env.PATH = list.join (path.delimiter);
 };
