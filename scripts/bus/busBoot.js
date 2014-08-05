@@ -26,7 +26,7 @@ var loadCommandsRegistry = function ()
   var zogFs = require ('zogFs');
 
   var zogModules = {};
-  var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /\zog.+\.js$/);
+  var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /zog.+\.js$/);
 
   zogModulesFiles.forEach (function (fileName)
   {
