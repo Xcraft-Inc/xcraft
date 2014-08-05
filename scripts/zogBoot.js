@@ -26,9 +26,9 @@ var bootEnv = function ()
       throw err;
   }
 
-  list.unshift (path.resolve ('./usr/bin/'));
-  list.unshift (path.resolve ('./var/devroot/usr/bin/'));
-  list.unshift (path.resolve ('./var/devroot/bin/'));
+  list.unshift (path.resolve ('./usr/bin'));
+  list.unshift (path.join (zogConfig.pkgTargetRoot, 'usr/bin'));
+  list.unshift (path.join (zogConfig.pkgTargetRoot, 'bin'));
 
   process.env.PATH = list.join (path.delimiter);
 };
