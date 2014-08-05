@@ -124,9 +124,9 @@ exports.busCommands = function ()
 {
   var list = [];
 
-  Object.keys (cmd).forEach (function (cmd)
+  Object.keys (cmd).forEach (function (action)
   {
-    list.push (cmd);
+    list.push (action);
   });
 
   return list;
