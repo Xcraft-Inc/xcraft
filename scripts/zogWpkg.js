@@ -83,6 +83,12 @@ var patchRun = function (srcDir)
   var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
   var list = zogFs.ls (patchDir);
 
+  if (!list.length)
+  {
+    cmakeRun (srcDir);
+    return;
+  }
+
   async.eachSeries (list, function (file, callback)
   {
     zogLog.info ('apply patch: ' + file)
