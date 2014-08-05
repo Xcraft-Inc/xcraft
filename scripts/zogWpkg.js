@@ -79,12 +79,22 @@ var cmakeRun = function (srcDir)
 var patchRun = function (srcDir)
 {
   var zogDevel = require ('zogDevel');
-  var patchFile = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch');
+  var zogFs    = require ('zogFs');
+  var async    = require ('async');
 
-  zogDevel.patch (srcDir, patchFile, 2, function (done)
+  var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
+  var list = zogFs.ls (patchDir);
+
+  async.eachSeries (list, function (file, callback)
   {
-    if (done)
-      cmakeRun (srcDir);
+    zogLog.info ('apply patch: ' + file)
+    var patchFile = path.join (patchDir, file);
+
+    zogDevel.patch (srcDir, patchFile, 2, function (done)
+    {
+      if (done)
+        cmakeRun (srcDir);
+    });
   });
 };
 
