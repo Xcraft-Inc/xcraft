@@ -9,14 +9,29 @@ var async      = require ('async');
 var axon       = require ('axon');
 var sock       = axon.socket ('pub');
 
+
+
+
 module.exports = function ()
 {
   return {
     bus   : sock,
     start : function (host, port, callback)
     {
-      sock.bind (parseInt (port), host, callback);
-      zogLog.info ('Notification bus started on %s:%d', host, port);
+      //create domain for catching port binding errors
+      var d = require('domain').create();
+
+      //error management
+      d.on('error', function(err){
+        zogLog.info('Notification bus already started on %s:%d', host, port);
+      });
+
+      //try binding in domain
+      d.run(function(){
+        sock.bind (parseInt (port), host, callback);
+        zogLog.info ('Notification bus started on %s:%d', host, port);
+      });
+
       setInterval (function()
       {
         sock.send ('heartbeat','notification bus running');

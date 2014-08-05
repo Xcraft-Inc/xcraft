@@ -14,8 +14,20 @@ module.exports = function ()
     bus   : sock,
     start : function (host, port, callback)
     {
-      sock.bind (parseInt(port), host, callback);
-      zogLog.info ('Command bus started on %s:%d', host, port);
+      //create domain for catching port binding errors
+      var d = require('domain').create();
+
+      //error management
+      d.on('error', function(err){
+        zogLog.info('Command bus already started on %s:%d', host, port);
+      });
+
+      //try binding in domain
+      d.run(function(){
+        sock.bind (parseInt(port), host, callback);
+        zogLog.info ('Command bus started on %s:%d', host, port);
+      });
+
     }
   };
 };
