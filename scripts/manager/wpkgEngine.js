@@ -35,6 +35,9 @@ var wpkgArgs = function (callbackDone)
 
     if (lastArg)
       args.push (lastArg);
+
+    zogLog.verb ('%s %s', bin, args.join (' '));
+
     var wpkg = zogProcess.spawn (bin, args, function (done)
     {
       /* When the call is terminated. */
