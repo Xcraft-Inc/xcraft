@@ -18,7 +18,7 @@ var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, '
 var wpkgArgs = function (callbackDone)
 {
   var zogProcess = require ('zogProcess');
-  var bin = path.resolve (zogConfig.toolchainRoot, pkgConfig.out);
+  var bin = 'wpkg';
 
   /**
    * Spawn wpkg and handle the outputs.
