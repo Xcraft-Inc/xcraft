@@ -179,20 +179,20 @@ exports.data =
   {
     type: 'list',
     name: 'rulesType',
-    message: 'How to install',
-    /* TODO: it must be a dynamic list like for the products. */
-    choices:
-    [
-      {
-        name: 'exec'
-      },
-      {
-        name: 'copy'
-      }
-    ],
-    when: function (answers)
+    message: 'How to install (to build)',
+    choices: function (answers)
     {
-      return answers.fileType == 'bin';
+      var list = [];
+
+      Object.keys (zogPeon[answers.fileType]).forEach (function (type)
+      {
+        list.push (
+        {
+          name: type
+        });
+      });
+
+      return list;
     }
   },
   {
