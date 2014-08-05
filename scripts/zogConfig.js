@@ -126,6 +126,7 @@ module.exports = function ()
 
     /* Path helpers. */
     toolchainRoot    : path.resolve ('./'),
+    scriptsRoot      : path.resolve ('./scripts/'),
     zogRc            : path.resolve ('./.zogrc'),
     libRoot          : path.resolve ('./scripts/lib/'),
     loktharRoot      : path.resolve ('./lokthar/'),
