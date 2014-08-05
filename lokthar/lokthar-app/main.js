@@ -8,7 +8,9 @@ var async         = require('async');
 var axon          = require('axon');
 var notifications = axon.socket('sub');
 var commands      = axon.socket('push');
+var zogLog        = require('zogLog')().color(false);
 var buses         = require(zogConfig.busBoot);
+
 
 // Report crashes to our server.
 require('crash-reporter').start();
