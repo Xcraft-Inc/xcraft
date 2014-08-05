@@ -33,7 +33,7 @@ var makeRun = function ()
     zogLog.verb (line);
   }, function (line)
   {
-    zogLog.err (line);
+    zogLog.warn (line);
   });
 };
 
