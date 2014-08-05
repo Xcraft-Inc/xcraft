@@ -26,25 +26,21 @@ var loadCommandsRegistry = function ()
   var zogFs = require ('zogFs');
 
   var zogModules = {};
-  var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /\zog.*\.js$/);
+  var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /\zog.+\.js$/);
 
   zogModulesFiles.forEach (function (fileName)
   {
     //console.log(fileName);
-    if(fileName !== 'zog.js')
+    zogModules[fileName] = require (path.join (zogConfig.scriptsRoot,
+                                               fileName));
+
+    if(zogModules[fileName].hasOwnProperty('busCommands'))
     {
-      zogModules[fileName] = require (path.join (zogConfig.scriptsRoot,
-                                                 fileName));
-
-      if(zogModules[fileName].hasOwnProperty('busCommands'))
-      {
-        zogModules[fileName].busCommands ().forEach(function(handler) {
-          //console.log('command handler found in : %s, %s',fileName,handler);
-          var commandName = fileName.replace (/\.js$/, '') + '-' + handler;
-          commander.registerCommandHandler (commandName, handler);
-        });
-      }
-
+      zogModules[fileName].busCommands ().forEach(function(handler) {
+        //console.log('command handler found in : %s, %s',fileName,handler);
+        var commandName = fileName.replace (/\.js$/, '') + '-' + handler;
+        commander.registerCommandHandler (commandName, handler);
+      });
     }
   });
 };
