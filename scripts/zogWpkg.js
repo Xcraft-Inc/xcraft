@@ -8,6 +8,7 @@ var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
+var zogFs       = require ('zogFs');
 
 var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json')));
 var cmd = {};
@@ -48,7 +49,6 @@ var cmakeRun = function (srcDir)
   /* FIXME, TODO: use a backend (a module) for building with cmake. */
   /* cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . && make all install */
 
-  var zogFs = require ('zogFs');
   var buildDir = path.join (srcDir, '..', 'BUILD');
   zogFs.mkdir (buildDir);
 
@@ -78,7 +78,6 @@ var cmakeRun = function (srcDir)
 var patchRun = function (srcDir)
 {
   var zogDevel = require ('zogDevel');
-  var zogFs    = require ('zogFs');
   var async    = require ('async');
 
   var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
