@@ -81,7 +81,7 @@ var patchRun = function (srcDir)
   var async    = require ('async');
 
   var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
-  var list = zogFs.ls (patchDir);
+  var list = zogFs.ls (patchDir, /\.patch$/);
 
   if (!list.length)
   {
