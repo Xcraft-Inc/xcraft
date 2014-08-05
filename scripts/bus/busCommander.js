@@ -37,6 +37,7 @@ module.exports = function ()
     },
     registerCommandHandler : function (commandKey, handlerFunction)
     {
+      zogLog.info ('Command %s registered', commandKey);
       commandsRegistry[commandKey] = handlerFunction;
     }
   };

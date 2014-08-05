@@ -180,3 +180,15 @@ exports.action = function (act)
     zogLog.err (act + ': ' + err.message);
   }
 };
+
+exports.busCommands = function ()
+{
+  var list = [];
+
+  Object.keys (cmd).forEach (function (cmd)
+  {
+    list.push (cmd);
+  });
+
+  return list;
+};
