@@ -19,7 +19,6 @@ var initNewer = function ()
   {
     var destControl = pkgControl.controlFiles (packageName, null, false);
 
-    var i = 0;
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile)
     {
@@ -32,7 +31,6 @@ var initNewer = function ()
           tasks: [ 'zogMake:' + packageName + '/' + controlFile.arch ]
         }
       };
-      i++;
     });
   });
 
