@@ -8,6 +8,8 @@ var zogLog     = require ('zogLog') (moduleName);
 var axon       = require ('axon');
 var sock       = axon.socket ('pull');
 
+var commandsRegistry = [];
+
 module.exports = function ()
 {
   return {
@@ -19,7 +21,11 @@ module.exports = function ()
 
       //error management
       d.on('error', function(err){
-        zogLog.info('Command bus already started on %s:%d', host, port);
+        zogLog.error (JSON.stringify(err, null, 2));
+
+        zogLog.info ('Command bus already started on %s:%d', host, port);
+
+
       });
 
       //try binding in domain
@@ -28,6 +34,10 @@ module.exports = function ()
         zogLog.info ('Command bus started on %s:%d', host, port);
       });
 
+    },
+    registerCommandHandler : function (commandKey, handlerFunction)
+    {
+      commandsRegistry[commandKey] = handlerFunction;
     }
   };
 };
@@ -37,5 +47,6 @@ sock.on ('message', function (cmd, data)
   zogLog.info ('command received: %s -> data:%s',
                cmd,
                JSON.stringify (data, ' ', 0));
-  // TODO: handle commands
+  //call handler
+  commandsRegistry[cmd](data);
 });

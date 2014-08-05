@@ -12,11 +12,17 @@ var EventEmitter    = require ('events').EventEmitter;
 module.exports      = new EventEmitter ();
 module.exports.boot = function ()
 {
-  zogLog.info ("Buses Booting...")
+  zogLog.info ("Buses Booting...");
+
   var startNotifier = function ()
   {
     notifier.start (zogConfig.bus.host, parseInt (zogConfig.bus.notifierPort), module.exports.emit ('ready'));
   };
 
   commander.start (zogConfig.bus.host, parseInt (zogConfig.bus.commanderPort), startNotifier ());
+
+  //todo: read global registry
+  commander.registerCommandHandler ('pkg-list',function (data){
+    console.log('pkg-list handler:' + data.toString());
+  });
 };

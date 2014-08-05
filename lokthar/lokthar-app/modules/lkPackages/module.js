@@ -1,6 +1,6 @@
 ///LoKthar Packages
 //
-var module      = angular.module('lk-packages', ['checklist-model','lk-helpers']);
+var module      = angular.module('lk-packages', ['checklist-model','lk-helpers', 'lk-bus']);
 
 module.config(function($stateProvider, $urlRouterProvider) {
   var module_root = 'modules/lkPackages/';
@@ -24,16 +24,39 @@ module.config(function($stateProvider, $urlRouterProvider) {
 
 module.controller('PackagesController', ['$scope', function ($scope){
   $scope.title = 'Packages';
-  $scope.badge = 'beta';
-  $scope.icon = 'puzzle-piece';
+  $scope.badge = 'module';
+  $scope.icon  = 'puzzle-piece';
+
+  $scope.safeApply = function(fn)
+  {
+    var phase = this.$root.$$phase;
+    if(phase == '$apply' || phase == '$digest') {
+      if(fn && (typeof(fn) === 'function')) {
+        fn();
+      }
+    } else {
+      this.$apply(fn);
+    }
+  };
+
 }]);
 
-module.controller('PackageManagerController', ['$scope', function ($scope){
+module.controller('PackageManagerController',
+['$scope', 'notificationBus','commandBus',
+function ($scope, notificationBus, commandBus){
 
+  $scope.counter = 0;
   $scope.listProducts = function () {
-    var ipc         = require('ipc');
-    $scope.products = ipc.sendSync('list-product-packages');
+    commandBus.send ('pkg-list',{foo: 'bar'});
   };
+
+  notificationBus.subscribe ('pkg-list');
+  notificationBus.on ('message', function (topic, data)
+  {
+    $scope.safeApply( function(){
+      $scope.products = data;
+    });
+  });
 
 }]);
 
