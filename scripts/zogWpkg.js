@@ -78,46 +78,12 @@ var cmakeRun = function (srcDir)
 /* TODO: must be generic. */
 var patchRun = function (srcDir)
 {
-  var currentDir = process.cwd ();
-  process.chdir (srcDir);
+  var zogDevel = require ('zogDevel');
+  var patchFile = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch');
 
-  var fd = fs.createReadStream (path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch'));
-  var spawn = require ('child_process').spawn;
-  var patch = spawn ('patch', [ '-p2' ]);
-
-  fd.on ('data', function (data)
+  zogDevel.patch (srcDir, patchFile, 2, function (done)
   {
-    patch.stdin.write (data);
-  });
-
-  fd.on ('close', function (code)
-  {
-    patch.stdin.end ();
-  });
-
-  patch.stdout.on ('data', function (data)
-  {
-    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line)
-    {
-      if (line.trim ().length)
-        zogLog.verb (line);
-    });
-  });
-
-  patch.stderr.on ('data', function (data)
-  {
-    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line)
-    {
-      if (line.trim ().length)
-        zogLog.err (line);
-    });
-  });
-
-  patch.on ('close', function (code)
-  {
-    process.chdir (currentDir);
-
-    if (code === 0)
+    if (done)
       cmakeRun (srcDir);
   });
 };
