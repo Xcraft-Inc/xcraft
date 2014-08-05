@@ -4,6 +4,8 @@ var path      = require ('path');
 var inquirer  = require ('inquirer');
 var zogConfig = require ('../zogConfig.js') ();
 var zogFs     = require ('zogFs');
+var zogPeon   = require ('zogPeon');
+
 
 /* Version rules by Debian:
  * http://windowspackager.org/documentation/implementation-details/debian-version
@@ -159,22 +161,20 @@ exports.data =
     type: 'list',
     name: 'fileType',
     message: 'Type of data',
-    /* TODO: it must be a dynamic list like for the products. */
-    choices:
-    [
+    choices: function ()
+    {
+      var list = [];
+
+      Object.keys (zogPeon).forEach (function (type)
       {
-        name: 'bin'
-      },
-      {
-        name: 'src'
-      },
-      {
-        name: 'git'
-      },
-      {
-        name: 'svn'
-      }
-    ]
+        list.push (
+        {
+          name: type
+        });
+      });
+
+      return list;
+    }
   },
   {
     type: 'list',
