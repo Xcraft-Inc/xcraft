@@ -54,7 +54,7 @@ var cmakeRun = function (srcDir)
 
   var args =
   [
-    '-DCMAKE_INSTALL_PREFIX:PATH=' + path.resolve (pkgConfig.out, '..', '..'),
+    '-DCMAKE_INSTALL_PREFIX:PATH=' + path.resolve (pkgConfig.out),
     srcDir
   ];
 
