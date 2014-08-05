@@ -7,5 +7,5 @@
     "win": "http://switch.dl.sourceforge.net/project/unigw/wpkg/0.9.4/wpkg64.exe"
   },
   "src": "http://switch.dl.sourceforge.net/project/unigw/wpkg/0.9.4/wpkg_0.9.4.tar.gz",
-  "out": "usr/bin/wpkg"
+  "out": "usr"
 }
