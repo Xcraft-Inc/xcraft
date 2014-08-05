@@ -78,23 +78,47 @@ var cmakeRun = function (srcDir)
 /* TODO: must be generic. */
 var patchRun = function (srcDir)
 {
-  var args =
-  [
-    '-p1',
-    srcDir,
-    path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch')
-  ];
+  var currentDir = process.cwd ();
+  process.chdir (srcDir);
 
-  var cmake = zogProcess.spawn ('patch', args, function (done)
+  var fd = fs.createReadStream (path.join (zogConfig.pkgBaseRoot, moduleName, 'patch', '001_msys-mingw32.patch'));
+  var spawn = require ('child_process').spawn;
+  var patch = spawn ('patch', [ '-p2' ]);
+
+  fd.on ('data', function (data)
   {
-    if (done)
-      cmakeRun ();
-  }, function (line)
+    patch.stdin.write (data);
+  });
+
+  fd.on ('close', function (code)
   {
-    zogLog.verb (line);
-  }, function (line)
+    patch.stdin.end ();
+  });
+
+  patch.stdout.on ('data', function (data)
   {
-    zogLog.err (line);
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line)
+    {
+      if (line.trim ().length)
+        zogLog.verb (line);
+    });
+  });
+
+  patch.stderr.on ('data', function (data)
+  {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line)
+    {
+      if (line.trim ().length)
+        zogLog.err (line);
+    });
+  });
+
+  patch.on ('close', function (code)
+  {
+    process.chdir (currentDir);
+
+    if (code === 0)
+      cmakeRun (srcDir);
   });
 };
 
@@ -106,44 +130,30 @@ cmd.install = function ()
   var zogHttp = require ('zogHttp');
   var os = zogPlatform.getOs ();
 
-  /* FIXME: use the sources with Windows too. */
-  if (os == 'win')
+  var archive = path.basename (pkgConfig.src);
+  var inputFile  = pkgConfig.src;
+  var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
+
+  zogHttp.get (inputFile, outputFile, function ()
   {
-    var inputFile  = pkgConfig.bin[os];
-    var outputFile = path.normalize (pkgConfig.out);
+    var zogExtract = require ('zogExtract');
 
-    zogHttp.get (inputFile, outputFile + zogPlatform.getExecExt (), function ()
+    /* HACK: a very long filename exists in the tarball, then it is a
+     *       problem for node.js and the 260 chars limitation.
+     */
+    zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
     {
-      zogLog.info ('wpkg is installed');
+      if (!done)
+        return;
+
+      var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+
+      if (os === 'win')
+        patchRun (srcDir);
+      else
+        cmakeRun (srcDir);
     });
-  }
-  else
-  {
-    var archive = path.basename (pkgConfig.src);
-    var inputFile  = pkgConfig.src;
-    var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
-
-    zogHttp.get (inputFile, outputFile, function ()
-    {
-      var zogExtract = require ('zogExtract');
-
-      /* HACK: a very long filename exists in the tarball, then it is a
-       *       problem for node.js and the 260 chars limitation.
-       */
-      zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
-      {
-        if (!done)
-          return;
-
-        var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
-
-        if (os === 'win')
-          patchRun (srcDir);
-        else
-          cmakeRun (srcDir);
-      });
-    });
-  }
+  });
 };
 
 /**
