@@ -75,7 +75,6 @@ var cmakeRun = function (srcDir)
   });
 };
 
-/* TODO: must be generic. */
 var patchRun = function (srcDir)
 {
   var zogDevel = require ('zogDevel');
