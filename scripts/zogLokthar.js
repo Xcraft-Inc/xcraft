@@ -95,14 +95,11 @@ cmd.uninstall = function ()
  */
 exports.args = function ()
 {
-  var list = [];
-
-  Object.keys (cmd).forEach (function (action)
-  {
-    list.push (action);
-  });
-
-  return list;
+  /* Commander will use the same actions that the command bus.
+   * This code will be dropped when the commander will use the command
+   * bus directly.
+   */
+  return exports.busCommands ();
 };
 
 /**
@@ -121,4 +118,16 @@ exports.action = function (act)
   {
     zogLog.err (act + ': ' + err.message);
   }
+};
+
+exports.busCommands = function ()
+{
+  var list = [];
+
+  Object.keys (cmd).forEach (function (cmd)
+  {
+    list.push (cmd);
+  });
+
+  return list;
 };
