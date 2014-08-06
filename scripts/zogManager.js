@@ -8,10 +8,12 @@ var inquirer = require ('inquirer');
 var zogConfig = require ('./zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 var pkgCreate = require (zogConfig.libPkgCreate);
+var busClient = require (zogConfig.zogBoot).busClient;
 
+var cmd       = {};
 process.chdir (path.join (__dirname, '/..'));
 
-exports.list = function ()
+cmd.list = function ()
 {
   var util = require ('util');
 
@@ -34,13 +36,16 @@ exports.list = function ()
                  Array (15 - def.version.toString ().length).join (' '),
                  def.architecture.toString ().replace (/,/g, ', '));
   });
+
+  busClient.events.send ('zogManager.list',list);
+  busClient.events.send ('zogManager.list.finish');
 };
 
 /**
  * Create a new package template or modify an existing package config file.
  * @param {string} packageName
  */
-exports.create = function (packageName)
+cmd.create = function (packageName)
 {
   zogLog.info ('create a new package: ' + packageName);
 
@@ -114,7 +119,7 @@ exports.create = function (packageName)
  * Make the Control file for WPKG by using a package config file.
  * @param {string} packageName
  */
-exports.make = function (packageName)
+cmd.make = function (packageName)
 {
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
 
@@ -140,7 +145,7 @@ exports.make = function (packageName)
  * Try to install the developement package.
  * @param {string} packageName
  */
-exports.install = function (packageRef)
+cmd.install = function (packageRef)
 {
   zogLog.info ('install development package: ' + packageRef);
 
@@ -153,7 +158,7 @@ exports.install = function (packageRef)
  * Try to remove the developement package.
  * @param {string} packageName
  */
-exports.remove = function (packageRef)
+cmd.remove = function (packageRef)
 {
   zogLog.info ('remove development package: ' + packageRef);
 
@@ -165,7 +170,7 @@ exports.remove = function (packageRef)
 /**
  * Remove all the generated files.
  */
-exports.clean = function ()
+cmd.clean = function ()
 {
   var fse   = require ('fs-extra');
   var zogFs = require ('zogFs');
@@ -190,3 +195,34 @@ exports.clean = function ()
       fse.unlinkSync (file);
   });
 };
+
+
+
+exports.busCommands = function ()
+{
+  var list = [];
+
+  Object.keys (cmd).forEach (function (action)
+  {
+    list.push ({
+      name : action,
+      handler : cmd[action]
+    });
+  });
+
+  return list;
+};
+
+/**
+ * Publish commands for std module exports
+ *
+ */
+var main = function ()
+{
+  Object.keys (cmd).forEach (function (action)
+  {
+    exports[action] = cmd[action];
+  });
+};
+
+main();
