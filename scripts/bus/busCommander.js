@@ -8,7 +8,7 @@ var zogLog     = require ('zogLog') (moduleName);
 var axon       = require ('axon');
 var sock       = axon.socket ('pull');
 
-var commandsRegistry = [];
+var commandsRegistry = {};
 
 module.exports = function ()
 {
@@ -21,7 +21,7 @@ module.exports = function ()
 
       //error management
       d.on('error', function(err){
-        zogLog.error (JSON.stringify(err, null, 2));
+        zogLog.err (err);
 
         zogLog.info ('Command bus already started on %s:%d', host, port);
 
@@ -35,7 +35,11 @@ module.exports = function ()
       });
 
     },
-    
+    stop : function ()
+    {
+      sock.close ();
+    },
+
     registerCommandHandler : function (commandKey, handlerFunction)
     {
       zogLog.info ('Command \'%s\' registered', commandKey);
