@@ -1,17 +1,12 @@
 //Link relative zogConfig lib
 var zogConfig     = require ('../../scripts/zogConfig.js')();
-var app           = require('app');
-var ipc           = require('ipc');
-var shell         = require('shell');
-var BrowserWindow = require('browser-window');
-var async         = require('async');
-var axon          = require('axon');
-var notifications = axon.socket('sub');
-var commands      = axon.socket('push');
-var zogLog        = require('zogLog')().color(false);
-var buses         = require(zogConfig.busBoot);
-
-
+var app           = require ('app');
+var ipc           = require ('ipc');
+var shell         = require ('shell');
+var BrowserWindow = require ('browser-window');
+var async         = require ('async');
+var zogLog        = require ('zogLog')().color(false);
+var busClient     = require (zogConfig.busClient);
 // Report crashes to our server.
 require('crash-reporter').start();
 // Keep a global reference of the window object, if you don't, the window will
@@ -45,7 +40,8 @@ ipc.on('maximize', function(event, arg) {
 });
 
 ipc.on('close-app', function(event, arg) {
-  app.quit();
+  busClient.stop ();
+  app.quit ();
 });
 
 // Quit when all windows are closed.
@@ -54,28 +50,25 @@ app.on('window-all-closed', function() {
     app.quit();
 });
 
-// This method will be called when atom-shell has done everything
-// initialization and ready for creating browser windows.
 app.on('ready', function() {
+  busClient.connect(function (done){
+    if(!done)
+      process.exit(1);
+
+
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 960, height: 600,frame: false});
-
     // and load the index.html of the app.
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
+      // Dereference the window object, usually you would store windows
+      // in an array if your app supports multi windows, this is the time
+      // when you should delete the corresponding element.
+      mainWindow = null;
+    });
+
   });
+
 });
-
-
-buses.on('ready', function() {
-  console.log('Buses Ready');
-});
-
-// init
-buses.boot();

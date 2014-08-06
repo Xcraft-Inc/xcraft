@@ -42,19 +42,18 @@ module.controller('PackagesController', ['$scope', function ($scope){
 }]);
 
 module.controller('PackageManagerController',
-['$scope', 'notificationBus','commandBus',
-function ($scope, notificationBus, commandBus){
+['$scope', 'busClient',
+function ($scope, busClient){
 
   $scope.counter = 0;
   $scope.listProducts = function () {
-    commandBus.send ('pkg-list',{foo: 'bar'});
+    busClient.command.send ('zogManager.list');
   };
 
-  notificationBus.subscribe ('pkg-list');
-  notificationBus.on ('message', function (topic, data)
+  busClient.events.subscribe ('zogManager.list', function (msg)
   {
     $scope.safeApply( function(){
-      $scope.products = data;
+      $scope.products = msg.data;
     });
   });
 

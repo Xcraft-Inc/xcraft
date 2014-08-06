@@ -3,7 +3,9 @@
 
 var module      = angular.module('lk-configure', ['checklist-model','lk-helpers']);
 //Link relative zogConfig lib
-var zogConfig   = require ('../../scripts/zogConfig.js')();
+var remote        = require('remote');
+var path          = require('path');
+var zogConfig     = remote.require (path.resolve('./scripts/zogConfig.js'))();
 
 module.config(function($stateProvider, $urlRouterProvider) {
   var module_root = 'modules/lkConfigure/';
