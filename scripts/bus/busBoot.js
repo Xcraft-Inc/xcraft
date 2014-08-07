@@ -31,6 +31,7 @@ var generateBusToken = function (callbackDone)
   try
   {
     buf = crypto.randomBytes (256);
+    callbackDone (createKey (buf));
   }
   catch (ex)
   {
@@ -42,10 +43,10 @@ var generateBusToken = function (callbackDone)
     {
       if (ex)
         throw ex;
+
+      callbackDone (createKey (buf));
     });
   }
-
-  callbackDone (createKey (buf));
 };
 
 /**
