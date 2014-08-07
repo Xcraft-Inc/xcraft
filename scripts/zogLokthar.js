@@ -67,11 +67,7 @@ cmd.run = function ()
   {
     zogLog.verb ('atom outputs:\n' + stdout);
 
-    if (error === null)
-    {
-
-    }
-    else
+    if (error)
       zogLog.err ('unable to exec atom\n' + stderr);
 
     busClient.events.send ('zogLokthar.run.finish');
