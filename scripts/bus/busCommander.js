@@ -68,7 +68,7 @@ sock.on ('message', function (cmd, msg)
   else
   {
     zogLog.verb ('invalid token, command discarded');
-    cmd = 'error';
+    return;
   }
 
   commandsRegistry[cmd] (msg);
