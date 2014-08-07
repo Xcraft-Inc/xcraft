@@ -15,6 +15,8 @@ var zogConfig  = require ('./zogConfig.js') ();
 var zogBoot    = require ('./zogBoot.js');
 
 
+var boot = true;
+
 var argsPrettify = function (args)
 {
   var list = [];
@@ -41,7 +43,7 @@ program
   .option ('-c, --chest <action> [file]', 'manage a file chest '
            + argsPrettify (zogChest.busCommands) + '\n')
 
-  .option ('configure', 'change settings')
+  .option ('configure', 'change settings', zogConfig.configure)
   .option ('list', 'list all available packages')
   .option ('create <package>', 'create or edit a package definition')
   .option ('make [package]', 'make all or only the [package]')
@@ -71,6 +73,8 @@ program.parse (process.argv);
 
 if (program.nocolor)
   zogLog.color (false);
+if (program.configure)
+  boot = false;
 
 /* Display help if zog is called without command arguments. */
 var length = 3;
@@ -116,8 +120,6 @@ var main = function (done)
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   if (program.chest)
     busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
-  if (program.configure)
-    zogConfig.configure ();
   if (program.list)
     busClient.command.send ('zogManager.list', null, mainShutdown);
   if (program.create)
@@ -132,4 +134,5 @@ var main = function (done)
     busClient.command.send ('zogManager.clean', program.clean, mainShutdown);
 };
 
-zogBoot.start (main);
+if (boot)
+  zogBoot.start (main);
