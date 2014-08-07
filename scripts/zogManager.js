@@ -37,7 +37,7 @@ cmd.list = function ()
                  def.architecture.toString ().replace (/,/g, ', '));
   });
 
-  busClient.events.send ('zogManager.list',list);
+  busClient.events.send ('zogManager.list', list);
   busClient.events.send ('zogManager.list.finish');
 };
 
