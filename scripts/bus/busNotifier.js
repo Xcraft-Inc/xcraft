@@ -27,7 +27,7 @@ module.exports = function ()
 
       domain.on ('error', function (err)
       {
-        zogLog.warn ('Bus already started on %s:%d', host, port);
+        zogLog.warn ('bus running on %s:%d, error: %s', host, port, err.message);
       });
 
       /* Try binding in domain. */
