@@ -7,11 +7,12 @@ var zogLog       = require ('zogLog') (moduleName);
 var crypto       = require ('crypto');
 var busNotifier  = require ('./busNotifier.js') ();
 var busCommander = require ('./busCommander.js') ();
-var bootReady    = false;
-var token        = '';
 var EventEmitter = require ('events').EventEmitter;
-var emitter      = new EventEmitter ();
-var notifier     = {};
+
+var bootReady = false;
+var token     = '';
+var emitter   = new EventEmitter ();
+var notifier  = {};
 
 
 var generateBusToken = function (callbackDone)
@@ -22,26 +23,32 @@ var generateBusToken = function (callbackDone)
     shasum.update(buf);
     return shasum.digest ('base64');
   };
-  // sync
+
+  var buf = null;
+
   try
   {
-    var buf = crypto.randomBytes(256);
+    buf = crypto.randomBytes (256);
   }
   catch (ex)
   {
-    // handle error
-    // most likely, entropy sources are drained
+    /* Handle error.
+     * Most likely, entropy sources are drained.
+     */
     zogLog.err (ex);
-    crypto.pseudoRandomBytes(256, function (ex, buf) {
-        if(ex)
-          throw ex;
-    })
+    crypto.pseudoRandomBytes (256, function (ex, buf)
+    {
+      if (ex)
+        throw ex;
+    });
   }
 
-  callbackDone(createKey(buf));
+  callbackDone (createKey (buf));
 };
 
-//browse /scripts for zog modules, and register exported busCommands
+/**
+ * Browse /scripts for zog modules, and register exported busCommands.
+ */
 var loadCommandsRegistry = function ()
 {
   var path  = require ('path');
@@ -55,9 +62,10 @@ var loadCommandsRegistry = function ()
     zogModules[fileName] = require (path.join (zogConfig.scriptsRoot,
                                                fileName));
 
-    if(zogModules[fileName].hasOwnProperty('busCommands'))
+    if (zogModules[fileName].hasOwnProperty ('busCommands'))
     {
-      zogModules[fileName].busCommands ().forEach(function(cmd) {
+      zogModules[fileName].busCommands ().forEach (function (cmd)
+      {
         var commandName = fileName.replace (/\.js$/, '') + '.' + cmd.name;
         busCommander.registerCommandHandler (commandName, cmd.handler);
       });
@@ -65,8 +73,9 @@ var loadCommandsRegistry = function ()
   });
 };
 
-
-//last action call, emit ready
+/**
+ * Last action call, emit ready.
+ */
 var emitReady = function ()
 {
   notifier = busNotifier.bus;
@@ -74,43 +83,42 @@ var emitReady = function ()
   emitter.emit ('ready');
 };
 
-
 var startNotifier = function ()
 {
   busNotifier.start (zogConfig.bus.host,
-                  parseInt (zogConfig.bus.notifierPort),
-                  emitReady ());
+                     parseInt (zogConfig.bus.notifierPort),
+                     emitReady ());
 };
 
-exports.getEmitter  = emitter;
+exports.getEmitter = emitter;
 
 exports.getNotifier = function ()
 {
   return notifier;
 };
 
-exports.getToken    = function ()
+exports.getToken = function ()
 {
   return token;
 };
 
-exports.boot        = function ()
+exports.boot = function ()
 {
   zogLog.verb ("Booting...");
-  //init all boot chain
-  generateBusToken(function (genToken)
+
+  /* init all boot chain */
+  generateBusToken (function (genToken)
   {
     zogLog.verb ('Bus token created: %s', genToken);
     token = genToken;
-    loadCommandsRegistry();
+    loadCommandsRegistry ();
     busCommander.start (zogConfig.bus.host,
-                     parseInt (zogConfig.bus.commanderPort),
-                     startNotifier());
+                        parseInt (zogConfig.bus.commanderPort),
+                        startNotifier ());
   });
-
 };
 
-exports.stop      = function ()
+exports.stop = function ()
 {
   zogLog.verb ('Buses stop called');
   emitter.emit ('stop');
