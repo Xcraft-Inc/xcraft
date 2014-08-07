@@ -53,7 +53,6 @@ exports.connect = function (busToken, callbackDone)
         done ();
       });
     }
-
   ], function (err)
   {
     zogLog.verb ("Connected with token: " + token);
