@@ -1,11 +1,14 @@
 'use strict';
 
 var moduleName = 'zog-boot';
+
 var zogConfig  = require ('./zogConfig.js') ();
 var busBoot    = require (zogConfig.busBoot);
 var busClient  = require (zogConfig.busClient);
-var zogLog     = require ('zogLog')(moduleName);
+var zogLog     = require ('zogLog') (moduleName);
+
 var cmd = {};
+
 
 var bootEnv = function ()
 {
@@ -39,26 +42,27 @@ var bootEnv = function ()
   zogLog.verb ('zog env ready');
 };
 
+busBoot.getEmitter.on ('stop', function ()
+{
+  zogLog.verb ('Bus stop event received, stopping bus client...');
 
+  busClient.stop (function (done)
+  {
+    zogLog.verb ('done');
+  });
+});
 
 module.exports = function (callbackDone)
 {
   bootEnv ();
-  busBoot.getEmitter.on('ready', function() {
+
+  busBoot.getEmitter.on ('ready', function ()
+  {
     busClient.connect (callbackDone);
   });
 
   busBoot.boot ();
 };
-
-
-busBoot.getEmitter.on('stop', function ()
-{
-  zogLog.verb ('Bus stop event receive, stopping bus client...');
-  busClient.stop (function(done){
-    zogLog.verb ('done');
-  });
-});
 
 module.exports.busClient = busClient;
 module.exports.bus       = busBoot;
