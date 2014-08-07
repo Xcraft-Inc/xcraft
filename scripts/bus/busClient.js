@@ -9,6 +9,7 @@ var async         = require ('async');
 var subscriptions = axon.socket ('sub');
 var commands      = axon.socket ('push');
 var eventsHandlerRegistry = {};
+var token = 'invalid';
 
 subscriptions.subscribe("heartbeat");
 
@@ -18,14 +19,23 @@ subscriptions.on ('message', function (topic, msg) {
     zogLog.verb ('notification received: %s -> data:%s',
                  topic,
                  JSON.stringify (msg));
-    eventsHandlerRegistry[topic](msg);
+    if(msg.token == token)
+    {
+      eventsHandlerRegistry[topic](msg);
+    }
+    else
+    {
+      zogLog.verb ('invalid token, event discarded');
+    }
+
   }
 
 });
 
-
-exports.connect = function(callbackDone)
+exports.connect = function(busToken, callbackDone)
 {
+  //save bus token for checking
+  token = busToken;
 
   async.parallel([
     function (done)
@@ -44,6 +54,7 @@ exports.connect = function(callbackDone)
     }
     ],
     function (err){
+      zogLog.verb ("Connected with token :" + token);
       callbackDone(!err);
     });
 
@@ -51,6 +62,8 @@ exports.connect = function(callbackDone)
     commands.connect (parseInt (zogConfig.bus.commanderPort), zogConfig.bus.host);
 
 };
+
+exports.getToken = function () { return token;};
 
 exports.events  =
 {

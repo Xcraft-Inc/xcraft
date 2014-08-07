@@ -7,15 +7,18 @@ var zogLog     = require ('zogLog') (moduleName);
 
 var axon       = require ('axon');
 var sock       = axon.socket ('pull');
-
+var token      = 'invalid';
 var commandsRegistry = {};
 
 module.exports = function ()
 {
   return {
     bus   : sock,
-    start : function (host, port, callback)
+    start : function (host, port, busToken, callback)
     {
+      //save token
+      token = busToken;
+
       //create domain for catching port binding errors
       var d = require('domain').create();
 
@@ -39,16 +42,25 @@ module.exports = function ()
     registerCommandHandler : function (commandKey, handlerFunction)
     {
       zogLog.verb ('Command \'%s\' registered', commandKey);
+
       commandsRegistry[commandKey] = handlerFunction;
     }
   };
 };
 
-sock.on ('message', function (cmd, data)
+sock.on ('message', function (cmd, msg)
 {
-  zogLog.verb ('command received: %s -> data:%s',
+  zogLog.verb ('command received: %s -> msg:%s',
                cmd,
-               JSON.stringify (data));
+               JSON.stringify (msg));
   //call handler
-  commandsRegistry[cmd](data);
+  if(msg.token == token)
+  {
+    commandsRegistry[cmd](msg);
+  }
+  else
+  {
+    zogLog.verb ('invalid token, command dicarded');
+  }
+
 });

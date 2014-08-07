@@ -54,7 +54,10 @@ var grunt = function ()
 cmd.run = function ()
 {
   var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
-  exec (atom + ' ' + loktharAppDir, function (error, stdout, stderr)
+
+  //we provide bus token for lokthar via argv[2]
+  var busToken = busClient.getToken();
+  exec (atom + ' ' + loktharAppDir + ' ' + busToken, function (error, stdout, stderr)
   {
     zogLog.verb ('atom outputs:\n' + stdout);
 

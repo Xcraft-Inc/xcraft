@@ -114,6 +114,7 @@ exports.boot = function ()
     loadCommandsRegistry ();
     busCommander.start (zogConfig.bus.host,
                         parseInt (zogConfig.bus.commanderPort),
+                        token,
                         startNotifier ());
   });
 };
