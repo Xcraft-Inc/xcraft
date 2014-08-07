@@ -101,7 +101,7 @@ cmd.uninstall = function ()
 
 /**
  * Retrieve the list of available commands.
- * @returns {string[]} The list of commands.
+ * @returns {Object[]} The list of commands.
  */
 exports.busCommands = function ()
 {
