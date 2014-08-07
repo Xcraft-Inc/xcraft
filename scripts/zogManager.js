@@ -46,8 +46,10 @@ cmd.list = function ()
  * Create a new package template or modify an existing package config file.
  * @param {string} packageName
  */
-cmd.create = function (packageName)
+cmd.create = function (msg)
 {
+  var packageName = msg.data;
+
   zogLog.info ('create a new package: ' + packageName);
 
   var wizard = require (zogConfig.libPkgWizard);
@@ -93,6 +95,8 @@ cmd.create = function (packageName)
 
       zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
       pkgCreate.pkgTemplate (packageDef);
+
+      busClient.events.send ('zogManager.create.finish');
     });
   };
 
