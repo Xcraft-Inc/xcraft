@@ -112,9 +112,6 @@ var patchRun = function (srcDir, callback)
  */
 cmd.install = function ()
 {
-  var zogHttp = require ('zogHttp');
-  var os = zogPlatform.getOs ();
-
   var archive = path.basename (pkgConfig.src);
   var inputFile  = pkgConfig.src;
   var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
@@ -123,56 +120,39 @@ cmd.install = function ()
   {
     taskHttp: function (callback)
     {
+      var zogHttp = require ('zogHttp');
+
       zogHttp.get (inputFile, outputFile, function ()
       {
         callback ();
       });
     },
 
-    taskExtract:
-    [
-      'taskHttp',
-      function (callback)
-      {
-        var zogExtract = require ('zogExtract');
+    taskExtract: [ 'taskHttp', function (callback)
+    {
+      var zogExtract = require ('zogExtract');
 
-        /* HACK: a very long filename exists in the tarball, then it is a
-         *       problem for node.js and the 260 chars limitation.
-         */
-        zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
-        {
-          var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
-          callback (done ? null : 'extract failed', srcDir);
-        });
-      }
-    ],
-
-    taskPatch:
-    [
-      'taskExtract',
-      function (callback, results)
+      /* HACK: a very long filename exists in the tarball, then it is a
+       *       problem for node.js and the 260 chars limitation.
+       */
+      zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
       {
-        patchRun (results.taskExtract, callback);
-      }
-    ],
+        var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+        callback (done ? null : 'extract failed', srcDir);
+      });
+    }],
 
-    taskCMake:
-    [
-      'taskPatch',
-      function (callback, results)
-      {
-        cmakeRun (results.taskExtract, callback);
-      }
-    ],
+    taskPatch: [ 'taskExtract', function (callback, results)
+    {
+      patchRun (results.taskExtract, callback);
+    }],
 
-    taskMake:
-    [
-      'taskCMake',
-      function (callback)
-      {
-        makeRun (callback);
-      }
-    ]
+    taskCMake: [ 'taskPatch', function (callback, results)
+    {
+      cmakeRun (results.taskExtract, callback);
+    }],
+
+    taskMake: [ 'taskCMake', makeRun ]
   }, function (err)
   {
     if (err)
