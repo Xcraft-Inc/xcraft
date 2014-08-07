@@ -17,7 +17,14 @@ var zogBoot    = require ('./zogBoot.js');
 
 var argsPrettify = function (args)
 {
-  return clc.cyan ('[' + args ().join (', ') + ']');
+  var list = [];
+
+  args ().forEach (function (cmd)
+  {
+    list.push (cmd.name);
+  });
+
+  return clc.cyan ('[' + list.join (', ') + ']');
 };
 
 program
@@ -30,7 +37,7 @@ program
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.args))
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
-           + argsPrettify (zogLokthar.args))
+           + argsPrettify (zogLokthar.busCommands))
   .option ('-c, --chest <action> [file]', 'manage a file chest '
            + argsPrettify (zogChest.args) + '\n')
 
@@ -90,6 +97,8 @@ var main = function (done)
 
   var mainShutdown = function ()
   {
+    zogLog.info ('end command');
+
     busClient.stop (function (done)
     {
       zogBoot.bus.stop ();
@@ -101,7 +110,7 @@ var main = function (done)
   if (program.wpkg)
     zogWpkg.action (program.wpkg);
   if (program.lokthar)
-    zogLokthar.action (program.lokthar);
+    busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   if (program.chest)
     zogChest.action (program.chest, program.args[0] || null);
   if (program.configure)

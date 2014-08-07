@@ -27,7 +27,10 @@ var build = function ()
     if (error === null)
       grunt ();
     else
+    {
       zogLog.err ('unable to build lokthar\n' + stderr);
+      busClient.events.send ('zogLokthar.install.finish');
+    }
   });
 };
 
@@ -44,6 +47,8 @@ var grunt = function ()
 
     if (error)
       zogLog.err ('unable to grunt lokthar\n' + stderr);
+
+    busClient.events.send ('zogLokthar.install.finish');
   });
 };
 
@@ -84,6 +89,7 @@ cmd.install = function ()
   catch (err)
   {
     zogLog.err (err);
+    busClient.events.send ('zogLokthar.install.finish');
   }
 };
 
@@ -93,56 +99,23 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
+  busClient.events.send ('zogLokthar.uninstall.finish');
 };
 
 /**
  * Retrieve the list of available commands.
  * @returns {string[]} The list of commands.
  */
-exports.args = function ()
-{
-  /* Commander will use the same actions that the command bus.
-   * This code will be dropped when the commander will use the command
-   * bus directly.
-   */
-  return exports.busCommands ();
-};
-
-/**
- * Actions called from commander with --lokthar.
- * @param {string} act - The action [install, uninstall, run].
- */
-exports.action = function (act)
-{
-  zogLog.info ('run action ' + act);
-
-  try
-  {
-    //cmd[act] ();
-    var cmd = 'zogLokthar.' + act;
-    busClient.command.send (cmd, null, function ()
-    {
-      busClient.stop (function (done)
-      {
-        require (zogConfig.zogBoot).bus.stop ();
-      });
-    });
-  }
-  catch (err)
-  {
-    zogLog.err (act + ': ' + err.message);
-  }
-};
-
 exports.busCommands = function ()
 {
   var list = [];
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push ({
-      name : action,
-      handler : cmd[action]
+    list.push (
+    {
+      name   : action,
+      handler: cmd[action]
     });
   });
 

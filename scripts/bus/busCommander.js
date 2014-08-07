@@ -2,13 +2,17 @@
 'use strict';
 
 var moduleName = 'command-bus';
+
 var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
-
 var axon       = require ('axon');
+
 var sock       = axon.socket ('pull');
+
+
 var token      = 'invalid';
 var commandsRegistry = {};
+
 
 module.exports = function ()
 {
@@ -19,27 +23,28 @@ module.exports = function ()
       //save token
       token = busToken;
 
-      //create domain for catching port binding errors
-      var d = require('domain').create();
+      /* Create domain in order to catch port binding errors. */
+      var domain = require ('domain').create ();
 
-      //error management
-      d.on('error', function(err){
+      domain.on ('error', function (err)
+      {
         zogLog.warn ('Bus already started on %s:%d', host, port);
       });
 
-      //try binding in domain
-      d.run(function(){
-        sock.bind (parseInt(port), host, callback);
+      /* Try binding in domain. */
+      domain.run (function ()
+      {
+        sock.bind (parseInt (port), host, callback);
         zogLog.verb ('Bus started on %s:%d', host, port);
       });
-
     },
-    stop : function ()
+
+    stop: function ()
     {
       sock.close ();
     },
 
-    registerCommandHandler : function (commandKey, handlerFunction)
+    registerCommandHandler: function (commandKey, handlerFunction)
     {
       zogLog.verb ('Command \'%s\' registered', commandKey);
 
@@ -50,6 +55,7 @@ module.exports = function ()
 
 sock.on ('message', function (cmd, msg)
 {
+  zogLog.info ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> msg:%s',
                cmd,
                JSON.stringify (msg));
