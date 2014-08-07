@@ -94,10 +94,10 @@ cmd.create = function (msg)
       packageDef.push (answers);
 
       zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
-      pkgCreate.pkgTemplate (packageDef);
-
-      /* FIXME: pkgTemplate is async, we must put a callback. */
-      busClient.events.send ('zogManager.create.finish');
+      pkgCreate.pkgTemplate (packageDef, function (done)
+      {
+        busClient.events.send ('zogManager.create.finish');
+      });
     });
   };
 

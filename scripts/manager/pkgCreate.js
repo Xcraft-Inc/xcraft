@@ -4,6 +4,7 @@ var moduleName = 'manager';
 
 var path      = require ('path');
 var util      = require ('util');
+var async     = require ('async');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
@@ -60,8 +61,10 @@ var inquirerToPackage = function (inquirerPkg)
 /**
  * Create a package template for the toolchain.
  * @param {Object} inquirerPkg - The Inquirer answers.
+ * @param {function(done)} callbackDone
+ * @param {boolean} callbackDone.done - True on success.
  */
-exports.pkgTemplate = function (inquirerPkg)
+exports.pkgTemplate = function (inquirerPkg, callbackDone)
 {
   zogLog.info ('create the package definition for ' + inquirerPkg[0].package);
 
@@ -77,64 +80,80 @@ exports.pkgTemplate = function (inquirerPkg)
 
   try
   {
-    try
-    {
-      var st = fs.statSync (pkgDir);
+    var st = fs.statSync (pkgDir);
 
-      if (!st.isDirectory ())
-      {
-        var err = new Error (pkgDir + ' exists and it is not a directory');
-        throw err;
-      }
-    }
-    catch (err)
+    if (!st.isDirectory ())
     {
-      if (err.code == 'ENOENT')
-      {
-        fs.mkdirSync (pkgDir, 493 /* 0755 */, function (err)
-        {
-          if (err)
-            throw err;
-        });
-      }
-      else
-        throw err;
+      var err = new Error (pkgDir + ' exists and it is not a directory');
+      throw err;
     }
+  }
+  catch (err)
+  {
+    if (err.code == 'ENOENT')
+    {
+      fs.mkdirSync (pkgDir, 493 /* 0755 */, function (err)
+      {
+        if (err)
+          throw err;
+      });
+    }
+    else
+      throw err;
+  }
 
-    /* We look for chest: and we propose to upload the file. */
-    var urlObj = url.parse (packageDef.data.uri);
-    if (urlObj.protocol === 'chest:')
+  /* The definitions can be writtent even if we are in inquirer for uploading
+   * the resources in the chest server.
+   */
+  async.parallel (
+  [
+    function (callback)
     {
+      /* We look for chest: and we propose to upload the file. */
+      var urlObj = url.parse (packageDef.data.uri);
+      if (urlObj.protocol !== 'chest:')
+      {
+        callback ();
+        return;
+      }
+
       var file = urlObj.pathname || urlObj.hostname;
 
       inquirer.prompt (wizard, function (answers)
       {
         /* Async */
-        if (answers.mustUpload)
+        if (!answers.mustUpload)
         {
-          zogLog.info ('upload %s to chest://%s:%d/%s',
-                       answers.localPath,
-                       zogConfig.chest.host,
-                       zogConfig.chest.port,
-                       file);
-
-          var chestClient = require ('../chest/chestClient.js');
-          chestClient.upload (answers.localPath);
+          callback ();
+          return;
         }
+
+        zogLog.info ('upload %s to chest://%s:%d/%s',
+                     answers.localPath,
+                     zogConfig.chest.host,
+                     zogConfig.chest.port,
+                     file);
+
+        var chestClient = require ('../chest/chestClient.js');
+        chestClient.upload (answers.localPath, function (error)
+        {
+          callback (error);
+        });
       });
-    }
-
-    var yaml = require ('js-yaml');
-
-    var yamlPkg = yaml.safeDump (packageDef);
-    fs.writeFileSync (path.join (pkgDir, zogConfig.pkgCfgFileName), yamlPkg, [], function (err)
+    },
+    function (callback)
     {
-      if (err)
-        throw err;
-    });
-  }
-  catch (err)
+      var yaml = require ('js-yaml');
+
+      var yamlPkg = yaml.safeDump (packageDef);
+      fs.writeFileSync (path.join (pkgDir, zogConfig.pkgCfgFileName), yamlPkg, null);
+      callback ();
+    }
+  ], function (err)
   {
-    zogLog.err (err);
-  }
+    if (err)
+      zogLog.err (err);
+
+    callbackDone (!err);
+  });
 };
