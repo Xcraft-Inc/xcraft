@@ -35,7 +35,7 @@ program
   .option ('-m, --cmake <action>', 'manage the cmake installation '
            + argsPrettify (zogCMake.args))
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
-           + argsPrettify (zogWpkg.args))
+           + argsPrettify (zogWpkg.busCommands))
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
            + argsPrettify (zogLokthar.busCommands))
   .option ('-c, --chest <action> [file]', 'manage a file chest '
@@ -111,7 +111,7 @@ var main = function (done)
   if (program.cmake)
     zogCMake.action (program.cmake);
   if (program.wpkg)
-    zogWpkg.action (program.wpkg);
+    busClient.command.send ('zogWpkg.' + program.wpkg, null, mainShutdown);
   if (program.lokthar)
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   if (program.chest)

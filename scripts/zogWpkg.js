@@ -4,18 +4,20 @@ var moduleName = 'wpkg';
 
 var path        = require ('path');
 var fs          = require ('fs');
+var async       = require ('async');
 var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
 var zogFs       = require ('zogFs');
+var busClient   = require (zogConfig.busClient);
 
 var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json')));
 var cmd = {};
 
 
 /* TODO: must be generic. */
-var makeRun = function ()
+var makeRun = function (callback)
 {
   zogLog.info ('begin building of wpkg')
 
@@ -34,6 +36,8 @@ var makeRun = function ()
   {
     if (done)
       zogLog.info ('wpkg is built and installed');
+
+    callback (done ? null : 'make failed');
   }, function (line)
   {
     zogLog.verb (line);
@@ -44,7 +48,7 @@ var makeRun = function ()
 };
 
 /* TODO: must be generic. */
-var cmakeRun = function (srcDir)
+var cmakeRun = function (srcDir, callback)
 {
   /* FIXME, TODO: use a backend (a module) for building with cmake. */
   /* cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . && make all install */
@@ -64,18 +68,17 @@ var cmakeRun = function (srcDir)
   process.chdir (buildDir);
   var cmake = zogProcess.spawn ('cmake', args, function (done)
   {
-    if (done)
-      makeRun ();
+    callback (done ? null : 'cmake failed');
   }, function (line)
   {
     zogLog.verb (line);
   }, function (line)
   {
-    zogLog.err (line);
+    zogLog.warn (line);
   });
 };
 
-var patchRun = function (srcDir)
+var patchRun = function (srcDir, callback)
 {
   var zogDevel = require ('zogDevel');
   var async    = require ('async');
@@ -85,7 +88,7 @@ var patchRun = function (srcDir)
 
   if (!list.length)
   {
-    cmakeRun (srcDir);
+    callback ();
     return;
   }
 
@@ -96,9 +99,11 @@ var patchRun = function (srcDir)
 
     zogDevel.patch (srcDir, patchFile, 2, function (done)
     {
-      if (done)
-        cmakeRun (srcDir);
+      callback (done ? null : 'patch failed: ' + file);
     });
+  }, function (err)
+  {
+    callback (err);
   });
 };
 
@@ -114,25 +119,66 @@ cmd.install = function ()
   var inputFile  = pkgConfig.src;
   var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
 
-  zogHttp.get (inputFile, outputFile, function ()
+  async.auto (
   {
-    var zogExtract = require ('zogExtract');
-
-    /* HACK: a very long filename exists in the tarball, then it is a
-     *       problem for node.js and the 260 chars limitation.
-     */
-    zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
+    taskHttp: function (callback)
     {
-      if (!done)
-        return;
+      zogHttp.get (inputFile, outputFile, function ()
+      {
+        callback ();
+      });
+    },
 
-      var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+    taskExtract:
+    [
+      'taskHttp',
+      function (callback)
+      {
+        var zogExtract = require ('zogExtract');
 
-      if (os === 'win')
-        patchRun (srcDir);
-      else
-        cmakeRun (srcDir);
-    });
+        /* HACK: a very long filename exists in the tarball, then it is a
+         *       problem for node.js and the 260 chars limitation.
+         */
+        zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
+        {
+          var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+          callback (done ? null : 'extract failed', srcDir);
+        });
+      }
+    ],
+
+    taskPatch:
+    [
+      'taskExtract',
+      function (callback, results)
+      {
+        patchRun (results.taskExtract, callback);
+      }
+    ],
+
+    taskCMake:
+    [
+      'taskPatch',
+      function (callback, results)
+      {
+        cmakeRun (results.taskExtract, callback);
+      }
+    ],
+
+    taskMake:
+    [
+      'taskCMake',
+      function (callback)
+      {
+        makeRun (callback);
+      }
+    ]
+  }, function (err)
+  {
+    if (err)
+      zogLog.err (err);
+
+    busClient.events.send ('zogWpkg.install.finish');
   });
 };
 
@@ -141,50 +187,25 @@ cmd.install = function ()
  */
 cmd.uninstall = function ()
 {
-  var fs = require ('fs');
-
-  var outputFile = path.normalize (pkgConfig.out);
-  fs.unlinkSync (outputFile + zogPlatform.getExecExt ());
+  zogLog.warn ('the uninstall action is not implemented');
+  busClient.events.send ('zogWpkg.uninstall.finish');
 };
 
 /**
  * Retrieve the list of available commands.
- * @returns {string[]} The list of commands.
+ * @returns {Object[]} The list of commands.
  */
-exports.args = function ()
-{
-  /* Commander will use the same actions that the command bus.
-   * This code will be dropped when the commander will use the command
-   * bus directly.
-   */
-  return exports.busCommands ();
-};
-
-/**
- * Actions called from commander with --wpkg.
- * @param {string} act - The action [install, uninstall].
- */
-exports.action = function (act)
-{
-  zogLog.info ('run action ' + act);
-
-  try
-  {
-    cmd[act] ();
-  }
-  catch (err)
-  {
-    zogLog.err (act + ': ' + err.message);
-  }
-};
-
 exports.busCommands = function ()
 {
   var list = [];
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push (action);
+    list.push (
+    {
+      name   : action,
+      handler: cmd[action]
+    });
   });
 
   return list;
