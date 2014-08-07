@@ -68,9 +68,6 @@ sock.on ('message', function (cmd, msg)
       zogLog.err ('the command "%s" is not available', cmd);
       cmd = 'error';
     }
-
-    /* call handler */
-    commandsRegistry[cmd] (msg);
   }
   else
   {
@@ -78,5 +75,5 @@ sock.on ('message', function (cmd, msg)
     cmd = 'error';
   }
 
-  commandsRegistry[cmd] (data);
+  commandsRegistry[cmd] (msg);
 });
