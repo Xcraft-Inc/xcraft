@@ -129,7 +129,7 @@ var main = function (done)
   if (program.remove)
     zogManager.remove (program.remove);
   if (program.clean)
-    zogManager.clean (program.clean);
+    busClient.command.send ('zogManager.clean', program.clean, mainShutdown);
 };
 
 zogBoot.start (main);

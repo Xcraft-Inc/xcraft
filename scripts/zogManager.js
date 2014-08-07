@@ -199,6 +199,8 @@ cmd.clean = function ()
     else
       fse.unlinkSync (file);
   });
+
+  busClient.events.send ('zogManager.clean.finish');
 };
 
 exports.busCommands = function ()
