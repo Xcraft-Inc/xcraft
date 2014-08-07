@@ -7,6 +7,7 @@ var BrowserWindow = require ('browser-window');
 var async         = require ('async');
 var zogLog        = require ('zogLog')('lokthar').color(false);
 var busClient     = require (zogConfig.busClient);
+
 // Report crashes to our server.
 require('crash-reporter').start();
 // Keep a global reference of the window object, if you don't, the window will
@@ -56,13 +57,13 @@ app.on('ready', function() {
 
   });
 
-
-  busClient.connect(function (done) {
+  var argv = process.argv;
+  busClient.connect(argv[2], function (done) {
     if(!done)
       process.exit(1);
 
     // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/index.html')
+    mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
   });
 
