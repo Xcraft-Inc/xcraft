@@ -8,7 +8,7 @@ var inquirer = require ('inquirer');
 var zogConfig = require ('./zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 var pkgCreate = require (zogConfig.libPkgCreate);
-var busClient = require (zogConfig.zogBoot).busClient;
+var busClient = require (zogConfig.busClient);
 
 var cmd       = {};
 process.chdir (path.join (__dirname, '/..'));

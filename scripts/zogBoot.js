@@ -66,5 +66,3 @@ exports.stop = function ()
 {
   busBoot.stop ();
 };
-
-exports.busClient = busClient;
