@@ -90,6 +90,7 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
+  busClient.events.send ('zogLokthar.uninstall.finish');
 };
 
 /**
@@ -115,15 +116,8 @@ exports.action = function (act)
 
   try
   {
-    //cmd[act] ();
+    cmd[act] ();
     var cmd = 'zogLokthar.' + act;
-    busClient.command.send (cmd, null, function ()
-    {
-      busClient.stop (function (done)
-      {
-        require (zogConfig.zogBoot).bus.stop ();
-      });
-    });
   }
   catch (err)
   {
@@ -137,9 +131,10 @@ exports.busCommands = function ()
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push ({
-      name : action,
-      handler : cmd[action]
+    list.push (
+    {
+      name   : action,
+      handler: cmd[action]
     });
   });
 

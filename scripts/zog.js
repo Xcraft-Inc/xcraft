@@ -101,7 +101,7 @@ var main = function (done)
   if (program.wpkg)
     zogWpkg.action (program.wpkg);
   if (program.lokthar)
-    zogLokthar.action (program.lokthar);
+    busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   if (program.chest)
     zogChest.action (program.chest, program.args[0] || null);
   if (program.configure)
