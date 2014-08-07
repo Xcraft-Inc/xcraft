@@ -27,7 +27,10 @@ var build = function ()
     if (error === null)
       grunt ();
     else
+    {
       zogLog.err ('unable to build lokthar\n' + stderr);
+      busClient.events.send ('zogLokthar.install.finish');
+    }
   });
 };
 
@@ -44,6 +47,8 @@ var grunt = function ()
 
     if (error)
       zogLog.err ('unable to grunt lokthar\n' + stderr);
+
+    busClient.events.send ('zogLokthar.install.finish');
   });
 };
 
@@ -81,6 +86,7 @@ cmd.install = function ()
   catch (err)
   {
     zogLog.err (err);
+    busClient.events.send ('zogLokthar.install.finish');
   }
 };
 
