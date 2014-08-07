@@ -106,7 +106,7 @@ var main = function (done)
   };
 
   /* Global error handler for command errors. */
-  require ('./bus/busCommander.js') ().registerErrorHandler (mainShutdown);
+  require ('./bus/busCommander.js').registerErrorHandler (mainShutdown);
 
   if (program.cmake)
     zogCMake.action (program.cmake);

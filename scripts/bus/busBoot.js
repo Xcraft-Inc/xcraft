@@ -5,8 +5,8 @@ var moduleName   = 'bus-boot';
 var zogConfig    = require ('../zogConfig.js') ();
 var zogLog       = require ('zogLog') (moduleName);
 var crypto       = require ('crypto');
-var busNotifier  = require ('./busNotifier.js') ();
-var busCommander = require ('./busCommander.js') ();
+var busNotifier  = require ('./busNotifier.js');
+var busCommander = require ('./busCommander.js');
 var EventEmitter = require ('events').EventEmitter;
 
 var bootReady = false;

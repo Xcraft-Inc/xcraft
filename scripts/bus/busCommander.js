@@ -12,48 +12,44 @@ var token            = 'invalid';
 var commandsRegistry = {};
 
 
-module.exports = function ()
+exports.bus = sock;
+
+exports.start = function (host, port, busToken, callback)
 {
-  return {
-    bus  : sock,
-    start: function (host, port, busToken, callback)
-    {
-      /* Save token */
-      token = busToken;
+  /* Save token */
+  token = busToken;
 
-      /* Create domain in order to catch port binding errors. */
-      var domain = require ('domain').create ();
+  /* Create domain in order to catch port binding errors. */
+  var domain = require ('domain').create ();
 
-      domain.on ('error', function (err)
-      {
-        zogLog.warn ('bus running on %s:%d, error: %s', host, port, err.message);
-      });
+  domain.on ('error', function (err)
+  {
+    zogLog.warn ('bus running on %s:%d, error: %s', host, port, err.message);
+  });
 
-      /* Try binding in domain. */
-      domain.run (function ()
-      {
-        sock.bind (parseInt (port), host, callback);
-        zogLog.verb ('Bus started on %s:%d', host, port);
-      });
-    },
+  /* Try binding in domain. */
+  domain.run (function ()
+  {
+    sock.bind (parseInt (port), host, callback);
+    zogLog.verb ('Bus started on %s:%d', host, port);
+  });
+};
 
-    stop: function ()
-    {
-      sock.close ();
-    },
+exports.stop = function ()
+{
+  sock.close ();
+};
 
-    registerCommandHandler: function (commandKey, handlerFunction)
-    {
-      zogLog.verb ('Command \'%s\' registered', commandKey);
+exports.registerCommandHandler = function (commandKey, handlerFunction)
+{
+  zogLog.verb ('Command \'%s\' registered', commandKey);
 
-      commandsRegistry[commandKey] = handlerFunction;
-    },
+  commandsRegistry[commandKey] = handlerFunction;
+};
 
-    registerErrorHandler: function (errorHandler)
-    {
-      commandsRegistry['error'] = errorHandler;
-    }
-  };
+exports.registerErrorHandler = function (errorHandler)
+{
+  commandsRegistry['error'] = errorHandler;
 };
 
 sock.on ('message', function (cmd, msg)
