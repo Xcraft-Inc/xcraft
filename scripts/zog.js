@@ -79,8 +79,7 @@ var main = function (done)
     zogChest.action (program.chest, program.args[0] || null);
   if (program.list)
   {
-    busClient.command.send ('zogManager.list', null, function (){
-      console.log('try stopping bus client');
+    busClient.command.send ('zogManager.list', null, function () {
       busClient.stop ();
       require(zogConfig.zogBoot).bus.stop ();
     });
