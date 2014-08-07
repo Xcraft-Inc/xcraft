@@ -91,6 +91,7 @@ cmd.restart = function ()
 
 /**
  * Send a file to the chest server.
+ * @param {Object} msg
  */
 cmd.send = function (msg)
 {

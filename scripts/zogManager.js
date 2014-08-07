@@ -44,7 +44,7 @@ cmd.list = function ()
 
 /**
  * Create a new package template or modify an existing package config file.
- * @param {string} packageName
+ * @param {Object} msg
  */
 cmd.create = function (msg)
 {
@@ -148,7 +148,7 @@ cmd.make = function (packageName)
 
 /**
  * Try to install the developement package.
- * @param {string} packageName
+ * @param {Object} msg
  */
 cmd.install = function (packageRef)
 {
@@ -161,7 +161,7 @@ cmd.install = function (packageRef)
 
 /**
  * Try to remove the developement package.
- * @param {string} packageName
+ * @param {Object} msg
  */
 cmd.remove = function (msg)
 {
