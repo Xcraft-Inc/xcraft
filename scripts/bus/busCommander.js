@@ -8,6 +8,7 @@ var zogLog     = require ('zogLog') (moduleName);
 var axon       = require ('axon');
 
 var sock = axon.socket ('pull');
+var token = 'invalid';
 var commandsRegistry = {};
 
 
@@ -15,8 +16,11 @@ module.exports = function ()
 {
   return {
     bus  : sock,
-    start: function (host, port, callback)
+    start: function (host, port, busToken, callback)
     {
+      /* Save token */
+      token = busToken;
+
       /* Create domain in order to catch port binding errors. */
       var domain = require ('domain').create ();
 
@@ -41,6 +45,7 @@ module.exports = function ()
     registerCommandHandler: function (commandKey, handlerFunction)
     {
       zogLog.verb ('Command \'%s\' registered', commandKey);
+
       commandsRegistry[commandKey] = handlerFunction;
     },
 
@@ -51,17 +56,27 @@ module.exports = function ()
   };
 };
 
-sock.on ('message', function (cmd, data)
+sock.on ('message', function (cmd, msg)
 {
   zogLog.info ('begin command: %s', cmd);
-  zogLog.verb ('command received: %s -> data: %s', cmd, JSON.stringify (data));
+  zogLog.verb ('command received: %s -> msg: %s', cmd, JSON.stringify (msg));
 
-  if (!commandsRegistry.hasOwnProperty (cmd))
+  if (msg.token == token)
   {
-    zogLog.err ('the command "%s" is not available', cmd);
+    if (!commandsRegistry.hasOwnProperty (cmd))
+    {
+      zogLog.err ('the command "%s" is not available', cmd);
+      cmd = 'error';
+    }
+
+    /* call handler */
+    commandsRegistry[cmd] (msg);
+  }
+  else
+  {
+    zogLog.verb ('invalid token, command dicarded');
     cmd = 'error';
   }
 
-  /* call handler */
   commandsRegistry[cmd] (data);
 });
