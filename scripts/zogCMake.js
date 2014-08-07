@@ -4,17 +4,19 @@ var moduleName = 'cmake';
 
 var path        = require ('path');
 var fs          = require ('fs');
+var async       = require ('async');
 var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
+var busClient   = require (zogConfig.busClient);
 
 var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json')));
 var cmd = {};
 
 
 /* TODO: must be generic. */
-var makeRun = function ()
+var makeRun = function (callback)
 {
   zogLog.info ('begin building of cmake')
 
@@ -24,10 +26,13 @@ var makeRun = function ()
     'all',
     'install'
   ];
+
   var make = zogProcess.spawn ('make', args, function (done)
   {
     if (done)
       zogLog.info ('cmake is built and installed');
+
+    callback (done ? null : 'make failed');
   }, function (line)
   {
     zogLog.verb (line);
@@ -38,7 +43,7 @@ var makeRun = function ()
 };
 
 /* TODO: must be generic. */
-var bootstrapRun = function (cmakeDir)
+var bootstrapRun = function (cmakeDir, callback)
 {
   /* FIXME, TODO: use a backend (a module) for building cmake. */
   /* bootstrap --prefix=/mingw && make && make install */
@@ -54,8 +59,7 @@ var bootstrapRun = function (cmakeDir)
   process.chdir (cmakeDir);
   var cmake = zogProcess.spawn ('sh', args, function (done)
   {
-    if (done)
-      makeRun ();
+    callback (done ? null : 'bootstrap failed');
   }, function (line)
   {
     zogLog.verb (line);
@@ -70,22 +74,45 @@ var bootstrapRun = function (cmakeDir)
  */
 cmd.install = function ()
 {
-  var zogHttp = require ('zogHttp');
-
   var archive = path.basename (pkgConfig.src);
   var inputFile  = pkgConfig.src;
   var outputFile = path.join (zogConfig.tempRoot, 'src', archive);
 
-  zogHttp.get (inputFile, outputFile, function ()
+  async.auto (
   {
-    var zogExtract = require ('zogExtract');
-    var outDir = path.dirname (outputFile);
-
-    zogExtract.targz (outputFile, outDir, null, function (done)
+    taskHttp: function (callback)
     {
-      if (done)
-        bootstrapRun (path.join (outDir, path.basename (outputFile, '.tar.gz')));
-    });
+      var zogHttp = require ('zogHttp');
+
+      zogHttp.get (inputFile, outputFile, function ()
+      {
+        callback ();
+      });
+    },
+
+    taskExtract: [ 'taskHttp', function (callback)
+    {
+      var zogExtract = require ('zogExtract');
+      var outDir = path.dirname (outputFile);
+
+      zogExtract.targz (outputFile, outDir, null, function (done)
+      {
+        callback (done ? null : 'extract failed', path.join (outDir, path.basename (outputFile, '.tar.gz')))
+      });
+    }],
+
+    taskBootstrap: [ 'taskExtract', function (callback, results)
+    {
+      bootstrapRun (results.taskExtract, callback);
+    }],
+
+    taskMake: [ 'taskBootstrap', makeRun ]
+  }, function (err)
+  {
+    if (err)
+      zogLog.err (err);
+
+    busClient.events.send ('zogCMake.install.finish');
   });
 };
 
@@ -94,47 +121,25 @@ cmd.install = function ()
  */
 cmd.uninstall = function ()
 {
-  zogLog.warn ('stub');
+  zogLog.warn ('the uninstall action is not implemented');
+  busClient.events.send ('zogCMake.uninstall.finish');
 };
 
 /**
  * Retrieve the list of available commands.
- * @returns {string[]} The list of commands.
+ * @returns {Object[]} The list of commands.
  */
-exports.args = function ()
-{
-  /* Commander will use the same actions that the command bus.
-   * This code will be dropped when the commander will use the command
-   * bus directly.
-   */
-  return exports.busCommands ();
-};
-
-/**
- * Actions called from commander with --cmake.
- * @param {string} act - The action [install, uninstall].
- */
-exports.action = function (act)
-{
-  zogLog.info ('run action ' + act);
-
-  try
-  {
-    cmd[act] ();
-  }
-  catch (err)
-  {
-    zogLog.err (act + ': ' + err.message);
-  }
-};
-
 exports.busCommands = function ()
 {
   var list = [];
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push (action);
+    list.push (
+    {
+      name   : action,
+      handler: cmd[action]
+    });
   });
 
   return list;

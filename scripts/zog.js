@@ -33,7 +33,7 @@ program
   .option ('-n, --nocolor', 'disable the color output')
 
   .option ('-m, --cmake <action>', 'manage the cmake installation '
-           + argsPrettify (zogCMake.args))
+           + argsPrettify (zogCMake.busCommands))
   .option ('-w, --wpkg <action>', 'manage the wpkg installation '
            + argsPrettify (zogWpkg.busCommands))
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
@@ -109,7 +109,7 @@ var main = function (done)
   require ('./bus/busCommander.js').registerErrorHandler (mainShutdown);
 
   if (program.cmake)
-    zogCMake.action (program.cmake);
+    busClient.command.send ('zogCMake.' + program.cmake, null, mainShutdown);
   if (program.wpkg)
     busClient.command.send ('zogWpkg.' + program.wpkg, null, mainShutdown);
   if (program.lokthar)
