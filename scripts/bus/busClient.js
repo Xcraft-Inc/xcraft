@@ -91,8 +91,27 @@ exports.command =
   }
 };
 
-exports.stop = function ()
+exports.stop = function (callbackDone)
 {
+  async.parallel([
+    function (done)
+    {
+      subscriptions.on('close', function (err) {
+        done();
+      });
+    },
+    function (done)
+    {
+      commands.on('close', function (err) {
+        done();
+      });
+    }
+    ],
+    function (err){
+      zogLog.verb ('Stopped');
+      callbackDone(!err);
+  });
+
   zogLog.verb ('Stopping...');
   subscriptions.close ();
   commands.close ();
