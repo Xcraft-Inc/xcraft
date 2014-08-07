@@ -72,8 +72,12 @@ if (program.verbosity)
 if (program.nocolor)
   length++;
 if (process.argv.length < length)
-  program.help ();
+  program.help (); /* Print help and exits immediatly. */
 
+/**
+ * The main is called as soon as the zog booting process is terminated.
+ * @param {boolean} done - False on error.
+ */
 var main = function (done)
 {
   if (!done)
