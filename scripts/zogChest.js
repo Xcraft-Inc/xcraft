@@ -5,6 +5,7 @@ var moduleName = 'chest';
 var fs        = require ('fs');
 var zogConfig = require ('./zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
+var busClient = require (zogConfig.busClient);
 
 var cmd = {};
 
@@ -14,12 +15,13 @@ var cmd = {};
 cmd.start = function ()
 {
   var spawn = require ('child_process').spawn;
+  var isRunning = false;
 
   if (fs.existsSync (zogConfig.chest.pid))
   {
     zogLog.warn ('the chest server seems running');
 
-    var isRunning = true;
+    isRunning = true;
     var pid = fs.readFileSync (zogConfig.chest.pid, 'utf8');
 
     try
@@ -35,23 +37,25 @@ cmd.start = function ()
         isRunning = false;
       }
     }
-
-    if (isRunning)
-      return;
   }
 
-  var logout = fs.openSync (zogConfig.chest.log, 'a');
-  var logerr = fs.openSync (zogConfig.chest.log, 'a');
-  var chest = spawn ('node', [ zogConfig.chestServer ],
+  if (!isRunning)
   {
-    detached: true,
-    stdio: [ 'ignore', logout, logerr ]
-  });
+    var logout = fs.openSync (zogConfig.chest.log, 'a');
+    var logerr = fs.openSync (zogConfig.chest.log, 'a');
+    var chest = spawn ('node', [ zogConfig.chestServer ],
+    {
+      detached: true,
+      stdio: [ 'ignore', logout, logerr ]
+    });
 
-  zogLog.verb ('chest server PID: ' + chest.pid);
-  fs.writeFileSync (zogConfig.chest.pid, chest.pid);
+    zogLog.verb ('chest server PID: ' + chest.pid);
+    fs.writeFileSync (zogConfig.chest.pid, chest.pid);
 
-  chest.unref ();
+    chest.unref ();
+  }
+
+  busClient.events.send ('zogChest.start.finish');
 };
 
 /**
@@ -70,6 +74,8 @@ cmd.stop = function ()
     if (err.code != 'ENOENT')
       zogLog.err (err);
   }
+
+  busClient.events.send ('zogChest.stop.finish');
 };
 
 /**
@@ -79,13 +85,16 @@ cmd.restart = function ()
 {
   cmd.stop ();
   cmd.start ();
+
+  busClient.events.send ('zogChest.restart.finish');
 };
 
 /**
  * Send a file to the chest server.
  */
-cmd.send = function (file)
+cmd.send = function (msg)
 {
+  var file = msg.data;
   var path = require ('path');
 
   file = path.resolve (file);
@@ -93,47 +102,30 @@ cmd.send = function (file)
   zogLog.info ('send ' + file + ' to the chest');
 
   var chestClient = require ('./chest/chestClient.js');
-  chestClient.upload (file);
+  chestClient.upload (file, function (error)
+  {
+    if (error)
+      zogLog.err (error);
+
+    busClient.events.send ('zogChest.send.finish');
+  });
 };
 
 /**
  * Retrieve the list of available commands.
- * @returns {string[]} The list of commands.
+ * @returns {Object[]} The list of commands.
  */
-exports.args = function ()
-{
-  /* Commander will use the same actions that the command bus.
-   * This code will be dropped when the commander will use the command
-   * bus directly.
-   */
-  return exports.busCommands ();
-};
-
-/**
- * Actions called from commander with --chest.
- * @param {string} act - The action [start, stop, restart, send].
- */
-exports.action = function (act, opt)
-{
-  zogLog.info ('run action ' + act + (opt && act == 'send' ? ' (' + opt + ')' : ''));
-
-  try
-  {
-    cmd[act] (opt);
-  }
-  catch (err)
-  {
-    zogLog.err (act + ': ' + err.message);
-  }
-};
-
 exports.busCommands = function ()
 {
   var list = [];
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push (action);
+    list.push (
+    {
+      name   : action,
+      handler: cmd[action]
+    });
   });
 
   return list;

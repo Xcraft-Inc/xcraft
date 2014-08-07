@@ -39,7 +39,7 @@ program
   .option ('-l, --lokthar <action>', 'manage the lokthar installation '
            + argsPrettify (zogLokthar.busCommands))
   .option ('-c, --chest <action> [file]', 'manage a file chest '
-           + argsPrettify (zogChest.args) + '\n')
+           + argsPrettify (zogChest.busCommands) + '\n')
 
   .option ('configure', 'change settings')
   .option ('list', 'list all available packages')
@@ -115,7 +115,7 @@ var main = function (done)
   if (program.lokthar)
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   if (program.chest)
-    zogChest.action (program.chest, program.args[0] || null);
+    busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
   if (program.configure)
     zogConfig.configure ();
   if (program.list)

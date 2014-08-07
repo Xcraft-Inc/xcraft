@@ -5,7 +5,7 @@ var moduleName = 'chest';
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-var chestUpload = function (inputFile, server, port)
+var chestUpload = function (inputFile, server, port, callback)
 {
   var fs             = require ('fs');
   var path           = require ('path');
@@ -60,6 +60,8 @@ var chestUpload = function (inputFile, server, port)
       if (!bar.complete)
         bar.terminate ();
       zogLog.verb ('disconnected from the chest server');
+
+      callback ();
     });
 
     /* It is the server acknowledge. */
@@ -70,7 +72,7 @@ var chestUpload = function (inputFile, server, port)
        */
       if (error)
       {
-        zogLog.err (error);
+        callback (error);
         return;
       }
 
@@ -89,7 +91,7 @@ var chestUpload = function (inputFile, server, port)
       var reqFile = request (options, function (error, response, body)
       {
         if (error)
-          zogLog.err ('problem with request: ' + error);
+          callback ('problem with request: ' + error);
 
         if (body)
           zogLog.verb (body);
@@ -109,20 +111,21 @@ var chestUpload = function (inputFile, server, port)
 
   socket.on ('connect_error', function (error)
   {
-    zogLog.err (error);
+    callback (error);
   });
 };
 
-exports.upload = function (file)
+exports.upload = function (file, callback)
 {
   try
   {
     chestUpload (file,
                  zogConfig.chest.host,
-                 zogConfig.chest.port);
+                 zogConfig.chest.port,
+                 callback);
   }
   catch (err)
   {
-    zogLog.err (err.message);
+    callback (err.message);
   }
 };
