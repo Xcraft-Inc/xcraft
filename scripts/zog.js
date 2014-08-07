@@ -17,7 +17,7 @@ var zogBoot    = require ('./zogBoot.js');
 
 var argsPrettify = function (args)
 {
-  return clc.cyan ('[' + args ().toString ().replace (/,/g, ', ') + ']');
+  return clc.cyan ('[' + args ().join (', ') + ']');
 };
 
 program
