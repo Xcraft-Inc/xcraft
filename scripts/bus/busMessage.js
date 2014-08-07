@@ -4,13 +4,13 @@ var moduleName = 'bus-message';
 
 var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
-var busBoot    = require (zogConfig.busBoot);
+var busClient  = require (zogConfig.busClient);
 
 
 module.exports = function ()
 {
   return {
-    token    : busBoot.getToken (),
+    token    : busClient.getToken (),
     timestamp: new Date ().toISOString (),
     data     : {}
   };
