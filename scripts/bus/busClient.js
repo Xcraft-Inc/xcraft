@@ -91,7 +91,7 @@ exports.command =
       zogLog.verb ('finish handler registered for cmd: ' + cmd);
     }
 
-    var busMessage = require (zogConfig.busMessage)();
+    var busMessage = require (zogConfig.busMessage) ();
 
     busMessage.data = data;
     commands.send (cmd, busMessage);
