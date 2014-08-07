@@ -42,6 +42,11 @@ module.exports = function ()
     {
       zogLog.verb ('Command \'%s\' registered', commandKey);
       commandsRegistry[commandKey] = handlerFunction;
+    },
+
+    registerErrorHandler: function (errorHandler)
+    {
+      commandsRegistry['error'] = errorHandler;
     }
   };
 };
@@ -50,6 +55,12 @@ sock.on ('message', function (cmd, data)
 {
   zogLog.info ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> data: %s', cmd, JSON.stringify (data));
+
+  if (!commandsRegistry.hasOwnProperty (cmd))
+  {
+    zogLog.err ('the command "%s" is not available', cmd);
+    cmd = 'error';
+  }
 
   /* call handler */
   commandsRegistry[cmd] (data);
