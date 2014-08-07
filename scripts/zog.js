@@ -127,7 +127,7 @@ var main = function (done)
   if (program.install)
     zogManager.install (program.install);
   if (program.remove)
-    zogManager.remove (program.remove);
+    busClient.command.send ('zogManager.remove', program.remove, mainShutdown);
   if (program.clean)
     busClient.command.send ('zogManager.clean', program.clean, mainShutdown);
 };

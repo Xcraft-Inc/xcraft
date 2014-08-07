@@ -163,13 +163,18 @@ cmd.install = function (packageRef)
  * Try to remove the developement package.
  * @param {string} packageName
  */
-cmd.remove = function (packageRef)
+cmd.remove = function (msg)
 {
+  var packageRef = msg.data;
+
   zogLog.info ('remove development package: ' + packageRef);
 
   var pkgCmd = require (zogConfig.libPkgCmd);
 
-  pkgCmd.remove (packageRef);
+  pkgCmd.remove (packageRef, function (done)
+  {
+    busClient.events.send ('zogManager.remove.finish');
+  });
 };
 
 /**
