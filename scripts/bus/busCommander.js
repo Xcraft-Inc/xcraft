@@ -21,17 +21,13 @@ module.exports = function ()
 
       //error management
       d.on('error', function(err){
-        zogLog.err (err);
-
-        zogLog.info ('Command bus already started on %s:%d', host, port);
-
-
+        zogLog.warn ('Bus already started on %s:%d', host, port);
       });
 
       //try binding in domain
       d.run(function(){
         sock.bind (parseInt(port), host, callback);
-        zogLog.info ('Command bus started on %s:%d', host, port);
+        zogLog.verb ('Bus started on %s:%d', host, port);
       });
 
     },
@@ -42,7 +38,7 @@ module.exports = function ()
 
     registerCommandHandler : function (commandKey, handlerFunction)
     {
-      zogLog.info ('Command \'%s\' registered', commandKey);
+      zogLog.verb ('Command \'%s\' registered', commandKey);
       commandsRegistry[commandKey] = handlerFunction;
     }
   };
@@ -50,9 +46,9 @@ module.exports = function ()
 
 sock.on ('message', function (cmd, data)
 {
-  zogLog.info ('command received: %s -> data:%s',
+  zogLog.verb ('command received: %s -> data:%s',
                cmd,
-               JSON.stringify (data, ' ', 0));
+               JSON.stringify (data));
   //call handler
   commandsRegistry[cmd](data);
 });

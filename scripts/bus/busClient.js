@@ -1,12 +1,28 @@
 'use strict';
 
+var moduleName    = 'bus-client';
 var zogConfig     = require ('../zogConfig.js') ();
+var zogLog        = require ('zogLog')(moduleName);
 var axon          = require ('axon');
 var async         = require ('async');
 
 var subscriptions = axon.socket ('sub');
 var commands      = axon.socket ('push');
 var eventsHandlerRegistry = {};
+
+subscriptions.subscribe("heartbeat");
+
+subscriptions.on ('message', function (topic, msg) {
+  if(eventsHandlerRegistry.hasOwnProperty(topic))
+  {
+    zogLog.verb ('notification received: %s -> data:%s',
+                 topic,
+                 JSON.stringify (msg));
+    eventsHandlerRegistry[topic](msg);
+  }
+
+});
+
 
 exports.connect = function(callbackDone)
 {
@@ -15,14 +31,14 @@ exports.connect = function(callbackDone)
     function (done)
     {
       subscriptions.on('connect', function (err) {
-        console.log('sub con');
+        zogLog.verb ('Bus client subscribed to notifications bus');
         done();
       });
     },
     function (done)
     {
       commands.on('connect', function (err) {
-        console.log('cmd con');
+        zogLog.verb ('Bus client ready to send on command bus');
         done();
       });
     }
@@ -36,27 +52,11 @@ exports.connect = function(callbackDone)
 
 };
 
-
-
-
-//subscriptions.subscribe("heartbeat");
-
-subscriptions.on ('message', function (topic, msg) {
-  console.log(topic + '    msg:' + msg);
-  if(eventsHandlerRegistry.hasOwnProperty(topic))
-  {
-    console.log('call registry for handler :' + topic);
-    eventsHandlerRegistry[topic](msg);
-  }
-
-});
-
-
 exports.events  =
 {
   subscribe : function (topic, handler)
   {
-    console.log('client subscribed to : ' + topic);
+    zogLog.verb ('client added handler to topic: ' + topic);
     subscriptions.subscribe(topic);
     eventsHandlerRegistry[topic] = handler;
 
@@ -67,7 +67,7 @@ exports.events  =
     var busMessage    = require (zogConfig.busMessage)();
     busMessage.data   = data;
     notifier.send (topic, busMessage);
-    console.log('send notify :' + topic);
+    zogLog.verb ('client send notification on topic :' + topic);
   }
 };
 
@@ -81,19 +81,19 @@ exports.command =
       var finishTopic = cmd + '.finish';
       subscriptions.subscribe(finishTopic);
       eventsHandlerRegistry[finishTopic] = finishHandler;
-      console.log('finish handler sub');
+      zogLog.verb ('finish handler registered for cmd : ' + cmd);
     }
 
     var busMessage    = require (zogConfig.busMessage)();
     busMessage.data   = data;
     commands.send (cmd, busMessage);
-    console.log('cmd send' + cmd);
+    zogLog.verb ('client send \'%s\' command', cmd);
   }
 };
 
 exports.stop = function ()
 {
-  console.log ('Bus Client end request');
+  zogLog.verb ('Stopping...');
   subscriptions.close ();
   commands.close ();
 };

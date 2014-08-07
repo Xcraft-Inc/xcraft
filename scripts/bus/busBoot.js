@@ -1,16 +1,17 @@
 /* Buses Booting */
 'use strict';
 
-var moduleName   = 'notification-bus';
+var moduleName   = 'bus-boot';
 var zogConfig    = require ('../zogConfig.js') ();
 var zogLog       = require ('zogLog') (moduleName);
 var crypto       = require ('crypto');
-var busNotifier     = require ('./busNotifier.js') ();
-var busCommander    = require ('./busCommander.js') ();
+var busNotifier  = require ('./busNotifier.js') ();
+var busCommander = require ('./busCommander.js') ();
 var bootReady    = false;
 var token        = '';
-var EventEmitter  = require ('events').EventEmitter;
-
+var EventEmitter = require ('events').EventEmitter;
+var emitter      = new EventEmitter ();
+var notifier     = {};
 
 
 var generateBusToken = function (callbackDone)
@@ -30,7 +31,7 @@ var generateBusToken = function (callbackDone)
   {
     // handle error
     // most likely, entropy sources are drained
-    console.log(ex);
+    zogLog.err (ex);
     crypto.pseudoRandomBytes(256, function (ex, buf) {
         if(ex)
           throw ex;
@@ -40,7 +41,7 @@ var generateBusToken = function (callbackDone)
   callbackDone(createKey(buf));
 };
 
-//browse /scripts for zog modules, and register busCommands
+//browse /scripts for zog modules, and register exported busCommands
 var loadCommandsRegistry = function ()
 {
   var path  = require ('path');
@@ -51,14 +52,12 @@ var loadCommandsRegistry = function ()
 
   zogModulesFiles.forEach (function (fileName)
   {
-    //console.log(fileName);
     zogModules[fileName] = require (path.join (zogConfig.scriptsRoot,
                                                fileName));
 
     if(zogModules[fileName].hasOwnProperty('busCommands'))
     {
       zogModules[fileName].busCommands ().forEach(function(cmd) {
-        console.log('command handler found in : %s, %s',fileName,cmd.name);
         var commandName = fileName.replace (/\.js$/, '') + '.' + cmd.name;
         busCommander.registerCommandHandler (commandName, cmd.handler);
       });
@@ -67,8 +66,6 @@ var loadCommandsRegistry = function ()
 };
 
 
-var emitter      = new EventEmitter ();
-var notifier     = {};
 //last action call, emit ready
 var emitReady = function ()
 {
@@ -96,13 +93,14 @@ exports.getToken    = function ()
 {
   return token;
 };
+
 exports.boot        = function ()
 {
-  zogLog.info ("Buses Booting...");
+  zogLog.verv ("Booting...");
   //init all boot chain
   generateBusToken(function (genToken)
   {
-    zogLog.info ('Bus token created: %s', genToken);
+    zogLog.verb ('Bus token created: %s', genToken);
     token = genToken;
     loadCommandsRegistry();
     busCommander.start (zogConfig.bus.host,
@@ -114,9 +112,8 @@ exports.boot        = function ()
 
 exports.stop      = function ()
 {
-  zogLog.info ('Buses end request');
+  zogLog.verb ('Buses stop called');
   emitter.emit ('stop');
   busNotifier.stop ();
   busCommander.stop ();
-
 };
