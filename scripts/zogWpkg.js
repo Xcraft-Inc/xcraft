@@ -131,11 +131,12 @@ cmd.install = function ()
     taskExtract: [ 'taskHttp', function (callback)
     {
       var zogExtract = require ('zogExtract');
+      var outDir = path.dirname (outputFile);
 
       /* HACK: a very long filename exists in the tarball, then it is a
        *       problem for node.js and the 260 chars limitation.
        */
-      zogExtract.targz (outputFile, path.dirname (outputFile), /very-very-very-long/, function (done)
+      zogExtract.targz (outputFile, outDir, /very-very-very-long/, function (done)
       {
         var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
         callback (done ? null : 'extract failed', srcDir);
