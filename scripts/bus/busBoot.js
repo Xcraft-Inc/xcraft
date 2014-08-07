@@ -19,9 +19,9 @@ var generateBusToken = function (callbackDone)
 {
   var createKey = function (key)
   {
-    var shasum = crypto.createHash('sha1');
-    shasum.update(buf);
-    return shasum.digest ('base64');
+    var shasum = crypto.createHash ('sha1');
+    shasum.update (buf);
+    return shasum.digest ('hex');
   };
 
   var buf = null;
