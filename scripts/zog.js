@@ -101,7 +101,7 @@ var main = function (done)
 
     busClient.stop (function (done)
     {
-      zogBoot.bus.stop ();
+      zogBoot.stop ();
     });
   };
 
@@ -132,4 +132,4 @@ var main = function (done)
     zogManager.clean (program.clean);
 };
 
-zogBoot (main);
+zogBoot.start (main);

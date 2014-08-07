@@ -50,7 +50,7 @@ busBoot.getEmitter.on ('stop', function ()
   });
 });
 
-module.exports = function (callbackDone)
+exports.start = function (callbackDone)
 {
   bootEnv ();
 
@@ -62,5 +62,9 @@ module.exports = function (callbackDone)
   busBoot.boot ();
 };
 
-module.exports.busClient = busClient;
-module.exports.bus       = busBoot;
+exports.stop = function ()
+{
+  busBoot.stop ();
+};
+
+exports.busClient = busClient;
