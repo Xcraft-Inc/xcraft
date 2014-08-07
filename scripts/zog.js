@@ -97,7 +97,7 @@ var main = function (done)
     {
       busClient.stop (function (done)
       {
-        require (zogConfig.zogBoot).bus.stop ();
+        zogBoot.bus.stop ();
       });
     });
   }
