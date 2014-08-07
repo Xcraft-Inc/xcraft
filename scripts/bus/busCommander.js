@@ -67,7 +67,7 @@ sock.on ('message', function (cmd, msg)
   }
   else
   {
-    zogLog.verb ('invalid token, command dicarded');
+    zogLog.verb ('invalid token, command discarded');
     cmd = 'error';
   }
 
