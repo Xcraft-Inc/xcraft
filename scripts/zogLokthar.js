@@ -11,12 +11,12 @@ var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
 var busClient   = require (zogConfig.busClient);
 
+
 var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
 var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
 var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
 
 var cmd = {};
-
 
 var build = function ()
 {

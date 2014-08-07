@@ -10,6 +10,7 @@ var zogLog    = require ('zogLog') (moduleName);
 var pkgCreate = require (zogConfig.libPkgCreate);
 var busClient = require (zogConfig.busClient);
 
+
 var cmd       = {};
 process.chdir (path.join (__dirname, '/..'));
 
@@ -196,8 +197,6 @@ cmd.clean = function ()
   });
 };
 
-
-
 exports.busCommands = function ()
 {
   var list = [];
@@ -225,4 +224,4 @@ var main = function ()
   });
 };
 
-main();
+main ();
