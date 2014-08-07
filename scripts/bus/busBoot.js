@@ -96,7 +96,7 @@ exports.getToken    = function ()
 
 exports.boot        = function ()
 {
-  zogLog.verv ("Booting...");
+  zogLog.verb ("Booting...");
   //init all boot chain
   generateBusToken(function (genToken)
   {
