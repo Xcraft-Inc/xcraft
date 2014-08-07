@@ -40,6 +40,10 @@ second type is the source packages.
  - **Step 3.a:** In the case of binary architecture, a binary package is created
    by wpkg, then it is stored in a repository.
 
+   **Step 3.b:** In the case of source architecture, a source package is created
+   by wpkg, then it is stored in the same repository that for the binary
+   packages.
+
 There are two repositories. The packages used only for development and the
 packages for the consumer.
 
