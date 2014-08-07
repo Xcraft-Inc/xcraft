@@ -85,8 +85,10 @@ var patchRun = function (srcDir, callback)
   var zogDevel = require ('zogDevel');
   var async    = require ('async');
 
+  var os = zogPlatform.getOs ();
+
   var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
-  var list = zogFs.ls (patchDir, /\.patch$/);
+  var list = zogFs.ls (patchDir, new RegExp ('^([0-9]+|' + os + '-).*\.patch$'));
 
   if (!list.length)
   {
