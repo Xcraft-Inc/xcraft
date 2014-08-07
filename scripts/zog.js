@@ -93,10 +93,10 @@ var main = function (done)
     zogConfig.configure ();
   if (program.list)
   {
-    busClient.command.send ('zogManager.list', null, function ()
-    {
-      busClient.stop ();
-      require (zogConfig.zogBoot).bus.stop ();
+    busClient.command.send ('zogManager.list', null, function () {
+      busClient.stop (function (done){
+        require(zogConfig.zogBoot).bus.stop ();
+      });
     });
   }
   if (program.create)

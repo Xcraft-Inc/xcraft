@@ -54,8 +54,10 @@ module.exports = function (callbackDone)
 
 busBoot.getEmitter.on('stop', function ()
 {
-  zogLog.verb ('Bus stop event receive, stopping bus client');
-  busClient.stop ();
+  zogLog.verb ('Bus stop event receive, stopping bus client...');
+  busClient.stop (function(done){
+    zogLog.verb ('done');
+  });
 });
 
 module.exports.busClient = busClient;

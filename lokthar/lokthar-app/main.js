@@ -5,7 +5,7 @@ var ipc           = require ('ipc');
 var shell         = require ('shell');
 var BrowserWindow = require ('browser-window');
 var async         = require ('async');
-var zogLog        = require ('zogLog')().color(false);
+var zogLog        = require ('zogLog')('lokthar').color(false);
 var busClient     = require (zogConfig.busClient);
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -22,11 +22,6 @@ ipc.on('create-package', function(event, arg) {
   pkgCreate.pkgTemplate (arg);
 });
 
-ipc.on('list-product-packages', function(event, arg) {
-  var pkgList       = require (zogConfig.libPkgList);
-  event.returnValue = pkgList.listProducts();
-});
-
 ipc.on('minimize', function(event, arg) {
   mainWindow.minimize();
 });
@@ -40,34 +35,29 @@ ipc.on('maximize', function(event, arg) {
 });
 
 ipc.on('close-app', function(event, arg) {
-  busClient.stop ();
-  app.quit ();
-});
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function() {
-  if (process.platform != 'darwin')
-    app.quit();
+  busClient.stop (function (done){
+    app.quit ();
+  });
 });
 
 app.on('ready', function() {
-  busClient.connect(function (done){
+  // Create the browser window.
+  mainWindow = new BrowserWindow({width: 960, height: 600,frame: false});
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
+
+  busClient.connect(function (done) {
     if(!done)
       process.exit(1);
-
-
-    // Create the browser window.
-    mainWindow = new BrowserWindow({width: 960, height: 600,frame: false});
+      
     // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
-
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-      // Dereference the window object, usually you would store windows
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
-      mainWindow = null;
-    });
+    mainWindow.loadUrl('file://' + __dirname + '/index.html')
 
   });
 

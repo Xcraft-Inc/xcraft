@@ -126,7 +126,10 @@ exports.busCommands = function ()
 
   Object.keys (cmd).forEach (function (action)
   {
-    list.push (action);
+    list.push ({
+      name : action,
+      handler : cmd[action]
+    });
   });
 
   return list;
