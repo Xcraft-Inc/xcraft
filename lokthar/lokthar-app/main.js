@@ -35,7 +35,7 @@ ipc.on('maximize', function(event, arg) {
 });
 
 ipc.on('close-app', function(event, arg) {
-  busClient.stop (function (done){
+  busClient.stop (function(done){
     app.quit ();
   });
 });
@@ -49,13 +49,18 @@ app.on('ready', function() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null;
+    busClient.stop (function(done){
+      app.quit ();
+      mainWindow = null;
+    });
+
   });
+
 
   busClient.connect(function (done) {
     if(!done)
       process.exit(1);
-      
+
     // and load the index.html of the app.
     mainWindow.loadUrl('file://' + __dirname + '/index.html')
 

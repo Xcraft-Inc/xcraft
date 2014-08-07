@@ -9,6 +9,7 @@ var exec        = require ('child_process').exec;
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
+var busClient   = require (zogConfig.zogBoot).busClient;
 
 var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
 var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
@@ -63,6 +64,8 @@ cmd.run = function ()
     }
     else
       zogLog.err ('unable to exec atom\n' + stderr);
+
+    busClient.events.send ('zogLokthar.run.finish');
   });
 };
 
@@ -112,7 +115,15 @@ exports.action = function (act)
 
   try
   {
-    cmd[act] ();
+    //cmd[act] ();
+    var cmd = 'zogLokthar.' + act;
+    busClient.command.send (cmd, null, function ()
+    {
+      busClient.stop (function (done)
+      {
+        require (zogConfig.zogBoot).bus.stop ();
+      });
+    });
   }
   catch (err)
   {
