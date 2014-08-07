@@ -97,6 +97,8 @@ var main = function (done)
 
   var mainShutdown = function ()
   {
+    zogLog.info ('end command');
+
     busClient.stop (function (done)
     {
       zogBoot.bus.stop ();
