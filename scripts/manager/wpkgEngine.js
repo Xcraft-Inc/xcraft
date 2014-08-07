@@ -298,10 +298,12 @@ exports.install = function (packageName, arch, callbackDone)
  * Remove a package.
  * @param {string} packageName
  * @param {string} arch - Architecture.
+ * @param {function(done)} callbackDone
+ * @param {boolean} callbackDone.done - True on success.
  */
-exports.remove = function (packageName, arch)
+exports.remove = function (packageName, arch, callbackDone)
 {
-  var wpkg = new wpkgArgs ();
+  var wpkg = new wpkgArgs (callbackDone);
   wpkg.remove (packageName, arch);
 };
 
