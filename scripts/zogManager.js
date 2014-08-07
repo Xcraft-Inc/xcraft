@@ -214,8 +214,7 @@ exports.busCommands = function ()
 };
 
 /**
- * Publish commands for std module exports
- *
+ * Publish commands for std module exports.
  */
 var main = function ()
 {
