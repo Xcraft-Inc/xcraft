@@ -52,5 +52,5 @@ sock.on ('message', function (cmd, data)
   zogLog.verb ('command received: %s -> data: %s', cmd, JSON.stringify (data));
 
   /* call handler */
-  commandsRegistry[cmd](data);
+  commandsRegistry[cmd] (data);
 });
