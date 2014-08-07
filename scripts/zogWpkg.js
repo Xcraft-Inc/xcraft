@@ -12,7 +12,9 @@ var zogLog      = require ('zogLog') (moduleName);
 var zogFs       = require ('zogFs');
 var busClient   = require (zogConfig.busClient);
 
-var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, moduleName, 'config.json')));
+var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot,
+                                                        moduleName,
+                                                        'config.json')));
 var cmd = {};
 
 
@@ -138,7 +140,9 @@ cmd.install = function ()
        */
       zogExtract.targz (outputFile, outDir, /very-very-very-long/, function (done)
       {
-        var srcDir = path.join (zogConfig.tempRoot, 'src', pkgConfig.name + '_' + pkgConfig.version);
+        var srcDir = path.join (zogConfig.tempRoot,
+                                'src',
+                                pkgConfig.name + '_' + pkgConfig.version);
         callback (done ? null : 'extract failed', srcDir);
       });
     }],
