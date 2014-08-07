@@ -5,6 +5,7 @@ var moduleName = 'lokthar';
 var fs          = require ('fs');
 var sys         = require ('sys');
 var path        = require ('path');
+var async       = require ('async');
 var exec        = require ('child_process').exec;
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
@@ -18,23 +19,20 @@ var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
 
 var cmd = {};
 
-var build = function ()
+var build = function (callback)
 {
   exec ('npm install --prefix ' + buildDir + ' ' + buildDir, function (error, stdout, stderr)
   {
     zogLog.verb ('build lokthar outputs:\n' + stdout);
 
-    if (error === null)
-      grunt ();
+    if (error)
+      callback ('unable to build lokthar\n' + stderr);
     else
-    {
-      zogLog.err ('unable to build lokthar\n' + stderr);
-      busClient.events.send ('zogLokthar.install.finish');
-    }
+      callback ();
   });
 };
 
-var grunt = function ()
+var grunt = function (callback)
 {
   var gruntfile = path.join (buildDir, 'gruntfile.js');
   exec ('node ' + zogConfig.binGrunt + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
@@ -46,9 +44,9 @@ var grunt = function ()
     fs.chmodSync (atom, 493 /* 0755 */);
 
     if (error)
-      zogLog.err ('unable to grunt lokthar\n' + stderr);
-
-    busClient.events.send ('zogLokthar.install.finish');
+      callback ('unable to grunt lokthar\n' + stderr);
+    else
+      callback ();
   });
 };
 
@@ -79,15 +77,17 @@ cmd.run = function ()
  */
 cmd.install = function ()
 {
-  try
+  async.auto (
   {
-    build ();
-  }
-  catch (err)
+    taskBuild: build,
+    taskGrunt: ['taskBuild', grunt]
+  }, function (err, results)
   {
-    zogLog.err (err);
+    if (err)
+      zogLog.err (err);
+
     busClient.events.send ('zogLokthar.install.finish');
-  }
+  });
 };
 
 /**
