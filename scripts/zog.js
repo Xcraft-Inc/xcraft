@@ -77,7 +77,10 @@ if (process.argv.length < length)
 var main = function (done)
 {
   if (!done)
+  {
+    zogLog.err ('fatal error with zog booting');
     process.exit (1);
+  }
 
   var busClient = require (zogConfig.busClient);
 
