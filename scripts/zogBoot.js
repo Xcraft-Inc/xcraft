@@ -7,8 +7,6 @@ var busBoot    = require (zogConfig.busBoot);
 var busClient  = require (zogConfig.busClient);
 var zogLog     = require ('zogLog') (moduleName);
 
-var cmd = {};
-
 
 var bootEnv = function ()
 {
