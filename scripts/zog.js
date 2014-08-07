@@ -5,13 +5,12 @@ var program = require ('commander');
 var path    = require ('path');
 var clc     = require ('cli-color');
 
-var zogBoot    = require ('./zogBoot.js');
+var zogBoot = require ('./zogBoot.js');
 
 var main = function (done)
 {
-  if(!done)
-    process.exit(1);
-
+  if (!done)
+    process.exit (1);
 
   var zogManager = require ('./zogManager.js');
   var zogCMake   = require ('./zogCMake.js');
@@ -21,6 +20,7 @@ var main = function (done)
   var zogLog     = require ('zogLog') ('zog');
   var zogConfig  = require ('./zogConfig.js') ();
   var busClient  = require (zogConfig.busClient);
+
   /* Display help if zog is called without argument. */
   if (process.argv.length < 3)
     process.argv.push ('-h');
@@ -86,4 +86,5 @@ var main = function (done)
     });
   }
 };
+
 zogBoot(main);
