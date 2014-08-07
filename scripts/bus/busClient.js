@@ -13,7 +13,7 @@ var eventsHandlerRegistry = {};
 var token                 = 'invalid';
 
 
-subscriptions.subscribe ("heartbeat");
+subscriptions.subscribe ('heartbeat');
 
 subscriptions.on ('message', function (topic, msg)
 {
