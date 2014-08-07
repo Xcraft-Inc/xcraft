@@ -88,6 +88,14 @@ var main = function (done)
 
   var busClient = require (zogConfig.busClient);
 
+  var mainShutdown = function ()
+  {
+    busClient.stop (function (done)
+    {
+      zogBoot.bus.stop ();
+    });
+  };
+
   if (program.cmake)
     zogCMake.action (program.cmake);
   if (program.wpkg)
@@ -99,15 +107,7 @@ var main = function (done)
   if (program.configure)
     zogConfig.configure ();
   if (program.list)
-  {
-    busClient.command.send ('zogManager.list', null, function ()
-    {
-      busClient.stop (function (done)
-      {
-        zogBoot.bus.stop ();
-      });
-    });
-  }
+    busClient.command.send ('zogManager.list', null, mainShutdown);
   if (program.create)
     zogManager.create (program.create);
   if (program.make)
