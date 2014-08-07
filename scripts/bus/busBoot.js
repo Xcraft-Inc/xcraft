@@ -2,6 +2,8 @@
 'use strict';
 
 var moduleName   = 'bus-boot';
+
+var async        = require ('async');
 var zogConfig    = require ('../zogConfig.js') ();
 var zogLog       = require ('zogLog') (moduleName);
 var crypto       = require ('crypto');
@@ -73,23 +75,6 @@ var loadCommandsRegistry = function ()
   });
 };
 
-/**
- * Last action call, emit ready.
- */
-var emitReady = function ()
-{
-  notifier = busNotifier.bus;
-  bootReady = true;
-  emitter.emit ('ready');
-};
-
-var startNotifier = function ()
-{
-  busNotifier.start (zogConfig.bus.host,
-                     parseInt (zogConfig.bus.notifierPort),
-                     emitReady ());
-};
-
 exports.getEmitter = emitter;
 
 exports.getNotifier = function ()
@@ -107,15 +92,46 @@ exports.boot = function ()
   zogLog.verb ("Booting...");
 
   /* init all boot chain */
-  generateBusToken (function (genToken)
+  async.auto (
   {
-    zogLog.verb ('Bus token created: %s', genToken);
-    token = genToken;
-    loadCommandsRegistry ();
-    busCommander.start (zogConfig.bus.host,
-                        parseInt (zogConfig.bus.commanderPort),
-                        token,
-                        startNotifier ());
+    taskToken: function (callback)
+    {
+      generateBusToken (function (genToken)
+      {
+        zogLog.verb ('Bus token created: %s', genToken);
+        token = genToken;
+        loadCommandsRegistry ();
+
+        callback (null, genToken);
+      });
+    },
+
+    taskCommander: [ 'taskToken', function (callback, results)
+    {
+      busCommander.start (zogConfig.bus.host,
+                          parseInt (zogConfig.bus.commanderPort),
+                          results.taskToken,
+                          callback ());
+    }],
+
+    taskNotifier: function (callback)
+    {
+      busNotifier.start (zogConfig.bus.host,
+                         parseInt (zogConfig.bus.notifierPort),
+                         callback ());
+    },
+
+    taskReady: [ 'taskCommander', 'taskNotifier', function (callback)
+    {
+      notifier = busNotifier.bus;
+      bootReady = true;
+      emitter.emit ('ready');
+      callback ();
+    }]
+  }, function (err)
+  {
+    if (err)
+      zogLog.err (err);
   });
 };
 
