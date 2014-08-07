@@ -103,34 +103,6 @@ cmd.uninstall = function ()
  * Retrieve the list of available commands.
  * @returns {string[]} The list of commands.
  */
-exports.args = function ()
-{
-  /* Commander will use the same actions that the command bus.
-   * This code will be dropped when the commander will use the command
-   * bus directly.
-   */
-  return exports.busCommands ();
-};
-
-/**
- * Actions called from commander with --lokthar.
- * @param {string} act - The action [install, uninstall, run].
- */
-exports.action = function (act)
-{
-  zogLog.info ('run action ' + act);
-
-  try
-  {
-    cmd[act] ();
-    var cmd = 'zogLokthar.' + act;
-  }
-  catch (err)
-  {
-    zogLog.err (act + ': ' + err.message);
-  }
-};
-
 exports.busCommands = function ()
 {
   var list = [];
