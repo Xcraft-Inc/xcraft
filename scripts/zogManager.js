@@ -35,7 +35,7 @@ cmd.list = function ()
                  Array (40 - def.name.length).join (' '),
                  def.version,
                  Array (15 - def.version.toString ().length).join (' '),
-                 def.architecture.toString ().replace (/,/g, ', '));
+                 def.architecture.join (', '));
   });
 
   busClient.events.send ('zogManager.list', list);
