@@ -60,8 +60,9 @@ cmd.run = function ()
 {
   var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
 
-  //we provide bus token for lokthar via argv[2]
-  var busToken = busClient.getToken();
+  /* We provide bus token for lokthar via argv[2]. */
+  var busToken = busClient.getToken ();
+
   exec (atom + ' ' + loktharAppDir + ' ' + busToken, function (error, stdout, stderr)
   {
     zogLog.verb ('atom outputs:\n' + stdout);

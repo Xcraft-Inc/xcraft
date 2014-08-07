@@ -56,7 +56,7 @@ module.exports = function (callbackDone)
 
   busBoot.getEmitter.on ('ready', function ()
   {
-    busClient.connect (busBoot.getToken(), callbackDone);
+    busClient.connect (busBoot.getToken (), callbackDone);
   });
 
   busBoot.boot ();

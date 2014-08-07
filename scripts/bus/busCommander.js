@@ -7,8 +7,8 @@ var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
 var axon       = require ('axon');
 
-var sock = axon.socket ('pull');
-var token = 'invalid';
+var sock             = axon.socket ('pull');
+var token            = 'invalid';
 var commandsRegistry = {};
 
 

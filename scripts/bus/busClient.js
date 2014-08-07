@@ -23,6 +23,7 @@ subscriptions.on ('message', function (topic, msg)
   zogLog.verb ('notification received: %s -> data:%s',
                topic,
                JSON.stringify (msg));
+
   if (msg.token == token)
     eventsHandlerRegistry[topic] (msg);
   else
