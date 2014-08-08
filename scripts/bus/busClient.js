@@ -134,8 +134,8 @@ exports.stop = function (callbackDone)
     }
   ], function (err)
   {
-      zogLog.verb ('Stopped');
-      callbackDone (!err);
+    zogLog.verb ('Stopped');
+    callbackDone (!err);
   });
 
   zogLog.verb ('Stopping...');
