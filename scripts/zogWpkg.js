@@ -23,13 +23,16 @@ var makeRun = function (callback)
 {
   zogLog.info ('begin building of wpkg')
 
+  var os = require ('os');
   var args =
   [
+    '-j', os.cpus ().length - 1,
     'all',
     'install'
   ];
 
-  var make = zogProcess.spawn ('make', args, function (done)
+  var makeBin = zogPlatform.getOs () === 'win' ? 'mingw32-make' : 'make';
+  var make = zogProcess.spawn (makeBin, args, function (done)
   {
     if (done)
       zogLog.info ('wpkg is built and installed');
