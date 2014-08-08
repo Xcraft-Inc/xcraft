@@ -42,12 +42,7 @@ var bootEnv = function ()
 
 busBoot.getEmitter.on ('stop', function ()
 {
-  zogLog.verb ('Bus stop event received, stopping bus client...');
-
-  busClient.stop (function (done)
-  {
-    zogLog.verb ('done');
-  });
+  zogLog.verb ('Bus stop event received');
 });
 
 exports.start = function (callbackDone)
