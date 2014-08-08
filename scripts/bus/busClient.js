@@ -118,18 +118,18 @@ exports.stop = function (callbackDone)
 {
   async.parallel (
   [
-    function (done)
+    function (callback)
     {
       subscriptions.on ('close', function (err)
       {
-        done ();
+        callback ();
       });
     },
-    function (done)
+    function (callback)
     {
       commands.on ('close', function (err)
       {
-        done ();
+        callback ();
       });
     }
   ], function (err)
