@@ -26,7 +26,6 @@ var makeRun = function (callback)
   var os = require ('os');
   var args =
   [
-    '-j', os.cpus ().length - 1,
     'all',
     'install'
   ];
