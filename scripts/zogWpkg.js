@@ -30,8 +30,8 @@ var makeRun = function (callback)
     'install'
   ];
 
-  if (zogPlatform.getOs () !== 'win')
-    args.unshift ('-j', os.cpus ().length);
+  /* Force 1 on Windows because sometimes it fails with the depends. */
+  args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
   var makeBin = zogPlatform.getOs () === 'win' ? 'mingw32-make' : 'make';
   var make = zogProcess.spawn (makeBin, args, function (done)
