@@ -45,17 +45,14 @@ module.controller('PackageManagerController',
 ['$scope', 'busClient',
 function ($scope, busClient){
 
-  $scope.counter = 0;
-  $scope.listProducts = function () {
-    busClient.command.send ('zogManager.list');
-  };
-
   busClient.events.subscribe ('zogManager.list', function (msg)
   {
     $scope.safeApply( function(){
       $scope.products = msg.data;
     });
   });
+
+  busClient.command.send ('zogManager.list');
 
 }]);
 
