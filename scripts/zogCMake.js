@@ -26,6 +26,9 @@ var makeRun = function (callback)
     'all',
     'install'
   ];
+  
+  /* Force 1 on Windows because sometimes it fails with the depends. */
+  args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
   var make = zogProcess.spawn ('make', args, function (done)
   {
