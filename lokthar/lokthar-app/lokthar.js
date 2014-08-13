@@ -1,4 +1,6 @@
-var app         = angular.module('lokthar', ['ui.router', 'lk-packages','lk-configure']);
+var app         = angular.module('lokthar',
+                  //depends on :
+                  ['ui.router', 'lk-packages','lk-configure']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');

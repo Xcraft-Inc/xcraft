@@ -38,7 +38,7 @@ module.config(function($stateProvider, $urlRouterProvider) {
               data = fs.readFileSync ($scope.defaultYaml, 'utf8');
             }
 
-            $scope.conf = yaml.safeLoad (data);
+            $scope.conf   = yaml.safeLoad (data);
             $scope.title  = 'Configuration';
             $scope.badge  = 'dev';
             $scope.icon   = 'cog';
