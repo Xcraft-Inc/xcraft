@@ -52,6 +52,9 @@ module.config(function($stateProvider, $urlRouterProvider) {
         },
         'chest@configure.services': {
           templateUrl:  module_root + 'views/chest.html',
+        },
+        'bus@configure.services': {
+          templateUrl:  module_root + 'views/bus.html',
         }
       }
     })
@@ -93,9 +96,31 @@ module.controller('ServicesController', ['$scope', function ($scope){
     $scope.chest[item.name] = $scope.conf.chest[item.name];
   });
 
-  $scope.saveChestConfig = function ()
+  ///BUS
+  //Some wiz' for bus service
+  $scope.busFields      = wizard.bus;
+  $scope.bus            = {};
+
+  //init with loaded values
+  wizard.bus.forEach (function (item)
+  {
+    $scope.bus[item.name] = $scope.conf.bus[item.name];
+  });
+
+
+  //SAVING
+  $scope.saveConfig = function ()
   {
     var hasChanged = false;
+
+    Object.keys($scope.bus).forEach (function (item)
+    {
+      if ($scope.conf.bus[item] != $scope.bus[item])
+      {
+        $scope.conf.bus[item] = $scope.bus[item];
+        hasChanged = true;
+      }
+    });
 
     Object.keys($scope.chest).forEach (function (item)
     {
@@ -110,6 +135,6 @@ module.controller('ServicesController', ['$scope', function ($scope){
     {
       $scope.saveUserConfig();
     }
-  }
+  };
 
 }]);

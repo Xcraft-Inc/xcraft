@@ -1,6 +1,6 @@
 <form name="chestConfigForm" class="uk-form uk-form-horizontal">
-  <h2> Chest Server Configuration </h2>
-  <div ng-repeat="field in chestFields" class="uk-form-row">
+  <h2> Bus Configuration </h2>
+  <div ng-repeat="field in busFields" class="uk-form-row">
     <div ng-switch="field.type">
       <div ng-switch-when="input">
         <ng-form name="form">
@@ -12,7 +12,7 @@
             type="text"
             ng-class="{'uk-form-danger' : form.input.$invalid,
                        'uk-form-success': form.input.$valid}"
-            ng-model="chest[field.name]"
+            ng-model="bus[field.name]"
             validator="field.validate"
             placeholder="{{field.message}}"
             required/>
@@ -22,7 +22,7 @@
             name="input"
             ng-class="{'uk-form-danger' : form.input.$invalid,
                        'uk-form-success': form.input.$valid}"
-            ng-model="chest[field.name]"
+            ng-model="bus[field.name]"
             validator="field.validate"
             placeholder="{{field.message}}"
             required >
@@ -45,7 +45,7 @@
                 <div ng-switch-default>
                     <input
                     type="checkbox"
-                    checklist-model="chest[field.name]"
+                    checklist-model="bus[field.name]"
                     checklist-value="choice.name">
                     <label>{{choice.name}}</label><br>
                 </div>
