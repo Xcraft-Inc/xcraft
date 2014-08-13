@@ -123,7 +123,7 @@ var main = function (done)
   if (program.list)
     busClient.command.send ('zogManager.list', null, mainShutdown);
   if (program.create)
-    busClient.command.send ('zogManager.create', program.create, mainShutdown);
+    busClient.command.send ('zogManager.create', {packageName : program.create}, mainShutdown);
   if (program.make)
     zogManager.make (program.make === true ? false : program.make);
   if (program.install)
