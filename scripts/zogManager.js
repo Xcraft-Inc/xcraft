@@ -48,76 +48,141 @@ cmd.list = function ()
  */
 cmd.create = function (msg)
 {
-  var packageName = msg.data;
+  var packageName = msg.data.packageName;
+  msg.data.isPassive   = false;
+  msg.data.packageDef  = [];
 
   zogLog.info ('create a new package: ' + packageName);
 
-  var wizard = require (zogConfig.libPkgWizard);
-  var packageDef = [];
+  try
+  {
+    busClient.command.send('zogManager.editPackageDef', msg.data);
+  }
+  catch (err)
+  {
+    zogLog.err (err);
+  }
+};
+
+cmd.editPackageDef = function (msg)
+{
+
+  var packageName = msg.data.packageName;
+  var packageDef  = msg.data.packageDef;
+  var isPassive   = msg.data.isPassive;
+
+  var pkgControl  = require (zogConfig.libPkgControl);
+  var wizard      = require (zogConfig.libPkgWizard);
 
   /* The first question is the package's name, then we set the default value. */
   wizard.header[0].default = packageName;
 
   try
   {
-    var pkgControl = require (zogConfig.libPkgControl);
-
-    try
-    {
-      var def = pkgControl.loadPackageDef (packageName);
-      wizard.header[1].default = def.version;
-      wizard.header[2].default = def.maintainer.name;
-      wizard.header[3].default = def.maintainer.email;
-      wizard.header[4].default = def.architecture;
-      wizard.header[5].default = def.description.brief;
-      wizard.header[6].default = def.description.long;
-
-      wizard.data[0].default = def.data.uri;
-      wizard.data[1].default = def.data.type;
-      wizard.data[2].default = def.data.rules.type;
-      wizard.data[3].default = def.data.rules.bin;
-      wizard.data[4].default = def.data.rules.args.install;
-      wizard.data[5].default = def.data.rules.args.remove;
-      wizard.data[6].default = def.data.embedded;
-    }
-    catch (err) {}
+    var def = pkgControl.loadPackageDef (packageName);
+    wizard.header[1].default = def.version;
+    wizard.header[2].default = def.maintainer.name;
+    wizard.header[3].default = def.maintainer.email;
+    wizard.header[4].default = def.architecture;
+    wizard.header[5].default = def.description.brief;
+    wizard.header[6].default = def.description.long;
   }
-  catch (err)
-  {
-    zogLog.err (err);
-  }
+  catch (err) {}
 
-  var promptForData = function ()
+  if(!isPassive)
   {
-    inquirer.prompt (wizard.data, function (answers)
+    inquirer.prompt (wizard.header, function (answers)
     {
       packageDef.push (answers);
-
-      zogLog.verb ('JSON output (inquirer):\n' + JSON.stringify (packageDef, null, '  '));
-      pkgCreate.pkgTemplate (packageDef, function (done)
-      {
-        busClient.events.send ('zogManager.create.finish');
-      });
+      busClient.command.send ('zogManager.addPackageDefDependency',
+                              msg.data,
+                              null);
     });
-  };
+  }
+  else
+  {
+    busClient.events.send ('zogManager.create.header', wizard.header);
+  }
 
-  var promptForDependency = function ()
+};
+
+cmd.addPackageDefDependency = function (msg)
+{
+  var packageDef  = msg.data.packageDef;
+  var isPassive   = msg.data.isPassive;
+  var wizard      = require (zogConfig.libPkgWizard);
+
+  if(!isPassive)
   {
     inquirer.prompt (wizard.dependency, function (answers)
     {
       packageDef.push (answers);
 
       if (answers.hasDependency)
-        promptForDependency ();
+      {
+        busClient.command.send ('zogManager.addPackageDefDependency',
+                                msg.data,
+                                null);
+      }
       else
-        promptForData ();
+      {
+        busClient.command.send ('zogManager.addPackageDefData',
+                                msg.data,
+                                null);
+      }
     });
-  };
-
-  inquirer.prompt (wizard.header, function (answers)
+  }
+  else
   {
-    packageDef.push (answers);
-    promptForDependency ();
+    busClient.events.send ('zogManager.create.dependency', wizard.dependency);
+  }
+
+};
+
+cmd.addPackageDefData = function (msg)
+{
+  var packageDef  = msg.data.packageDef;
+  var isPassive   = msg.data.isPassive;
+
+  var pkgControl = require (zogConfig.libPkgControl);
+  var wizard     = require (zogConfig.libPkgWizard);
+
+  try
+  {
+    var def = pkgControl.loadPackageDef (packageName);
+
+    wizard.data[0].default = def.data.uri;
+    wizard.data[1].default = def.data.type;
+    wizard.data[2].default = def.data.rules.type;
+    wizard.data[3].default = def.data.rules.bin;
+    wizard.data[4].default = def.data.rules.args.install;
+    wizard.data[5].default = def.data.rules.args.remove;
+    wizard.data[6].default = def.data.embedded;
+  }
+  catch (err) {}
+
+  if(!isPassive)
+  {
+    inquirer.prompt (wizard.data, function (answers)
+    {
+      packageDef.push (answers);
+      busClient.command.send ('zogManager.finishPackageDef', msg.data);
+    });
+  }
+  else
+  {
+    busClient.events.send ('zogManager.create.data', wizard.data);
+  }
+};
+
+cmd.finishPackageDef = function (msg)
+{
+  var packageDef  = msg.data.packageDef;
+
+  zogLog.verb ('JSON output for package definition:\n' + JSON.stringify (packageDef, null, '  '));
+  pkgCreate.pkgTemplate (packageDef, function (done)
+  {
+    busClient.events.send ('zogManager.create.finish');
   });
 };
 
