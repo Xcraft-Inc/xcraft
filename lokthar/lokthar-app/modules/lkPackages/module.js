@@ -57,7 +57,7 @@ function ($scope, busClient){
 }]);
 
 module.controller('PackageEditorController', ['$scope','$state',
-function ($scope, $state) {
+function ($scope, $state) {  
   //Contains packages definitions fields for header and deps
   var wizard                  = require (zogConfig.libPkgWizard);
   //final template for package creation
