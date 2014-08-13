@@ -1,3 +1,5 @@
 #!/bin/sh
 
-node ./scripts/zog.js $@
+node=$(grep nodejs .zogrc | sed 's,\\\\,/,g' | sed 's,\([a-zA-Z]\):,/\1,' | tr '[:upper:]' '[:lower:]' | sed 's,.*"\(.*\)".*,\1/node,')
+
+$node ./scripts/zog.js $@
