@@ -1,7 +1,8 @@
 @echo off
 
+set node=node
 for /F "delims=" %%a in ('find /i "nodejs" .zogrc') do (
-   for %%b in (%%a) do set node=%%b
+   for %%b in (%%a) do set node=%%b\node
 )
 
-%node%\node .\scripts\zog.js %*
+%node% .\scripts\zog.js %*
