@@ -118,18 +118,8 @@ cmd['edit.dependency'] = function (msg)
     {
       packageDef.push (answers);
 
-      if (answers.hasDependency)
-      {
-        busClient.command.send ('zogManager.edit.dependency',
-                                msg.data,
-                                null);
-      }
-      else
-      {
-        busClient.command.send ('zogManager.edit.data',
-                                msg.data,
-                                null);
-      }
+      var subCmd = answers.hasDependency ? 'dependency' : 'data';
+      busClient.command.send ('zogManager.edit.' + subCmd, msg.data, null);
     });
   }
   else
