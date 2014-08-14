@@ -94,7 +94,7 @@ cmd['edit.header'] = function (msg)
     inquirer.prompt (wizard.header, function (answers)
     {
       packageDef.push (answers);
-      busClient.command.send ('zogManager.edit.add.dependency',
+      busClient.command.send ('zogManager.edit.dependency',
                               msg.data,
                               null);
     });
@@ -106,7 +106,7 @@ cmd['edit.header'] = function (msg)
 
 };
 
-cmd['edit.add.dependency'] = function (msg)
+cmd['edit.dependency'] = function (msg)
 {
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
@@ -120,13 +120,13 @@ cmd['edit.add.dependency'] = function (msg)
 
       if (answers.hasDependency)
       {
-        busClient.command.send ('zogManager.edit.add.dependency',
+        busClient.command.send ('zogManager.edit.dependency',
                                 msg.data,
                                 null);
       }
       else
       {
-        busClient.command.send ('zogManager.edit.add.data',
+        busClient.command.send ('zogManager.edit.data',
                                 msg.data,
                                 null);
       }
@@ -139,7 +139,7 @@ cmd['edit.add.dependency'] = function (msg)
 
 };
 
-cmd['edit.add.data'] = function (msg)
+cmd['edit.data'] = function (msg)
 {
   var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
