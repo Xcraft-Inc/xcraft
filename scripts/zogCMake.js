@@ -30,8 +30,7 @@ var makeRun = function (callback)
   /* Force 1 on Windows because sometimes it fails with the depends. */
   args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
-  var makeBin = zogPlatform.getOs () === 'win' ? 'mingw32-make' : 'make';
-  var make = zogProcess.spawn (makeBin, args, function (done)
+  var make = zogProcess.spawn ('make', args, function (done)
   {
     if (done)
       zogLog.info ('cmake is built and installed');
