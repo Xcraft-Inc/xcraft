@@ -46,7 +46,7 @@ cmd.list = function ()
  * Create a new package template or modify an existing package config file.
  * @param {Object} msg
  */
-cmd.create = function (msg)
+cmd.edit = function (msg)
 {
   var packageName = msg.data.packageName;
   msg.data.isPassive   = false;
@@ -56,7 +56,7 @@ cmd.create = function (msg)
 
   try
   {
-    busClient.command.send('zogManager.editPackageDef', msg.data);
+    busClient.command.send('zogManager.edit.header', msg.data);
   }
   catch (err)
   {
@@ -64,7 +64,7 @@ cmd.create = function (msg)
   }
 };
 
-cmd.editPackageDef = function (msg)
+cmd['edit.header'] = function (msg)
 {
 
   var packageName = msg.data.packageName;
@@ -94,7 +94,7 @@ cmd.editPackageDef = function (msg)
     inquirer.prompt (wizard.header, function (answers)
     {
       packageDef.push (answers);
-      busClient.command.send ('zogManager.addPackageDefDependency',
+      busClient.command.send ('zogManager.edit.add.dependency',
                               msg.data,
                               null);
     });
@@ -106,7 +106,7 @@ cmd.editPackageDef = function (msg)
 
 };
 
-cmd.addPackageDefDependency = function (msg)
+cmd['edit.add.dependency'] = function (msg)
 {
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
@@ -120,13 +120,13 @@ cmd.addPackageDefDependency = function (msg)
 
       if (answers.hasDependency)
       {
-        busClient.command.send ('zogManager.addPackageDefDependency',
+        busClient.command.send ('zogManager.edit.add.dependency',
                                 msg.data,
                                 null);
       }
       else
       {
-        busClient.command.send ('zogManager.addPackageDefData',
+        busClient.command.send ('zogManager.edit.add.data',
                                 msg.data,
                                 null);
       }
@@ -134,12 +134,12 @@ cmd.addPackageDefDependency = function (msg)
   }
   else
   {
-    busClient.events.send ('zogManager.create.dependency', wizard.dependency);
+    busClient.events.send ('zogManager.edit.dependency.added', wizard.dependency);
   }
 
 };
 
-cmd.addPackageDefData = function (msg)
+cmd['edit.add.data'] = function (msg)
 {
   var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
@@ -167,23 +167,23 @@ cmd.addPackageDefData = function (msg)
     inquirer.prompt (wizard.data, function (answers)
     {
       packageDef.push (answers);
-      busClient.command.send ('zogManager.finishPackageDef', msg.data);
+      busClient.command.send ('zogManager.edit.save', msg.data);
     });
   }
   else
   {
-    busClient.events.send ('zogManager.create.data', wizard.data);
+    busClient.events.send ('zogManager.edit.data.added', wizard.data);
   }
 };
 
-cmd.finishPackageDef = function (msg)
+cmd['edit.save'] = function (msg)
 {
   var packageDef  = msg.data.packageDef;
 
   zogLog.verb ('JSON output for package definition:\n' + JSON.stringify (packageDef, null, '  '));
   pkgCreate.pkgTemplate (packageDef, function (done)
   {
-    busClient.events.send ('zogManager.create.finish');
+    busClient.events.send ('zogManager.edit.finish');
   });
 };
 
