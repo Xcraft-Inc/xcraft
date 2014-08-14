@@ -50,10 +50,7 @@ var stage2 = function ()
   var zogLog = require ('zogLog') ('stage2');
   zogLog.verbosity (0);
 
-  /* It is necessary in order to build cmake, because it is the path on
-   * sysroot/bin where are installed the MinGW tools.
-   * We should save the location somewhere in a config file for zog.
-   */
+  /* Locations of the sysroot/ binaries. */
   if (process.argv.length > 2)
   {
     var path      = require ('path');
