@@ -11,7 +11,7 @@ var pkgCreate = require (zogConfig.libPkgCreate);
 var busClient = require (zogConfig.busClient);
 
 
-var cmd       = {};
+var cmd = {};
 process.chdir (path.join (__dirname, '/..'));
 
 cmd.list = function ()
@@ -89,7 +89,7 @@ cmd['edit.header'] = function (msg)
   }
   catch (err) {}
 
-  if(!isPassive)
+  if (!isPassive)
   {
     inquirer.prompt (wizard.header, function (answers)
     {
@@ -100,10 +100,7 @@ cmd['edit.header'] = function (msg)
     });
   }
   else
-  {
     busClient.events.send ('zogManager.create.header', wizard.header);
-  }
-
 };
 
 cmd['edit.dependency'] = function (msg)
@@ -112,7 +109,7 @@ cmd['edit.dependency'] = function (msg)
   var isPassive   = msg.data.isPassive;
   var wizard      = require (zogConfig.libPkgWizard);
 
-  if(!isPassive)
+  if (!isPassive)
   {
     inquirer.prompt (wizard.dependency, function (answers)
     {
@@ -123,10 +120,7 @@ cmd['edit.dependency'] = function (msg)
     });
   }
   else
-  {
     busClient.events.send ('zogManager.edit.dependency.added', wizard.dependency);
-  }
-
 };
 
 cmd['edit.data'] = function (msg)
@@ -152,7 +146,7 @@ cmd['edit.data'] = function (msg)
   }
   catch (err) {}
 
-  if(!isPassive)
+  if (!isPassive)
   {
     inquirer.prompt (wizard.data, function (answers)
     {
@@ -161,16 +155,16 @@ cmd['edit.data'] = function (msg)
     });
   }
   else
-  {
     busClient.events.send ('zogManager.edit.data.added', wizard.data);
-  }
 };
 
 cmd['edit.save'] = function (msg)
 {
   var packageDef  = msg.data.packageDef;
 
-  zogLog.verb ('JSON output for package definition:\n' + JSON.stringify (packageDef, null, '  '));
+  zogLog.verb ('JSON output for package definition:\n'
+               + JSON.stringify (packageDef, null, '  '));
+
   pkgCreate.pkgTemplate (packageDef, function (done)
   {
     busClient.events.send ('zogManager.edit.finished');
