@@ -20,7 +20,7 @@ module.exports = function (zogConfig, packagePath, sharePath)
     var zogFs       = require ('zogFs');
 
     /* prefix to /usr/share */
-    var nodeModules = path.join (sharePath, '..', 'node_modules');
+    var nodeModules = path.join (sharePath, '..');
     zogFs.mkdir (nodeModules);
 
     var npm = 'npm' + zogPlatform.getCmdExt ();
