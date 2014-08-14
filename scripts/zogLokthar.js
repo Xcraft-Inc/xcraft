@@ -68,7 +68,7 @@ cmd.run = function ()
     if (error)
       zogLog.err ('unable to exec atom\n' + stderr);
 
-    busClient.events.send ('zogLokthar.run.finish');
+    busClient.events.send ('zogLokthar.run.finished');
   });
 };
 
@@ -86,7 +86,7 @@ cmd.install = function ()
     if (err)
       zogLog.err (err);
 
-    busClient.events.send ('zogLokthar.install.finish');
+    busClient.events.send ('zogLokthar.install.finished');
   });
 };
 
@@ -96,7 +96,7 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
-  busClient.events.send ('zogLokthar.uninstall.finish');
+  busClient.events.send ('zogLokthar.uninstall.finished');
 };
 
 /**

@@ -55,7 +55,7 @@ cmd.start = function ()
     chest.unref ();
   }
 
-  busClient.events.send ('zogChest.start.finish');
+  busClient.events.send ('zogChest.start.finished');
 };
 
 /**
@@ -75,7 +75,7 @@ cmd.stop = function ()
       zogLog.err (err);
   }
 
-  busClient.events.send ('zogChest.stop.finish');
+  busClient.events.send ('zogChest.stop.finished');
 };
 
 /**
@@ -86,7 +86,7 @@ cmd.restart = function ()
   cmd.stop ();
   cmd.start ();
 
-  busClient.events.send ('zogChest.restart.finish');
+  busClient.events.send ('zogChest.restart.finished');
 };
 
 /**
@@ -108,7 +108,7 @@ cmd.send = function (msg)
     if (error)
       zogLog.err (error);
 
-    busClient.events.send ('zogChest.send.finish');
+    busClient.events.send ('zogChest.send.finished');
   });
 };
 

@@ -26,7 +26,7 @@ var makeRun = function (callback)
     'all',
     'install'
   ];
-  
+
   /* Force 1 on Windows because sometimes it fails with the depends. */
   args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
@@ -116,7 +116,7 @@ cmd.install = function ()
     if (err)
       zogLog.err (err);
 
-    busClient.events.send ('zogCMake.install.finish');
+    busClient.events.send ('zogCMake.install.finished');
   });
 };
 
@@ -126,7 +126,7 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
-  busClient.events.send ('zogCMake.uninstall.finish');
+  busClient.events.send ('zogCMake.uninstall.finished');
 };
 
 /**

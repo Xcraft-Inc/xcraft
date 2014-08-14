@@ -165,7 +165,7 @@ cmd.install = function ()
     if (err)
       zogLog.err (err);
 
-    busClient.events.send ('zogWpkg.install.finish');
+    busClient.events.send ('zogWpkg.install.finished');
   });
 };
 
@@ -175,7 +175,7 @@ cmd.install = function ()
 cmd.uninstall = function ()
 {
   zogLog.warn ('the uninstall action is not implemented');
-  busClient.events.send ('zogWpkg.uninstall.finish');
+  busClient.events.send ('zogWpkg.uninstall.finished');
 };
 
 /**

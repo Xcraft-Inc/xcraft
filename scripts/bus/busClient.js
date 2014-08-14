@@ -98,7 +98,7 @@ exports.command =
     if (finishHandler)
     {
       /* Subscribe to end command notification. */
-      var finishTopic = cmd + '.finish';
+      var finishTopic = cmd + '.finished';
       subscriptions.subscribe (finishTopic);
       eventsHandlerRegistry[finishTopic] = finishHandler;
 

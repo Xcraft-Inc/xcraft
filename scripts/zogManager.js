@@ -39,7 +39,7 @@ cmd.list = function ()
   });
 
   busClient.events.send ('zogManager.list', list);
-  busClient.events.send ('zogManager.list.finish');
+  busClient.events.send ('zogManager.list.finished');
 };
 
 /**
@@ -183,7 +183,7 @@ cmd['edit.save'] = function (msg)
   zogLog.verb ('JSON output for package definition:\n' + JSON.stringify (packageDef, null, '  '));
   pkgCreate.pkgTemplate (packageDef, function (done)
   {
-    busClient.events.send ('zogManager.edit.finish');
+    busClient.events.send ('zogManager.edit.finished');
   });
 };
 
@@ -240,7 +240,7 @@ cmd.remove = function (msg)
 
   pkgCmd.remove (packageRef, function (done)
   {
-    busClient.events.send ('zogManager.remove.finish');
+    busClient.events.send ('zogManager.remove.finished');
   });
 };
 
@@ -272,7 +272,7 @@ cmd.clean = function ()
       fse.unlinkSync (file);
   });
 
-  busClient.events.send ('zogManager.clean.finish');
+  busClient.events.send ('zogManager.clean.finished');
 };
 
 exports.busCommands = function ()
