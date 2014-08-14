@@ -2,4 +2,8 @@
 
 node=$(grep nodejs .zogrc | sed 's,\\\\,/,g' | sed 's,\([a-zA-Z]\):,/\1,' | sed 's,.*"\(.*\)".*,\1/node,')
 
-$node $@
+if [ -z "$node" ]; then
+  echo "Node.js is not available"
+else
+  $node $@
+fi
