@@ -45,7 +45,7 @@ program
 
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('list', 'list all available packages')
-  .option ('create <package>', 'create or edit a package definition')
+  .option ('edit <package>', 'create or edit a package definition')
   .option ('make [package]', 'make all or only the [package]')
   .option ('install <package:arch>', 'install the <package>')
   .option ('remove <package:arch>', 'remove the <package>')
@@ -64,7 +64,7 @@ program.on ('--help', function ()
   console.log ('');
   console.log ('    $ zog --lokthar install');
   console.log ('    $ zog -l run');
-  console.log ('    $ zog create libfoobar');
+  console.log ('    $ zog edit libfoobar');
   console.log ('    $ zog -v 0 make');
   console.log ('');
 });
@@ -122,8 +122,8 @@ var main = function (done)
     busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
   if (program.list)
     busClient.command.send ('zogManager.list', null, mainShutdown);
-  if (program.create)
-    busClient.command.send ('zogManager.create', {packageName : program.create}, mainShutdown);
+  if (program.edit)
+    busClient.command.send ('zogManager.edit', {packageName : program.edit}, mainShutdown);
   if (program.make)
     zogManager.make (program.make === true ? false : program.make);
   if (program.install)
