@@ -141,6 +141,7 @@ cmd.addPackageDefDependency = function (msg)
 
 cmd.addPackageDefData = function (msg)
 {
+  var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
 
