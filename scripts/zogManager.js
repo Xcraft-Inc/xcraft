@@ -56,7 +56,7 @@ cmd.edit = function (msg)
 
   try
   {
-    busClient.command.send('zogManager.edit.header', msg.data);
+    busClient.command.send ('zogManager.edit.header', msg.data);
   }
   catch (err)
   {
