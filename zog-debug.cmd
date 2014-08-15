@@ -1,10 +1,10 @@
 @echo off
 
+call .\.node.cmd passive
+
 setlocal enabledelayedexpansion
 
-for /F "delims=" %%a in ('findstr /i "nodejs" .zogrc') do (
-  for %%b in (%%a) do set PATH=%%b;!PATH!
-)
+for %%F in ("%node%") do set PATH=%%~dpF;!PATH!
 
 if exist .\node_modules\.bin\node-debug.cmd (
   .\node_modules\.bin\node-debug -p 8181 scripts\zog.js %*
