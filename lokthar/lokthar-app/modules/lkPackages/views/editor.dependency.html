@@ -1,0 +1,38 @@
+<h2> Package dependencies </h2>
+
+<div ng-repeat="field in dependencyFields">
+  <ng-switch on="field.type">
+    <div ng-switch-when="input">
+        <ng-form name="form">
+            <label class="uk-form-label">{{field.message}}</label>
+            <div class="uk-form-controls">
+                <input
+                name="input"
+                ng-show="field.loktharType!='multi-line'"
+                type="text"
+                ng-class="{'uk-form-danger':form.input.$invalid,
+                           'uk-form-success': form.input.$valid}"
+                ng-model="dependency.version"
+                validator="field.validate"
+                placeholder="{{field.message}}" />
+            </div>
+        </ng-form>
+    </div>
+    <div ng-switch-when="rawlist">
+      <label class="uk-form-label">{{field.message}}</label>
+      <div class="uk-form-controls">
+          <select
+          ng-model="dependency.package"
+          ng-options="o as o for o in field.choices">
+          </select>
+      </div>
+    </div>
+  </ng-switch>
+</div>
+<br>
+<button
+ng-disabled="!dependency.package || !dependency.version"
+class="uk-button uk-width-1-1 uk-margin-small-bottom"
+ng-click="addDependency()">
+<i class="uk-icon-plus"></i> add
+</button>

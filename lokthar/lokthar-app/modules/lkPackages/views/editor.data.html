@@ -1,0 +1,35 @@
+<h2> Package content </h2>
+
+<div ng-repeat="field in packageContentFields" class="uk-form-row">
+  <div ng-switch="field.type">
+    <div ng-switch-when="input">
+      <ng-form name="form">
+        <label class="uk-form-label">{{field.message}}</label>
+        <div class="uk-form-controls">
+          <input
+          name="input"
+          type="text"
+          ng-class="{'uk-form-danger' : form.input.$invalid,
+                     'uk-form-success': form.input.$valid}"
+          ng-model="packageContent[field.name]"
+          validator="field.validate"
+          placeholder="{{field.message}}"
+          required/>
+
+          <span
+          ng-show="form.input.$invalid"
+          class="uk-text-warning">invalid</span>
+        </div>
+      </ng-form>
+    </div>
+    <div ng-switch-when="list">
+      <label class="uk-form-label">{{field.message}}</label>
+      <div class="uk-form-controls">
+          <select
+          ng-model="dependency.package"
+          ng-options="o as o for o in field.choices">
+          </select>
+      </div>
+    </div>
+  </div>
+</div>
