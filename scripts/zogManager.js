@@ -94,9 +94,7 @@ cmd['edit.header'] = function (msg)
     inquirer.prompt (wizard.header, function (answers)
     {
       packageDef.push (answers);
-      busClient.command.send ('zogManager.edit.dependency',
-                              msg.data,
-                              null);
+      busClient.command.send ('zogManager.edit.dependency', msg.data, null);
     });
   }
   else
