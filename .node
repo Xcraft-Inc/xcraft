@@ -3,7 +3,14 @@
 node=$(grep nodejs .zogrc | sed 's,\\\\,/,g' | sed 's,\([a-zA-Z]\):,/\1,' | sed 's,.*"\(.*\)".*,\1/node,')
 
 if [ -z "$node" ]; then
-  echo "Node.js is not available"
-else
-  $node $@
+  IFS="
+"
+  for p in $(grep '".*",\?$' .zogrc | sed 's,.*"\(.*\)".*,\1,'); do
+    stat "$p" >/dev/null 2>&1
+    [ "$?" = 0 ] && node="$p/node" && break
+  done
+
+  [ -z "$node" ] && echo "Node.js is not available" && exit 1
 fi
+
+$node $@

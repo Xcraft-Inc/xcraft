@@ -56,7 +56,7 @@ cmd.edit = function (msg)
 
   try
   {
-    busClient.command.send('zogManager.edit.header', msg.data);
+    busClient.command.send ('zogManager.edit.header', msg.data);
   }
   catch (err)
   {
@@ -66,7 +66,6 @@ cmd.edit = function (msg)
 
 cmd['edit.header'] = function (msg)
 {
-
   var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
@@ -80,6 +79,7 @@ cmd['edit.header'] = function (msg)
   try
   {
     var def = pkgControl.loadPackageDef (packageName);
+
     wizard.header[1].default = def.version;
     wizard.header[2].default = def.maintainer.name;
     wizard.header[3].default = def.maintainer.email;
@@ -94,9 +94,11 @@ cmd['edit.header'] = function (msg)
     inquirer.prompt (wizard.header, function (answers)
     {
       packageDef.push (answers);
-      busClient.command.send ('zogManager.edit.dependency',
-                              msg.data,
-                              null);
+
+      /* Indices for the dependency. */
+      msg.data.idxDep   = 0;
+      msg.data.idxRange = 0;
+      busClient.command.send ('zogManager.edit.dependency', msg.data, null);
     });
   }
   else
@@ -105,9 +107,39 @@ cmd['edit.header'] = function (msg)
 
 cmd['edit.dependency'] = function (msg)
 {
+  var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
+
+  var pkgControl  = require (zogConfig.libPkgControl);
   var wizard      = require (zogConfig.libPkgWizard);
+
+  try
+  {
+    var def  = pkgControl.loadPackageDef (packageName);
+    var keys = Object.keys (def.dependency);
+
+    if (keys.length > msg.data.idxDep)
+    {
+      var key = keys[msg.data.idxDep];
+
+      if (def.dependency[key].length > msg.data.idxRange)
+      {
+        wizard.dependency[0].default = true;
+        wizard.dependency[1].default = wizard.dependency[1].choices.indexOf (key);
+        wizard.dependency[2].default = def.dependency[key][msg.data.idxRange];
+        msg.data.idxRange++;
+      }
+      else
+      {
+        wizard.dependency[0].default = false;
+        delete wizard.dependency[1].default;
+        delete wizard.dependency[2].default;
+        msg.data.idxDep++;
+      }
+    }
+  }
+  catch (err) {}
 
   if (!isPassive)
   {
