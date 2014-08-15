@@ -66,7 +66,6 @@ cmd.edit = function (msg)
 
 cmd['edit.header'] = function (msg)
 {
-
   var packageName = msg.data.packageName;
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
@@ -80,6 +79,7 @@ cmd['edit.header'] = function (msg)
   try
   {
     var def = pkgControl.loadPackageDef (packageName);
+
     wizard.header[1].default = def.version;
     wizard.header[2].default = def.maintainer.name;
     wizard.header[3].default = def.maintainer.email;
