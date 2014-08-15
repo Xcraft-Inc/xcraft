@@ -13,4 +13,4 @@ if [ -z "$node" ]; then
   [ -z "$node" ] && echo "Node.js is not available" && exit 1
 fi
 
-$node $@
+[ "$1" != "passive" ] && $node $@
