@@ -3,6 +3,7 @@
 for /F "delims=" %%a in ('findstr /i "nodejs" .zogrc') do (
   for %%b in (%%a) do set node=%%b\node
 )
+set node=%node:"=%
 
 if [%node%]==[] (
   echo Node.js is not available
