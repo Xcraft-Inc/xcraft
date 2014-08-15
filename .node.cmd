@@ -7,5 +7,7 @@ for /F "delims=" %%a in ('findstr /i "nodejs" .zogrc') do (
 if [%node%]==[] (
   echo Node.js is not available
 ) else (
-  %node% %*
+  if not [%1]==[passive] (
+    %node% %*
+  )
 )
