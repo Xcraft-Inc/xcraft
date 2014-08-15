@@ -10,7 +10,7 @@ if [ -z "$node" ]; then
     [ "$?" = 0 ] && node="$p/node" && break
   done
 
-  [ -z "$node" ] && echo "Node.js is not available" && return
+  [ -z "$node" ] && echo "Node.js is not available" && exit 1
 fi
 
 $node $@
