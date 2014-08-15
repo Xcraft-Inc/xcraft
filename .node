@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 node=$(grep nodejs .zogrc | sed 's,\\\\,/,g' | sed 's,\([a-zA-Z]\):,/\1,' | sed 's,.*"\(.*\)".*,\1/node,')
 
