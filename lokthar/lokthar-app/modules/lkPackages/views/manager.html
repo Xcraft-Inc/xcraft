@@ -1,13 +1,31 @@
 <div class="uk-grid">
+	<div ng-if="selectedCount > 1">
+		<div class="uk-button-group">
+			<a class="uk-button" href="">make {{selectedCount}} selected packages</a>
+			<a class="uk-button">install {{selectedCount}}  selected packages</a>
+		</div>
+	</div>
 	<div ng-repeat="p in products" class="uk-form-row">
-		<div class="uk-panel uk-panel-box">
+		<div class="uk-panel uk-panel-box" ng-class="{'uk-panel-box-primary' : selected[p.name]}" ng-init="selected[p.name] = false">
 			<div class="uk-panel-badge uk-badge uk-badge-danger">
 				v{{p.version}}
 			</div>
 			<h3 class="uk-panel-title uk-text-bold">
-				<i class="uk-icon-button uk-icon-puzzle-piece"></i>
+        <i
+				 class="uk-icon-button uk-icon-puzzle-piece"
+				 data-uk-toggle="{target:'#cmd-{{$index}}'}"
+				 ng-click="selectPackage(p.name)"
+				>
+				</i>
 				{{p.name}}
 			</h3>
+			<div id="cmd-{{$index}}" class="uk-hidden">
+				<div class="uk-button-group">
+			    <a class="uk-button" href="">make</a>
+			    <a class="uk-button">install</a>
+			    <a class="uk-button" ui-sref="packages.editor({packageName : p.name})">edit</a>
+				</div>
+			</div>
 			<small class="uk-text-muted uk-text-right">
 				<i class="uk-icon-beer"></i> {{p.maintainer.name}}
 			</small>

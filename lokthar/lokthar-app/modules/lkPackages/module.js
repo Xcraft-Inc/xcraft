@@ -7,28 +7,19 @@ module.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/packages.manager");
   $stateProvider
     .state('packages', {
+      url: "/packages",
       templateUrl: module_root + 'views/packages.html',
       controller: 'PackagesController'
     })
-    .state('packages.manager', {
-      url: "/packages/manager",
-      views :{
-        'main' : {
-          templateUrl:  module_root + 'views/manager.html',
-          controller: 'PackageManagerController'
-        }
-      }
-    })
     .state('packages.editor', {
-      abstract : false,
-      url: "/packages/editor",
+      url: '/editor/:packageName',
       views : {
         'main' : {
           templateUrl: module_root + 'views/editor.html',
-          controller: function ($scope) {
+          controller: function ($scope, $stateParams) {
             $scope.package = {
               isPassive : true,
-              packageName : 'new-package'
+              packageName : $stateParams.packageName
             };
           }
         },
@@ -49,13 +40,32 @@ module.config(function($stateProvider, $urlRouterProvider) {
           controller: 'PackageEditorFinishController'
         }
       }
+
+    })
+    .state('packages.manager', {
+      url: "/manager",
+      views : {
+        'main' : {
+          templateUrl:  module_root + 'views/manager.html',
+          controller: 'PackageManagerController'
+        }
+      }
     })
 });
 
 module.controller('PackagesController', ['$scope', function ($scope){
-  $scope.title = 'Packages';
-  $scope.badge = 'module';
-  $scope.icon  = 'puzzle-piece';
+  $scope.title     = 'Packages';
+  $scope.badge     = 'module';
+  $scope.icon      = 'puzzle-piece';
+  $scope.selected  = [];
+  $scope.selectedCount = 0;
+
+
+  $scope.selectPackage = function(pkgName)
+  {
+    $scope.selected[pkgName] = !$scope.selected[pkgName];
+    $scope.selected[pkgName] ? $scope.selectedCount++ : $scope.selectedCount--;
+  };
 
   $scope.safeApply = function(fn)
   {
@@ -83,7 +93,6 @@ function ($scope, busClient){
   });
 
   busClient.command.send ('zogManager.list');
-
 }]);
 
 
@@ -96,7 +105,17 @@ function ($scope, $state) {
       //header related fields and initial model
       $scope.headerFields         = msg.data;
       $scope.header               = {};
+
+      //assign defaults values
+      Object.keys ($scope.headerFields).forEach (function (field)
+      {
+        var fieldName = $scope.headerFields[field].name;
+        $scope.header[fieldName] = $scope.headerFields[field].default;
+      });
+
       $scope.header.architecture  = [];
+
+
     });
   });
 
@@ -115,6 +134,7 @@ function ($scope, $state) {
      $scope.dependencyFields     = msg.data;
      $scope.dependency           = {};
      $scope.dependencies         = {};
+
    });
  });
 
@@ -147,6 +167,13 @@ function ($scope, $state) {
       //package content related fields and initial model
       $scope.packageContentFields = msg.data;
       $scope.packageContent       = {};
+
+      //assign defaults values
+      Object.keys ($scope.packageContentFields).forEach (function (field)
+      {
+        var fieldName = $scope.packageContentFields[field].name;
+        $scope.header[fieldName] = $scope.packageContentFields[field].default;
+      });
     });
   });
 

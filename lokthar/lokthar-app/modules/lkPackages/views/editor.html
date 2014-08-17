@@ -1,4 +1,12 @@
-<div ui-view='header'></div>
-<div ui-view='dependency'></div>
-<div ui-view='data'></div>
-<div ui-view='finish'></div>
+<ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content'}">
+  <li class="uk-active"><a href="#">Package Header</a></li>
+  <li class=""><a href="#">Package Dependencies</a></li>
+  <li class=""><a href="#">Package Content</a></li>
+  <li class=""><a href="#">Finish Package</a></li>
+</ul>
+<ul id="subnav-pill-content" class="uk-switcher">
+  <li ui-view='header'></li>
+  <li ui-view='dependency'></li>
+  <li ui-view='data'></li>
+  <li ui-view='finish'></li>
+</ul>
