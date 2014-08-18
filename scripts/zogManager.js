@@ -49,7 +49,7 @@ cmd.list = function ()
 cmd.edit = function (msg)
 {
   var packageName = msg.data.packageName;
-  msg.data.isPassive   = false;
+  msg.data.isPassive   = msg.data.isPassive || false;
   msg.data.packageDef  = [];
 
   zogLog.info ('create a new package: ' + packageName);
