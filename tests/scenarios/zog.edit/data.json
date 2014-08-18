@@ -1,0 +1,47 @@
+[
+  {
+    "package": "a",
+    "package.validate": false,
+    "mocha.it": "at least 2 characters"
+  },
+  {
+    "package": "az09+-.",
+    "package.validate": true,
+    "mocha.it": "[a-z0-9+-.] are valid"
+  },
+  {
+    "package": "az09+-._",
+    "package.validate": false,
+    "mocha.it": "_ is not a valid character"
+  },
+  {
+    "package": "abCDef",
+    "package.validate": false,
+    "mocha.it": "only lowercases"
+  },
+  {
+    "package": "-abcdef",
+    "package.validate": false,
+    "mocha.it": "the first character must be [a-z0-9]"
+  },
+  {
+    "version": "0.0 1",
+    "version.validate": false,
+    "mocha.it": "space in version is invalid"
+  },
+  {
+    "version": "1:1",
+    "version.validate": true,
+    "mocha.it": "a version can have an epoch"
+  },
+  {
+    "version": "0.a~test+9.5",
+    "version.validate": true,
+    "mocha.it": "many special characters are valid"
+  },
+  {
+    "version": "0.0_a",
+    "version.validate": false,
+    "mocha.it": "_ is not a valid character"
+  }
+]
