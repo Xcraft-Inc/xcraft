@@ -41,7 +41,9 @@ var registerSubTest = function (category, msg, packageData)
       return;
     }
 
-    describe ('test [' + packageData['mocha.id'] + '] -> testing property \'' + fieldDef.name + '\' (' + packageData[fieldDef.name] + ')', function ()
+    describe ('test [' + packageData['mocha.id'] + '] -> testing property \''
+              + fieldDef.name
+              + '\' (' + packageData[fieldDef.name] + ')', function ()
     {
       it (packageData['mocha.it'], function (done)
       {
@@ -58,7 +60,9 @@ var registerTest = function (listData, category)
   {
     packageData['mocha.id'] = i++;
 
-    describe ('send command \'zogManager.edit.' + category + '\', test [' + packageData['mocha.id'] + ']', function ()
+    describe ('send command \'zogManager.edit.'
+              + category
+              + '\', test [' + packageData['mocha.id'] + ']', function ()
     {
       var msg =
       {
