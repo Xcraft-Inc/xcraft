@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. ./.node passive
+
+PATH=${node%/*}:$PATH
+
+if [ -f "./node_modules/.bin/mocha" ]; then
+  ./node_modules/.bin/mocha $@
+else
+  echo "Install mocha and should first"
+  echo "$ npm install mocha should"
+fi
