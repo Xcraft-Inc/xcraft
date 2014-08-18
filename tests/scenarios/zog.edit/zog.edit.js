@@ -41,7 +41,7 @@ var registerSubTest = function (category, msg, packageData)
       return;
     }
 
-    describe ('test [' + packageData['mocha.id'] + '] -> testing property \'' + fieldDef.name + '\'', function ()
+    describe ('test [' + packageData['mocha.id'] + '] -> testing property \'' + fieldDef.name + '\' (' + packageData[fieldDef.name] + ')', function ()
     {
       it (packageData['mocha.it'], function (done)
       {
