@@ -54,16 +54,15 @@ var createConfigJson = function (packageName, postInstDir)
   fs.writeFileSync (outFile, data, 'utf8');
 };
 
-var processCtrlFile = function (packageName, arch, callbackDone)
+var processFile = function (packageName, files, arch, callbackDone)
 {
   var i = 0;
-  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
 
   var wpkgEngine = require ('./wpkgEngine.js');
 
-  var nextCtrlFile = function ()
+  var nextFile = function ()
   {
-    var controlFile = controlFiles[i].control;
+    var controlFile = files[i].control;
 
     zogLog.info ('process ' + controlFile);
 
@@ -108,7 +107,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
         wpkgEngine.build (packagePath, function (error)
         {
           /* When we reach the last item, then we have done all async work. */
-          if (i == controlFiles.length - 1)
+          if (i == files.length - 1)
           {
             if (callbackDone)
               callbackDone (true);
@@ -116,7 +115,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
           else
           {
             i++;
-            nextCtrlFile ();
+            nextFile ();
           }
         });
       };
@@ -171,9 +170,16 @@ var processCtrlFile = function (packageName, arch, callbackDone)
     }
   };
 
-  if (controlFiles.length)
-    nextCtrlFile ();
-}
+  if (files.length)
+    nextFile ();
+};
+
+var processCtrlFile = function (packageName, arch, callbackDone)
+{
+  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
+
+  processFile (packageName, controlFiles, arch, callbackDone);
+};
 
 exports.package = function (packageName, arch, callbackDone)
 {
