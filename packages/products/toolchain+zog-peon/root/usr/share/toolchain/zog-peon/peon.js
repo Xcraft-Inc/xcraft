@@ -14,7 +14,7 @@ var action = function (currentDir)
 
   var peonRun = function (extra)
   {
-    console.log ('command: %s %s', extra.bin, extra.args);
+    console.log ('command: %s %s', extra.location, extra.args);
 
     zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)
     {
@@ -31,8 +31,8 @@ var action = function (currentDir)
     {
       var extra =
       {
-        'bin' : config.rules.location,
-        'args': config.rules.args.install
+        'location': config.rules.location,
+        'args'    : config.rules.args.install
       };
 
       peonRun (extra);
@@ -42,8 +42,8 @@ var action = function (currentDir)
     {
       var extra =
       {
-        'bin' : config.rules.location,
-        'args': config.rules.args.remove
+        'location': config.rules.location,
+        'args'    : config.rules.args.remove
       };
 
       peonRun (extra);
