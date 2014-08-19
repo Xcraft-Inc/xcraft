@@ -75,16 +75,56 @@ exports.events  =
     zogLog.verb ('client added handler to topic: ' + topic);
 
     subscriptions.subscribe (topic);
-    eventsHandlerRegistry[topic] = handler;
 
+    //register a pre-handler for deserialze object if needed
+    eventsHandlerRegistry[topic] = function(msg)
+    {
+
+      if(msg.serialized)
+      {
+        msg.data = JSON.parse(msg.data, function (key, value) {
+          if (value
+              && typeof value === "string"
+              && value.substr(0,8) == "function")
+          {
+              var startBody = value.indexOf('{') + 1;
+              var endBody = value.lastIndexOf('}');
+              var startArgs = value.indexOf('(') + 1;
+              var endArgs = value.indexOf(')');
+
+             return new Function(value.substring(startArgs, endArgs)
+                               , value.substring(startBody, endBody));
+          }
+          return value;
+        });
+
+      }
+
+      //finaly call user code (with or without deserialized data)
+      handler(msg);
+    };
   },
 
-  send: function (topic, data)
+  send: function (topic, data, serialize)
   {
     var notifier   = require (zogConfig.busBoot).getNotifier ();
     var busMessage = require (zogConfig.busMessage) ();
 
-    busMessage.data = data;
+    if(serialize)
+    {
+      busMessage.data = JSON.stringify(data, function (key, value) {
+                          if (typeof value === 'function') {
+                            return value.toString();
+                          }
+                          return value;
+                        });
+
+      busMessage.serialized = true;
+    }
+    else
+    {
+      busMessage.data = data;
+    }
     notifier.send (topic, busMessage);
 
     zogLog.verb ('client send notification on topic:' + topic);
