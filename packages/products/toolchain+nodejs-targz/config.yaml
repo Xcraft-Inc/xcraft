@@ -14,7 +14,7 @@ data:
   type: bin
   rules:
     type: copy
-    bin: ""
+    location: ""
     args:
       install: ""
       remove: ""

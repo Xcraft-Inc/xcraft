@@ -31,7 +31,7 @@ var action = function (currentDir)
     {
       var extra =
       {
-        'bin' : config.rules.bin,
+        'bin' : config.rules.location,
         'args': config.rules.args.install
       };
 
@@ -42,7 +42,7 @@ var action = function (currentDir)
     {
       var extra =
       {
-        'bin' : config.rules.bin,
+        'bin' : config.rules.location,
         'args': config.rules.args.remove
       };
 

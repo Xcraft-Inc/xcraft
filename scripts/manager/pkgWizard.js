@@ -197,8 +197,8 @@ exports.data =
   },
   {
     type: 'input',
-    name: 'rulesBin',
-    message: 'Installer file name',
+    name: 'rulesLocation',
+    message: 'Installer file name, source directory ,...',
     when: function (answers)
     {
       return answers.rulesType == 'exec';
