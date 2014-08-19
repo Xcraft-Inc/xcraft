@@ -201,7 +201,7 @@ exports.data =
     message: 'Installer file name, source directory ,...',
     when: function (answers)
     {
-      return answers.rulesType == 'exec';
+      return /(exec|make)/.test (answers.rulesType);
     }
   },
   {
