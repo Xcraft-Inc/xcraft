@@ -32,7 +32,7 @@ var defToControl = function (packageDef)
   {
     if (arch === 'source')
     {
-      zogLog.verb ('ignore source package: ' + packageDef['name']);
+      zogLog.verb ('ignore source package: ' + packageDef.name);
       return;
     }
 
