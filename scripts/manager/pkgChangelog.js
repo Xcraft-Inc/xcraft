@@ -75,7 +75,7 @@ var defToChangelog = function (packageDef)
 exports.changelogFile = function (packageName, saveFiles)
 {
   if (saveFiles)
-    zogLog.info ('save the ChangeLog file for ' + packageName);
+    zogLog.info ('if necessary, save the ChangeLog file for ' + packageName);
 
   var fs = require ('fs');
 

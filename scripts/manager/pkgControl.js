@@ -112,7 +112,7 @@ var defToControl = function (packageDef)
 exports.controlFiles = function (packageName, packageArch, saveFiles)
 {
   if (saveFiles)
-    zogLog.info ('save the control files for ' + packageName);
+    zogLog.info ('if necessary, save the control files for ' + packageName);
 
   var fs  = require ('fs');
 
