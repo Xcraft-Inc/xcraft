@@ -102,7 +102,7 @@ cmd['edit.header'] = function (msg)
     });
   }
   else
-    busClient.events.send ('zogManager.edit.header.added', wizard.header);
+    busClient.events.send ('zogManager.edit.header.added', wizard.header, true);
 };
 
 cmd['edit.dependency'] = function (msg)
