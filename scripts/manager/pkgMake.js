@@ -8,6 +8,7 @@ var zogConfig     = require ('../zogConfig.js') ();
 var zogFs         = require ('zogFs');
 var zogLog        = require ('zogLog') (moduleName);
 var pkgControl    = require ('./pkgControl.js');
+var pkgChangelog  = require (zogConfig.libPkgChangelog);
 var pkgDefinition = require (zogConfig.libPkgDefinition);
 
 var copyTemplateFiles = function (packagePath, script, postInstDir)
@@ -183,11 +184,24 @@ var processCtrlFile = function (packageName, arch, callbackDone)
   processFile (packageName, controlFiles, arch, callbackDone);
 };
 
+var processChangelogFile = function (packageName, callbackDone)
+{
+  var changelogFiles =
+  [{
+    control: pkgChangelog.changelogFile (packageName, true)
+  }];
+
+  processFile (packageName, changelogFiles, 'source', callbackDone);
+};
+
 exports.package = function (packageName, arch, callbackDone)
 {
   try
   {
-    processCtrlFile (packageName, arch, callbackDone);
+    processCtrlFile (packageName, arch, function (done)
+    {
+      processChangelogFile (packageName, callbackDone);
+    });
   }
   catch (err)
   {
