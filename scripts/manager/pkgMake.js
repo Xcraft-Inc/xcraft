@@ -172,6 +172,8 @@ var processFile = function (packageName, files, arch, callbackDone)
 
   if (files.length)
     nextFile ();
+  else
+    callbackDone (true);
 };
 
 var processCtrlFile = function (packageName, arch, callbackDone)
