@@ -7,20 +7,6 @@ var util      = require ('util');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-exports.loadPackageDef = function (packageName)
-{
-  var pkgConfig = path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName);
-
-  var yaml = require ('js-yaml');
-  var fs   = require ('fs');
-
-  var data = fs.readFileSync (pkgConfig, 'utf8');
-
-  var def = yaml.safeLoad (data);
-  zogLog.verb ('JSON output (package):\n' + JSON.stringify (def, null, '  '));
-
-  return def;
-};
 
 /**
  * Convert a zog package definition to control definitions.
@@ -126,7 +112,9 @@ exports.controlFiles = function (packageName, packageArch, saveFiles)
   var zogFs = require ('zogFs');
   var zogPlatform = require ('zogPlatform');
 
-  var def     = exports.loadPackageDef (packageName);
+  var pkgDefinition = require (zogConfig.libPkgDefinition);
+
+  var def     = pkgDefinition.load (packageName);
   var control = defToControl (def);
 
   var controlFiles = [];

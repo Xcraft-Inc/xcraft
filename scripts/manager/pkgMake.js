@@ -6,7 +6,7 @@ var path       = require ('path');
 var zogConfig  = require ('../zogConfig.js') ();
 var zogFs      = require ('zogFs');
 var zogLog     = require ('zogLog') (moduleName);
-var pkgControl = require ('./pkgControl.js');
+var pkgDefinition = require (zogConfig.libPkgDefinition);
 
 var copyTemplateFiles = function (packagePath, script, postInstDir)
 {
@@ -42,7 +42,7 @@ var createConfigJson = function (packageName, postInstDir)
   var url = require ('url');
   var zogUri = require ('zogUri');
 
-  var def = pkgControl.loadPackageDef (packageName);
+  var def = pkgDefinition.load (packageName);
   var config = def.data;
 
   config.uri = zogUri.realUri (config.uri, packageName);
@@ -119,7 +119,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
         });
       };
 
-      var packageDef = pkgControl.loadPackageDef (packageName);
+      var packageDef = pkgDefinition.load (packageName);
 
       /* Are the resources embedded in the package (less than 1GB)? */
       if (packageDef.data.embedded && packageDef.data.uri.length)
