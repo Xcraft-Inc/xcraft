@@ -30,6 +30,12 @@ var defToControl = function (packageDef)
 
   packageDef['architecture'].forEach (function (arch)
   {
+    if (arch === 'source')
+    {
+      zogLog.verb ('ignore source package: ' + packageDef['name']);
+      return;
+    }
+
     var control = '';
 
     Object.keys (packageDef).forEach (function (entry)
@@ -129,7 +135,7 @@ exports.controlFiles = function (packageName, packageArch, saveFiles)
      * same name that on unix (.bat suffix under Windows).
      */
     var os = zogPlatform.getOs ();
-    if (!/^(all|source)$/.test (arch)
+    if (!/^(all)$/.test (arch)
         && (   os == 'win' && !/^mswindows/.test (arch)
             || os != 'win' &&  /^mswindows/.test (arch)))
     {
