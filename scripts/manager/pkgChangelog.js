@@ -86,9 +86,11 @@ exports.changelogFile = function (packageName, saveFiles)
   var def       = pkgDefinition.load (packageName);
   var changelog = defToChangelog (def);
 
+  var changelogFiles = [];
+
   /* Only for source packages. */
   if (!changelog)
-    return null;
+    return [];
 
   var wpkgDir       = path.join (zogConfig.pkgTempRoot, 'source', packageName, zogConfig.pkgWPKG);
   var changelogFile = path.join (wpkgDir, 'ChangeLog');
@@ -102,5 +104,10 @@ exports.changelogFile = function (packageName, saveFiles)
     fs.writeFileSync (changelogFile, changelog);
   }
 
-  return changelogFile;
+  changelogFiles.push (
+  {
+    'control': changelogFile
+  });
+
+  return changelogFiles;
 };

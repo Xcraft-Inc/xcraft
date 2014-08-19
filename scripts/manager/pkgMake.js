@@ -186,10 +186,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
 
 var processChangelogFile = function (packageName, callbackDone)
 {
-  var changelogFiles =
-  [{
-    control: pkgChangelog.changelogFile (packageName, true)
-  }];
+  var changelogFiles = pkgChangelog.changelogFile (packageName, true);
 
   processFile (packageName, changelogFiles, 'source', callbackDone);
 };
