@@ -54,6 +54,17 @@ module.config(function($stateProvider, $urlRouterProvider) {
 });
 
 module.controller('PackagesController', ['$scope', function ($scope){
+
+  var countSelectedPkg = function ()
+  {
+    var count = 0;
+    Object.keys ($scope.selected).forEach(function (key) {
+      if($scope.selected[key])
+        count++;
+    });
+    return count;
+  };
+
   $scope.title     = 'Packages';
   $scope.badge     = 'module';
   $scope.icon      = 'puzzle-piece';
@@ -61,10 +72,11 @@ module.controller('PackagesController', ['$scope', function ($scope){
   $scope.selectedCount = 0;
 
 
+
   $scope.selectPackage = function(pkgName)
   {
     $scope.selected[pkgName] = !$scope.selected[pkgName];
-    $scope.selected[pkgName] ? $scope.selectedCount++ : $scope.selectedCount--;
+    $scope.selectedCount = countSelectedPkg();
   };
 
   $scope.safeApply = function(fn)
@@ -103,10 +115,10 @@ function ($scope, $state) {
   {
     $scope.safeApply( function(){
       //header related fields and initial model
-      $scope.headerFields         = msg.data;
-      $scope.header               = {};
+      $scope.headerFields = msg.data;
+      $scope.header       = {};
 
-      //assign defaults values
+      //assign defaults values and validators
       Object.keys ($scope.headerFields).forEach (function (field)
       {
         var fieldName = $scope.headerFields[field].name;
