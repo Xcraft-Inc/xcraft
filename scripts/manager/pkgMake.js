@@ -85,7 +85,8 @@ var processCtrlFile = function (packageName, arch, callbackDone)
       var wpkgBuild = function (packageDef)
       {
         /* Don't copy pre/post scripts with unsupported architectures. */
-        if (packageDef.architecture.indexOf ('all') === -1)
+        if (   packageDef.architecture.indexOf ('all')    === -1
+            && packageDef.architecture.indexOf ('source') === -1)
         {
           var scripts =
           [
