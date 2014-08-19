@@ -153,6 +153,7 @@ module.exports = function ()
     libPkgList       : path.resolve ('./scripts/manager/pkgList.js'),
     libPkgWizard     : path.resolve ('./scripts/manager/pkgWizard.js'),
     libPkgControl    : path.resolve ('./scripts/manager/pkgControl.js'),
+    libPkgChangelog  : path.resolve ('./scripts/manager/pkgChangelog.js'),
     libPkgMake       : path.resolve ('./scripts/manager/pkgMake.js'),
     libPkgCmd        : path.resolve ('./scripts/manager/pkgCmd.js'),
 
