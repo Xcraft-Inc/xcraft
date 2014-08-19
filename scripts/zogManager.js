@@ -5,11 +5,11 @@ var moduleName = 'manager';
 var path     = require ('path');
 var inquirer = require ('inquirer');
 
-var zogConfig = require ('./zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
-var pkgCreate = require (zogConfig.libPkgCreate);
-var busClient = require (zogConfig.busClient);
+var zogConfig     = require ('./zogConfig.js') ();
+var zogLog        = require ('zogLog') (moduleName);
+var pkgCreate     = require (zogConfig.libPkgCreate);
 var pkgDefinition = require (zogConfig.libPkgDefinition);
+var busClient     = require (zogConfig.busClient);
 
 
 var cmd = {};

@@ -108,10 +108,10 @@ exports.controlFiles = function (packageName, packageArch, saveFiles)
   if (saveFiles)
     zogLog.info ('save the control files for ' + packageName);
 
-  var fs    = require ('fs');
-  var zogFs = require ('zogFs');
-  var zogPlatform = require ('zogPlatform');
+  var fs  = require ('fs');
 
+  var zogFs         = require ('zogFs');
+  var zogPlatform   = require ('zogPlatform');
   var pkgDefinition = require (zogConfig.libPkgDefinition);
 
   var def     = pkgDefinition.load (packageName);
