@@ -76,32 +76,32 @@ exports.events  =
 
     subscriptions.subscribe (topic);
 
-    //register a pre-handler for deserialze object if needed
-    eventsHandlerRegistry[topic] = function(msg)
+    /* register a pre-handler for deserialze object if needed */
+    eventsHandlerRegistry[topic] = function (msg)
     {
-
-      if(msg.serialized)
+      if (msg.serialized)
       {
-        msg.data = JSON.parse(msg.data, function (key, value) {
+        msg.data = JSON.parse (msg.data, function (key, value)
+        {
           if (value
               && typeof value === "string"
-              && value.substr(0,8) == "function")
+              && value.substr (0, 8) == "function")
           {
-              var startBody = value.indexOf('{') + 1;
-              var endBody = value.lastIndexOf('}');
-              var startArgs = value.indexOf('(') + 1;
-              var endArgs = value.indexOf(')');
+            var startBody = value.indexOf ('{') + 1;
+            var endBody   = value.lastIndexOf ('}');
+            var startArgs = value.indexOf ('(') + 1;
+            var endArgs   = value.indexOf (')');
 
-             return new Function(value.substring(startArgs, endArgs)
-                               , value.substring(startBody, endBody));
+            return new Function (value.substring (startArgs, endArgs),
+                                 value.substring (startBody, endBody));
           }
+
           return value;
         });
-
       }
 
-      //finaly call user code (with or without deserialized data)
-      handler(msg);
+      /* finally call user code (with or without deserialized data) */
+      handler (msg);
     };
   },
 
@@ -110,21 +110,18 @@ exports.events  =
     var notifier   = require (zogConfig.busBoot).getNotifier ();
     var busMessage = require (zogConfig.busMessage) ();
 
-    if(serialize)
+    if (serialize)
     {
-      busMessage.data = JSON.stringify(data, function (key, value) {
-                          if (typeof value === 'function') {
-                            return value.toString();
-                          }
-                          return value;
-                        });
+      busMessage.data = JSON.stringify (data, function (key, value)
+      {
+        return typeof value === 'function' ? value.toString () : value;
+      });
 
       busMessage.serialized = true;
     }
     else
-    {
       busMessage.data = data;
-    }
+
     notifier.send (topic, busMessage);
 
     zogLog.verb ('client send notification on topic:' + topic);
