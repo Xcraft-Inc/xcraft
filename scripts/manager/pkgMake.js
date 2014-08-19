@@ -173,7 +173,7 @@ var processFile = function (packageName, files, arch, callbackDone)
 
   if (files.length)
     nextFile ();
-  else
+  else if (callbackDone)
     callbackDone (true);
 };
 
