@@ -17,7 +17,7 @@ var pad = function (n, w)
 /**
  * Convert a zog package definition to a ChangeLog file.
  * @param {Object} packageDef
- * @returns {Object[]} A ChangeLog file.
+ * @returns {string} A ChangeLog file.
  */
 var defToChangelog = function (packageDef)
 {
