@@ -17,6 +17,16 @@ module.config(function($stateProvider, $urlRouterProvider) {
         'main' : {
           templateUrl: module_root + 'views/editor.html',
           controller: function ($scope, $stateParams) {
+
+            $scope.addNewPartToPackage = function (part)
+            {
+                for (var attrname in part)
+                {
+                  $scope.package[attrname] = part[attrname];
+                }
+            };
+
+            $scope.editorStep = 1;
             $scope.package = {
               isPassive : true,
               packageName : $stateParams.packageName
@@ -118,7 +128,7 @@ function ($scope, $state) {
       $scope.headerFields = msg.data;
       $scope.header       = {};
 
-      //assign defaults values and validators
+      //assign defaults values
       Object.keys ($scope.headerFields).forEach (function (field)
       {
         var fieldName = $scope.headerFields[field].name;
@@ -132,6 +142,13 @@ function ($scope, $state) {
   });
 
   busClient.command.send ('zogManager.edit.header', $scope.package);
+
+  $scope.nextStep = function ()
+  {
+    $scope.addNewPartToPackage($scope.header);
+    busClient.command.send ('zogManager.edit.dependency',$scope.package);
+    $scope.editorStep++;
+  };
 
 }]);
 
@@ -150,8 +167,6 @@ function ($scope, $state) {
    });
  });
 
- busClient.command.send ('zogManager.edit.dependency',$scope.package);
-
  $scope.addDependency = function ()
  {
    //prepare dependencies hash from model
@@ -161,9 +176,15 @@ function ($scope, $state) {
    $scope.dependencies[key].dependency     = $scope.dependency.package;
    $scope.dependencies[key].version        = $scope.dependency.version;
 
-   busClient.command.send ('zogManager.edit.dependency',$scope.package);
    //clear dependency model for the next dependency
    $scope.dependency        = {};
+ };
+
+ $scope.nextStep = function ()
+ {
+   $scope.addNewPartToPackage($scope.dependencies);
+   busClient.command.send ('zogManager.edit.data',$scope.package);
+   $scope.editorStep++;
  };
 
 
@@ -189,7 +210,12 @@ function ($scope, $state) {
     });
   });
 
-  busClient.command.send ('zogManager.edit.data',$scope.package);
+  $scope.nextStep = function ()
+  {
+    $scope.addNewPartToPackage($scope.packageContent);
+    busClient.command.send ('zogManager.edit.finish',$scope.package);
+    $scope.editorStep++;
+  };
 
 }]);
 
