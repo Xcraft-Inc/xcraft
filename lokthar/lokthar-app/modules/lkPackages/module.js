@@ -17,40 +17,31 @@ module.config(function($stateProvider, $urlRouterProvider) {
         'main' : {
           templateUrl: module_root + 'views/editor.html',
           controller: function ($scope, $stateParams) {
-
-            $scope.addNewPartToPackage = function (part)
-            {
-                for (var attrname in part)
-                {
-                  $scope.package[attrname] = part[attrname];
-                }
-            };
-
+            $scope.package.packageName = $stateParams.packageName;
             $scope.editorStep = 1;
-            $scope.package = {
-              isPassive : true,
-              packageName : $stateParams.packageName
-            };
           }
-        },
-        'header@packages.editor' : {
-          templateUrl: module_root + 'views/editor.header.html',
-          controller: 'PackageEditorHeaderController'
-        },
-        'dependency@packages.editor' : {
-          templateUrl: module_root + 'views/editor.dependency.html',
-          controller: 'PackageEditorDependencyController'
-        },
-        'data@packages.editor' : {
-          templateUrl: module_root + 'views/editor.data.html',
-          controller: 'PackageEditorDataController'
-        },
-        'finish@packages.editor' : {
-          templateUrl: module_root + 'views/editor.finish.html',
-          controller: 'PackageEditorFinishController'
         }
       }
-
+    })
+    .state('packages.editor.header', {
+      url: '/header',
+      templateUrl: module_root + 'views/editor.header.html',
+      controller: 'PackageEditorHeaderController'
+    })
+    .state('packages.editor.dependency', {
+      url: '/dependency',
+      templateUrl: module_root + 'views/editor.dependency.html',
+      controller: 'PackageEditorDependencyController'
+    })
+    .state('packages.editor.data', {
+      url: '/data',
+      templateUrl: module_root + 'views/editor.data.html',
+      controller: 'PackageEditorDataController'
+    })
+    .state('packages.editor.finish', {
+      url: '/finish',
+      templateUrl: module_root + 'views/editor.finish.html',
+      controller: 'PackageEditorFinishController'
     })
     .state('packages.manager', {
       url: "/manager",
@@ -63,8 +54,70 @@ module.config(function($stateProvider, $urlRouterProvider) {
     })
 });
 
-module.controller('PackagesController', ['$scope', function ($scope){
 
+//ROOT CONTROLLER
+module.controller('PackagesController', ['$scope','busClient',
+function ($scope, busClient)
+{
+  //module tiny'def
+  $scope.title     = 'Packages';
+  $scope.badge     = 'module';
+  $scope.icon      = 'puzzle-piece';
+
+  //Evts handlers
+  busClient.events.subscribe ('zogManager.list', function (msg)
+  {
+    $scope.safeApply( function(){
+      $scope.products = msg.data;
+    });
+  });
+
+  busClient.events.subscribe ('zogManager.edit.header.added', function (msg)
+  {
+    $scope.safeApply( function(){
+      //header related fields and initial model
+      $scope.headerFields = msg.data;
+      $scope.header       = {};
+
+      //assign defaults values
+      Object.keys ($scope.headerFields).forEach (function (field)
+      {
+        var fieldName = $scope.headerFields[field].name;
+        $scope.header[fieldName] = $scope.headerFields[field].default;
+      });
+
+      $scope.header.architecture  = [];
+    });
+  });
+
+  busClient.events.subscribe ('zogManager.edit.dependency.added', function (msg)
+  {
+    $scope.safeApply( function(){
+      //dependencies related fields and initial model
+      $scope.dependencyFields     = msg.data;
+      $scope.dependency           = {};
+      $scope.dependencies         = {};
+
+    });
+  });
+
+  busClient.events.subscribe ('zogManager.edit.data.added', function (msg)
+  {
+    $scope.safeApply( function(){
+      //package content related fields and initial model
+      $scope.packageContentFields = msg.data;
+      $scope.packageContent       = {};
+
+      //assign defaults values
+      Object.keys ($scope.packageContentFields).forEach (function (field)
+      {
+        var fieldName = $scope.packageContentFields[field].name;
+        $scope.header[fieldName] = $scope.packageContentFields[field].default;
+      });
+    });
+  });
+
+  //Manager funtions & vars
   var countSelectedPkg = function ()
   {
     var count = 0;
@@ -75,13 +128,9 @@ module.controller('PackagesController', ['$scope', function ($scope){
     return count;
   };
 
-  $scope.title     = 'Packages';
-  $scope.badge     = 'module';
-  $scope.icon      = 'puzzle-piece';
+
   $scope.selected  = [];
   $scope.selectedCount = 0;
-
-
 
   $scope.selectPackage = function(pkgName)
   {
@@ -89,6 +138,20 @@ module.controller('PackagesController', ['$scope', function ($scope){
     $scope.selectedCount = countSelectedPkg();
   };
 
+  //Editor funtions & vars
+  $scope.package = {
+    isPassive : true
+  };
+
+  $scope.addNewPartToPackage = function (part)
+  {
+    for (var attrname in part)
+    {
+      $scope.package[attrname] = part[attrname];
+    }
+  };
+
+  //Global functions
   $scope.safeApply = function(fn)
   {
     var phase = this.$root.$$phase;
@@ -106,45 +169,17 @@ module.controller('PackagesController', ['$scope', function ($scope){
 module.controller('PackageManagerController',
 ['$scope', 'busClient',
 function ($scope, busClient){
-
-  busClient.events.subscribe ('zogManager.list', function (msg)
-  {
-    $scope.safeApply( function(){
-      $scope.products = msg.data;
-    });
-  });
-
   busClient.command.send ('zogManager.list');
 }]);
 
 
 module.controller('PackageEditorHeaderController', ['$scope','$state',
 function ($scope, $state) {
-
-  busClient.events.subscribe ('zogManager.edit.header.added', function (msg)
-  {
-    $scope.safeApply( function(){
-      //header related fields and initial model
-      $scope.headerFields = msg.data;
-      $scope.header       = {};
-
-      //assign defaults values
-      Object.keys ($scope.headerFields).forEach (function (field)
-      {
-        var fieldName = $scope.headerFields[field].name;
-        $scope.header[fieldName] = $scope.headerFields[field].default;
-      });
-
-      $scope.header.architecture  = [];
-
-
-    });
-  });
-
   busClient.command.send ('zogManager.edit.header', $scope.package);
 
   $scope.nextStep = function ()
   {
+    $state.go ('packages.editor.dependency', {packageName : $scope.package.packageName});
     $scope.addNewPartToPackage($scope.header);
     busClient.command.send ('zogManager.edit.dependency',$scope.package);
     $scope.editorStep++;
@@ -156,16 +191,6 @@ function ($scope, $state) {
 module.controller('PackageEditorDependencyController', ['$scope','$state',
 function ($scope, $state) {
 
- busClient.events.subscribe ('zogManager.edit.dependency.added', function (msg)
- {
-   $scope.safeApply( function(){
-     //dependencies related fields and initial model
-     $scope.dependencyFields     = msg.data;
-     $scope.dependency           = {};
-     $scope.dependencies         = {};
-
-   });
- });
 
  $scope.addDependency = function ()
  {
@@ -193,23 +218,6 @@ function ($scope, $state) {
 
 module.controller('PackageEditorDataController', ['$scope','$state',
 function ($scope, $state) {
-
-  busClient.events.subscribe ('zogManager.edit.data.added', function (msg)
-  {
-    $scope.safeApply( function(){
-      //package content related fields and initial model
-      $scope.packageContentFields = msg.data;
-      $scope.packageContent       = {};
-
-      //assign defaults values
-      Object.keys ($scope.packageContentFields).forEach (function (field)
-      {
-        var fieldName = $scope.packageContentFields[field].name;
-        $scope.header[fieldName] = $scope.packageContentFields[field].default;
-      });
-    });
-  });
-
   $scope.nextStep = function ()
   {
     $scope.addNewPartToPackage($scope.packageContent);

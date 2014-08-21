@@ -1,12 +1,7 @@
-<ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content'}">
-  <li class=""><a href="#">Step 1 - Package Header</a></li>
-  <li class=""><a href="#">Step 2 - Package Dependencies</a></li>
-  <li class=""><a href="#">Step 3 - Package Content</a></li>
-  <li class=""><a href="#">Step 4 - Finish Package</a></li>
+<ul class="uk-subnav uk-subnav-pill">
+  <li ui-sref-active="uk-active"><a ui-sref="packages.editor.header">Step 1 - Package Header</a></li>
+  <li ui-sref-active="uk-active"><a ui-sref="packages.editor.dependency">Step 2 - Package Dependencies</a></li>
+  <li ui-sref-active="uk-active"><a ui-sref="packages.editor.data">Step 3 - Package Content</a></li>
+  <li ui-sref-active="uk-active"><a ui-sref="packages.editor.finish">Step 4 - Finish Package</a></li>
 </ul>
-<ul id="subnav-pill-content" class="uk-switcher">
-  <li ng-show="editorStep==1" ui-view='header'></li>
-  <li ng-show="editorStep==2" ui-view='dependency'></li>
-  <li ng-show="editorStep==3" ui-view='data'></li>
-  <li ng-show="editorStep==4" ui-view='finish'></li>
-</ul>
+<div ui-view></div>
