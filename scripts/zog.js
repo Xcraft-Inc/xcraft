@@ -109,8 +109,14 @@ var main = function (done)
     });
   };
 
+  var loktharErrorHandler = function (msg)
+  {
+    zogLog.warn ('%s, command data: %s',msg.desc, JSON.stringify (msg.data));
+  };
+
   /* Global error handler for command errors. */
-  require ('./bus/busCommander.js').registerErrorHandler (mainShutdown);
+  require ('./bus/busCommander.js')
+    .registerErrorHandler (!program.lokthar ? mainShutdown : loktharErrorHandler);
 
   if (program.cmake)
     busClient.command.send ('zogCMake.' + program.cmake, null, mainShutdown);
