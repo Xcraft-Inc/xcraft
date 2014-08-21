@@ -127,6 +127,7 @@ module.exports = function ()
     /* Path helpers. */
     toolchainRoot    : path.resolve ('./'),
     scriptsRoot      : path.resolve ('./scripts/'),
+    libPkgRoot       : path.resolve ('./scripts/manager/'),
     zogRc            : path.resolve ('./.zogrc'),
     zogBoot          : path.resolve ('./scripts/zogBoot.js'),
     libRoot          : path.resolve ('./scripts/lib/'),
@@ -142,6 +143,7 @@ module.exports = function ()
     busBoot          : path.resolve ('./scripts/bus/busBoot.js'),
     busClient        : path.resolve ('./scripts/bus/busClient.js'),
     busMessage       : path.resolve ('./scripts/bus/busMessage.js'),
+    busCommander     : path.resolve ('./scripts/bus/busCommander.js'),
     chestServer      : path.resolve ('./scripts/chest/chestServer.js'),
     confWizard       : path.resolve ('./scripts/config/confWizard.js'),
     confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
