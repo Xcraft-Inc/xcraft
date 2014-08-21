@@ -12,7 +12,8 @@
               ng-class="{'uk-form-danger' : form.input.$invalid,
                          'uk-form-success': form.input.$valid}"
               ng-model="header[field.name]"
-              validator="field.validate"
+              ng-change="field.validateField(header[field.name])"
+              validator="field.validatorResult"
               placeholder="{{field.message}}"
               required/>
 
@@ -22,7 +23,8 @@
               ng-class="{'uk-form-danger' : form.input.$invalid,
                          'uk-form-success': form.input.$valid}"
               ng-model="header[field.name]"
-              validator="field.validate"
+              ng-change="field.validateField(header[field.name])"
+              validator="field.validatorResult"
               placeholder="{{field.message}}"
               required >
               </textarea>

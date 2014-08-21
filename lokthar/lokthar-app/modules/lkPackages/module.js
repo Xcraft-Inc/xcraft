@@ -79,6 +79,26 @@ function ($scope, busClient)
       $scope.headerFields = msg.data;
       $scope.header       = {};
 
+      Object.keys ($scope.headerFields).forEach (function (field)
+      {
+        var fieldName = $scope.headerFields[field].name;
+        
+        if(!$scope.headerFields[field].loktharValidate)
+          return;
+
+
+        busClient.events.subscribe ('pkgWizard.header.'+ fieldName +'.validated', function (msg)
+        {
+          $scope.headerFields[field].validatorResult = msg.data;
+        });
+
+        $scope.headerFields[field].validateField  = function (value)
+        {
+          busClient.command.send ('pkgWizard.header.' + fieldName + '.validate', value || '', null);
+        };
+
+      });
+
       //assign defaults values
       Object.keys ($scope.headerFields).forEach (function (field)
       {
@@ -175,6 +195,7 @@ function ($scope, busClient){
 
 module.controller('PackageEditorHeaderController', ['$scope','$state',
 function ($scope, $state) {
+
   busClient.command.send ('zogManager.edit.header', $scope.package);
 
   $scope.nextStep = function ()
