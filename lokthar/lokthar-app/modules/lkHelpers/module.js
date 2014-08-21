@@ -17,7 +17,6 @@ module.directive('validator', [function () {
           scope.$watch('result', function (data) {
             if(scope.result !== undefined)
             {
-              console.log(scope.result);
               if(scope.result === true)
               {
                 control.$setValidity("valid", true);
