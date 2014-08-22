@@ -251,6 +251,36 @@ exports.chest =
 exports.busCommands = function ()
 {
   var list = [];
+
+  var tryPushFunction = function (fieldDef, category, funcName, resultEventName)
+  {
+    if(!fieldDef.hasOwnProperty(funcName))
+      return;
+
+    /* generating cmd and result event name */
+    var cmdName = category + '.' + fieldDef.name + '.' + funcName;
+
+    var evtName = 'pkgWizard.'
+                + category + '.'
+                + fieldDef.name + '.'
+                + resultEventName;
+
+    /* Indicate to lokthar that a command for validation is available
+     * and corresponding result event.
+     */
+    fieldDef.loktharCommands['pkgWizard.' + cmdName] = evtName;
+    list.push (
+    {
+      name    : cmdName,
+      handler : function (value)
+      {
+        /* execute function */
+        var result = fieldDef[funcName] (value.data);
+        busClient.events.send (evtName, result);
+      }
+    });
+  };
+
   var extractCommandsHandlers = function (category)
   {
     var fields = exports[category];
@@ -259,38 +289,9 @@ exports.busCommands = function ()
       var fieldDef = fields[index];
       fieldDef.loktharCommands = {};
 
-      var tryPushFunction = function (funcName, resultEventName)
-      {
-        if(!fieldDef.hasOwnProperty(funcName))
-          return;
-
-        /* generating cmd and result event name */
-        var cmdName = category + '.' + fieldDef.name + '.' + funcName;
-
-        var evtName = 'pkgWizard.'
-                    + category + '.'
-                    + fieldDef.name + '.'
-                    + resultEventName;
-
-        /* Indicate to lokthar that a command for validation is available
-         * and corresponding result event.
-         */
-        fieldDef.loktharCommands['pkgWizard.' + cmdName] = evtName;
-        list.push (
-        {
-          name    : cmdName,
-          handler : function (value)
-          {
-            /* execute function */
-            var result = fieldDef[funcName] (value.data);
-            busClient.events.send (evtName, result);
-          }
-        });
-      };
-
-      tryPushFunction('validate','validated');
-      tryPushFunction('choices','choices.loaded');
-      tryPushFunction('filter','filtered');
+      tryPushFunction(fieldDef, category, 'validate','validated');
+      tryPushFunction(fieldDef, category, 'choices','choices.loaded');
+      tryPushFunction(fieldDef, category, 'filter','filtered');
     });
   };
 
