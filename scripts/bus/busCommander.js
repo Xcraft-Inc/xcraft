@@ -58,7 +58,7 @@ sock.on ('message', function (cmd, msg)
 {
   var utils = require ('util');
 
-  zogLog.info ('begin command: %s', cmd);
+  zogLog.verb ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> msg: %s', cmd, JSON.stringify (msg));
 
   if (msg.token == token)

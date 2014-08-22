@@ -101,7 +101,7 @@ var main = function (done)
 
   var mainShutdown = function ()
   {
-    zogLog.info ('end command');
+    zogLog.verb ('end command');
 
     busClient.stop (function (done)
     {
