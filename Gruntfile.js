@@ -1,3 +1,5 @@
+'use strict'
+
 
 var moduleName = 'grunt';
 
@@ -44,8 +46,49 @@ module.exports = function (grunt)
   grunt.initConfig (
   {
     zogMake: {},
-    newer: listNewer
+    newer: listNewer,
+
+
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+
+        extract:'always'
+      },
+      all: {
+        src: [
+          './scripts/**.html',
+          './scripts/**.htm',
+          './lokthar/lokthar-app/**.html',
+          './lokthar/lokthar-app**.htm',
+          './node_modules/zog**.html',
+          './node_modules/zog**.htm',
+          './tests/**.html',
+          './tests/**.htm',
+        ]
+      }
+    },
+
+    jshint2: {
+      options: {
+        jshintrc: '.jshintrc'
+      },
+      all: {
+        src: [
+          './Gruntfile.js',
+          './scripts/**.js',
+          './lokthar/lokthar-app/**.js',
+          './node_modules/zog**.js',
+          './packages/products/**.js',
+          './tests/**.js',
+        ]
+      }
+    },
   });
+
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jshint2');
 
   grunt.loadNpmTasks ('grunt-newer-explicit');
 
