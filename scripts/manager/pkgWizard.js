@@ -254,7 +254,7 @@ exports.busCommands = function ()
 
   var tryPushFunction = function (fieldDef, category, funcName, resultEventName)
   {
-    if(!fieldDef.hasOwnProperty(funcName))
+    if (!fieldDef.hasOwnProperty (funcName))
       return;
 
     /* generating cmd and result event name */
@@ -289,9 +289,9 @@ exports.busCommands = function ()
       var fieldDef = fields[index];
       fieldDef.loktharCommands = {};
 
-      tryPushFunction(fieldDef, category, 'validate','validated');
-      tryPushFunction(fieldDef, category, 'choices','choices.loaded');
-      tryPushFunction(fieldDef, category, 'filter','filtered');
+      tryPushFunction (fieldDef, category, 'validate', 'validated');
+      tryPushFunction (fieldDef, category, 'choices',  'choices.loaded');
+      tryPushFunction (fieldDef, category, 'filter',   'filtered');
     });
   };
 
