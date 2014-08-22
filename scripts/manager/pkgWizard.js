@@ -259,23 +259,40 @@ exports.busCommands = function ()
     Object.keys (fields).forEach (function (index)
     {
       var fieldDef = fields[index];
-      if(!fieldDef.hasOwnProperty('validate'))
-        return;
+      fieldDef.loktharCommands = {};
 
-      //indicate to lokthar that a command for validation is available
-      fieldDef.loktharValidate = true;
-      list.push (
+      var tryPushFunction = function (funcName,resultEventName)
       {
-        name    : category + '.' + fieldDef.name + '.validate',
-        handler : function (value)
-        {
-          //execute validation
-          var result = fieldDef.validate(value.data);
+        if(!fieldDef.hasOwnProperty(funcName))
+          return;
 
-          var eventName = 'pkgWizard.' + category + '.' + fieldDef.name + '.validated';
-          busClient.events.send(eventName, result);
-        }
-      });
+        //generating cmd and result evt name
+        var cmdName = category + '.' + fieldDef.name + '.' + funcName;
+
+        var evtName = 'pkgWizard.' +
+                      category + '.' +
+                      fieldDef.name + '.' +
+                      resultEventName;
+
+        //indicate to lokthar that a command for validation is available
+        //and corresponding result evt
+        fieldDef.loktharCommands['pkgWizard.' + cmdName] = evtName;
+        list.push (
+        {
+          name    : cmdName,
+          handler : function (value)
+          {
+            //execute function
+            var result = fieldDef[funcName](value.data);
+            console.log('pkgWizardExecResukt: ' + result);
+            busClient.events.send(evtName, result);
+          }
+        });
+      };
+
+      tryPushFunction('validate','validated');
+      tryPushFunction('choices','choices.loaded');
+      tryPushFunction('filter','filtered');
     });
   };
 
