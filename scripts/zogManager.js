@@ -152,7 +152,7 @@ cmd['edit.dependency'] = function (msg)
     });
   }
   else
-    busClient.events.send ('zogManager.edit.dependency.added', wizard.dependency, true);
+    busClient.events.send ('zogManager.edit.dependency.added', wizard.dependency);
 };
 
 cmd['edit.data'] = function (msg)
@@ -187,7 +187,7 @@ cmd['edit.data'] = function (msg)
     });
   }
   else
-    busClient.events.send ('zogManager.edit.data.added', wizard.data, true);
+    busClient.events.send ('zogManager.edit.data.added', wizard.data);
 };
 
 cmd['edit.save'] = function (msg)
