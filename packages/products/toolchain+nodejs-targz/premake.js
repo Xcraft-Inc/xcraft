@@ -10,8 +10,8 @@ module.exports = function (zogConfig, packagePath, sharePath)
 
   var zogLog = require ('zogLog') (packageName);
 
-  var pkgControl = require (zogConfig.libPkgControl);
-  var packageDef = pkgControl.loadPackageDef (packageName);
+  var pkgDefinition = require (zogConfig.libPkgDefinition);
+  var packageDef = pkgDefinition.load (packageName);
 
   var npmInstall = function (callbackDone)
   {

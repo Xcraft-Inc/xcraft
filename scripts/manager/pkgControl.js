@@ -7,20 +7,6 @@ var util      = require ('util');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-exports.loadPackageDef = function (packageName)
-{
-  var pkgConfig = path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName);
-
-  var yaml = require ('js-yaml');
-  var fs   = require ('fs');
-
-  var data = fs.readFileSync (pkgConfig, 'utf8');
-
-  var def = yaml.safeLoad (data);
-  zogLog.verb ('JSON output (package):\n' + JSON.stringify (def, null, '  '));
-
-  return def;
-};
 
 /**
  * Convert a zog package definition to control definitions.
@@ -44,6 +30,12 @@ var defToControl = function (packageDef)
 
   packageDef['architecture'].forEach (function (arch)
   {
+    if (arch === 'source')
+    {
+      zogLog.verb ('ignore source package: ' + packageDef.name);
+      return;
+    }
+
     var control = '';
 
     Object.keys (packageDef).forEach (function (entry)
@@ -120,13 +112,15 @@ var defToControl = function (packageDef)
 exports.controlFiles = function (packageName, packageArch, saveFiles)
 {
   if (saveFiles)
-    zogLog.info ('save the control files for ' + packageName);
+    zogLog.info ('if necessary, save the control files for ' + packageName);
 
-  var fs    = require ('fs');
-  var zogFs = require ('zogFs');
-  var zogPlatform = require ('zogPlatform');
+  var fs  = require ('fs');
 
-  var def     = exports.loadPackageDef (packageName);
+  var zogFs         = require ('zogFs');
+  var zogPlatform   = require ('zogPlatform');
+  var pkgDefinition = require (zogConfig.libPkgDefinition);
+
+  var def     = pkgDefinition.load (packageName);
   var control = defToControl (def);
 
   var controlFiles = [];
@@ -141,7 +135,7 @@ exports.controlFiles = function (packageName, packageArch, saveFiles)
      * same name that on unix (.bat suffix under Windows).
      */
     var os = zogPlatform.getOs ();
-    if (!/^(all|source)$/.test (arch)
+    if (!/^(all)$/.test (arch)
         && (   os == 'win' && !/^mswindows/.test (arch)
             || os != 'win' &&  /^mswindows/.test (arch)))
     {

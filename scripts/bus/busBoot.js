@@ -52,17 +52,18 @@ var generateBusToken = function (callbackDone)
 /**
  * Browse /scripts for zog modules, and register exported busCommands.
  */
-var loadCommandsRegistry = function ()
+var loadCommandsRegistry = function (modulePath, filterRegex)
 {
   var path  = require ('path');
   var zogFs = require ('zogFs');
 
   var zogModules = {};
-  var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /zog.+\.js$/);
+  //var zogModulesFiles = zogFs.ls (zogConfig.scriptsRoot, /zog.+\.js$/);
+ var zogModulesFiles = zogFs.ls (modulePath, filterRegex);
 
   zogModulesFiles.forEach (function (fileName)
   {
-    zogModules[fileName] = require (path.join (zogConfig.scriptsRoot,
+    zogModules[fileName] = require (path.join (modulePath,
                                                fileName));
 
     if (zogModules[fileName].hasOwnProperty ('busCommands'))
@@ -101,7 +102,10 @@ exports.boot = function ()
       {
         zogLog.verb ('Bus token created: %s', genToken);
         token = genToken;
-        loadCommandsRegistry ();
+
+        //load some command handler from modules/scripts locations
+        loadCommandsRegistry (zogConfig.scriptsRoot, /zog.+\.js$/);
+        loadCommandsRegistry (zogConfig.libPkgRoot , /pkg.+\.js$/);
 
         callback (null, genToken);
       });

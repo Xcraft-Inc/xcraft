@@ -2,11 +2,14 @@
 
 var moduleName = 'manager';
 
-var path       = require ('path');
-var zogConfig  = require ('../zogConfig.js') ();
-var zogFs      = require ('zogFs');
-var zogLog     = require ('zogLog') (moduleName);
-var pkgControl = require ('./pkgControl.js');
+var path = require ('path');
+
+var zogConfig     = require ('../zogConfig.js') ();
+var zogFs         = require ('zogFs');
+var zogLog        = require ('zogLog') (moduleName);
+var pkgControl    = require ('./pkgControl.js');
+var pkgChangelog  = require (zogConfig.libPkgChangelog);
+var pkgDefinition = require (zogConfig.libPkgDefinition);
 
 var copyTemplateFiles = function (packagePath, script, postInstDir)
 {
@@ -42,7 +45,7 @@ var createConfigJson = function (packageName, postInstDir)
   var url = require ('url');
   var zogUri = require ('zogUri');
 
-  var def = pkgControl.loadPackageDef (packageName);
+  var def = pkgDefinition.load (packageName);
   var config = def.data;
 
   config.uri = zogUri.realUri (config.uri, packageName);
@@ -52,16 +55,15 @@ var createConfigJson = function (packageName, postInstDir)
   fs.writeFileSync (outFile, data, 'utf8');
 };
 
-var processCtrlFile = function (packageName, arch, callbackDone)
+var processFile = function (packageName, files, arch, callbackDone)
 {
   var i = 0;
-  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
 
   var wpkgEngine = require ('./wpkgEngine.js');
 
-  var nextCtrlFile = function ()
+  var nextFile = function ()
   {
-    var controlFile = controlFiles[i].control;
+    var controlFile = files[i].control;
 
     zogLog.info ('process ' + controlFile);
 
@@ -85,7 +87,8 @@ var processCtrlFile = function (packageName, arch, callbackDone)
       var wpkgBuild = function (packageDef)
       {
         /* Don't copy pre/post scripts with unsupported architectures. */
-        if (packageDef.architecture.indexOf ('all') === -1)
+        if (   packageDef.architecture.indexOf ('all')    === -1
+            && packageDef.architecture.indexOf ('source') === -1)
         {
           var scripts =
           [
@@ -105,7 +108,7 @@ var processCtrlFile = function (packageName, arch, callbackDone)
         wpkgEngine.build (packagePath, function (error)
         {
           /* When we reach the last item, then we have done all async work. */
-          if (i == controlFiles.length - 1)
+          if (i == files.length - 1)
           {
             if (callbackDone)
               callbackDone (true);
@@ -113,12 +116,12 @@ var processCtrlFile = function (packageName, arch, callbackDone)
           else
           {
             i++;
-            nextCtrlFile ();
+            nextFile ();
           }
         });
       };
 
-      var packageDef = pkgControl.loadPackageDef (packageName);
+      var packageDef = pkgDefinition.load (packageName);
 
       /* Are the resources embedded in the package (less than 1GB)? */
       if (packageDef.data.embedded && packageDef.data.uri.length)
@@ -168,15 +171,34 @@ var processCtrlFile = function (packageName, arch, callbackDone)
     }
   };
 
-  if (controlFiles.length)
-    nextCtrlFile ();
-}
+  if (files.length)
+    nextFile ();
+  else if (callbackDone)
+    callbackDone (true);
+};
+
+var processCtrlFile = function (packageName, arch, callbackDone)
+{
+  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
+
+  processFile (packageName, controlFiles, arch, callbackDone);
+};
+
+var processChangelogFile = function (packageName, callbackDone)
+{
+  var changelogFiles = pkgChangelog.changelogFile (packageName, true);
+
+  processFile (packageName, changelogFiles, 'source', callbackDone);
+};
 
 exports.package = function (packageName, arch, callbackDone)
 {
   try
   {
-    processCtrlFile (packageName, arch, callbackDone);
+    processCtrlFile (packageName, arch, function (done)
+    {
+      processChangelogFile (packageName, callbackDone);
+    });
   }
   catch (err)
   {

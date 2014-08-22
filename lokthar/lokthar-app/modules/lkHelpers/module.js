@@ -2,27 +2,32 @@
 //
 var module = angular.module('lk-helpers', []);
 
-//Validator directive, call action in attr, and set
-//validity for the form field.
+//Validator directive, watch validator attribue value to set validity
 module.directive('validator', [function () {
     return {
         restrict: 'A',
         scope: {
-          action: '&validator',
+          result: '=validator',
           model:  '=ngModel',
         },
-        require: 'ngModel',
-        link: function (scope, elem, attrs, control) {
-              scope.$watch('model', function (data) {
-                if(scope.model!==undefined)
-                {
-                  var action = scope.action();
-                  if(action !== undefined)
-                  {
-                    control.$setValidity("valid", action(scope.model));
-                  }
-                }
-              });
+        require : 'ngModel',
+        link:
+        function (scope, elem, attrs, control)
+        {
+          scope.$watch('result', function (data) {
+            if(scope.result !== undefined)
+            {
+              if(scope.result === true)
+              {
+                control.$setValidity("valid", true);
+              }
+              else
+              {
+                control.$setValidity("valid", false);
+              }
+
+            }
+          });
         }
     };
 }]);

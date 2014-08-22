@@ -127,6 +127,7 @@ module.exports = function ()
     /* Path helpers. */
     toolchainRoot    : path.resolve ('./'),
     scriptsRoot      : path.resolve ('./scripts/'),
+    libPkgRoot       : path.resolve ('./scripts/manager/'),
     zogRc            : path.resolve ('./.zogrc'),
     zogBoot          : path.resolve ('./scripts/zogBoot.js'),
     libRoot          : path.resolve ('./scripts/lib/'),
@@ -142,6 +143,7 @@ module.exports = function ()
     busBoot          : path.resolve ('./scripts/bus/busBoot.js'),
     busClient        : path.resolve ('./scripts/bus/busClient.js'),
     busMessage       : path.resolve ('./scripts/bus/busMessage.js'),
+    busCommander     : path.resolve ('./scripts/bus/busCommander.js'),
     chestServer      : path.resolve ('./scripts/chest/chestServer.js'),
     confWizard       : path.resolve ('./scripts/config/confWizard.js'),
     confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
@@ -149,9 +151,11 @@ module.exports = function ()
 
     /* Lib helpers. */
     libPkgCreate     : path.resolve ('./scripts/manager/pkgCreate.js'),
+    libPkgDefinition : path.resolve ('./scripts/manager/pkgDefinition.js'),
     libPkgList       : path.resolve ('./scripts/manager/pkgList.js'),
     libPkgWizard     : path.resolve ('./scripts/manager/pkgWizard.js'),
     libPkgControl    : path.resolve ('./scripts/manager/pkgControl.js'),
+    libPkgChangelog  : path.resolve ('./scripts/manager/pkgChangelog.js'),
     libPkgMake       : path.resolve ('./scripts/manager/pkgMake.js'),
     libPkgCmd        : path.resolve ('./scripts/manager/pkgCmd.js'),
 

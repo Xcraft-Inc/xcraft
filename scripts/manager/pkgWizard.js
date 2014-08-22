@@ -5,7 +5,7 @@ var inquirer  = require ('inquirer');
 var zogConfig = require ('../zogConfig.js') ();
 var zogFs     = require ('zogFs');
 var zogPeon   = require ('zogPeon');
-
+var busClient = require (zogConfig.busClient);
 
 /* Version rules by Debian:
  * http://windowspackager.org/documentation/implementation-details/debian-version
@@ -247,3 +247,43 @@ exports.chest =
     }
   }
 ];
+
+
+
+exports.busCommands = function ()
+{
+  var list = [];
+  var extractCommandsHandlers = function (category)
+  {
+    var fields = exports[category];
+    Object.keys (fields).forEach (function (index)
+    {
+      var fieldDef = fields[index];
+      if(!fieldDef.hasOwnProperty('validate'))
+        return;
+
+      //indicate to lokthar that a command for validation is available
+      fieldDef.loktharValidate = true;
+      list.push (
+      {
+        name    : category + '.' + fieldDef.name + '.validate',
+        handler : function (value)
+        {
+          //execute validation
+          var result = fieldDef.validate(value.data);
+
+          var eventName = 'pkgWizard.' + category + '.' + fieldDef.name + '.validated';
+          busClient.events.send(eventName, result);
+        }
+      });
+    });
+  };
+
+  //extacts cmds handlers for each category
+  extractCommandsHandlers('header');
+  extractCommandsHandlers('dependency');
+  extractCommandsHandlers('data');
+  extractCommandsHandlers('chest');
+
+  return list;
+};

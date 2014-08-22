@@ -5,10 +5,11 @@ var moduleName = 'manager';
 var path     = require ('path');
 var inquirer = require ('inquirer');
 
-var zogConfig = require ('./zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
-var pkgCreate = require (zogConfig.libPkgCreate);
-var busClient = require (zogConfig.busClient);
+var zogConfig     = require ('./zogConfig.js') ();
+var zogLog        = require ('zogLog') (moduleName);
+var pkgCreate     = require (zogConfig.libPkgCreate);
+var pkgDefinition = require (zogConfig.libPkgDefinition);
+var busClient     = require (zogConfig.busClient);
 
 
 var cmd = {};
@@ -78,7 +79,7 @@ cmd['edit.header'] = function (msg)
 
   try
   {
-    var def = pkgControl.loadPackageDef (packageName);
+    var def = pkgDefinition.load (packageName);
 
     wizard.header[1].default = def.version;
     wizard.header[2].default = def.maintainer.name;
@@ -102,7 +103,7 @@ cmd['edit.header'] = function (msg)
     });
   }
   else
-    busClient.events.send ('zogManager.edit.header.added', wizard.header, true);
+    busClient.events.send ('zogManager.edit.header.added', wizard.header);
 };
 
 cmd['edit.dependency'] = function (msg)
@@ -116,7 +117,7 @@ cmd['edit.dependency'] = function (msg)
 
   try
   {
-    var def  = pkgControl.loadPackageDef (packageName);
+    var def  = pkgDefinition.load (packageName);
     var keys = Object.keys (def.dependency);
 
     if (keys.length > msg.data.idxDep)
@@ -166,7 +167,7 @@ cmd['edit.data'] = function (msg)
 
   try
   {
-    var def = pkgControl.loadPackageDef (packageName);
+    var def = pkgDefinition.load (packageName);
 
     wizard.data[0].default = def.data.uri;
     wizard.data[1].default = def.data.type;

@@ -49,11 +49,15 @@ exports.registerCommandHandler = function (commandKey, handlerFunction)
 
 exports.registerErrorHandler = function (errorHandler)
 {
+  zogLog.verb ('Error handler registered');
+
   commandsRegistry['error'] = errorHandler;
 };
 
 sock.on ('message', function (cmd, msg)
 {
+  var utils = require ('util');
+
   zogLog.info ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> msg: %s', cmd, JSON.stringify (msg));
 
@@ -61,8 +65,13 @@ sock.on ('message', function (cmd, msg)
   {
     if (!commandsRegistry.hasOwnProperty (cmd))
     {
-      zogLog.err ('the command "%s" is not available', cmd);
+      var errorMessage  = {};
+      errorMessage.data = msg;
+      errorMessage.cmd  = cmd;
+      errorMessage.desc = utils.format ('the command "%s" is not available', cmd);
+
       cmd = 'error';
+      msg = errorMessage;
     }
   }
   else
