@@ -248,8 +248,6 @@ exports.chest =
   }
 ];
 
-
-
 exports.busCommands = function ()
 {
   var list = [];
@@ -261,31 +259,31 @@ exports.busCommands = function ()
       var fieldDef = fields[index];
       fieldDef.loktharCommands = {};
 
-      var tryPushFunction = function (funcName,resultEventName)
+      var tryPushFunction = function (funcName, resultEventName)
       {
         if(!fieldDef.hasOwnProperty(funcName))
           return;
 
-        //generating cmd and result evt name
+        /* generating cmd and result event name */
         var cmdName = category + '.' + fieldDef.name + '.' + funcName;
 
-        var evtName = 'pkgWizard.' +
-                      category + '.' +
-                      fieldDef.name + '.' +
-                      resultEventName;
+        var evtName = 'pkgWizard.'
+                    + category + '.'
+                    + fieldDef.name + '.'
+                    + resultEventName;
 
-        //indicate to lokthar that a command for validation is available
-        //and corresponding result evt
+        /* Indicate to lokthar that a command for validation is available
+         * and corresponding result event.
+         */
         fieldDef.loktharCommands['pkgWizard.' + cmdName] = evtName;
         list.push (
         {
           name    : cmdName,
           handler : function (value)
           {
-            //execute function
-            var result = fieldDef[funcName](value.data);
-            console.log('pkgWizardExecResukt: ' + result);
-            busClient.events.send(evtName, result);
+            /* execute function */
+            var result = fieldDef[funcName] (value.data);
+            busClient.events.send (evtName, result);
           }
         });
       };
@@ -296,11 +294,11 @@ exports.busCommands = function ()
     });
   };
 
-  //extacts cmds handlers for each category
-  extractCommandsHandlers('header');
-  extractCommandsHandlers('dependency');
-  extractCommandsHandlers('data');
-  extractCommandsHandlers('chest');
+  /* extacts cmds handlers for each category */
+  extractCommandsHandlers ('header');
+  extractCommandsHandlers ('dependency');
+  extractCommandsHandlers ('data');
+  extractCommandsHandlers ('chest');
 
   return list;
 };

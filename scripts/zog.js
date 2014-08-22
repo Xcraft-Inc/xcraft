@@ -111,7 +111,7 @@ var main = function (done)
 
   var loktharErrorHandler = function (msg)
   {
-    zogLog.warn ('%s, command data: %s',msg.desc, JSON.stringify (msg.data));
+    zogLog.warn ('%s, command data: %s', msg.desc, JSON.stringify (msg.data));
   };
 
   /* Global error handler for command errors. */
