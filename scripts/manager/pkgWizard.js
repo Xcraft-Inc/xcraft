@@ -25,7 +25,7 @@ exports.header =
        * and minus (-) signs, and periods (.). They must be at least two
        * characters long and must start with an alphanumeric character.
        */
-      if(! /^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value))
+      if (!/^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value))
         return 'Must consist only of lower case letters (a-z), digits (0-9), ' +
                'plus (+) and minus (-) signs, and periods (.). ' +
                'They must be at least two characters long and must ' +
@@ -45,7 +45,7 @@ exports.header =
       if (!value.trim ())
         return 'Version is mandatory.'
 
-      if(!regex.test (value))
+      if (!regex.test (value))
         return 'Invalid version';
 
       return true;
@@ -74,7 +74,7 @@ exports.header =
       if (!value.trim ())
         return 'Email is mandatory.'
 
-      if(! mailRegex.test (value))
+      if (!mailRegex.test (value))
         return 'Invalid email';
 
       return true;
