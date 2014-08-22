@@ -1,4 +1,4 @@
-<h2> Package header </h2>
+<h2>Step {{editorStep}} - Package header </h2>
 <div ng-repeat="field in headerFields" class="uk-form-row">
   <div ng-switch="field.type">
     <div ng-switch-when="input">
@@ -12,8 +12,8 @@
               ng-class="{'uk-form-danger' : form.input.$invalid,
                          'uk-form-success': form.input.$valid}"
               ng-model="header[field.name]"
-              ng-change="field.validateField(header[field.name])"
-              validator="field.validatorResult"
+              ng-change="field.actions['validate'].sendCommand(header[field.name])"
+              validator="field.actions['validate'].result"
               placeholder="{{field.message}}"
               required/>
 
@@ -31,14 +31,14 @@
 
               <span
               ng-show="form.input.$invalid"
-              class="uk-text-warning">invalid</span>
+              class="uk-text-warning">{{field.actions['validate'].result}}</span>
             </div>
         </ng-form>
     </div>
     <div ng-switch-when="checkbox">
         <span class="uk-form-label">{{field.message}}</span>
-        <div class="uk-form-controls uk-form-controls-text">
-            <div ng-repeat="choice in field.choices">
+        <div class="uk-form-controls uk-form-controls-text" ng-init="field.actions['loadChoices'].sendCommand()">
+            <div ng-repeat="choice in field.actions['loadChoices'].result">
                 <div ng-switch="choice.type">
                     <div ng-switch-when="separator">
                         <p>{{choice.line}}</p>

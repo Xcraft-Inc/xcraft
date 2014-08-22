@@ -1,4 +1,4 @@
-<h2> Package dependencies </h2>
+<h2>Step {{editorStep}} - Package dependencies </h2>
 
 <div ng-repeat="field in dependencyFields">
   <ng-switch on="field.type">
@@ -29,10 +29,19 @@
     </div>
   </ng-switch>
 </div>
+<div ng-repeat="(key,dep) in dependencies">
+  <span class="uk-badge uk-badge-danger">{{key}} ({{dep.version}})</span>
+</div>
 <br>
 <button
 ng-disabled="!dependency.package"
 class="uk-button uk-width-1-1 uk-margin-small-bottom"
 ng-click="addDependency()">
 <i class="uk-icon-plus"></i> add
+</button>
+<br>
+<button
+class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
+ng-click="nextStep()">
+<i class="uk-icon-gears"></i> next step
 </button>

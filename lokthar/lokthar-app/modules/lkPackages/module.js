@@ -79,25 +79,42 @@ function ($scope, busClient)
       $scope.headerFields = msg.data;
       $scope.header       = {};
 
+      //Map lokthar wizard commands/response for each field
       Object.keys ($scope.headerFields).forEach (function (field)
       {
-        var fieldName = $scope.headerFields[field].name;
-        
-        if(!$scope.headerFields[field].loktharValidate)
-          return;
 
+        var fieldName       = $scope.headerFields[field].name;
+        var loktharCommands = $scope.headerFields[field].loktharCommands;
 
-        busClient.events.subscribe ('pkgWizard.header.'+ fieldName +'.validated', function (msg)
+        var mapWizardCommands = function (command, actionKey)
         {
-          $scope.headerFields[field].validatorResult = msg.data;
-        });
+          if(!loktharCommands.hasOwnProperty(command))
+            return;
 
-        $scope.headerFields[field].validateField  = function (value)
-        {
-          busClient.command.send ('pkgWizard.header.' + fieldName + '.validate', value || '', null);
+          $scope.headerFields[field].actions = {};
+          $scope.headerFields[field].actions[actionKey] = {};
+          var action = $scope.headerFields[field].actions[actionKey]
+          busClient.events.subscribe (loktharCommands[command], function (msg)
+          {
+            action.result = msg.data;
+          });
+
+          action.sendCommand  = function (value)
+          {
+            busClient.command.send (command, value || '', null);
+          };
         };
 
+        mapWizardCommands ('pkgWizard.header.' + fieldName + '.validate',
+                           'validate');
+
+        var choicesCmd = 'pkgWizard.header.' + fieldName + '.choices';
+        mapWizardCommands (choicesCmd,
+                           'loadChoices');
       });
+
+      //debug point: console.log (JSON.stringify($scope.headerFields,2,' '));
+
 
       //assign defaults values
       Object.keys ($scope.headerFields).forEach (function (field)
@@ -228,6 +245,7 @@ function ($scope, $state) {
 
  $scope.nextStep = function ()
  {
+   $state.go ('packages.editor.data', {packageName : $scope.package.packageName});
    $scope.addNewPartToPackage($scope.dependencies);
    busClient.command.send ('zogManager.edit.data',$scope.package);
    $scope.editorStep++;
@@ -241,8 +259,8 @@ module.controller('PackageEditorDataController', ['$scope','$state',
 function ($scope, $state) {
   $scope.nextStep = function ()
   {
+    $state.go ('packages.editor.finish', {packageName : $scope.package.packageName});
     $scope.addNewPartToPackage($scope.packageContent);
-    busClient.command.send ('zogManager.edit.finish',$scope.package);
     $scope.editorStep++;
   };
 
