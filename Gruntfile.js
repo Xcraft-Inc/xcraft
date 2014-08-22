@@ -1,5 +1,4 @@
-'use strict'
-
+'use strict';
 
 var moduleName = 'grunt';
 
@@ -48,16 +47,17 @@ module.exports = function (grunt)
     zogMake: {},
     newer: listNewer,
 
-
-    // Make sure code styles are up to par and there are no obvious mistakes
-    jshint: {
-      options: {
+    jshint:
+    {
+      options:
+      {
         jshintrc: '.jshintrc',
-
         extract:'always'
       },
-      all: {
-        src: [
+      all:
+      {
+        src:
+        [
           './scripts/**.html',
           './scripts/**.htm',
           './lokthar/lokthar-app/**.html',
@@ -70,12 +70,16 @@ module.exports = function (grunt)
       }
     },
 
-    jshint2: {
-      options: {
+    jshint2:
+    {
+      options:
+      {
         jshintrc: '.jshintrc'
       },
-      all: {
-        src: [
+      all:
+      {
+        src:
+        [
           './Gruntfile.js',
           './scripts/**.js',
           './lokthar/lokthar-app/**.js',
@@ -87,9 +91,8 @@ module.exports = function (grunt)
     },
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-jshint2');
-
+  grunt.loadNpmTasks ('grunt-contrib-jshint');
+  grunt.loadNpmTasks ('grunt-jshint2');
   grunt.loadNpmTasks ('grunt-newer-explicit');
 
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
