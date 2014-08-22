@@ -58,7 +58,7 @@ var defToChangelog = function (packageDef)
                             pad (date.getHours (), 2),
                             pad (date.getMinutes (), 2),
                             pad (date.getSeconds (), 2),
-                            offset > 0 ? '+' : '',
+                            sign,
                             pad (offset, 4));
 
   zogLog.verb (util.format ('ChangeLog file:\n%s', changelog));
