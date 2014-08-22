@@ -76,8 +76,16 @@ function ($scope, busClient)
   {
     $scope.safeApply( function(){
       //header related fields and initial model
-      $scope.headerFields = msg.data;
-      $scope.header       = {};
+      $scope.headerFields         = msg.data;
+      $scope.header               = {};
+      $scope.header.architecture  = [];
+
+      //assign defaults values
+      Object.keys ($scope.headerFields).forEach (function (field)
+      {
+        var fieldName = $scope.headerFields[field].name;
+        $scope.header[fieldName] = $scope.headerFields[field].default;
+      });
 
       //Map lokthar wizard commands/response for each field
       Object.keys ($scope.headerFields).forEach (function (field)
@@ -103,6 +111,8 @@ function ($scope, busClient)
           {
             busClient.command.send (command, value || '', null);
           };
+
+          action.sendCommand($scope.header[fieldName]);
         };
 
         mapWizardCommands ('pkgWizard.header.' + fieldName + '.validate',
@@ -115,15 +125,6 @@ function ($scope, busClient)
 
       //debug point: console.log (JSON.stringify($scope.headerFields,2,' '));
 
-
-      //assign defaults values
-      Object.keys ($scope.headerFields).forEach (function (field)
-      {
-        var fieldName = $scope.headerFields[field].name;
-        $scope.header[fieldName] = $scope.headerFields[field].default;
-      });
-
-      $scope.header.architecture  = [];
     });
   });
 

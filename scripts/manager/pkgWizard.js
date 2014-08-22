@@ -25,7 +25,13 @@ exports.header =
        * and minus (-) signs, and periods (.). They must be at least two
        * characters long and must start with an alphanumeric character.
        */
-      return /^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value);
+      if(! /^[a-z0-9]{1}[a-z0-9+-.]{1,}$/.test (value))
+        return 'Must consist only of lower case letters (a-z), digits (0-9), ' +
+               'plus (+) and minus (-) signs, and periods (.). ' +
+               'They must be at least two characters long and must ' +
+               'start with an alphanumeric character.'
+
+      return true;
     }
   },
   {
@@ -35,7 +41,14 @@ exports.header =
     validate: function (value)
     {
       var regex = new RegExp ('^' + versionRegex.source + '$');
-      return regex.test (value);
+
+      if (!value.trim ())
+        return 'Version is mandatory.'
+
+      if(!regex.test (value))
+        return 'Invalid version';
+
+      return true;
     }
   },
   {
@@ -57,7 +70,14 @@ exports.header =
     validate: function (value)
     {
       var mailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return mailRegex.test (value);
+
+      if (!value.trim ())
+        return 'Email is mandatory.'
+
+      if(! mailRegex.test (value))
+        return 'Invalid email';
+
+      return true;
     }
   },
   {
