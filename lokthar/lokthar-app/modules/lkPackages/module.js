@@ -59,6 +59,9 @@ module.config(function($stateProvider, $urlRouterProvider) {
 module.controller('PackagesController', ['$scope','busClient',
 function ($scope, busClient)
 {
+  //hide menu
+  $.UIkit.offcanvas.offcanvas.hide(false);
+
   //module tiny'def
   $scope.title     = 'Packages';
   $scope.badge     = 'module';

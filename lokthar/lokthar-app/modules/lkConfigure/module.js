@@ -22,6 +22,9 @@ module.config(function($stateProvider, $urlRouterProvider) {
             var yaml     = require ('js-yaml');
             var fs       = require ('fs');
 
+            //hide menu
+            $.UIkit.offcanvas.offcanvas.hide(false);
+            
             $scope.userYaml    = zogConfig.confDefaultFile;
             $scope.defaultYaml = zogConfig.confUserFile;
 

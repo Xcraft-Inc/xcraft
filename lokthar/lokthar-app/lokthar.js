@@ -38,12 +38,14 @@ app.controller('HomeController', ['$scope', function ($scope){
   {
     var shell = require('shell');
     shell.openExternal('https://git.epsitec.ch');
+    $.UIkit.offcanvas.offcanvas.hide(false);
   };
 
   $scope.openConsole = function ()
   {
     var ipc = require('ipc');
     ipc.send('open-console', '');
+    $.UIkit.offcanvas.offcanvas.hide(false);
   };
 
   $scope.openSysroot = function ()
@@ -51,6 +53,7 @@ app.controller('HomeController', ['$scope', function ($scope){
     var shell = require('shell');
     var path  = require('path');
     shell.openItem(path.join(__dirname, '../../../'));
+    $.UIkit.offcanvas.offcanvas.hide(false);
   };
 
   $scope.minimize = function ()
