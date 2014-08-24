@@ -18,6 +18,7 @@ module.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: module_root + 'views/editor.html',
           controller: function ($scope, $stateParams) {
             $scope.package.packageName = $stateParams.packageName;
+            $scope.package.packageDef = [];
             $scope.editorStep = 1;
           }
         }
@@ -127,7 +128,6 @@ function ($scope, busClient)
       });
 
       //debug point: console.log (JSON.stringify($scope.headerFields,2,' '));
-
     });
   });
 
@@ -158,6 +158,13 @@ function ($scope, busClient)
     });
   });
 
+  busClient.events.subscribe ('zogManager.edit.finished', function (msg)
+  {
+    $scope.safeApply( function(){
+      $state.go ('packages.manager');
+    });
+  });
+
   //Manager funtions & vars
   var countSelectedPkg = function ()
   {
@@ -184,12 +191,17 @@ function ($scope, busClient)
     isPassive : true
   };
 
-  $scope.addNewPartToPackage = function (part)
+  $scope.resetPackage = function()
   {
-    for (var attrname in part)
-    {
-      $scope.package[attrname] = part[attrname];
-    }
+    delete $scope.package;
+
+    $scope.package = {
+      isPassive : true,
+      packageName : ''
+    };
+
+    console.log (JSON.stringify ($scope.package));
+    busClient.command.send ('zogManager.edit.header', $scope.package);
   };
 
   //Global functions
@@ -214,17 +226,16 @@ function ($scope, busClient){
 }]);
 
 
-module.controller('PackageEditorHeaderController', ['$scope','$state',
-function ($scope, $state) {
-
+module.controller('PackageEditorHeaderController', ['$scope','$state','$stateParams',
+function ($scope, $state, $stateParams) {
   busClient.command.send ('zogManager.edit.header', $scope.package);
 
   $scope.nextStep = function ()
   {
-    $state.go ('packages.editor.dependency', {packageName : $scope.package.packageName});
-    $scope.addNewPartToPackage($scope.header);
+    $scope.package.packageDef.push ($scope.header);
     busClient.command.send ('zogManager.edit.dependency',$scope.package);
     $scope.editorStep++;
+    $state.go ('packages.editor.dependency', {packageName : $scope.package.packageName});
   };
 
 }]);
@@ -250,7 +261,7 @@ function ($scope, $state) {
  $scope.nextStep = function ()
  {
    $state.go ('packages.editor.data', {packageName : $scope.package.packageName});
-   $scope.addNewPartToPackage($scope.dependencies);
+   $scope.package.packageDef.push ($scope.dependencies);
    busClient.command.send ('zogManager.edit.data',$scope.package);
    $scope.editorStep++;
  };
@@ -264,7 +275,7 @@ function ($scope, $state) {
   $scope.nextStep = function ()
   {
     $state.go ('packages.editor.finish', {packageName : $scope.package.packageName});
-    $scope.addNewPartToPackage($scope.packageContent);
+    $scope.package.packageDef.push ($scope.packageContent);
     $scope.editorStep++;
   };
 
@@ -275,19 +286,7 @@ function ($scope, $state) {
 
   $scope.savePackage = function ()
   {
-    //final template for package creation
-    var packageTemplate         = [];
-    //add header to package template
-    packageTemplate.push($scope.header);
-    //add dependencies to package template
-    for(var d in $scope.dependencies)
-    {
-      packageTemplate.push($scope.dependencies[d]);
-    }
-    //send template to browser side, for package creation
-    //var ipc = require('ipc');
-    //ipc.send('create-package', packageTemplate);
-    //$state.go('packages.manager');
+    busClient.command.send ('zogManager.edit.save',$scope.package);
   };
 
 }]);
