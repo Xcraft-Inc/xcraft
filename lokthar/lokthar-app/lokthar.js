@@ -1,3 +1,5 @@
+'use strict';
+
 var app         = angular.module('lokthar',
                   //depends on :
                   ['ui.router', 'lk-packages','lk-configure']);
@@ -8,24 +10,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/home',
       templateUrl: 'partials/home.html',
-    controller: 'HomeController'
+      controller: 'HomeController'
     })
     .state('profile', {
       url: '/profile',
-        templateUrl: 'partials/profile.html',
+      templateUrl: 'partials/profile.html',
     controller: 'ProfileController'
     })
     .state('about', {
       url: '/about',
-        templateUrl: 'partials/about.html',
-    controller: 'AboutController'
-    })
+      templateUrl: 'partials/about.html',
+      controller: 'AboutController'
+    });
 });
 
 app.controller('ProfileController', ['$scope', function ($scope){
   $scope.title = 'Mon profile';
   $scope.badge = 'dev';
-  $scope.icon = 'user'
+  $scope.icon = 'user';
 }]);
 
 app.controller('HomeController', ['$scope', function ($scope){
@@ -89,5 +91,5 @@ app.controller('HomeController', ['$scope', function ($scope){
 app.controller('AboutController', ['$scope', function ($scope){
   $scope.title  = 'A propos';
   $scope.badge  = 'dev';
-  $scope.icon   = 'question'
+  $scope.icon   = 'question';
 }]);

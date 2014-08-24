@@ -1,11 +1,10 @@
+'use strict';
+
 //Link relative zogConfig lib
 var zogConfig     = require ('../../scripts/zogConfig.js')();
 var app           = require ('app');
 var ipc           = require ('ipc');
-var shell         = require ('shell');
 var BrowserWindow = require ('browser-window');
-var async         = require ('async');
-var zogLog        = require ('zogLog')('lokthar').color(false);
 var busClient     = require (zogConfig.busClient);
 
 // Report crashes to our server.

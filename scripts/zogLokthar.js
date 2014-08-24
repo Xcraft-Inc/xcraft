@@ -3,7 +3,6 @@
 var moduleName = 'lokthar';
 
 var fs          = require ('fs');
-var sys         = require ('sys');
 var path        = require ('path');
 var async       = require ('async');
 var exec        = require ('child_process').exec;
