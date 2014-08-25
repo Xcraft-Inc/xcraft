@@ -42,7 +42,7 @@ exports.header =
     {
       var regex = new RegExp ('^' + versionRegex.source + '$');
 
-      if (!value.toString().trim())
+      if (!value.toString ().trim ())
         return 'Version is mandatory.'
 
       if (!regex.test (value))
