@@ -105,7 +105,7 @@ var processFile = function (packageName, files, arch, callbackDone)
         createConfigJson (packageName, sharePath);
 
         /* Build the package with wpkg. */
-        wpkgEngine.build (packagePath, function (error)
+        wpkgEngine.build (packagePath, packageDef.distribution, function (error)
         {
           /* When we reach the last item, then we have done all async work. */
           if (i == files.length - 1)
@@ -177,28 +177,14 @@ var processFile = function (packageName, files, arch, callbackDone)
     callbackDone (true);
 };
 
-var processCtrlFile = function (packageName, arch, callbackDone)
-{
-  var controlFiles = pkgControl.controlFiles (packageName, arch, true);
-
-  processFile (packageName, controlFiles, arch, callbackDone);
-};
-
-var processChangelogFile = function (packageName, callbackDone)
-{
-  var changelogFiles = pkgChangelog.changelogFile (packageName, true);
-
-  processFile (packageName, changelogFiles, 'source', callbackDone);
-};
-
 exports.package = function (packageName, arch, callbackDone)
 {
   try
   {
-    processCtrlFile (packageName, arch, function (done)
-    {
-      processChangelogFile (packageName, callbackDone);
-    });
+    pkgChangelog.changelogFiles (packageName, arch, true);
+    var controlFiles = pkgControl.controlFiles (packageName, arch, true);
+
+    processFile (packageName, controlFiles, arch, callbackDone);
   }
   catch (err)
   {

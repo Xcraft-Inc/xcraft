@@ -209,7 +209,7 @@ var wpkgArgs = function (callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.build = function (packagePath, callbackDone)
+exports.build = function (packagePath, distribution, callbackDone)
 {
   var pathObj = packagePath.split (path.sep);
 
@@ -222,7 +222,7 @@ exports.build = function (packagePath, callbackDone)
       return;
 
     var wpkg = new wpkgArgs (callbackDone);
-    var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
+    var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, distribution);
 
     /* We create or update the index with our new package. */
     wpkg.createIndex (repositoryPath, zogConfig.pkgIndex);

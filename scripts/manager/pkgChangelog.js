@@ -21,49 +21,50 @@ var pad = function (n, w)
  */
 var defToChangelog = function (packageDef)
 {
-  var changelog = '';
+  var changelogList = {};
 
-  /* The package definition is wrong if there is more than one architecture
-   * when at least the 'source' architecture is set.
-   */
-  if (packageDef.architecture[0] !== 'source')
-    return null;
-
-  changelog = util.format ('%s (%s) %s; urgency=low\n\n',
-                           packageDef.name,
-                           packageDef.version,
-                           packageDef.distribution);
-  changelog += '  * Package source.\n';
-  changelog += util.format ('\n -- %s <%s>  ',
-                            packageDef.maintainer.name,
-                            packageDef.maintainer.email);
-
-  var date = new Date ();
-  var d = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
-  var m = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-
-  var offset = date.getTimezoneOffset () / 60;
-  var sign = '+';
-  if (offset < 0)
+  packageDef['architecture'].forEach (function (arch)
   {
-    sign = '-';
-    offset = -offset;
-  }
+    var changelog = '';
 
-  changelog += util.format ('%s, %s %s %d %s:%s:%s %s%s\n',
-                            d[date.getDay ()],
-                            pad (date.getDate (), 2),
-                            m[date.getMonth ()],
-                            date.getFullYear (),
-                            pad (date.getHours (), 2),
-                            pad (date.getMinutes (), 2),
-                            pad (date.getSeconds (), 2),
-                            sign,
-                            pad (offset, 4));
+    changelog = util.format ('%s (%s) %s; urgency=low\n\n',
+                             packageDef.name,
+                             packageDef.version,
+                             packageDef.distribution);
+    changelog += '  * Package source.\n';
+    changelog += util.format ('\n -- %s <%s>  ',
+                              packageDef.maintainer.name,
+                              packageDef.maintainer.email);
 
-  zogLog.verb (util.format ('ChangeLog file:\n%s', changelog));
+    var date = new Date ();
+    var d = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+    var m = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
 
-  return changelog;
+    var offset = date.getTimezoneOffset () / 60;
+    var sign = '+';
+    if (offset < 0)
+    {
+      sign = '-';
+      offset = -offset;
+    }
+
+    changelog += util.format ('%s, %s %s %d %s:%s:%s %s%s\n',
+                              d[date.getDay ()],
+                              pad (date.getDate (), 2),
+                              m[date.getMonth ()],
+                              date.getFullYear (),
+                              pad (date.getHours (), 2),
+                              pad (date.getMinutes (), 2),
+                              pad (date.getSeconds (), 2),
+                              sign,
+                              pad (offset, 4));
+
+    changelogList[arch] = changelog;
+
+    zogLog.verb (util.format ('ChangeLog file:\n%s', changelog));
+  });
+
+  return changelogList;
 };
 
 /**
@@ -72,7 +73,7 @@ var defToChangelog = function (packageDef)
  * @param {boolean} saveFiles - Saves the control files.
  * @returns {string[]} The list of all control file paths.
  */
-exports.changelogFile = function (packageName, saveFiles)
+exports.changelogFiles = function (packageName, packageArch, saveFiles)
 {
   if (saveFiles)
     zogLog.info ('if necessary, save the ChangeLog file for ' + packageName);
@@ -88,25 +89,28 @@ exports.changelogFile = function (packageName, saveFiles)
 
   var changelogFiles = [];
 
-  /* Only for source packages. */
-  if (!changelog)
-    return [];
-
-  var wpkgDir       = path.join (zogConfig.pkgTempRoot, 'source', packageName, zogConfig.pkgWPKG);
-  var changelogFile = path.join (wpkgDir, 'ChangeLog');
-
-  if (saveFiles)
+  Object.keys (changelog).forEach (function (arch)
   {
-    if (fs.existsSync (changelogFile))
-      zogLog.warn ('the ChangeLog file will be overwritten: ' + changelogFile);
+    if (packageArch && arch !== packageArch)
+      return;
 
-    zogFs.mkdir (wpkgDir);
-    fs.writeFileSync (changelogFile, changelog);
-  }
+    var wpkgDir       = path.join (zogConfig.pkgTempRoot, arch, packageName, zogConfig.pkgWPKG);
+    var changelogFile = path.join (wpkgDir, 'ChangeLog');
 
-  changelogFiles.push (
-  {
-    'control': changelogFile
+    if (saveFiles)
+    {
+      if (fs.existsSync (changelogFile))
+        zogLog.warn ('the ChangeLog file will be overwritten: ' + changelogFile);
+
+      zogFs.mkdir (wpkgDir);
+      fs.writeFileSync (changelogFile, changelog[arch]);
+    }
+
+    changelogFiles.push (
+    {
+      'arch'   : arch,
+      'control': changelogFile
+    });
   });
 
   return changelogFiles;
