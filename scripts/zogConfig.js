@@ -3,7 +3,7 @@
 var moduleName = 'config';
 
 var path       = require ('path');
-var confWizard = require ('./config/confWizard.js')
+var confWizard = require ('./config/confWizard.js');
 var zogLog     = require ('zogLog') (moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
