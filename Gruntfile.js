@@ -51,29 +51,6 @@ module.exports = function (grunt)
     {
       options:
       {
-        jshintrc: '.jshintrc',
-        extract:'always'
-      },
-      all:
-      {
-        src:
-        [
-          './scripts/**.html',
-          './scripts/**.htm',
-          './lokthar/lokthar-app/**.html',
-          './lokthar/lokthar-app**.htm',
-          './node_modules/zog**.html',
-          './node_modules/zog**.htm',
-          './tests/**.html',
-          './tests/**.htm',
-        ]
-      }
-    },
-
-    jshint2:
-    {
-      options:
-      {
         jshintrc: '.jshintrc'
       },
       all:
@@ -88,11 +65,10 @@ module.exports = function (grunt)
           './tests/**.js',
         ]
       }
-    },
+    }
   });
 
   grunt.loadNpmTasks ('grunt-contrib-jshint');
-  grunt.loadNpmTasks ('grunt-jshint2');
   grunt.loadNpmTasks ('grunt-newer-explicit');
 
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
