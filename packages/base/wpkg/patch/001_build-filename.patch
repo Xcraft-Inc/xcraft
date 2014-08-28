@@ -1,0 +1,124 @@
+From 2d07ad148b90519dbad70de1a35591d7ee430ee2 Mon Sep 17 00:00:00 2001
+From: AlexisWilke <alexis@m2osw.com>
+Date: Fri, 22 Aug 2014 03:25:17 -0700
+Subject: [PATCH] Update fixing test of filename to include extension.
+
+See bug report https://sourceforge.net/p/unigw/discussion/647573/thread/f4ff021d/
+by Mathiew Shroeter.
+Added a test to ensure that filenames having two periods before the extension are now accepted.
+Added a test to ensure that a filename ending with a period is forbidden.
+Unfortuantely a filename ending with a space is caught earlier so I could not add that test.
+---
+ wpkg/libdebpackages/wpkgar_build.cpp      |  2 +-
+ wpkg/tests/unittests/unittest_package.cpp | 35 ++++++++++++++++++++++++++++++-
+ wpkg/tests/unittests/unittest_package.h   |  2 ++
+ 3 files changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/wpkg/libdebpackages/wpkgar_build.cpp b/wpkg/libdebpackages/wpkgar_build.cpp
+index b8ade38..ceba6a8 100644
+--- a/wpkg/libdebpackages/wpkgar_build.cpp
++++ b/wpkg/libdebpackages/wpkgar_build.cpp
+@@ -3354,7 +3354,7 @@ void wpkgar_build::build_deb(const wpkg_filename::uri_filename& dir_name)
+                 // this is a logic error as it should not happen
+                 throw std::logic_error("filename does not include at least one \"/\", it cannot be valid in wpkgar_build::build_deb().");
+             }
+-            const std::string file_basename(filename.basename());
++            const std::string file_basename(filename.segment(filename.segment_size() - 1));
+             if(file_basename == ".." || file_basename == ".")
+             {
+                 // ignore this or parent directories
+diff --git a/wpkg/tests/unittests/unittest_package.cpp b/wpkg/tests/unittests/unittest_package.cpp
+index 18abfaf..bdec1cb 100644
+--- a/wpkg/tests/unittests/unittest_package.cpp
++++ b/wpkg/tests/unittests/unittest_package.cpp
+@@ -192,6 +192,7 @@ void create_file(wpkg_control::file_list_t& files, wpkg_control::file_list_t::si
+  *
+  * \param[in] name  The name of the of the package.
+  * \param[in] ctrl  The control file for that package.
++ * \param[in] reset_wpkg_dir  Whether the directory should be reset first.
+  */
+ void create_package(const std::string& name, std::shared_ptr<wpkg_control::control_file> ctrl, bool reset_wpkg_dir = true)
+ {
+@@ -247,7 +248,19 @@ void create_package(const std::string& name, std::shared_ptr<wpkg_control::contr
+     }
+     printf("Build Command: \"%s\"\n", cmd.c_str());
+     fflush(stdout);
+-    CPPUNIT_ASSERT(system(cmd.c_str()) == 0);
++
++    if(ctrl->variable_is_defined("BUILD_RESULT"))
++    {
++        const int r(system(cmd.c_str()));
++        const std::string expected_result(ctrl->get_variable("BUILD_RESULT"));
++        const int expected_return_value(strtol(expected_result.c_str(), 0, 0));
++        printf("  Build result = %d (expected %d)\n", WEXITSTATUS(r), expected_return_value);
++        CPPUNIT_ASSERT(WEXITSTATUS(r) == expected_return_value);
++    }
++    else
++    {
++        CPPUNIT_ASSERT(system(cmd.c_str()) == 0);
++    }
+ }
+ 
+ /** \brief Install a package that you previously created.
+@@ -914,6 +927,7 @@ void PackageUnitTests::upgrade_package()
+         "/etc/t1.conf 0123456789abcdef0123456789abcdef\n"
+         "/usr/bin/t1 0123456789abcdef0123456789abcdef\n"
+         "/usr/share/doc/t1/copyright 0123456789abcdef0123456789abcdef\n"
++        "/usr/share/doc/t1/index..html 0123456789abcdef0123456789abcdef\n"
+     );
+     create_package("t1", ctrl);
+ 
+@@ -944,6 +958,7 @@ void PackageUnitTests::upgrade_package()
+     ctrl->set_field("Files", "conffiles\n"
+         "/usr/bin/t1 0123456789abcdef0123456789abcdef\n"
+         "/usr/share/doc/t1/copyright 0123456789abcdef0123456789abcdef\n"
++        "/usr/share/doc/t1/info..save 0123456789abcdef0123456789abcdef\n"
+     );
+     create_package("t1", ctrl);
+ 
+@@ -4448,4 +4463,22 @@ void PackageUnitTests::complex_tree_in_repository_with_spaces()
+ }
+ 
+ 
++void PackageUnitTests::unacceptable_filename()
++{
++    {
++        // filename ending with a period
++        std::shared_ptr<wpkg_control::control_file> ctrl_t1_0(get_new_control_file(__FUNCTION__));
++        ctrl_t1_0->set_field("Files", "conffiles\n"
++            "/usr/bin/t1 0123456789abcdef0123456789abcdef\n"
++            "/usr/bin/bad. 0123456789abcdef0123456789abcdef\n"
++            "/usr/share/doc/t1/copyright 0123456789abcdef0123456789abcdef\n"
++            "/usr/share/doc/t1/info 0123456789abcdef0123456789abcdef\n"
++        );
++        ctrl_t1_0->set_field("Version", "1.0");
++        ctrl_t1_0->set_variable("BUILD_RESULT", "1");
++        create_package("t1", ctrl_t1_0);
++    }
++}
++
++
+ // vim: ts=4 sw=4 et
+diff --git a/wpkg/tests/unittests/unittest_package.h b/wpkg/tests/unittests/unittest_package.h
+index 3c8e897..2fbc7c7 100644
+--- a/wpkg/tests/unittests/unittest_package.h
++++ b/wpkg/tests/unittests/unittest_package.h
+@@ -83,6 +83,7 @@ class PackageUnitTests : public CPPUNIT_NS::TestFixture
+         CPPUNIT_TEST( scripts_selection_with_spaces );
+         CPPUNIT_TEST( complex_tree_in_repository );
+         CPPUNIT_TEST( complex_tree_in_repository_with_spaces );
++        CPPUNIT_TEST( unacceptable_filename );
+     CPPUNIT_TEST_SUITE_END();
+ 
+ public:
+@@ -143,6 +144,7 @@ protected:
+     void scripts_selection_with_spaces();
+     void complex_tree_in_repository();
+     void complex_tree_in_repository_with_spaces();
++    void unacceptable_filename();
+ };
+ 
+ #endif
+-- 
+1.9.4.msysgit.0
+
