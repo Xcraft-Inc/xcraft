@@ -4,9 +4,9 @@
 
 PATH=${node%/*}:$PATH
 
-if [ -d "./node_modules/grunt-contrib-jshint" -a -d "./node_modules/grunt-jshint2" ]; then
-  ./node_modules/.bin/grunt --force jshint jshint2 $@
+if [ -d "./node_modules/grunt-contrib-jshint" ]; then
+  ./node_modules/.bin/grunt --force jshint $@
 else
-  echo "Install grunt-contrib-jshint and grunt-jshint2 first"
-  echo "$ .npm install grunt-contrib-jshint grunt-jshint2"
+  echo "Install grunt-contrib-jshint first"
+  echo "$ .npm install grunt-contrib-jshint
 fi
