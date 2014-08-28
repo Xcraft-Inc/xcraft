@@ -195,7 +195,7 @@ cmd['edit.save'] = function (msg)
   zogLog.verb ('JSON output for package definition:\n'
                + JSON.stringify (packageDef, null, '  '));
 
-  pkgCreate.pkgTemplate (packageDef, function (done)
+  pkgCreate.pkgTemplate (packageDef, function (done) /* jshint ignore:line */
   {
     busClient.events.send ('zogManager.edit.finished');
   });
@@ -214,7 +214,7 @@ cmd.make = function (packageName)
   if (!packageName)
     packageName = 'all';
 
-  if (packageName == 'all')
+  if (packageName === 'all')
   {
     /* We use a grunt task for this job (with mtime check). */
     var grunt     = require ('grunt');
@@ -249,7 +249,7 @@ cmd.remove = function (msg)
 
   var pkgCmd = require (zogConfig.libPkgCmd);
 
-  pkgCmd.remove (packageRef, function (done)
+  pkgCmd.remove (packageRef, function (done) /* jshint ignore:line */
   {
     busClient.events.send ('zogManager.remove.finished');
   });
