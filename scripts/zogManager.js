@@ -25,17 +25,17 @@ cmd.list = function ()
 
   var list = pkgList.listProducts ();
   var header = util.format ('name%s version%s architectures',
-                            Array (40 - 'name'.length).join (' '),
-                            Array (15 - 'version'.length).join (' '));
+                            new Array (40 - 'name'.length).join (' '),
+                            new Array (15 - 'version'.length).join (' '));
   console.log (header);
-  console.log (Array (header.length + 1).join ('-'));
+  console.log (new Array (header.length + 1).join ('-'));
   list.forEach (function (def)
   {
     console.log ('%s%s %s%s',
                  def.name,
-                 Array (40 - def.name.length).join (' '),
+                 new Array (40 - def.name.length).join (' '),
                  def.version,
-                 Array (15 - def.version.toString ().length).join (' '),
+                 new Array (15 - def.version.toString ().length).join (' '),
                  def.architecture.join (', '));
   });
 
@@ -71,7 +71,6 @@ cmd['edit.header'] = function (msg)
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
 
-  var pkgControl  = require (zogConfig.libPkgControl);
   var wizard      = require (zogConfig.libPkgWizard);
 
   /* The first question is the package's name, then we set the default value. */
@@ -112,7 +111,6 @@ cmd['edit.dependency'] = function (msg)
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
 
-  var pkgControl  = require (zogConfig.libPkgControl);
   var wizard      = require (zogConfig.libPkgWizard);
 
   try
@@ -162,7 +160,6 @@ cmd['edit.data'] = function (msg)
   var packageDef  = msg.data.packageDef;
   var isPassive   = msg.data.isPassive;
 
-  var pkgControl = require (zogConfig.libPkgControl);
   var wizard     = require (zogConfig.libPkgWizard);
 
   try
@@ -221,9 +218,6 @@ cmd.make = function (packageName)
   {
     /* We use a grunt task for this job (with mtime check). */
     var grunt     = require ('grunt');
-    var gruntFile = path.join (zogConfig.toolchainRoot, 'Gruntfile.js');
-    var zogMake   = require (gruntFile) (grunt);
-
     grunt.tasks ([ 'newer' ]);
   }
   else

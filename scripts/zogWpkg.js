@@ -21,7 +21,7 @@ var cmd = {};
 /* TODO: must be generic. */
 var makeRun = function (callback)
 {
-  zogLog.info ('begin building of wpkg')
+  zogLog.info ('begin building of wpkg');
 
   var os = require ('os');
   var args =
@@ -34,7 +34,7 @@ var makeRun = function (callback)
   args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
   var makeBin = 'make';
-  var make = zogProcess.spawn (makeBin, args, function (done)
+  zogProcess.spawn (makeBin, args, function (done)
   {
     if (done)
       zogLog.info ('wpkg is built and installed');
@@ -68,7 +68,7 @@ var cmakeRun = function (srcDir, callback)
     args.unshift ('-G', 'MSYS Makefiles');
 
   process.chdir (buildDir);
-  var cmake = zogProcess.spawn ('cmake', args, function (done)
+  zogProcess.spawn ('cmake', args, function (done)
   {
     callback (done ? null : 'cmake failed');
   }, function (line)
@@ -88,7 +88,7 @@ var patchRun = function (srcDir, callback)
   var os = zogPlatform.getOs ();
 
   var patchDir = path.join (zogConfig.pkgBaseRoot, moduleName, 'patch');
-  var list = zogFs.ls (patchDir, new RegExp ('^([0-9]+|' + os + '-).*\.patch$'));
+  var list = zogFs.ls (patchDir, new RegExp ('^([0-9]+|' + os + '-).*.patch$'));
 
   if (!list.length)
   {
@@ -98,7 +98,7 @@ var patchRun = function (srcDir, callback)
 
   async.eachSeries (list, function (file, callback)
   {
-    zogLog.info ('apply patch: ' + file)
+    zogLog.info ('apply patch: ' + file);
     var patchFile = path.join (patchDir, file);
 
     zogDevel.patch (srcDir, patchFile, 2, function (done)
