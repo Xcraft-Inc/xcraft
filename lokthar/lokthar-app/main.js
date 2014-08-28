@@ -35,9 +35,7 @@ ipc.on('maximize', function(event, arg) {
 });
 
 ipc.on('close-app', function(event, arg) {
-  busClient.stop (function(done) {
-    app.quit ();
-  });
+  mainWindow.emit ('closed');
 });
 
 app.on('ready', function() {
@@ -49,10 +47,9 @@ app.on('ready', function() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    busClient.stop (function(done) {
-      mainWindow = null;
-      app.quit ();
-    });
+    mainWindow = null;
+    app.quit ();
+    busClient.stop ();
 
   });
 
