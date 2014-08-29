@@ -59,11 +59,12 @@ module.exports = function (grunt)
         src:
         [
           './Gruntfile.js',
-          './scripts/**.js',
-          './lokthar/lokthar-app/**.js',
-          './node_modules/zog**.js',
-          './packages/products/**.js',
-          './tests/**.js',
+          './scripts/**/*.js',
+          './lokthar/lokthar-app/*.js',
+          './lokthar/lokthar-app/modules/**/*.js',
+          './node_modules/zog**/**/*.js',
+          './packages/products/**/*.js',
+          './tests/**/*.js',
         ]
       }
     }
