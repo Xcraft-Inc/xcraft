@@ -53,7 +53,9 @@ var inquirerToPackage = function (inquirerPkg)
     }
   });
 
-  packageDef.distribution = zogConfig.pkgRepository;
+  packageDef.distribution = packageDef.architecture[0] === 'source'
+                          ? 'sources/'
+                          : zogConfig.pkgRepository;
 
   return packageDef;
 };
