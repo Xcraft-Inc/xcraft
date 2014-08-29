@@ -8,7 +8,6 @@ var util = require ('util');
 
 var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
-var pkgControl = require ('./pkgControl.js');
 var wpkgEngine = require ('./wpkgEngine.js');
 
 
@@ -40,7 +39,7 @@ var addRepositoryForAll = function (packageName, arch)
       }
 
       updateAndInstall (packageName, arch);
-    })
+    });
   }
   else
     updateAndInstall (packageName, arch);
@@ -56,7 +55,7 @@ var parsePkgRef = function (packageRef)
 
 var checkArch = function (arch)
 {
-  if (zogConfig.architectures.indexOf (arch) == -1)
+  if (zogConfig.architectures.indexOf (arch) === -1)
   {
     zogLog.err ('the architecture ' + arch + ' is unknown');
     return false;
@@ -101,7 +100,7 @@ exports.install = function (packageRef)
       }
 
       addRepositoryForAll (pkg.name, pkg.arch);
-    })
+    });
   });
 };
 

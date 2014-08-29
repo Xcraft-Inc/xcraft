@@ -22,7 +22,7 @@ var generateBusToken = function (callbackDone)
   var createKey = function (key)
   {
     var shasum = crypto.createHash ('sha1');
-    shasum.update (buf);
+    shasum.update (key);
     return shasum.digest ('hex');
   };
 
@@ -89,7 +89,7 @@ exports.getToken = function ()
 
 exports.boot = function ()
 {
-  zogLog.verb ("Booting...");
+  zogLog.verb ('Booting...');
 
   /* init all boot chain */
   async.auto (

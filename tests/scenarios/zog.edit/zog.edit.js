@@ -7,7 +7,6 @@ var path   = require ('path');
 var fs     = require ('fs');
 
 var zogLog     = require ('zogLog') (moduleName);
-var zogManager = require ('../../../scripts/zogManager.js');
 var zogConfig  = require ('../../../scripts/zogConfig.js') ();
 var zogBoot    = require ('../../../scripts/zogBoot.js');
 
@@ -56,6 +55,8 @@ var registerSubTest = function (category, msg, packageData)
 
 var registerTest = function (listData, category)
 {
+  var i = 0;
+
   listData.forEach (function (packageData)
   {
     packageData['mocha.id'] = i++;
@@ -85,7 +86,6 @@ var registerTest = function (listData, category)
   });
 };
 
-var i = 0;
 var listData = JSON.parse (fs.readFileSync (path.join (__dirname, './data.json'), 'utf8'));
 
 registerTest (listData, 'header');

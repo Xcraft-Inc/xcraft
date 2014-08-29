@@ -3,7 +3,6 @@
 
 var moduleName = 'command-bus';
 
-var zogConfig  = require ('../zogConfig.js') ();
 var zogLog     = require ('zogLog') (moduleName);
 var axon       = require ('axon');
 
@@ -51,7 +50,7 @@ exports.registerErrorHandler = function (errorHandler)
 {
   zogLog.verb ('Error handler registered');
 
-  commandsRegistry['error'] = errorHandler;
+  commandsRegistry.error = errorHandler;
 };
 
 sock.on ('message', function (cmd, msg)
@@ -61,7 +60,7 @@ sock.on ('message', function (cmd, msg)
   zogLog.verb ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> msg: %s', cmd, JSON.stringify (msg));
 
-  if (msg.token == token)
+  if (msg.token === token)
   {
     if (!commandsRegistry.hasOwnProperty (cmd))
     {

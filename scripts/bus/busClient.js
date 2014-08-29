@@ -24,7 +24,7 @@ subscriptions.on ('message', function (topic, msg)
                topic,
                JSON.stringify (msg));
 
-  if (msg.token == token)
+  if (msg.token === token)
     eventsHandlerRegistry[topic] (msg);
   else
     zogLog.verb ('invalid token, event discarded');
@@ -55,7 +55,7 @@ exports.connect = function (busToken, callbackDone)
     }
   ], function (err)
   {
-    zogLog.verb ("Connected with token: " + token);
+    zogLog.verb ('Connected with token: ' + token);
     callbackDone (!err);
   });
 
@@ -84,8 +84,8 @@ exports.events  =
         msg.data = JSON.parse (msg.data, function (key, value)
         {
           if (value
-              && typeof value === "string"
-              && value.substr (0, 8) == "function")
+              && typeof value === 'string'
+              && value.substr (0, 8) === 'function')
           {
             var startBody = value.indexOf ('{') + 1;
             var endBody   = value.lastIndexOf ('}');
