@@ -3,6 +3,7 @@
 var moduleName = 'grunt';
 
 var path = require ('path');
+var fs   = require ('fs');
 
 var zogConfig  = require ('./scripts/zogConfig.js') ();
 var zogFs      = require ('zogFs');
@@ -68,7 +69,8 @@ module.exports = function (grunt)
     }
   });
 
-  grunt.loadNpmTasks ('grunt-contrib-jshint');
+  if (fs.existsSync ('./node_modules/grunt-contrib-jshint'))
+    grunt.loadNpmTasks ('grunt-contrib-jshint');
   grunt.loadNpmTasks ('grunt-newer-explicit');
 
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
