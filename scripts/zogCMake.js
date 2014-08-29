@@ -18,7 +18,7 @@ var cmd = {};
 /* TODO: must be generic. */
 var makeRun = function (callback)
 {
-  zogLog.info ('begin building of cmake')
+  zogLog.info ('begin building of cmake');
 
   var os = require ('os');
   var args =
@@ -30,7 +30,7 @@ var makeRun = function (callback)
   /* Force 1 on Windows because sometimes it fails with the depends. */
   args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
 
-  var make = zogProcess.spawn ('make', args, function (done)
+  zogProcess.spawn ('make', args, function (done)
   {
     if (done)
       zogLog.info ('cmake is built and installed');
@@ -51,8 +51,6 @@ var bootstrapRun = function (cmakeDir, callback)
   /* FIXME, TODO: use a backend (a module) for building cmake. */
   /* bootstrap --prefix=/mingw && make && make install */
 
-  var zogFs = require ('zogFs');
-
   var args =
   [
     'bootstrap',
@@ -60,7 +58,7 @@ var bootstrapRun = function (cmakeDir, callback)
   ];
 
   process.chdir (cmakeDir);
-  var cmake = zogProcess.spawn ('sh', args, function (done)
+  zogProcess.spawn ('sh', args, function (done)
   {
     callback (done ? null : 'bootstrap failed');
   }, function (line)
@@ -100,7 +98,7 @@ cmd.install = function ()
 
       zogExtract.targz (outputFile, outDir, null, function (done)
       {
-        callback (done ? null : 'extract failed', path.join (outDir, path.basename (outputFile, '.tar.gz')))
+        callback (done ? null : 'extract failed', path.join (outDir, path.basename (outputFile, '.tar.gz')));
       });
     }],
 

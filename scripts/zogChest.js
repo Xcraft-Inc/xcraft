@@ -30,7 +30,7 @@ cmd.start = function ()
     }
     catch (err)
     {
-      if (err.code == 'ESRCH')
+      if (err.code === 'ESRCH')
       {
         zogLog.warn ('but the process can not be found, then we try to start it');
         fs.unlinkSync (zogConfig.chest.pid);
@@ -71,7 +71,7 @@ cmd.stop = function ()
   }
   catch (err)
   {
-    if (err.code != 'ENOENT')
+    if (err.code !== 'ENOENT')
       zogLog.err (err);
   }
 

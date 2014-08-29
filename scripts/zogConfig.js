@@ -62,7 +62,7 @@ module.exports = function ()
 
       Object.keys (answers).forEach (function (item)
       {
-        if (conf[wizName][item] != answers[item])
+        if (conf[wizName][item] !== answers[item])
         {
           conf[wizName][item] = answers[item];
           hasChanged = true;

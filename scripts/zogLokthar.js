@@ -80,7 +80,7 @@ cmd.install = function ()
   {
     taskBuild: build,
     taskGrunt: ['taskBuild', grunt]
-  }, function (err, results)
+  }, function (err)
   {
     if (err)
       zogLog.err (err);

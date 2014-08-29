@@ -2,7 +2,6 @@
 'use strict';
 
 var program = require ('commander');
-var path    = require ('path');
 var clc     = require ('cli-color');
 
 var zogLog     = require ('zogLog') ('zog');
@@ -77,12 +76,12 @@ if (program.configure)
   boot = false;
 
 /* Display help if zog is called without command arguments. */
-var length = 3;
+var argLength = 3;
 if (program.verbosity)
-  length++;
+  argLength++;
 if (program.nocolor)
-  length++;
-if (process.argv.length < length)
+  argLength++;
+if (process.argv.length < argLength)
   program.help (); /* Print help and exits immediatly. */
 
 /**
@@ -103,7 +102,7 @@ var main = function (done)
   {
     zogLog.verb ('end command');
 
-    busClient.stop (function (done)
+    busClient.stop (function (done) /* jshint ignore:line */
     {
       zogBoot.stop ();
     });

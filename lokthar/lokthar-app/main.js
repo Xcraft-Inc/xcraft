@@ -13,28 +13,28 @@ require('crash-reporter').start();
 // be closed automatically when the javascript object is GCed.
 var mainWindow = null;
 
-ipc.on('open-console', function(event, arg) {
+ipc.on('open-console', function(event, arg) { // jshint ignore:line
   BrowserWindow.getFocusedWindow().toggleDevTools();
 });
 
-ipc.on('create-package', function(event, arg) {
+ipc.on('create-package', function(event, arg) { // jshint ignore:line
   var pkgCreate = require (zogConfig.libPkgCreate);
   pkgCreate.pkgTemplate (arg);
 });
 
-ipc.on('minimize', function(event, arg) {
+ipc.on('minimize', function(event, arg) { // jshint ignore:line
   mainWindow.minimize();
 });
 
-ipc.on('unmaximize', function(event, arg) {
+ipc.on('unmaximize', function(event, arg) { // jshint ignore:line
   mainWindow.unmaximize();
 });
 
-ipc.on('maximize', function(event, arg) {
+ipc.on('maximize', function(event, arg) { // jshint ignore:line
   mainWindow.maximize();
 });
 
-ipc.on('close-app', function(event, arg) {
+ipc.on('close-app', function(event, arg) { // jshint ignore:line
   mainWindow.emit ('closed');
 });
 
