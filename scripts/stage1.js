@@ -89,8 +89,13 @@ var stage2 = function ()
 
     zogProcess.spawn (zog, args, function (done)
     {
-      callback ();
+      callback (done ? null : 'action ' + action + ' has failed');
     });
+  },
+  function (err)
+  {
+    if (err)
+      zogLog.err (err);
   });
 };
 
@@ -103,7 +108,10 @@ try
 
   zogProcess.spawn (npm, args, function (done)
   {
-    stage2 ();
+    if (done)
+      stage2 ();
+    else
+      console.log ('[' + moduleName + '] Err: npm has failed');
   }, function (line)
   {
     console.log ('[' + moduleName + '] Verb: ' + line);
