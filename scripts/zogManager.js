@@ -192,7 +192,7 @@ cmd['edit.save'] = function (msg)
 {
   var packageDef  = msg.data.packageDef;
 
-  zogLog.verb ('JSON output for package definition:\n'
+  zogLog.verb ('JSON output for pre-package definition:\n'
                + JSON.stringify (packageDef, null, '  '));
 
   pkgCreate.pkgTemplate (packageDef, function (done) /* jshint ignore:line */
