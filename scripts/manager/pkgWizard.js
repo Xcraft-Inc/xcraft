@@ -296,6 +296,7 @@ exports.busCommands = function ()
       {
         /* execute function */
         var result = fieldDef[funcName] (value.data);
+        console.log (funcName + ': ' + result);
         busClient.events.send (evtName, result);
       }
     });
@@ -312,6 +313,7 @@ exports.busCommands = function ()
       tryPushFunction (fieldDef, category, 'validate', 'validated');
       tryPushFunction (fieldDef, category, 'choices',  'choices.loaded');
       tryPushFunction (fieldDef, category, 'filter',   'filtered');
+      tryPushFunction (fieldDef, category, 'when',   'displayed');
     });
   };
 

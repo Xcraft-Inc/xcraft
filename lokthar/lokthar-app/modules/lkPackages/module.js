@@ -18,7 +18,7 @@ module.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: module_root + 'views/editor.html',
           controller: function ($scope, $stateParams) {
             $scope.package.packageName = $stateParams.packageName;
-            $scope.package.packageDef = [];
+            $scope.package.packageDef  = [];
             $scope.editorStep = 1;
           }
         }
@@ -92,41 +92,8 @@ function ($scope, busClient)
       });
 
       //Map lokthar wizard commands/response for each field
-      Object.keys ($scope.headerFields).forEach (function (field)
-      {
-
-        var fieldName       = $scope.headerFields[field].name;
-        var loktharCommands = $scope.headerFields[field].loktharCommands;
-
-        var mapWizardCommands = function (command, actionKey)
-        {
-          if(!loktharCommands.hasOwnProperty(command))
-            return;
-
-          $scope.headerFields[field].actions = {};
-          $scope.headerFields[field].actions[actionKey] = {};
-          var action = $scope.headerFields[field].actions[actionKey]
-          busClient.events.subscribe (loktharCommands[command], function (msg)
-          {
-            action.result = msg.data;
-          });
-
-          action.sendCommand  = function (value)
-          {
-            busClient.command.send (command, value || '', null);
-          };
-
-          action.sendCommand($scope.header[fieldName]);
-        };
-
-        mapWizardCommands ('pkgWizard.header.' + fieldName + '.validate',
-                           'validate');
-
-        var choicesCmd = 'pkgWizard.header.' + fieldName + '.choices';
-        mapWizardCommands (choicesCmd,
-                           'loadChoices');
-      });
-
+      $scope.mapFieldActions ($scope.headerFields, $scope.header, 'header');
+      $scope.initFormWithActions ('loadChoices', $scope.headerFields, '');
       //debug point: console.log (JSON.stringify($scope.headerFields,2,' '));
     });
   });
@@ -137,14 +104,19 @@ function ($scope, busClient)
       //dependencies related fields and initial model
       $scope.dependencyFields     = msg.data;
       $scope.dependency           = {};
-      $scope.dependencies         = {};
+
+      //assign defaults values
+      $scope.dependency.hasDependency = $scope.dependencyFields[0].default;
+      var packageIdx = $scope.dependencyFields[1].default;
+      $scope.dependency.dependency = $scope.dependencyFields[1].choices[packageIdx];
+      $scope.dependency.version = $scope.dependencyFields[2].default;
 
     });
   });
 
   busClient.events.subscribe ('zogManager.edit.data.added', function (msg)
   {
-    $scope.safeApply( function(){
+    $scope.safeApply( function() {
       //package content related fields and initial model
       $scope.packageContentFields = msg.data;
       $scope.packageContent       = {};
@@ -153,8 +125,14 @@ function ($scope, busClient)
       Object.keys ($scope.packageContentFields).forEach (function (field)
       {
         var fieldName = $scope.packageContentFields[field].name;
-        $scope.header[fieldName] = $scope.packageContentFields[field].default;
+        $scope.packageContent[fieldName] = $scope.packageContentFields[field].default;
       });
+
+      $scope.mapFieldActions ($scope.packageContentFields, $scope.packageContent, 'data');
+
+      $scope.initFormWithActions ('loadChoices', $scope.packageContentFields, $scope.packageContent);
+      $scope.initFormWithActions ('displayed', $scope.packageContentFields, $scope.packageContent);
+
     });
   });
 
@@ -205,7 +183,7 @@ function ($scope, busClient)
   };
 
   //Global functions
-  $scope.safeApply = function(fn)
+  $scope.safeApply = function (fn)
   {
     var phase = this.$root.$$phase;
     if(phase == '$apply' || phase == '$digest') {
@@ -215,6 +193,60 @@ function ($scope, busClient)
     } else {
       this.$apply(fn);
     }
+  };
+
+  $scope.mapFieldActions = function (wizardFields, part, partName)
+  {
+    Object.keys (wizardFields).forEach (function (field)
+    {
+
+      var fieldName       = wizardFields[field].name;
+      var loktharCommands = wizardFields[field].loktharCommands;
+      var validateCmd  = 'pkgWizard.' + partName + '.' + fieldName + '.validate';
+      var choicesCmd   = 'pkgWizard.' + partName + '.' + fieldName + '.choices';
+      var whenCmd      = 'pkgWizard.' + partName + '.' + fieldName + '.when';
+
+      var mapWizardCommands = function (command, actionKey, execute)
+      {
+        if(!loktharCommands.hasOwnProperty(command))
+          return;
+
+        wizardFields[field].actions = {};
+        wizardFields[field].actions[actionKey] = {};
+        var action = wizardFields[field].actions[actionKey]
+        busClient.events.subscribe (loktharCommands[command], function (msg)
+        {
+          action.result = msg.data;
+        });
+
+        action.sendCommand  = function (value)
+        {
+          busClient.command.send (command, value || '', null);
+        };
+
+        if(execute)
+        {
+          action.sendCommand(part[fieldName]);
+        }
+
+      };
+
+      mapWizardCommands (validateCmd,'validate', true);
+      mapWizardCommands (choicesCmd,'loadChoices', false);
+      mapWizardCommands (whenCmd,'displayed', false);
+    });
+  };
+
+  $scope.initFormWithActions = function (action, fields, answers)
+  {
+    Object.keys (fields).forEach (function (field)
+    {
+      if (fields[field].actions !== undefined &&
+          fields[field].actions.hasOwnProperty (action))
+      {
+        fields[field].actions[action].sendCommand(answers);
+      }
+    });
   };
 
 }]);
@@ -233,9 +265,15 @@ function ($scope, $state, $stateParams) {
   $scope.nextStep = function ()
   {
     $scope.package.packageDef.push ($scope.header);
-    busClient.command.send ('zogManager.edit.dependency',$scope.package);
+
+    /* Indices for the dependency.*/
+    $scope.package.idxDep   = 0;
+    $scope.package.idxRange = 0;
+
+
     $scope.editorStep++;
     $state.go ('packages.editor.dependency', {packageName : $scope.package.packageName});
+    busClient.command.send ('zogManager.edit.dependency',$scope.package);
   };
 
 }]);
@@ -244,26 +282,26 @@ function ($scope, $state, $stateParams) {
 module.controller('PackageEditorDependencyController', ['$scope','$state',
 function ($scope, $state) {
 
-
- $scope.addDependency = function ()
- {
-   //prepare dependencies hash from model
-   var key = $scope.dependency.package;
-   $scope.dependencies[key] = {};
-   $scope.dependencies[key].hasDependency  = true;
-   $scope.dependencies[key].dependency     = $scope.dependency.package;
-   $scope.dependencies[key].version        = $scope.dependency.version;
-
-   //clear dependency model for the next dependency
-   $scope.dependency        = {};
- };
-
  $scope.nextStep = function ()
  {
-   $state.go ('packages.editor.data', {packageName : $scope.package.packageName});
-   $scope.package.packageDef.push ($scope.dependencies);
-   busClient.command.send ('zogManager.edit.data',$scope.package);
-   $scope.editorStep++;
+
+   var hasDependency = $scope.dependency.hasDependency;
+
+   if(hasDependency)
+   {
+     //prepare dependencies hash from model
+     $scope.package.packageDef.push ($scope.dependency);
+     $scope.package.idxRange++;
+     busClient.command.send ('zogManager.edit.dependency',$scope.package);
+   }
+   else
+   {
+     $scope.package.idxDep++;
+     $scope.editorStep++;
+     $state.go ('packages.editor.data', {packageName : $scope.package.packageName});
+
+     busClient.command.send ('zogManager.edit.data',$scope.package);
+   }
  };
 
 
@@ -272,6 +310,29 @@ function ($scope, $state) {
 
 module.controller('PackageEditorDataController', ['$scope','$state',
 function ($scope, $state) {
+
+  $scope.isDisplayed = function (field)
+  {
+    if (field.actions['displayed'] === undefined)
+    {
+      return true;
+    }
+    else
+    {
+      field.actions['displayed'].result;
+    }
+  };
+
+  $scope.reloadChoices = function (field)
+  {
+    if (field === 'fileType')
+    {
+      $scope.initFormWithActions ('choicesLoaded', $scope.packageContentFields, $scope.packageContent);
+    }
+
+    $scope.initFormWithActions ('displayed', $scope.packageContentFields, $scope.packageContent);
+  };
+
   $scope.nextStep = function ()
   {
     $state.go ('packages.editor.finish', {packageName : $scope.package.packageName});

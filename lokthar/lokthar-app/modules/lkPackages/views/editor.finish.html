@@ -1,29 +1,30 @@
 <div class="uk-panel uk-panel-box">
   <div class="uk-panel-badge uk-badge uk-badge-danger">
-    v{{package.version}}
+    v{{header.version}}
   </div>
   <h3 class="uk-panel-title uk-text-bold">
     <i class="uk-icon-button uk-icon-puzzle-piece"></i>
-    {{package.package}}
+    {{header.package}}
   </h3>
   <small class="uk-text-muted uk-text-right">
-    <i class="uk-icon-beer"></i> {{package.maintainerName}}
+    <i class="uk-icon-beer"></i> {{header.maintainerName}}
   </small>
   <small class="uk-text-muted uk-text-right">
-    <i class="uk-icon-envelope-o"></i> {{package.maintainerEmail}}
+    <i class="uk-icon-envelope-o"></i> {{header.maintainerEmail}}
   </small>
-  <p class="uk-text-large">{{package.descriptionBrief}}</p>
-  <p class="uk-text-small">{{package.descriptionLong}}</p>
+  <p class="uk-text-large">{{header.descriptionBrief}}</p>
+  <p class="uk-text-small">{{header.descriptionLong}}</p>
   Runs on:
   <br>
-  <small ng-repeat="arch in package.architecture">
+  <small ng-repeat="arch in header.architecture">
     <span class="uk-badge">{{arch}}</span>
   </small>
+  <!-- not ready
   Depends on:
   <br>
-  <small ng-repeat="(key,dep) in dependencies">
+  <small ng-repeat="(key,dep) in package.packageDef">
     <span class="uk-badge uk-badge-danger">{{key}} ({{dep.version}})</span>
-  </small>
+  </small> -->
 </div>
 <br>
 <button
@@ -32,43 +33,3 @@ class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
 ng-click="savePackage()">
 <i class="uk-icon-gears"></i> create package
 </button>
-
-
-<!-- preview modal
- <button
-class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom"
-data-uk-modal="{target:'#preview'}"> preview
-</button>
-<div id="preview" class="uk-modal">
-  <div class="uk-modal-dialog">
-      <a class="uk-modal-close uk-close"></a>
-      <h2> Preview </h2>
-      <div class="uk-panel uk-panel-box">
-        <div class="uk-panel-badge uk-badge uk-badge-danger">
-          v{{package.version}}
-        </div>
-        <h3 class="uk-panel-title uk-text-bold">
-          <i class="uk-icon-button uk-icon-puzzle-piece"></i>
-          {{package.package}}
-        </h3>
-        <small class="uk-text-muted uk-text-right">
-          <i class="uk-icon-beer"></i> {{package.maintainerName}}
-        </small>
-        <small class="uk-text-muted uk-text-right">
-          <i class="uk-icon-envelope-o"></i> {{package.maintainerEmail}}
-        </small>
-        <p class="uk-text-large">{{package.descriptionBrief}}</p>
-        <p class="uk-text-small">{{package.descriptionLong}}</p>
-        Runs on:
-        <br>
-        <small ng-repeat="arch in package.architecture">
-          <span class="uk-badge">{{arch}}</span>
-        </small>
-        Depends on:
-        <br>
-        <small ng-repeat="(key,dep) in dependencies">
-          <span class="uk-badge uk-badge-danger">{{key}} ({{dep.version}})</span>
-        </small>
-      </div>
-  </div>
-</div> -->
