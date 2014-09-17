@@ -1,30 +1,30 @@
+'use strict'
 ///LoKthar Configure
 ///
 
-var module      = angular.module('lk-configure', ['checklist-model','lk-helpers']);
+var module  = angular.module('lk-configure', ['checklist-model','lk-helpers']);
 //Link relative zogConfig lib
 var remote        = require('remote');
 var path          = require('path');
 var zogConfig     = remote.require (path.resolve('./scripts/zogConfig.js'))();
 
 module.config(function($stateProvider, $urlRouterProvider) {
-  var module_root = 'modules/lkConfigure/';
+  var moduleRoot = 'modules/lkConfigure/';
 
-  $urlRouterProvider.otherwise("/configure");
+  $urlRouterProvider.otherwise('/configure');
   $stateProvider
     .state('configure', {
       abstract: true,
-      url: "/configure",
+      url: '/configure',
       views: {
         'module': {
-          templateUrl: module_root + 'views/config.html',
+          templateUrl: moduleRoot + 'views/config.html',
           controller: function($scope) {
             var yaml     = require ('js-yaml');
             var fs       = require ('fs');
-
             //hide menu
             $.UIkit.offcanvas.offcanvas.hide(false);
-            
+
             $scope.userYaml    = zogConfig.confDefaultFile;
             $scope.defaultYaml = zogConfig.confUserFile;
 
@@ -33,7 +33,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
             try
             {
               /* Try with the user config file if possible. */
-              data = fs.readFileSync ($scope.userYaml, 'utf8');
+              var data = fs.readFileSync ($scope.userYaml, 'utf8');
+              $scope.conf   = yaml.safeLoad (data);
             }
             catch (err)
             {
@@ -41,7 +42,7 @@ module.config(function($stateProvider, $urlRouterProvider) {
               data = fs.readFileSync ($scope.defaultYaml, 'utf8');
             }
 
-            $scope.conf   = yaml.safeLoad (data);
+
             $scope.title  = 'Configuration';
             $scope.badge  = 'dev';
             $scope.icon   = 'cog';
@@ -50,25 +51,25 @@ module.config(function($stateProvider, $urlRouterProvider) {
             {
               $scope.data = yaml.safeDump ($scope.conf);
               fs.writeFileSync ($scope.userYaml, $scope.data);
-            }
+            };
           }
         },
         'chest@configure.services': {
-          templateUrl:  module_root + 'views/chest.html',
+          templateUrl:  moduleRoot + 'views/chest.html',
         },
         'bus@configure.services': {
-          templateUrl:  module_root + 'views/bus.html',
+          templateUrl:  moduleRoot + 'views/bus.html',
         }
       }
     })
     .state('configure.services',{
-      url: "/configure/services",
-      templateUrl:  module_root + 'views/services.html',
+      url: '/configure/services',
+      templateUrl:  moduleRoot + 'views/services.html',
       controller: 'ServicesController'
     })
     .state('configure.directories',{
-      url: "/configure/directories",
-      templateUrl: module_root + 'views/directories.html',
+      url: '/configure/directories',
+      templateUrl: moduleRoot + 'views/directories.html',
       controller: 'DirectoriesController'
     });
 });
@@ -118,7 +119,7 @@ module.controller('ServicesController', ['$scope', function ($scope){
 
     Object.keys($scope.bus).forEach (function (item)
     {
-      if ($scope.conf.bus[item] != $scope.bus[item])
+      if ($scope.conf.bus[item] !== $scope.bus[item])
       {
         $scope.conf.bus[item] = $scope.bus[item];
         hasChanged = true;
@@ -127,7 +128,7 @@ module.controller('ServicesController', ['$scope', function ($scope){
 
     Object.keys($scope.chest).forEach (function (item)
     {
-      if ($scope.conf.chest[item] != $scope.chest[item])
+      if ($scope.conf.chest[item] !== $scope.chest[item])
       {
         $scope.conf.chest[item] = $scope.chest[item];
         hasChanged = true;
