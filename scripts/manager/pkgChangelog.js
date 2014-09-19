@@ -8,8 +8,7 @@ var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
 
-var pad = function (n, w)
-{
+var pad = function (n, w) {
   n = n + '';
   return n.length >= w ? n : new Array (w - n.length + 1).join ('0') + n;
 };
@@ -19,12 +18,10 @@ var pad = function (n, w)
  * @param {Object} packageDef
  * @returns {string} A ChangeLog file.
  */
-var defToChangelog = function (packageDef)
-{
+var defToChangelog = function (packageDef) {
   var changelogList = {};
 
-  packageDef['architecture'].forEach (function (arch)
-  {
+  packageDef.architecture.forEach (function (arch) {
     var changelog = '';
 
     changelog = util.format ('%s (%s) %s; urgency=low\n\n',
@@ -37,13 +34,12 @@ var defToChangelog = function (packageDef)
                               packageDef.maintainer.email);
 
     var date = new Date ();
-    var d = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
-    var m = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+    var d = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     var offset = date.getTimezoneOffset () / 60;
     var sign = '+';
-    if (offset < 0)
-    {
+    if (offset < 0) {
       sign = '-';
       offset = -offset;
     }
@@ -70,18 +66,18 @@ var defToChangelog = function (packageDef)
 /**
  * Generate and save all ChangeLog files accordingly to the config.yaml files.
  * @param {string} packageName
+ * @param {string} packageArch
  * @param {boolean} saveFiles - Saves the control files.
  * @returns {string[]} The list of all control file paths.
  */
-exports.changelogFiles = function (packageName, packageArch, saveFiles)
-{
-  if (saveFiles)
+exports.changelogFiles = function (packageName, packageArch, saveFiles) {
+  if (saveFiles) {
     zogLog.info ('if necessary, save the ChangeLog file for ' + packageName);
+  }
 
   var fs = require ('fs');
 
   var zogFs         = require ('zogFs');
-  var zogPlatform   = require ('zogPlatform');
   var pkgDefinition = require (zogConfig.libPkgDefinition);
 
   var def       = pkgDefinition.load (packageName);
@@ -89,27 +85,26 @@ exports.changelogFiles = function (packageName, packageArch, saveFiles)
 
   var changelogFiles = [];
 
-  Object.keys (changelog).forEach (function (arch)
-  {
-    if (packageArch && arch !== packageArch)
+  Object.keys (changelog).forEach (function (arch) {
+    if (packageArch && arch !== packageArch) {
       return;
+    }
 
     var wpkgDir       = path.join (zogConfig.pkgTempRoot, arch, packageName, zogConfig.pkgWPKG);
     var changelogFile = path.join (wpkgDir, 'ChangeLog');
 
-    if (saveFiles)
-    {
-      if (fs.existsSync (changelogFile))
+    if (saveFiles) {
+      if (fs.existsSync (changelogFile)) {
         zogLog.warn ('the ChangeLog file will be overwritten: ' + changelogFile);
+      }
 
       zogFs.mkdir (wpkgDir);
       fs.writeFileSync (changelogFile, changelog[arch]);
     }
 
-    changelogFiles.push (
-    {
-      'arch'   : arch,
-      'control': changelogFile
+    changelogFiles.push ({
+      arch   : arch,
+      control: changelogFile
     });
   });
 

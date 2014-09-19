@@ -1,26 +1,21 @@
 'use strict';
 
-var moduleName = 'manager';
-
 var zogConfig     = require ('../zogConfig.js') ();
 var zogFs         = require ('zogFs');
-var zogLog        = require ('zogLog') (moduleName);
 var pkgDefinition = require (zogConfig.libPkgDefinition);
 
 /**
  * Return a product packages list.
  * @returns {string[]} The list of packages.
  */
-exports.listProducts = function ()
-{
+exports.listProducts = function () {
   var products    = [];
   var packagesDir = zogFs.lsdir (zogConfig.pkgProductsRoot);
 
-  for (var p in packagesDir)
-  {
-    var doc = pkgDefinition.load (packagesDir[p]);
+  packagesDir.forEach (function (pkg) {
+    var doc = pkgDefinition.load (pkg);
     products.push (doc);
-  }
+  });
 
   return products;
 };

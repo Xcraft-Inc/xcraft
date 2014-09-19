@@ -13,14 +13,11 @@ var zogLog    = require ('zogLog') (moduleName);
  * @param {Object} inquirerPkg - The Inquirer answers.
  * @returns {Object} The zog package definition.
  */
-var inquirerToPackage = function (inquirerPkg)
-{
+var inquirerToPackage = function (inquirerPkg) {
   var packageDef = {};
 
-  inquirerPkg.forEach (function (it)
-  {
-    if (it.hasOwnProperty ('package'))
-    {
+  inquirerPkg.forEach (function (it) {
+    if (it.hasOwnProperty ('package')) {
       packageDef.name              = it.package;
       packageDef.version           = it.version;
       packageDef.maintainer        = {};
@@ -31,15 +28,12 @@ var inquirerToPackage = function (inquirerPkg)
       packageDef.description.brief = it.descriptionBrief;
       packageDef.description.long  = it.descriptionLong;
       packageDef.dependency        = {};
-    }
-    else if (it.hasOwnProperty ('hasDependency') && it.hasDependency == true)
-    {
-      if (!util.isArray (packageDef.dependency[it.dependency]))
+    } else if (it.hasOwnProperty ('hasDependency') && it.hasDependency === true) {
+      if (!util.isArray (packageDef.dependency[it.dependency])) {
         packageDef.dependency[it.dependency] = [];
+      }
       packageDef.dependency[it.dependency].push (it.version);
-    }
-    else if (it.hasOwnProperty ('uri'))
-    {
+    } else if (it.hasOwnProperty ('uri')) {
       packageDef.data                    = {};
       packageDef.data.uri                = it.uri;
       packageDef.data.type               = it.fileType;
@@ -53,9 +47,9 @@ var inquirerToPackage = function (inquirerPkg)
     }
   });
 
-  packageDef.distribution = packageDef.architecture[0] === 'source'
-                          ? 'sources/'
-                          : zogConfig.pkgRepository;
+  packageDef.distribution = packageDef.architecture[0] === 'source' ?
+                            'sources/' :
+                            zogConfig.pkgRepository;
 
   return packageDef;
 };
@@ -66,8 +60,7 @@ var inquirerToPackage = function (inquirerPkg)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.pkgTemplate = function (inquirerPkg, callbackDone)
-{
+exports.pkgTemplate = function (inquirerPkg, callbackDone) {
   zogLog.info ('create the package definition for ' + inquirerPkg[0].package);
 
   var packageDef = inquirerToPackage (inquirerPkg);
@@ -80,52 +73,42 @@ exports.pkgTemplate = function (inquirerPkg, callbackDone)
 
   var pkgDir = path.join (zogConfig.pkgProductsRoot, packageDef.name);
 
-  try
-  {
+  try {
     var st = fs.statSync (pkgDir);
 
-    if (!st.isDirectory ())
-    {
+    if (!st.isDirectory ()) {
       var err = new Error (pkgDir + ' exists and it is not a directory');
       throw err;
     }
-  }
-  catch (err)
-  {
-    if (err.code == 'ENOENT')
-    {
-      fs.mkdirSync (pkgDir, 493 /* 0755 */, function (err)
-      {
-        if (err)
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      fs.mkdirSync (pkgDir, 493 /* 0755 */, function (err) {
+        if (err) {
           throw err;
+        }
       });
-    }
-    else
+    } else {
       throw err;
+    }
   }
 
   /* The definitions can be writtent even if we are in inquirer for uploading
    * the resources in the chest server.
    */
-  async.parallel (
-  [
-    function (callback)
-    {
+  async.parallel ([
+    function (callback) {
       /* We look for chest: and we propose to upload the file. */
       var urlObj = url.parse (packageDef.data.uri);
-      if (urlObj.protocol !== 'chest:')
-      {
+      if (urlObj.protocol !== 'chest:') {
         callback ();
         return;
       }
 
       var file = urlObj.pathname || urlObj.hostname;
 
-      inquirer.prompt (wizard, function (answers)
-      {
+      inquirer.prompt (wizard, function (answers) {
         /* Async */
-        if (!answers.mustUpload)
-        {
+        if (!answers.mustUpload) {
           callback ();
           return;
         }
@@ -137,24 +120,22 @@ exports.pkgTemplate = function (inquirerPkg, callbackDone)
                      file);
 
         var chestClient = require ('../chest/chestClient.js');
-        chestClient.upload (answers.localPath, function (error)
-        {
+        chestClient.upload (answers.localPath, function (error) {
           callback (error);
         });
       });
     },
-    function (callback)
-    {
+    function (callback) {
       var yaml = require ('js-yaml');
 
       var yamlPkg = yaml.safeDump (packageDef);
       fs.writeFileSync (path.join (pkgDir, zogConfig.pkgCfgFileName), yamlPkg, null);
       callback ();
     }
-  ], function (err)
-  {
-    if (err)
+  ], function (err) {
+    if (err) {
       zogLog.err (err);
+    }
 
     callbackDone (!err);
   });

@@ -7,7 +7,6 @@ var fs        = require ('fs');
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, 'wpkg', 'config.json')));
 
 /**
  * Create a wrapper on wpkg.
@@ -15,8 +14,7 @@ var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot, '
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-var wpkgArgs = function (callbackDone)
-{
+var WpkgArgs = function (callbackDone) {
   var zogProcess = require ('zogProcess');
   var bin = 'wpkg';
 
@@ -27,54 +25,53 @@ var wpkgArgs = function (callbackDone)
    * @param {function(stdout)} [callbackStdout]
    * @param {string[]} callbackStdout.line - The current stdout line.
    */
-  var run = function (args, lastArg, callbackStdout)
-  {
+  var run = function (args, lastArg, callbackStdout) {
     var cmdName = args[args.length - 1];
 
     zogLog.info ('begin command ' + cmdName);
 
-    if (lastArg)
+    if (lastArg) {
       args.push (lastArg);
+    }
 
     zogLog.verb ('%s %s', bin, args.join (' '));
 
-    var wpkg = zogProcess.spawn (bin, args, function (done)
-    {
+    zogProcess.spawn (bin, args, function (done) {
       /* When the call is terminated. */
       zogLog.info ('end command ' + cmdName);
 
-      if (callbackDone)
+      if (callbackDone) {
         callbackDone (done);
-    }, function (line)
-    {
+      }
+    }, function (line) {
       /* For each line in stdout. */
-      if (/^error/.test (line))
+      if (/^error/.test (line)) {
         zogLog.err (line);
-      else
+      } else {
         zogLog.verb (line);
+      }
 
-      if (callbackStdout)
-        callbackStdout (line)
-    }, function (line)
-    {
+      if (callbackStdout) {
+        callbackStdout (line);
+      }
+    }, function (line) {
       /* For each line in stderr. */
-      if (/^wpkg:debug/.test (line))
+      if (/^wpkg:debug/.test (line)) {
         zogLog.verb (line);
-      else if (/^wpkg:info/.test (line))
+      } else if (/^wpkg:info/.test (line)) {
         zogLog.info (line);
-      else if (   /^wpkg:warning/.test (line)
-               || /^\(node\) warning/.test (line))
+      } else if (/^wpkg:warning/.test (line) ||
+                 /^\(node\) warning/.test (line)) {
         zogLog.warn (line);
-      else
+      } else {
         zogLog.err (line);
+      }
     });
   };
 
   return {
-    build: function (packagePath, arch)
-    {
-      var args =
-      [
+    build: function (packagePath, arch) {
+      var args = [
         '--verbose',
         '--output-repository-dir', path.join (zogConfig.pkgDebRoot, arch),
         '--compressor', 'gz',
@@ -85,10 +82,8 @@ var wpkgArgs = function (callbackDone)
       run (args, packagePath);
     },
 
-    createIndex: function (repositoryPath, indexName)
-    {
-      var args =
-      [
+    createIndex: function (repositoryPath, indexName) {
+      var args = [
         '--verbose',
         '--repository', repositoryPath,
         '--create-index'
@@ -97,30 +92,26 @@ var wpkgArgs = function (callbackDone)
       run (args, path.join (repositoryPath, indexName));
     },
 
-    install: function (packagePath, arch)
-    {
+    install: function (packagePath, arch) {
       var allRepository = path.join (zogConfig.pkgDebRoot, 'all', zogConfig.pkgRepository);
-      var args =
-      [
+      var args =  [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
-        '--repository',
-          path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository)
+        '--repository', path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository)
       ];
 
       /* Maybe there is a 'all' repository, in this case we add this one. */
-      if (fs.existsSync (allRepository))
+      if (fs.existsSync (allRepository)) {
         args.push (allRepository);
+      }
 
       args.push ('--install');
 
       run (args, packagePath);
     },
 
-    remove: function (packageName, arch)
-    {
-      var args =
-      [
+    remove: function (packageName, arch) {
+      var args = [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--remove'
@@ -129,10 +120,8 @@ var wpkgArgs = function (callbackDone)
       run (args, packageName);
     },
 
-    createAdmindir: function (controlFile, arch)
-    {
-      var args =
-      [
+    createAdmindir: function (controlFile, arch) {
+      var args = [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--create-admindir'
@@ -141,10 +130,8 @@ var wpkgArgs = function (callbackDone)
       run (args, controlFile);
     },
 
-    addSources: function (source, arch)
-    {
-      var args =
-      [
+    addSources: function (source, arch) {
+      var args = [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--add-sources'
@@ -153,27 +140,23 @@ var wpkgArgs = function (callbackDone)
       run (args, source);
     },
 
-    listSources: function (arch, listOut)
-    {
-      var args =
-      [
+    listSources: function (arch, listOut) {
+      var args = [
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--list-sources'
       ];
 
-      run (args, null, function (line)
-      {
-        if (!line.trim ().length)
+      run (args, null, function (line) {
+        if (!line.trim ().length) {
           return;
+        }
 
         listOut.push (line.trim ());
       });
     },
 
-    update: function (arch)
-    {
-      var args =
-      [
+    update: function (arch) {
+      var args = [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--update'
@@ -182,17 +165,14 @@ var wpkgArgs = function (callbackDone)
       run (args);
     },
 
-    listIndexPackages: function (repositoryPath, arch, listOut)
-    {
-      var args =
-      [
+    listIndexPackages: function (repositoryPath, arch, listOut) {
+      var args = [
         '--verbose',
         '--root', path.join (zogConfig.pkgTargetRoot, arch),
         '--list-index-packages'
       ];
 
-      run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (line)
-      {
+      run (args, path.join (repositoryPath, zogConfig.pkgIndex), function (line) {
         var result = line.trim ().match (/.* ([^ _]*)([^ ]*)\.ctrl$/);
         var deb  = result[1] + result[2] + '.deb';
         var name = result[1];
@@ -206,22 +186,22 @@ var wpkgArgs = function (callbackDone)
 /**
  * Build a new package.
  * @param {string} packagePath
+ * @param {string} distribution
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.build = function (packagePath, distribution, callbackDone)
-{
+exports.build = function (packagePath, distribution, callbackDone) {
   var pathObj = packagePath.split (path.sep);
 
   /* Retrieve the architecture which is in the packagePath. */
   var arch = pathObj[pathObj.length - 2];
 
-  var wpkg = new wpkgArgs (function (done)
-  {
-    if (!done)
+  var wpkg = new WpkgArgs (function (done) {
+    if (!done) {
       return;
+    }
 
-    var wpkg = new wpkgArgs (callbackDone);
+    var wpkg = new WpkgArgs (callbackDone);
     var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, distribution);
 
     /* We create or update the index with our new package. */
@@ -231,23 +211,22 @@ exports.build = function (packagePath, distribution, callbackDone)
   wpkg.build (packagePath, arch);
 };
 
-var lookForPackage = function (packageName, archRoot, arch, callbackDone)
-{
+var lookForPackage = function (packageName, archRoot, arch, callbackDone) {
   var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
   var list = [];
 
-  var wpkg = new wpkgArgs (function (done)
-  {
-    if (!done)
+  var wpkg = new WpkgArgs (function (done) {
+    if (!done) {
       return;
+    }
 
     /* The list array is populated by listIndexPackages. */
     var debFile = list[packageName];
-    if (!debFile)
-    {
+    if (!debFile) {
       zogLog.warn ('the package %s is unavailable in %s', packageName, arch);
-      if (callbackDone)
+      if (callbackDone) {
         callbackDone (null);
+      }
       return;
     }
 
@@ -256,8 +235,9 @@ var lookForPackage = function (packageName, archRoot, arch, callbackDone)
      */
     debFile = path.join (repositoryPath, debFile);
 
-    if (callbackDone)
+    if (callbackDone) {
       callbackDone (debFile, arch);
+    }
   });
 
   /* wpkg is not able to install a package just by its name. The sources are
@@ -274,22 +254,19 @@ var lookForPackage = function (packageName, archRoot, arch, callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.install = function (packageName, arch, callbackDone)
-{
-  lookForPackage (packageName, arch, arch, function (debFile)
-  {
-    var wpkg = new wpkgArgs (callbackDone);
+exports.install = function (packageName, arch, callbackDone) {
+  lookForPackage (packageName, arch, arch, function (debFile) {
+    var wpkg = new WpkgArgs (callbackDone);
 
-    if (debFile)
-    {
+    if (debFile) {
       wpkg.install (debFile, arch);
       return;
     }
 
-    lookForPackage (packageName, arch, 'all', function (debFile)
-    {
-      if (debFile)
+    lookForPackage (packageName, arch, 'all', function (debFile) {
+      if (debFile) {
         wpkg.install (debFile, arch);
+      }
     });
   });
 };
@@ -301,9 +278,8 @@ exports.install = function (packageName, arch, callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.remove = function (packageName, arch, callbackDone)
-{
-  var wpkg = new wpkgArgs (callbackDone);
+exports.remove = function (packageName, arch, callbackDone) {
+  var wpkg = new WpkgArgs (callbackDone);
   wpkg.remove (packageName, arch);
 };
 
@@ -314,8 +290,7 @@ exports.remove = function (packageName, arch, callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.createAdmindir = function (arch, callbackDone)
-{
+exports.createAdmindir = function (arch, callbackDone) {
   var util  = require ('util');
   var fs    = require ('fs');
   var zogFs = require ('zogFs');
@@ -332,7 +307,7 @@ exports.createAdmindir = function (arch, callbackDone)
   /* Create the target directory. */
   zogFs.mkdir (path.join (zogConfig.pkgTargetRoot, arch));
 
-  var wpkg = new wpkgArgs (callbackDone);
+  var wpkg = new WpkgArgs (callbackDone);
   wpkg.createAdmindir (controlFile, arch);
 };
 
@@ -345,23 +320,21 @@ exports.createAdmindir = function (arch, callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.addSources = function (sourcePath, arch, callbackDone)
-{
+exports.addSources = function (sourcePath, arch, callbackDone) {
   var list = [];
 
-  var wpkg = new wpkgArgs (function (done)
-  {
-    if (!done)
+  var wpkg = new WpkgArgs (function (done) {
+    if (!done) {
       return;
+    }
 
     /* The list array is populated by listSources. */
-    if (list.indexOf (sourcePath) >= 0)
-    {
+    if (list.indexOf (sourcePath) >= 0) {
       callbackDone (true);
       return; /* already in the sources.list */
     }
 
-    var wpkg = new wpkgArgs (callbackDone);
+    var wpkg = new WpkgArgs (callbackDone);
     wpkg.addSources (sourcePath, arch);
   });
 
@@ -374,8 +347,7 @@ exports.addSources = function (sourcePath, arch, callbackDone)
  * @param {function(done)} callbackDone
  * @param {boolean} callbackDone.done - True on success.
  */
-exports.update = function (arch, callbackDone)
-{
-  var wpkg = new wpkgArgs (callbackDone);
+exports.update = function (arch, callbackDone) {
+  var wpkg = new WpkgArgs (callbackDone);
   wpkg.update (arch);
 };

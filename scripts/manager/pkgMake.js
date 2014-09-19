@@ -11,38 +11,32 @@ var pkgControl    = require ('./pkgControl.js');
 var pkgChangelog  = require (zogConfig.libPkgChangelog);
 var pkgDefinition = require (zogConfig.libPkgDefinition);
 
-var copyTemplateFiles = function (packagePath, script, postInstDir)
-{
-  var fs          = require ('fs');
-  var zogPlatform = require ('zogPlatform');
+var copyTemplateFiles = function (packagePath, script, postInstDir) {
+  var fs = require ('fs');
 
   var action = script.replace (/\..*$/, '');
 
   var scriptFileIn  = path.join (zogConfig.pkgTemplatesRoot, zogConfig.pkgScript);
   var scriptFileOut = path.join (packagePath, zogConfig.pkgWPKG, script);
 
-  var placeHolders =
-  {
-    '__SHARE__'   : path.relative (packagePath, postInstDir),
-    '__ACTION__'  : action,
-    '__SYSROOT__' : './',
-    '__CONFIG__'  : 'etc/peon.json'
+  var placeHolders = {
+    __SHARE__  : path.relative (packagePath, postInstDir),
+    __ACTION__ : action,
+    __SYSROOT__: './',
+    __CONFIG__ : 'etc/peon.json'
   };
 
   /* FIXME: experimental, not tested. */
   var data = fs.readFileSync (scriptFileIn, 'utf8');
-  Object.keys (placeHolders).forEach (function (it)
-  {
+  Object.keys (placeHolders).forEach (function (it) {
     data = data.replace (it, placeHolders[it]);
   });
 
   fs.writeFileSync (scriptFileOut, data, 'utf8');
 };
 
-var createConfigJson = function (packageName, postInstDir)
-{
+var createConfigJson = function (packageName, postInstDir) {
   var fs  = require ('fs');
-  var url = require ('url');
   var zogUri = require ('zogUri');
 
   var def = pkgDefinition.load (packageName);
@@ -55,14 +49,12 @@ var createConfigJson = function (packageName, postInstDir)
   fs.writeFileSync (outFile, data, 'utf8');
 };
 
-var processFile = function (packageName, files, arch, callbackDone)
-{
+var processFile = function (packageName, files, arch, callbackDone) {
   var i = 0;
 
   var wpkgEngine = require ('./wpkgEngine.js');
 
-  var nextFile = function ()
-  {
+  var nextFile = function () {
     var controlFile = files[i].control;
 
     zogLog.info ('process ' + controlFile);
@@ -73,8 +65,7 @@ var processFile = function (packageName, files, arch, callbackDone)
     var namespace = '';
     var name = packageName;
     var fullName = packageName.match (/(.*)\+(.*)/);
-    if (fullName)
-    {
+    if (fullName) {
       namespace = fullName[1];
       name      = fullName[2];
     }
@@ -82,22 +73,17 @@ var processFile = function (packageName, files, arch, callbackDone)
     var sharePath = path.join (packagePath, 'usr', 'share', namespace, name);
     zogFs.mkdir (sharePath);
 
-    var build = function ()
-    {
-      var wpkgBuild = function (packageDef)
-      {
+    var build = function () {
+      var wpkgBuild = function (packageDef) {
         /* Don't copy pre/post scripts with unsupported architectures. */
-        if (   packageDef.architecture.indexOf ('all')    === -1
-            && packageDef.architecture.indexOf ('source') === -1)
-        {
-          var scripts =
-          [
+        if (packageDef.architecture.indexOf ('all')    === -1 &&
+            packageDef.architecture.indexOf ('source') === -1) {
+          var scripts = [
             zogConfig.pkgPostinst,
             zogConfig.pkgPrerm
           ];
 
-          scripts.forEach (function (it)
-          {
+          scripts.forEach (function (it) {
             copyTemplateFiles (packagePath, it, sharePath);
           });
         }
@@ -105,16 +91,13 @@ var processFile = function (packageName, files, arch, callbackDone)
         createConfigJson (packageName, sharePath);
 
         /* Build the package with wpkg. */
-        wpkgEngine.build (packagePath, packageDef.distribution, function (error)
-        {
+        wpkgEngine.build (packagePath, packageDef.distribution, function (error) { /* jshint ignore:line */
           /* When we reach the last item, then we have done all async work. */
-          if (i == files.length - 1)
-          {
-            if (callbackDone)
+          if (i === files.length - 1) {
+            if (callbackDone) {
               callbackDone (true);
-          }
-          else
-          {
+            }
+          } else {
             i++;
             nextFile ();
           }
@@ -124,8 +107,7 @@ var processFile = function (packageName, files, arch, callbackDone)
       var packageDef = pkgDefinition.load (packageName);
 
       /* Are the resources embedded in the package (less than 1GB)? */
-      if (packageDef.data.embedded && packageDef.data.uri.length)
-      {
+      if (packageDef.data.embedded && packageDef.data.uri.length) {
         var zogPeon = require ('zogPeon');
         var zogUri  = require ('zogUri');
 
@@ -136,58 +118,51 @@ var processFile = function (packageName, files, arch, callbackDone)
         /* NOTE: even with the 'exec' rule, we prevent to pass the binary to
          *       execute because here we are not installing, but only packaging.
          */
-        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, sharePath, {}, function (done)
-        {
-          if (done)
+        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, sharePath, {}, function (done) {
+          if (done) {
             wpkgBuild (packageDef);
-          else
+          } else {
             zogLog.err ('can not build ' + packageName);
+          }
         });
-      }
-      else
+      } else {
         wpkgBuild (packageDef);
+      }
     };
 
     /* Look for premake script. */
-    try
-    {
+    try {
       var productPath = path.join (zogConfig.pkgProductsRoot, packageName);
       var premake = require (path.join (productPath, 'premake.js')) (zogConfig, packagePath, sharePath);
-      premake.copy (function (done)
-      {
-        if (done)
+      premake.copy (function (done) {
+        if (done) {
           build ();
+        }
       });
-    }
-    catch (err)
-    {
-      if (err.code === 'MODULE_NOT_FOUND')
-      {
+    } catch (err) {
+      if (err.code === 'MODULE_NOT_FOUND') {
         zogLog.info ('no premake script for this package');
         build ();
-      }
-      else
+      } else {
         zogLog.err (err);
+      }
     }
   };
 
-  if (files.length)
+  if (files.length) {
     nextFile ();
-  else if (callbackDone)
+  } else if (callbackDone) {
     callbackDone (true);
+  }
 };
 
-exports.package = function (packageName, arch, callbackDone)
-{
-  try
-  {
+exports.package = function (packageName, arch, callbackDone) {
+  try {
     pkgChangelog.changelogFiles (packageName, arch, true);
     var controlFiles = pkgControl.controlFiles (packageName, arch, true);
 
     processFile (packageName, controlFiles, arch, callbackDone);
-  }
-  catch (err)
-  {
+  } catch (err) {
     zogLog.err (err);
   }
 };
