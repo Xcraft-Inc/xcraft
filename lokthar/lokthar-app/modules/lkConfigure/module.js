@@ -2,13 +2,13 @@
 // LoKthar Configure
 //
 
-var mod           = angular.module('lk-configure', ['checklist-model', 'lk-helpers']);
+var mod = angular.module('lk-configure', ['checklist-model', 'lk-helpers']);
 // Link relative zogConfig lib
 var remote        = require('remote');
 var path          = require('path');
 var zogConfig     = remote.require (path.resolve('./scripts/zogConfig.js'))();
 
-mod.config(function ($stateProvider, $urlRouterProvider) {
+mod.config (function ($stateProvider, $urlRouterProvider) {
   var moduleRoot = 'modules/lkConfigure/';
 
   $urlRouterProvider.otherwise('/configure');
@@ -22,7 +22,6 @@ mod.config(function ($stateProvider, $urlRouterProvider) {
           controller: function ($scope) {
             var yaml     = require ('js-yaml');
             var fs       = require ('fs');
-
             // hide menu
             $.UIkit.offcanvas.offcanvas.hide(false);
 
@@ -31,16 +30,16 @@ mod.config(function ($stateProvider, $urlRouterProvider) {
 
             $scope.data = '';
 
-            var data = '';
             try {
               /* Try with the user config file if possible. */
-              data = fs.readFileSync ($scope.userYaml, 'utf8');
+              var data = fs.readFileSync ($scope.userYaml, 'utf8');
+              $scope.conf = yaml.safeLoad (data);
             } catch (err) {
               /* Else, we use the default config file. */
               data = fs.readFileSync ($scope.defaultYaml, 'utf8');
             }
 
-            $scope.conf   = yaml.safeLoad (data);
+
             $scope.title  = 'Configuration';
             $scope.badge  = 'dev';
             $scope.icon   = 'cog';
@@ -59,12 +58,12 @@ mod.config(function ($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('configure.services', {
+    .state ('configure.services', {
       url: '/configure/services',
       templateUrl:  moduleRoot + 'views/services.html',
       controller: 'ServicesController'
     })
-    .state('configure.directories', {
+    .state ('configure.directories', {
       url: '/configure/directories',
       templateUrl: moduleRoot + 'views/directories.html',
       controller: 'DirectoriesController'
