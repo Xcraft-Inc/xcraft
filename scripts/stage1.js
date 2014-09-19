@@ -67,8 +67,8 @@ var stage2 = function () {
 
   var async = require ('async');
 
-  async.eachSeries (['--cmake', '--wpkg'], function (action, callback) {
-    zogLog.info ('install %s', action.replace (/^--/, ''));
+  async.eachSeries (['cmake', 'wpkg'], function (action, callback) {
+    zogLog.info ('install %s', action);
 
     var args = [
       '-v0',

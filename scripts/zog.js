@@ -28,15 +28,15 @@ var argsPrettify = function (args) {
 program
  .version ('0.0.1')
   .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
-  .option ('-n, --nocolor', 'disable the color output')
+  .option ('-n, --nocolor', 'disable the color output\n')
 
-  .option ('-m, --cmake <action>', 'manage the cmake installation ' +
+  .option ('cmake <action>', 'manage the cmake installation ' +
            argsPrettify (zogCMake.busCommands))
-  .option ('-w, --wpkg <action>', 'manage the wpkg installation ' +
+  .option ('wpkg <action>', 'manage the wpkg installation ' +
            argsPrettify (zogWpkg.busCommands))
-  .option ('-l, --lokthar <action>', 'manage the lokthar installation ' +
+  .option ('lokthar <action>', 'manage the lokthar installation ' +
            argsPrettify (zogLokthar.busCommands))
-  .option ('-c, --chest <action> [file]', 'manage a file chest ' +
+  .option ('chest <action> [file]', 'manage a file chest ' +
            argsPrettify (zogChest.busCommands) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
@@ -57,8 +57,8 @@ program.on ('--help', function () {
   console.log ('');
   console.log ('  Examples:');
   console.log ('');
-  console.log ('    $ zog --lokthar install');
-  console.log ('    $ zog -l run');
+  console.log ('    $ zog lokthar install');
+  console.log ('    $ zog -n lokthar run');
   console.log ('    $ zog edit libfoobar');
   console.log ('    $ zog -v 0 make');
   console.log ('');
