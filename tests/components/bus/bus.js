@@ -2,39 +2,27 @@
 
 var moduleName = 'test';
 
-var should = require ('should');
-var path   = require ('path');
-var fs     = require ('fs');
-
 var zogLog     = require ('zogLog') (moduleName);
-var zogManager = require ('../../../scripts/zogManager.js');
 var zogConfig  = require ('../../../scripts/zogConfig.js') ();
 var zogBoot    = require ('../../../scripts/zogBoot.js');
-var busCommander = require ('../../../scripts/bus/busCommander.js');
-var busClient = require (zogConfig.busClient);
 
-var mainShutdown = function ()
-{
-  busClient.stop (function (done)
-  {
+var busCommander = require ('../../../scripts/bus/busCommander.js');
+var busClient    = require (zogConfig.busClient);
+
+var mainShutdown = function () {
+  busClient.stop (function (done) { /* jshint ignore:line */
     zogBoot.stop ();
   });
 };
 
 
-before (function (done)
-{
-  zogBoot.start (function (startDone)
-  {
-
-    busCommander.registerCommandHandler ('test.bus.events.serialize', function (msg)
-    {
-      var data =
-      {
-        testFunction : function ()
-                       {
-                         return "success";
-                       }
+before (function (done) {
+  zogBoot.start (function (startDone) { /* jshint ignore:line */
+    busCommander.registerCommandHandler ('test.bus.events.serialize', function (msg) { /* jshint ignore:line */
+      var data = {
+        testFunction : function () {
+          return 'success';
+        }
       };
 
       busClient.events.send ('test.serialize.data.sended', data, true);
@@ -42,16 +30,12 @@ before (function (done)
 
     done ();
   });
-
 });
 
 
-describe ('object serialization on messages', function ()
-{
-  it ('testFunction() should return \'success\'', function (done)
-  {
-    busClient.events.subscribe ('test.serialize.data.sended', function (msg)
-    {
+describe ('object serialization on messages', function () {
+  it ('testFunction() should return \'success\'', function (done) {
+    busClient.events.subscribe ('test.serialize.data.sended', function (msg) {
       msg.data.testFunction().should.equal ('success');
       done ();
     });
