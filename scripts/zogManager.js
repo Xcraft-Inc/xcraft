@@ -258,8 +258,7 @@ exports.busCommands = function () {
   var list = [];
 
   Object.keys (cmd).forEach (function (action) {
-    list.push (
-    {
+    list.push ({
       name   : action,
       handler: cmd[action]
     });
