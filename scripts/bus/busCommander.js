@@ -1,4 +1,3 @@
-/* Command Bus Service */
 'use strict';
 
 var moduleName = 'command-bus';
@@ -13,57 +12,48 @@ var commandsRegistry = {};
 
 exports.bus = sock;
 
-exports.start = function (host, port, busToken, callback)
-{
+exports.start = function (host, port, busToken, callback) {
   /* Save token */
   token = busToken;
 
   /* Create domain in order to catch port binding errors. */
   var domain = require ('domain').create ();
 
-  domain.on ('error', function (err)
-  {
+  domain.on ('error', function (err) {
     zogLog.err ('bus running on %s:%d, error: %s', host, port, err.message);
   });
 
   /* Try binding in domain. */
-  domain.run (function ()
-  {
+  domain.run (function () {
     sock.bind (parseInt (port), host, callback);
     zogLog.verb ('Bus started on %s:%d', host, port);
   });
 };
 
-exports.stop = function ()
-{
+exports.stop = function () {
   sock.close ();
 };
 
-exports.registerCommandHandler = function (commandKey, handlerFunction)
-{
+exports.registerCommandHandler = function (commandKey, handlerFunction) {
   zogLog.verb ('Command \'%s\' registered', commandKey);
 
   commandsRegistry[commandKey] = handlerFunction;
 };
 
-exports.registerErrorHandler = function (errorHandler)
-{
+exports.registerErrorHandler = function (errorHandler) {
   zogLog.verb ('Error handler registered');
 
   commandsRegistry.error = errorHandler;
 };
 
-sock.on ('message', function (cmd, msg)
-{
+sock.on ('message', function (cmd, msg) {
   var utils = require ('util');
 
   zogLog.verb ('begin command: %s', cmd);
   zogLog.verb ('command received: %s -> msg: %s', cmd, JSON.stringify (msg));
 
-  if (msg.token === token)
-  {
-    if (!commandsRegistry.hasOwnProperty (cmd))
-    {
+  if (msg.token === token) {
+    if (!commandsRegistry.hasOwnProperty (cmd)) {
       var errorMessage  = {};
       errorMessage.data = msg;
       errorMessage.cmd  = cmd;
@@ -72,9 +62,7 @@ sock.on ('message', function (cmd, msg)
       cmd = 'error';
       msg = errorMessage;
     }
-  }
-  else
-  {
+  } else {
     zogLog.verb ('invalid token, command discarded');
     return;
   }

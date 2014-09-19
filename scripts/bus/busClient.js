@@ -15,46 +15,41 @@ var token                 = 'invalid';
 
 subscriptions.subscribe ('heartbeat');
 
-subscriptions.on ('message', function (topic, msg)
-{
-  if (!eventsHandlerRegistry.hasOwnProperty (topic))
+subscriptions.on ('message', function (topic, msg) {
+  if (!eventsHandlerRegistry.hasOwnProperty (topic)) {
     return;
+  }
 
   zogLog.verb ('notification received: %s -> data:%s',
                topic,
                JSON.stringify (msg));
 
-  if (msg.token === token)
+  if (msg.token === token) {
     eventsHandlerRegistry[topic] (msg);
-  else
+  } else {
     zogLog.verb ('invalid token, event discarded');
+  }
 });
 
-exports.connect = function (busToken, callbackDone)
-{
+exports.connect = function (busToken, callbackDone) {
   /* Save bus token for checking. */
   token = busToken;
 
   async.parallel (
   [
-    function (done)
-    {
-      subscriptions.on ('connect', function (err)
-      {
+    function (done) {
+      subscriptions.on ('connect', function (err) { /* jshint ignore:line */
         zogLog.verb ('Bus client subscribed to notifications bus');
         done ();
       });
     },
-    function (done)
-    {
-      commands.on ('connect', function (err)
-      {
+    function (done) {
+      commands.on ('connect', function (err) { /* jshint ignore:line */
         zogLog.verb ('Bus client ready to send on command bus');
         done ();
       });
     }
-  ], function (err)
-  {
+  ], function (err) {
     zogLog.verb ('Connected with token: ' + token);
     callbackDone (!err);
   });
@@ -63,36 +58,29 @@ exports.connect = function (busToken, callbackDone)
   commands.connect (parseInt (zogConfig.bus.commanderPort), zogConfig.bus.host);
 };
 
-exports.getToken = function ()
-{
+exports.getToken = function () {
   return token;
 };
 
-exports.events  =
-{
-  subscribe: function (topic, handler)
-  {
+exports.events = {
+  subscribe: function (topic, handler) {
     zogLog.verb ('client added handler to topic: ' + topic);
 
     subscriptions.subscribe (topic);
 
     /* register a pre-handler for deserialze object if needed */
-    eventsHandlerRegistry[topic] = function (msg)
-    {
-      if (msg.serialized)
-      {
-        msg.data = JSON.parse (msg.data, function (key, value)
-        {
-          if (value
-              && typeof value === 'string'
-              && value.substr (0, 8) === 'function')
-          {
+    eventsHandlerRegistry[topic] = function (msg) {
+      if (msg.serialized) {
+        msg.data = JSON.parse (msg.data, function (key, value) {
+          if (value &&
+              typeof value === 'string' &&
+              value.substr (0, 8) === 'function') {
             var startBody = value.indexOf ('{') + 1;
             var endBody   = value.lastIndexOf ('}');
             var startArgs = value.indexOf ('(') + 1;
             var endArgs   = value.indexOf (')');
 
-            return new Function (value.substring (startArgs, endArgs),
+            return new Function (value.substring (startArgs, endArgs), /* jshint ignore:line */
                                  value.substring (startBody, endBody));
           }
 
@@ -105,22 +93,19 @@ exports.events  =
     };
   },
 
-  send: function (topic, data, serialize)
-  {
+  send: function (topic, data, serialize) {
     var notifier   = require (zogConfig.busBoot).getNotifier ();
     var busMessage = require (zogConfig.busMessage) ();
 
-    if (serialize)
-    {
-      busMessage.data = JSON.stringify (data, function (key, value)
-      {
+    if (serialize) {
+      busMessage.data = JSON.stringify (data, function (key, value) {
         return typeof value === 'function' ? value.toString () : value;
       });
 
       busMessage.serialized = true;
-    }
-    else
+    } else {
       busMessage.data = data;
+    }
 
     notifier.send (topic, busMessage);
 
@@ -128,12 +113,9 @@ exports.events  =
   }
 };
 
-exports.command =
-{
-  send: function (cmd, data, finishHandler)
-  {
-    if (finishHandler)
-    {
+exports.command = {
+  send: function (cmd, data, finishHandler) {
+    if (finishHandler) {
       /* Subscribe to end command notification. */
       var finishTopic = cmd + '.finished';
       subscriptions.subscribe (finishTopic);
@@ -151,29 +133,23 @@ exports.command =
   }
 };
 
-exports.stop = function (callbackDone)
-{
-  async.parallel (
-  [
-    function (callback)
-    {
-      subscriptions.on ('close', function (err)
-      {
+exports.stop = function (callbackDone) {
+  async.parallel ([
+    function (callback) {
+      subscriptions.on ('close', function (err) { /* jshint ignore:line */
         callback ();
       });
     },
-    function (callback)
-    {
-      commands.on ('close', function (err)
-      {
+    function (callback) {
+      commands.on ('close', function (err) { /* jshint ignore:line */
         callback ();
       });
     }
-  ], function (err)
-  {
+  ], function (err) {
     zogLog.verb ('Stopped');
-    if (callbackDone)
+    if (callbackDone) {
       callbackDone (!err);
+    }
   });
 
   zogLog.verb ('Stopping...');
