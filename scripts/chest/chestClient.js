@@ -5,15 +5,14 @@ var moduleName = 'chest';
 var zogConfig = require ('../zogConfig.js') ();
 var zogLog    = require ('zogLog') (moduleName);
 
-var chestUpload = function (inputFile, server, port, callback)
-{
+var chestUpload = function (inputFile, server, port, callback) {
   var fs             = require ('fs');
   var path           = require ('path');
   var request        = require ('request');
-  var progress       = require ('progress');
+  var Progress       = require ('progress');
   var progressStream = require ('progress-stream');
 
-  var protocol = port == 443 ? 'https' : 'http';
+  var protocol = parseInt (port) === 443 ? 'https' : 'http';
   var length = fs.statSync (inputFile).size;
   var remoteUri = protocol + '://' + server + ':' + port;
   var options =
@@ -21,8 +20,7 @@ var chestUpload = function (inputFile, server, port, callback)
     uri: remoteUri + '/upload',
     method: 'POST',
     strictSSL: false,
-    headers:
-    {
+    headers: {
       'Content-Type': 'application/octet-stream',
       'Content-Length': length.toString (),
       'Transfer-Encoding': 'chunked',
@@ -30,8 +28,7 @@ var chestUpload = function (inputFile, server, port, callback)
     }
   };
 
-  var bar = new progress ('                  uploading [:bar] :percent :etas',
-  {
+  var bar = new Progress ('                  uploading [:bar] :percent :etas', {
     complete: '=',
     incomplete: ' ',
     width: 40,
@@ -48,57 +45,53 @@ var chestUpload = function (inputFile, server, port, callback)
     reconnection: false
   });
 
-  socket.on ('connect', function ()
-  {
+  socket.on ('connect', function () {
     zogLog.verb ('connected to the chest server');
 
     /* We inform the server that we will upload something. */
     socket.emit ('register', path.basename (inputFile));
 
-    socket.on ('disconnect', function ()
-    {
-      if (!bar.complete)
+    socket.on ('disconnect', function () {
+      if (!bar.complete) {
         bar.terminate ();
+      }
       zogLog.verb ('disconnected from the chest server');
 
       callback ();
     });
 
     /* It is the server acknowledge. */
-    socket.on ('registered', function (error)
-    {
+    socket.on ('registered', function (error) {
       /* It happens when a file with the same name is already uploaded by
        * someone else.
        */
-      if (error)
-      {
+      if (error) {
         callback (error);
         return;
       }
 
       zogLog.info ('begin file upload');
 
-      var progressCalc = progressStream ({ length: length });
+      var progressCalc = progressStream ({length: length});
 
-      progressCalc.on ('progress', function (progress)
-      {
+      progressCalc.on ('progress', function (progress) {
         progressSpeed = (progressSpeed + progress.speed) / 2;
         bar.tick (progress.delta);
       });
 
       var stream = fs.createReadStream (inputFile);
 
-      var reqFile = request (options, function (error, response, body)
-      {
-        if (error)
+      var reqFile = request (options, function (error, response, body) {
+        if (error) {
           callback ('problem with request: ' + error);
+        }
 
-        if (body)
+        if (body) {
           zogLog.verb (body);
+        }
       });
 
-      stream.on ('end', function ()
-      {
+      stream.on ('end', function () {
         zogLog.info ('transfer average speed: %d [Mbps]',
                      parseInt (progressSpeed * 8 / 1000) / 1000);
         zogLog.info ('the uploaded file is synchronizing in the repository...');
@@ -109,23 +102,18 @@ var chestUpload = function (inputFile, server, port, callback)
     });
   });
 
-  socket.on ('connect_error', function (error)
-  {
+  socket.on ('connect_error', function (error) {
     callback (error);
   });
 };
 
-exports.upload = function (file, callback)
-{
-  try
-  {
+exports.upload = function (file, callback) {
+  try {
     chestUpload (file,
                  zogConfig.chest.host,
                  zogConfig.chest.port,
                  callback);
-  }
-  catch (err)
-  {
+  } catch (err) {
     callback (err.message);
   }
 };
