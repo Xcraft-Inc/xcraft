@@ -67,11 +67,31 @@ module.exports = function (grunt)
           './tests/**/*.js',
         ]
       }
+    },
+
+    jscs:
+    {
+      options:
+      {
+        config: ".jscsrc"
+      },
+      src:
+      [
+        './Gruntfile.js',
+        './scripts/**/*.js',
+        './lokthar/lokthar-app/*.js',
+        './lokthar/lokthar-app/modules/**/*.js',
+        './node_modules/zog**/**/*.js',
+        './packages/products/**/*.js',
+        './tests/**/*.js',
+      ]
     }
   });
 
   if (fs.existsSync ('./node_modules/grunt-contrib-jshint'))
     grunt.loadNpmTasks ('grunt-contrib-jshint');
+  if (fs.existsSync ('./node_modules/grunt-jscs'))
+    grunt.loadNpmTasks ('grunt-jscs');
   grunt.loadNpmTasks ('grunt-newer-explicit');
 
   grunt.registerTask ('zogMake', 'Task to make control files on newer versions.', function (target)
