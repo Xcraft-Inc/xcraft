@@ -1,25 +1,17 @@
-#!/usr/bin/env node
 'use strict';
 
-var moduleName = 'peon';
-
-var action = function (currentDir)
-{
+var Action = function (currentDir) {
   var fs      = require ('fs');
-  var url     = require ('url');
   var path    = require ('path');
   var zogPeon = require ('zogPeon');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
-  var peonRun = function (extra)
-  {
+  var peonRun = function (extra) {
     console.log ('command: %s %s', extra.location, extra.args);
 
-    zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done)
-    {
-      if (!done)
-      {
+    zogPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (done) {
+      if (!done) {
         console.error ('can not %s %s', config.rules.type, config.type);
         process.exit (1);
       }
@@ -27,33 +19,28 @@ var action = function (currentDir)
   };
 
   return {
-    postinst: function ()
-    {
-      var extra =
-      {
-        'location': config.rules.location,
-        'args'    : config.rules.args.install
+    postinst: function () {
+      var extra = {
+        location: config.rules.location,
+        args    : config.rules.args.install
       };
 
       peonRun (extra);
     },
 
-    prerm: function ()
-    {
-      var extra =
-      {
-        'location': config.rules.location,
-        'args'    : config.rules.args.remove
+    prerm: function () {
+      var extra = {
+        location: config.rules.location,
+        args    : config.rules.args.remove
       };
 
       peonRun (extra);
     }
-  }
-}
+  };
+};
 
-if (process.argv.length >= 4)
-{
-  var main = new action (process.argv[2]);
+if (process.argv.length >= 4) {
+  var main = new Action (process.argv[2]);
 
   console.log ('run the action: ' + process.argv[3]);
   main[process.argv[3]] ();
