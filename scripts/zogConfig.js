@@ -8,8 +8,7 @@ var zogLog     = require ('zogLog') (moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
 
-module.exports = function ()
-{
+module.exports = function () {
   var yaml     = require ('js-yaml');
   var fs       = require ('fs');
   var inquirer = require ('inquirer');
@@ -22,13 +21,10 @@ module.exports = function ()
   var data = '';
   var dataOrig = fs.readFileSync (defaultYaml, 'utf8');
 
-  try
-  {
+  try {
     /* Try with the user config file if possible. */
     data = fs.readFileSync (userYaml, 'utf8');
-  }
-  catch (err)
-  {
+  } catch (err) {
     /* Else, we use the default config file. */
     data = dataOrig;
   }
@@ -36,70 +32,61 @@ module.exports = function ()
   var conf = yaml.safeLoad (data);
   var confOrig = yaml.safeLoad (dataOrig);
 
-  var runWizard = function (wizName, callbackDone)
-  {
+  var runWizard = function (wizName, callbackDone) {
     var alwaysSave = false;
 
-    if (!conf.hasOwnProperty (wizName))
-    {
+    if (!conf.hasOwnProperty (wizName)) {
       conf[wizName] = {};
       alwaysSave = true;
     }
 
-    confWizard[wizName].forEach (function (item)
-    {
-      if (!conf[wizName].hasOwnProperty (item.name))
+    confWizard[wizName].forEach (function (item) {
+      if (!conf[wizName].hasOwnProperty (item.name)) {
         conf[wizName][item.name] = confOrig[wizName][item.name];
+      }
 
       item.default = conf[wizName][item.name];
     });
 
-    inquirer.prompt (confWizard[wizName], function (answers)
-    {
+    inquirer.prompt (confWizard[wizName], function (answers) {
       var hasChanged = false;
 
       zogLog.verb ('JSON output:\n' + JSON.stringify (answers, null, '  '));
 
-      Object.keys (answers).forEach (function (item)
-      {
-        if (conf[wizName][item] !== answers[item])
-        {
+      Object.keys (answers).forEach (function (item) {
+        if (conf[wizName][item] !== answers[item]) {
           conf[wizName][item] = answers[item];
           hasChanged = true;
         }
       });
 
-      if (alwaysSave || hasChanged)
-      {
+      if (alwaysSave || hasChanged) {
         data = yaml.safeDump (conf);
         fs.writeFileSync (userYaml, data);
       }
 
-      if (callbackDone)
+      if (callbackDone) {
         callbackDone ();
+      }
     });
   };
 
   return {
-    configure: function ()
-    {
+    configure: function () {
       var async = require ('async');
 
       var wizards = [];
-      Object.keys (confOrig).forEach (function (item)
-      {
+      Object.keys (confOrig).forEach (function (item) {
         wizards.push (item);
       });
 
-      async.eachSeries (wizards, function (wiz, callback)
-      {
+      async.eachSeries (wizards, function (wiz, callback) {
         zogLog.info ('configure zog (%s)', wiz);
         runWizard (wiz, callback);
       });
     },
 
-    architectures:
-    [
+    architectures: [
       'mswindows-i386',
       'mswindows-amd64',
       'linux-i386',

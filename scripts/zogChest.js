@@ -12,26 +12,20 @@ var cmd = {};
 /**
  * Start the chest server.
  */
-cmd.start = function ()
-{
+cmd.start = function () {
   var spawn = require ('child_process').spawn;
   var isRunning = false;
 
-  if (fs.existsSync (zogConfig.chest.pid))
-  {
+  if (fs.existsSync (zogConfig.chest.pid)) {
     zogLog.warn ('the chest server seems running');
 
     isRunning = true;
     var pid = fs.readFileSync (zogConfig.chest.pid, 'utf8');
 
-    try
-    {
+    try {
       process.kill (pid, 0);
-    }
-    catch (err)
-    {
-      if (err.code === 'ESRCH')
-      {
+    } catch (err) {
+      if (err.code === 'ESRCH') {
         zogLog.warn ('but the process can not be found, then we try to start it');
         fs.unlinkSync (zogConfig.chest.pid);
         isRunning = false;
@@ -39,14 +33,13 @@ cmd.start = function ()
     }
   }
 
-  if (!isRunning)
-  {
+  if (!isRunning) {
     var logout = fs.openSync (zogConfig.chest.log, 'a');
     var logerr = fs.openSync (zogConfig.chest.log, 'a');
-    var chest = spawn ('node', [ zogConfig.chestServer ],
+    var chest = spawn ('node', [zogConfig.chestServer],
     {
       detached: true,
-      stdio: [ 'ignore', logout, logerr ]
+      stdio: ['ignore', logout, logerr]
     });
 
     zogLog.verb ('chest server PID: ' + chest.pid);
@@ -61,18 +54,15 @@ cmd.start = function ()
 /**
  * Stop the chest server.
  */
-cmd.stop = function ()
-{
-  try
-  {
+cmd.stop = function () {
+  try {
     var pid = fs.readFileSync (zogConfig.chest.pid, 'utf8');
     process.kill (pid, 'SIGTERM');
     fs.unlinkSync (zogConfig.chest.pid);
-  }
-  catch (err)
-  {
-    if (err.code !== 'ENOENT')
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
       zogLog.err (err);
+    }
   }
 
   busClient.events.send ('zogChest.stop.finished');
@@ -81,8 +71,7 @@ cmd.stop = function ()
 /**
  * Restart the chest server.
  */
-cmd.restart = function ()
-{
+cmd.restart = function () {
   cmd.stop ();
   cmd.start ();
 
@@ -93,8 +82,7 @@ cmd.restart = function ()
  * Send a file to the chest server.
  * @param {Object} msg
  */
-cmd.send = function (msg)
-{
+cmd.send = function (msg) {
   var file = msg.data;
   var path = require ('path');
 
@@ -103,10 +91,10 @@ cmd.send = function (msg)
   zogLog.info ('send ' + file + ' to the chest');
 
   var chestClient = require ('./chest/chestClient.js');
-  chestClient.upload (file, function (error)
-  {
-    if (error)
+  chestClient.upload (file, function (error) {
+    if (error) {
       zogLog.err (error);
+    }
 
     busClient.events.send ('zogChest.send.finished');
   });
@@ -116,14 +104,11 @@ cmd.send = function (msg)
  * Retrieve the list of available commands.
  * @returns {Object[]} The list of commands.
  */
-exports.busCommands = function ()
-{
+exports.busCommands = function () {
   var list = [];
 
-  Object.keys (cmd).forEach (function (action)
-  {
-    list.push (
-    {
+  Object.keys (cmd).forEach (function (action) {
+    list.push ({
       name   : action,
       handler: cmd[action]
     });

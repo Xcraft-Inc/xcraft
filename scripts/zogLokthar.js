@@ -18,34 +18,35 @@ var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
 
 var cmd = {};
 
-var build = function (callback)
-{
-  exec ('npm install --prefix ' + buildDir + ' ' + buildDir, function (error, stdout, stderr)
-  {
+var build = function (callback) {
+  exec ('npm install --prefix ' + buildDir + ' ' + buildDir, function (error, stdout, stderr) {
     zogLog.verb ('build lokthar outputs:\n' + stdout);
 
-    if (error)
+    if (error) {
       callback ('unable to build lokthar\n' + stderr);
-    else
+    } else {
       callback ();
+    }
   });
 };
 
-var grunt = function (callback)
-{
+var grunt = function (callback) {
   var gruntfile = path.join (buildDir, 'gruntfile.js');
-  exec ('node ' + zogConfig.binGrunt + ' --gruntfile ' + gruntfile + ' download-atom-shell', function (error, stdout, stderr)
-  {
+  var cmd = 'node ' + zogConfig.binGrunt +
+            ' --gruntfile ' + gruntfile + ' download-atom-shell';
+
+  exec (cmd, function (error, stdout, stderr) {
     zogLog.verb ('grunt lokthar outputs:\n' + stdout);
 
     var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
     /* chmod +x flag to atom for Unix, ignored on Windows. */
     fs.chmodSync (atom, 493 /* 0755 */);
 
-    if (error)
+    if (error) {
       callback ('unable to grunt lokthar\n' + stderr);
-    else
+    } else {
       callback ();
+    }
   });
 };
 
@@ -53,19 +54,18 @@ var grunt = function (callback)
  * Run the lokthar frontend.
  * Lokthar is based on atom-shell.
  */
-cmd.run = function ()
-{
+cmd.run = function () {
   var atom = path.join (atomDir, 'atom' + zogPlatform.getExecExt ());
 
   /* We provide bus token for lokthar via argv[2]. */
   var busToken = busClient.getToken ();
 
-  exec (atom + ' ' + loktharAppDir + ' ' + busToken, function (error, stdout, stderr)
-  {
+  exec (atom + ' ' + loktharAppDir + ' ' + busToken, function (error, stdout, stderr) {
     zogLog.verb ('atom outputs:\n' + stdout);
 
-    if (error)
+    if (error) {
       zogLog.err ('unable to exec atom\n' + stderr);
+    }
 
     busClient.events.send ('zogLokthar.run.finished');
   });
@@ -74,16 +74,14 @@ cmd.run = function ()
 /**
  * Install the lokthar frontend.
  */
-cmd.install = function ()
-{
-  async.auto (
-  {
+cmd.install = function () {
+  async.auto ({
     taskBuild: build,
     taskGrunt: ['taskBuild', grunt]
-  }, function (err)
-  {
-    if (err)
+  }, function (err) {
+    if (err) {
       zogLog.err (err);
+    }
 
     busClient.events.send ('zogLokthar.install.finished');
   });
@@ -92,8 +90,7 @@ cmd.install = function ()
 /**
  * Uninstall the lokthar frontend.
  */
-cmd.uninstall = function ()
-{
+cmd.uninstall = function () {
   zogLog.warn ('the uninstall action is not implemented');
   busClient.events.send ('zogLokthar.uninstall.finished');
 };
@@ -102,14 +99,11 @@ cmd.uninstall = function ()
  * Retrieve the list of available commands.
  * @returns {Object[]} The list of commands.
  */
-exports.busCommands = function ()
-{
+exports.busCommands = function () {
   var list = [];
 
-  Object.keys (cmd).forEach (function (action)
-  {
-    list.push (
-    {
+  Object.keys (cmd).forEach (function (action) {
+    list.push ({
       name   : action,
       handler: cmd[action]
     });

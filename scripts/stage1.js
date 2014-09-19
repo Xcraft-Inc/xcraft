@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 'use strict';
 
 var moduleName = 'stage1';
@@ -6,8 +5,7 @@ var moduleName = 'stage1';
 var zogProcess  = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
-var depsForZog =
-[
+var depsForZog = [
   'async',
   'axon',
   'cli-color',
@@ -28,21 +26,17 @@ var depsForZog =
   'tar.gz'
 ];
 
-try
-{
+try {
   process.chdir (__dirname + '/..');
   console.log ('[' + moduleName + '] Info: go to the toolchain directory: ' + process.cwd ());
-}
-catch (err)
-{
+} catch (err) {
   console.log ('[' + moduleName + '] Err: ' + err);
 }
 
 /**
  * The second stage installs cmake and wpkg.
  */
-var stage2 = function ()
-{
+var stage2 = function () {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
   var util = require ('util');
@@ -50,20 +44,17 @@ var stage2 = function ()
   zogLog.verbosity (0);
 
   /* Locations of the sysroot/ binaries. */
-  if (process.argv.length > 2)
-  {
+  if (process.argv.length > 2) {
     var path      = require ('path');
     var zogConfig = require ('./zogConfig.js') ();
 
     var list = [];
-    process.argv.slice (2).forEach (function (location)
-    {
+    process.argv.slice (2).forEach (function (location) {
       list.push (path.resolve (location));
     });
 
-    var zogrc =
-    {
-      'path': list
+    var zogrc = {
+      path: list
     };
 
     var fs = require ('fs');
@@ -76,51 +67,43 @@ var stage2 = function ()
 
   var async = require ('async');
 
-  async.eachSeries ([ '--cmake', '--wpkg' ], function (action, callback)
-  {
+  async.eachSeries (['--cmake', '--wpkg'], function (action, callback) {
     zogLog.info ('install %s', action.replace (/^--/, ''));
 
-    var args =
-    [
+    var args = [
       '-v0',
       action,
       'install'
     ];
 
-    zogProcess.spawn (zog, args, function (done)
-    {
+    zogProcess.spawn (zog, args, function (done) {
       callback (done ? null : 'action ' + action + ' has failed');
     });
   },
-  function (err)
-  {
-    if (err)
+  function (err) {
+    if (err) {
       zogLog.err (err);
+    }
   });
 };
 
 console.log ('[' + moduleName + '] Info: install zog dependencies');
-try
-{
+try {
   var npm = 'npm' + zogPlatform.getCmdExt ();
-  var args = [ 'install' ];
+  var args = ['install'];
   args = args.concat (depsForZog);
 
-  zogProcess.spawn (npm, args, function (done)
-  {
-    if (done)
+  zogProcess.spawn (npm, args, function (done) {
+    if (done) {
       stage2 ();
-    else
+    } else {
       console.log ('[' + moduleName + '] Err: npm has failed');
-  }, function (line)
-  {
+    }
+  }, function (line) {
     console.log ('[' + moduleName + '] Verb: ' + line);
-  }, function (line)
-  {
+  }, function (line) {
     console.log ('[' + moduleName + '] Err: ' + line);
   });
-}
-catch (err)
-{
+} catch (err) {
   console.log ('[' + moduleName + '] Err: ' + err);
 }

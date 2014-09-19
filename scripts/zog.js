@@ -15,12 +15,10 @@ var zogBoot    = require ('./zogBoot.js');
 
 var boot = true;
 
-var argsPrettify = function (args)
-{
+var argsPrettify = function (args) {
   var list = [];
 
-  args ().forEach (function (cmd)
-  {
+  args ().forEach (function (cmd) {
     list.push (cmd.name);
   });
 
@@ -28,18 +26,18 @@ var argsPrettify = function (args)
 };
 
 program
-  .version ('0.0.1')
+ .version ('0.0.1')
   .option ('-v, --verbosity <level>', 'change the verbosity level [0..3] (default: 1)', zogLog.verbosity)
   .option ('-n, --nocolor', 'disable the color output')
 
-  .option ('-m, --cmake <action>', 'manage the cmake installation '
-           + argsPrettify (zogCMake.busCommands))
-  .option ('-w, --wpkg <action>', 'manage the wpkg installation '
-           + argsPrettify (zogWpkg.busCommands))
-  .option ('-l, --lokthar <action>', 'manage the lokthar installation '
-           + argsPrettify (zogLokthar.busCommands))
-  .option ('-c, --chest <action> [file]', 'manage a file chest '
-           + argsPrettify (zogChest.busCommands) + '\n')
+  .option ('-m, --cmake <action>', 'manage the cmake installation ' +
+           argsPrettify (zogCMake.busCommands))
+  .option ('-w, --wpkg <action>', 'manage the wpkg installation ' +
+           argsPrettify (zogWpkg.busCommands))
+  .option ('-l, --lokthar <action>', 'manage the lokthar installation ' +
+           argsPrettify (zogLokthar.busCommands))
+  .option ('-c, --chest <action> [file]', 'manage a file chest ' +
+           argsPrettify (zogChest.busCommands) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('list', 'list all available packages')
@@ -49,8 +47,7 @@ program
   .option ('remove <package:arch>', 'remove the <package>')
   .option ('clean', 'remove the devroot, the repository and the packages');
 
-program.on ('--help', function ()
-{
+program.on ('--help', function () {
   console.log ('  Informations:');
   console.log ('');
   console.log ('    Please be careful when using `zog clean` because the installed packages');
@@ -69,46 +66,46 @@ program.on ('--help', function ()
 
 program.parse (process.argv);
 
-if (program.nocolor)
+if (program.nocolor) {
   zogLog.color (false);
-if (program.configure)
+}
+if (program.configure) {
   boot = false;
+}
 
 /* Display help if zog is called without command arguments. */
 var argLength = 3;
-if (program.verbosity)
+if (program.verbosity) {
   argLength++;
-if (program.nocolor)
+}
+if (program.nocolor) {
   argLength++;
-if (process.argv.length < argLength)
+}
+if (process.argv.length < argLength) {
   program.help (); /* Print help and exits immediatly. */
+}
 
 /**
  * The main is called as soon as the zog booting process is terminated.
  * @param {boolean} done - False on error.
  */
-var main = function (done)
-{
-  if (!done)
-  {
+var main = function (done) {
+  if (!done) {
     zogLog.err ('fatal error with zog booting');
     process.exit (1);
   }
 
   var busClient = require (zogConfig.busClient);
 
-  var mainShutdown = function ()
-  {
+  var mainShutdown = function () {
     zogLog.verb ('end command');
 
-    busClient.stop (function (done) /* jshint ignore:line */
-    {
+    busClient.stop (function (done) { /* jshint ignore:line */
       zogBoot.stop ();
     });
   };
 
-  var loktharErrorHandler = function (msg)
-  {
+  var loktharErrorHandler = function (msg) {
     zogLog.warn ('%s, command data: %s', msg.desc, JSON.stringify (msg.data));
   };
 
@@ -116,27 +113,38 @@ var main = function (done)
   require ('./bus/busCommander.js')
     .registerErrorHandler (!program.lokthar ? mainShutdown : loktharErrorHandler);
 
-  if (program.cmake)
+  if (program.cmake) {
     busClient.command.send ('zogCMake.' + program.cmake, null, mainShutdown);
-  if (program.wpkg)
+  }
+  if (program.wpkg) {
     busClient.command.send ('zogWpkg.' + program.wpkg, null, mainShutdown);
-  if (program.lokthar)
+  }
+  if (program.lokthar) {
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
-  if (program.chest)
+  }
+  if (program.chest) {
     busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
-  if (program.list)
+  }
+  if (program.list) {
     busClient.command.send ('zogManager.list', null, mainShutdown);
-  if (program.edit)
+  }
+  if (program.edit) {
     busClient.command.send ('zogManager.edit', {packageName : program.edit}, mainShutdown);
-  if (program.make)
+  }
+  if (program.make) {
     zogManager.make (program.make === true ? false : program.make);
-  if (program.install)
+  }
+  if (program.install) {
     zogManager.install (program.install);
-  if (program.remove)
+  }
+  if (program.remove) {
     busClient.command.send ('zogManager.remove', program.remove, mainShutdown);
-  if (program.clean)
+  }
+  if (program.clean) {
     busClient.command.send ('zogManager.clean', program.clean, mainShutdown);
+  }
 };
 
-if (boot)
+if (boot) {
   zogBoot.start (main);
+}

@@ -8,8 +8,7 @@ var busClient  = require (zogConfig.busClient);
 var zogLog     = require ('zogLog') (moduleName);
 
 
-var bootEnv = function ()
-{
+var bootEnv = function () {
   var path = require ('path');
   var fs   = require ('fs');
 
@@ -21,36 +20,29 @@ var bootEnv = function ()
    * It should not be necessary on Unix because it is always related to
    * /bin/sh which is absolute.
    */
-  if (zogPlatform.getOs () === 'win')
-  {
+  if (zogPlatform.getOs () === 'win') {
     var systemDir = path.dirname (process.env.COMSPEC).replace (/\\/g, '\\\\');
 
-    if (systemDir.length)
-    {
+    if (systemDir.length) {
       var regex = new RegExp ('^' + systemDir, 'i');
 
-      list = list.filter (function (location)
-      {
+      list = list.filter (function (location) {
         return regex.test (location);
       });
     }
   }
 
-  try
-  {
+  try {
     var zogrc = JSON.parse (fs.readFileSync (zogConfig.zogRc, 'utf8'));
-    if (zogrc.hasOwnProperty ('path'))
-    {
-      zogrc.path.reverse ().forEach (function (location)
-      {
+    if (zogrc.hasOwnProperty ('path')) {
+      zogrc.path.reverse ().forEach (function (location) {
         list.unshift (location);
       });
     }
-  }
-  catch (err)
-  {
-    if (err.code !== 'ENOENT')
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
       throw err;
+    }
   }
 
   list.unshift (path.resolve ('./usr/bin'));
@@ -61,24 +53,20 @@ var bootEnv = function ()
   zogLog.verb ('zog env ready');
 };
 
-busBoot.getEmitter.on ('stop', function ()
-{
+busBoot.getEmitter.on ('stop', function () {
   zogLog.verb ('Bus stop event received');
 });
 
-exports.start = function (callbackDone)
-{
+exports.start = function (callbackDone) {
   bootEnv ();
 
-  busBoot.getEmitter.on ('ready', function ()
-  {
+  busBoot.getEmitter.on ('ready', function () {
     busClient.connect (busBoot.getToken (), callbackDone);
   });
 
   busBoot.boot ();
 };
 
-exports.stop = function ()
-{
+exports.stop = function () {
   busBoot.stop ();
 };
