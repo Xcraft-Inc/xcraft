@@ -1,10 +1,9 @@
 'use strict';
-///LoKthar Configure
-///
+// LoKthar Configure
+//
 angular
   .module('lk-configure', ['checklist-model', 'lk-helpers'])
-  .config(function($stateProvider, $urlRouterProvider) {
-
+  .config(function ($stateProvider, $urlRouterProvider) {
     var moduleRoot = 'modules/lkConfigure/';
     $urlRouterProvider.otherwise('/configure');
     $stateProvider
@@ -14,16 +13,16 @@ angular
         views: {
           module: {
             templateUrl: moduleRoot + 'views/config.html',
-            controller: function($scope) {
+            controller: function ($scope) {
               var yaml = require('js-yaml');
               var fs = require('fs');
-              //Link relative zogConfig lib
+              // Link relative zogConfig lib
               var remote = require('remote');
               var path = require('path');
               var zogConfig = remote
                 .require(path
                   .resolve('./scripts/zogConfig.js'))();
-              //hide menu
+              // hide menu
               $.UIkit.offcanvas.offcanvas.hide(false);
 
 
@@ -51,7 +50,7 @@ angular
               $scope.icon = 'cog';
 
 
-              $scope.saveUserConfig = function() {
+              $scope.saveUserConfig = function () {
                 $scope.data = yaml.safeDump($scope.conf);
                 fs.writeFileSync($scope.userYaml, $scope.data);
               };
