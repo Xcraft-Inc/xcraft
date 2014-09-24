@@ -21,8 +21,7 @@ var initNewer = function () {
 
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile) {
-      list[packageName + '/' + controlFile.arch] =
-      {
+      list[packageName + '/' + controlFile.arch] = {
         src: path.join (zogConfig.pkgProductsRoot, packageName, zogConfig.pkgCfgFileName),
         dest: controlFile.control,
         options: {
