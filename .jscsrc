@@ -40,5 +40,9 @@
     "checkRedundantParams": true,
     "requireParamTypes": true
   },
-  "maximumLineLength": 120
+  "maximumLineLength": {
+    "value": 120,
+    "allowUrlComments": true,
+    "allowRegex": true
+  }
 }
