@@ -164,5 +164,6 @@ exports.package = function (packageName, arch, callbackDone) {
     processFile (packageName, controlFiles, arch, callbackDone);
   } catch (err) {
     zogLog.err (err);
+    callbackDone (false);
   }
 };
