@@ -176,9 +176,11 @@ cmd['edit.save'] = function (msg) {
 
 /**
  * Make the Control file for WPKG by using a package config file.
- * @param {string} packageName
+ * @param {Object} msg
  */
-cmd.make = function (packageName) {
+cmd.make = function (msg) {
+  var packageName = msg.data.packageName;
+
   zogLog.info ('make the wpkg package for ' + (packageName || 'all'));
 
   var pkgMake = require (zogConfig.libPkgMake);
@@ -189,10 +191,14 @@ cmd.make = function (packageName) {
 
   if (packageName === 'all') {
     /* We use a grunt task for this job (with mtime check). */
-    var grunt     = require ('grunt');
-    grunt.tasks (['newer']);
+    var grunt = require ('grunt');
+    grunt.tasks (['newer'], null, function () {
+      busClient.events.send ('zogManager.make.finished');
+    });
   } else {
-    pkgMake.package (packageName, null); /* TODO: arch support */
+    pkgMake.package (packageName, null, function (done) { /* jshint ignore:line */
+      busClient.events.send ('zogManager.make.finished');
+    }); /* TODO: arch support */
   }
 };
 

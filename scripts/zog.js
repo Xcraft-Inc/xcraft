@@ -132,7 +132,8 @@ var main = function (done) {
     busClient.command.send ('zogManager.edit', {packageName : program.edit}, mainShutdown);
   }
   if (program.make) {
-    zogManager.make (program.make === true ? false : program.make);
+    var args = program.make === true ? false : program.make;
+    busClient.command.send ('zogManager.make', {packageName : args}, mainShutdown);
   }
   if (program.install) {
     zogManager.install (program.install);
