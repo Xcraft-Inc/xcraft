@@ -11,15 +11,17 @@ var zogLog     = require ('zogLog') (moduleName);
 var wpkgEngine = require ('./wpkgEngine.js');
 
 
-var updateAndInstall = function (packageName, arch) {
+var updateAndInstall = function (packageName, arch, callbackDone) {
   wpkgEngine.update (arch, function (done) {
     if (done) {
-      wpkgEngine.install (packageName, arch);
+      wpkgEngine.install (packageName, arch, callbackDone);
+    } else {
+      callbackDone (false);
     }
   });
 };
 
-var addRepositoryForAll = function (packageName, arch) {
+var addRepositoryForAll = function (packageName, arch, callbackDone) {
   /* This repository is useful for all architectures. */
   var allRespository = path.join (zogConfig.pkgDebRoot, 'all');
 
@@ -30,13 +32,14 @@ var addRepositoryForAll = function (packageName, arch) {
     wpkgEngine.addSources (source, arch, function (done) {
       if (!done) {
         zogLog.err ('impossible to add the source path for "all"');
+        callbackDone (false);
         return;
       }
 
-      updateAndInstall (packageName, arch);
+      updateAndInstall (packageName, arch, callbackDone);
     });
   } else {
-    updateAndInstall (packageName, arch);
+    updateAndInstall (packageName, arch, callbackDone);
   }
 };
 
@@ -56,24 +59,26 @@ var checkArch = function (arch) {
   return true;
 };
 
-exports.install = function (packageRef) {
+exports.install = function (packageRef, callbackDone) {
   var pkg = parsePkgRef (packageRef);
 
   zogLog.verb ('install package name: ' + pkg.name + ' on architecture: ' + pkg.arch);
 
   if (!checkArch (pkg.arch)) {
+    callbackDone (false);
     return;
   }
 
   /* Check if the admindir exists; create if necessary. */
   if (fs.existsSync (path.join (zogConfig.pkgTargetRoot, pkg.arch, 'var', 'lib', 'wpkg'))) {
-    addRepositoryForAll (pkg.name, pkg.arch);
+    addRepositoryForAll (pkg.name, pkg.arch, callbackDone);
     return;
   }
 
   wpkgEngine.createAdmindir (pkg.arch, function (done) {
     if (!done) {
       zogLog.err ('impossible to create the admin directory');
+      callbackDone (false);
       return;
     }
 
@@ -83,10 +88,11 @@ exports.install = function (packageRef) {
     wpkgEngine.addSources (source, pkg.arch, function (done) {
       if (!done) {
         zogLog.err ('impossible to add the source path for "%s"', pkg.arch);
+        callbackDone (false);
         return;
       }
 
-      addRepositoryForAll (pkg.name, pkg.arch);
+      addRepositoryForAll (pkg.name, pkg.arch, callbackDone);
     });
   });
 };

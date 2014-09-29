@@ -204,14 +204,18 @@ cmd.make = function (msg) {
 
 /**
  * Try to install the developement package.
- * @param {string} packageRef
+ * @param {Object} msg
  */
-cmd.install = function (packageRef) {
+cmd.install = function (msg) {
+  var packageRef = msg.data.packageRef;
+
   zogLog.info ('install development package: ' + packageRef);
 
   var pkgCmd = require (zogConfig.libPkgCmd);
 
-  pkgCmd.install (packageRef);
+  pkgCmd.install (packageRef, function (done) { /* jshint ignore:line */
+    busClient.events.send ('zogManager.install.finished');
+  });
 };
 
 /**
