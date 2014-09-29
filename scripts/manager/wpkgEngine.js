@@ -198,6 +198,7 @@ exports.build = function (packagePath, distribution, callbackDone) {
 
   var wpkg = new WpkgArgs (function (done) {
     if (!done) {
+      callbackDone (false);
       return;
     }
 
