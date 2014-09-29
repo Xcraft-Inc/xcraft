@@ -326,6 +326,7 @@ exports.addSources = function (sourcePath, arch, callbackDone) {
 
   var wpkg = new WpkgArgs (function (done) {
     if (!done) {
+      callbackDone (false);
       return;
     }
 
