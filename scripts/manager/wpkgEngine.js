@@ -212,7 +212,7 @@ exports.build = function (packagePath, distribution, callbackDone) {
   wpkg.build (packagePath, arch);
 };
 
-var lookForPackage = function (packageName, archRoot, arch, callbackDone) {
+var lookForPackage = function (packageName, archRoot, arch, callbackResult) {
   var repositoryPath = path.join (zogConfig.pkgDebRoot, arch, zogConfig.pkgRepository);
   var list = [];
 
@@ -225,8 +225,8 @@ var lookForPackage = function (packageName, archRoot, arch, callbackDone) {
     var debFile = list[packageName];
     if (!debFile) {
       zogLog.warn ('the package %s is unavailable in %s', packageName, arch);
-      if (callbackDone) {
-        callbackDone (null);
+      if (callbackResult) {
+        callbackResult (null);
       }
       return;
     }
@@ -236,8 +236,8 @@ var lookForPackage = function (packageName, archRoot, arch, callbackDone) {
      */
     debFile = path.join (repositoryPath, debFile);
 
-    if (callbackDone) {
-      callbackDone (debFile, arch);
+    if (callbackResult) {
+      callbackResult (debFile, arch);
     }
   });
 
