@@ -116,6 +116,7 @@ module.exports = function () {
     scriptsRoot      : path.resolve ('./scripts/'),
     libPkgRoot       : path.resolve ('./scripts/manager/'),
     zogRc            : path.resolve ('./.zogrc'),
+    npmRc            : path.resolve ('./.npmrc'),
     zogBoot          : path.resolve ('./scripts/zogBoot.js'),
     libRoot          : path.resolve ('./scripts/lib/'),
     loktharRoot      : path.resolve ('./lokthar/'),
