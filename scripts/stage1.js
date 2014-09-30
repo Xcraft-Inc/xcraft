@@ -49,12 +49,17 @@ var stage2 = function () {
     var zogConfig = require ('./zogConfig.js') ();
 
     var list = [];
+
     process.argv.slice (2).forEach (function (location) {
       list.push (path.resolve (location));
     });
 
+    var sysroot = list.shift ();
+
+
     var zogrc = {
-      path: list
+      path: list,
+      sysroot: sysroot
     };
 
     var fs = require ('fs');
