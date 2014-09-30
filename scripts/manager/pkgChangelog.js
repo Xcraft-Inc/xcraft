@@ -28,7 +28,7 @@ var defToChangelog = function (packageDef) {
                              packageDef.name,
                              packageDef.version,
                              packageDef.distribution);
-    changelog += '  * Package source.\n';
+    changelog += '  * Package for ' + arch + '.\n';
     changelog += util.format ('\n -- %s <%s>  ',
                               packageDef.maintainer.name,
                               packageDef.maintainer.email);
