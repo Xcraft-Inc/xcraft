@@ -23,7 +23,13 @@ var depsForZog = [
   'socket.io',
   'socket.io-client',
   'tar',
-  'tar.gz'
+  'tar.gz',
+  'unpm',
+  'unpm-fs-backend'
+];
+
+var depsForTest = [
+  'xcraft-core-scm'
 ];
 
 try {
@@ -34,9 +40,42 @@ try {
 }
 
 /**
- * The second stage installs cmake and wpkg.
+ * Install package
  */
-var stage2 = function () {
+var npmInstall = function (packages, useRegistry, stageCallback) {
+
+  console.log ('[' + moduleName + '] Info: install zog dependencies');
+  try {
+    var npm = 'npm' + zogPlatform.getCmdExt ();
+    var args = ['install'];
+
+    if (useRegistry) {
+      args.push ('--registry');
+      args.push ('http://localhost:8123');
+    }
+
+    args = args.concat (packages);
+
+    zogProcess.spawn (npm, args, function (done) {
+      if (done) {
+        stageCallback ();
+      } else {
+        console.log ('[' + moduleName + '] Err: npm has failed');
+      }
+    }, function (line) {
+      console.log ('[' + moduleName + '] Verb: ' + line);
+    }, function (line) {
+      console.log ('[' + moduleName + '] Err: ' + line);
+    });
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
+};
+
+/**
+ * The third stage installs cmake and wpkg.
+ */
+var stage3 = function (finishCallback) {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
   var util = require ('util');
@@ -89,26 +128,38 @@ var stage2 = function () {
     if (err) {
       zogLog.err (err);
     }
+
+    finishCallback();
   });
 };
 
-console.log ('[' + moduleName + '] Info: install zog dependencies');
-try {
-  var npm = 'npm' + zogPlatform.getCmdExt ();
-  var args = ['install'];
-  args = args.concat (depsForZog);
+var stage2 = function () {
+  var path    = require('path');
+  var backend = require('unpm-fs-backend');
+  var dataDir = './usr/share/unpm';
+  var config  = {
+    configfile: './etc/unpm/unpm.json'
+  };
 
-  zogProcess.spawn (npm, args, function (done) {
-    if (done) {
-      stage2 ();
-    } else {
-      console.log ('[' + moduleName + '] Err: npm has failed');
-    }
-  }, function (line) {
-    console.log ('[' + moduleName + '] Verb: ' + line);
-  }, function (line) {
-    console.log ('[' + moduleName + '] Err: ' + line);
+  var tarballsDir = path.join(dataDir, 'tarballs');
+  var userDir = path.join(dataDir, 'users');
+  var metaDir = path.join(dataDir, 'meta');
+  var storeDir = path.join(dataDir, 'store');
+
+  config.backend = backend(metaDir, userDir, tarballsDir, storeDir);
+
+  var unpm = require ('unpm');
+  var unpmService = unpm (config);
+  unpmService.server.listen (unpmService.config.host.port);
+
+  npmInstall (depsForTest, true, function () {
+    stage3 (function () {
+      unpmService.server.close ();
+    });
   });
-} catch (err) {
-  console.log ('[' + moduleName + '] Err: ' + err);
-}
+};
+
+/**
+ * Start here
+ */
+npmInstall (depsForZog, false, stage2);
