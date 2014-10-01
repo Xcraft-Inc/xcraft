@@ -47,7 +47,6 @@ try {
  * Install packages
  */
 var npmInstall = function (packages, useRegistry, stageCallback) {
-
   console.log ('[' + moduleName + '] Info: install zog dependencies');
   try {
     var npm = 'npm' + zogPlatform.getCmdExt ();
@@ -129,8 +128,6 @@ var stage3 = function (finishCallback) {
     });
 
     var sysroot = list.shift ();
-
-
     var zogrc = {
       path: list,
       sysroot: sysroot
@@ -169,19 +166,19 @@ var stage3 = function (finishCallback) {
 };
 
 var stage2 = function () {
-  var path    = require('path');
-  var backend = require('unpm-fs-backend');
+  var path    = require ('path');
+  var backend = require ('unpm-fs-backend');
   var dataDir = './usr/share/unpm';
   var config  = {
     configfile: './etc/unpm/unpm.json'
   };
 
-  var tarballsDir = path.join(dataDir, 'tarballs');
-  var userDir = path.join(dataDir, 'users');
-  var metaDir = path.join(dataDir, 'meta');
-  var storeDir = path.join(dataDir, 'store');
+  var tarballsDir = path.join (dataDir, 'tarballs');
+  var userDir     = path.join (dataDir, 'users');
+  var metaDir     = path.join (dataDir, 'meta');
+  var storeDir    = path.join (dataDir, 'store');
 
-  config.backend = backend(metaDir, userDir, tarballsDir, storeDir);
+  config.backend = backend (metaDir, userDir, tarballsDir, storeDir);
 
   var unpm = require ('unpm');
   var unpmService = unpm (config);
