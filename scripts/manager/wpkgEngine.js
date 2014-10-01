@@ -15,7 +15,7 @@ var zogLog    = require ('xcraft-core-log') (moduleName);
  * @param {boolean} callbackDone.done - True on success.
  */
 var WpkgArgs = function (callbackDone) {
-  var zogProcess = require ('zogProcess');
+  var zogProcess = require ('xcraft-core-process');
   var bin = 'wpkg';
 
   /**

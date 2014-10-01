@@ -2,7 +2,6 @@
 
 var moduleName = 'stage1';
 
-var zogProcess  = require ('zogProcess');
 var zogPlatform = require ('zogPlatform');
 
 var depsForZog = [
@@ -34,7 +33,8 @@ var corePackages = [
   'xcraft-core-peon',
   'xcraft-core-http',
   'xcraft-core-extract',
-  'xcraft-core-log'
+  'xcraft-core-log',
+  'xcraft-core-process'
 ];
 
 try {
@@ -48,7 +48,8 @@ try {
  * Install packages
  */
 var npmInstall = function (packages, useRegistry, stageCallback) {
-  console.log ('[' + moduleName + '] Info: install zog dependencies');
+  var spawn  = require ('child_process').spawn;
+  console.log ('[' + moduleName + '] Info: install dependencies');
   try {
     var npm = 'npm' + zogPlatform.getCmdExt ();
     var args = ['install'];
@@ -60,16 +61,11 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
 
     args = args.concat (packages);
 
-    zogProcess.spawn (npm, args, function (done) {
-      if (done) {
+    var install = spawn (npm, args);
+    install.on ('close', function (code) { /* jshint ignore:line */
+      if (stageCallback) {
         stageCallback ();
-      } else {
-        console.log ('[' + moduleName + '] Err: npm has failed');
       }
-    }, function (line) {
-      console.log ('[' + moduleName + '] Verb: ' + line);
-    }, function (line) {
-      console.log ('[' + moduleName + '] Err: ' + line);
     });
   } catch (err) {
     console.log ('[' + moduleName + '] Err: ' + err);
@@ -81,7 +77,7 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
  * Publish packages
  */
 var npmPublish = function (packageToPublish,  callback) {
-
+  var spawn  = require ('child_process').spawn;
   console.log ('[' + moduleName + '] Info: publish '+ packageToPublish + ' in µNPM');
   try {
     var path = require ('path');
@@ -90,17 +86,11 @@ var npmPublish = function (packageToPublish,  callback) {
     var packagePath = path.join ('lib/', packageToPublish);
     args.push (packagePath);
 
-    zogProcess.spawn (npm, args, function (done) {
-      if (done) {
+    var install = spawn (npm, args);
+    install.on ('close', function (code) { /* jshint ignore:line */
+      if (callback) {
         callback ();
-      } else {
-        console.log ('[' + moduleName + '] Err: npm has failed');
-        callback ('publish failed');
       }
-    }, function (line) {
-      console.log ('[' + moduleName + '] Verb: ' + line);
-    }, function (line) {
-      console.log ('[' + moduleName + '] Err: ' + line);
     });
   } catch (err) {
     console.log ('[' + moduleName + '] Err: ' + err);
@@ -114,6 +104,7 @@ var stage3 = function (finishCallback) {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
   var util = require ('util');
+  var zogProcess  = require ('xcraft-core-process');
   var zogLog = require ('xcraft-core-log') ('stage3');
   zogLog.verbosity (0);
 
