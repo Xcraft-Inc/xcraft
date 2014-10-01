@@ -12,7 +12,7 @@ var bootEnv = function () {
   var path = require ('path');
   var fs   = require ('fs');
 
-  var zogPlatform = require ('zogPlatform');
+  var zogPlatform = require ('xcraft-core-platform');
 
   var list = process.env.PATH.split (path.delimiter);
 

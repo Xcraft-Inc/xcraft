@@ -1,9 +1,6 @@
 'use strict';
 
 var moduleName = 'stage1';
-
-var zogPlatform = require ('zogPlatform');
-
 var depsForZog = [
   'async',
   'axon',
@@ -34,7 +31,8 @@ var corePackages = [
   'xcraft-core-http',
   'xcraft-core-extract',
   'xcraft-core-log',
-  'xcraft-core-process'
+  'xcraft-core-process',
+  'xcraft-core-platform'
 ];
 
 try {
@@ -50,8 +48,10 @@ try {
 var npmInstall = function (packages, useRegistry, stageCallback) {
   var spawn  = require ('child_process').spawn;
   console.log ('[' + moduleName + '] Info: install dependencies');
+
   try {
-    var npm = 'npm' + zogPlatform.getCmdExt ();
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
+    var npm = 'npm' + ext;
     var args = ['install'];
 
     if (useRegistry) {
@@ -78,10 +78,12 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
  */
 var npmPublish = function (packageToPublish,  callback) {
   var spawn  = require ('child_process').spawn;
+  var path = require ('path');
   console.log ('[' + moduleName + '] Info: publish '+ packageToPublish + ' in µNPM');
+
   try {
-    var path = require ('path');
-    var npm = 'npm' + zogPlatform.getCmdExt ();
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
+    var npm = 'npm' + ext;
     var args = ['--registry','http://localhost:8485','publish'];
     var packagePath = path.join ('lib/', packageToPublish);
     args.push (packagePath);
@@ -105,6 +107,7 @@ var stage3 = function (finishCallback) {
 
   var util = require ('util');
   var zogProcess  = require ('xcraft-core-process');
+  var zogPlatform = require ('xcraft-core-platform');
   var zogLog = require ('xcraft-core-log') ('stage3');
   zogLog.verbosity (0);
 

@@ -13,7 +13,7 @@ module.exports = function () {
   var fs       = require ('fs');
   var inquirer = require ('inquirer');
 
-  var zogPlatform = require ('zogPlatform');
+  var zogPlatform = require ('xcraft-core-platform');
 
   var userYaml    = './zog.yaml';
   var defaultYaml = './scripts/zog.yaml';

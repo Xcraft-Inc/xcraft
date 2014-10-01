@@ -11,7 +11,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
   var packageDef = pkgDefinition.load (packageName);
 
   var npmInstall = function (callbackDone) {
-    var zogPlatform = require ('zogPlatform');
+    var zogPlatform = require ('xcraft-core-platform');
     var zogProcess  = require ('xcraft-core-process');
     var zogFs       = require ('xcraft-core-fs');
 
