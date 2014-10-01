@@ -4,7 +4,7 @@ var inquirer  = require ('inquirer');
 var zogConfig = require ('../zogConfig.js') ();
 var zogFs     = require ('xcraft-core-fs');
 var zogPeon   = require ('xcraft-core-peon');
-var busClient = require (zogConfig.busClient);
+var busClient = require ('xcraft-core-busclient');
 
 /* Version rules by Debian:
  * http://windowspackager.org/documentation/implementation-details/debian-version

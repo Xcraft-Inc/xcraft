@@ -32,7 +32,9 @@ var corePackages = [
   'xcraft-core-extract',
   'xcraft-core-log',
   'xcraft-core-process',
-  'xcraft-core-platform'
+  'xcraft-core-platform',
+  'xcraft-core-bus',
+  'xcraft-core-busclient'
 ];
 
 try {

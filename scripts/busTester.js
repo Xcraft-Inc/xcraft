@@ -1,10 +1,10 @@
 'use strict';
 
-var zogConfig     = require ('../zogConfig.js') ();
+var zogConfig     = require ('./zogConfig.js') ();
 var axon          = require ('axon');
 var notifications = axon.socket ('sub');
 var commands      = axon.socket ('push');
-var testBuses     = require ('./busBoot.js');
+var testBuses     = require ('xcraft-core-bus');
 
 testBuses.getEmitter.on ('ready', function () {
   /* command bus tester */
@@ -20,4 +20,4 @@ testBuses.getEmitter.on ('ready', function () {
 });
 
 /* init */
-testBuses.boot ();
+testBuses.boot (zogConfig);

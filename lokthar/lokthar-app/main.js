@@ -5,7 +5,7 @@ var zogConfig     = require ('../../scripts/zogConfig.js')();
 var app           = require ('app');
 var ipc           = require ('ipc');
 var BrowserWindow = require ('browser-window');
-var busClient     = require (zogConfig.busClient);
+var busClient     = require ('xcraft-core-busclient');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -54,8 +54,8 @@ app.on('ready', function () {
 
   // argv[2] contains bus token, needed for busClient.connect
   var argv = process.argv;
-
-  busClient.connect(argv[2], function (done) {
+  busClient.configure (zogConfig);
+  busClient.connect (argv[2], function (done) {
     if (!done) {
       process.exit(1);
     }

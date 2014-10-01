@@ -4,15 +4,16 @@
 
 - xcraft
 - xcraft-core-shell `[wpkg [get, build, install, uninstall], cmake [get, build, install, uninstall], node, npm, ...]`
-- xcraft-core-bus
-- xcraft-core-fs
-- xcraft-core-log
-- xcraft-core-extract
-- xcraft-core-http
-- xcraft-core-peon
-- xcraft-core-platform
-- xcraft-core-process
-- xcraft-core-scm
+- xcraft-core-bus ✓
+- xcraft-core-bus-client ✓
+- xcraft-core-fs ✓
+- xcraft-core-log ✓
+- xcraft-core-extract ✓
+- xcraft-core-http ✓
+- xcraft-core-peon ✓
+- xcraft-core-platform ✓
+- xcraft-core-process ✓
+- xcraft-core-scm ✓
 - xcraft-core-devel
 - xcraft-core-uri
 

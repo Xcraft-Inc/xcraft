@@ -10,7 +10,7 @@ var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('xcraft-core-platform');
 var zogLog      = require ('xcraft-core-log') (moduleName);
 var zogFs       = require ('xcraft-core-fs');
-var busClient   = require (zogConfig.busClient);
+var busClient   = require ('xcraft-core-busclient');
 
 var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot,
                                                         moduleName,

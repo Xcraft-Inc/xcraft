@@ -94,7 +94,7 @@ var main = function (done) {
     process.exit (1);
   }
 
-  var busClient = require (zogConfig.busClient);
+  var busClient = require ('xcraft-core-busclient');
 
   var mainShutdown = function () {
     zogLog.verb ('end command');
@@ -109,7 +109,7 @@ var main = function (done) {
   };
 
   /* Global error handler for command errors. */
-  require ('./bus/busCommander.js')
+  require ('xcraft-core-bus').getCommander ()
     .registerErrorHandler (!program.lokthar ? mainShutdown : loktharErrorHandler);
 
   if (program.cmake) {

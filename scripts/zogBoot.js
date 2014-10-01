@@ -3,8 +3,8 @@
 var moduleName = 'zog-boot';
 
 var zogConfig  = require ('./zogConfig.js') ();
-var busBoot    = require (zogConfig.busBoot);
-var busClient  = require (zogConfig.busClient);
+var busBoot    = require ('xcraft-core-bus');
+var busClient  = require ('xcraft-core-busclient');
 var zogLog     = require ('xcraft-core-log') (moduleName);
 
 
@@ -62,10 +62,11 @@ exports.start = function (callbackDone) {
   bootEnv ();
 
   busBoot.getEmitter.on ('ready', function () {
+    busClient.configure (zogConfig);
     busClient.connect (busBoot.getToken (), callbackDone);
   });
 
-  busBoot.boot ();
+  busBoot.boot (zogConfig);
 };
 
 exports.stop = function () {
