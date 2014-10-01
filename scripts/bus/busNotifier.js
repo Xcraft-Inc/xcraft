@@ -2,7 +2,7 @@
 
 var moduleName = 'notific-bus';
 
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 var axon      = require ('axon');
 
 

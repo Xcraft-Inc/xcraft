@@ -3,7 +3,7 @@
 var moduleName = 'chest';
 
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 
 var chestUpload = function (inputFile, server, port, callback) {
   var fs             = require ('fs');

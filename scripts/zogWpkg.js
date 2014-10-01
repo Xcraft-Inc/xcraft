@@ -8,7 +8,7 @@ var async       = require ('async');
 var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
-var zogLog      = require ('zogLog') (moduleName);
+var zogLog      = require ('xcraft-core-log') (moduleName);
 var zogFs       = require ('xcraft-core-fs');
 var busClient   = require (zogConfig.busClient);
 

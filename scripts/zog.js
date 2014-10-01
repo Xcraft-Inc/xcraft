@@ -3,7 +3,7 @@
 var program = require ('commander');
 var clc     = require ('cli-color');
 
-var zogLog     = require ('zogLog') ('zog');
+var zogLog     = require ('xcraft-core-log') ('zog');
 var zogCMake   = require ('./zogCMake.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');

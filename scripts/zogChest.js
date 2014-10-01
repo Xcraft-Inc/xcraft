@@ -4,7 +4,7 @@ var moduleName = 'chest';
 
 var fs        = require ('fs');
 var zogConfig = require ('./zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 var busClient = require (zogConfig.busClient);
 
 var cmd = {};

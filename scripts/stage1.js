@@ -33,7 +33,8 @@ var corePackages = [
   'xcraft-core-scm',
   'xcraft-core-peon',
   'xcraft-core-http',
-  'xcraft-core-extract'
+  'xcraft-core-extract',
+  'xcraft-core-log'
 ];
 
 try {
@@ -113,7 +114,7 @@ var stage3 = function (finishCallback) {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
   var util = require ('util');
-  var zogLog = require ('zogLog') ('stage3');
+  var zogLog = require ('xcraft-core-log') ('stage3');
   zogLog.verbosity (0);
 
   /* Locations of the sysroot/ binaries. */

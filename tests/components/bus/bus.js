@@ -2,7 +2,7 @@
 
 var moduleName = 'test';
 
-var zogLog     = require ('zogLog') (moduleName);
+var zogLog     = require ('xcraft-core-log') (moduleName);
 var zogConfig  = require ('../../../scripts/zogConfig.js') ();
 var zogBoot    = require ('../../../scripts/zogBoot.js');
 

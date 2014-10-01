@@ -7,7 +7,7 @@ var path = require ('path');
 var util = require ('util');
 
 var zogConfig  = require ('../zogConfig.js') ();
-var zogLog     = require ('zogLog') (moduleName);
+var zogLog     = require ('xcraft-core-log') (moduleName);
 var wpkgEngine = require ('./wpkgEngine.js');
 
 

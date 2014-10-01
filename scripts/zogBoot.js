@@ -5,7 +5,7 @@ var moduleName = 'zog-boot';
 var zogConfig  = require ('./zogConfig.js') ();
 var busBoot    = require (zogConfig.busBoot);
 var busClient  = require (zogConfig.busClient);
-var zogLog     = require ('zogLog') (moduleName);
+var zogLog     = require ('xcraft-core-log') (moduleName);
 
 
 var bootEnv = function () {

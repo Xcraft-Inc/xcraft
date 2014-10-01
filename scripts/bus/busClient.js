@@ -3,7 +3,7 @@
 var moduleName = 'bus-client';
 
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 var axon      = require ('axon');
 var async     = require ('async');
 

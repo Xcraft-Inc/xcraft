@@ -6,7 +6,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
 
   var packageName = path.basename (__dirname);
 
-  var zogLog = require ('zogLog') (packageName);
+  var zogLog = require ('xcraft-core-log') (packageName);
 
   var copyZogModules = function () {
     var zogFs = require ('xcraft-core-fs');

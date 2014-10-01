@@ -4,7 +4,7 @@ var moduleName = 'config';
 
 var path       = require ('path');
 var confWizard = require ('./config/confWizard.js');
-var zogLog     = require ('zogLog') (moduleName);
+var zogLog     = require ('xcraft-core-log') (moduleName);
 
 process.chdir (path.join (__dirname, '/..'));
 

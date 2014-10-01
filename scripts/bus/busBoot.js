@@ -5,7 +5,7 @@ var moduleName   = 'bus-boot';
 
 var async        = require ('async');
 var zogConfig    = require ('../zogConfig.js') ();
-var zogLog       = require ('zogLog') (moduleName);
+var zogLog       = require ('xcraft-core-log') (moduleName);
 var crypto       = require ('crypto');
 var busNotifier  = require ('./busNotifier.js');
 var busCommander = require ('./busCommander.js');

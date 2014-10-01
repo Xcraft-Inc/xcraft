@@ -6,7 +6,7 @@ var path      = require ('path');
 var util      = require ('util');
 var async     = require ('async');
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 
 /**
  * Convert an inquirer answer to a package definition.

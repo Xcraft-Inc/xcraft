@@ -4,7 +4,7 @@ var moduleName = 'manager';
 
 var path      = require ('path');
 var zogConfig = require ('../zogConfig.js') ();
-var zogLog    = require ('zogLog') (moduleName);
+var zogLog    = require ('xcraft-core-log') (moduleName);
 
 
 exports.load = function (packageName) {

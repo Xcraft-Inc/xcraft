@@ -6,7 +6,7 @@ var path = require ('path');
 
 var zogConfig     = require ('../zogConfig.js') ();
 var zogFs         = require ('xcraft-core-fs');
-var zogLog        = require ('zogLog') (moduleName);
+var zogLog        = require ('xcraft-core-log') (moduleName);
 var pkgControl    = require ('./pkgControl.js');
 var pkgChangelog  = require (zogConfig.libPkgChangelog);
 var pkgDefinition = require (zogConfig.libPkgDefinition);
