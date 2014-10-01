@@ -28,8 +28,12 @@ var depsForZog = [
   'unpm-fs-backend'
 ];
 
-var depsForTest = [
-  'xcraft-core-scm'
+var corePackages = [
+  'xcraft-core-fs',
+  'xcraft-core-scm',
+  'xcraft-core-peon',
+  'xcraft-core-http',
+  'xcraft-core-extract'
 ];
 
 try {
@@ -40,7 +44,7 @@ try {
 }
 
 /**
- * Install package
+ * Install packages
  */
 var npmInstall = function (packages, useRegistry, stageCallback) {
 
@@ -51,7 +55,7 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
 
     if (useRegistry) {
       args.push ('--registry');
-      args.push ('http://localhost:8123');
+      args.push ('http://localhost:8485');
     }
 
     args = args.concat (packages);
@@ -72,6 +76,37 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
   }
 };
 
+
+/**
+ * Publish packages
+ */
+var npmPublish = function (packageToPublish,  callback) {
+
+  console.log ('[' + moduleName + '] Info: publish '+ packageToPublish + ' in µNPM');
+  try {
+    var path = require ('path');
+    var npm = 'npm' + zogPlatform.getCmdExt ();
+    var args = ['--registry','http://localhost:8485','publish'];
+    var packagePath = path.join ('lib/', packageToPublish);
+    args.push (packagePath);
+
+    zogProcess.spawn (npm, args, function (done) {
+      if (done) {
+        callback ();
+      } else {
+        console.log ('[' + moduleName + '] Err: npm has failed');
+        callback ('publish failed');
+      }
+    }, function (line) {
+      console.log ('[' + moduleName + '] Verb: ' + line);
+    }, function (line) {
+      console.log ('[' + moduleName + '] Err: ' + line);
+    });
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
+};
+
 /**
  * The third stage installs cmake and wpkg.
  */
@@ -79,7 +114,7 @@ var stage3 = function (finishCallback) {
   console.log ('[' + moduleName + '] Info: end of stage one');
 
   var util = require ('util');
-  var zogLog = require ('zogLog') ('stage2');
+  var zogLog = require ('zogLog') ('stage3');
   zogLog.verbosity (0);
 
   /* Locations of the sysroot/ binaries. */
@@ -152,11 +187,25 @@ var stage2 = function () {
   var unpmService = unpm (config);
   unpmService.server.listen (unpmService.config.host.port);
 
-  npmInstall (depsForTest, true, function () {
-    stage3 (function () {
-      unpmService.server.close ();
-    });
-  });
+  var async = require ('async');
+  async.eachSeries (corePackages, function (packageToPublish, callback) {
+      npmPublish (packageToPublish, callback);
+    },
+    function (err) {
+      if (err) {
+        console.log (err);
+        unpmService.server.close ();
+      } else {
+        npmInstall (corePackages, true, function () {
+          stage3 (function () {
+            unpmService.server.close ();
+          });
+        });
+      }
+    }
+  );
+
+
 };
 
 /**
