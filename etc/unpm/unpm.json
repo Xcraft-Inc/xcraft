@@ -1,0 +1,20 @@
+{
+  "host": {
+    "hostname": "localhost",
+    "protocol": "http",
+    "port": 8485,
+    "pathname": ""
+  },
+  "crypto": {
+    "algorithm": "sha512",
+    "saltLength": 30,
+    "iterations": 10
+  },
+  "verbose": true,
+  "checkAuth": false,
+  "auth" : {
+    "authenticated_gets": false,
+    "whitelist": ["/_session", "/-/user/org.couchdb.user:*", "/-/user/org.couchdb.user:*/*/*'"]
+  },
+  "fallback": null
+}
