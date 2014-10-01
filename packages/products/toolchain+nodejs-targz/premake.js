@@ -13,7 +13,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
   var npmInstall = function (callbackDone) {
     var zogPlatform = require ('zogPlatform');
     var zogProcess  = require ('zogProcess');
-    var zogFs       = require ('zogFs');
+    var zogFs       = require ('xcraft-core-fs');
 
     /* prefix to /usr/share */
     var nodeModules = path.join (sharePath, '..');

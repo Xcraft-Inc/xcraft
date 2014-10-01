@@ -294,7 +294,7 @@ exports.remove = function (packageName, arch, callbackDone) {
 exports.createAdmindir = function (arch, callbackDone) {
   var util  = require ('util');
   var fs    = require ('fs');
-  var zogFs = require ('zogFs');
+  var zogFs = require ('xcraft-core-fs');
 
   /* This control file is used in order to create a new admin directory. */
   var controlFile = path.join (zogConfig.tempRoot, 'control');

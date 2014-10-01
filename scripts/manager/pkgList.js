@@ -1,7 +1,7 @@
 'use strict';
 
 var zogConfig     = require ('../zogConfig.js') ();
-var zogFs         = require ('zogFs');
+var zogFs         = require ('xcraft-core-fs');
 var pkgDefinition = require (zogConfig.libPkgDefinition);
 
 /**

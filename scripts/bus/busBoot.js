@@ -49,7 +49,7 @@ var generateBusToken = function (callbackDone) {
  */
 var loadCommandsRegistry = function (modulePath, filterRegex) {
   var path  = require ('path');
-  var zogFs = require ('zogFs');
+  var zogFs = require ('xcraft-core-fs');
 
   var zogModules = {};
   var zogModulesFiles = zogFs.ls (modulePath, filterRegex);

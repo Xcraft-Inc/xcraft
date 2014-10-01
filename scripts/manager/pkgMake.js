@@ -5,7 +5,7 @@ var moduleName = 'manager';
 var path = require ('path');
 
 var zogConfig     = require ('../zogConfig.js') ();
-var zogFs         = require ('zogFs');
+var zogFs         = require ('xcraft-core-fs');
 var zogLog        = require ('zogLog') (moduleName);
 var pkgControl    = require ('./pkgControl.js');
 var pkgChangelog  = require (zogConfig.libPkgChangelog);
@@ -108,7 +108,7 @@ var processFile = function (packageName, files, arch, callbackDone) {
 
       /* Are the resources embedded in the package (less than 1GB)? */
       if (packageDef.data.embedded && packageDef.data.uri.length) {
-        var zogPeon = require ('zogPeon');
+        var zogPeon = require ('xcraft-core-peon');
         var zogUri  = require ('zogUri');
 
         var dataType  = packageDef.data.type;

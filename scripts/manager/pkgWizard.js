@@ -2,8 +2,8 @@
 
 var inquirer  = require ('inquirer');
 var zogConfig = require ('../zogConfig.js') ();
-var zogFs     = require ('zogFs');
-var zogPeon   = require ('zogPeon');
+var zogFs     = require ('xcraft-core-fs');
+var zogPeon   = require ('xcraft-core-peon');
 var busClient = require (zogConfig.busClient);
 
 /* Version rules by Debian:

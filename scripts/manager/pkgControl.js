@@ -112,7 +112,7 @@ exports.controlFiles = function (packageName, packageArch, saveFiles) {
 
   var fs  = require ('fs');
 
-  var zogFs         = require ('zogFs');
+  var zogFs         = require ('xcraft-core-fs');
   var zogPlatform   = require ('zogPlatform');
   var pkgDefinition = require (zogConfig.libPkgDefinition);
 

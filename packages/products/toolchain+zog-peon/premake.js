@@ -9,7 +9,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
   var zogLog = require ('zogLog') (packageName);
 
   var copyZogModules = function () {
-    var zogFs = require ('zogFs');
+    var zogFs = require ('xcraft-core-fs');
 
     var zogModules = zogFs.lsdir (zogConfig.nodeModulesRoot, /^zog/);
 

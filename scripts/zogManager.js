@@ -239,7 +239,7 @@ cmd.remove = function (msg) {
  */
 cmd.clean = function () {
   var fse   = require ('fs-extra');
-  var zogFs = require ('zogFs');
+  var zogFs = require ('xcraft-core-fs');
 
   zogLog.info ('clean all generated files');
 

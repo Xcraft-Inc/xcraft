@@ -77,7 +77,7 @@ exports.changelogFiles = function (packageName, packageArch, saveFiles) {
 
   var fs = require ('fs');
 
-  var zogFs         = require ('zogFs');
+  var zogFs         = require ('xcraft-core-fs');
   var pkgDefinition = require (zogConfig.libPkgDefinition);
 
   var def       = pkgDefinition.load (packageName);

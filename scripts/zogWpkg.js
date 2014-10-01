@@ -9,7 +9,7 @@ var zogProcess  = require ('zogProcess');
 var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('zogPlatform');
 var zogLog      = require ('zogLog') (moduleName);
-var zogFs       = require ('zogFs');
+var zogFs       = require ('xcraft-core-fs');
 var busClient   = require (zogConfig.busClient);
 
 var pkgConfig = JSON.parse (fs.readFileSync (path.join (zogConfig.pkgBaseRoot,
@@ -111,7 +111,7 @@ cmd.install = function () {
   async.auto (
   {
     taskHttp: function (callback) {
-      var zogHttp = require ('zogHttp');
+      var zogHttp = require ('xcraft-core-http');
 
       zogHttp.get (inputFile, outputFile, function () {
         callback ();
@@ -119,7 +119,7 @@ cmd.install = function () {
     },
 
     taskExtract: ['taskHttp', function (callback) {
-      var zogExtract = require ('zogExtract');
+      var zogExtract = require ('xcraft-core-extract');
       var outDir = path.dirname (outputFile);
 
       /* HACK: a very long filename exists in the tarball, then it is a

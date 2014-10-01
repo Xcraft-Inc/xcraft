@@ -9,7 +9,7 @@ var express   = require ('express');
 var app       = express ();
 var server    = require ('http').Server (app);
 var zogConfig = require ('../zogConfig.js') ();
-var zogFs     = require ('zogFs');
+var zogFs     = require ('xcraft-core-fs');
 var zogLog    = require ('zogLog') (moduleName);
 
 zogLog.verbosity (0);

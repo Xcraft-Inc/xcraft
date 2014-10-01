@@ -72,7 +72,7 @@ cmd.install = function () {
   async.auto (
   {
     taskHttp: function (callback) {
-      var zogHttp = require ('zogHttp');
+      var zogHttp = require ('xcraft-core-http');
 
       zogHttp.get (inputFile, outputFile, function () {
         callback ();
@@ -80,7 +80,7 @@ cmd.install = function () {
     },
 
     taskExtract: ['taskHttp', function (callback) {
-      var zogExtract = require ('zogExtract');
+      var zogExtract = require ('xcraft-core-extract');
       var outDir = path.dirname (outputFile);
 
       zogExtract.targz (outputFile, outDir, null, function (done) {
