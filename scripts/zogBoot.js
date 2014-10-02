@@ -66,7 +66,18 @@ exports.start = function (callbackDone) {
     busClient.connect (busBoot.getToken (), callbackDone);
   });
 
-  busBoot.boot (zogConfig);
+  var commandHandlers = [];
+  commandHandlers.push ({
+    path: zogConfig.scriptsRoot,
+    pattern: /zog.+\.js$/
+  });
+
+  commandHandlers.push ({
+    path: zogConfig.libPkgRoot,
+    pattern: /pkg.+\.js$/
+  });
+
+  busBoot.boot (zogConfig.bus, commandHandlers);
 };
 
 exports.stop = function () {

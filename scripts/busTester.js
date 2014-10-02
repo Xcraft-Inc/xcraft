@@ -20,4 +20,4 @@ testBuses.getEmitter.on ('ready', function () {
 });
 
 /* init */
-testBuses.boot (zogConfig);
+testBuses.boot (zogConfig.bus);
