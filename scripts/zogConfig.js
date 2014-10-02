@@ -133,6 +133,7 @@ module.exports = function () {
     confWizard       : path.resolve ('./scripts/config/confWizard.js'),
     confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
     confUserFile     : path.resolve ('./zog.yaml'),
+    nodeModules      : path.resolve ('./node_modules/'),
 
     /* Lib helpers. */
     libPkgCreate     : path.resolve ('./scripts/manager/pkgCreate.js'),

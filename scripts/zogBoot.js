@@ -59,6 +59,7 @@ busBoot.getEmitter.on ('stop', function () {
 });
 
 exports.start = function (callbackDone) {
+  var path = require ('path');
   bootEnv ();
 
   busBoot.getEmitter.on ('ready', function () {
@@ -75,6 +76,11 @@ exports.start = function (callbackDone) {
   commandHandlers.push ({
     path: zogConfig.libPkgRoot,
     pattern: /pkg.+\.js$/
+  });
+
+  commandHandlers.push ({
+    path: path.join (zogConfig.nodeModules,'/xcraft-contrib-chest/'),
+    pattern: /zogChest\.js$/
   });
 
   busBoot.boot (zogConfig.bus, commandHandlers);

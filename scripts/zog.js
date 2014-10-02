@@ -7,7 +7,7 @@ var zogLog     = require ('xcraft-core-log') ('zog');
 var zogCMake   = require ('./zogCMake.js');
 var zogWpkg    = require ('./zogWpkg.js');
 var zogLokthar = require ('./zogLokthar.js');
-var zogChest   = require ('./zogChest.js');
+var zogChest   = require ('xcraft-contrib-chest');
 var zogConfig  = require ('./zogConfig.js') ();
 var zogBoot    = require ('./zogBoot.js');
 
@@ -122,7 +122,11 @@ var main = function (done) {
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
   }
   if (program.chest) {
-    busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
+    busClient.command.send (
+      'zogChest.' + program.chest,
+      {config: zogConfig.chest, file: program.args[0] || null},
+      mainShutdown
+    );
   }
   if (program.list) {
     busClient.command.send ('zogManager.list', null, mainShutdown);

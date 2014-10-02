@@ -34,7 +34,10 @@ var corePackages = [
   'xcraft-core-process',
   'xcraft-core-platform',
   'xcraft-core-bus',
-  'xcraft-core-busclient'
+  'xcraft-core-busclient',
+  'xcraft-core-devel',
+  'xcraft-core-uri',
+  'xcraft-contrib-chest'
 ];
 
 try {

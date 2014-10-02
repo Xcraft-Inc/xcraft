@@ -42,7 +42,7 @@ var createConfigJson = function (packageName, postInstDir) {
   var def = pkgDefinition.load (packageName);
   var config = def.data;
 
-  config.uri = zogUri.realUri (config.uri, packageName);
+  config.uri = zogUri.realUri (config.uri, packageName, zogConfig);
 
   var data = JSON.stringify (config, null, 2);
   var outFile = path.join (postInstDir, 'config.json');
@@ -118,7 +118,7 @@ var processFile = function (packageName, files, arch, callbackDone) {
         /* NOTE: even with the 'exec' rule, we prevent to pass the binary to
          *       execute because here we are not installing, but only packaging.
          */
-        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName), packagePath, sharePath, {}, function (done) {
+        zogPeon[dataType][rulesType] (zogUri.realUri (uri, packageName, zogConfig), packagePath, sharePath, {}, function (done) {
           if (done) {
             wpkgBuild (packageDef);
           } else {
