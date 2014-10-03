@@ -69,7 +69,7 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
 
     var install = spawn (npm, args);
 
-    install.stdout.on('data', function (data) {
+    install.stdout.on ('data', function (data) {
       data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
         if (line.trim ().length) {
           console.log (line);
@@ -77,7 +77,7 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
       });
     });
 
-    install.stderr.on('data', function (data) {
+    install.stderr.on ('data', function (data) {
       data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
         if (line.trim ().length) {
           console.log (line);
@@ -112,7 +112,7 @@ var npmPublish = function (packageToPublish, callback) {
 
     var install = spawn (npm, args);
 
-    install.stdout.on('data', function (data) {
+    install.stdout.on ('data', function (data) {
       data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
         if (line.trim ().length) {
           console.log (line);
@@ -120,7 +120,7 @@ var npmPublish = function (packageToPublish, callback) {
       });
     });
 
-    install.stderr.on('data', function (data) {
+    install.stderr.on ('data', function (data) {
       data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
         if (line.trim ().length) {
           console.log (line);
