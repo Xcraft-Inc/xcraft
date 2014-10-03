@@ -78,19 +78,18 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
   }
 };
 
-
 /**
  * Publish packages
  */
-var npmPublish = function (packageToPublish,  callback) {
+var npmPublish = function (packageToPublish, callback) {
   var spawn  = require ('child_process').spawn;
   var path = require ('path');
-  console.log ('[' + moduleName + '] Info: publish '+ packageToPublish + ' in µNPM');
+  console.log ('[' + moduleName + '] Info: publish ' + packageToPublish + ' in µNPM');
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
     var npm = 'npm' + ext;
-    var args = ['--registry','http://localhost:8485','publish'];
+    var args = ['--registry', 'http://localhost:8485', 'publish'];
     var packagePath = path.join ('lib/', packageToPublish);
     args.push (packagePath);
 
@@ -187,23 +186,20 @@ var stage2 = function () {
 
   var async = require ('async');
   async.eachSeries (corePackages, function (packageToPublish, callback) {
-      npmPublish (packageToPublish, callback);
-    },
-    function (err) {
-      if (err) {
-        console.log (err);
-        unpmService.server.close ();
-      } else {
-        npmInstall (corePackages, true, function () {
-          stage3 (function () {
-            unpmService.server.close ();
-          });
+    npmPublish (packageToPublish, callback);
+  },
+  function (err) {
+    if (err) {
+      console.log (err);
+      unpmService.server.close ();
+    } else {
+      npmInstall (corePackages, true, function () {
+        stage3 (function () {
+          unpmService.server.close ();
         });
-      }
+      });
     }
-  );
-
-
+  });
 };
 
 /**

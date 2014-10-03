@@ -75,7 +75,7 @@ exports.start = function (callbackDone) {
 
 
   commandHandlers.push ({
-    path: path.join (zogConfig.nodeModules,'/xcraft-contrib-pacman/'),
+    path: path.join (zogConfig.nodeModules, '/xcraft-contrib-pacman/'),
     pattern: /zogManager\.js$/
   });
 
@@ -85,7 +85,7 @@ exports.start = function (callbackDone) {
   });
 
   commandHandlers.push ({
-    path: path.join (zogConfig.nodeModules,'/xcraft-contrib-chest/'),
+    path: path.join (zogConfig.nodeModules, '/xcraft-contrib-chest/'),
     pattern: /zogChest\.js$/
   });
 
