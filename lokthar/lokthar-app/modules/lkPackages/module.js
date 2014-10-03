@@ -227,7 +227,8 @@ mod.controller('PackagesController', ['$scope', 'busClient', function ($scope, b
 }]);
 
 mod.controller('PackageManagerController', ['$scope', 'busClient', function ($scope, busClient) {
-  busClient.command.send ('zogManager.list');
+  //TODO: get zogConfig
+  busClient.command.send ('zogManager.list', zogConfig);
 }]);
 
 mod.controller('PackageEditorHeaderController', ['$scope', '$state', '$stateParams', function ($scope, $state, $stateParams) {

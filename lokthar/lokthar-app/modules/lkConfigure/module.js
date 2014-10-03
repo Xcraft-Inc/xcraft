@@ -29,7 +29,6 @@ angular
               $scope.wizard = require(zogConfig.confWizard);
               $scope.userYaml = zogConfig.confDefaultFile;
               $scope.defaultYaml = zogConfig.confUserFile;
-              $scope.libRoot = zogConfig.libRoot;
               $scope.productsRoot = zogConfig.pkgProductsRoot;
               $scope.nodeModulesRoot = zogConfig.nodeModulesRoot;
 

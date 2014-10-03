@@ -1,5 +1,5 @@
 # Xcraft packages
-
+✓ = converted zog module to xcraft package format
 ## Core lib
 
 - xcraft
@@ -14,8 +14,8 @@
 - xcraft-core-platform ✓
 - xcraft-core-process ✓
 - xcraft-core-scm ✓
-- xcraft-core-devel
-- xcraft-core-uri
+- xcraft-core-devel ✓
+- xcraft-core-uri ✓
 
 
 ## Frontends
@@ -26,6 +26,6 @@
 
 ## Modules
 
-- xcraft-contrib-packager `[list, edit, make, install, remove]`
-- xcraft-contrib-chest `[start, stop, restart, send]`
+- xcraft-contrib-pacman `[list, edit, make, install, remove]` ✓
+- xcraft-contrib-chest `[start, stop, restart, send]`  ✓
 - xcraft-contrib-gitlab (todo)

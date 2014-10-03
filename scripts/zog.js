@@ -129,23 +129,23 @@ var main = function (done) {
     );
   }
   if (program.list) {
-    busClient.command.send ('zogManager.list', null, mainShutdown);
+    busClient.command.send ('zogManager.list', zogConfig, mainShutdown);
   }
   if (program.edit) {
-    busClient.command.send ('zogManager.edit', {packageName : program.edit}, mainShutdown);
+    busClient.command.send ('zogManager.edit', {packageName : program.edit, config: zogConfig}, mainShutdown);
   }
   if (program.make) {
     var args = program.make === true ? false : program.make;
-    busClient.command.send ('zogManager.make', {packageName : args}, mainShutdown);
+    busClient.command.send ('zogManager.make', {packageName : args, config: zogConfig}, mainShutdown);
   }
   if (program.install) {
-    busClient.command.send ('zogManager.install', {packageRef : program.install}, mainShutdown);
+    busClient.command.send ('zogManager.install', {packageRef : program.install, config: zogConfig}, mainShutdown);
   }
   if (program.remove) {
-    busClient.command.send ('zogManager.remove', program.remove, mainShutdown);
+    busClient.command.send ('zogManager.remove', {packageRef: program.remove, config: zogConfig}, mainShutdown);
   }
   if (program.clean) {
-    busClient.command.send ('zogManager.clean', program.clean, mainShutdown);
+    busClient.command.send ('zogManager.clean', zogConfig, mainShutdown);
   }
 };
 

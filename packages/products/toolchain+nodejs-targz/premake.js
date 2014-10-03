@@ -8,7 +8,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
   var zogLog = require ('xcraft-core-log') (packageName);
 
   var pkgDefinition = require (zogConfig.libPkgDefinition);
-  var packageDef = pkgDefinition.load (packageName);
+  var packageDef = pkgDefinition.load (zogConfig, packageName);
 
   var npmInstall = function (callbackDone) {
     var zogPlatform = require ('xcraft-core-platform');

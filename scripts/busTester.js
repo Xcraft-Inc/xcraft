@@ -9,7 +9,7 @@ var testBuses     = require ('xcraft-core-bus');
 testBuses.getEmitter.on ('ready', function () {
   /* command bus tester */
   commands.connect (parseInt (zogConfig.bus.commanderPort), zogConfig.bus.host);
-  commands.send ('zogManager.list');
+  commands.send ('zogManager.list', zogConfig);
 
   /* notification bus tester */
   notifications.connect (parseInt (zogConfig.bus.notifierPort), zogConfig.bus.host);

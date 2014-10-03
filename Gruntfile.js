@@ -17,7 +17,7 @@ var initNewer = function () {
 
   /* Loop for each package available in the products directory. */
   srcYaml.forEach (function (packageName) {
-    var destControl = pkgControl.controlFiles (packageName, null, false);
+    var destControl = pkgControl.controlFiles (zogConfig, packageName, null, false);
 
     /* Loop for each control file path. */
     destControl.forEach (function (controlFile) {
@@ -43,7 +43,7 @@ module.exports = function (grunt) {
     './lokthar/lokthar-app/*.js',
     './lokthar/lokthar-app/modules/**/*.js',
     '!./lokthar/lokthar-app/js',
-    './node_modules/zog**/**/*.js',
+    './node_modules/xcraft**/**/*.js',
     './packages/products/**/*.js',
     './tests/**/*.js',
   ];
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
 
     zogLog.info ('make the control file for ' + packageName + ' on ' + arch);
 
-    pkgMake.package (packageName, arch, function (error) {
+    pkgMake.package (zogConfig, packageName, arch, function (error) {
       done (error);
     });
   });

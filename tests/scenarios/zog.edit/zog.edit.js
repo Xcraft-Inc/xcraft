@@ -11,7 +11,7 @@ var zogBoot   = require ('../../../scripts/zogBoot.js');
 
 var busClient = require ('xcraft-core-busclient');
 var pkgWizard = require (zogConfig.libPkgWizard);
-
+pkgWizard.initConfig (zogConfig);
 
 var mainShutdown = function () {
   busClient.stop (function (done) { /* jshint ignore:line */
