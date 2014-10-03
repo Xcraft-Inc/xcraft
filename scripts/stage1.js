@@ -68,6 +68,23 @@ var npmInstall = function (packages, useRegistry, stageCallback) {
     args = args.concat (packages);
 
     var install = spawn (npm, args);
+
+    install.stdout.on('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
+    install.stderr.on('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
     install.on ('close', function (code) { /* jshint ignore:line */
       if (stageCallback) {
         stageCallback ();
@@ -94,6 +111,23 @@ var npmPublish = function (packageToPublish, callback) {
     args.push (packagePath);
 
     var install = spawn (npm, args);
+
+    install.stdout.on('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
+    install.stderr.on('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
     install.on ('close', function (code) { /* jshint ignore:line */
       if (callback) {
         callback ();
