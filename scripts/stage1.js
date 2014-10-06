@@ -16,6 +16,7 @@ var depsForZog = [
   'progress',
   'progress-stream',
   'request',
+  'shell',
   'socket.io',
   'socket.io-client',
   'tar',
@@ -37,8 +38,10 @@ var corePackages = [
   'xcraft-core-busclient',
   'xcraft-core-devel',
   'xcraft-core-uri',
+  'xcraft-core-bin',
   'xcraft-contrib-chest',
-  'xcraft-contrib-pacman'
+  'xcraft-contrib-pacman',
+  'xcraft-zog'
 ];
 
 try {
