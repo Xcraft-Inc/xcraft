@@ -2,10 +2,12 @@
 ✓ = converted zog module to xcraft package format
 ## Core lib
 
-- xcraft
-- xcraft-core-shell `[wpkg [get, build, install, uninstall], cmake [get, build, install, uninstall], node, npm, ...]`
+- xcraft (metapackage)
+- xcraft-core-bin
+  shell extension for binaries : node, npm, wpkg, cmake... prefixed by '.'
 - xcraft-core-bus ✓
 - xcraft-core-bus-client ✓
+  shell extension for each command in registry
 - xcraft-core-fs ✓
 - xcraft-core-log ✓
 - xcraft-core-extract ✓
@@ -20,7 +22,7 @@
 
 ## Frontends
 
-- xcraft-zog
+- xcraft-zog (the shell)
 - xcraft-lokthar
 
 
