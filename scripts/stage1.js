@@ -205,9 +205,9 @@ var stage3 = function (finishCallback) {
 var stage2 = function () {
   var path    = require ('path');
   var backend = require ('unpm-fs-backend');
-  var dataDir = './usr/share/unpm';
+  var dataDir = path.resolve ('./usr/share/unpm');
   var config  = {
-    configfile: './etc/unpm/unpm.json'
+    configfile: path.resolve ('./etc/unpm/unpm.json')
   };
 
   var tarballsDir = path.join (dataDir, 'tarballs');
