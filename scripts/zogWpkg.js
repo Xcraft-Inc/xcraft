@@ -75,7 +75,7 @@ var cmakeRun = function (srcDir, callback) {
 };
 
 var patchRun = function (srcDir, callback) {
-  var zogDevel = require ('zogDevel');
+  var zogDevel = require ('xcraft-core-devel');
   var async    = require ('async');
 
   var os = zogPlatform.getOs ();
