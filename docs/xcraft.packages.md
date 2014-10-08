@@ -5,13 +5,13 @@
 1. xcraft-core-etc -> wizard-work (default values, per/packages json config)
 2. fix all zogConfig to -> xcraft-core-etc
 3. xcraft.js (future root/toolchain main package, stage1 replacement)
-4. xcraft-zog  
-
+4. xcraft-zog
 
 
 ## Xcraft.js (low lvl shell)
 - xcraft
   replace staging phase
+
 ### deps:
   - commander
   - shell
