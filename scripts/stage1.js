@@ -26,6 +26,7 @@ var depsForZog = [
 ];
 
 var corePackages = [
+  'xcraft-core-etc',
   'xcraft-core-fs',
   'xcraft-core-scm',
   'xcraft-core-peon',
