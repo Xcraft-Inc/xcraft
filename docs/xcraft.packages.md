@@ -22,7 +22,7 @@
   - deploy  : configure uNPM with backend
   - publish : npm publish xcraft-core in local registry
   - configure xcraft  : create zogRc config in etc
-  - configure modules : create xcraft-* config in etc
+  //configure modules : create xcraft-* config in etc
   - install : install xcraft-zog from local registry
               shrink deps
   - verify  : check outdated packages
