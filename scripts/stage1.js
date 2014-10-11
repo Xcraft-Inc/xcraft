@@ -237,7 +237,7 @@ var stage2 = function () {
          *        Currently it is zogConfig, but this one will be changed.
          */
         var xEtc = require ('xcraft-core-etc');
-        xEtc.createAllConfigFiles (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
+        xEtc.createAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
 
         stage3 (function () {
           unpmService.server.close ();
