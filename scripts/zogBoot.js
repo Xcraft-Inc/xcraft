@@ -73,19 +73,12 @@ exports.start = function (callbackDone) {
     pattern: /zog.+\.js$/
   });
 
-  commandHandlers.push ({
-    path: path.join (zogConfig.nodeModules, '/xcraft-contrib-pacman/'),
-    pattern: /zogManager\.js$/
-  });
-
-  commandHandlers.push ({
-    path: zogConfig.libPkgRoot,
-    pattern: /pkg.+\.js$/
-  });
-
-  commandHandlers.push ({
-    path: path.join (zogConfig.nodeModules, '/xcraft-contrib-chest/'),
-    pattern: /zogChest\.js$/
+  var xFs = require ('xcraft-core-fs');
+  xFs.ls (zogConfig.nodeModules, /^xcraft-(core|contrib).*/).forEach (function (item) {
+    commandHandlers.push ({
+      path: path.join (path.join (zogConfig.nodeModules, item)),
+      pattern: /.*\.js$/
+    });
   });
 
   busBoot.boot (commandHandlers);
