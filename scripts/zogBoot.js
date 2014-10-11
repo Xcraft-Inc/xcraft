@@ -89,7 +89,7 @@ exports.start = function (callbackDone) {
     pattern: /zogChest\.js$/
   });
 
-  busBoot.boot (zogConfig.bus, commandHandlers);
+  busBoot.boot (commandHandlers);
 };
 
 exports.stop = function () {
