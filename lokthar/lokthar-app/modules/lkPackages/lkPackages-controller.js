@@ -136,9 +136,9 @@
         Object.keys (wizardFields).forEach (function (field) {
           var fieldName       = wizardFields[field].name;
           var loktharCommands = wizardFields[field].loktharCommands;
-          var validateCmd  = 'pkgWizard.' + partName + '.' + fieldName + '.validate';
-          var choicesCmd   = 'pkgWizard.' + partName + '.' + fieldName + '.choices';
-          var whenCmd      = 'pkgWizard.' + partName + '.' + fieldName + '.when';
+          var validateCmd  = 'wizard.' + partName + '.' + fieldName + '.validate';
+          var choicesCmd   = 'wizard.' + partName + '.' + fieldName + '.choices';
+          var whenCmd      = 'wizard.' + partName + '.' + fieldName + '.when';
 
           var mapWizardCommands = function (command, actionKey, execute) {
             if (!loktharCommands.hasOwnProperty(command)) {
