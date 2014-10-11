@@ -232,6 +232,13 @@ var stage2 = function () {
       unpmService.server.close ();
     } else {
       npmInstall (corePackages, true, function () {
+        /* Configure the xCraft modules. */
+        /* FIXME: the locations must be provided by the xcraft main config file.
+         *        Currently it is zogConfig, but this one will be changed.
+         */
+        var xEtc = require ('xcraft-core-etc') (path.resolve ('./etc/'));
+        xEtc.createAllConfigFiles (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
+
         stage3 (function () {
           unpmService.server.close ();
         });
