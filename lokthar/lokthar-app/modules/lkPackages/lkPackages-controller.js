@@ -6,7 +6,7 @@
       'PackagesController',
       ['$scope', '$state', 'busClient', packagesController]
     );
-    
+
     /* @ngInject */
     function packagesController ($scope, $state, busClient) {
       // hide menu
