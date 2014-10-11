@@ -73,7 +73,6 @@ exports.start = function (callbackDone) {
     pattern: /zog.+\.js$/
   });
 
-
   commandHandlers.push ({
     path: path.join (zogConfig.nodeModules, '/xcraft-contrib-pacman/'),
     pattern: /zogManager\.js$/
