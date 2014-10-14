@@ -41,6 +41,7 @@ var corePackages = [
   'xcraft-core-uri',
   'xcraft-core-bin',
   'xcraft-contrib-chest',
+  'xcraft-contrib-cmake',
   'xcraft-contrib-pacman',
   'xcraft-zog'
 ];
