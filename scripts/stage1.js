@@ -198,13 +198,13 @@ var stage3 = function (finishCallback) {
   var util = require ('util');
   var zogProcess  = require ('xcraft-core-process');
   var zogPlatform = require ('xcraft-core-platform');
-  var zogLog = require ('xcraft-core-log') ('stage3');
+  var zogLog      = require ('xcraft-core-log') ('stage3');
+  var xcraftConfig  = require ('xcraft-core-etc').load ('xcraft');
   zogLog.verbosity (0);
 
   /* Locations of the sysroot/ binaries. */
   if (process.argv.length > 2) {
     var path      = require ('path');
-    var zogConfig = require ('./zogConfig.js') ();
 
     var list = [];
 
@@ -219,7 +219,7 @@ var stage3 = function (finishCallback) {
     };
 
     var fs = require ('fs');
-    fs.writeFileSync (zogConfig.zogRc, JSON.stringify (zogrc, null, '  '));
+    fs.writeFileSync (xcraftConfig.zogRc, JSON.stringify (zogrc, null, '  '));
   }
 
   var zog = util.format ('%szog%s',
