@@ -99,7 +99,7 @@ cmd.uninstall = function () {
  * Retrieve the list of available commands.
  * @returns {Object[]} The list of commands.
  */
-exports.busCommands = function () {
+exports.xcraftCommands = function () {
   var list = [];
 
   Object.keys (cmd).forEach (function (action) {

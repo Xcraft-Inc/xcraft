@@ -30,13 +30,13 @@ program
   .option ('-n, --nocolor', 'disable the color output\n')
 
   .option ('cmake <action>', 'manage the cmake installation ' +
-           argsPrettify (zogCMake.busCommands))
+           argsPrettify (zogCMake.xcraftCommands))
   .option ('wpkg <action>', 'manage the wpkg installation ' +
-           argsPrettify (zogWpkg.busCommands))
+           argsPrettify (zogWpkg.xcraftCommands))
   .option ('lokthar <action>', 'manage the lokthar installation ' +
-           argsPrettify (zogLokthar.busCommands))
+           argsPrettify (zogLokthar.xcraftCommands))
   .option ('chest <action> [file]', 'manage a file chest ' +
-           argsPrettify (zogChest.busCommands) + '\n')
+           argsPrettify (zogChest.xcraftCommands) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('list', 'list all available packages')
