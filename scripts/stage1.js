@@ -45,7 +45,7 @@ var corePackages = [
   'xcraft-contrib-cmake',
   'xcraft-contrib-pacman',
   'xcraft-contrib-wpkg',
-  'xcraft-lokthar',
+  'xcraft-contrib-lokthar',
   'xcraft-zog'
 ];
 
