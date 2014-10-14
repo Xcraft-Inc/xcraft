@@ -6,12 +6,11 @@ var clc     = require ('cli-color');
 var zogLog     = require ('xcraft-core-log') ('zog');
 var zogCMake   = require ('xcraft-contrib-cmake');
 var zogWpkg    = require ('xcraft-contrib-wpkg');
-var zogLokthar = require ('./zogLokthar.js');
+var zogLokthar = require ('xcraft-lokthar');
 var zogChest   = require ('xcraft-contrib-chest');
-var zogConfig  = require ('./zogConfig.js') ();
+var path       = require ('path');
 var zogBoot    = require ('./zogBoot.js');
-
-
+var configureAll  = require ('xcraft-core-etc').configureAll;
 var boot = true;
 
 var argsPrettify = function (args) {
@@ -38,7 +37,7 @@ program
   .option ('chest <action> [file]', 'manage a file chest ' +
            argsPrettify (zogChest.xcraftCommands) + '\n')
 
-  .option ('configure', 'change settings', zogConfig.configure)
+  .option ('configure', 'change settings', configureAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/))
   .option ('list', 'list all available packages')
   .option ('edit <package>', 'create or edit a package definition')
   .option ('make [package]', 'make all or only the [package]')
