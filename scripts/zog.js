@@ -125,23 +125,23 @@ var main = function (done) {
     busClient.command.send ('zogChest.' + program.chest, program.args[0] || null, mainShutdown);
   }
   if (program.list) {
-    busClient.command.send ('zogManager.list', zogConfig, mainShutdown);
+    busClient.command.send ('zogManager.list', null, mainShutdown);
   }
   if (program.edit) {
-    busClient.command.send ('zogManager.edit', {packageName : program.edit, config: zogConfig}, mainShutdown);
+    busClient.command.send ('zogManager.edit', {packageName : program.edit}, mainShutdown);
   }
   if (program.make) {
     var args = program.make === true ? false : program.make;
-    busClient.command.send ('zogManager.make', {packageName : args, config: zogConfig}, mainShutdown);
+    busClient.command.send ('zogManager.make', {packageName : args}, mainShutdown);
   }
   if (program.install) {
-    busClient.command.send ('zogManager.install', {packageRef : program.install, config: zogConfig}, mainShutdown);
+    busClient.command.send ('zogManager.install', {packageRef : program.install}, mainShutdown);
   }
   if (program.remove) {
-    busClient.command.send ('zogManager.remove', {packageRef: program.remove, config: zogConfig}, mainShutdown);
+    busClient.command.send ('zogManager.remove', {packageRef: program.remove}, mainShutdown);
   }
   if (program.clean) {
-    busClient.command.send ('zogManager.clean', zogConfig, mainShutdown);
+    busClient.command.send ('zogManager.clean', null, mainShutdown);
   }
 };
 
