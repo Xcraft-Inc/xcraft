@@ -86,63 +86,14 @@ module.exports = function () {
       });
     },
 
-    architectures: [
-      'mswindows-i386',
-      'mswindows-amd64',
-      'linux-i386',
-      'linux-amd64',
-      'darwin-i386',
-      'darwin-amd64',
-      'solaris-i386',
-      'solaris-amd64',
-      'freebsd-i386',
-      'freebsd-amd64'
-    ],
-
-    bus  : conf.bus,
-    chest: conf.chest,
-
-    /* FIXME: must have a better handling. */
-    pkgCfgFileName   : 'config.yaml',
-    pkgScript        : 'script' + zogPlatform.getShellExt (),
-    pkgPostinst      : 'postinst' + zogPlatform.getShellExt (),
-    pkgPrerm         : 'prerm' + zogPlatform.getShellExt (),
-    pkgWPKG          : 'WPKG',
-    pkgRepository    : 'toolchain/',
-    pkgIndex         : 'index.tar.gz',
-
-    /* Path helpers. */
-    toolchainRoot    : path.resolve ('./'),
-    scriptsRoot      : path.resolve ('./scripts/'),
-    zogRc            : path.resolve ('./.zogrc'),
-    npmRc            : path.resolve ('./.npmrc'),
-    zogBoot          : path.resolve ('./scripts/zogBoot.js'),
-    loktharRoot      : path.resolve ('./lokthar/'),
-    nodeModulesRoot  : path.resolve ('./node_modules/'),
-    tempRoot         : path.resolve ('./var/tmp/'),
-    pkgTempRoot      : path.resolve ('./var/tmp/wpkg/'),
-    pkgDebRoot       : path.resolve ('./var/wpkg/'),
-    pkgBaseRoot      : path.resolve ('./packages/base/'),
-    pkgProductsRoot  : path.resolve ('./packages/products/'),
-    pkgTemplatesRoot : path.resolve ('./templates/wpkg/'),
-    pkgTargetRoot    : path.resolve ('./var/devroot/'),
-    busBoot          : path.resolve ('./scripts/bus/busBoot.js'),
-    confWizard       : path.resolve ('./scripts/config/confWizard.js'),
-    confDefaultFile  : path.resolve ('./scripts/zog.yaml'),
-    confUserFile     : path.resolve ('./zog.yaml'),
-    nodeModules      : path.resolve ('./node_modules/'),
-
     /* Lib helpers. */
-    libPkgCreate     : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgCreate.js'),
-    libPkgDefinition : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgDefinition.js'),
-    libPkgList       : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgList.js'),
+    libPkgCreate     : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgCreate.js'),
+    libPkgDefinition : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgDefinition.js'),
+    libPkgList       : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgList.js'),
     libPkgWizard     : path.resolve ('./node_modules/xcraft-contrib-pacman/wizard.js'),
-    libPkgControl    : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgControl.js'),
-    libPkgChangelog  : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgChangelog.js'),
-    libPkgMake       : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgMake.js'),
-    libPkgCmd        : path.resolve ('./node_modules/xcraft-contrib-pacman/manager/pkgCmd.js'),
-
-    /* Bin helpers. */
-    binGrunt         : path.join ('./node_modules/', 'grunt-cli/bin/grunt')
+    libPkgControl    : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgControl.js'),
+    libPkgChangelog  : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgChangelog.js'),
+    libPkgMake       : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgMake.js'),
+    libPkgCmd        : path.resolve ('./node_modules/xcraft-contrib-pacman/pkgCmd.js')
   };
 };
