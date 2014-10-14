@@ -6,15 +6,14 @@ var fs          = require ('fs');
 var path        = require ('path');
 var async       = require ('async');
 var exec        = require ('child_process').exec;
-var zogConfig   = require ('./zogConfig.js') ();
 var zogPlatform = require ('xcraft-core-platform');
 var zogLog      = require ('xcraft-core-log') (moduleName);
 var busClient   = require ('xcraft-core-busclient');
+var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
 
-
-var buildDir      = path.join (zogConfig.loktharRoot, '/build/');
-var atomDir       = path.join (zogConfig.loktharRoot, '/build/atom-shell/');
-var loktharAppDir = path.join (zogConfig.loktharRoot, '/lokthar-app');
+var buildDir      = path.join (xcraftConfig.loktharRoot, '/build/');
+var atomDir       = path.join (xcraftConfig.loktharRoot, '/build/atom-shell/');
+var loktharAppDir = path.join (xcraftConfig.loktharRoot, '/lokthar-app');
 
 var cmd = {};
 
@@ -32,7 +31,7 @@ var build = function (callback) {
 
 var grunt = function (callback) {
   var gruntfile = path.join (buildDir, 'gruntfile.js');
-  var cmd = 'node ' + zogConfig.binGrunt +
+  var cmd = 'node ' + xcraftConfig.binGrunt +
             ' --gruntfile ' + gruntfile + ' download-atom-shell';
 
   exec (cmd, function (error, stdout, stderr) {
