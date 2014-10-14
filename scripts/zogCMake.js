@@ -7,7 +7,6 @@ var fs          = require ('fs');
 var async       = require ('async');
 var zogProcess  = require ('xcraft-core-process');
 var zogConfig   = require ('./zogConfig.js') ();
-var zogPlatform = require ('xcraft-core-platform');
 var zogLog      = require ('xcraft-core-log') (moduleName);
 var busClient   = require ('xcraft-core-busclient');
 
@@ -20,24 +19,27 @@ var makeRun = function (callback) {
   zogLog.info ('begin building of cmake');
 
   var os = require ('os');
-  var args = [
+  var list = [
     'all',
     'install'
   ];
 
-  /* Force 1 on Windows because sometimes it fails with the depends. */
-  args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
+  async.eachSeries (list, function (args, callback) {
+    var fullArgs = ['-j' + os.cpus ().length].concat (args);
 
-  zogProcess.spawn ('make', args, function (done) {
-    if (done) {
+    zogProcess.spawn ('make', fullArgs, function (done) {
+      callback (done ? null : 'make failed');
+    }, function (line) {
+      zogLog.verb (line);
+    }, function (line) {
+      zogLog.warn (line);
+    });
+  }, function (err) {
+    if (!err) {
       zogLog.info ('cmake is built and installed');
     }
 
-    callback (done ? null : 'make failed');
-  }, function (line) {
-    zogLog.verb (line);
-  }, function (line) {
-    zogLog.warn (line);
+    callback (err ? 'make failed' : null);
   });
 };
 
@@ -45,9 +47,10 @@ var makeRun = function (callback) {
 var bootstrapRun = function (cmakeDir, callback) {
   /* FIXME, TODO: use a backend (a module) for building cmake. */
   /* bootstrap --prefix=/mingw && make && make install */
-
+  var os = require ('os');
   var args = [
     'bootstrap',
+    '--parallel=' + os.cpus ().length,
     '--prefix=' + path.resolve (pkgConfig.out)
   ];
 
