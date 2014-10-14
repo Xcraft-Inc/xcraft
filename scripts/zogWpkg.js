@@ -23,26 +23,27 @@ var makeRun = function (callback) {
   zogLog.info ('begin building of wpkg');
 
   var os = require ('os');
-  var args =
-  [
+  var list = [
     'all',
     'install'
   ];
 
-  /* Force 1 on Windows because sometimes it fails with the depends. */
-  args.unshift ('-j', zogPlatform.getOs () !== 'win' ? os.cpus ().length : '1');
+  async.eachSeries (list, function (args, callback) {
+    var fullArgs = ['-j' + os.cpus ().length].concat (args);
 
-  var makeBin = 'make';
-  zogProcess.spawn (makeBin, args, function (done) {
-    if (done) {
+    zogProcess.spawn ('make', fullArgs, function (done) {
+      callback (done ? null : 'make failed');
+    }, function (line) {
+      zogLog.verb (line);
+    }, function (line) {
+      zogLog.warn (line);
+    });
+  }, function (err) {
+    if (!err) {
       zogLog.info ('wpkg is built and installed');
     }
 
-    callback (done ? null : 'make failed');
-  }, function (line) {
-    zogLog.verb (line);
-  }, function (line) {
-    zogLog.warn (line);
+    callback (err ? 'make failed' : null);
   });
 };
 
