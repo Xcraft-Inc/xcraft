@@ -52,6 +52,51 @@ try {
   console.log ('[' + moduleName + '] Err: ' + err);
 }
 
+
+/**
+ * Create Xcraft base config
+ */
+var createConfig = function () {
+  var path       = require ('path');
+  var root       = path.resolve ('./');
+
+  return {
+    xcraftRoot       : root,
+    scriptsRoot      : path.resolve (root, './scripts/'),
+    zogRc            : path.resolve (root, './.zogrc'),
+    npmRc            : path.resolve (root, './.npmrc'),
+    zogBoot          : path.resolve (root, './scripts/zogBoot.js'),
+    loktharRoot      : path.resolve (root, './lokthar/'),
+    nodeModulesRoot  : path.resolve (root, './node_modules/'),
+    tempRoot         : path.resolve (root, './var/tmp/'),
+    pkgTempRoot      : path.resolve (root, './var/tmp/wpkg/'),
+    pkgDebRoot       : path.resolve (root, './var/wpkg/'),
+    pkgBaseRoot      : path.resolve (root, './packages/base/'),
+    pkgProductsRoot  : path.resolve (root, './packages/products/'),
+    pkgTemplatesRoot : path.resolve (root, './templates/wpkg/'),
+    pkgTargetRoot    : path.resolve (root, './var/devroot/'),
+    busBoot          : path.resolve (root, './scripts/bus/busBoot.js'),
+    confWizard       : path.resolve (root, './scripts/config/confWizard.js'),
+    confDefaultFile  : path.resolve (root, './scripts/zog.yaml'),
+    confUserFile     : path.resolve (root, './zog.yaml'),
+    nodeModules      : path.resolve (root, './node_modules/'),
+    binGrunt         : path.resolve (root, './node_modules/', 'grunt-cli/bin/grunt')
+  };
+};
+
+var writeConfig  = function () {
+  var fs         = require ('fs');
+  var path       = require ('path');
+  var dir  = path.resolve ('./etc/xcraft/');
+  var fileName   = path.join (dir, 'config.json');
+
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync (dir);
+  }
+
+  fs.writeFileSync (fileName, JSON.stringify (createConfig (), null, '  '));
+};
+
 /**
  * Install packages
  */
@@ -250,4 +295,6 @@ var stage2 = function () {
 /**
  * Start here
  */
+
+writeConfig ();
 npmInstall (depsForZog, false, stage2);
