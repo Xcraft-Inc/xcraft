@@ -37,7 +37,7 @@ program
   .option ('chest <action> [file]', 'manage a file chest ' +
            argsPrettify (zogChest.xcraftCommands) + '\n')
 
-  .option ('configure', 'change settings', configureAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/))
+  .option ('configure', 'change settings')
   .option ('list', 'list all available packages')
   .option ('edit <package>', 'create or edit a package definition')
   .option ('make [package]', 'make all or only the [package]')
@@ -69,6 +69,7 @@ if (program.nocolor) {
 }
 if (program.configure) {
   boot = false;
+  configureAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
 }
 
 /* Display help if zog is called without command arguments. */
