@@ -4,8 +4,8 @@ var program = require ('commander');
 var clc     = require ('cli-color');
 
 var zogLog     = require ('xcraft-core-log') ('zog');
-var zogWpkg    = require ('./zogWpkg.js');
 var zogCMake   = require ('xcraft-contrib-cmake');
+var zogWpkg    = require ('xcraft-contrib-wpkg');
 var zogLokthar = require ('./zogLokthar.js');
 var zogChest   = require ('xcraft-contrib-chest');
 var zogConfig  = require ('./zogConfig.js') ();
