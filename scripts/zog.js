@@ -113,10 +113,10 @@ var main = function (done) {
     .registerErrorHandler (!program.lokthar ? mainShutdown : loktharErrorHandler);
 
   if (program.cmake) {
-    busClient.command.send ('zogCMake.' + program.cmake, null, mainShutdown);
+    busClient.command.send ('cmake.' + program.cmake, null, mainShutdown);
   }
   if (program.wpkg) {
-    busClient.command.send ('zogWpkg.' + program.wpkg, null, mainShutdown);
+    busClient.command.send ('wpkg.' + program.wpkg, null, mainShutdown);
   }
   if (program.lokthar) {
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
