@@ -1,27 +1,26 @@
 {
-  "name": "xcraft-contrib-pacman",
+  "name": "xcraft-contrib-cmake",
   "version": "0.1.0",
-  "description": "Xcraft package manager",
-  "main": "zogManager.js",
+  "description": "Xcraft CMake support",
+  "main": "cmake.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "xcraft",
-    "packages",
-    "wpkg"
+    "cmake"
   ],
   "repository" : {
     "type" : "file",
-    "url" : "lib/xcraft-contrib-pacman"
+    "url" : "lib/xcraft-contrib-cmake"
   },
   "dependencies": {
     "xcraft-core-log" : "0.1.0",
     "xcraft-core-busclient": "0.1.0",
-    "xcraft-contrib-wpkg": "0.1.0",
     "xcraft-core-fs": "0.1.0",
-    "xcraft-core-uri": "0.1.0",
-    "inquirer": ""
+    "xcraft-core-http": "0.1.0",
+    "xcraft-core-extract": "0.1.0",
+    "async": ""
   },
   "author": "Mathieu Schroeter",
   "license": "ISC",

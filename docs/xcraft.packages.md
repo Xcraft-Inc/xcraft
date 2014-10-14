@@ -58,7 +58,7 @@
 ## Modules
 
 - xcraft-contrib-pacman `[list, edit, make, install, remove]` ✓
-- xcraft-contrib-cmake
-- ccraft-contrib-wpkg
+- xcraft-contrib-cmake ✓
+- ccraft-contrib-wpkg ✓
 - xcraft-contrib-chest `[start, stop, restart, send]`  ✓
 - xcraft-contrib-gitlab (todo)

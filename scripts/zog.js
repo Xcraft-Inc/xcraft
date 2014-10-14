@@ -4,8 +4,8 @@ var program = require ('commander');
 var clc     = require ('cli-color');
 
 var zogLog     = require ('xcraft-core-log') ('zog');
-var zogCMake   = require ('./zogCMake.js');
-var zogWpkg    = require ('./zogWpkg.js');
+var zogCMake   = require ('xcraft-contrib-cmake');
+var zogWpkg    = require ('xcraft-contrib-wpkg');
 var zogLokthar = require ('./zogLokthar.js');
 var zogChest   = require ('xcraft-contrib-chest');
 var zogConfig  = require ('./zogConfig.js') ();
@@ -30,13 +30,13 @@ program
   .option ('-n, --nocolor', 'disable the color output\n')
 
   .option ('cmake <action>', 'manage the cmake installation ' +
-           argsPrettify (zogCMake.busCommands))
+           argsPrettify (zogCMake.xcraftCommands))
   .option ('wpkg <action>', 'manage the wpkg installation ' +
-           argsPrettify (zogWpkg.busCommands))
+           argsPrettify (zogWpkg.xcraftCommands))
   .option ('lokthar <action>', 'manage the lokthar installation ' +
-           argsPrettify (zogLokthar.busCommands))
+           argsPrettify (zogLokthar.xcraftCommands))
   .option ('chest <action> [file]', 'manage a file chest ' +
-           argsPrettify (zogChest.busCommands) + '\n')
+           argsPrettify (zogChest.xcraftCommands) + '\n')
 
   .option ('configure', 'change settings', zogConfig.configure)
   .option ('list', 'list all available packages')
@@ -113,10 +113,10 @@ var main = function (done) {
     .registerErrorHandler (!program.lokthar ? mainShutdown : loktharErrorHandler);
 
   if (program.cmake) {
-    busClient.command.send ('zogCMake.' + program.cmake, null, mainShutdown);
+    busClient.command.send ('cmake.' + program.cmake, null, mainShutdown);
   }
   if (program.wpkg) {
-    busClient.command.send ('zogWpkg.' + program.wpkg, null, mainShutdown);
+    busClient.command.send ('wpkg.' + program.wpkg, null, mainShutdown);
   }
   if (program.lokthar) {
     busClient.command.send ('zogLokthar.' + program.lokthar, null, mainShutdown);
