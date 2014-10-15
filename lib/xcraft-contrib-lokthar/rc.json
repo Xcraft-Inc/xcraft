@@ -1,5 +1,5 @@
 {
-  "install": "install lokthar",
-  "uninstall": "remove lokthar",
-  "run": "run lokthar!"
+  "install": {"params": "", "desc":"install lokthar"},
+  "uninstall": {"params": "", "desc":"remove lokthar"},
+  "run": {"params": "", "desc":"run lokthar!"}
 }
