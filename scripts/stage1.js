@@ -41,6 +41,7 @@ var corePackages = [
   'xcraft-core-devel',
   'xcraft-core-uri',
   'xcraft-core-bin',
+  'xcraft-core-server',
   'xcraft-contrib-chest',
   'xcraft-contrib-cmake',
   'xcraft-contrib-pacman',
