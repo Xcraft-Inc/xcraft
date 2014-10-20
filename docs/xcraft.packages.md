@@ -15,17 +15,16 @@
 
 ### deps:
   - commander
-  - shell
-  - xcraft-zog (high lvl shell)
+  - inquirer
 
 ### Commands:
-  - prepare : npm install third packages
-  - deploy  : configure uNPM with backend
+  - prepare <depsForZog>: npm install third packages
+  - deploy  <port>: configure uNPM with backend
   - publish : npm publish xcraft-core in local registry
-  - configure xcraft  : create zogRc config in etc
+  - init <paths>: create config.json file in etc
   - install : install xcraft-zog from local registry
-              shrink deps
-  - configure modules : create xcraft-* config in etc
+              //optional shrink deps
+  - configure modules : create xcraft-* config in etc. If module is all, create config for all installed modules
   - verify  : check outdated packages
 
 ## Core lib
