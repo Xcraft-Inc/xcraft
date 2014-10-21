@@ -251,6 +251,24 @@ var configure = function (modules) {
 };
 
 
+var verify = function () {
+  var packages = fs.readdirSync ('./lib/');
+
+  packages.forEach (function (p) {
+    var libVersion = JSON.parse(fs.readFileSync(path.resolve ('./lib/' + p + '/package.json'), 'utf8')).version.split ('.');
+    var installedVersion = JSON.parse(fs.readFileSync(path.resolve ('./node_modules/' + p + '/package.json'), 'utf8')).version.split ('.');
+
+    if (parseInt(libVersion[0]) > parseInt(installedVersion[0]) ||
+        parseInt(libVersion[1]) > parseInt(installedVersion[1]) ||
+        parseInt(libVersion[2]) > parseInt(installedVersion[2])) {
+        console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersion + ' > ' + installedVersion + ')');
+    }
+  });
+};
+
+
+
+
 
 program
   .version ('0.0.1')
@@ -317,4 +335,8 @@ if (program.publish) {
   function (err) {
     unpmService.server.close ();
   });
+}
+
+if (program.verify) {
+  verify ();
 }
