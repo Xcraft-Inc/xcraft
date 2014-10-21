@@ -1,17 +1,16 @@
 'use strict';
 
 var moduleName = 'xcraft';
-var fs = require("fs");
-var path = require("path");
+var fs = require('fs');
+var path = require('path');
 var spawn  = require ('child_process').spawn;
-var async = require ('async');
 
-var program = require ('commander');
 var inquirer = require ('inquirer');
+var program = require ('commander');
 
 
-var startUNPMService = function()
-{
+
+var startUNPMService = function() {
   var backend = require ('unpm-fs-backend');
   var dataDir = path.resolve ('./usr/share/unpm');
   var config  = {
@@ -28,16 +27,23 @@ var startUNPMService = function()
   var unpm = require ('unpm');
   var unpmService = unpm (config);
   unpmService.server.listen (unpmService.config.host.port);
-  
+
   return unpmService;
-}
+};
 
 
-var inquire = function(fct)
-{
+var getUnpmConfig = function () {
+  var configFile = path.resolve ('./etc/unpm/config.json');
+  return JSON.parse(fs.readFileSync(configFile, 'utf8'));
+};
+
+
+var inquire = function(fct) {
+	var async = require ('async');
+
 	var args = [];
-	console.log ('[' + moduleName + '] Info: welcome to the arg console. Type <exit> to start processing the arguments');
-	
+	console.log ('[' + moduleName + '] Info: welcome to the arg console. Type <start> to start processing the arguments');
+
 	async.forever(
 		function(next) {
 			var question = {
@@ -45,9 +51,9 @@ var inquire = function(fct)
 				name: 'arg',
 				message: 'zog:arg>'
 			}
-			
+
 			inquirer.prompt([question], function( answers ) {
-				if (answers['arg'] === 'exit') {
+				if (answers['arg'] === 'start') {
 					next (1);
 				} else {
 					if (answers['arg'].length > 0) {
@@ -64,26 +70,27 @@ var inquire = function(fct)
 			}
 		}
 	);
-}
+};
 
 
-var install = function (packages, useLocalRegistry, hostname, port)
-{	
+var install = function (packages, useLocalRegistry, hostname, port, callback) {
 	console.log ('[' + moduleName + '] Info: install dependencies');
 
 	try {
 		var ext = /^win/.test (process.platform) ? '.cmd' : '';
-		var npm = 'npm' + ext + ' install';
-		var args = [];
+		var npm = '.npm' + ext;
+		var args = ['install'];
+
 
 		if (useLocalRegistry) {
-			npm = npm + ' --registry' + ' http://' + hostname + ':' + port;
+			args.push('--registry');
+			args.push ('http://' + hostname + ':' + port);
 		}
-		
+
 		args = args.concat (packages);
 
 		console.log (npm + ' ' + args);
-		
+
 		var installCmd = spawn (npm, args);
 
 		installCmd.stdout.on ('data', function (data) {
@@ -101,24 +108,32 @@ var install = function (packages, useLocalRegistry, hostname, port)
 			}
 		  });
 		});
+
+    installCmd.on ('close', function (code) { /* jshint ignore:line */
+      if (callback) {
+        callback ();
+      }
+    });
 	} catch (err) {
 		console.log ('[' + moduleName + '] Err: ' + err);
 	}
 };
 
 
-var publish = function (packageToPublish, hostname, port) {
-  console.log ('[' + moduleName + '] Info: publish ' + packageToPublish + ' in µNPM');
+var publish = function (packageToPublish, hostname, port, callback) {
+  console.log ('[' + moduleName + '] Info: publish ' + packageToPublish + ' in NPM');
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
-    var npm = 'npm' + ext + ' --registry' + ' http://' + hostname + ':' + port + ' publish';
-    var args = [];
+    var npm = '.npm' + ext;
+
+    var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
+
     var packagePath = path.join ('lib/', packageToPublish);
     args.push (packagePath);
 
-	console.log (npm + ' ' + args);
-	
+    console.log (npm + ' ' + args);
+
     var publishCmd = spawn (npm, args);
 
     publishCmd.stdout.on ('data', function (data) {
@@ -136,7 +151,12 @@ var publish = function (packageToPublish, hostname, port) {
         }
       });
     });
-	
+
+    publishCmd.on ('close', function (code) { /* jshint ignore:line */
+      if (callback) {
+        callback ();
+      }
+    });
   } catch (err) {
     console.log ('[' + moduleName + '] Err: ' + err);
   }
@@ -146,7 +166,7 @@ var publish = function (packageToPublish, hostname, port) {
 var createConfig = function (paths) {
   var root       = path.resolve ('./');
 
-  return {
+  var config = {
     xcraftRoot       : root,
     scriptsRoot      : path.resolve (root, './scripts/'),
     zogRc            : path.resolve (root, './.zogrc'),
@@ -167,20 +187,18 @@ var createConfig = function (paths) {
     confUserFile     : path.resolve (root, './zog.yaml'),
     nodeModules      : path.resolve (root, './node_modules/'),
     binGrunt         : path.resolve (root, './node_modules/', 'grunt-cli/bin/grunt'),
-	path			 : [
-		path.resolve (paths[0]),
-		path.resolve (paths[1]),
-		path.resolve (paths[2]),
-		path.resolve (paths[3])
-	]
+    path			       : []
   };
+
+  paths.forEach (function (p) {
+	   config.path.push (path.resolve (p));
+  });
+
+  return config;
 };
 
 
-var writeConfig = function (paths)
-{
-  var fs         = require ('fs');
-  var path       = require ('path');
+var init = function (paths) {
   var dir  		 = path.resolve ('./etc/xcraft/');
   var fileName   = path.join (dir, 'config.json');
 
@@ -188,43 +206,49 @@ var writeConfig = function (paths)
     fs.mkdirSync (dir);
   }
 
-  console.log (createConfig (paths));
   fs.writeFileSync (fileName, JSON.stringify (createConfig (paths), null, '  '));
-}
+};
 
 
-var deploy = function (conf)
-{	
-	var configFile = path.resolve ('./etc/unpm/config.json');
-	var config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
-	
-	config.host.hostname = confArray[0];
-	config.host.port = confArray[1];
+var deploy = function (conf) {
+  var config = getUnpmConfig ();
 
-	console.log (JSON.stringify (config, null, '  '));
+  config.host.hostname = confArray[0];
+  config.host.port = confArray[1];
+
 	fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
+};
+
+
+
+var safeConfigure = function (modules) {
+  var xEtc = require ('xcraft-core-etc');
+
+  if(modules.length > 0 && modules[0] === 'all') {
+    console.log ('[' + moduleName + '] Info: configuring all modules');
+    xEtc.createAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
+  } else {
+    modules.forEach (function (mod) {
+      console.log ('[' + moduleName + '] Info: configuring xcraft-' + mod);
+      xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
+    });
+  }
 }
 
+var configure = function (modules) {
+  try {
+    require.resolve ('xcraft-core-etc');
+    safeConfigure (modules);
 
-var init = function (paths)
-{
-	writeConfig (paths);
-}
+  } catch(e) {
+      var unpmService = startUNPMService ();
 
-var configure = function (modules)
-{
-	var xEtc = require ('xcraft-core-etc');
-
-	if(modules.length > 0 && modules[0] === 'all') {
-		console.log ('xcraft-* all');
-		xEtc.createAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
-	} else {	
-		modules.forEach (function (mod) {
-			console.log ('xcraft-' + mod);
-			xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
-		});
-	}
-}
+      install (['xcraft-core-etc'], true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
+        unpmService.server.close ();
+        safeConfigure (modules);
+      });
+  }
+};
 
 
 
@@ -241,17 +265,17 @@ program
   .option ('--verify', 'check outdated packages')
   .parse (process.argv);
 
-  
+
 if (program.deploy) {
 	deploy (program.deploy.split(','));
 }
 
-  
+
 if (program.prepare) {
 	if (program.prepare === true) {
 		inquire(install);
 	} else {
-		install (program.prepare.split(','));
+		install (program.prepare.split(','), false, '', '', function() {});
 	}
 }
 
@@ -273,34 +297,24 @@ if (program.configure) {
 
 
 if (program.install) {
-  unpmService = startUNPMService ();
+  var packages = fs.readdirSync ('./lib/');
+  var unpmService = startUNPMService ();
 
-
-  async.eachSeries (['xcraft-zog'], function (packageToInstall) {
-    install (packageToInstall, true, unpmService.config.host.hostname, unpmService.config.host.port);
-  },
-  function (err) {
-	unpmService.server.close ();
+  install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
+    unpmService.server.close ();
   });
 }
 
 
 if (program.publish) {
-  unpmService = startUNPMService ();
-  
+  var unpmService = startUNPMService ();
+  var async = require ('async');
   var packages = fs.readdirSync ('./lib/');
-  
-  async.eachSeries (packages, function (packageToPublish) {
-    publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port);
+
+  async.eachSeries (packages, function (packageToPublish, callback) {
+    publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function (err) {
-	unpmService.server.close ();
+    unpmService.server.close ();
   });
 }
-
-
-
-
-
-
-
