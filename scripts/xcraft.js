@@ -295,7 +295,7 @@ if (program.configure) {
 }
 
 if (program.install) {
-  var packages = fs.readdirSync ('./lib/');
+  var packages    = fs.readdirSync (path.resolve ('./lib/'));
   var unpmService = startUNPMService ();
 
   install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
@@ -307,7 +307,7 @@ if (program.install) {
 if (program.publish) {
   var unpmService = startUNPMService ();
   var async = require ('async');
-  var packages = fs.readdirSync ('./lib/');
+  var packages = fs.readdirSync (path.resolve ('./lib/'));
 
   async.eachSeries (packages, function (packageToPublish, callback) {
     publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
