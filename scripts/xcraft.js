@@ -1,16 +1,15 @@
 'use strict';
 
 var moduleName = 'xcraft';
-var fs = require('fs');
-var path = require('path');
-var spawn  = require ('child_process').spawn;
+var fs    = require ('fs');
+var path  = require ('path');
+var spawn = require ('child_process').spawn;
 
 var inquirer = require ('inquirer');
-var program = require ('commander');
+var program  = require ('commander');
 
 
-
-var startUNPMService = function() {
+var startUNPMService = function () {
   var backend = require ('unpm-fs-backend');
   var dataDir = path.resolve ('./usr/share/unpm');
   var config  = {
@@ -31,88 +30,85 @@ var startUNPMService = function() {
   return unpmService;
 };
 
+var inquire = function (fct) {
+  var async = require ('async');
 
-var inquire = function(fct) {
-	var async = require ('async');
+  var args = [];
+  console.log ('[' + moduleName + '] Info: welcome to the arg console. Type <start> to start processing the arguments');
 
-	var args = [];
-	console.log ('[' + moduleName + '] Info: welcome to the arg console. Type <start> to start processing the arguments');
+  async.forever(
+    function (next) {
+      var question = {
+        type: 'input',
+        name: 'arg',
+        message: 'zog:arg>'
+      };
 
-	async.forever(
-		function(next) {
-			var question = {
-				type: 'input',
-				name: 'arg',
-				message: 'zog:arg>'
-			}
-
-			inquirer.prompt([question], function( answers ) {
-				if (answers['arg'] === 'start') {
-					next (1);
-				} else {
-					if (answers['arg'].length > 0) {
-						args.push (answers['arg']);
-					}
-					next ();
-				}
-			});
-		},
-		function(err) {
-			if (args.length > 0) {
-				console.log ('[' + moduleName + '] Info: start processing');
-				fct (args);
-			}
-		}
-	);
+      inquirer.prompt ([question], function (answers) {
+        if (answers.arg === 'start') {
+          next (1);
+        } else {
+          if (answers.arg.length > 0) {
+            args.push (answers.arg);
+          }
+          next ();
+        }
+      });
+    },
+    function (err) {
+      if (args.length > 0) {
+        console.log ('[' + moduleName + '] Info: start processing');
+        fct (args);
+      }
+    }
+  );
 };
 
-
 var install = function (packages, useLocalRegistry, hostname, port, callback) {
-	console.log ('[' + moduleName + '] Info: install dependencies');
+  console.log ('[' + moduleName + '] Info: install dependencies');
 
-	try {
-		var ext = /^win/.test (process.platform) ? '.cmd' : '';
-		var npm = '.npm' + ext;
-		var args = ['install'];
+  try {
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
+    var npm = '.npm' + ext;
+    var args = ['install'];
 
 
-		if (useLocalRegistry) {
-			args.push('--registry');
-			args.push ('http://' + hostname + ':' + port);
-		}
+    if (useLocalRegistry) {
+      args.push ('--registry');
+      args.push ('http://' + hostname + ':' + port);
+    }
 
-		args = args.concat (packages);
+    args = args.concat (packages);
 
-		console.log (npm + ' ' + args);
+    console.log (npm + ' ' + args);
 
-		var installCmd = spawn (npm, args);
+    var installCmd = spawn (npm, args);
 
-		installCmd.stdout.on ('data', function (data) {
-		  data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
-			if (line.trim ().length) {
-			  console.log (line);
-			}
-		  });
-		});
+    installCmd.stdout.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
 
-		installCmd.stderr.on ('data', function (data) {
-		  data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
-			if (line.trim ().length) {
-			  console.log (line);
-			}
-		  });
-		});
+    installCmd.stderr.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
 
     installCmd.on ('close', function (code) { /* jshint ignore:line */
       if (callback) {
         callback ();
       }
     });
-	} catch (err) {
-		console.log ('[' + moduleName + '] Err: ' + err);
-	}
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
 };
-
 
 var publish = function (packageToPublish, hostname, port, callback) {
   console.log ('[' + moduleName + '] Info: publish ' + packageToPublish + ' in NPM');
@@ -156,7 +152,6 @@ var publish = function (packageToPublish, hostname, port, callback) {
   }
 };
 
-
 var createConfig = function (paths) {
   var root       = path.resolve ('./');
 
@@ -181,20 +176,19 @@ var createConfig = function (paths) {
     confUserFile     : path.resolve (root, './zog.yaml'),
     nodeModules      : path.resolve (root, './node_modules/'),
     binGrunt         : path.resolve (root, './node_modules/', 'grunt-cli/bin/grunt'),
-    path			       : []
+    path             : []
   };
 
   paths.forEach (function (p) {
-	   config.path.push (path.resolve (p));
+    config.path.push (path.resolve (p));
   });
 
   return config;
 };
 
-
 var init = function (paths) {
-  var dir  		 = path.resolve ('./etc/xcraft/');
-  var fileName   = path.join (dir, 'config.json');
+  var dir      = path.resolve ('./etc/xcraft/');
+  var fileName = path.join (dir, 'config.json');
 
   if (!fs.existsSync(dir)) {
     fs.mkdirSync (dir);
@@ -203,24 +197,21 @@ var init = function (paths) {
   fs.writeFileSync (fileName, JSON.stringify (createConfig (paths), null, '  '));
 };
 
-
 var deploy = function (unpmNetworkConf) {
   var configFile = path.resolve ('./etc/unpm/config.json');
-  var config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+  var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
   var unpmNetworkConfArray = unpmNetworkConf.split (',');
 
   config.host.hostname = unpmNetworkConfArray[0];
-  config.host.port = unpmNetworkConfArray[1];
+  config.host.port     = unpmNetworkConfArray[1];
 
-	fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
+  fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
 };
-
-
 
 var safeConfigure = function (modules) {
   var xEtc = require ('xcraft-core-etc');
 
-  if(modules.length > 0 && modules[0] === 'all') {
+  if (modules.length > 0 && modules[0] === 'all') {
     console.log ('[' + moduleName + '] Info: configuring all modules');
     xEtc.createAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
   } else {
@@ -235,38 +226,32 @@ var configure = function (modules) {
   try {
     require.resolve ('xcraft-core-etc');
     safeConfigure (modules);
+  } catch (e) {
+    var unpmService = startUNPMService ();
 
-  } catch(e) {
-      var unpmService = startUNPMService ();
-
-      install (['xcraft-core-etc'], true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
-        unpmService.server.close ();
-        safeConfigure (modules);
-      });
+    install (['xcraft-core-etc'], true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
+      unpmService.server.close ();
+      safeConfigure (modules);
+    });
   }
 };
-
 
 var verify = function () {
   var packages = fs.readdirSync ('./lib/');
 
   packages.forEach (function (p) {
-    var libVersionStr = JSON.parse(fs.readFileSync(path.resolve ('./lib/' + p + '/package.json'), 'utf8')).version;
-    var installedVersionStr = JSON.parse(fs.readFileSync(path.resolve ('./node_modules/' + p + '/package.json'), 'utf8')).version;
+    var libVersionStr = JSON.parse (fs.readFileSync(path.resolve ('./lib/', p, 'package.json'), 'utf8')).version;
+    var installedVersionStr = JSON.parse (fs.readFileSync(path.resolve ('./node_modules/', p, 'package.json'), 'utf8')).version;
     var libVersion = libVersionStr.split ('.');
     var installedVersion = installedVersionStr.split ('.');
 
     if (parseInt(libVersion[0]) > parseInt(installedVersion[0]) ||
         parseInt(libVersion[1]) > parseInt(installedVersion[1]) ||
         parseInt(libVersion[2]) > parseInt(installedVersion[2])) {
-        console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
+      console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
 };
-
-
-
-
 
 program
   .version ('0.0.1')
@@ -281,36 +266,33 @@ program
   .option ('--verify', 'check outdated packages')
   .parse (process.argv);
 
-
 if (program.deploy) {
-	deploy (program.deploy.split(','));
+  deploy (program.deploy.split(','));
 }
 
-
 if (program.prepare) {
-	if (program.prepare === true) {
-		inquire(install);
-	} else {
-		install (program.prepare.split(','), false, '', '', function() {});
-	}
+  if (program.prepare === true) {
+    inquire (install);
+  } else {
+    install (program.prepare.split(','), false, '', '', function () {});
+  }
 }
 
 if (program.init) {
-	if (program.init === true) {
-		inquire(init);
-	} else {
-		init (program.init.split(','));
-	}
+  if (program.init === true) {
+    inquire (init);
+  } else {
+    init (program.init.split(','));
+  }
 }
 
 if (program.configure) {
-	if (program.configure === true) {
-		inquire(configure);
-	} else {
-		configure ( program.configure.split(','));
-	}
+  if (program.configure === true) {
+    inquire (configure);
+  } else {
+    configure ( program.configure.split(','));
+  }
 }
-
 
 if (program.install) {
   var packages = fs.readdirSync ('./lib/');
