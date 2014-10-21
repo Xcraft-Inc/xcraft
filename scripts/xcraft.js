@@ -255,13 +255,15 @@ var verify = function () {
   var packages = fs.readdirSync ('./lib/');
 
   packages.forEach (function (p) {
-    var libVersion = JSON.parse(fs.readFileSync(path.resolve ('./lib/' + p + '/package.json'), 'utf8')).version.split ('.');
-    var installedVersion = JSON.parse(fs.readFileSync(path.resolve ('./node_modules/' + p + '/package.json'), 'utf8')).version.split ('.');
+    var libVersionStr = JSON.parse(fs.readFileSync(path.resolve ('./lib/' + p + '/package.json'), 'utf8')).version;
+    var installedVersionStr = JSON.parse(fs.readFileSync(path.resolve ('./node_modules/' + p + '/package.json'), 'utf8')).version;
+    var libVersion = libVersionStr.split ('.');
+    var installedVersion = installedVersionStr.split ('.');
 
     if (parseInt(libVersion[0]) > parseInt(installedVersion[0]) ||
         parseInt(libVersion[1]) > parseInt(installedVersion[1]) ||
         parseInt(libVersion[2]) > parseInt(installedVersion[2])) {
-        console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersion + ' > ' + installedVersion + ')');
+        console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
 };
