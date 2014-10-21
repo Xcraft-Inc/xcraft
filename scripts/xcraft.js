@@ -211,6 +211,7 @@ var init = function (paths) {
 
 
 var deploy = function (conf) {
+  var confArray = conf.split (',');
   var config = getUnpmConfig ();
 
   config.host.hostname = confArray[0];
