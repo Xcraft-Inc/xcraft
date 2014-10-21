@@ -105,7 +105,7 @@ var installStrongDeps = function (callback) {
 		  });
 		});
 
-    installCmd.on('close', function (code) {
+    installCmd.on('close', function (code) { /* jshint ignore:line */
       callback ();
     });
 	} catch (err) {
@@ -136,7 +136,7 @@ var execCmd = function(verb, args, callback) {
 			console.log(err);
 		});
 
-    nodeCmd.on('close', function (code) {
+    nodeCmd.on('close', function (code) { /* jshint ignore:line */
       callback ();
     });
 

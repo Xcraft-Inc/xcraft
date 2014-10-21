@@ -32,12 +32,6 @@ var startUNPMService = function() {
 };
 
 
-var getUnpmConfig = function () {
-  var configFile = path.resolve ('./etc/unpm/config.json');
-  return JSON.parse(fs.readFileSync(configFile, 'utf8'));
-};
-
-
 var inquire = function(fct) {
 	var async = require ('async');
 
@@ -210,12 +204,13 @@ var init = function (paths) {
 };
 
 
-var deploy = function (conf) {
-  var confArray = conf.split (',');
-  var config = getUnpmConfig ();
+var deploy = function (unpmNetworkConf) {
+  var configFile = path.resolve ('./etc/unpm/config.json');
+  var config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+  var unpmNetworkConfArray = unpmNetworkConf.split (',');
 
-  config.host.hostname = confArray[0];
-  config.host.port = confArray[1];
+  config.host.hostname = unpmNetworkConfArray[0];
+  config.host.port = unpmNetworkConfArray[1];
 
 	fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
 };
