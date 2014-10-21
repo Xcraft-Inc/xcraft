@@ -220,7 +220,7 @@ var safeConfigure = function (modules) {
       xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
     });
   }
-}
+};
 
 var configure = function (modules) {
   try {
