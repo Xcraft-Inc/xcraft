@@ -30,17 +30,7 @@ var prepare = [
 
 var init = process.argv.slice (2);
 
-var getNodeJSPathFromArgs = function (args) {
-  var output;
-
-  args.forEach (function (arg) {
-    if (arg.indexOf ('nodejs') !== -1) {
-      output = arg;
-    }
-  });
-
-  return output;
-};
+process.env.PATH = init.join (path.delimiter);
 
 var installStrongDeps = function (callback) {
   var packages = ['async', 'commander', 'inquirer'];
@@ -48,7 +38,7 @@ var installStrongDeps = function (callback) {
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
 
-    var npm = path.resolve (getNodeJSPathFromArgs (init), 'npm' + ext);
+    var npm = 'npm' + ext;
     var args = ['install'];
 
     args = args.concat (packages);
@@ -81,7 +71,7 @@ var installStrongDeps = function (callback) {
 
 var execCmd = function (verb, args, callback) {
   try {
-    var node = path.resolve (getNodeJSPathFromArgs (init), 'node');
+    var node = 'node';
     var finalArgs = [
       path.resolve ('./scripts/xcraft.js'),
       '--' + verb
