@@ -1,0 +1,9 @@
+{
+  "init"      : {"params": "paths",   "desc": "create main config file in etc"},
+  "prepare"   : {"params": "deps",   "desc": "npm install third packages"},
+  "deploy"    : {"params": "config",   "desc": "configure uNPM with backend <IP address,port>"},
+  "configure" : {"params": "modules", "desc": "create xcraft-* config in etc. If module is all, create config for all installed modules"},
+  "install"   : {"params": null, "desc": "install xcraft-zog from local registry"},
+  "publish"   : {"params": null, "desc": "npm publish xcraft-core in local registry"},
+  "verify"    : {"params": null, "desc": "check outdated packages"}
+}
