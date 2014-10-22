@@ -200,10 +200,9 @@ var init = function (paths) {
 var deploy = function (unpmNetworkConf) {
   var configFile = path.resolve ('./etc/unpm/config.json');
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
-  var unpmNetworkConfArray = unpmNetworkConf.split (',');
 
-  config.host.hostname = unpmNetworkConfArray[0];
-  config.host.port     = unpmNetworkConfArray[1];
+  config.host.hostname = unpmNetworkConf[0];
+  config.host.port     = unpmNetworkConf[1];
 
   fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
 };
