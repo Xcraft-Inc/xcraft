@@ -320,5 +320,3 @@ exports.xcraftCommands = function () {
 
   return list;
 };
-
-cmd.prepare('async,axon,cli-color');
