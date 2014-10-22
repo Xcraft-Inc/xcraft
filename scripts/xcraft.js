@@ -8,6 +8,8 @@ var spawn = require ('child_process').spawn;
 var inquirer = require ('inquirer');
 var program  = require ('commander');
 
+require ('./boot.js') ();
+console.log ('[' + moduleName + '] Verb: PATH ' + process.env.PATH);
 
 var startUNPMService = function () {
   var backend = require ('unpm-fs-backend');
