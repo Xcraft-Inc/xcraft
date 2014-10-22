@@ -118,11 +118,11 @@ var execCmd = function (verb, args, callback) {
     var nodeCmd = spawn (node, finalArgs);
 
     nodeCmd.stdout.on('data', function (data) {
-      console.log('' + data);
+      console.log ('' + data);
     });
 
     nodeCmd.on('error', function (err) {
-      console.log(err);
+      console.log (err);
     });
 
     nodeCmd.on('close', function (code) { /* jshint ignore:line */
