@@ -116,10 +116,11 @@ var installStrongDeps = function (callback) {
 
 var execCmd = function (verb, args, callback) {
   try {
-    var ext = /^win/.test (process.platform) ? '.exe' : '';
-    var node = path.resolve (getNodeJSPathFromArgs (init), 'node' + ext);
-    var separator = /^win/.test (process.platform) ? '\\' : '/';
-    var finalArgs = ['.'+separator+'scripts'+separator+'xcraft.js', '--' + verb];
+    var node = path.resolve (getNodeJSPathFromArgs (init), 'node');
+    var finalArgs = [
+      path.resolve ('./scripts/xcraft.js'),
+      '--' + verb
+    ];
 
     if (args.length > 0) {
       finalArgs.push (args.toString ());
