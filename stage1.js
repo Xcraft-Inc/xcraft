@@ -1,9 +1,9 @@
 'use strict';
 
 var moduleName = 'stage1';
-var fs = require("fs");
-var path = require("path");
-var spawn  = require ('child_process').spawn;
+
+var path  = require ('path');
+var spawn = require ('child_process').spawn;
 
 
 var prepare = [
@@ -55,7 +55,7 @@ var configure = [
 var init = process.argv;
 
 /*[
-	'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\bin',
+  'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\bin',
   'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\opt\\nodejs',
   'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\opt\\bin',
   'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\msys\\1.0\\bin'
@@ -77,72 +77,71 @@ var getNodeJSPathFromArgs = function (args) {
 };
 
 var installStrongDeps = function (callback) {
-	var packages = ['commander', 'inquirer'];
+  var packages = ['commander', 'inquirer'];
 
-	try {
-		var ext = /^win/.test (process.platform) ? '.cmd' : '';
+  try {
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
 
-		var npm = path.resolve (getNodeJSPathFromArgs (init), 'npm' + ext);
-		var args = ['install'];
+    var npm = path.resolve (getNodeJSPathFromArgs (init), 'npm' + ext);
+    var args = ['install'];
 
-		args = args.concat (packages);
+    args = args.concat (packages);
 
-		var installCmd = spawn (npm, args);
+    var installCmd = spawn (npm, args);
 
-		installCmd.stdout.on ('data', function (data) {
-		  data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
-			if (line.trim ().length) {
-			  console.log (line);
-			}
-		  });
-		});
+    installCmd.stdout.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
 
-		installCmd.stderr.on ('data', function (data) {
-		  data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
-			if (line.trim ().length) {
-			  console.log (line);
-			}
-		  });
-		});
+    installCmd.stderr.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
 
     installCmd.on('close', function (code) { /* jshint ignore:line */
       callback ();
     });
-	} catch (err) {
-		console.log ('[' + moduleName + '] Err: ' + err);
-	}
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
 };
 
 
-var execCmd = function(verb, args, callback) {
-	try {
-		var ext = /^win/.test (process.platform) ? '.exe' : '';
-		var node = path.resolve (getNodeJSPathFromArgs (init), 'node' + ext);
+var execCmd = function (verb, args, callback) {
+  try {
+    var ext = /^win/.test (process.platform) ? '.exe' : '';
+    var node = path.resolve (getNodeJSPathFromArgs (init), 'node' + ext);
     var separator = /^win/.test (process.platform) ? '\\' : '/';
-		var finalArgs = ['.'+separator+'scripts'+separator+'xcraft.js', '--' + verb];
+    var finalArgs = ['.'+separator+'scripts'+separator+'xcraft.js', '--' + verb];
 
-		if (args.length > 0) {
-			finalArgs.push (args.toString ());
-		}
+    if (args.length > 0) {
+      finalArgs.push (args.toString ());
+    }
 
 
-		var nodeCmd = spawn (node, finalArgs);
+    var nodeCmd = spawn (node, finalArgs);
 
-		nodeCmd.stdout.on('data', function (data) {
-		  console.log('' + data);
-		});
+    nodeCmd.stdout.on('data', function (data) {
+      console.log('' + data);
+    });
 
-		nodeCmd.on('error', function(err) {
-			console.log(err);
-		});
+    nodeCmd.on('error', function (err) {
+      console.log(err);
+    });
 
     nodeCmd.on('close', function (code) { /* jshint ignore:line */
       callback ();
     });
-
-	} catch (err) {
-		console.log ('[' + moduleName + '] Err: ' + err);
-	}
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
 };
 
 
