@@ -69,7 +69,7 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
-    var npm = '.npm' + ext;
+    var npm = 'npm' + ext;
     var args = ['install'];
 
 
@@ -115,7 +115,7 @@ var publish = function (packageToPublish, hostname, port, callback) {
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
-    var npm = '.npm' + ext;
+    var npm = 'npm' + ext;
 
     var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
 
