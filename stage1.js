@@ -68,7 +68,7 @@ var getNodeJSPathFromArgs = function (args) {
   var output;
 
   args.forEach (function (arg) {
-    if (arg.indexOf ('nodejs') != -1) {
+    if (arg.indexOf ('nodejs') !== -1) {
       output = arg;
     }
   });
