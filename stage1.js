@@ -43,7 +43,7 @@ var getNodeJSPathFromArgs = function (args) {
 };
 
 var installStrongDeps = function (callback) {
-  var packages = ['commander', 'inquirer'];
+  var packages = ['async', 'commander', 'inquirer'];
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
@@ -109,24 +109,38 @@ var execCmd = function (verb, args, callback) {
   }
 };
 
-// Is there  way to avoid async command execution??
 console.log ('[' + moduleName + '] Info: install strong dependencies');
-installStrongDeps ( function () {
-  console.log ('[' + moduleName + '] Info: config initialization');
-  execCmd ('init', init, function () {
-    console.log ('[' + moduleName + '] Info: dependencies installation');
-    execCmd ('prepare', prepare, function () {
+installStrongDeps (function () {
+  var async = require ('async');
+
+  async.series ([
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: config initialization');
+      execCmd ('init', init, callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: dependencies installation');
+      execCmd ('prepare', prepare, callback);
+    },
+    function (callback) {
       console.log ('[' + moduleName + '] Info: uNPM deployment');
-      execCmd ('deploy', ['localhost', '8485'], function () {
-        console.log ('[' + moduleName + '] Info: core packets publication');
-        execCmd ('publish', [], function () {
-          console.log ('[' + moduleName + '] Info: core packets installation');
-          execCmd ('install', [], function () {
-            console.log ('[' + moduleName + '] Info: final configuration');
-            execCmd ('configure', ['all'], function () {});
-          });
-        });
-      });
-    });
+      execCmd ('deploy', ['localhost', '8485'], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: core packets publication');
+      execCmd ('publish', [], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: core packets installation');
+      execCmd ('install', [], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: final configuration');
+      execCmd ('configure', ['all'], callback);
+    }
+  ], function (err) {
+    if (err) {
+      console.log ('[' + moduleName + '] Err: ' + err);
+    }
   });
 });
