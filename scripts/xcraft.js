@@ -119,7 +119,7 @@ var publish = function (packageToPublish, hostname, port, callback) {
 
     var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
 
-    var packagePath = path.join ('lib/', packageToPublish);
+    var packagePath = path.resolve ('./lib/', packageToPublish);
     args.push (packagePath);
 
     console.log (npm + ' ' + args);
