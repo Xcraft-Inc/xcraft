@@ -302,7 +302,6 @@ if (program.install) {
   });
 }
 
-
 if (program.publish) {
   var unpmService = startUNPMService ();
   var async = require ('async');
