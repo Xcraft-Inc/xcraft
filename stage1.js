@@ -28,7 +28,7 @@ var prepare = [
   'unpm-fs-backend'
 ];
 
-var init = process.argv;
+var init = process.argv.slice (2);
 
 var getNodeJSPathFromArgs = function (args) {
   var output;
