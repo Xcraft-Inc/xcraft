@@ -78,7 +78,7 @@ var execCmd = function (verb, args, callback) {
     ];
 
     if (args.length > 0) {
-      finalArgs.push (args.toString ());
+      finalArgs.push (args.join (','));
     }
 
     var nodeCmd = spawn (node, finalArgs);
