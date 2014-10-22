@@ -28,30 +28,6 @@ var prepare = [
   'unpm-fs-backend'
 ];
 
-var configure = [
-  'xcraft-core-etc',
-  'xcraft-core-utils',
-  'xcraft-core-fs',
-  'xcraft-core-scm',
-  'xcraft-core-peon',
-  'xcraft-core-http',
-  'xcraft-core-extract',
-  'xcraft-core-log',
-  'xcraft-core-process',
-  'xcraft-core-platform',
-  'xcraft-core-bus',
-  'xcraft-core-busclient',
-  'xcraft-core-devel',
-  'xcraft-core-uri',
-  'xcraft-core-bin',
-  'xcraft-contrib-chest',
-  'xcraft-contrib-cmake',
-  'xcraft-contrib-pacman',
-  'xcraft-contrib-wpkg',
-  'xcraft-contrib-lokthar',
-  'xcraft-zog'
-];
-
 var init = process.argv;
 
 var getNodeJSPathFromArgs = function (args) {
