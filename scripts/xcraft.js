@@ -247,7 +247,7 @@ var verify = function () {
     if (parseInt(libVersion[0]) > parseInt(installedVersion[0]) ||
         parseInt(libVersion[1]) > parseInt(installedVersion[1]) ||
         parseInt(libVersion[2]) > parseInt(installedVersion[2])) {
-      console.log ('[' + moduleName + '] Warning: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
+      console.log ('[' + moduleName + '] Warn: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
 };
