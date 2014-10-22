@@ -54,16 +54,6 @@ var configure = [
 
 var init = process.argv;
 
-/*[
-  'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\bin',
-  'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\opt\\nodejs',
-  'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\opt\\bin',
-  'C:\\Users\\Jonny\\workspace\\cresus\\toolchain\\bootstrap-windev\\sysroot\\msys\\1.0\\bin'
-];*/
-
-
-
-
 var getNodeJSPathFromArgs = function (args) {
   var output;
 
@@ -113,7 +103,6 @@ var installStrongDeps = function (callback) {
   }
 };
 
-
 var execCmd = function (verb, args, callback) {
   try {
     var node = path.resolve (getNodeJSPathFromArgs (init), 'node');
@@ -125,7 +114,6 @@ var execCmd = function (verb, args, callback) {
     if (args.length > 0) {
       finalArgs.push (args.toString ());
     }
-
 
     var nodeCmd = spawn (node, finalArgs);
 
@@ -144,8 +132,6 @@ var execCmd = function (verb, args, callback) {
     console.log ('[' + moduleName + '] Err: ' + err);
   }
 };
-
-
 
 // Is there  way to avoid async command execution??
 console.log ('[' + moduleName + '] Info: install strong dependencies');
