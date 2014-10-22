@@ -87,6 +87,10 @@ var execCmd = function (verb, args, callback) {
       console.log ('' + data);
     });
 
+    nodeCmd.stderr.on ('data', function (data) {
+      console.log ('' + data);
+    });
+
     nodeCmd.on('error', function (err) {
       console.log (err);
     });
