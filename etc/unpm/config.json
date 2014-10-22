@@ -2,7 +2,7 @@
   "host": {
     "hostname": "localhost",
     "protocol": "http",
-    "port": 8485,
+    "port": "8485",
     "pathname": ""
   },
   "crypto": {
@@ -12,9 +12,13 @@
   },
   "verbose": true,
   "checkAuth": false,
-  "auth" : {
+  "auth": {
     "authenticated_gets": false,
-    "whitelist": ["/_session", "/-/user/org.couchdb.user:*", "/-/user/org.couchdb.user:*/*/*'"]
+    "whitelist": [
+      "/_session",
+      "/-/user/org.couchdb.user:*",
+      "/-/user/org.couchdb.user:*/*/*'"
+    ]
   },
   "fallback": null
 }
