@@ -13,10 +13,21 @@ require ('./boot.js') ();
 var cmd = {};
 
 
+var argsToString = function (args) {
+	var output = '';
+
+	args.forEach (function (arg) {
+		output = output + arg + ' ';
+	});
+
+	return output;
+};
+
 
 
 
 var startUNPMService = function () {
+	console.log ('[' + moduleName + '] Info: starting uNPM Server');
   var backend = require ('unpm-fs-backend');
   var dataDir = path.resolve ('./usr/share/unpm');
   var config  = {
@@ -43,7 +54,7 @@ var startUNPMService = function () {
 
 
 var install = function (packages, useLocalRegistry, hostname, port, callback) {
-  console.log ('[' + moduleName + '] Info: install dependencies');
+  console.log ('[' + moduleName + '] Info: installing dependencies');
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
@@ -58,7 +69,7 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
 
     args = args.concat (packages);
 
-    console.log (npm + ' ' + args);
+		console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
     var installCmd = spawn (npm, args);
 
@@ -92,7 +103,7 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
 
 
 var publish = function (packageToPublish, hostname, port, callback) {
-  console.log ('[' + moduleName + '] Info: publish ' + packageToPublish + ' in NPM');
+  console.log ('[' + moduleName + '] Info: publishing ' + packageToPublish + ' in NPM');
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
@@ -103,7 +114,7 @@ var publish = function (packageToPublish, hostname, port, callback) {
     var packagePath = path.resolve ('./lib/', packageToPublish);
     args.push (packagePath);
 
-    console.log (npm + ' ' + args);
+		console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
     var publishCmd = spawn (npm, args);
 
@@ -178,6 +189,7 @@ var createConfig = function (paths) {
  * @param {Object} paths ([path1,path2...])
  */
 cmd.init = function (paths) {
+	console.log ('[' + moduleName + '] Info: creating main configuration file');
   var pathsArray = paths.split(',');
   var dir      = path.resolve ('./etc/xcraft/');
   var fileName = path.join (dir, 'config.json');
@@ -187,7 +199,7 @@ cmd.init = function (paths) {
   }
 
   fs.writeFileSync (fileName, JSON.stringify (createConfig (pathsArray), null, '  '));
-}
+};
 
 /**
  * Npm install third packages.
@@ -195,13 +207,14 @@ cmd.init = function (paths) {
  */
 cmd.prepare = function (deps) {
   install (deps.split(','), false, '', '', function () {});
-}
+};
 
 /**
  * Configure uNPM with backend.
  * @param {Object} config ([IP address,port])
  */
 cmd.deploy = function (config) {
+	console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
   var unpmNetworkConf = config.split(',');
   var configFile = path.resolve ('./etc/unpm/config.json');
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
@@ -210,7 +223,7 @@ cmd.deploy = function (config) {
   config.host.port     = unpmNetworkConf[1];
 
   fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
-}
+};
 
 /**
  * Create xcraft-* config in etc.
@@ -230,7 +243,7 @@ cmd.configure = function (modules) {
       xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
     });
   }
-}
+};
 
 /**
  * Install xcraft-zog from local registry.
@@ -243,7 +256,7 @@ cmd.install = function () {
   install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
   });
-}
+};
 
 /**
  * Npm publish xcraft-core in local registry.
@@ -261,13 +274,14 @@ cmd.publish = function () {
   function (err) {
     unpmService.server.close ();
   });
-}
+};
 
 /**
  * Check outdated packages.
  * @param null
  */
 cmd.verify = function () {
+	console.log ('[' + moduleName + '] Info: starting modules verification');
   var packages = fs.readdirSync ('./lib/');
 
   packages.forEach (function (p) {
@@ -282,7 +296,7 @@ cmd.verify = function () {
       console.log ('[' + moduleName + '] Warn: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
-}
+};
 
 
 
@@ -306,3 +320,5 @@ exports.xcraftCommands = function () {
 
   return list;
 };
+
+cmd.prepare('async,axon,cli-color');
