@@ -1,3 +1,6 @@
 #!/bin/bash
 
-./.node ./scripts/zog.js $@
+. ./.node passive
+PATH=${node%/*}:$PATH
+
+./node_modules/.bin/zog $@
