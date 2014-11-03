@@ -20,5 +20,5 @@
       "/-/user/org.couchdb.user:*/*/*'"
     ]
   },
-  "fallback": true
+  "fallback": "http://registry.npmjs.org"
 }
