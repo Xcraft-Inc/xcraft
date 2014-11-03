@@ -5,7 +5,7 @@ node=$(grep nodejs ./etc/xcraft/config.json | sed 's,\\\\,/,g' | sed 's,\([a-zA-
 if [ -z "$node" ]; then
   IFS="
 "
-  for p in $(grep '".*",\?$' ./etc/xcraft/config.json | sed 's,.*"\(.*\)".*,\1,'); do
+  for p in $(grep '^[[:blank:]]*"[^"]*",\?$' ./etc/xcraft/config.json | tr -d ',' | sed 's,.*"\(.*\)".*,\1,'); do
     stat "$p" >/dev/null 2>&1
     [ "$?" = 0 ] && node="$p/node" && break
   done
