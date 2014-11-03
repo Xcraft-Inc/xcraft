@@ -233,6 +233,12 @@ cmd.defaults = function (modules, callback) {
   callback ();
 };
 
+cmd.configure = function (modules, callback) {
+  var xEtc = require ('xcraft-core-etc');
+
+  xEtc.configureAll (path.resolve ('./node_modules'), /^xcraft-(core|contrib)/, callback);
+};
+
 /**
  * Install xcraft-zog from local registry.
  * TODO: handle modules argument
@@ -303,6 +309,7 @@ exports.register = function (callback) {
   Object.keys (cmd).forEach (function (action) {
     var options = {};
     options.params = rc[action] ? rc[action].params : null;
+    options.wizard = rc[action] ? rc[action].wizard : false;
 
     list.push ({
       name    : action,
