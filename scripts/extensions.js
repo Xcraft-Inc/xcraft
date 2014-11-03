@@ -168,7 +168,7 @@ var createConfig = function (paths) {
  * Create main config file in etc.
  * @param {Object} paths ([path1,path2...])
  */
-cmd.init = function (paths) {
+cmd.init = function (paths, callback) {
   console.log ('[' + moduleName + '] Info: creating main configuration file');
 
   var pathsArray = paths.split (',');
@@ -180,21 +180,23 @@ cmd.init = function (paths) {
   }
 
   fs.writeFileSync (fileName, JSON.stringify (createConfig (pathsArray), null, '  '));
+
+  callback ();
 };
 
 /**
  * Npm install third packages.
  * @param {Object} deps - ([dep1, dep2...])
  */
-cmd.prepare = function (deps) {
-  install (deps.split (','), false, '', '', function () {});
+cmd.prepare = function (deps, callback) {
+  install (deps.split (','), false, '', '', callback);
 };
 
 /**
  * Configure uNPM with backend.
  * @param {Object} configUnpm - ([IP address, port])
  */
-cmd.deploy = function (configUnpm) {
+cmd.deploy = function (configUnpm, callback) {
   console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
 
   var unpmNetworkConf = configUnpm.split (',');
@@ -205,6 +207,8 @@ cmd.deploy = function (configUnpm) {
   config.host.port     = unpmNetworkConf[1];
 
   fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
+
+  callback ();
 };
 
 /**
@@ -212,7 +216,7 @@ cmd.deploy = function (configUnpm) {
  * If module is all, create config for all installed modules.
  * @param {Object} modules ([mod1,mod2...])
  */
-cmd.defaults = function (modules) {
+cmd.defaults = function (modules, callback) {
   var modulesArray = modules.split (',');
   var xEtc = require ('xcraft-core-etc');
 
@@ -225,24 +229,29 @@ cmd.defaults = function (modules) {
       xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
     });
   }
+
+  callback ();
 };
 
 /**
  * Install xcraft-zog from local registry.
+ * TODO: handle modules argument
  */
-cmd.install = function () {
+cmd.install = function (modules, callback) {
   var packages    = fs.readdirSync (path.resolve ('./lib/'));
   var unpmService = startUNPMService ();
 
   install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
+    callback ();
   });
 };
 
 /**
  * Npm publish xcraft-core in local registry.
+ * TODO: handle modules argument
  */
-cmd.publish = function () {
+cmd.publish = function (modules, callback) {
   var async = require ('async');
 
   var unpmService = startUNPMService ();
@@ -253,13 +262,15 @@ cmd.publish = function () {
   },
   function (err) {
     unpmService.server.close ();
+    callback ();
   });
 };
 
 /**
  * Check outdated packages.
+ * TODO: handle modules argument
  */
-cmd.verify = function () {
+cmd.verify = function (modules, callback) {
   console.log ('[' + moduleName + '] Info: starting modules verification');
 
   var packages = fs.readdirSync ('./lib/');
@@ -276,6 +287,8 @@ cmd.verify = function () {
       console.log ('[' + moduleName + '] Warn: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
+
+  callback ();
 };
 
 /**
@@ -296,8 +309,7 @@ exports.register = function (callback) {
       desc    : rc[action] ? rc[action].desc : null,
       options : options,
       handler : function (callback, args) {
-        cmd[action] (args[0]);
-        callback ();
+        cmd[action] (args[0], callback);
       }
     });
   });
