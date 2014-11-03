@@ -175,7 +175,7 @@ cmd.init = function (paths) {
   var dir      = path.resolve ('./etc/xcraft/');
   var fileName = path.join (dir, 'config.json');
 
-  if (!fs.existsSync(dir)) {
+  if (!fs.existsSync (dir)) {
     fs.mkdirSync (dir);
   }
 
@@ -265,8 +265,8 @@ cmd.verify = function () {
   var packages = fs.readdirSync ('./lib/');
 
   packages.forEach (function (p) {
-    var libVersionStr = JSON.parse (fs.readFileSync(path.resolve ('./lib/', p, 'package.json'), 'utf8')).version;
-    var installedVersionStr = JSON.parse (fs.readFileSync(path.resolve ('./node_modules/', p, 'package.json'), 'utf8')).version;
+    var libVersionStr = JSON.parse (fs.readFileSync (path.resolve ('./lib/', p, 'package.json'), 'utf8')).version;
+    var installedVersionStr = JSON.parse (fs.readFileSync (path.resolve ('./node_modules/', p, 'package.json'), 'utf8')).version;
     var libVersion = libVersionStr.split ('.');
     var installedVersion = installedVersionStr.split ('.');
 

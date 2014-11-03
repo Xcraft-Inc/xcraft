@@ -59,7 +59,7 @@ var installStrongDeps = function (callback) {
       });
     });
 
-    installCmd.on('close', function (code) { /* jshint ignore:line */
+    installCmd.on ('close', function (code) { /* jshint ignore:line */
       callback ();
     });
   } catch (err) {
@@ -81,7 +81,7 @@ var execCmd = function (verb, args, callback) {
 
     var nodeCmd = spawn (node, finalArgs);
 
-    nodeCmd.stdout.on('data', function (data) {
+    nodeCmd.stdout.on ('data', function (data) {
       console.log ('' + data);
     });
 
@@ -89,11 +89,11 @@ var execCmd = function (verb, args, callback) {
       console.log ('' + data);
     });
 
-    nodeCmd.on('error', function (err) {
+    nodeCmd.on ('error', function (err) {
       console.log (err);
     });
 
-    nodeCmd.on('close', function (code) { /* jshint ignore:line */
+    nodeCmd.on ('close', function (code) { /* jshint ignore:line */
       callback ();
     });
   } catch (err) {
