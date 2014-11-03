@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. ./.node passive
+PATH=${node%/*}:$PATH
+
+node ./scripts/xcraft.js $@
