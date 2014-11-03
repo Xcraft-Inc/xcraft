@@ -7,7 +7,6 @@ var spawn = require ('child_process').spawn;
 
 
 var prepare = [
-  'async',
   'axon',
   'cli-color',
   'express',
@@ -19,7 +18,6 @@ var prepare = [
   'progress',
   'progress-stream',
   'request',
-  'shellcraft',
   'socket.io',
   'socket.io-client',
   'tar',
@@ -33,7 +31,7 @@ var init = process.argv.slice (2);
 process.env.PATH = init.join (path.delimiter);
 
 var installStrongDeps = function (callback) {
-  var packages = ['async', 'commander', 'inquirer'];
+  var packages = ['async', 'shellcraft'];
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
@@ -74,7 +72,7 @@ var execCmd = function (verb, args, callback) {
     var node = 'node';
     var finalArgs = [
       path.resolve ('./scripts/xcraft.js'),
-      '--' + verb
+      verb
     ];
 
     if (args.length > 0) {

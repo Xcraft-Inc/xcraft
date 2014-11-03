@@ -282,19 +282,27 @@ cmd.verify = function () {
  * Retrieve the list of available commands.
  * @returns {Object[]} The list of commands.
  */
-exports.xcraftCommands = function () {
+exports.register = function (callback) {
   var rcFile = path.join (__dirname, './rc.json');
   var rc     = JSON.parse (fs.readFileSync (rcFile, 'utf8'));
   var list   = [];
 
   Object.keys (cmd).forEach (function (action) {
+    var options = {};
+    options.params = rc[action] ? rc[action].params : null;
+
     list.push ({
-      name   : action,
-      desc   : rc[action] ? rc[action].desc   : null,
-      params : rc[action] ? rc[action].params : null,
-      handler: cmd[action]
+      name    : action,
+      desc    : rc[action] ? rc[action].desc : null,
+      options : options,
+      handler : function (callback, args) {
+        cmd[action] (args[0]);
+        callback ();
+      }
     });
   });
 
-  return list;
+  callback (list);
 };
+
+exports.unregister = function () {};
