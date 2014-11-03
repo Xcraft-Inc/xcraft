@@ -233,6 +233,9 @@ cmd.defaults = function (modules, callback) {
   callback ();
 };
 
+/**
+ * Configure a module.
+ */
 cmd.configure = function (modules, callback) {
   var xEtc = require ('xcraft-core-etc');
 
