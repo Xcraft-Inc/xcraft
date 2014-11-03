@@ -11,20 +11,18 @@ var cmd = {};
 
 
 var argsToString = function (args) {
-	var output = '';
+  var output = '';
 
-	args.forEach (function (arg) {
-		output = output + arg + ' ';
-	});
+  args.forEach (function (arg) {
+    output = output + arg + ' ';
+  });
 
-	return output;
+  return output;
 };
 
-
-
-
 var startUNPMService = function () {
-	console.log ('[' + moduleName + '] Info: starting uNPM Server');
+  console.log ('[' + moduleName + '] Info: starting uNPM Server');
+
   var backend = require ('unpm-fs-backend');
   var dataDir = path.resolve ('./usr/share/unpm');
   var config  = {
@@ -45,11 +43,6 @@ var startUNPMService = function () {
   return unpmService;
 };
 
-
-
-
-
-
 var install = function (packages, useLocalRegistry, hostname, port, callback) {
   console.log ('[' + moduleName + '] Info: installing dependencies');
 
@@ -66,7 +59,7 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
 
     args = args.concat (packages);
 
-		console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+    console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
     var installCmd = spawn (npm, args);
 
@@ -96,9 +89,6 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
   }
 };
 
-
-
-
 var publish = function (packageToPublish, hostname, port, callback) {
   console.log ('[' + moduleName + '] Info: publishing ' + packageToPublish + ' in NPM');
 
@@ -111,7 +101,7 @@ var publish = function (packageToPublish, hostname, port, callback) {
     var packagePath = path.resolve ('./lib/', packageToPublish);
     args.push (packagePath);
 
-		console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+    console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
     var publishCmd = spawn (npm, args);
 
@@ -140,10 +130,6 @@ var publish = function (packageToPublish, hostname, port, callback) {
     console.log ('[' + moduleName + '] Err: ' + err);
   }
 };
-
-
-
-
 
 var createConfig = function (paths) {
   var root       = path.resolve ('./');
@@ -178,16 +164,14 @@ var createConfig = function (paths) {
   return config;
 };
 
-
-
-
 /**
  * Create main config file in etc.
  * @param {Object} paths ([path1,path2...])
  */
 cmd.init = function (paths) {
-	console.log ('[' + moduleName + '] Info: creating main configuration file');
-  var pathsArray = paths.split(',');
+  console.log ('[' + moduleName + '] Info: creating main configuration file');
+
+  var pathsArray = paths.split (',');
   var dir      = path.resolve ('./etc/xcraft/');
   var fileName = path.join (dir, 'config.json');
 
@@ -200,19 +184,20 @@ cmd.init = function (paths) {
 
 /**
  * Npm install third packages.
- * @param {Object} deps ([dep1,dep2...])
+ * @param {Object} deps - ([dep1, dep2...])
  */
 cmd.prepare = function (deps) {
-  install (deps.split(','), false, '', '', function () {});
+  install (deps.split (','), false, '', '', function () {});
 };
 
 /**
  * Configure uNPM with backend.
- * @param {Object} config ([IP address,port])
+ * @param {Object} configUnpm - ([IP address, port])
  */
-cmd.deploy = function (config) {
-	console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
-  var unpmNetworkConf = config.split(',');
+cmd.deploy = function (configUnpm) {
+  console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
+
+  var unpmNetworkConf = configUnpm.split (',');
   var configFile = path.resolve ('./etc/unpm/config.json');
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
 
@@ -244,7 +229,6 @@ cmd.configure = function (modules) {
 
 /**
  * Install xcraft-zog from local registry.
- * @param null
  */
 cmd.install = function () {
   var packages    = fs.readdirSync (path.resolve ('./lib/'));
@@ -257,7 +241,6 @@ cmd.install = function () {
 
 /**
  * Npm publish xcraft-core in local registry.
- * @param null
  */
 cmd.publish = function () {
   var async = require ('async');
@@ -275,10 +258,10 @@ cmd.publish = function () {
 
 /**
  * Check outdated packages.
- * @param null
  */
 cmd.verify = function () {
-	console.log ('[' + moduleName + '] Info: starting modules verification');
+  console.log ('[' + moduleName + '] Info: starting modules verification');
+
   var packages = fs.readdirSync ('./lib/');
 
   packages.forEach (function (p) {
@@ -287,15 +270,13 @@ cmd.verify = function () {
     var libVersion = libVersionStr.split ('.');
     var installedVersion = installedVersionStr.split ('.');
 
-    if (parseInt(libVersion[0]) > parseInt(installedVersion[0]) ||
-        parseInt(libVersion[1]) > parseInt(installedVersion[1]) ||
-        parseInt(libVersion[2]) > parseInt(installedVersion[2])) {
+    if (parseInt (libVersion[0]) > parseInt (installedVersion[0]) ||
+        parseInt (libVersion[1]) > parseInt (installedVersion[1]) ||
+        parseInt (libVersion[2]) > parseInt (installedVersion[2])) {
       console.log ('[' + moduleName + '] Warn: installed version of ' + p + ' is outdated (' + libVersionStr + ' > ' + installedVersionStr + ')');
     }
   });
 };
-
-
 
 /**
  * Retrieve the list of available commands.
