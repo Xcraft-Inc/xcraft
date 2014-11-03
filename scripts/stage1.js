@@ -19,6 +19,7 @@ var prepare = [
   'progress',
   'progress-stream',
   'request',
+  'shellcraft',
   'socket.io',
   'socket.io-client',
   'tar',
