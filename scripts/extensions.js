@@ -212,7 +212,7 @@ cmd.deploy = function (configUnpm) {
  * If module is all, create config for all installed modules.
  * @param {Object} modules ([mod1,mod2...])
  */
-cmd.configure = function (modules) {
+cmd.defaults = function (modules) {
   var modulesArray = modules.split (',');
   var xEtc = require ('xcraft-core-etc');
 

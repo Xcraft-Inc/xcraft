@@ -128,7 +128,7 @@ installStrongDeps (function () {
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: final configuration');
-      execCmd ('configure', ['all'], callback);
+      execCmd ('defaults', ['all'], callback);
     }
   ], function (err) {
     if (err) {
