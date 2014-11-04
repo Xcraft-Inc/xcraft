@@ -1,6 +1,6 @@
 @echo off
 
-for /F "delims=" %%a in ('findstr /i "nodejs" .zogrc') do (
+for /F "delims=" %%a in ('findstr /i "nodejs" etc\xcraft\config.json') do (
   for %%b in (%%a) do set node=%%b\node
 )
 set node=%node:"=%

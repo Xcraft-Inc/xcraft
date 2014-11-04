@@ -1,20 +1,20 @@
 'use strict';
 
-module.exports = function (zogConfig, packagePath, sharePath) {
+module.exports = function (packagePath, sharePath) {
   var path = require ('path');
   var fse  = require ('fs-extra');
-
+  var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
   var packageName = path.basename (__dirname);
 
-  var zogLog = require ('zogLog') (packageName);
+  var zogLog = require ('xcraft-core-log') (packageName);
 
-  var copyZogModules = function () {
-    var zogFs = require ('zogFs');
+  var copyXcraftModules = function () {
+    var zogFs = require ('xcraft-core-fs');
 
-    var zogModules = zogFs.lsdir (zogConfig.nodeModulesRoot, /^zog/);
+    var zogModules = zogFs.lsdir (xcraftConfig.nodeModulesRoot, /^xcraft-core/);
 
     zogModules.forEach (function (mod) {
-      var inDir  = path.join (zogConfig.nodeModulesRoot, mod);
+      var inDir  = path.join (xcraftConfig.nodeModulesRoot, mod);
       var outDir = path.join (sharePath, 'node_modules', mod);
 
       zogLog.verb (inDir + ' -> ' + outDir);
@@ -24,7 +24,7 @@ module.exports = function (zogConfig, packagePath, sharePath) {
 
   return {
     copy: function (callbackDone) {
-      copyZogModules ();
+      copyXcraftModules ();
       callbackDone (true);
     }
   };

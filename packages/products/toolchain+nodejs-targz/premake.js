@@ -1,19 +1,25 @@
 'use strict';
 
-module.exports = function (zogConfig, packagePath, sharePath) {
+module.exports = function (packagePath, sharePath) {
   var path = require ('path');
 
-  var packageName = path.basename (__dirname);
+  var packageName  = path.basename (__dirname);
+  var utils        = require ('xcraft-core-utils');
+  var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
+  var pacmanConfig = require ('xcraft-core-etc').load ('xcraft-contrib-pacman');
+  var zogLog       = require ('xcraft-core-log') (packageName);
 
-  var zogLog = require ('zogLog') (packageName);
+  var pkgDefFile = path.join ( xcraftConfig.pkgProductsRoot,
+                              packageName,
+                              pacmanConfig.pkgCfgFileName
+                            );
 
-  var pkgDefinition = require (zogConfig.libPkgDefinition);
-  var packageDef = pkgDefinition.load (packageName);
+  var packageDef = utils.yamlFile2Json (pkgDefFile);
 
   var npmInstall = function (callbackDone) {
-    var zogPlatform = require ('zogPlatform');
-    var zogProcess  = require ('zogProcess');
-    var zogFs       = require ('zogFs');
+    var zogPlatform = require ('xcraft-core-platform');
+    var zogProcess  = require ('xcraft-core-process');
+    var zogFs       = require ('xcraft-core-fs');
 
     /* prefix to /usr/share */
     var nodeModules = path.join (sharePath, '..');

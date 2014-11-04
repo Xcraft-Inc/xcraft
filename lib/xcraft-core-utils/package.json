@@ -1,0 +1,24 @@
+{
+  "name": "xcraft-core-utils",
+  "version": "0.1.0",
+  "description": "Xcraft utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xcraft",
+    "utils",
+    "helpers"
+  ],
+  "repository" : {
+    "type" : "file",
+    "url" : "lib/xcraft-core-utils"
+  },
+  "author": "Mathieu Schroeter",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "3.2.2"
+  },
+  "devDependencies": {}
+}

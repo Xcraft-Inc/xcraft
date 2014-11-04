@@ -2,20 +2,18 @@
 
 var moduleName = 'stage1';
 
-var zogProcess  = require ('zogProcess');
-var zogPlatform = require ('zogPlatform');
+var path  = require ('path');
+var spawn = require ('child_process').spawn;
 
-var depsForZog = [
-  'async',
+
+var prepare = [
   'axon',
   'cli-color',
-  'commander',
   'express',
   'fs-extra',
   'grunt',
   'grunt-cli',
   'grunt-newer-explicit',
-  'inquirer',
   'js-yaml',
   'progress',
   'progress-stream',
@@ -23,87 +21,118 @@ var depsForZog = [
   'socket.io',
   'socket.io-client',
   'tar',
-  'tar.gz'
+  'tar.gz',
+  'unpm',
+  'unpm-fs-backend'
 ];
 
-try {
-  process.chdir (__dirname + '/..');
-  console.log ('[' + moduleName + '] Info: go to the toolchain directory: ' + process.cwd ());
-} catch (err) {
-  console.log ('[' + moduleName + '] Err: ' + err);
-}
+var init = process.argv.slice (2);
 
-/**
- * The second stage installs cmake and wpkg.
- */
-var stage2 = function () {
-  console.log ('[' + moduleName + '] Info: end of stage one');
+process.env.PATH = init.join (path.delimiter);
 
-  var util = require ('util');
-  var zogLog = require ('zogLog') ('stage2');
-  zogLog.verbosity (0);
+var installStrongDeps = function (callback) {
+  var packages = ['async', 'shellcraft'];
 
-  /* Locations of the sysroot/ binaries. */
-  if (process.argv.length > 2) {
-    var path      = require ('path');
-    var zogConfig = require ('./zogConfig.js') ();
+  try {
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
 
-    var list = [];
-    process.argv.slice (2).forEach (function (location) {
-      list.push (path.resolve (location));
+    var npm = 'npm' + ext;
+    var args = ['install'];
+
+    args = args.concat (packages);
+
+    var installCmd = spawn (npm, args);
+
+    installCmd.stdout.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
     });
 
-    var zogrc = {
-      path: list
-    };
+    installCmd.stderr.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
 
-    var fs = require ('fs');
-    fs.writeFileSync (zogConfig.zogRc, JSON.stringify (zogrc, null, '  '));
+    installCmd.on ('close', function (code) { /* jshint ignore:line */
+      callback ();
+    });
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
   }
-
-  var zog = util.format ('%szog%s',
-                         zogPlatform.getOs () !== 'win' ? './' : '',
-                         zogPlatform.getCmdExt ());
-
-  var async = require ('async');
-
-  async.eachSeries (['cmake', 'wpkg'], function (action, callback) {
-    zogLog.info ('install %s', action);
-
-    var args = [
-      '-v0',
-      action,
-      'install'
-    ];
-
-    zogProcess.spawn (zog, args, function (done) {
-      callback (done ? null : 'action ' + action + ' has failed');
-    });
-  },
-  function (err) {
-    if (err) {
-      zogLog.err (err);
-    }
-  });
 };
 
-console.log ('[' + moduleName + '] Info: install zog dependencies');
-try {
-  var npm = 'npm' + zogPlatform.getCmdExt ();
-  var args = ['install'];
-  args = args.concat (depsForZog);
+var execCmd = function (verb, args, callback) {
+  try {
+    var node = 'node';
+    var finalArgs = [
+      path.resolve ('./scripts/xcraft.js'),
+      verb
+    ];
 
-  zogProcess.spawn (npm, args, function (done) {
-    if (done) {
-      stage2 ();
-    } else {
-      console.log ('[' + moduleName + '] Err: npm has failed');
+    if (args.length > 0) {
+      finalArgs.push (args.join (','));
     }
-  }, function (line) {
-    console.log ('[' + moduleName + '] Verb: ' + line);
-  }, function (line) {
-    console.log ('[' + moduleName + '] Err: ' + line);
+
+    var nodeCmd = spawn (node, finalArgs);
+
+    nodeCmd.stdout.on ('data', function (data) {
+      console.log ('' + data);
+    });
+
+    nodeCmd.stderr.on ('data', function (data) {
+      console.log ('' + data);
+    });
+
+    nodeCmd.on ('error', function (err) {
+      console.log (err);
+    });
+
+    nodeCmd.on ('close', function (code) { /* jshint ignore:line */
+      callback ();
+    });
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
+};
+
+console.log ('[' + moduleName + '] Info: install strong dependencies');
+installStrongDeps (function () {
+  var async = require ('async');
+
+  async.series ([
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: config initialization');
+      execCmd ('init', init, callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: dependencies installation');
+      execCmd ('prepare', prepare, callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: uNPM deployment');
+      execCmd ('deploy', ['localhost', '8485'], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: core packets publication');
+      execCmd ('publish', [], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: core packets installation');
+      execCmd ('install', [], callback);
+    },
+    function (callback) {
+      console.log ('[' + moduleName + '] Info: final configuration');
+      execCmd ('defaults', ['all'], callback);
+    }
+  ], function (err) {
+    if (err) {
+      console.log ('[' + moduleName + '] Err: ' + err);
+    }
   });
-} catch (err) {
-  console.log ('[' + moduleName + '] Err: ' + err);
-}
+});

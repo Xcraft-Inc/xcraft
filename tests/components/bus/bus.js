@@ -2,12 +2,11 @@
 
 var moduleName = 'test';
 
-var zogLog     = require ('zogLog') (moduleName);
+var zogLog     = require ('xcraft-core-log') (moduleName);
 var zogConfig  = require ('../../../scripts/zogConfig.js') ();
 var zogBoot    = require ('../../../scripts/zogBoot.js');
 
-var busCommander = require ('../../../scripts/bus/busCommander.js');
-var busClient    = require (zogConfig.busClient);
+var busClient    = require ('xcraft-core-busclient');
 
 var mainShutdown = function () {
   busClient.stop (function (done) { /* jshint ignore:line */
@@ -18,7 +17,7 @@ var mainShutdown = function () {
 
 before (function (done) {
   zogBoot.start (function (startDone) { /* jshint ignore:line */
-    busCommander.registerCommandHandler ('test.bus.events.serialize', function (msg) { /* jshint ignore:line */
+    zogBoot.getCommander().registerCommandHandler ('test.bus.events.serialize', function (msg) { /* jshint ignore:line */
       var data = {
         testFunction : function () {
           return 'success';

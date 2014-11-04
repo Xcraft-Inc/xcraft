@@ -3,7 +3,7 @@
 var Action = function (currentDir) {
   var fs      = require ('fs');
   var path    = require ('path');
-  var zogPeon = require ('zogPeon');
+  var zogPeon = require ('xcraft-core-peon');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
