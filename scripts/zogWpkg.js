@@ -22,6 +22,8 @@ var cmd = {};
 var makeRun = function (callback) {
   zogLog.info ('begin building of wpkg');
 
+  process.env.SHELL = cmd.exe;
+
   var os = require ('os');
   var list = [
     'all',
