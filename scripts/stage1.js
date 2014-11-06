@@ -7,21 +7,6 @@ var spawn = require ('child_process').spawn;
 
 
 var prepare = [
-  'axon',
-  'cli-color',
-  'express',
-  'fs-extra',
-  'grunt',
-  'grunt-cli',
-  'grunt-newer-explicit',
-  'js-yaml',
-  'progress',
-  'progress-stream',
-  'request',
-  'socket.io',
-  'socket.io-client',
-  'tar',
-  'tar.gz',
   'unpm',
   'unpm-fs-backend'
 ];
