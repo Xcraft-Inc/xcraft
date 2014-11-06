@@ -18,7 +18,7 @@ module.exports = function (packagePath, sharePath) {
 
   var npmInstall = function (callbackDone) {
     var zogPlatform = require ('xcraft-core-platform');
-    var zogProcess  = require ('xcraft-core-process');
+    var xProcess    = require ('xcraft-core-process');
     var zogFs       = require ('xcraft-core-fs');
 
     /* prefix to /usr/share */
@@ -33,7 +33,7 @@ module.exports = function (packagePath, sharePath) {
       'tar.gz@' + packageDef.version
     ];
 
-    zogProcess.spawn (npm, args, function (done) {
+    xProcess.spawn (npm, args, function (done) {
       callbackDone (done);
     }, function (line) {
       xLog.verb (line);
