@@ -54,7 +54,7 @@ var registerTest = function (listData, category) {
   listData.forEach (function (packageData) {
     packageData['mocha.id'] = i++;
 
-    var text = 'send command \'zogManager.edit.' +
+    var text = 'send command \'pacman.edit.' +
                category +
                '\', test [' + packageData['mocha.id'] + ']';
 
@@ -65,13 +65,13 @@ var registerTest = function (listData, category) {
         packageDef : packageData
       };
 
-      it ('zogManager.edit.header.added should be called', function (done) {
-        busClient.events.subscribe ('zogManager.edit.' + category + '.added', function (msg) {
+      it ('pacman.edit.header.added should be called', function (done) {
+        busClient.events.subscribe ('pacman.edit.' + category + '.added', function (msg) {
           registerSubTest ('header', msg, packageData);
           done ();
         });
 
-        busClient.command.send ('zogManager.edit.' + category, msg, mainShutdown);
+        busClient.command.send ('pacman.edit.' + category, msg, mainShutdown);
       });
     });
   });
