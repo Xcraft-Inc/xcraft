@@ -6,7 +6,7 @@ module.exports = function (packagePath, sharePath) {
   var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
   var packageName = path.basename (__dirname);
 
-  var zogLog = require ('xcraft-core-log') (packageName);
+  var xLog = require ('xcraft-core-log') (packageName);
 
   var copyXcraftModules = function () {
     var zogFs = require ('xcraft-core-fs');
@@ -17,7 +17,7 @@ module.exports = function (packagePath, sharePath) {
       var inDir  = path.join (xcraftConfig.nodeModulesRoot, mod);
       var outDir = path.join (sharePath, 'node_modules', mod);
 
-      zogLog.verb (inDir + ' -> ' + outDir);
+      xLog.verb (inDir + ' -> ' + outDir);
       fse.copySync (inDir, outDir);
     });
   };

@@ -5,11 +5,12 @@ var moduleName = 'test';
 var path = require ('path');
 var fs   = require ('fs');
 
-var zogLog    = require ('xcraft-core-log') (moduleName);
 var zogConfig = require ('../../../scripts/zogConfig.js') ();
 var zogBoot   = require ('../../../scripts/zogBoot.js');
 
+var xLog      = require ('xcraft-core-log') (moduleName);
 var busClient = require ('xcraft-core-busclient');
+
 var pkgWizard = require (zogConfig.libPkgWizard);
 pkgWizard.initConfig (zogConfig);
 
@@ -30,7 +31,7 @@ var registerSubTest = function (category, msg, packageData) {
     });
 
     if (!list.length) {
-      zogLog.warn ('can not find the property ' + fieldDef.name);
+      xLog.warn ('can not find the property ' + fieldDef.name);
       return;
     }
 
@@ -87,4 +88,4 @@ before (function (done) {
   });
 });
 
-zogLog.verbosity (2);
+xLog.verbosity (2);

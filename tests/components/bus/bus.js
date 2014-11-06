@@ -2,9 +2,8 @@
 
 var moduleName = 'test';
 
-var zogLog     = require ('xcraft-core-log') (moduleName);
-var zogConfig  = require ('../../../scripts/zogConfig.js') ();
-var zogBoot    = require ('../../../scripts/zogBoot.js');
+var xLog    = require ('xcraft-core-log') (moduleName);
+var zogBoot = require ('../../../scripts/zogBoot.js');
 
 var busClient    = require ('xcraft-core-busclient');
 
@@ -43,4 +42,4 @@ describe ('object serialization on messages', function () {
   });
 });
 
-zogLog.verbosity (2);
+xLog.verbosity (2);

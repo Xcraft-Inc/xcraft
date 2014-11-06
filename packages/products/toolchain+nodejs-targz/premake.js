@@ -7,7 +7,7 @@ module.exports = function (packagePath, sharePath) {
   var utils        = require ('xcraft-core-utils');
   var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
   var pacmanConfig = require ('xcraft-core-etc').load ('xcraft-contrib-pacman');
-  var zogLog       = require ('xcraft-core-log') (packageName);
+  var xLog         = require ('xcraft-core-log') (packageName);
 
   var pkgDefFile = path.join ( xcraftConfig.pkgProductsRoot,
                               packageName,
@@ -36,9 +36,9 @@ module.exports = function (packagePath, sharePath) {
     zogProcess.spawn (npm, args, function (done) {
       callbackDone (done);
     }, function (line) {
-      zogLog.verb (line);
+      xLog.verb (line);
     }, function (line) {
-      zogLog.err (line);
+      xLog.err (line);
     });
   };
 
