@@ -243,20 +243,6 @@ cmd.configure = function (modules, callback) {
 };
 
 /**
- * Install xcraft-zog from local registry.
- * TODO: handle modules argument
- */
-cmd.install = function (modules, callback) {
-  var packages    = fs.readdirSync (path.resolve ('./lib/'));
-  var unpmService = startUNPMService ();
-
-  install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
-    unpmService.server.close ();
-    callback ();
-  });
-};
-
-/**
  * Npm publish xcraft-core in local registry.
  * TODO: handle modules argument
  */
@@ -270,6 +256,20 @@ cmd.publish = function (modules, callback) {
     publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function (err) {
+    unpmService.server.close ();
+    callback ();
+  });
+};
+
+/**
+ * Install xcraft-zog from local registry.
+ * TODO: handle modules argument
+ */
+cmd.install = function (modules, callback) {
+  var packages    = fs.readdirSync (path.resolve ('./lib/'));
+  var unpmService = startUNPMService ();
+
+  install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
     callback ();
   });
