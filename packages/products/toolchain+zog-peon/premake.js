@@ -9,9 +9,9 @@ module.exports = function (packagePath, sharePath) {
   var xLog = require ('xcraft-core-log') (packageName);
 
   var copyXcraftModules = function () {
-    var zogFs = require ('xcraft-core-fs');
+    var xFs = require ('xcraft-core-fs');
 
-    var zogModules = zogFs.lsdir (xcraftConfig.nodeModulesRoot, /^xcraft-core/);
+    var zogModules = xFs.lsdir (xcraftConfig.nodeModulesRoot, /^xcraft-core/);
 
     zogModules.forEach (function (mod) {
       var inDir  = path.join (xcraftConfig.nodeModulesRoot, mod);

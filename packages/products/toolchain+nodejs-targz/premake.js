@@ -19,11 +19,11 @@ module.exports = function (packagePath, sharePath) {
   var npmInstall = function (callbackDone) {
     var xPlatform = require ('xcraft-core-platform');
     var xProcess  = require ('xcraft-core-process');
-    var zogFs     = require ('xcraft-core-fs');
+    var xFs       = require ('xcraft-core-fs');
 
     /* prefix to /usr/share */
     var nodeModules = path.join (sharePath, '..');
-    zogFs.mkdir (nodeModules);
+    xFs.mkdir (nodeModules);
 
     var npm = 'npm' + xPlatform.getCmdExt ();
     var args =
