@@ -3,5 +3,4 @@
 /etc/xcraft-core*
 /node_modules
 /usr
-/zog.yaml
 .directory
