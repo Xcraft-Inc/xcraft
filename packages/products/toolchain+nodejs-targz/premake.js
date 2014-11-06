@@ -17,15 +17,15 @@ module.exports = function (packagePath, sharePath) {
   var packageDef = utils.yamlFile2Json (pkgDefFile);
 
   var npmInstall = function (callbackDone) {
-    var zogPlatform = require ('xcraft-core-platform');
-    var xProcess    = require ('xcraft-core-process');
-    var zogFs       = require ('xcraft-core-fs');
+    var xPlatform = require ('xcraft-core-platform');
+    var xProcess  = require ('xcraft-core-process');
+    var zogFs     = require ('xcraft-core-fs');
 
     /* prefix to /usr/share */
     var nodeModules = path.join (sharePath, '..');
     zogFs.mkdir (nodeModules);
 
-    var npm = 'npm' + zogPlatform.getCmdExt ();
+    var npm = 'npm' + xPlatform.getCmdExt ();
     var args =
     [
       'install',
