@@ -18,7 +18,9 @@
   "configure": {
     "params": "modules",
     "desc": "configure a module",
-    "wizard": true
+    "options": {
+      "wizard": true
+    }
   },
   "install": {
     "params": null,

@@ -310,9 +310,8 @@ exports.register = function (callback) {
   var list   = [];
 
   Object.keys (cmd).forEach (function (action) {
-    var options = {};
+    var options = rc[action] && rc[action].options ? rc[action].options : {};
     options.params = rc[action] ? rc[action].params : null;
-    options.wizard = rc[action] ? rc[action].wizard : false;
 
     list.push ({
       name    : action,
