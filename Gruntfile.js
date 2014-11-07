@@ -13,7 +13,6 @@ module.exports = function (grunt) {
     './lib/xcraft-contrib-cmake/**/*.js',
     './lib/xcraft-contrib-lokthar/lokthar-app/*.js',
     './lib/xcraft-contrib-lokthar/lokthar-app/modules/**/*.js',
-    '!./lib/xcraft-contrib-lokthar/lokthar-app/js',
     './lib/xcraft-contrib-pacman/**/*.js',
     './lib/xcraft-contrib-wpkg/**/*.js',
     './lib/xcraft-core-*/**/*.js',
