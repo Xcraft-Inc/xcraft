@@ -8,11 +8,6 @@ var spawn = require ('child_process').spawn;
 
 process.chdir (path.join (__dirname, '..'));
 
-var prepare = [
-  'unpm',
-  'unpm-fs-backend'
-];
-
 var init = process.argv.slice (2);
 require ('./boot.js') (init);
 
@@ -98,7 +93,7 @@ installStrongDeps (function () {
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: dependencies installation');
-      execCmd ('prepare', prepare, callback);
+      execCmd ('prepare', ['unpm', 'unpm-fs-backend'], callback);
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: uNPM deployment');
