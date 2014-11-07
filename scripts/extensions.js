@@ -138,7 +138,6 @@ var createConfig = function (paths) {
     xcraftRoot       : root,
     scriptsRoot      : path.join (root, './scripts/'),
     npmRc            : path.join (root, './.npmrc'),
-    zogBoot          : path.join (root, './scripts/zogBoot.js'),
     loktharRoot      : path.join (root, './lokthar/'),
     nodeModulesRoot  : path.join (root, './node_modules/'),
     tempRoot         : path.join (root, './var/tmp/'),
