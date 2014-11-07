@@ -14,8 +14,7 @@ var prepare = [
 ];
 
 var init = process.argv.slice (2);
-
-process.env.PATH = init.join (path.delimiter);
+require ('./boot.js') (init);
 
 var installStrongDeps = function (callback) {
   var packages = ['async', 'shellcraft'];
