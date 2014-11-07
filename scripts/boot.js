@@ -3,7 +3,7 @@
 var fs   = require ('fs');
 var path = require ('path');
 
-module.exports = function () {
+module.exports = function (paths) {
   var jsonFile = path.join (__dirname, '../etc/xcraft/config.json');
   var list = process.env.PATH.split (path.delimiter);
 
@@ -35,6 +35,12 @@ module.exports = function () {
   }
 
   if (xConfig.hasOwnProperty ('path')) {
+    xConfig.path.reverse ().forEach (function (location) {
+      list.unshift (location);
+    });
+  }
+
+  if (paths) {
     xConfig.path.reverse ().forEach (function (location) {
       list.unshift (location);
     });
