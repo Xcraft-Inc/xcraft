@@ -41,7 +41,7 @@ module.exports = function (paths) {
   }
 
   if (paths) {
-    xConfig.path.reverse ().forEach (function (location) {
+    paths.reverse ().forEach (function (location) {
       list.unshift (location);
     });
   }
