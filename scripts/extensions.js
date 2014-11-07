@@ -136,9 +136,6 @@ var createConfig = function (paths) {
 
   var config = {
     xcraftRoot       : root,
-    scriptsRoot      : path.join (root, './scripts/'),
-    npmRc            : path.join (root, './.npmrc'),
-    loktharRoot      : path.join (root, './lokthar/'),
     nodeModulesRoot  : path.join (root, './node_modules/'),
     tempRoot         : path.join (root, './var/tmp/'),
     pkgTempRoot      : path.join (root, './var/tmp/wpkg/'),
@@ -147,8 +144,6 @@ var createConfig = function (paths) {
     pkgProductsRoot  : path.join (root, './packages/products/'),
     pkgTemplatesRoot : path.join (root, './templates/wpkg/'),
     pkgTargetRoot    : path.join (root, './var/devroot/'),
-    busBoot          : path.join (root, './scripts/bus/busBoot.js'),
-    confWizard       : path.join (root, './scripts/config/confWizard.js'),
     nodeModules      : path.join (root, './node_modules/'),
     binGrunt         : path.join (root, './node_modules/', 'grunt-cli/bin/grunt'),
     path             : []
