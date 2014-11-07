@@ -6,6 +6,8 @@ var path  = require ('path');
 var spawn = require ('child_process').spawn;
 
 
+process.chdir (path.join (__dirname, '..'));
+
 var prepare = [
   'unpm',
   'unpm-fs-backend'
