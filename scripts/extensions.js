@@ -142,7 +142,6 @@ var createConfig = function (paths) {
     pkgDebRoot       : path.join (root, './var/wpkg/'),
     pkgBaseRoot      : path.join (root, './packages/base/'),
     pkgProductsRoot  : path.join (root, './packages/products/'),
-    pkgTemplatesRoot : path.join (root, './templates/wpkg/'),
     pkgTargetRoot    : path.join (root, './var/devroot/'),
     nodeModules      : path.join (root, './node_modules/'),
     binGrunt         : path.join (root, './node_modules/', 'grunt-cli/bin/grunt'),
