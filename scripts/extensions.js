@@ -149,8 +149,6 @@ var createConfig = function (paths) {
     pkgTargetRoot    : path.join (root, './var/devroot/'),
     busBoot          : path.join (root, './scripts/bus/busBoot.js'),
     confWizard       : path.join (root, './scripts/config/confWizard.js'),
-    confDefaultFile  : path.join (root, './scripts/zog.yaml'),
-    confUserFile     : path.join (root, './zog.yaml'),
     nodeModules      : path.join (root, './node_modules/'),
     binGrunt         : path.join (root, './node_modules/', 'grunt-cli/bin/grunt'),
     path             : []
