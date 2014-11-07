@@ -1,17 +1,23 @@
 'use strict';
 
-var fs   = require ('fs');
+var fs = require ('fs');
 
 module.exports = function (grunt) {
   var jsSrc = [
     './Gruntfile.js',
-    './scripts/**/*.js',
-    './lokthar/lokthar-app/*.js',
-    './lokthar/lokthar-app/modules/**/*.js',
-    '!./lokthar/lokthar-app/js',
-    './node_modules/xcraft**/**/*.js',
+    './scripts/*.js',
     './packages/products/**/*.js',
     './tests/**/*.js',
+    './lib/xcraft-core-*/*.js',
+    './lib/xcraft-contrib-chest/**/*.js',
+    './lib/xcraft-contrib-cmake/**/*.js',
+    './lib/xcraft-contrib-lokthar/lokthar-app/*.js',
+    './lib/xcraft-contrib-lokthar/lokthar-app/modules/**/*.js',
+    '!./lib/xcraft-contrib-lokthar/lokthar-app/js',
+    './lib/xcraft-contrib-pacman/**/*.js',
+    './lib/xcraft-contrib-wpkg/**/*.js',
+    './lib/xcraft-core-*/**/*.js',
+    './lib/xcraft-zog/**/*.js'
   ];
 
   grunt.initConfig ({
