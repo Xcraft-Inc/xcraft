@@ -194,7 +194,7 @@ cmd.deploy = function (configUnpm, callback) {
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
 
   config.host.hostname = unpmNetworkConf[0];
-  config.host.port     = unpmNetworkConf[1];
+  config.host.port     = parseInt (unpmNetworkConf[1]);
 
   fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
 
