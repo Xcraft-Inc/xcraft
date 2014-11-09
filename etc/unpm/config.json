@@ -2,7 +2,7 @@
   "host": {
     "hostname": "localhost",
     "protocol": "http",
-    "port": "8485",
+    "port": 8485,
     "pathname": ""
   },
   "crypto": {
