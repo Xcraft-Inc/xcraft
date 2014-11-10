@@ -25,9 +25,8 @@ var startUNPMService = function () {
 
   var backend = require ('unpm-fs-backend');
   var dataDir = path.resolve ('./usr/share/unpm');
-  var config  = {
-    configfile: path.resolve ('./etc/unpm/config.json')
-  };
+  var data    = fs.readFileSync (path.resolve ('./etc/unpm/config.json'), 'utf8');
+  var config  = JSON.parse (data);
 
   var tarballsDir = path.join (dataDir, 'tarballs');
   var userDir     = path.join (dataDir, 'users');
@@ -195,7 +194,7 @@ cmd.deploy = function (configUnpm, callback) {
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
 
   config.host.hostname = unpmNetworkConf[0];
-  config.host.port     = unpmNetworkConf[1];
+  config.host.port     = parseInt (unpmNetworkConf[1]);
 
   fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
 
