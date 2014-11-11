@@ -1,4 +1,10 @@
 {
-  "install"   : {"params": null, "desc": "build and install WPKG"},
-  "uninstall" : {"params": null, "desc": "uninstall WPKG"}
+  "install": {
+    "params": null,
+    "desc": "build and install WPKG"
+  },
+  "uninstall": {
+    "params": null,
+    "desc": "uninstall WPKG"
+  }
 }
