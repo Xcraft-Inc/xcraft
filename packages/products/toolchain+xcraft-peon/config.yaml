@@ -8,9 +8,7 @@ architecture:
 description:
   brief: A core dependency for many packages.
   long: ""
-dependency:
-  toolchain+nodejs-targz:
-    - ">= 0.1.1"
+dependency: {}
 data:
   uri: "self:///root"
   type: bin
