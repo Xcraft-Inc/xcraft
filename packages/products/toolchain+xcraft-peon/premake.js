@@ -2,7 +2,6 @@
 
 module.exports = function (packagePath, sharePath) {
   var path = require ('path');
-  var fse  = require ('fs-extra');
   var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
   var packageName = path.basename (__dirname);
 
@@ -18,7 +17,7 @@ module.exports = function (packagePath, sharePath) {
       var outDir = path.join (sharePath, 'node_modules', mod);
 
       xLog.verb (inDir + ' -> ' + outDir);
-      fse.copySync (inDir, outDir);
+      xFs.cpdir (inDir, outDir);
     });
   };
 
