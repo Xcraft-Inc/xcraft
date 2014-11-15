@@ -143,7 +143,6 @@ var createConfig = function (paths) {
     pkgProductsRoot  : path.join (root, './packages/products/'),
     pkgTargetRoot    : path.join (root, './var/devroot/'),
     nodeModules      : path.join (root, './node_modules/'),
-    binGrunt         : path.join (root, './node_modules/', 'grunt-cli/bin/grunt'),
     path             : []
   };
 
