@@ -10,24 +10,24 @@
     "xcraft",
     "wpkg"
   ],
-  "repository" : {
-    "type" : "file",
-    "url" : "lib/xcraft-contrib-wpkg"
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-contrib-wpkg"
   },
   "dependencies": {
-    "xcraft-core-etc" : "0.1.0",
-    "xcraft-core-log" : "0.1.0",
+    "async": "^0.9.0",
+    "xcraft-contrib-cmake": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-devel": "0.1.0",
+    "xcraft-core-etc": "0.1.0",
+    "xcraft-core-extract": "0.1.0",
     "xcraft-core-fs": "0.1.0",
     "xcraft-core-http": "0.1.0",
-    "xcraft-core-extract": "0.1.0",
-    "xcraft-core-process": "0.1.0",
+    "xcraft-core-log": "0.1.0",
     "xcraft-core-platform": "0.1.0",
-    "xcraft-contrib-cmake": "0.1.0",
-    "async": ""
+    "xcraft-core-process": "0.1.0"
   },
   "author": "Mathieu Schroeter",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {}
 }

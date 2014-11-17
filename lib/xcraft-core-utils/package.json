@@ -11,14 +11,14 @@
     "utils",
     "helpers"
   ],
-  "repository" : {
-    "type" : "file",
-    "url" : "lib/xcraft-core-utils"
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-core-utils"
   },
   "author": "Mathieu Schroeter",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "js-yaml": "3.2.2"
+    "js-yaml": "^3.2.2"
   },
   "devDependencies": {}
 }
