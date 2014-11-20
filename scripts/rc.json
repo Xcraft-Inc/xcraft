@@ -1,37 +1,67 @@
 {
   "init": {
-    "params": "paths",
-    "desc": "create main config file in etc"
+    "desc": "create main config file in etc",
+    "options": {
+      "params": {
+        "optional": "paths..."
+      }
+    }
   },
   "prepare": {
-    "params": "deps",
-    "desc": "npm install third packages"
+    "desc": "npm install third packages",
+    "options": {
+      "params": {
+        "optional": "deps..."
+      }
+    }
   },
   "deploy": {
-    "params": "config",
-    "desc": "configure uNPM with backend <IP address,port>"
+    "desc": "configure uNPM with backend",
+    "options": {
+      "params": {
+        "required": "ip:port"
+      }
+    }
   },
   "defaults": {
-    "params": "modules",
-    "desc": "create xcraft-* config in etc. If module is all, create config for all installed modules"
+    "desc": "create config for all or one installed module(s)",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
   },
   "configure": {
-    "params": "modules",
     "desc": "configure a module",
     "options": {
-      "wizard": true
+      "wizard": true,
+      "params": {
+        "optional": "modules..."
+      }
     }
   },
   "install": {
-    "params": null,
-    "desc": "install xcraft-zog from local registry"
+    "desc": "install module(s) from local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
   },
   "publish": {
-    "params": null,
-    "desc": "npm publish xcraft-core in local registry"
+    "desc": "npm publish xcraft-core in local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
   },
   "verify": {
-    "params": null,
-    "desc": "check outdated packages"
+    "desc": "check outdated packages",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
   }
 }
