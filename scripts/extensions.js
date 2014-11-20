@@ -304,7 +304,7 @@ exports.register = function (callback) {
       desc    : rc[action] ? rc[action].desc : null,
       options : options,
       handler : function (callback, args) {
-        cmd[action] (args[0], callback);
+        cmd[action] (args, callback);
       }
     });
   });
