@@ -60,7 +60,7 @@ var execCmd = function (verb, args, callback) {
       finalArgs.concat (args);
     }
 
-    var nodeCmd = spawn (node, args);
+    var nodeCmd = spawn (node, finalArgs);
 
     nodeCmd.stdout.on ('data', function (data) {
       console.log ('' + data);
