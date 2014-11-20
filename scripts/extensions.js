@@ -187,7 +187,7 @@ cmd.prepare = function (deps, callback) {
 cmd.deploy = function (configUnpm, callback) {
   console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
 
-  var unpmNetworkConf = configUnpm.split (':');
+  var unpmNetworkConf = configUnpm[0].split (':');
   var configFile = path.resolve ('./etc/unpm/config.json');
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
 
