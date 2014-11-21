@@ -22,9 +22,9 @@ module.exports = function (packagePath, sharePath) {
   };
 
   return {
-    copy: function (callbackDone) {
+    copy: function (callback) {
       copyXcraftModules ();
-      callbackDone (true);
+      callback ();
     }
   };
 };

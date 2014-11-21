@@ -57,7 +57,7 @@ var execCmd = function (verb, args, callback) {
     ];
 
     if (args.length > 0) {
-      finalArgs.push (args.join (','));
+      finalArgs = finalArgs.concat (args);
     }
 
     var nodeCmd = spawn (node, finalArgs);
@@ -97,7 +97,7 @@ installStrongDeps (function () {
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: uNPM deployment');
-      execCmd ('deploy', ['localhost', '8485'], callback);
+      execCmd ('deploy', ['localhost:8485'], callback);
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: core packets publication');
@@ -109,7 +109,7 @@ installStrongDeps (function () {
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: final configuration');
-      execCmd ('defaults', ['all'], callback);
+      execCmd ('defaults', [], callback);
     }
   ], function (err) {
     if (err) {

@@ -160,7 +160,6 @@ var createConfig = function (paths) {
 cmd.init = function (paths, callback) {
   console.log ('[' + moduleName + '] Info: creating main configuration file');
 
-  var pathsArray = paths.split (',');
   var dir      = path.resolve ('./etc/xcraft/');
   var fileName = path.join (dir, 'config.json');
 
@@ -168,7 +167,7 @@ cmd.init = function (paths, callback) {
     fs.mkdirSync (dir);
   }
 
-  fs.writeFileSync (fileName, JSON.stringify (createConfig (pathsArray), null, '  '));
+  fs.writeFileSync (fileName, JSON.stringify (createConfig (paths), null, '  '));
 
   callback ();
 };
@@ -178,7 +177,7 @@ cmd.init = function (paths, callback) {
  * @param {Object} deps - ([dep1, dep2...])
  */
 cmd.prepare = function (deps, callback) {
-  install (deps.split (','), false, '', '', callback);
+  install (deps, false, '', '', callback);
 };
 
 /**
@@ -188,7 +187,7 @@ cmd.prepare = function (deps, callback) {
 cmd.deploy = function (configUnpm, callback) {
   console.log ('[' + moduleName + '] Info: changing uNPM Server configuration');
 
-  var unpmNetworkConf = configUnpm.split (',');
+  var unpmNetworkConf = configUnpm[0].split (':');
   var configFile = path.resolve ('./etc/unpm/config.json');
   var config     = JSON.parse (fs.readFileSync (configFile, 'utf8'));
 
@@ -206,14 +205,13 @@ cmd.deploy = function (configUnpm, callback) {
  * @param {Object} modules ([mod1,mod2...])
  */
 cmd.defaults = function (modules, callback) {
-  var modulesArray = modules.split (',');
   var xEtc = require ('xcraft-core-etc');
 
-  if (modulesArray.length > 0 && modulesArray[0] === 'all') {
+  if (!modules.length) {
     console.log ('[' + moduleName + '] Info: configuring all modules');
     xEtc.createAll (path.resolve ('./node_modules/'), /^xcraft-(core|contrib)/);
   } else {
-    modulesArray.forEach (function (mod) {
+    modules.forEach (function (mod) {
       console.log ('[' + moduleName + '] Info: configuring xcraft-' + mod);
       xEtc.createAll (path.resolve ('./node_modules/'), '/^xcraft-' + mod + '/');
     });
@@ -300,14 +298,13 @@ exports.register = function (callback) {
 
   Object.keys (cmd).forEach (function (action) {
     var options = rc[action] && rc[action].options ? rc[action].options : {};
-    options.params = rc[action] ? rc[action].params : null;
 
     list.push ({
       name    : action,
       desc    : rc[action] ? rc[action].desc : null,
       options : options,
       handler : function (callback, args) {
-        cmd[action] (args[0], callback);
+        cmd[action] (args, callback);
       }
     });
   });

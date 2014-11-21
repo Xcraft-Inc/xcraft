@@ -1,0 +1,54 @@
+From f3121f8b7c59a953f05dd3725fe2369d44334049 Mon Sep 17 00:00:00 2001
+From: Yevgeny Krasovsky <jkrasovsky@gmail.com>
+Date: Wed, 29 Oct 2014 08:56:03 +0000
+Subject: [PATCH 3/5] Fixed incorrect detection of current directory for MinGW
+ build. Problem was with incorrect check of GetCurrentDirectoryW() return
+ value. Solved using getcwd() routine instead, which also simplifies the code.
+
+---
+ wpkg/libdebpackages/libdebpackages/compatibility.h | 5 ++---
+ wpkg/libdebpackages/wpkg_filename.cpp              | 4 ----
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/wpkg/libdebpackages/libdebpackages/compatibility.h b/wpkg/libdebpackages/libdebpackages/compatibility.h
+index f62fe66..53f3d7e 100644
+--- a/wpkg/libdebpackages/libdebpackages/compatibility.h
++++ b/wpkg/libdebpackages/libdebpackages/compatibility.h
+@@ -62,9 +62,8 @@ DEBIAN_PACKAGE_EXPORT int strncasecmp(const char *a, const char *b, size_t c);
+
+ // avoid warnings
+ #define close   _close
+-#define getcwd  _wgetcwd
+ //#define open    _wopen -- cannot do that one because ifstream uses open() too
+-#else
++#elif not defined(MO_WINDOWS)
+ #define os_open open
+ #endif
+
+@@ -80,7 +79,7 @@ DEBIAN_PACKAGE_EXPORT int strncasecmp(const char *a, const char *b, size_t c);
+ #define PATH_MAX    MAX_PATH
+ #endif
+
+-#undef os_open
++#define getcwd  _wgetcwd
+ #define os_open _wopen
+ #define rename  _wrename
+ #define rmdir   _wrmdir
+diff --git a/wpkg/libdebpackages/wpkg_filename.cpp b/wpkg/libdebpackages/wpkg_filename.cpp
+index db36be2..3787f1f 100644
+--- a/wpkg/libdebpackages/wpkg_filename.cpp
++++ b/wpkg/libdebpackages/wpkg_filename.cpp
+@@ -3922,11 +3922,7 @@ uri_filename uri_filename::get_cwd()
+ {
+     wpkg_filename::uri_filename::os_filename_t cwd("...undefined folder...");
+     wpkg_filename::uri_filename::os_char_t buf[32 * 1024]; // limit is 32Kb under MS-Windows
+-#if defined(MO_MINGW)
+-    if(GetCurrentDirectoryW(sizeof(buf) / sizeof(buf[0]), buf) == 0)
+-#else
+     if(::getcwd(buf, sizeof(buf) / sizeof(buf[0])) != NULL)
+-#endif
+     {
+         cwd.reset(buf);
+     }
+--
+2.1.2
