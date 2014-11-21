@@ -7,7 +7,7 @@
 *.html text eol=lf
 *.css text eol=lf
 *.patch text eol=lf
-*.diff text=eol
+*.diff text eol=lf
 
 *.bat text eol=crlf
 *.cmd text eol=crlf
