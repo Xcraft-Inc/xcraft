@@ -1,0 +1,325 @@
+From 835c85517d52edfaac86b55625e157f05e4ee419 Mon Sep 17 00:00:00 2001
+From: Yevgeny Krasovsky <jkrasovsky@gmail.com>
+Date: Wed, 29 Oct 2014 13:05:48 +0000
+Subject: [PATCH 5/5] Fixed the following issues on MinGW platform: -
+ Unrecognized command "VERBOSE=1" when building with '-v'. - Incorrect CMAKE
+ generator string when set on command line. - Reworked the way how current
+ directory is being set since CD command fails to set current directory on
+ some systems.
+
+---
+ wpkg/libdebpackages/libdebpackages/compatibility.h |   1 +
+ wpkg/libdebpackages/libdebpackages/wpkgar_build.h  |   6 +-
+ wpkg/libdebpackages/wpkgar_build.cpp               | 176 ++++++++++-----------
+ 3 files changed, 93 insertions(+), 90 deletions(-)
+ mode change 100644 => 100755 wpkg/libdebpackages/libdebpackages/compatibility.h
+ mode change 100644 => 100755 wpkg/libdebpackages/libdebpackages/wpkgar_build.h
+ mode change 100644 => 100755 wpkg/libdebpackages/wpkgar_build.cpp
+
+diff --git a/wpkg/libdebpackages/libdebpackages/compatibility.h b/wpkg/libdebpackages/libdebpackages/compatibility.h
+old mode 100644
+new mode 100755
+index 53f3d7e..fb9cd9c
+--- a/wpkg/libdebpackages/libdebpackages/compatibility.h
++++ b/wpkg/libdebpackages/libdebpackages/compatibility.h
+@@ -84,6 +84,7 @@ DEBIAN_PACKAGE_EXPORT int strncasecmp(const char *a, const char *b, size_t c);
+ #define rename  _wrename
+ #define rmdir   _wrmdir
+ #define unlink  _wunlink
++#define chdir   _wchdir
+
+ DEBIAN_PACKAGE_EXPORT int mkdir(const wchar_t *name, mode_t mode);
+ DEBIAN_PACKAGE_EXPORT int symlink(const wchar_t * /*destination*/, const wchar_t * /*symoblic_link*/);
+diff --git a/wpkg/libdebpackages/libdebpackages/wpkgar_build.h b/wpkg/libdebpackages/libdebpackages/wpkgar_build.h
+old mode 100644
+new mode 100755
+index df27a95..8602a85
+--- a/wpkg/libdebpackages/libdebpackages/wpkgar_build.h
++++ b/wpkg/libdebpackages/libdebpackages/wpkgar_build.h
+@@ -136,8 +136,10 @@ private:
+
+     void append_file(memfile::memory_file& archive, memfile::memory_file::file_info& info, memfile::memory_file& file);
+     void save_package(memfile::memory_file& debian_ar, const wpkg_control::control_file& fields);
+-    void prepare_cmd(std::string& cmd, const wpkg_filename::uri_filename& dir);
+-    bool run_cmake(const std::string& package_name, const wpkg_filename::uri_filename& build_tmpdir, const wpkg_filename::uri_filename& cwd);
++    void prepare_cmd(std::string& cmd);
++    bool run_cmake(const std::string& package_name, const wpkg_filename::uri_filename& build_tmpdir,
++                   const wpkg_filename::uri_filename& sourcedir, const std::string& cmake_params = "");
++    bool run_make(const std::string& make_goal, const wpkg_filename::uri_filename& build_tmpdir, const std::string& package_name);
+     void build_source();
+     void install_source_package();
+     wpkg_filename::uri_filename find_source_file(const char **filenames, controlled_vars::fbool_t& rename);
+diff --git a/wpkg/libdebpackages/wpkgar_build.cpp b/wpkg/libdebpackages/wpkgar_build.cpp
+old mode 100644
+new mode 100755
+index ceba6a8..c1c97a7
+--- a/wpkg/libdebpackages/wpkgar_build.cpp
++++ b/wpkg/libdebpackages/wpkgar_build.cpp
+@@ -51,6 +51,9 @@
+ #include    <sstream>
+ #include    <iostream>
+ #include    <time.h>
++#if !defined(MO_WINDOWS)
++#include    <unistd.h>
++#endif
+
+ namespace wpkgar
+ {
+@@ -1840,16 +1843,14 @@ bool wpkgar_build::validate_source(source_validation& validate_status, wpkg_cont
+
+ /** \brief Prepare the shell environment.
+  *
+- * This function readies a command by adding a cd to a directory and a set
+- * of environment variables that are useful, or even necessary to run in
++ * This function readies a command by setting environment
++ * variables that are useful, or even necessary to run in
+  * a target system.
+  */
+-void wpkgar_build::prepare_cmd(std::string& cmd, const wpkg_filename::uri_filename& dir)
++void wpkgar_build::prepare_cmd(std::string& cmd)
+ {
+-    cmd = "cd ";
+-    cmd += wpkg_util::make_safe_console_string(dir.full_path());
+ #if defined(MO_WINDOWS)
+-    cmd += " && set PATH=";
++    cmd =  "set PATH=";
+     cmd += wpkg_util::make_safe_console_string(f_manager->get_inst_path().append_safe_child(f_install_prefix).append_child("bin").full_path());
+     cmd += ";%PATH%";
+     cmd += " && set WPKG_ROOTDIR=";
+@@ -1859,7 +1860,7 @@ void wpkgar_build::prepare_cmd(std::string& cmd, const wpkg_filename::uri_filena
+     cmd += " && set WPKG_ADMINDIR=";
+     cmd += wpkg_util::make_safe_console_string(f_manager->get_database_path().full_path());
+ #else
+-    cmd += " && export PATH=";
++    cmd =  "export PATH=";
+     cmd += wpkg_util::make_safe_console_string(f_manager->get_inst_path().append_safe_child(f_install_prefix).append_child("bin").full_path());
+     cmd += ":$PATH";
+     cmd += " && export LD_LIBRARY_PATH=";
+@@ -1879,6 +1880,60 @@ void wpkgar_build::prepare_cmd(std::string& cmd, const wpkg_filename::uri_filena
+ }
+
+
++/** \brief Run make tool on generated make files.
++ *
++ * This function builds project by running make in
++ * a temporary build directory.
++ *
++ * \param[in] make_goal     The name of make's goal to be achieved.
++ * \param[in] build_tmpdir  The build temporary directory.
++ * \param[in] package_name  The name of the concerned package/project.
++ *
++ * \note make -C <path> is not used because some systems do not support it.
++ */
++bool wpkgar_build::run_make(const std::string& make_goal, const wpkg_filename::uri_filename& build_tmpdir, const std::string& package_name)
++{
++    std::string make_cmd;
++    prepare_cmd(make_cmd);
++
++    make_cmd += wpkg_util::make_safe_console_string(f_make_tool);
++    if((wpkg_output::get_output_debug_flags() & wpkg_output::debug_flags::debug_progress) != 0)
++    {
++        make_cmd += " VERBOSE=1";
++    }
++    if(!make_goal.empty())
++    {
++        make_cmd += " " + make_goal;
++    }
++
++    wpkg_output::log("system(%1).")
++            .quoted_arg(make_cmd)
++        .level(wpkg_output::level_info)
++        .module(wpkg_output::module_build_package)
++        .package(package_name)
++        .action("execute-script");
++
++    wpkg_filename::uri_filename cwd(wpkg_filename::uri_filename::get_cwd());
++
++    chdir(build_tmpdir.os_filename().get_os_string().c_str());
++    const int r(system(make_cmd.c_str()));
++    chdir(cwd.os_filename().get_os_string().c_str());
++
++    if(r != 0)
++    {
++        wpkg_output::log("build aborted, make command %1 failed with %2.")
++                .quoted_arg(make_cmd)
++                .arg(r)
++            .level(wpkg_output::level_error)
++            .module(wpkg_output::module_build_package)
++            .package(package_name)
++            .action("build-package");
++        return false;
++    }
++
++    return true;
++}
++
+ /** \brief Run cmake to ready a development environment.
+  *
+  * This function readies a development environment by running cmake in
+@@ -1886,19 +1941,28 @@ void wpkgar_build::prepare_cmd(std::string& cmd, const wpkg_filename::uri_filena
+  *
+  * \param[in] package_name  The name of the concerned package/project.
+  * \param[in] build_tmpdir  The build temporary directory.
+- * \param[in] sourcedir  The source directory.
++ * \param[in] sourcedir     The source directory.
++ * \param[in] cmake_params  Additional parameters passed to cmake.
+  */
+-bool wpkgar_build::run_cmake(const std::string& package_name, const wpkg_filename::uri_filename& build_tmpdir, const wpkg_filename::uri_filename& sourcedir)
++bool wpkgar_build::run_cmake(const std::string& package_name, const wpkg_filename::uri_filename& build_tmpdir,
++                             const wpkg_filename::uri_filename& sourcedir, const std::string& cmake_params)
+ {
+     std::string cmd;
+-    prepare_cmd(cmd, build_tmpdir);
++    prepare_cmd(cmd);
+
+     cmd += "cmake ";
+     if(!f_cmake_generator.empty())
+     {
+-        cmd += "-G " + wpkg_util::make_safe_console_string(f_cmake_generator);
++        cmd += "-G " + wpkg_util::make_safe_console_string(f_cmake_generator) + " ";
++    }
++    if(!cmake_params.empty())
++    {
++        cmd += cmake_params + " ";
++    }
++    if(!sourcedir.empty())
++    {
++        cmd += wpkg_util::make_safe_console_string(sourcedir.full_path());
+     }
+-    cmd += wpkg_util::make_safe_console_string(sourcedir.full_path());
+
+     wpkg_output::log("system(%1).")
+             .quoted_arg(cmd)
+@@ -1907,7 +1971,12 @@ bool wpkgar_build::run_cmake(const std::string& package_name, const wpkg_filenam
+         .package(package_name)
+         .action("execute-script");
+
++    wpkg_filename::uri_filename cwd(wpkg_filename::uri_filename::get_cwd());
++
++    chdir(build_tmpdir.os_filename().get_os_string().c_str());
+     const int r(system(cmd.c_str()));
++    chdir(cwd.os_filename().get_os_string().c_str());
++
+     if(r != 0)
+     {
+         wpkg_output::log("system(%1) called returned %2")
+@@ -1993,29 +2062,8 @@ void wpkgar_build::build_source()
+         return;
+     }
+
+-    std::string cmd;
+-    prepare_cmd(cmd, build_tmpdir);
+-    if((wpkg_output::get_output_debug_flags() & wpkg_output::debug_flags::debug_progress) != 0)
+-    {
+-        cmd += "VERBOSE=1 ";
+-    }
+-    cmd += wpkg_util::make_safe_console_string(f_make_tool);
+-    cmd += " package_source";
+-
+-    wpkg_output::log("system(%1).")
+-            .quoted_arg(cmd)
+-        .level(wpkg_output::level_info)
+-        .module(wpkg_output::module_build_package)
+-        .package(package)
+-        .action("execute-script");
+-
+-    const int r(system(cmd.c_str()));
+-    if(r != 0)
++    if(!run_make("package_source", build_tmpdir, package))
+     {
+-        wpkg_output::log("building the source tarball failed")
+-            .level(wpkg_output::level_error)
+-            .module(wpkg_output::module_build_package)
+-            .action("build-source");
+         return;
+     }
+
+@@ -2287,32 +2335,8 @@ void wpkgar_build::build_project()
+     }
+
+     // now build everything with make
+-    // I do not use make -C <path> because some systems do not support it
+-    std::string make_all_cmd;
+-    prepare_cmd(make_all_cmd, build_tmpdir);
+-    if((wpkg_output::get_output_debug_flags() & wpkg_output::debug_flags::debug_progress) != 0)
++    if(!run_make("all", build_tmpdir, package_name))
+     {
+-        make_all_cmd += "VERBOSE=1 ";
+-    }
+-    make_all_cmd += wpkg_util::make_safe_console_string(f_make_tool);
+-
+-    wpkg_output::log("system(%1).")
+-            .quoted_arg(make_all_cmd)
+-        .level(wpkg_output::level_info)
+-        .module(wpkg_output::module_build_package)
+-        .package(package_name)
+-        .action("execute-script");
+-
+-    const int make_all_result(system(make_all_cmd.c_str()));
+-    if(make_all_result != 0)
+-    {
+-        wpkg_output::log("build of binary packages aborted, make command %1 failed with %2.")
+-                .quoted_arg(make_all_cmd)
+-                .arg(make_all_result)
+-            .level(wpkg_output::level_error)
+-            .module(wpkg_output::module_build_package)
+-            .package(package_name)
+-            .action("build-package");
+         return;
+     }
+ }
+@@ -2338,24 +2362,8 @@ void wpkgar_build::run_project_unit_tests()
+     // get the build directory
+     const wpkg_filename::uri_filename build_tmpdir = wpkg_filename::uri_filename::tmpdir("build");
+
+-    std::string run_tests_cmd;
+-    prepare_cmd(run_tests_cmd, build_tmpdir);
+-    if((wpkg_output::get_output_debug_flags() & wpkg_output::debug_flags::debug_progress) != 0)
++    if(!run_make("run_unit_tests", build_tmpdir, f_manager->get_field(f_build_directory, wpkg_control::control_file::field_package_factory_t::canonicalized_name())))
+     {
+-        run_tests_cmd += "VERBOSE=1 ";
+-    }
+-    run_tests_cmd += wpkg_util::make_safe_console_string(f_make_tool);
+-    run_tests_cmd += " run_unit_tests";
+-    const int run_tests_result(system(run_tests_cmd.c_str()));
+-    if(run_tests_result != 0)
+-    {
+-        wpkg_output::log("build aborted, make command %1 to run all unit tests failed with %2.")
+-                .quoted_arg(run_tests_cmd)
+-                .arg(run_tests_result)
+-            .level(wpkg_output::level_error)
+-            .module(wpkg_output::module_build_package)
+-            .package(f_manager->get_field(f_build_directory, wpkg_control::control_file::field_package_factory_t::canonicalized_name()))
+-            .action("build-package");
+         return;
+     }
+ }
+@@ -2425,22 +2433,14 @@ void wpkgar_build::build_project_packages()
+         created_packages[sub_name] = true;
+
+         // run cmake
+-        std::string cmake_cmd("cd " + build_tmpdir.full_path() + " && cmake");
++        std::string cmake_cmd;
+         wpkg_filename::uri_filename install_dir(install_tmpdir.append_child(sub_name).append_safe_child(f_install_prefix));
+-        cmake_cmd += " -DCMAKE_INSTALL_PREFIX=" + install_dir.full_path();
++        cmake_cmd += " -DCMAKE_INSTALL_PREFIX=" + wpkg_util::make_safe_console_string(install_dir.full_path());
+         cmake_cmd += " -DCMAKE_INSTALL_COMPONENT=" + sub_name;
+         cmake_cmd += " -DCMAKE_INSTALL_DO_STRIP=1";
+-        cmake_cmd += " -P " + build_tmpdir.append_child("cmake_install.cmake").full_path();
+-        const int cmake_result(system(cmake_cmd.c_str()));
+-        if(cmake_result != 0)
++        cmake_cmd += " -P " + wpkg_util::make_safe_console_string(build_tmpdir.append_child("cmake_install.cmake").full_path());
++        if(!run_cmake(sub_name, build_tmpdir, "", cmake_cmd))
+         {
+-            wpkg_output::log("build aborted, cmake command %1 failed with %2.")
+-                    .quoted_arg(cmake_cmd)
+-                    .arg(cmake_result)
+-                .level(wpkg_output::level_error)
+-                .module(wpkg_output::module_build_package)
+-                .package(sub_name)
+-                .action("build-package");
+             return;
+         }
+
+--
+2.1.2
