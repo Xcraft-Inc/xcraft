@@ -10,7 +10,7 @@ The packages are created with wpkg as presented in the following diagram.
 
 ---
 
-The definitions for all packages are in the `packages/products/` directory.
+The definitions for all packages are in the `packages/` directory.
 
  - **Step 1:** All packages are described by a `config.yaml` file, see
    [The package definitions](package.def.md) page for details. Only the YAML

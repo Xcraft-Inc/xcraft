@@ -1,6 +1,6 @@
 # The package definitions
 
-The package definitions are located in the `products/` directory where you can
+The package definitions are located in the `packages/` directory where you can
 find the sub-directories of the projects. Every project has a file named
 `config.yaml`. This file can be edited by hand or with the `zog` command.
 
@@ -54,7 +54,7 @@ The brief description must not be repeated here.
 ### Add a dependency
 
 You can add a dependency if required. The list of dependencies is the list of
-packages available in the `products/` directory.
+packages available in the `packages/` directory.
 For example, you must add a dependency on `libfoobar` where the version range is
 (>= 1.0 and < 2.0). In this case you must add two dependencies.
 

@@ -6,7 +6,7 @@ module.exports = function (grunt) {
   var jsSrc = [
     './Gruntfile.js',
     './scripts/*.js',
-    './packages/products/**/*.js',
+    './packages/**/*.js',
     './tests/**/*.js',
     './lib/xcraft-core-*/*.js',
     './lib/xcraft-contrib-chest/**/*.js',

@@ -140,7 +140,7 @@ var createConfig = function (paths) {
     pkgTempRoot      : path.join (root, './var/tmp/wpkg/'),
     pkgDebRoot       : path.join (root, './var/wpkg/'),
     pkgBaseRoot      : path.join (root, './packages/base/'),
-    pkgProductsRoot  : path.join (root, './packages/products/'),
+    pkgProductsRoot  : path.join (root, './packages/'),
     pkgTargetRoot    : path.join (root, './var/devroot/'),
     nodeModules      : path.join (root, './node_modules/'),
     path             : []
