@@ -246,7 +246,7 @@ cmd.publish = function (modules, callback) {
   async.eachSeries (packages, function (packageToPublish, callback) {
     publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
-  function (err) {
+  function () {
     unpmService.server.close ();
     callback ();
   });
