@@ -155,6 +155,7 @@ var createConfig = function (paths) {
 
 /**
  * Create main config file in etc.
+ *
  * @param {Object} paths ([path1,path2...])
  */
 cmd.init = function (paths, callback) {
@@ -174,6 +175,7 @@ cmd.init = function (paths, callback) {
 
 /**
  * Npm install third packages.
+ *
  * @param {Object} deps - ([dep1, dep2...])
  */
 cmd.prepare = function (deps, callback) {
@@ -182,6 +184,7 @@ cmd.prepare = function (deps, callback) {
 
 /**
  * Configure uNPM with backend.
+ *
  * @param {Object} configUnpm - ([IP address, port])
  */
 cmd.deploy = function (configUnpm, callback) {
@@ -202,6 +205,7 @@ cmd.deploy = function (configUnpm, callback) {
 /**
  * Create xcraft-* config in etc.
  * If module is all, create config for all installed modules.
+ *
  * @param {Object} modules ([mod1,mod2...])
  */
 cmd.defaults = function (modules, callback) {
@@ -289,6 +293,7 @@ cmd.verify = function (modules, callback) {
 
 /**
  * Retrieve the list of available commands.
+ *
  * @returns {Object[]} The list of commands.
  */
 exports.register = function (callback) {
