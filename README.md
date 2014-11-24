@@ -38,7 +38,7 @@ file will be located to `./etc/xcraft/config.json`. You can provide some paths
 to add to the PATH environment variable.
 
 ```shell
-? Xcraft> init /mysysroot/bin,/mysysroot/usr/bin
+? Xcraft> init /mysysroot/bin /mysysroot/usr/bin
 ```
 
 ##### prepare
@@ -47,7 +47,7 @@ This command is mandatory for the other commands which are using the local
 NPM registry. It should be used in order to install the `unpm` package.
 
 ```shell
-? Xcraft> prepare unpm,unpm-fs-backend
+? Xcraft> prepare unpm unpm-fs-backend
 ```
 
 ##### deploy
@@ -56,7 +56,7 @@ The uNPM registry server can be configured by this command. You must just pass
 the hostname and the port to use.
 
 ```shell
-? Xcraft> deploy localhost,8485
+? Xcraft> deploy localhost:8485
 ```
 
 ##### defaults
@@ -65,7 +65,7 @@ Some Xcraft packages have they own configuration file. This command provides a
 way in order to generate these files with the default values.
 
 ```shell
-? Xcraft> defaults all
+? Xcraft> defaults
 ```
 
 ##### configure
