@@ -313,7 +313,9 @@ exports.register = function (callback) {
     });
   });
 
-  callback (list);
+  callback (null, list);
 };
 
-exports.unregister = function () {};
+exports.unregister = function (callback) {
+  callback ();
+};
