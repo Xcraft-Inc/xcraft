@@ -2,29 +2,39 @@
 
 module.exports = function (packagePath, sharePath) {
   var path = require ('path');
-  var xcraftConfig = require ('xcraft-core-etc').load ('xcraft');
   var packageName = path.basename (__dirname);
 
   var xLog = require ('xcraft-core-log') (packageName);
 
-  var copyXcraftModules = function () {
-    var xFs = require ('xcraft-core-fs');
+  var xcraftInstall = function (callback) {
+    var xPlatform = require ('xcraft-core-platform');
+    var xProcess  = require ('xcraft-core-process');
 
-    var modules = xFs.lsdir (xcraftConfig.nodeModulesRoot, /^xcraft-core/);
+    /* prefix to /usr/share */
+    var nodeModules = sharePath;
 
-    modules.forEach (function (mod) {
-      var inDir  = path.join (xcraftConfig.nodeModulesRoot, mod);
-      var outDir = path.join (sharePath, 'node_modules', mod);
+    xLog.info ('premake for xcraft modules installation');
 
-      xLog.verb (inDir + ' -> ' + outDir);
-      xFs.cpdir (inDir, outDir);
+    var xcraft = 'xcraft' + xPlatform.getCmdExt ();
+    var args = [
+      '--modprefix', nodeModules,
+      'install', 'xcraft-core-peon'
+    ];
+
+    xLog.verb (xcraft);
+
+    xProcess.spawn (xcraft, args, function (err) {
+      callback (err);
+    }, function (line) {
+      xLog.verb (line);
+    }, function (line) {
+      xLog.err (line);
     });
   };
 
   return {
     copy: function (callback) {
-      copyXcraftModules ();
-      callback ();
+      xcraftInstall (callback);
     }
   };
 };
