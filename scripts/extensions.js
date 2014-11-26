@@ -260,7 +260,6 @@ cmd.publish = function (modules, callback) {
 
 /**
  * Install xcraft-zog from local registry.
- * TODO: handle modules argument
  */
 cmd.install = function (modules, callback) {
   var packages    = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
@@ -274,6 +273,7 @@ cmd.install = function (modules, callback) {
 
 /**
  * Check outdated packages.
+ * TODO: handle modules argument
  */
 cmd.verify = function (modules, callback) {
   console.log ('[' + moduleName + '] Info: starting modules verification');
