@@ -263,7 +263,7 @@ cmd.publish = function (modules, callback) {
  * TODO: handle modules argument
  */
 cmd.install = function (modules, callback) {
-  var packages    = fs.readdirSync (path.resolve ('./lib/'));
+  var packages    = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
   var unpmService = startUNPMService ();
 
   install (packages, true, unpmService.config.host.hostname, unpmService.config.host.port, function () {
@@ -274,7 +274,6 @@ cmd.install = function (modules, callback) {
 
 /**
  * Check outdated packages.
- * TODO: handle modules argument
  */
 cmd.verify = function (modules, callback) {
   console.log ('[' + moduleName + '] Info: starting modules verification');
