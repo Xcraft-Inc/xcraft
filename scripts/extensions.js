@@ -8,6 +8,9 @@ var spawn = require ('child_process').spawn;
 require ('./boot.js') ();
 
 var cmd = {};
+var opt = {};
+
+var modprefix = '';
 
 
 var argsToString = function (args) {
@@ -50,6 +53,10 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
     var npm = 'npm' + ext;
     var args = ['install'];
 
+    if (modprefix.length) {
+      args.push ('--prefix');
+      args.push (modprefix);
+    }
 
     if (useLocalRegistry) {
       args.push ('--registry');
@@ -290,6 +297,11 @@ cmd.verify = function (modules, callback) {
   callback ();
 };
 
+opt.modprefix = function (args, callback) {
+  modprefix = args[0];
+  callback ();
+};
+
 /**
  * Retrieve the list of available commands.
  *
@@ -299,6 +311,7 @@ exports.register = function (callback) {
   var rcFile = path.join (__dirname, './rc.json');
   var rc     = JSON.parse (fs.readFileSync (rcFile, 'utf8'));
   var list   = [];
+  var options  = [];
 
   Object.keys (cmd).forEach (function (action) {
     var options = rc[action] && rc[action].options ? rc[action].options : {};
@@ -313,7 +326,20 @@ exports.register = function (callback) {
     });
   });
 
-  callback (null, list);
+  Object.keys (opt).forEach (function (option) {
+    var resource = rc[option] && rc[option].options ? rc[option].options : {};
+
+    options.push ({
+      name    : '-' + option[0] + ', --' + option,
+      desc    : rc[option] ? rc[option].desc : null,
+      options : resource,
+      handler : function (callback, args) {
+        opt[option] (args, callback);
+      }
+    });
+  });
+
+  callback (null, list, options);
 };
 
 exports.unregister = function (callback) {

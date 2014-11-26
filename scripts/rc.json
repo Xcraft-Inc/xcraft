@@ -63,5 +63,13 @@
         "optional": "modules..."
       }
     }
+  },
+  "modprefix": {
+    "desc": "prefix for node_modules directory",
+    "options": {
+      "params": {
+        "required": "location"
+      }
+    }
   }
 }
