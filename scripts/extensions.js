@@ -304,22 +304,20 @@ opt.modprefix = function (args, callback) {
 
 /**
  * Retrieve the list of available commands.
- *
- * @returns {Object[]} The list of commands.
  */
 exports.register = function (callback) {
   var rcFile = path.join (__dirname, './rc.json');
   var rc     = JSON.parse (fs.readFileSync (rcFile, 'utf8'));
-  var list   = [];
+  var commands = [];
   var options  = [];
 
   Object.keys (cmd).forEach (function (action) {
-    var options = rc[action] && rc[action].options ? rc[action].options : {};
+    var resource = rc[action] && rc[action].options ? rc[action].options : {};
 
-    list.push ({
+    commands.push ({
       name    : action,
       desc    : rc[action] ? rc[action].desc : null,
-      options : options,
+      options : resource,
       handler : function (callback, args) {
         cmd[action] (args, callback);
       }
@@ -339,7 +337,7 @@ exports.register = function (callback) {
     });
   });
 
-  callback (null, list, options);
+  callback (null, commands, options);
 };
 
 exports.unregister = function (callback) {
