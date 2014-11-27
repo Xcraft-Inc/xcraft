@@ -304,39 +304,35 @@ opt.modprefix = function (args, callback) {
 /**
  * Retrieve the list of available commands.
  */
-exports.register = function (callback) {
+exports.register = function (extension, callback) {
   var rcFile = path.join (__dirname, './rc.json');
   var rc     = JSON.parse (fs.readFileSync (rcFile, 'utf8'));
-  var commands = [];
-  var options  = [];
 
   Object.keys (cmd).forEach (function (action) {
     var resource = rc[action] && rc[action].options ? rc[action].options : {};
 
-    commands.push ({
-      name    : action,
-      desc    : rc[action] ? rc[action].desc : null,
-      options : resource,
-      handler : function (callback, args) {
-        cmd[action] (args, callback);
-      }
-    });
+    extension
+      .command (action,
+                rc[action] ? rc[action].desc : null,
+                resource,
+                function (callback, args) {
+                  cmd[action] (args, callback);
+                });
   });
 
   Object.keys (opt).forEach (function (option) {
     var resource = rc[option] && rc[option].options ? rc[option].options : {};
 
-    options.push ({
-      name    : '-' + option[0] + ', --' + option,
-      desc    : rc[option] ? rc[option].desc : null,
-      options : resource,
-      handler : function (callback, args) {
-        opt[option] (args, callback);
-      }
-    });
+    extension
+      .option ('-' + option[0] + ', --' + option,
+               rc[option] ? rc[option].desc : null,
+               resource,
+               function (callback, args) {
+                 opt[option] (args, callback);
+               });
   });
 
-  callback (null, commands, options);
+  callback ();
 };
 
 exports.unregister = function (callback) {
