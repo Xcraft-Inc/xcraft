@@ -241,13 +241,12 @@ cmd.configure = function (modules, callback) {
 
 /**
  * Npm publish xcraft-core in local registry.
- * TODO: handle modules argument
  */
 cmd.publish = function (modules, callback) {
   var async = require ('async');
 
+  var packages    = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
   var unpmService = startUNPMService ();
-  var packages = fs.readdirSync (path.resolve ('./lib/'));
 
   async.eachSeries (packages, function (packageToPublish, callback) {
     publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
