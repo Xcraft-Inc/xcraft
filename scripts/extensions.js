@@ -272,12 +272,11 @@ cmd.install = function (modules, callback) {
 
 /**
  * Check outdated packages.
- * TODO: handle modules argument
  */
 cmd.verify = function (modules, callback) {
   console.log ('[' + moduleName + '] Info: starting modules verification');
 
-  var packages = fs.readdirSync ('./lib/');
+  var packages = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
 
   packages.forEach (function (p) {
     var libVersionStr = JSON.parse (fs.readFileSync (path.resolve ('./lib/', p, 'package.json'), 'utf8')).version;
