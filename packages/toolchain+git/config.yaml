@@ -1,0 +1,24 @@
+name: toolchain+git
+subpackage:
+  - "runtime*"
+version: 2.2.0
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - source
+description:
+  brief: Git SCM
+  long: ""
+dependency: {}
+data:
+  uri: "https://github.com/git/git/archive/v2.2.0.tar.gz"
+  type: src
+  rules:
+    type: make
+    location: git-2.2.0/
+    args:
+      install: ""
+      remove: ""
+  embedded: true
+distribution: toolchain/
