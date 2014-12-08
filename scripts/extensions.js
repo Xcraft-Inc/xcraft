@@ -27,7 +27,7 @@ var startUNPMService = function () {
   console.log ('[' + moduleName + '] Info: starting uNPM Server');
 
   var backend = require ('unpm-fs-backend');
-  var dataDir = path.resolve ('./usr/share/unpm');
+  var dataDir = path.resolve ('./var/unpm');
   var data    = fs.readFileSync (path.resolve ('./etc/unpm/config.json'), 'utf8');
   var config  = JSON.parse (data);
 
