@@ -10,8 +10,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "js-yaml": "^3.2.2",
+    "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
-    "xcraft-core-busclient": "0.1.0"
+    "xcraft-core-log": "0.1.0",
+    "xcraft-core-platform": "0.1.0"
   },
   "author": "Samuel Loup",
   "license": "MIT"
