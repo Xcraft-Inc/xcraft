@@ -4,8 +4,5 @@
   },
   "uninstall": {
     "desc": "remove lokthar"
-  },
-  "run": {
-    "desc": "run lokthar"
   }
 }

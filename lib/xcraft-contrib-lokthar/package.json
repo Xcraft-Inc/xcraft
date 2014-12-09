@@ -2,6 +2,9 @@
   "name": "xcraft-contrib-lokthar",
   "version": "0.1.0",
   "description": "Xcraft GUI",
+  "bin": {
+    "lk": "./bin/lk"
+  },
   "main": "lokthar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
