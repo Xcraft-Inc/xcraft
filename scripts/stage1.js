@@ -9,7 +9,7 @@ var spawn = require ('child_process').spawn;
 process.chdir (path.join (__dirname, '..'));
 
 var init = process.argv.slice (2);
-require ('./boot.js') (init);
+require ('./lib/boot.js') (init);
 
 var installStrongDeps = function (callback) {
   var packages = ['async', 'shellcraft'];
@@ -48,11 +48,12 @@ var installStrongDeps = function (callback) {
   }
 };
 
+/* TODO: use the main root xcraft command. */
 var execCmd = function (verb, args, callback) {
   try {
     var node = 'node';
     var finalArgs = [
-      path.resolve ('./scripts/xcraft.js'),
+      path.resolve ('./scripts/bin/xcraft.js'),
       verb
     ];
 

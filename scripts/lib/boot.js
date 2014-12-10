@@ -4,7 +4,7 @@ var fs   = require ('fs');
 var path = require ('path');
 
 module.exports = function (paths) {
-  var jsonFile = path.join (__dirname, '../etc/xcraft/config.json');
+  var jsonFile = path.join (__dirname, '../../etc/xcraft/config.json');
   var list = process.env.PATH.split (path.delimiter);
 
   /* With Windows, we must find cmd.exe or the exec() function fails.
