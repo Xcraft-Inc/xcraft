@@ -94,7 +94,7 @@ installStrongDeps (function () {
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: dependencies installation');
-      execCmd ('prepare', ['unpm', 'unpm-fs-backend'], callback);
+      execCmd ('prepare', ['unpm', 'unpm-fs-backend', 'clone-packages'], callback);
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: uNPM deployment');

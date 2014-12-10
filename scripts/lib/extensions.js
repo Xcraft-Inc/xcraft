@@ -137,6 +137,61 @@ var publish = function (packageToPublish, hostname, port, callback) {
   }
 };
 
+var cache = function (packageToCache, from, hostname, port, callback) {
+  var async = require ('async');
+  var clone = require ('clone-packages');
+
+  var dest = 'http://' + hostname + ':' + port;
+
+  console.log ('[' + moduleName + '] Info: cache ' + packageToCache + ' in uNPM');
+
+  var ext = /^win/.test (process.platform) ? '.cmd' : '';
+  var npm = 'npm' + ext;
+
+  var args = ['view', '--json', packageToCache, 'dependencies'];
+
+  console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+
+  var viewCmd = spawn (npm, args);
+
+  var json = '';
+
+  viewCmd.stdout.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        json += line;
+      }
+    });
+  });
+
+  viewCmd.stderr.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        console.log (line);
+      }
+    });
+  });
+
+  viewCmd.on ('close', function (code) { /* jshint ignore:line */
+    var deps = JSON.parse (json);
+
+    var run = clone.all.bind (null, clone);
+
+    async.eachSeries (Object.keys (deps), function (npmPackage, callback) {
+      var def = {
+        name: npmPackage,
+        version: deps[npmPackage]
+      };
+
+      run (def, from, dest, null, null, function (err) {
+        callback (err);
+      });
+    }, function (err) {
+      callback (err);
+    });
+  });
+};
+
 var createConfig = function (paths) {
   var root       = path.resolve ('./');
 
@@ -252,6 +307,18 @@ cmd.publish = function (modules, callback) {
     publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function () {
+    unpmService.server.close ();
+    callback ();
+  });
+};
+
+/**
+ * Clone a package and its dependencies in our uNPM registry.
+ */
+cmd.cache = function (npmPackages, callback) {
+  var unpmService = startUNPMService ();
+
+  cache (npmPackages, unpmService.config.fallback, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
     callback ();
   });
