@@ -102,7 +102,12 @@ var publish = function (packageToPublish, isDir, hostname, port, callback) {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
     var npm = 'npm' + ext;
 
-    var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
+    var args = [
+      '--ignore-scripts',
+      '--registry',
+      'http://' + hostname + ':' + port,
+      'publish'
+    ];
 
     var packagePath = isDir ? path.resolve ('./lib/', packageToPublish) : packageToPublish;
     args.push (packagePath);
