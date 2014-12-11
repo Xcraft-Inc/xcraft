@@ -40,6 +40,9 @@
       }
     }
   },
+  "cache": {
+    "desc": "cache third packages in the local registry"
+  },
   "install": {
     "desc": "install module(s) from local registry",
     "options": {

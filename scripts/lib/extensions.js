@@ -95,16 +95,21 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
   }
 };
 
-var publish = function (packageToPublish, hostname, port, callback) {
+var publish = function (packageToPublish, isDir, hostname, port, callback) {
   console.log ('[' + moduleName + '] Info: publishing ' + packageToPublish + ' in NPM');
 
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
     var npm = 'npm' + ext;
 
-    var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
+    var args = [
+      '--ignore-scripts',
+      '--registry',
+      'http://' + hostname + ':' + port,
+      'publish'
+    ];
 
-    var packagePath = path.resolve ('./lib/', packageToPublish);
+    var packagePath = isDir ? path.resolve ('./lib/', packageToPublish) : packageToPublish;
     args.push (packagePath);
 
     console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
@@ -135,6 +140,70 @@ var publish = function (packageToPublish, hostname, port, callback) {
   } catch (err) {
     console.log ('[' + moduleName + '] Err: ' + err);
   }
+};
+
+var cache = function (from, hostname, port, callback) {
+  var async = require ('async');
+
+  console.log ('[' + moduleName + '] Info: cache third packages in uNPM');
+
+  var ext = /^win/.test (process.platform) ? '.cmd' : '';
+  var npm = 'npm' + ext;
+
+  var args = ['ls', '--json'];
+
+  console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+
+  var lsCmd = spawn (npm, args);
+
+  var json = '';
+
+  lsCmd.stdout.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        json += line;
+      }
+    });
+  });
+
+  lsCmd.stderr.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        console.log (line);
+      }
+    });
+  });
+
+  lsCmd.on ('close', function (code) { /* jshint ignore:line */
+    var list = {};
+    var deps = JSON.parse (json);
+
+    var traverse = function (obj, func) {
+      Object.keys (obj).forEach (function (item) {
+        if (obj[item] !== null && typeof obj[item] === 'object') {
+          func (item, obj[item]);
+          traverse (obj[item], func);
+        }
+      });
+    };
+
+    traverse (deps, function (key, value) {
+      if (!value.hasOwnProperty ('version') || /^xcraft-/.test (key)) {
+        return;
+      }
+
+      var id = key + '@' + value.version;
+      if (!list.hasOwnProperty (id)) {
+        list[id] = value.resolved;
+      }
+    });
+
+    async.eachLimit (Object.keys (list), 4, function (id, callback) {
+      publish (list[id], false, hostname, port, callback);
+    }, function (err) {
+      callback (err);
+    });
+  });
 };
 
 var createConfig = function (paths) {
@@ -249,9 +318,21 @@ cmd.publish = function (modules, callback) {
   var unpmService = startUNPMService ();
 
   async.eachSeries (packages, function (packageToPublish, callback) {
-    publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
+    publish (packageToPublish, true, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function () {
+    unpmService.server.close ();
+    callback ();
+  });
+};
+
+/**
+ * Clone third packages in our uNPM registry.
+ */
+cmd.cache = function (args, callback) {
+  var unpmService = startUNPMService ();
+
+  cache (unpmService.config.fallback, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
     callback ();
   });
