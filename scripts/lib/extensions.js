@@ -142,6 +142,45 @@ var publish = function (packageToPublish, isDir, hostname, port, callback) {
   }
 };
 
+var resolveTarball = function (packageWithVersion, callback) {
+  var ext = /^win/.test (process.platform) ? '.cmd' : '';
+  var npm = 'npm' + ext;
+
+  var args = [
+    'view',
+    packageWithVersion,
+    'dist',
+    '--json'
+  ];
+
+  console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+
+  var viewCmd = spawn (npm, args);
+
+  var json = '';
+
+  viewCmd.stdout.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        json += line;
+      }
+    });
+  });
+
+  viewCmd.stderr.on ('data', function (data) {
+    data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+      if (line.trim ().length) {
+        console.log (line);
+      }
+    });
+  });
+
+  viewCmd.on ('close', function () {
+    var dist = JSON.parse (json);
+    callback (null, dist);
+  });
+};
+
 var cache = function (from, hostname, port, callback) {
   var async = require ('async');
 
@@ -174,8 +213,8 @@ var cache = function (from, hostname, port, callback) {
     });
   });
 
-  lsCmd.on ('close', function (code) { /* jshint ignore:line */
-    var list = {};
+  lsCmd.on ('close', function () {
+    var list = [];
     var deps = JSON.parse (json);
 
     var traverse = function (obj, func) {
@@ -193,16 +232,20 @@ var cache = function (from, hostname, port, callback) {
       }
 
       var id = key + '@' + value.version;
-      if (!list.hasOwnProperty (id)) {
-        list[id] = value.resolved;
+      if (list.indexOf (id) === -1) {
+        list.push (id);
       }
     });
 
-    async.eachLimit (Object.keys (list), 4, function (id, callback) {
-      publish (list[id], false, hostname, port, callback);
-    }, function (err) {
-      callback (err);
-    });
+    async.eachLimit (list, 4, function (id, callback) {
+      resolveTarball (id, function (err, dist) {
+        if (!err) {
+          publish (dist.tarball, false, hostname, port, callback);
+        } else {
+          callback (err);
+        }
+      });
+    }, callback);
   });
 };
 
