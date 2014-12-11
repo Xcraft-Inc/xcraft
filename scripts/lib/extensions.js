@@ -142,10 +142,10 @@ var publish = function (packageToPublish, isDir, hostname, port, callback) {
   }
 };
 
-var cache = function (packageToCache, from, hostname, port, callback) {
+var cache = function (from, hostname, port, callback) {
   var async = require ('async');
 
-  console.log ('[' + moduleName + '] Info: cache ' + packageToCache + ' in uNPM');
+  console.log ('[' + moduleName + '] Info: cache third packages in uNPM');
 
   var ext = /^win/.test (process.platform) ? '.cmd' : '';
   var npm = 'npm' + ext;
@@ -327,12 +327,12 @@ cmd.publish = function (modules, callback) {
 };
 
 /**
- * Clone a package and its dependencies in our uNPM registry.
+ * Clone third packages in our uNPM registry.
  */
-cmd.cache = function (npmPackages, callback) {
+cmd.cache = function (args, callback) {
   var unpmService = startUNPMService ();
 
-  cache (npmPackages, unpmService.config.fallback, unpmService.config.host.hostname, unpmService.config.host.port, function () {
+  cache (unpmService.config.fallback, unpmService.config.host.hostname, unpmService.config.host.port, function () {
     unpmService.server.close ();
     callback ();
   });
