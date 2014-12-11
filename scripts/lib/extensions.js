@@ -272,7 +272,7 @@ cmd.deploy = function (configUnpm, callback) {
   config.host.hostname = unpmNetworkConf[0];
   config.host.port     = parseInt (unpmNetworkConf[1]);
 
-  fs.writeFileSync (configFile, JSON.stringify (config, null, '  '));
+  fs.writeFileSync (configFile, JSON.stringify (config, null, '  ') + '\n');
 
   callback ();
 };
