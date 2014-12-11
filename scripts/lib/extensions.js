@@ -144,16 +144,13 @@ var publish = function (packageToPublish, isDir, hostname, port, callback) {
 
 var cache = function (packageToCache, from, hostname, port, callback) {
   var async = require ('async');
-  var clone = require ('clone-packages');
-
-  var dest = 'http://' + hostname + ':' + port;
 
   console.log ('[' + moduleName + '] Info: cache ' + packageToCache + ' in uNPM');
 
   var ext = /^win/.test (process.platform) ? '.cmd' : '';
   var npm = 'npm' + ext;
 
-  var args = ['view', '--json', packageToCache, 'dependencies'];
+  var args = ['ls', '--json'];
 
   console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
@@ -178,19 +175,31 @@ var cache = function (packageToCache, from, hostname, port, callback) {
   });
 
   viewCmd.on ('close', function (code) { /* jshint ignore:line */
+    var list = {};
     var deps = JSON.parse (json);
 
-    var run = clone.all.bind (null, clone);
-
-    async.eachSeries (Object.keys (deps), function (npmPackage, callback) {
-      var def = {
-        name: npmPackage,
-        version: deps[npmPackage]
-      };
-
-      run (def, from, dest, null, null, function (err) {
-        callback (err);
+    var traverse = function (obj, func) {
+      Object.keys (obj).forEach (function (item) {
+        if (obj[item] !== null && typeof obj[item] === 'object') {
+          func (item, obj[item]);
+          traverse (obj[item], func);
+        }
       });
+    };
+
+    traverse (deps, function (key, value) {
+      if (!value.hasOwnProperty ('version') || /^xcraft-/.test (key)) {
+        return;
+      }
+
+      var id = key + '@' + value.version;
+      if (!list.hasOwnProperty (id)) {
+        list[id] = value.resolved;
+      }
+    });
+
+    async.eachLimit (Object.keys (list), 4, function (id, callback) {
+      publish (list[id], false, hostname, port, callback);
     }, function (err) {
       callback (err);
     });
