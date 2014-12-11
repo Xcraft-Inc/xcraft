@@ -95,7 +95,7 @@ var install = function (packages, useLocalRegistry, hostname, port, callback) {
   }
 };
 
-var publish = function (packageToPublish, hostname, port, callback) {
+var publish = function (packageToPublish, isDir, hostname, port, callback) {
   console.log ('[' + moduleName + '] Info: publishing ' + packageToPublish + ' in NPM');
 
   try {
@@ -104,7 +104,7 @@ var publish = function (packageToPublish, hostname, port, callback) {
 
     var args = ['--registry', 'http://' + hostname + ':' + port, 'publish'];
 
-    var packagePath = path.resolve ('./lib/', packageToPublish);
+    var packagePath = isDir ? path.resolve ('./lib/', packageToPublish) : packageToPublish;
     args.push (packagePath);
 
     console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
@@ -304,7 +304,7 @@ cmd.publish = function (modules, callback) {
   var unpmService = startUNPMService ();
 
   async.eachSeries (packages, function (packageToPublish, callback) {
-    publish (packageToPublish, unpmService.config.host.hostname, unpmService.config.host.port, callback);
+    publish (packageToPublish, true, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function () {
     unpmService.server.close ();
