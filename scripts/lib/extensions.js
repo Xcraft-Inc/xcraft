@@ -154,11 +154,11 @@ var cache = function (from, hostname, port, callback) {
 
   console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
 
-  var viewCmd = spawn (npm, args);
+  var lsCmd = spawn (npm, args);
 
   var json = '';
 
-  viewCmd.stdout.on ('data', function (data) {
+  lsCmd.stdout.on ('data', function (data) {
     data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
       if (line.trim ().length) {
         json += line;
@@ -166,7 +166,7 @@ var cache = function (from, hostname, port, callback) {
     });
   });
 
-  viewCmd.stderr.on ('data', function (data) {
+  lsCmd.stderr.on ('data', function (data) {
     data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
       if (line.trim ().length) {
         console.log (line);
@@ -174,7 +174,7 @@ var cache = function (from, hostname, port, callback) {
     });
   });
 
-  viewCmd.on ('close', function (code) { /* jshint ignore:line */
+  lsCmd.on ('close', function (code) { /* jshint ignore:line */
     var list = {};
     var deps = JSON.parse (json);
 
