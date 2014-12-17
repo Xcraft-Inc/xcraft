@@ -46,5 +46,9 @@ module.exports = function (paths) {
     });
   }
 
+  list = list.filter (function (item) {
+    return !!item.length;
+  });
+
   process.env.PATH = list.join (path.delimiter);
 };
