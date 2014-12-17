@@ -32,7 +32,7 @@ var Action = function (currentDir) {
     prerm: function () {
       var extra = {
         location: config.rules.location,
-        args    : config.rules.args.remove
+        args:     config.rules.args.remove
       };
 
       peonRun (extra);
