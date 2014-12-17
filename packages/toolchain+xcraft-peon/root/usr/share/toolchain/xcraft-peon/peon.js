@@ -39,7 +39,12 @@ var Action = function (currentDir) {
     },
 
     makeAll: function () {
-      console.log ('make_all stub');
+      var extra = {
+        location: config.rules.location,
+        args:     ''
+      };
+
+      peonRun (extra);
     }
   };
 };
