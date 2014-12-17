@@ -16,7 +16,7 @@ data:
     type: copy
     location: ""
     args:
-      install: ""
-      remove: ""
+      postinst: ""
+      prerm: ""
   embedded: true
 distribution: toolchain/

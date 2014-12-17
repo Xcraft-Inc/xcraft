@@ -20,7 +20,8 @@ data:
     type: make
     location: git-2.2.0/
     args:
-      install: ""
-      remove: ""
+      postinst: ""
+      prerm: ""
+      makeall: ""
   embedded: true
 distribution: toolchain/
