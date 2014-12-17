@@ -23,7 +23,7 @@ var Action = function (currentDir) {
     postinst: function () {
       var extra = {
         location: config.rules.location,
-        args    : config.rules.args.install
+        args:     config.rules.args.install
       };
 
       peonRun (extra);
