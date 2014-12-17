@@ -38,7 +38,7 @@ var Action = function (currentDir) {
       peonRun (extra);
     },
 
-    make_all: function () {
+    makeAll: function () {
       console.log ('make_all stub');
     }
   };
