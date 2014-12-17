@@ -23,7 +23,7 @@ var Action = function (currentDir) {
     postinst: function () {
       var extra = {
         location: config.rules.location,
-        args:     config.rules.args.install
+        args:     config.rules.args.postinst
       };
 
       peonRun (extra);
@@ -32,7 +32,7 @@ var Action = function (currentDir) {
     prerm: function () {
       var extra = {
         location: config.rules.location,
-        args:     config.rules.args.remove
+        args:     config.rules.args.prerm
       };
 
       peonRun (extra);
@@ -41,7 +41,7 @@ var Action = function (currentDir) {
     makeall: function () {
       var extra = {
         location: config.rules.location,
-        args:     ''
+        args:     config.rules.args.makeall
       };
 
       peonRun (extra);

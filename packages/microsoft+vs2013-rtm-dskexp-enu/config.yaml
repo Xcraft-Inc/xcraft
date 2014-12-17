@@ -19,7 +19,7 @@ data:
     type: exec
     location: VS2013_RTM_DskExp_ENU/wdexpress_full.exe
     args:
-      install: /Passive /NoRestart /NoWeb /Full
-      remove: /Passive /NoRestart /NoWeb /Uninstall
+      postinst: /Passive /NoRestart /NoWeb /Full
+      prerm: /Passive /NoRestart /NoWeb /Uninstall
   embedded: true
 distribution: toolchain/
