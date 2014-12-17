@@ -360,7 +360,7 @@ cmd.publish = function (modules, callback) {
   var packages    = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
   var unpmService = startUNPMService ();
 
-  async.eachSeries (packages, function (packageToPublish, callback) {
+  async.eachLimit (packages, 4, function (packageToPublish, callback) {
     publish (packageToPublish, true, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function () {
