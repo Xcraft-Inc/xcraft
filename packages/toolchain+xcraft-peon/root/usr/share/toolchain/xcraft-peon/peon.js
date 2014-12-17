@@ -38,7 +38,7 @@ var Action = function (currentDir) {
       peonRun (extra);
     },
 
-    makeAll: function () {
+    makeall: function () {
       var extra = {
         location: config.rules.location,
         args:     ''
