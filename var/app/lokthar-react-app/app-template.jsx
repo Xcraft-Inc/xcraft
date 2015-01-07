@@ -1,21 +1,27 @@
 require ('./main.less');
-var React      = require ('react');
-var mui        = require ('material-ui');
+var ipc               = require ('ipc');
+var React             = require ('react');
+var xCraftMaterials   = require ('./xcraft-materials.js');
 
-var RaisedButton = mui.RaisedButton;
+var Titlebar     = xCraftMaterials.Titlebar;
 var Lokthar      = React.createClass ({
 
   render: function () {
     return (
-      <p>Lokthar React v0.1.0</p>
+      <div>
+        <Titlebar title="Lokthar" closeAction={this._closeLokthar} />
+      </div>
     );
+  },
+
+  _closeLokthar: function () {
+    console.log ('close!');
+    ipc.send('close-app', '');
   }
 
 });
 
-module.exports = (
-  <div>
-    <Lokthar />
-    <RaisedButton label="Quit" primary={true} />
-  </div>
-);
+
+ipc.send('open-console', '');
+
+module.exports = <Lokthar />;
