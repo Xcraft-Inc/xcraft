@@ -16,19 +16,27 @@ var Titlebar     = React.createClass ({
     isMaximized: React.PropTypes.bool,
     minimizeAction: React.PropTypes.func,
     maximizeAction: React.PropTypes.func,
-    closeAction: React.PropTypes.func
+    closeAction: React.PropTypes.func,
+    menuAction: React.PropTypes.func
   },
 
   render: function () {
     var maximizeIcon = this.props.isMaximized ? 'navigation-fullscreen-exit' : 'navigation-fullscreen';
     var maximizeTip = this.props.isMaximized ? 'Exit fullscreen' : 'Fullscreen';
     return (
-      <AppBar title={this.props.title}>
+      <AppBar title={this.props.title} zDepth={0} onMenuIconButtonTouchTap={this._handleMenuTouchTap}>
         <IButton className="xc-titlebar-actions" icon="navigation-close" tooltip="Exit" onTouchTap={this._handleCloseTouchTap} />
         <IButton className="xc-titlebar-actions" icon={maximizeIcon} tooltip={maximizeTip} onTouchTap={this._handleMaximizeTouchTap} />
         <IButton className="xc-titlebar-actions" icon="navigation-expand-more" tooltip="Minimize" onTouchTap={this._handleMiminizeTouchTap} />
       </AppBar>
     );
+  },
+
+  _handleMenuTouchTap: function() {
+    console.log ('menu touched');
+    if (this.props.menuAction) {
+      this.props.menuAction ();
+    }
   },
 
   _handleCloseTouchTap: function() {
