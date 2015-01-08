@@ -13,7 +13,8 @@
     "react": "^0.12.2",
     "reflux": ">=0.2.3",
     "file-loader": ">=0.5.1",
-    "url-loader": ">=0.5.5"
+    "url-loader": ">=0.5.5",
+    "lodash": "2.4.1"
   },
   "scripts": {
     "start": "webpack --watch --target atom --progress"

@@ -1,7 +1,6 @@
 var Reflux            = require ('reflux');
-var actions           = require ('../../actions/xcraftActions.js');
-var activityStarted   = actions.activityStarted;
-
+var events            = require ('../../actions/xcraftEvents.js');
+var activityStarted   = events.activityStarted;
 
 var activityStore   = Reflux.createStore({
   activities: [],
@@ -12,8 +11,10 @@ var activityStore   = Reflux.createStore({
 
   handleStarted: function (msg) {
     console.log ('user started a new activity');
-    this.activities.push ({activityId: msg.id, text: msg.cmd})
-    this.trigger(activities);
+    if (msg.id) {
+      this.activities.push ({activityId: msg.id, text: msg.cmd});
+    }
+    this.trigger(this.activities);
   }
 
 });

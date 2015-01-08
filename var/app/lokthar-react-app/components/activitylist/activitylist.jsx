@@ -1,14 +1,23 @@
 var React      = require ('react');
 var Reflux     = require ('reflux');
+var _          = require ('lodash');
 var mui        = require ('material-ui');
-var LeftNav    = mui.LeftNav;
 var MenuItem   = mui.MenuItem;
+var LeftNav    = mui.LeftNav;
 
 var activityStore      = require ('./activitystore.js');
 var componentsActions  = require ('../../actions/componentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 
-var ActivityList  = React.createClass ({
+var commands           = require ('../../actions/xcraftCommands.js');
+var pacmanList         = commands.pacmanList;
+var headerActivities   = [
+  {type: MenuItem.Types.SUBHEADER, text: 'Availables:'},
+  {text: 'List packages', cmd: 'pacmanList'},
+  {type: MenuItem.Types.SUBHEADER, text: 'Currents:'}
+];
+
+var ActivityList       = React.createClass ({
 
   mixins: [Reflux.ListenerMixin],
 
@@ -17,14 +26,11 @@ var ActivityList  = React.createClass ({
   },
 
   getInitialState: function () {
-    return {activities: [
-      {text: 'no activity'},
-      {type: MenuItem.Types.SUBHEADER, text: 'Availables:'},
-      {text: 'List packages', cmd: 'pacman.list'}
-    ]};
+    return {activities: headerActivities};
   },
 
-  onActivityChange: function(activities) {
+  onActivityChange: function(newActivities) {
+    var activities = _.union (headerActivities, newActivities);
     this.setState({
       activities: activities
     });
@@ -63,6 +69,7 @@ var ActivityList  = React.createClass ({
     }
     if (activity.cmd) {
       console.log ('start new activity: ' + activity.cmd);
+      commands[activity.cmd] ();
       return;
     }
   }
