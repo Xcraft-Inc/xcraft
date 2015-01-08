@@ -33,7 +33,6 @@ var Titlebar     = React.createClass ({
   },
 
   _handleMenuTouchTap: function() {
-    console.log ('menu touched');
     if (this.props.menuAction) {
       this.props.menuAction ();
     }
