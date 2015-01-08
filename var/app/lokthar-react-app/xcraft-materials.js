@@ -8,5 +8,7 @@ injectTapEventPlugin();
 
 module.exports = {
   Workspace: require ('./components/workspace.jsx'),
-  Titlebar: require ('./components/titlebar.jsx')
+  Titlebar: require ('./components/titlebar.jsx'),
+  ActivityList: require ('./components/activitylist/activitylist.jsx'),
+  ComponentsActions: require ('./actions/componentsActions.js')
 };
