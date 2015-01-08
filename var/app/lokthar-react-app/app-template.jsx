@@ -3,8 +3,14 @@ var ipc               = require ('ipc');
 var React             = require ('react');
 var xCraftMaterials   = require ('./xcraft-materials.js');
 
+
+var actions            = xCraftMaterials.ComponentsActions;
+var toggleActivityList = actions.toggleActivityList;
+
 var Workspace     = xCraftMaterials.Workspace;
 var Titlebar      = xCraftMaterials.Titlebar;
+var ActivityList  = xCraftMaterials.ActivityList;
+
 var Lokthar       = React.createClass ({
   getInitialState: function () {
     return {isMaximized: false};
@@ -17,12 +23,19 @@ var Lokthar       = React.createClass ({
         <Titlebar
           title="Lokthar"
           isMaximized={this.state.isMaximized}
+          menuAction={this._toggleActivityList}
           closeAction={this._close}
           minimizeAction={this._minimize}
           maximizeAction={this._maximize} />
-        <Workspace name="main" />
+        <Workspace name="main">
+          <ActivityList />
+        </Workspace>
       </Workspace>
     );
+  },
+
+  _toggleActivityList: function () {
+    toggleActivityList ();
   },
 
   _close: function () {
