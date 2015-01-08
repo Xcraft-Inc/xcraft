@@ -7,5 +7,6 @@ var injectTapEventPlugin = require('./node_modules/material-ui/node_modules/reac
 injectTapEventPlugin();
 
 module.exports = {
+  Workspace: require ('./components/workspace.jsx'),
   Titlebar: require ('./components/titlebar.jsx')
 };
