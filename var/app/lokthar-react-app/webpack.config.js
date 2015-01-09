@@ -1,6 +1,4 @@
 /* Webpack config */
-var config = require ('xcraft-core-etc').load ('xcraft-contrib-lokthar');
-
 module.exports = {
   target: 'web',
   debug: true,
@@ -17,13 +15,13 @@ module.exports = {
   },
   module: {
     loaders: [
-    {test: /\.css/, loader: 'style-loader!css-loader'},
-    {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
-    {test: /\.jsx$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM'},
-    {test: /\.png/, loader: 'url-loader?limit=100000&mimetype=image/png'},
-    {test: /\.gif/, loader: 'url-loader?limit=100000&mimetype=image/gif'},
-    {test: /\.jpg/, loader: 'file-loader'},
-    {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'}
+      {test: /\.css/, loader: 'style-loader!css-loader'},
+      {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+      {test: /\.jsx$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM'},
+      {test: /\.png/, loader: 'url-loader?limit=100000&mimetype=image/png'},
+      {test: /\.gif/, loader: 'url-loader?limit=100000&mimetype=image/gif'},
+      {test: /\.jpg/, loader: 'file-loader'},
+      {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'}
     ]
   },
   plugins: [

@@ -1,3 +1,5 @@
+'use strict'
+
 var Reflux            = require ('reflux');
 var events            = require ('../../actions/xcraftEvents.js');
 var activityStarted   = events.activityStarted;

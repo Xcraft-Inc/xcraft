@@ -1,7 +1,8 @@
+'use strict';
+
 var Reflux        = require ('reflux');
 var remote        = require ('remote');
 var busClient     = remote.require ('xcraft-core-busclient');
-var xLog          = remote.require ('xcraft-core-log') ('reaction');
 var commands      = require ('./xcraftCommands.js');
 var events        = require ('./xcraftEvents.js');
 
@@ -23,7 +24,7 @@ var reaction      = function () {
 
   busClient.events.subscribe ('pacman.list', function (msg) {
     console.debug  ('pacman.list reaction received from bus');
-    events.pacmanList ();
+    events.pacmanList (msg.data);
   });
 
   busClient.events.subscribe ('activity.started', function (msg) {
