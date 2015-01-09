@@ -1,1 +1,7 @@
 /node_modules/
+*.woff
+*.ttf
+*.svg
+*.eot
+bundle.js
+bundle.js.map
