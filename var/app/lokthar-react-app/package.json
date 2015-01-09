@@ -20,7 +20,8 @@
     "lodash": "2.4.1"
   },
   "scripts": {
-    "start": "webpack --watch --target atom --progress"
+    "postinstall": "webpack --target atom --progress --colors -p",
+    "start": "webpack --watch --target atom --progress --colors -d"
   },
   "author": "Samuel Loup",
   "license": "MIT"
