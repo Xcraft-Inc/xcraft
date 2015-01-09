@@ -11,6 +11,7 @@ injectTapEventPlugin ();
 xcraftReaction ();
 
 module.exports = {
+  Appspace: require ('./components/appspace.jsx'),
   Workspace: require ('./components/workspace.jsx'),
   Titlebar: require ('./components/titlebar.jsx'),
   ActivityList: require ('./components/activitylist/activitylist.jsx'),
