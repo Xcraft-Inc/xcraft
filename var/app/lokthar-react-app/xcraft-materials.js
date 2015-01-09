@@ -14,5 +14,6 @@ module.exports = {
   Workspace: require ('./components/workspace.jsx'),
   Titlebar: require ('./components/titlebar.jsx'),
   ActivityList: require ('./components/activitylist/activitylist.jsx'),
+  PackageList: require ('./components/packagelist/packagelist.jsx'),
   ComponentsActions: require ('./actions/componentsActions.js')
 };
