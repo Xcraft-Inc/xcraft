@@ -1,5 +1,6 @@
 var React      = require ('react');
 var Reflux     = require ('reflux');
+var Router     = require ('react-router');
 var _          = require ('lodash');
 var mui        = require ('material-ui');
 var MenuItem   = mui.MenuItem;
@@ -11,15 +12,17 @@ var toggleActivityList = componentsActions.toggleActivityList;
 
 var commands           = require ('../../actions/xcraftCommands.js');
 var pacmanList         = commands.pacmanList;
+
+/* TODO: load available activities */
 var headerActivities   = [
   {type: MenuItem.Types.SUBHEADER, text: 'Availables:'},
-  {text: 'List packages', cmd: 'pacmanList'},
+  {text: 'List packages', cmd: 'pacmanList', route: 'packagelist'},
   {type: MenuItem.Types.SUBHEADER, text: 'Currents:'}
 ];
 
 var ActivityList       = React.createClass ({
 
-  mixins: [Reflux.ListenerMixin],
+  mixins: [Router.Navigation, Reflux.ListenerMixin],
 
   propTypes: {
     name: React.PropTypes.string
@@ -63,12 +66,14 @@ var ActivityList       = React.createClass ({
   },
 
   _onChangeActivity: function (e, key, activity) {
+    console.debug ('activity change: ' + JSON.stringify (activity));
+    this.transitionTo(activity.route);
     if (activity.id) {
-      console.log ('restore activity: ' + activity.id);
+      /* restore activity case*/
       return;
     }
     if (activity.cmd) {
-      console.log ('start new activity: ' + activity.cmd);
+      /*new activity case*/
       commands[activity.cmd] ();
       return;
     }

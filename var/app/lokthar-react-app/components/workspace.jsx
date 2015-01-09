@@ -1,26 +1,25 @@
-var React      = require ('react');
-var mui        = require ('material-ui');
-var Classable  = mui.Mixins.Classable;
+var React        = require ('react');
+var Router       = require ('react-router');
+var RouteHandler = Router.RouteHandler;
+var mui          = require ('material-ui');
+var Classable    = mui.Mixins.Classable;
 
 var AppCanvas    = mui.AppCanvas;
 
 var Workspace    = React.createClass ({
 
-  mixins: [Classable],
+  mixins: [Router.State, Classable],
 
   propTypes: {
-    name: React.PropTypes.string,
-    layout: React.PropTypes.number
+    name: React.PropTypes.string
   },
 
   render: function () {
-    var classes = this.getClasses({
-      'mui-app-content-canvas': this.props.layout === 0
-    });
     return (
-      <AppCanvas predefinedLayout={this.props.layout}>
-        <div className={classes}>
+      <AppCanvas predefinedLayout={0}>
+        <div className="mui-app-content-canvas">
           {this.props.children}
+          <RouteHandler />
         </div>
       </AppCanvas>
     );

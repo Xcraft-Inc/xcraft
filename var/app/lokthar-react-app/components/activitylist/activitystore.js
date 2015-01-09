@@ -17,7 +17,7 @@ var activityStore   = Reflux.createStore({
   handleStarted: function (msg) {
     console.log ('user started a new activity');
     if (msg.id) {
-      this.activities.push ({activityId: msg.id, text: msg.cmd});
+      this.activities.push ({activityId: msg.id, text: msg.cmd, route: 'packagelist'});
     }
     this.trigger(this.activities);
   }

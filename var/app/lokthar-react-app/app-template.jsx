@@ -7,6 +7,7 @@ var xCraftMaterials   = require ('./xcraft-materials.js');
 var actions            = xCraftMaterials.ComponentsActions;
 var toggleActivityList = actions.toggleActivityList;
 
+var Appspace     = xCraftMaterials.Appspace;
 var Workspace     = xCraftMaterials.Workspace;
 var Titlebar      = xCraftMaterials.Titlebar;
 var ActivityList  = xCraftMaterials.ActivityList;
@@ -19,7 +20,7 @@ var Lokthar       = React.createClass ({
 
   render: function () {
     return (
-      <Workspace name="app" layout={1}>
+      <Appspace>
         <Titlebar
           title="Lokthar"
           isMaximized={this.state.isMaximized}
@@ -28,10 +29,9 @@ var Lokthar       = React.createClass ({
           minimizeAction={this._minimize}
           maximizeAction={this._maximize} />
         <ActivityList />
-        <Workspace name="main" layout={0}>
-          <PackageList />
+        <Workspace name="main">
         </Workspace>
-      </Workspace>
+      </Appspace>
     );
   },
 
@@ -62,4 +62,4 @@ var Lokthar       = React.createClass ({
 
 ipc.send('open-console', '');
 
-module.exports = <Lokthar />;
+module.exports = Lokthar;

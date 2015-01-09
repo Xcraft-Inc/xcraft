@@ -5,6 +5,7 @@ var events            = require ('../../actions/xcraftEvents.js');
 var packageList       = events.pacmanList;
 
 var packagesStore     = Reflux.createStore({
+
   activities: [],
 
   init: function () {
