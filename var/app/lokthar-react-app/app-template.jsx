@@ -10,6 +10,7 @@ var toggleActivityList = actions.toggleActivityList;
 var Workspace     = xCraftMaterials.Workspace;
 var Titlebar      = xCraftMaterials.Titlebar;
 var ActivityList  = xCraftMaterials.ActivityList;
+var PackageList  = xCraftMaterials.PackageList;
 
 var Lokthar       = React.createClass ({
   getInitialState: function () {
@@ -18,8 +19,7 @@ var Lokthar       = React.createClass ({
 
   render: function () {
     return (
-
-      <Workspace name="app">
+      <Workspace name="app" layout={1}>
         <Titlebar
           title="Lokthar"
           isMaximized={this.state.isMaximized}
@@ -27,8 +27,9 @@ var Lokthar       = React.createClass ({
           closeAction={this._close}
           minimizeAction={this._minimize}
           maximizeAction={this._maximize} />
-        <Workspace name="main">
-          <ActivityList />
+        <ActivityList />
+        <Workspace name="main" layout={0}>
+          <PackageList />
         </Workspace>
       </Workspace>
     );
