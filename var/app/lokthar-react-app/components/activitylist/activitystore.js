@@ -1,10 +1,13 @@
-'use strict'
+'use strict';
 
 var Reflux            = require ('reflux');
 var events            = require ('../../actions/xcraftEvents.js');
 var activityStarted   = events.activityStarted;
 
 var activityStore   = Reflux.createStore({
+
+  mixins: [Reflux.ListenerMixin],
+
   activities: [],
 
   init: function () {
