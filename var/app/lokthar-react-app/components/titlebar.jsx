@@ -23,8 +23,9 @@ var Titlebar     = React.createClass ({
   render: function () {
     var maximizeIcon = this.props.isMaximized ? 'navigation-fullscreen-exit' : 'navigation-fullscreen';
     var maximizeTip = this.props.isMaximized ? 'Exit fullscreen' : 'Fullscreen';
+
     return (
-      <AppBar title={this.props.title} zDepth={0} onMenuIconButtonTouchTap={this._handleMenuTouchTap}>
+      <AppBar title={this.props.title} zDepth={0} onMenuIconButtonTouchTap={this._handleMenuTouchTap} className="xc-titlebar-bar">
         <IButton className="xc-titlebar-actions" icon="navigation-close" tooltip="Exit" onTouchTap={this._handleCloseTouchTap} />
         <IButton className="xc-titlebar-actions" icon={maximizeIcon} tooltip={maximizeTip} onTouchTap={this._handleMaximizeTouchTap} />
         <IButton className="xc-titlebar-actions" icon="navigation-expand-more" tooltip="Minimize" onTouchTap={this._handleMiminizeTouchTap} />
