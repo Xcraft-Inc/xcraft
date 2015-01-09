@@ -4,7 +4,7 @@ module.exports = {
   debug: true,
   devtool: 'source-map',
   entry: {
-    main: './app.js'
+    main: './app.jsx'
   },
   output: {
     path: '.',
