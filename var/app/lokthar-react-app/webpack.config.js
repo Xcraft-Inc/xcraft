@@ -7,7 +7,7 @@ module.exports = {
     main: './app.jsx'
   },
   output: {
-    path: '.',
+    path: './release/',
     filename: 'bundle.js'
   },
   resolve: {
