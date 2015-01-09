@@ -18,7 +18,7 @@ var reaction      = function () {
   });
 
   commandStore.listen(function (cmd) {
-    console.debug  (cmd + 'reaction send to bus: ');
+    console.debug  (cmd + ' reaction send to bus: ');
     busClient.command.send (cmd);
   });
 
