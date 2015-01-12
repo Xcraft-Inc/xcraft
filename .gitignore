@@ -3,5 +3,6 @@
 /etc/xcraft-core*
 /node_modules
 /usr
+!/usr/xcraft-app/
 npm-debug.log
 .directory
