@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+'use strict';
+
+var moduleName = 'xcraft-gui';
+
+var xConfig = require ('xcraft-core-etc').load ('xcraft');
+var path    = require ('path');
+var exec    = require ('child_process').exec;
+
+var xLog    = require ('xcraft-core-log') (moduleName);
+xLog.verbosity (process.env.XCRAFT_LOG ? parseInt (process.env.XCRAFT_LOG) : 2);
+
+var xPlatform = require ('xcraft-core-platform');
+
+var shareDir  = path.join (xConfig.pkgTargetRoot, xPlatform.getToolchainArch ());
+var distDir   = path.join (shareDir, 'usr/share/toolchain');
+
+var xcraftAtomDir = path.join (distDir, 'xcraft-atom');
+var appDir        = path.join (distDir, 'xcraft-gui');
+
+var atomDir       = path.join (xcraftAtomDir, 'atom-shell');
+
+xLog.info ('using xcraft-atom from:' + xcraftAtomDir);
+xLog.info ('launching xcraft-gui from:' + appDir);
+
+var atom = path.join (atomDir, 'atom' + xPlatform.getExecExt ());
+
+var xServer = require ('xcraft-core-server');
+xServer.fork (null, function (line) {
+  console.log ('[server:' + process.pid + ']: ' + line);
+}, function (line) {
+  console.log ('[server:' + process.pid + ']: ' + line);
+});
+
+exec (atom + ' ' + appDir, function (error, stdout, stderr) {
+  xLog.verb ('xcraft-atom outputs:\n' + stdout);
+
+  if (error) {
+    xLog.err ('unable to exec xcraft-atom\n' + stderr);
+  }
+});
