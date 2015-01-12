@@ -3,11 +3,12 @@
 
 ## hack
 
-´
 npm install
+
 npm start
+
 atom .
-´
+
 
 ## Why
 
