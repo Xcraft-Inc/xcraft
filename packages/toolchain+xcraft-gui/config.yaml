@@ -1,0 +1,22 @@
+name: toolchain+xcraft-gui
+version: 0.1.0
+maintainer:
+  name: Samuel Loup
+  email: "loup@epsitec.ch"
+architecture:
+  - all
+description:
+  brief: xcraft GUI
+  long: ""
+dependency: {}
+data:
+  uri: "self:///root"
+  type: bin
+  rules:
+    type: copy
+    location: ""
+    args:
+      postinst: ""
+      prerm: ""
+  embedded: true
+distribution: toolchain/
