@@ -1,21 +1,15 @@
 {
-  "name": "xcraft-contrib-lokthar",
+  "name": "xcraft-atom",
   "version": "0.1.0",
-  "description": "Xcraft GUI",
-  "bin": {
-    "lk": "./bin/lk"
-  },
-  "main": "lokthar.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "node index.js"
   },
-  "dependencies": {
-    "js-yaml": "^3.2.2",
-    "xcraft-core-busclient": "0.1.0",
-    "xcraft-core-etc": "0.1.0",
+  "devDependencies": {
     "xcraft-core-log": "0.1.0",
-    "xcraft-core-platform": "0.1.0"
-  },
-  "author": "Samuel Loup",
-  "license": "MIT"
+    "xcraft-core-platform": "0.1.0",
+    "grunt": "^0.4.4",
+    "grunt-cli": "^0.1.13",
+    "grunt-download-atom-shell": "^0.10.0"
+  }
 }
