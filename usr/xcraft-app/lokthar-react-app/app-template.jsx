@@ -1,7 +1,7 @@
 require ('./main.less');
 var ipc               = require ('ipc');
 var React             = require ('react');
-var xCraftMaterials   = require ('./xcraft-materials.js');
+var xCraftMaterials   = require ('xcraft-materials');
 
 
 var actions            = xCraftMaterials.ComponentsActions;

@@ -5,7 +5,8 @@ var Redirect       = Router.Redirect;
 var DefaultRoute   = Router.DefaultRoute;
 var Lokthar        = require ('./app-template.jsx');
 var Home           = require ('./app-home.jsx');
-var PackageList    = require ('./components/packagelist/packagelist.jsx');
+var xMaterials     = require ('xcraft-materials');
+var PackageList    = xMaterials.PackageList;
 
 var AppRoutes = (
   <Route name="root" path="/" handler={Lokthar}>
