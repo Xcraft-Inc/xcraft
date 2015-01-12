@@ -1,4 +1,7 @@
 {
+  "unpm": {
+    "desc": "start a unpm instance"
+  },
   "init": {
     "desc": "create main config file in etc",
     "options": {
@@ -53,6 +56,14 @@
   },
   "publish": {
     "desc": "npm publish xcraft-core in local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "unpublish": {
+    "desc": "npm unpublish xcraft-core in local registry",
     "options": {
       "params": {
         "optional": "modules..."

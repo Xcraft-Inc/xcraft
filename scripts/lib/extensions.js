@@ -142,6 +142,51 @@ var publish = function (packageToPublish, isDir, hostname, port, callback) {
   }
 };
 
+var unpublish = function (packageToUnPublish, isDir, hostname, port, callback) {
+  console.log ('[' + moduleName + '] Info: un-publishing ' + packageToUnPublish + ' in uNPM');
+
+  try {
+    var ext = /^win/.test (process.platform) ? '.cmd' : '';
+    var npm = 'npm' + ext;
+
+    var args = [
+      '--ignore-scripts',
+      '--registry',
+      'http://' + hostname + ':' + port,
+      'unpublish',
+      packageToUnPublish
+    ];
+
+    console.log ('[' + moduleName + '] Info: ' + npm + ' ' + argsToString (args));
+
+    var unpublishCmd = spawn (npm, args);
+
+    unpublishCmd.stdout.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
+    unpublishCmd.stderr.on ('data', function (data) {
+      data.toString ().replace (/\r/g, '').split ('\n').forEach (function (line) {
+        if (line.trim ().length) {
+          console.log (line);
+        }
+      });
+    });
+
+    unpublishCmd.on ('close', function (code) { /* jshint ignore:line */
+      if (callback) {
+        callback ();
+      }
+    });
+  } catch (err) {
+    console.log ('[' + moduleName + '] Err: ' + err);
+  }
+};
+
 var resolveTarball = function (packageWithVersion, callback) {
   var ext = /^win/.test (process.platform) ? '.cmd' : '';
   var npm = 'npm' + ext;
@@ -272,6 +317,14 @@ var createConfig = function (paths) {
 };
 
 /**
+* Start uNPM instance
+*
+*/
+cmd.unpm = function () {
+  startUNPMService ();
+};
+
+/**
  * Create main config file in etc.
  *
  * @param {Object} paths ([path1,path2...])
@@ -362,6 +415,24 @@ cmd.publish = function (modules, callback) {
 
   async.eachLimit (packages, 4, function (packageToPublish, callback) {
     publish (packageToPublish, true, unpmService.config.host.hostname, unpmService.config.host.port, callback);
+  },
+  function () {
+    unpmService.server.close ();
+    callback ();
+  });
+};
+
+/**
+* Npm un-publish xcraft-core in local registry.
+*/
+cmd.unpublish = function (modules, callback) {
+  var async = require ('async');
+
+  var packages    = modules.length ? modules : fs.readdirSync (path.resolve ('./lib/'));
+  var unpmService = startUNPMService ();
+
+  async.eachLimit (packages, 4, function (packageToUnPublish, callback) {
+    unpublish (packageToUnPublish, true, unpmService.config.host.hostname, unpmService.config.host.port, callback);
   },
   function () {
     unpmService.server.close ();
