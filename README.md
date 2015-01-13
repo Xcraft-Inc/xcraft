@@ -84,7 +84,7 @@ to publish the packages in a registry. Then it will publish the packages in
 the registry deployed (uNPM).
 
 ```shell
-? Xcraft> deploy
+? Xcraft> publish
 ```
 
 ##### install
