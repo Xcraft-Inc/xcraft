@@ -441,6 +441,17 @@ cmd.unpublish = function (modules, callback) {
 };
 
 /**
+* Clean local registry.
+*/
+cmd.clean = function (modules, callback) {
+  var xFs  = require ('xcraft-core-fs');
+  var meta     = path.resolve ('./var/unpm/meta/');
+  var tarballs = path.resolve ('./var/unpm/tarballs/');
+  xFs.rmdir (meta);
+  xFs.rmdir (tarballs);
+};
+
+/**
  * Clone third packages in our uNPM registry.
  */
 cmd.cache = function (args, callback) {
