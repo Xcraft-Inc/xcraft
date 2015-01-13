@@ -8,7 +8,9 @@ architecture:
 description:
   brief: xcraft GUI
   long: ""
-dependency: {}
+dependency:
+  toolchain+xcraft-atom:
+    - ""
 data:
   uri: "self:///root"
   type: bin
