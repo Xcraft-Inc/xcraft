@@ -1,6 +1,0 @@
-#!/bin/bash
-
-. ./.node passive
-PATH=${node%/*}:$PATH
-
-./node_modules/.bin/lk $@
