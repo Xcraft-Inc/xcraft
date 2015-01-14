@@ -1,5 +1,5 @@
 require ('./main.less');
-var ipc               = require ('ipc');
+var remote            = require ('remote');
 var React             = require ('react');
 var xCraftMaterials   = require ('xcraft-materials');
 
@@ -7,11 +7,11 @@ var xCraftMaterials   = require ('xcraft-materials');
 var actions            = xCraftMaterials.ComponentsActions;
 var toggleActivityList = actions.toggleActivityList;
 
-var Appspace     = xCraftMaterials.Appspace;
+var Window        = xCraftMaterials.Window;
 var Workspace     = xCraftMaterials.Workspace;
 var Titlebar      = xCraftMaterials.Titlebar;
 var ActivityList  = xCraftMaterials.ActivityList;
-var PackageList  = xCraftMaterials.PackageList;
+var PackageList   = xCraftMaterials.PackageList;
 
 var Lokthar       = React.createClass ({
   getInitialState: function () {
@@ -20,9 +20,9 @@ var Lokthar       = React.createClass ({
 
   render: function () {
     return (
-      <Appspace>
+      <Window>
         <Titlebar
-          title="Lokthar"
+          title="xCraft-GUI"
           isMaximized={this.state.isMaximized}
           menuAction={this._toggleActivityList}
           closeAction={this._close}
@@ -31,7 +31,7 @@ var Lokthar       = React.createClass ({
         <ActivityList />
         <Workspace name="main">
         </Workspace>
-      </Appspace>
+      </Window>
     );
   },
 
@@ -40,26 +40,26 @@ var Lokthar       = React.createClass ({
   },
 
   _close: function () {
-    ipc.send ('close-app', '');
+    remote.getCurrentWindow().close();
   },
 
   _minimize: function () {
-    ipc.send ('minimize', '');
+    remote.getCurrentWindow().minimize();
   },
 
   _maximize: function () {
     if (!this.state.isMaximized) {
-      ipc.send ('maximize', '');
+      remote.getCurrentWindow().maximize();
       this.setState ({isMaximized: true});
     } else {
-      ipc.send ('unmaximize', '');
+      remote.getCurrentWindow().unmaximize();
       this.setState ({isMaximized: false});
     }
   }
 
 });
 
-
-ipc.send('open-console', '');
+console.log ('windows index: ' + remote.getCurrentWindow().windex);
+remote.getCurrentWindow().toggleDevTools();
 
 module.exports = Lokthar;
