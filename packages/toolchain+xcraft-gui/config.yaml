@@ -9,7 +9,7 @@ description:
   brief: xcraft GUI
   long: ""
 dependency:
-  toolchain+xcraft-atom:
+  toolchain+xcraft-goblin:
     - ""
 data:
   uri: "self:///root"
