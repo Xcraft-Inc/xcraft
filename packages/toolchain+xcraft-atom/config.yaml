@@ -1,0 +1,22 @@
+name: toolchain+xcraft-atom
+version: 0.1.0
+maintainer:
+  name: Samuel Loup
+  email: "loup@epsitec.ch"
+architecture:
+  - all
+description:
+  brief: xcraft atom-shell
+  long: ""
+dependency: {}
+data:
+  uri: "self:///root"
+  type: bin
+  rules:
+    type: copy
+    location: ""
+    args:
+      postinst: ""
+      prerm: ""
+  embedded: true
+distribution: toolchain/
