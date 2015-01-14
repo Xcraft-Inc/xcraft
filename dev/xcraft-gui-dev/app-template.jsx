@@ -1,5 +1,5 @@
 require ('./main.less');
-var ipc               = require ('ipc');
+var remote            = require ('remote');
 var React             = require ('react');
 var xCraftMaterials   = require ('xcraft-materials');
 
@@ -40,26 +40,26 @@ var Lokthar       = React.createClass ({
   },
 
   _close: function () {
-    ipc.send ('close-app', '');
+    remote.getCurrentWindow().close();
   },
 
   _minimize: function () {
-    ipc.send ('minimize', '');
+    remote.getCurrentWindow().minimize();
   },
 
   _maximize: function () {
     if (!this.state.isMaximized) {
-      ipc.send ('maximize', '');
+      remote.getCurrentWindow().maximize();
       this.setState ({isMaximized: true});
     } else {
-      ipc.send ('unmaximize', '');
+      remote.getCurrentWindow().unmaximize();
       this.setState ({isMaximized: false});
     }
   }
 
 });
 
-
-ipc.send('open-console', '');
+console.log ('windows index: ' + remote.getCurrentWindow().windex);
+remote.getCurrentWindow().toggleDevTools();
 
 module.exports = Lokthar;
