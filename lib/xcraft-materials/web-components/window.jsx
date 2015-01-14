@@ -6,7 +6,7 @@ var Classable    = mui.Mixins.Classable;
 
 var AppCanvas    = mui.AppCanvas;
 
-var Appspace     = React.createClass ({
+var Window       = React.createClass ({
 
   mixins: [Classable],
 
@@ -24,4 +24,4 @@ var Appspace     = React.createClass ({
 
 });
 
-module.exports = Appspace;
+module.exports = Window;
