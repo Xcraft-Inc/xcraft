@@ -1,0 +1,58 @@
+<form name="chestConfigForm" class="uk-form uk-form-horizontal">
+  <h2> Bus Configuration </h2>
+  <div ng-repeat="field in busFields" class="uk-form-row">
+    <div ng-switch="field.type">
+      <div ng-switch-when="input">
+        <ng-form name="form">
+          <label class="uk-form-label">{{field.message}}</label>
+          <div class="uk-form-controls">
+            <input
+            ng-if="field.loktharType!='multi-line'"
+            name="input"
+            type="text"
+            ng-class="{'uk-form-danger' : form.input.$invalid,
+                       'uk-form-success': form.input.$valid}"
+            ng-model="bus[field.name]"
+            validator="field.validate"
+            placeholder="{{field.message}}"
+            required/>
+
+            <textarea
+            ng-if="field.loktharType=='multi-line'"
+            name="input"
+            ng-class="{'uk-form-danger' : form.input.$invalid,
+                       'uk-form-success': form.input.$valid}"
+            ng-model="bus[field.name]"
+            validator="field.validate"
+            placeholder="{{field.message}}"
+            required >
+            </textarea>
+
+            <span
+            ng-show="form.input.$invalid"
+            class="uk-text-warning">invalid</span>
+          </div>
+        </ng-form>
+      </div>
+      <div ng-switch-when="checkbox">
+        <span class="uk-form-label">{{field.message}}</span>
+        <div class="uk-form-controls uk-form-controls-text">
+          <div ng-repeat="choice in field.choices">
+            <div ng-switch="choice.type">
+                <div ng-switch-when="separator">
+                    <p>{{choice.line}}</p>
+                </div>
+                <div ng-switch-default>
+                    <input
+                    type="checkbox"
+                    checklist-model="bus[field.name]"
+                    checklist-value="choice.name">
+                    <label>{{choice.name}}</label><br>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
