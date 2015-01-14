@@ -1,4 +1,4 @@
-name: toolchain+xcraft-atom
+name: toolchain+xcraft-goblin
 version: 0.1.0
 maintainer:
   name: Samuel Loup
@@ -6,7 +6,7 @@ maintainer:
 architecture:
   - all
 description:
-  brief: xcraft atom runtime
+  brief: xcraft window manager
   long: ""
 dependency: {}
 data:
