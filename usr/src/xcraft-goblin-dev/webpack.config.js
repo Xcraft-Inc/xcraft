@@ -20,7 +20,7 @@ module.exports = {
       {test: /\.jsx$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM'},
       {test: /\.png$/, loader: 'url-loader?limit=100000&mimetype=image/png'},
       {test: /\.gif$/, loader: 'url-loader?limit=100000&mimetype=image/gif'},
-      {test: /\.jpg$/, loader: 'file-loader'},
+      {test: /\.jpg$/, loader: 'url-loader?limit=100000&mimetype=image/jpg'},
       {test: /\.(ttf|eot|svg|woff)/, loader: 'file-loader'}
     ]
   },
