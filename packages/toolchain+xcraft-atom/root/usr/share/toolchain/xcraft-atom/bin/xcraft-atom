@@ -3,7 +3,6 @@
 
 var moduleName = 'xcraft-atom';
 
-var xConfig = require ('xcraft-core-etc').load ('xcraft');
 var path    = require ('path');
 var exec    = require ('child_process').exec;
 
@@ -12,10 +11,7 @@ xLog.verbosity (process.env.XCRAFT_LOG ? parseInt (process.env.XCRAFT_LOG) : 2);
 
 var xPlatform = require ('xcraft-core-platform');
 
-var usrDir   = path.join (xConfig.pkgTargetRoot, xPlatform.getToolchainArch (), '/usr/');
-var shareDir = path.join (usrDir, '/share/', '/toolchain/');
-
-var xcraftAtomDir = path.join (shareDir, '/xcraft-atom/', '/atom-shell/');
+var xcraftAtomDir = path.join (__dirname, '../atom-shell/');
 var atom   = path.join (xcraftAtomDir, 'atom' + xPlatform.getExecExt ());
 var appDir = process.argv[2];
 
