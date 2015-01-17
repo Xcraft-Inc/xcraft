@@ -7,7 +7,15 @@ maintainer:
   email: "schroeter@epsitec.ch"
 architecture:
   - source
-architectureHost: []
+architectureHost:
+  - linux-i386
+  - linux-amd64
+  - darwin-i386
+  - darwin-amd64
+  - solaris-i386
+  - solaris-amd64
+  - freebsd-i386
+  - freebsd-amd64
 description:
   brief: Git is a free and open source distributed version control system.
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
