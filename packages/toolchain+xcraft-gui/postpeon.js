@@ -11,7 +11,7 @@ module.exports = function (packagePath, sharePath) {
     var xPlatform = require ('xcraft-core-platform');
     var xProcess  = require ('xcraft-core-process');
 
-    xLog.info ('postmake for xcraft-gui');
+    xLog.info ('postpeon for xcraft-gui');
 
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
     var args = [

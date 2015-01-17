@@ -5,18 +5,20 @@ module.exports = function (packagePath, sharePath) {
   var packageName = path.basename (__dirname);
 
   var xLog = require ('xcraft-core-log') (packageName);
-  var xFs  = require ('xcraft-core-fs');
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
     var xProcess  = require ('xcraft-core-process');
 
-    xLog.info ('postmake for xcraft-goblin');
+    /* prefix to /usr/share */
+    var nodeModules = sharePath;
+
+    xLog.info ('prepeon for xcraft modules installation');
 
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
     var args = [
-      '--modprefix', sharePath,
-      'install', sharePath
+      '--modprefix', nodeModules,
+      'install', 'xcraft-core-peon'
     ];
 
     xLog.verb (xcraft);
@@ -32,12 +34,7 @@ module.exports = function (packagePath, sharePath) {
 
   return {
     copy: function (callback) {
-      xcraftInstall (function (err) {
-        var nodeModules = path.join (sharePath, 'node_modules');
-
-        xFs.rmdir (nodeModules);
-        callback (err);
-      });
+      xcraftInstall (callback);
     }
   };
 };
