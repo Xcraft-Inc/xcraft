@@ -345,15 +345,6 @@ cmd.init = function (paths, callback) {
 };
 
 /**
- * Npm install third packages.
- *
- * @param {Object} deps - ([dep1, dep2...])
- */
-cmd.prepare = function (deps, callback) {
-  install (deps, false, '', '', callback);
-};
-
-/**
  * Configure uNPM with backend.
  *
  * @param {Object} configUnpm - ([IP address, port])

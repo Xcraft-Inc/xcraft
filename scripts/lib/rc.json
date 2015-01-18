@@ -13,14 +13,6 @@
       }
     }
   },
-  "prepare": {
-    "desc": "npm install third packages",
-    "options": {
-      "params": {
-        "optional": "deps..."
-      }
-    }
-  },
   "deploy": {
     "desc": "configure uNPM with backend",
     "options": {
