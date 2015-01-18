@@ -20,5 +20,6 @@
       "/-/user/org.couchdb.user:*/*/*'"
     ]
   },
-  "fallback": "http://registry.npmjs.org"
+  "fallback": "http://registry.npmjs.org",
+  "alwaysIncludeFallback": true
 }
