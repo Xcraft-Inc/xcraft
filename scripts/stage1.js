@@ -12,15 +12,11 @@ var init = process.argv.slice (2);
 require ('./lib/boot.js') (init);
 
 var installStrongDeps = function (callback) {
-  var packages = ['async', 'shellcraft'];
-
   try {
     var ext = /^win/.test (process.platform) ? '.cmd' : '';
 
     var npm = 'npm' + ext;
     var args = ['install'];
-
-    args = args.concat (packages);
 
     var installCmd = spawn (npm, args);
 
@@ -91,10 +87,6 @@ installStrongDeps (function () {
     function (callback) {
       console.log ('[' + moduleName + '] Info: config initialization');
       execCmd ('init', init, callback);
-    },
-    function (callback) {
-      console.log ('[' + moduleName + '] Info: dependencies installation');
-      execCmd ('prepare', ['unpm', 'unpm-fs-backend'], callback);
     },
     function (callback) {
       console.log ('[' + moduleName + '] Info: uNPM deployment');
