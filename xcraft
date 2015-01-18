@@ -3,4 +3,4 @@
 . ./.node passive
 PATH=${node%/*}:$PATH
 
-node ./usr/lib/xcraft/bin/xcraft.js $@
+node ./lib/xcraft/bin/xcraft.js $@

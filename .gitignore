@@ -2,12 +2,7 @@
 /etc/xcraft-contrib*
 /etc/xcraft-core*
 /node_modules
-/usr/bin/
-/usr/doc/
-/usr/include/
-/usr/lib/*.*
-/usr/share/
+/usr/
 !/usr/src/
-!/usr/lib/xcraft/
 npm-debug.log
 .directory
