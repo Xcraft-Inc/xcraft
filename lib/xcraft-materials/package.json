@@ -11,29 +11,12 @@
     "reflux": ">=0.2.3",
     "lodash": "2.4.1"
   },
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-materials"
+  },
   "author": {
     "name": "Samuel Loup"
   },
-  "license": "MIT",
-  "readme": "ERROR: No README data found!",
-  "_id": "xcraft-materials@0.1.0",
-  "scripts": {},
-  "_shasum": "2e00f7a63132f4e39239790c381b619edc33d62f",
-  "_from": "xcraft-materials@0.1.0",
-  "_npmVersion": "1.4.28",
-  "_npmUser": {
-    "name": "xcraft",
-    "email": "info@xcraft.ch"
-  },
-  "maintainers": [
-    {
-      "name": "xcraft",
-      "email": "info@xcraft.ch"
-    }
-  ],
-  "dist": {
-    "shasum": "2e00f7a63132f4e39239790c381b619edc33d62f",
-    "tarball": "http://localhost:8485/xcraft-materials/-/xcraft-materials/0.1.0.tgz"
-  },
-  "_resolved": "http://localhost:8485/xcraft-materials/-/xcraft-materials/0.1.0.tgz"
+  "license": "MIT"
 }
