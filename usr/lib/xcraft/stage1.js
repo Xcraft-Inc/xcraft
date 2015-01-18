@@ -6,7 +6,7 @@ var path  = require ('path');
 var spawn = require ('child_process').spawn;
 
 
-process.chdir (path.join (__dirname, '..'));
+process.chdir (path.join (__dirname, '../../..'));
 
 var init = process.argv.slice (2);
 require ('./lib/boot.js') (init);

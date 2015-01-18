@@ -2,7 +2,7 @@
   "name": "Xcraft",
   "version": "0.1.0",
   "description": "Multi-platform toolchain based on node.js and wpkg.",
-  "main": "scripts/bin/xcraft.js",
+  "main": "usr/lib/xcraft/bin/xcraft.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
