@@ -1,5 +1,7 @@
+require ('./main.less');
 var React        = require ('react');
 var ipc          = require ('ipc');
+var remote       = require ('remote');
 
 var Desktop       = React.createClass ({
 
@@ -24,4 +26,5 @@ var Desktop       = React.createClass ({
 
 });
 
+remote.getCurrentWindow().toggleDevTools();
 module.exports = Desktop;

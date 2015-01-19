@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "main": "main.js",
   "dependencies": {
+    "edge": "0.9.3",
     "react": "^0.12.2",
     "react-router": "^0.11.6",
     "xcraft-core-platform": "0.1.0",
-    "xcraft-core-server": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
     "xcraft-materials": "0.1.0",

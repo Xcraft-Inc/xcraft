@@ -3,9 +3,8 @@
 
 var moduleName = 'xcraft-atom';
 
-var path    = require ('path');
-var exec    = require ('child_process').exec;
-
+var path     = require ('path');
+var exec     = require ('child_process').exec;
 var xLog    = require ('xcraft-core-log') (moduleName);
 xLog.verbosity (process.env.XCRAFT_LOG ? parseInt (process.env.XCRAFT_LOG) : 2);
 
