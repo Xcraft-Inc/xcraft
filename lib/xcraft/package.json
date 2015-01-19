@@ -1,0 +1,25 @@
+{
+  "name": "xcraft",
+  "version": "0.1.0",
+  "description": "Xcraft low level shell",
+  "main": "stage1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xcraft"
+  ],
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft"
+  },
+  "dependencies": {
+    "async": "",
+    "shellcraft": "",
+    "unpm": "",
+    "unpm-fs-backend": ""
+  },
+  "author": "Mathieu Schroeter",
+  "license": "MIT",
+  "devDependencies": {}
+}
