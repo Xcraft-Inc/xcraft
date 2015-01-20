@@ -7,10 +7,10 @@ var MenuItem   = mui.MenuItem;
 var LeftNav    = mui.LeftNav;
 
 var activityStore      = require ('../stores/activitystore.js');
-var componentsActions  = require ('../../actions/webComponentsActions.js');
+var componentsActions  = require ('../actions/webComponentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 
-var commands           = require ('../../actions/xcraftCommands.js');
+var commands           = require ('../actions/xcraftCommands.js');
 var pacmanList         = commands.pacmanList;
 
 /* TODO: load available activities */
