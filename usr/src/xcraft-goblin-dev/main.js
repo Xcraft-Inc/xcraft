@@ -30,7 +30,7 @@ app.on ('ready', function () {
           desktop = null;
         });
       });
-      busClient.command.send ('shutdown');
+      // busClient.command.send ('shutdown');
     });
   };
 

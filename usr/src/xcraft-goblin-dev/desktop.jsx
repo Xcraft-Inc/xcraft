@@ -15,7 +15,7 @@ var Desktop       = React.createClass ({
     return (
       <div className="desktop">
         <input type="button" value="xcraft-gui" onClick={this._startApp} />
-        <div className="desktop-version">Goblin desktop 0.1.0</div>
+        <div className="desktop-version">Xcraft Goblin Desktop 0.1.0</div>
       </div>
     );
   },

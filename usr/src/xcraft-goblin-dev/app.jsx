@@ -4,8 +4,6 @@ var Route          = Router.Route;
 var Redirect       = Router.Redirect;
 var DefaultRoute   = Router.DefaultRoute;
 var Desktop        = require ('./desktop.jsx');
-var xMaterials     = require ('xcraft-materials');
-var PackageList    = xMaterials.PackageList;
 
 var AppRoutes = (
   <Route name="root" path="/" handler={Desktop}>

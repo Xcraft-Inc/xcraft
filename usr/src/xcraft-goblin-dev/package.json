@@ -9,7 +9,6 @@
     "xcraft-core-platform": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
-    "xcraft-materials": "0.1.0",
     "lodash": "2.4.1",
     "webpack": ">=1.4.15",
     "jsx-loader": ">=0.10.0",
