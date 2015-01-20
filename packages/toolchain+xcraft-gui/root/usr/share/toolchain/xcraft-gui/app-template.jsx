@@ -1,10 +1,10 @@
 require ('./main.less');
 var remote            = require ('remote');
 var React             = require ('react');
-var xCraftMaterials   = require ('xcraft-materials');
+var xCraftMaterials   = require ('xcraft-materials')('web');
 
 
-var actions            = xCraftMaterials.ComponentsActions;
+var actions            = xCraftMaterials.Actions;
 var toggleActivityList = actions.toggleActivityList;
 
 var Window        = xCraftMaterials.Window;
