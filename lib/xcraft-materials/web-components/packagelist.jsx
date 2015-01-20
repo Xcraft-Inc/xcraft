@@ -7,7 +7,7 @@ var Panel      = bootstrap.Panel;
 var Paper      = mui.Paper;
 
 
-var packagesStore  = require ('./packagesstore.js');
+var packagesStore  = require ('../stores/packagesstore.js');
 
 
 var PackageList  = React.createClass ({

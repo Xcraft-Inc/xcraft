@@ -6,7 +6,7 @@ var mui        = require ('material-ui');
 var MenuItem   = mui.MenuItem;
 var LeftNav    = mui.LeftNav;
 
-var activityStore      = require ('./activitystore.js');
+var activityStore      = require ('../stores/activitystore.js');
 var componentsActions  = require ('../../actions/webComponentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 
@@ -66,7 +66,6 @@ var ActivityList       = React.createClass ({
   },
 
   _onChangeActivity: function (e, key, activity) {
-    console.debug ('activity change: ' + JSON.stringify (activity));
     this.transitionTo(activity.route);
     if (activity.id) {
       /* restore activity case*/
