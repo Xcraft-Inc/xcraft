@@ -13,10 +13,35 @@
   },
   "repository": {
     "type": "file",
-    "url": "lib/xcraft-materials"
+    "url": "https://github.com/lib/xcraft-materials"
   },
   "author": {
     "name": "Samuel Loup"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lib/xcraft-materials/issues"
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/lib/xcraft-materials",
+  "_id": "xcraft-materials@0.1.0",
+  "scripts": {},
+  "_shasum": "60665bdc899b77d095f0ac1eeb707af2cdfa9719",
+  "_from": "xcraft-materials@0.1.0",
+  "_npmVersion": "1.4.28",
+  "_npmUser": {
+    "name": "xcraft",
+    "email": "info@xcraft.ch"
+  },
+  "maintainers": [
+    {
+      "name": "xcraft",
+      "email": "info@xcraft.ch"
+    }
+  ],
+  "dist": {
+    "shasum": "60665bdc899b77d095f0ac1eeb707af2cdfa9719",
+    "tarball": "http://localhost:8485/xcraft-materials/-/xcraft-materials/0.1.0.tgz"
+  },
+  "_resolved": "http://localhost:8485/xcraft-materials/-/xcraft-materials/0.1.0.tgz"
 }

@@ -7,7 +7,7 @@ var MenuItem   = mui.MenuItem;
 var LeftNav    = mui.LeftNav;
 
 var activityStore      = require ('./activitystore.js');
-var componentsActions  = require ('../../actions/componentsActions.js');
+var componentsActions  = require ('../../actions/webComponentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 
 var commands           = require ('../../actions/xcraftCommands.js');
