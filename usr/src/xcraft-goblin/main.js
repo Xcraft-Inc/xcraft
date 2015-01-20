@@ -9,9 +9,9 @@ var desktop    = null;
 var appWindows = {};
 var windex = 0; // WindowIndex
 
-ipc.on ('start-app', function () {
+ipc.on ('start-app', function (event, appUrl) {
   appWindows[windex] = new BrowserWindow({width: 960, height: 600, frame: false});
-  appWindows[windex].loadUrl('file://' + __dirname + '/../xcraft-gui-dev/index.html');
+  appWindows[windex].loadUrl('file://' + __dirname + '/../xcraft-gui/index.html');
   appWindows[windex].on ('closed', function () {
     appWindows[windex] = null;
   });
@@ -22,7 +22,7 @@ ipc.on ('start-app', function () {
 app.on ('ready', function () {
   var loadDesktop = function () {
     console.log ('opening goblin desktop');
-    desktop = new BrowserWindow({width: 960, height: 600, frame: true});
+    desktop = new BrowserWindow({width: 960, height: 600, kiosk: true, fullscreen: true});
     desktop.loadUrl('file://' + __dirname + '/index.html');
     desktop.on('closed', function () {
       busClient.events.subscribe ('disconnected', function (msg) { /* jshint ignore:line */
