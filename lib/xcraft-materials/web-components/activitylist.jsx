@@ -11,12 +11,11 @@ var componentsActions  = require ('../actions/webComponentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 
 var commands           = require ('../actions/xcraftCommands.js');
-var pacmanList         = commands.pacmanList;
 
 /* TODO: load available activities */
 var headerActivities   = [
   {type: MenuItem.Types.SUBHEADER, text: 'Availables:'},
-  {text: 'List packages', cmd: 'pacmanList', route: 'packagelist'},
+  {text: 'List packages', cmd: 'pacman.list', route: 'packagelist'},
   {type: MenuItem.Types.SUBHEADER, text: 'Currents:'}
 ];
 
@@ -73,7 +72,10 @@ var ActivityList       = React.createClass ({
     }
     if (activity.cmd) {
       /*new activity case*/
-      commands[activity.cmd] ();
+      var cmdData = {
+        cmd: activity.cmd
+      };
+      commands.send (cmdData);
       return;
     }
   }
