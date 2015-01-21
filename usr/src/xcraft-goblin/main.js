@@ -33,13 +33,13 @@ app.on ('ready', function () {
       // busClient.command.send ('shutdown');
     });
   };
-
+  console.log ('Waiting for zog daemon...');
   busClient.connect (null, function (err) {
     if (err) {
       console.error (err);
       process.exit(1);
     }
-
+    console.log ('Connected to zog daemon!');
     ipc.on ('subscribe-event', function (event, topic) {
       busClient.events.subscribe (topic, function (msg) {
         var action = topic.replace (/(.*)(\.[a-z])(.*)/, '$1' + topic.replace (/.*\.([a-z]).*/, '$1').toUpperCase () + '$3');

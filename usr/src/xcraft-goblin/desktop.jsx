@@ -2,8 +2,8 @@ require ('./main.less');
 var React        = require ('react');
 var ipc          = require ('ipc');
 var remote       = require ('remote');
-
-var Desktop       = React.createClass ({
+var xMat         = require ('xcraft-materials')('web');
+var Desktop      = React.createClass ({
 
   mixins: [],
 
