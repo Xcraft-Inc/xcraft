@@ -4,7 +4,7 @@ var app           = require ('app');
 var ipc           = require ('ipc');
 var BrowserWindow = require ('browser-window');
 var busClient     = require ('xcraft-core-busclient');
-
+var xUtils        = require ('xcraft-core-utils');
 var desktop    = null;
 var appWindows = {};
 var windex = 0; // WindowIndex
@@ -42,7 +42,7 @@ app.on ('ready', function () {
     console.log ('Connected to zog daemon!');
     ipc.on ('subscribe-event', function (event, topic) {
       busClient.events.subscribe (topic, function (msg) {
-        var action = topic.replace (/(.*)(\.[a-z])(.*)/, '$1' + topic.replace (/.*\.([a-z]).*/, '$1').toUpperCase () + '$3');
+        var action = xUtils.topic2Action (topic);
         var receivedEvent = {
           name: action,
           msg: msg
