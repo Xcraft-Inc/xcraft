@@ -22,7 +22,7 @@ var Lokthar       = React.createClass ({
     return (
       <Window>
         <Titlebar
-          title="xCraft-GUI"
+          title="Xcraft-GUI"
           isMaximized={this.state.isMaximized}
           menuAction={this._toggleActivityList}
           closeAction={this._close}
