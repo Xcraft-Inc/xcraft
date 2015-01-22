@@ -3,10 +3,11 @@ var Reflux     = require ('reflux');
 var mui        = require ('material-ui');
 var bootstrap  = require ('react-bootstrap');
 var md5        = require ('xcraft-core-utils').md5;
-var Jumbo      = bootstrap.Jumbotron;
-var Panel      = bootstrap.Panel;
-var Paper      = mui.Paper;
 
+var Jumbo        = bootstrap.Jumbotron;
+var Panel        = bootstrap.Panel;
+var Paper        = mui.Paper;
+var DropDownMenu = mui.DropDownMenu;
 
 var packagesStore  = require ('../stores/packagesstore.js');
 
@@ -35,13 +36,18 @@ var PackageList  = React.createClass ({
 
   render: function () {
     return (
-      <Paper zDepth={2}>
+      <div className="bs-component">
         <Jumbo className="jumbotron">
           <h1>Xcraft Packages</h1>
           <p>Manage your packages !</p>
-          <p>{this._renderPackages()}</p>
+          <a className="btn btn-primary btn-lg">Clean</a>
         </Jumbo>
-      </Paper>
+        <div className="row">
+          <div className="list-group">
+            {this._renderPackages()}
+          </div>
+        </div>
+      </div>
     );
   },
 
@@ -53,6 +59,13 @@ var PackageList  = React.createClass ({
     var headerComponent;
     var dependenciesComponent;
     var dependencyComponent;
+    var packageActionsItem = [
+    { payload: '0', text: 'Action' },
+    { payload: '1', text: 'Edit' },
+    { payload: '2', text: 'Make' },
+    { payload: '3', text: 'Install' },
+    { payload: '4', text: 'Remove' }
+    ];
 
     for (var i=0; i < this.state.packages.length; i++) {
       packageItem = this.state.packages[i];
@@ -60,6 +73,7 @@ var PackageList  = React.createClass ({
       headerComponent = (
         <h2>
           <i className="mdi-action-settings"></i> {packageItem.name}
+          <b> v{packageItem.version}</b>
         </h2>
       );
 
@@ -78,7 +92,7 @@ var PackageList  = React.createClass ({
           Object.keys (packageItem.dependency).forEach ( function (dep) {
             dependencyComponent = (
               <h6 className="list-group-item-text">
-                <span className="label label-info">{dep}</span>
+                <span className="label label-success">{dep}</span>
               </h6>
             );
             dependenciesComponent.push (dependencyComponent);
@@ -86,14 +100,13 @@ var PackageList  = React.createClass ({
         }
 
         itemComponent = (
-          <Panel key={i} index={i} header={headerComponent}>
-            <div className="list-group">
-              <div className="list-group-item">
-                <div className="row-picture">
-                  <img className="circle" src={gravatar} alt="icon" />
-                </div>
-                <div className="row-content">
-                  <div className="least-content"><b>v{packageItem.version}</b></div>
+          <div className="list-group-item">
+            <div className="row-picture">
+              <img className="circle" src={gravatar} alt="icon" />
+            </div>
+            <div className="row-content">
+              <Panel className="panel panel-success" key={i} index={i} header={headerComponent}>
+                <div className="well">
                   <h5 className="list-group-item-heading">{packageItem.description.brief}</h5>
                   <p className="list-group-item-text">{packageItem.description.long}</p>
                   <h6 className="list-group-item-heading">Maintainer:</h6>
@@ -101,11 +114,12 @@ var PackageList  = React.createClass ({
                   <h6 className="list-group-item-heading text-success">Dependencies:</h6>
                   {dependenciesComponent}
                 </div>
-              </div>
+              </Panel>
             </div>
-          </Panel>
+          </div>
         );
         packages.push (itemComponent);
+        packages.push (<div class="list-group-separator"></div>);
       }
       return packages;
     }
