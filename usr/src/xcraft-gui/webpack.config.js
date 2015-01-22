@@ -8,7 +8,8 @@ module.exports = {
   },
   output: {
     path: './release/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: './release/'
   },
   resolve: {
     modulesDirectories: ['bower_components', 'node_modules'],
