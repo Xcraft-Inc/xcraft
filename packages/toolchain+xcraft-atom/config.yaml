@@ -6,8 +6,8 @@ maintainer:
 architecture:
   - all
 description:
-  brief: xcraft atom-shell
-  long: ""
+  brief: Xcraft atom-shell runtime
+  long: "Needed for graphical interfaces"
 dependency: {}
 data:
   uri: "self:///root"

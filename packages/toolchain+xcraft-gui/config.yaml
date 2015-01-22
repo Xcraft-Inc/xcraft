@@ -6,8 +6,8 @@ maintainer:
 architecture:
   - all
 description:
-  brief: xcraft GUI
-  long: ""
+  brief: Xcraft GUI
+  long: "Manage and edit Xcraft packages and settings"
 dependency:
   toolchain+xcraft-goblin:
     - ""

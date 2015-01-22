@@ -6,8 +6,8 @@ maintainer:
 architecture:
   - all
 description:
-  brief: xcraft window manager
-  long: ""
+  brief: Xcraft Desktop Manager
+  long: "Manage your workspace, and run funny crafted gadget'apps!"
 dependency:
   toolchain+xcraft-atom:
     - ""
