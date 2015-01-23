@@ -1,0 +1,12 @@
+{
+  "name": "xcraft-contrib-mycontrib",
+  "version": "0.1.0",
+  "main": "index.html",
+  "dependencies": {
+    "xcraft-core-fs": "0.1.0",
+    "xcraft-core-utils": "0.1.0"
+  },
+  "scripts": {},
+  "author": "Xcraft Contributor",
+  "license": "MIT"
+}
