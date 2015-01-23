@@ -1,0 +1,11 @@
+{
+	"gen": {
+		"desc": "Generate Xcraft Module Template",
+		"options": {
+			"params": {
+				"scope": "xdk",
+				"optional": "generator"
+			}
+		}
+	}
+}
