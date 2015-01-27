@@ -2,8 +2,8 @@
 	"gen": {
 		"desc": "Generate Xcraft Module Template",
 		"options": {
+			"scope": "dev",
 			"params": {
-				"scope": "xdk",
 				"optional": "generator"
 			}
 		}
