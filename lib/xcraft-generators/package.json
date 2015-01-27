@@ -1,20 +1,16 @@
 {
-  "name": "xcraft-core-generator",
+  "name": "xcraft-generators",
   "version": "0.1.0",
-  "description": "Yeoman generator for Xcraft",
+  "description": "Yeoman generators for Xcraft",
   "license": "MIT",
   "main": "generators.js",
-  "repository": "SamLeBarbare/xcraft-core-generator",
   "author": {
-    "name": "Sam",
+    "name": "Samuel Loup",
     "email": "samuel.loup@gmail.com",
     "url": "https://github.com/SamLebarbare"
   },
   "engines": {
     "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
   },
   "files": [
     "generators.js",
@@ -23,15 +19,14 @@
     "goblin"
   ],
   "keywords": [
+    "xcraft",
+    "xdk",
     "yeoman-generator"
   ],
   "dependencies": {
     "yeoman-generator": "^0.18.0",
     "chalk": "^0.5.0",
     "yosay": "^0.3.0"
-  },
-  "devDependencies": {
-    "mocha": "*"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
