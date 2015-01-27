@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Yeoman generator for Xcraft",
   "license": "MIT",
-  "main": "app/index.js",
+  "main": "generators.js",
   "repository": "SamLeBarbare/xcraft-core-generator",
   "author": {
     "name": "Sam",
@@ -17,7 +17,10 @@
     "test": "mocha"
   },
   "files": [
-    "app"
+    "generators.js",
+    "app",
+    "contrib",
+    "goblin"
   ],
   "keywords": [
     "yeoman-generator"
