@@ -1,4 +1,4 @@
-# xcraft-core-generator [![Build Status](https://secure.travis-ci.org/SamLeBarbare/generator-xcraft-core-generator.png?branch=master)](https://travis-ci.org/SamLeBarbare/generator-xcraft-core-generator)
+# xcraft-core-generator
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -23,10 +23,10 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-xcraft-core-generator from npm, run:
+To install xcraft-core-generator from npm, run:
 
 ```bash
-npm install -g generator-xcraft-core-generator
+npm install -g xcraft-core-generator
 ```
 
 Finally, initiate the generator:
