@@ -2,9 +2,6 @@
   "unpm": {
     "desc": "start a unpm instance"
   },
-  "clean": {
-    "desc": "clean all packages in local registry"
-  },
   "init": {
     "desc": "create main config file in etc",
     "options": {
