@@ -1,24 +1,24 @@
 {
-	"name": "xcraft-core-xdk",
-	"version": "0.1.0",
-	"description": "Xcraft Dev Kit",
-	"main": "xdk.js",
-	"dependencies": {
-		"xcraft-generators": "0.1.0",
-		"xcraft-core-platform": "0.1.0",
-		"xcraft-core-server": "0.1.0",
-		"xcraft-core-busclient": "0.1.0",
-		"xcraft-core-etc": "0.1.0"
-	},
-	"peerDependencies": {
-		"yo": ">=1.0.0"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [
-		"xcraft"
-	],
-	"author": "Samuel Loup",
-	"license": "BSD-2-Clause"
+  "name": "xcraft-core-xdk",
+  "version": "0.1.0",
+  "description": "Xcraft Dev Kit",
+  "main": "xdk.js",
+  "dependencies": {
+    "xcraft-generators": "0.1.0",
+    "xcraft-core-platform": "0.1.0",
+    "xcraft-core-server": "0.1.0",
+    "xcraft-core-busclient": "0.1.0",
+    "xcraft-core-etc": "0.1.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xcraft"
+  ],
+  "author": "Samuel Loup",
+  "license": "BSD-2-Clause"
 }
