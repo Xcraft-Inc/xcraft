@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "main": "xcraft-materials.js",
   "dependencies": {
+    "cli-color": "^0.3.2",
+    "figlet": "^1.1.0",
     "xcraft-core-utils": "0.1.0",
     "xcraft-core-log": "0.1.0",
     "react-router": "^0.11.6",
