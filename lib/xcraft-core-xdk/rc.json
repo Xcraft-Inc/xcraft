@@ -1,10 +1,31 @@
 {
-  "gen": {
-    "desc": "gnerate Xcraft module template",
+  "test": {
+    "desc": "start /home/xdk dev goblin",
+    "options": {
+      "scope": "dev"
+    }
+  },
+  "install": {
+    "desc": "install development environnement",
+    "options": {
+      "scope": "dev"
+    }
+  },
+  "create": {
+    "desc": "generate a goblin gadget app",
     "options": {
       "scope": "dev",
       "params": {
-        "optional": "generator"
+        "required": "gadgetName"
+      }
+    }
+  },
+  "run": {
+    "desc": "start goblin desktop (launch gadget if provided) ",
+    "options": {
+      "scope": "dev",
+      "params": {
+        "optional": "gadgetName"
       }
     }
   }
