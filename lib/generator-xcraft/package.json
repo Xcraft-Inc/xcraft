@@ -1,5 +1,5 @@
 {
-  "name": "xcraft-generators",
+  "name": "generator-xcraft",
   "version": "0.1.0",
   "description": "Yeoman generators for Xcraft",
   "license": "MIT",
