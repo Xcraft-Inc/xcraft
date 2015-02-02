@@ -1,6 +1,11 @@
 {
   "unpm": {
-    "desc": "start a unpm instance"
+    "desc": "start/stop/restart a unpm instance",
+    "options": {
+      "params": {
+        "required": "cmd"
+      }
+    }
   },
   "init": {
     "desc": "create main config file in etc",
