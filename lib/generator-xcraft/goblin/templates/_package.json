@@ -17,8 +17,8 @@
 		"url-loader": ">=0.5.5"
 	},
 	"scripts": {
-		"postinstall": "zog --scope xdk xdk.make.product",
-		"start": "zog --scope xdk xdk.start.dev"
+		"postinstall": "webpack --production --progress --colors",
+		"start": "webpack --watch -d --progress"
 	},
 	"author": "Xcraft Goblin",
 	"license": "MIT"
