@@ -11,6 +11,8 @@ description:
 dependency:
   toolchain+xcraft-goblin:
     - ""
+  toolchain+xcraft-peon:
+    - ""
 data:
   uri: "self:///root"
   type: bin
