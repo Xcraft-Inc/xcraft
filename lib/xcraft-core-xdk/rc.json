@@ -1,11 +1,11 @@
 {
-	"gen": {
-		"desc": "Generate Xcraft Module Template",
-		"options": {
-			"scope": "dev",
-			"params": {
-				"optional": "generator"
-			}
-		}
-	}
+  "gen": {
+    "desc": "gnerate Xcraft module template",
+    "options": {
+      "scope": "dev",
+      "params": {
+        "optional": "generator"
+      }
+    }
+  }
 }

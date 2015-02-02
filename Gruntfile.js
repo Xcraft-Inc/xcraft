@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     './packages/**/*.js',
     './tests/**/*.js',
     './lib/xcraft*/**/*.js',
-    './usr/src/xcraft*/**/*.js'
+    './home/xdk/xcraft*/**/*.js'
   ];
 
   grunt.initConfig ({
