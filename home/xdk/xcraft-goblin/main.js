@@ -19,6 +19,15 @@ ipc.on ('start-app', function (event, appUrl) {
   windex++;
 });
 
+
+ipc.on ('exit', function (event, appUrl) {
+  Object.keys (appWindows).forEach ( function (window) {
+    window.close ();
+    window=null;
+  });
+  desktop.kiosk = false;
+});
+
 app.on ('ready', function () {
   var loadDesktop = function () {
     console.log ('opening goblin desktop');

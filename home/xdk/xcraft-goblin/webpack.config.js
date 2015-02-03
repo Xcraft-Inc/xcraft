@@ -18,6 +18,7 @@ module.exports = {
     loaders: [
       {test: /\.css$/, loader: 'style-loader!css-loader'},
       {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+      {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
       {test: /\.jsx$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM'},
       {test: /\.png$/, loader: 'url-loader?limit=100000&mimetype=image/png'},
       {test: /\.gif$/, loader: 'url-loader?limit=100000&mimetype=image/gif'},
