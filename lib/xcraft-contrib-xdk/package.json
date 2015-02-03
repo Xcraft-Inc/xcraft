@@ -1,14 +1,16 @@
 {
-  "name": "xcraft-core-xdk",
+  "name": "xcraft-contrib-xdk",
   "version": "0.1.0",
   "description": "Xcraft Dev Kit",
   "main": "xdk.goblin.js",
   "dependencies": {
     "generator-xcraft": "0.1.0",
     "xcraft-core-platform": "0.1.0",
-    "xcraft-core-server": "0.1.0",
+    "xcraft-core-process": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
-    "xcraft-core-etc": "0.1.0"
+    "xcraft-core-etc": "0.1.0",
+    "xcraft-core-log": "0.1.0",
+    "async": ""
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
@@ -20,5 +22,5 @@
     "xcraft"
   ],
   "author": "Samuel Loup",
-  "license": "BSD-2-Clause"
+  "license": "MIT"
 }
