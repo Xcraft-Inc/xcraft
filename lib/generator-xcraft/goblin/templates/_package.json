@@ -1,5 +1,5 @@
 {
-	"name": "xcraft-goblin-mygadget",
+	"name": "mygadget-goblin",
 	"version": "0.1.0",
 	"main": "index.html",
 	"dependencies": {
@@ -17,9 +17,9 @@
 		"url-loader": ">=0.5.5"
 	},
 	"scripts": {
-		"postinstall": "webpack --production --progress --colors",
-		"start": "webpack --watch -d --progress"
+		"postinstall": "webpack -p --progress --colors --config webpack.prod.js",
+		"start": "webpack --watch -d --progress --colors --config webpack.xdk.js"
 	},
-	"author": "Xcraft Goblin",
+	"author": "Xcraft Dev Kit for Goblin",
 	"license": "MIT"
 }
