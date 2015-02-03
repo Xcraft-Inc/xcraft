@@ -2,7 +2,7 @@
   "name": "xcraft-core-xdk",
   "version": "0.1.0",
   "description": "Xcraft Dev Kit",
-  "main": "xdk.js",
+  "main": "xdk.goblin.js",
   "dependencies": {
     "generator-xcraft": "0.1.0",
     "xcraft-core-platform": "0.1.0",
