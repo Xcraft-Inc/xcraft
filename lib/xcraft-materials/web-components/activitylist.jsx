@@ -6,7 +6,7 @@ var mui        = require ('material-ui');
 var MenuItem   = mui.MenuItem;
 var LeftNav    = mui.LeftNav;
 
-var activityStore      = require ('../stores/activitystore.js');
+var activityStore      = Reflux.createStore(require ('../stores/activitystore.js'));
 var componentsActions  = require ('../actions/webComponentsActions.js');
 var toggleActivityList = componentsActions.toggleActivityList;
 

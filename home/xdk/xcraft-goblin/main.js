@@ -9,7 +9,7 @@ var desktop    = null;
 var appWindows = {};
 var windex = 0; // WindowIndex
 
-ipc.on ('start-app', function (event, appUrl) {
+ipc.on ('start-app', function () {
   appWindows[windex] = new BrowserWindow({width: 960, height: 600, frame: false});
   appWindows[windex].loadUrl('file://' + __dirname + '/../xcraft-gui/index.html');
   appWindows[windex].on ('closed', function () {
@@ -20,10 +20,10 @@ ipc.on ('start-app', function (event, appUrl) {
 });
 
 
-ipc.on ('exit', function (event, appUrl) {
+ipc.on ('exit', function () {
   Object.keys (appWindows).forEach ( function (window) {
     window.close ();
-    window=null;
+    window = null;
   });
   desktop.kiosk = false;
 });
@@ -49,15 +49,17 @@ app.on ('ready', function () {
       process.exit(1);
     }
     console.log ('Connected to zog daemon!');
-    ipc.on ('subscribe-event', function (event, topic) {
-      busClient.events.subscribe (topic, function (msg) {
-        var action = xUtils.topic2Action (topic);
+
+    busClient.subscriptions.on ('message', function (topic, msg) {
+      var action;
+      if (msg) {
+        action = xUtils.topic2Action (topic);
         var receivedEvent = {
           name: action,
           msg: msg
         };
         event.sender.send ('trigger-event', receivedEvent);
-      });
+      }
     });
 
     ipc.on ('send-cmd', function (event, command) {
