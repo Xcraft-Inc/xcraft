@@ -1,28 +1,43 @@
-require ('./main.less');
+require ('../less/desktop.less');
 var React        = require ('react');
+var Reflux       = require ('reflux');
 var ipc          = require ('ipc');
 var remote       = require ('remote');
-var xMat         = require ('xcraft-materials')('web');
 var Launcher     = require ('./launcher.jsx');
+
+var gadgetsStore = Reflux.createStore(require ('../stores/gadgetsstore.js')('web'));
 var Desktop      = React.createClass ({
 
   mixins: [],
 
   propTypes: {
+    about: React.PropTypes.string,
+  },
 
+  getInitialState: function () {
+    return {gadgets: []};
+  },
+
+  componentDidMount: function() {
+    this.listenTo(gadgetsStore, this.onGadgetsListChange);
+  },
+
+  onGadgetsListChange: function(newList) {
+    this.setState({
+      gadgets: newList
+    });
   },
 
   render: function () {
     return (
       <div className="desktop">
         <Launcher menuEntries={this._getEntries ()}/>
-        <div className="desktop-version">Xcraft Goblin Desktop 0.1.0</div>
+        <div className="desktop-version">{this.props.about}</div>
       </div>
     );
   },
 
   _getEntries: function () {
-    /* TODO: var gadgets = require('./gadgetLoader.js'); */
     return [
     {
       name: 'Settings',
