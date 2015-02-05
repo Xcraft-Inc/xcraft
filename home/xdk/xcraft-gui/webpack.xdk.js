@@ -14,9 +14,7 @@ module.exports = {
   resolve: {
     modulesDirectories: [
       'bower_components',
-      'node_modules',
-      '../', /* look for local home/xdk packages*/
-      '../../../lib/' /* look for xcraft lib packages*/
+      'node_modules'
     ],
   },
   module: {
