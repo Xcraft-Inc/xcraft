@@ -21,7 +21,7 @@ var App           = React.createClass ({
     return (
       <Window>
         <Titlebar
-          title="<%= gadget_name %>"
+          title="<%= gadgetName %>"
           isMaximized={this.state.isMaximized}
           menuAction={this._menuClick}
           closeAction={this._close}

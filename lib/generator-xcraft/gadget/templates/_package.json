@@ -1,5 +1,5 @@
 {
-	"name": "<%= gadget_name %>",
+	"name": "<%= gadgetName %>",
 	"version": "0.1.0",
 	"main": "index.html",
 	"dependencies": {
