@@ -2,19 +2,19 @@
   "test": {
     "desc": "start /home/xdk dev goblin",
     "options": {
-      "scope": "dev"
+      "scope": "goblin"
     }
   },
   "install": {
     "desc": "install development environnement",
     "options": {
-      "scope": "dev"
+      "scope": "goblin"
     }
   },
   "create": {
     "desc": "generate a goblin gadget app",
     "options": {
-      "scope": "dev",
+      "scope": "goblin",
       "params": {
         "required": "gadgetName"
       }
@@ -23,7 +23,7 @@
   "run": {
     "desc": "start goblin desktop (launch gadget if provided) ",
     "options": {
-      "scope": "dev",
+      "scope": "goblin",
       "params": {
         "optional": "gadgetName"
       }
