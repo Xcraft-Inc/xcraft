@@ -20,6 +20,12 @@
       }
     }
   },
+  "digin": {
+    "desc": "Search for goblin gadgets (by default in /home/xdk)",
+    "options": {
+      "scope": "goblin"
+    }
+  },
   "run": {
     "desc": "start goblin desktop",
     "options": {
