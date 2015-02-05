@@ -1,4 +1,9 @@
 /* Webpack config */
+
+var definePlugin = new webpack.DefinePlugin({
+  __WEBPACK__: true
+});
+
 module.exports = {
   target: 'atom',
   debug: true,
@@ -27,6 +32,5 @@ module.exports = {
       {test: /\.(ttf|eot|svg|woff)/, loader: 'file-loader'}
     ]
   },
-  plugins: [
-  ]
+  plugins: [definePlugin]
 };
