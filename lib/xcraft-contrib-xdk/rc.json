@@ -6,13 +6,13 @@
     }
   },
   "install": {
-    "desc": "install development environnement",
+    "desc": "install goblin environnement",
     "options": {
       "scope": "goblin"
     }
   },
-  "create": {
-    "desc": "generate a goblin gadget app",
+  "craft": {
+    "desc": "craft a goblin gadget (by default in /home/xdk)",
     "options": {
       "scope": "goblin",
       "params": {
@@ -21,7 +21,7 @@
     }
   },
   "run": {
-    "desc": "start goblin desktop (launch gadget if provided) ",
+    "desc": "start goblin desktop",
     "options": {
       "scope": "goblin",
       "params": {
