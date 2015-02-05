@@ -9,7 +9,7 @@ var Panel        = bootstrap.Panel;
 var Paper        = mui.Paper;
 var DropDownMenu = mui.DropDownMenu;
 
-var packagesStore  = Reflux.createStore(require ('../stores/packagesstore.js'));
+var packagesStore  = Reflux.createStore(require ('../stores/packagesstore.js')('web'));
 
 
 var PackageList  = React.createClass ({

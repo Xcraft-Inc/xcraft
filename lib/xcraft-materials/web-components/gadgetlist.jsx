@@ -6,7 +6,7 @@ var Jumbo      = bootstrap.Jumbotron;
 var Panel      = bootstrap.Panel;
 var Paper      = mui.Paper;
 
-var gadgetsStore       = Reflux.createStore(require ('../stores/gadgetsstore.js');
+var gadgetsStore       = Reflux.createStore(require ('../stores/gadgetsstore.js')('web'));
 var GadgetList         = React.createClass ({
 
   mixins: [Reflux.ListenerMixin],
