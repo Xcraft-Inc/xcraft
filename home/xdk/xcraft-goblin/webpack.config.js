@@ -2,6 +2,7 @@
 module.exports = {
   target: 'atom',
   debug: true,
+  context: __dirname,
   devtool: 'source-map',
   entry: {
     main: './app.jsx'

@@ -3,11 +3,11 @@ var Router         = require ('react-router');
 var Route          = Router.Route;
 var Redirect       = Router.Redirect;
 var DefaultRoute   = Router.DefaultRoute;
-var Desktop        = require ('./desktop.jsx');
+var Goblin         = require ('./goblin.jsx');
 
 var AppRoutes = (
-  <Route name="root" path="/" handler={Desktop}>
-    <DefaultRoute handler={Desktop}/>
+  <Route name="root" path="/" handler={Goblin}>
+    <DefaultRoute handler={Goblin}/>
   </Route>
 );
 
