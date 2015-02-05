@@ -1,5 +1,4 @@
-require ('xcraft-materials/xcraft-materials.less');
-require ('./launcher.scss');
+require ('../sass/launcher.scss');
 var React        = require ('react');
 var ipc          = require ('ipc');
 var remote       = require ('remote');
