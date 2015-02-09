@@ -20,7 +20,8 @@ var Action = function (currentDir) {
   };
 
   var extra = {
-    location:  config.rules.location
+    location:  config.rules.location,
+    configure: config.configure
   };
 
   return {
