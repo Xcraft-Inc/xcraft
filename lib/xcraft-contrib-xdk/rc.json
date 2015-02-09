@@ -1,38 +1,47 @@
 {
-  "test": {
-    "desc": "start /home/xdk dev goblin",
-    "options": {
-      "scope": "goblin"
-    }
-  },
-  "install": {
-    "desc": "install goblin environnement",
-    "options": {
-      "scope": "goblin"
-    }
-  },
-  "craft": {
-    "desc": "craft a goblin gadget (by default in /home/xdk)",
-    "options": {
-      "scope": "goblin",
-      "params": {
-        "required": "gadgetName"
-      }
-    }
-  },
-  "digin": {
-    "desc": "Search for goblin gadgets (by default in /home/xdk)",
-    "options": {
-      "scope": "goblin"
-    }
-  },
-  "run": {
-    "desc": "start goblin desktop",
-    "options": {
-      "scope": "goblin",
-      "params": {
-        "optional": "gadgetName"
-      }
-    }
-  }
+	"test": {
+		"desc": "start /home/xdk dev goblin",
+		"options": {
+			"scope": "goblin"
+		}
+	},
+	"build": {
+		"desc": "build a goblin gadget",
+		"options": {
+			"scope": "goblin",
+			"params": {
+				"required": "gadgetName"
+			}
+		}
+	},
+	"install": {
+		"desc": "install goblin environnement",
+		"options": {
+			"scope": "goblin"
+		}
+	},
+	"craft": {
+		"desc": "craft a goblin gadget (by default in /home/xdk)",
+		"options": {
+			"scope": "goblin",
+			"params": {
+				"required": "gadgetName"
+			}
+		}
+	},
+	"digin": {
+		"desc": "Search for goblin gadgets (by default in /home/xdk)",
+		"options": {
+			"scope": "goblin"
+		}
+	},
+	"run": {
+		"desc": "start goblin desktop",
+		"options": {
+			"scope": "goblin",
+			"params": {
+				"optional": "gadgetName"
+			}
+		}
+	}
 }

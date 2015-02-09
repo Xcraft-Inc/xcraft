@@ -8,7 +8,7 @@ var Launcher     = require ('./launcher.jsx');
 var gadgetsStore = Reflux.createStore(require ('../stores/gadgetsstore.js'));
 var Desktop      = React.createClass ({
 
-  mixins: [],
+  mixins: [Reflux.ListenerMixin],
 
   propTypes: {
     about: React.PropTypes.string,
