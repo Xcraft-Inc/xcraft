@@ -25,19 +25,19 @@ ipc.on ('exit', function () {
     window.close ();
     window = null;
   });
-  desktop.kiosk = false;
 });
 
 app.on ('ready', function () {
   var loadDesktop = function () {
     console.log ('opening goblin desktop');
-    desktop = new BrowserWindow({width: 960, height: 600, kiosk: true, fullscreen: true});
+    desktop = new BrowserWindow({width: 960, height: 600, kiosk: false, fullscreen: true});
+    desktop.toggleDevTools();
     desktop.loadUrl('file://' + __dirname + '/index.html');
     desktop.on('closed', function () {
-      busClient.events.subscribe ('disconnected', function (msg) { /* jshint ignore:line */
-        desktop = null;  
+      desktop = null;
+      busClient.stop (function () {
+        app.quit ();
       });
-      // busClient.command.send ('shutdown');
     });
   };
   console.log ('Waiting for zog daemon...');
