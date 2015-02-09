@@ -35,9 +35,7 @@ app.on ('ready', function () {
     desktop.loadUrl('file://' + __dirname + '/index.html');
     desktop.on('closed', function () {
       busClient.events.subscribe ('disconnected', function (msg) { /* jshint ignore:line */
-        busClient.stop (function () {
-          desktop = null;
-        });
+        desktop = null;  
       });
       // busClient.command.send ('shutdown');
     });
