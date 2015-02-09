@@ -1,0 +1,26 @@
+name: toolchain+7z
+version: "9.20"
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: 7-Zip is a file archiver with a high compression ratio.
+  long: ""
+dependency:
+  toolchain+xcraft-peon:
+    - ""
+data:
+  uri: "http://www.7-zip.org/a/7za920.zip"
+  type: bin
+  configure: mv ('7za.exe', 'root/usr/bin/7za.exe');
+  rules:
+    type: copy
+    location: root
+    args:
+      postinst: ""
+      prerm: ""
+  embedded: true
+distribution: toolchain/
