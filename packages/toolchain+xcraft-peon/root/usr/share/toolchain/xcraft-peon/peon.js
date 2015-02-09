@@ -19,31 +19,23 @@ var Action = function (currentDir) {
     });
   };
 
+  var extra = {
+    location:  config.rules.location
+  };
+
   return {
     postinst: function () {
-      var extra = {
-        location: config.rules.location,
-        args:     config.rules.args.postinst
-      };
-
+      extra.args = config.rules.args.postinst;
       peonRun (extra);
     },
 
     prerm: function () {
-      var extra = {
-        location: config.rules.location,
-        args:     config.rules.args.prerm
-      };
-
+      extra.args = config.rules.args.prerm;
       peonRun (extra);
     },
 
     makeall: function () {
-      var extra = {
-        location: config.rules.location,
-        args:     config.rules.args.makeall
-      };
-
+      extra.args = config.rules.args.makeall;
       peonRun (extra);
     }
   };
