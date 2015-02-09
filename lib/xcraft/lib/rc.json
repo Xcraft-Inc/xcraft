@@ -55,7 +55,7 @@
 		"desc": "unpublish -> publish -> install (tempory workaround to alias)",
 		"options": {
 			"params": {
-				"required": "modules..."
+				"optional": "modules..."
 			}
 		}
 	},
