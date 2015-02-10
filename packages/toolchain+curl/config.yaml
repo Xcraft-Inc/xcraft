@@ -1,0 +1,37 @@
+subpackage:
+  - "runtime*"
+name: toolchain+curl
+version: 7.40.0
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - source
+architectureHost:
+  - linux-i386
+  - linux-amd64
+  - darwin-i386
+  - darwin-amd64
+  - solaris-i386
+  - solaris-amd64
+  - freebsd-i386
+  - freebsd-amd64
+description:
+  brief: curl
+  long: ""
+dependency:
+  toolchain+xcraft-peon:
+    - ""
+data:
+  uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
+  type: src
+  configure: "!cd curl-7.40.0/ && ./configure"
+  rules:
+    type: make
+    location: "curl-7.40.0/"
+    args:
+      postinst: ""
+      prerm: ""
+      makeall: ""
+  embedded: true
+distribution: toolchain/
