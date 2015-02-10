@@ -1,7 +1,7 @@
 subpackage:
   - "runtime*"
 name: toolchain+git
-version: 2.2.0
+version: 2.3.0
 maintainer:
   name: Mathieu Schroeter
   email: "schroeter@epsitec.ch"
@@ -23,11 +23,12 @@ dependency:
   toolchain+xcraft-peon:
     - ""
 data:
-  uri: "https://github.com/git/git/archive/v2.2.0.tar.gz"
+  uri: "https://github.com/git/git/archive/v2.3.0.tar.gz"
   type: src
+  configure: ""
   rules:
     type: make
-    location: git-2.2.0/
+    location: git-2.3.0/
     args:
       postinst: ""
       prerm: ""
