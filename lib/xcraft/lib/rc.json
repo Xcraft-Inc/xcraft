@@ -1,94 +1,94 @@
 {
-	"unpm": {
-		"desc": "start/stop/restart a unpm instance",
-		"options": {
-			"params": {
-				"required": "cmd"
-			}
-		}
-	},
-	"init": {
-		"desc": "create main config file in etc",
-		"options": {
-			"params": {
-				"optional": "paths..."
-			}
-		}
-	},
-	"deploy": {
-		"desc": "configure uNPM with backend",
-		"options": {
-			"params": {
-				"required": "ip:port"
-			}
-		}
-	},
-	"defaults": {
-		"desc": "create config for all or one installed module(s)",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"configure": {
-		"desc": "configure a module",
-		"options": {
-			"wizard": true,
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"cache": {
-		"desc": "cache third packages in the local registry"
-	},
-	"install": {
-		"desc": "install module(s) from local registry",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"upi": {
-		"desc": "unpublish -> publish -> install (tempory workaround to alias)",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"publish": {
-		"desc": "npm publish xcraft-core in local registry",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"unpublish": {
-		"desc": "npm unpublish xcraft-core in local registry",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"verify": {
-		"desc": "check outdated packages",
-		"options": {
-			"params": {
-				"optional": "modules..."
-			}
-		}
-	},
-	"modprefix": {
-		"desc": "prefix for node_modules directory",
-		"options": {
-			"params": {
-				"required": "location"
-			}
-		}
-	}
+  "unpm": {
+    "desc": "start/stop/restart a unpm instance",
+    "options": {
+      "params": {
+        "required": "cmd"
+      }
+    }
+  },
+  "init": {
+    "desc": "create main config file in etc",
+    "options": {
+      "params": {
+        "optional": "paths..."
+      }
+    }
+  },
+  "deploy": {
+    "desc": "configure uNPM with backend",
+    "options": {
+      "params": {
+        "required": "ip:port"
+      }
+    }
+  },
+  "defaults": {
+    "desc": "create config for all or one installed module(s)",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "configure": {
+    "desc": "configure a module",
+    "options": {
+      "wizard": true,
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "cache": {
+    "desc": "cache third packages in the local registry"
+  },
+  "install": {
+    "desc": "install module(s) from local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "upi": {
+    "desc": "unpublish -> publish -> install (tempory workaround to alias)",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "publish": {
+    "desc": "npm publish xcraft-core in local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "unpublish": {
+    "desc": "npm unpublish xcraft-core in local registry",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "verify": {
+    "desc": "check outdated packages",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
+  "modprefix": {
+    "desc": "prefix for node_modules directory",
+    "options": {
+      "params": {
+        "required": "location"
+      }
+    }
+  }
 }
