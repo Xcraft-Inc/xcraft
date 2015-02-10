@@ -7,6 +7,14 @@
       }
     }
   },
+  "watcher": {
+    "desc": "start/stop/restart the watcher for lib/",
+    "options": {
+      "params": {
+        "required": "cmd"
+      }
+    }
+  },
   "init": {
     "desc": "create main config file in etc",
     "options": {
