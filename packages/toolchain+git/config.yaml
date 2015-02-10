@@ -32,6 +32,6 @@ data:
     args:
       postinst: ""
       prerm: ""
-      makeall: ""
+      makeall: NO_OPENSSL=Yes
   embedded: true
 distribution: toolchain/
