@@ -34,6 +34,6 @@ data:
     args:
       postinst: ""
       prerm: ""
-      makeall: NO_OPENSSL=Yes
+      makeall: prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes
   embedded: true
 distribution: toolchain/
