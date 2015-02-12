@@ -19,11 +19,6 @@ var Action = function (root, currentDir, binaryDir) {
   var peonRun = function (extra) {
     console.log ('command: %s %s', extra.location, extra.args);
 
-    /*FIXME: error here!*/
-    Object.keys (extra).forEach (function (key) {
-      extra[key] = xPh.inject ('PEON', extra[key]);
-    });
-
     xPeon[config.type][config.rules.type] (config.uri, root, currentDir, extra, function (err) {
       if (err) {
         console.error (err);
