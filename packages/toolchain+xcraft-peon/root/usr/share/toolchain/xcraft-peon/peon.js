@@ -12,7 +12,7 @@ var Action = function (root, currentDir, binaryDir) {
   var peonRun = function (extra) {
     console.log ('command: %s %s', extra.location, extra.args);
 
-    xPeon[config.type][config.rules.type] (config.uri, null, currentDir, extra, function (err) {
+    xPeon[config.type][config.rules.type] (config.uri, root, currentDir, extra, function (err) {
       if (err) {
         console.error (err);
         console.error ('can not %s %s', config.rules.type, config.type);
