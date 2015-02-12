@@ -6,11 +6,17 @@ var Action = function (root, currentDir, binaryDir) {
   var fs   = require ('fs');
 
   var xPeon = require ('xcraft-core-peon');
+  var xPh   = require ('xcraft-core-placeholder');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
   var peonRun = function (extra) {
     console.log ('command: %s %s', extra.location, extra.args);
+
+    /*FIXME: error here!*/
+    Object.keys (extra).forEach (function (key) {
+      extra[key] = xPh.inject ('PEON', extra[key]);
+    });
 
     xPeon[config.type][config.rules.type] (config.uri, root, currentDir, extra, function (err) {
       if (err) {
