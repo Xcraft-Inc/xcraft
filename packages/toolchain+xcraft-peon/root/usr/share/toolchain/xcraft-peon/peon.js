@@ -15,7 +15,7 @@ var Action = function (root, currentDir, binaryDir) {
      * we need to rework packageDef model before
      * destination unix arbo. /usr
      */
-    var installDir = binaryDir.replace (/build$/, 'install/runtime/usr');
+    var installDir = binaryDir.replace (/build$/, path.normalize ('install/runtime/usr'));
     xPh.set ('INSTALLDIR', installDir);
   }
 
