@@ -23,7 +23,8 @@ var Action = function (root, currentDir, binaryDir) {
 
   var extra = {
     location:  config.rules.location,
-    configure: config.configure
+    configure: config.configure,
+    embedded:  config.embedded
   };
 
   return {
