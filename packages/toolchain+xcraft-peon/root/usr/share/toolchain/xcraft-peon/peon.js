@@ -9,6 +9,12 @@ var Action = function (root, currentDir, binaryDir) {
   var xPh   = require ('xcraft-core-placeholder');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
+  /* HACK: forced subpackage /runtime
+   * we need to rework packageDef model before
+   * destination unix arbo. /usr
+   */
+  var installDir = binaryDir.replace (/build$/, 'install/runtime/usr');
+  xPh.set ('INSTALLDIR', installDir);
 
   var peonRun = function (extra) {
     console.log ('command: %s %s', extra.location, extra.args);
