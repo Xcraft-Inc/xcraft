@@ -28,7 +28,7 @@ data:
   configure: "!cd curl-7.40.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
   rules:
     type: make
-    location: "curl-7.40.0/"
+    location: "data/curl-7.40.0/"
     args:
       postinst: ""
       prerm: ""

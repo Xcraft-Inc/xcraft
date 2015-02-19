@@ -17,7 +17,7 @@ data:
   type: bin
   rules:
     type: exec
-    location: VS2013_RTM_DskExp_ENU/wdexpress_full.exe
+    location: data/VS2013_RTM_DskExp_ENU/wdexpress_full.exe
     args:
       postinst: /Passive /NoRestart /NoWeb /Full
       prerm: /Passive /NoRestart /NoWeb /Uninstall

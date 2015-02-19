@@ -30,7 +30,7 @@ data:
   configure: ""
   rules:
     type: make
-    location: git-2.3.0/
+    location: data/git-2.3.0/
     args:
       postinst: ""
       prerm: ""
