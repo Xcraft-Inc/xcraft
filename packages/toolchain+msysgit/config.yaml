@@ -12,8 +12,6 @@ description:
 dependency:
   toolchain+xcraft-peon:
     - ""
-  toolchain+7z:
-    - ""
 data:
   uri: "https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20141217/PortableGit-1.9.5-preview20141217.7z"
   type: bin
