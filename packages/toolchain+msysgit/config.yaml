@@ -15,10 +15,10 @@ dependency:
 data:
   uri: "https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20141217/PortableGit-1.9.5-preview20141217.7z"
   type: bin
-  configure: ""
+  configure: mv ('data', 'root/opt/msysgit');
   rules:
     type: copy
-    location: ""
+    location: root
     args:
       postinst: ""
       prerm: ""
