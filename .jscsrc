@@ -9,6 +9,10 @@
   "requireOperatorBeforeLineBreak"            : true,
   "requireParenthesesAroundIIFE"              : true,
 
+  "requireSpaceBetweenArguments"              : true,
+  "requireSpacesInCallExpression"             : true,
+  "requireSpacesInForStatement"               : true,
+
   "requireSpaceAfterBinaryOperators"          : true,
   "requireSpaceAfterKeywords"                 : true,
   "requireSpaceAfterLineComment"              : true,
@@ -24,7 +28,7 @@
   },
 
   "disallowEmptyBlocks"                       : true,
-  "disallowKeywordsOnNewLine"                 : [ "else", "catch" ],
+  "disallowKeywordsOnNewLine"                 : ["else", "catch"],
   "disallowNewlineBeforeBlockStatements"      : true,
   "disallowPaddingNewlinesInBlocks"           : true,
   "disallowQuotedKeysInObjects"               : true,
@@ -38,6 +42,8 @@
   "disallowSpacesInsideObjectBrackets"        : "all",
 
   "disallowYodaConditions"                    : true,
+
+  "safeContextKeyword"                        : ["self"],
 
   "validateIndentation"                       : 2,
   "validateJSDoc": {
