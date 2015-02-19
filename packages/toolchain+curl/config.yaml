@@ -25,7 +25,7 @@ dependency:
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
   type: src
-  configure: "!cd curl-7.40.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: "!cd data/curl-7.40.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
   rules:
     type: make
     location: "data/curl-7.40.0/"
