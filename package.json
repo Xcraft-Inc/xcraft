@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "async": "^0.9.0",
-    "shellcraft": "^1.1.2",
+    "shellcraft": "^1.1.4",
     "unpm": "^1.1.0",
     "unpm-fs-backend": "^0.1.0"
   },
