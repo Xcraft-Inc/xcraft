@@ -20,7 +20,7 @@ description:
   brief: curl
   long: ""
 dependency:
-  toolchain+xcraft-peon:
+  bootstrap+xcraft-peon:
     - ""
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
