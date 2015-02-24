@@ -1,4 +1,4 @@
-name: toolchain+7z
+name: bootstrap+7z
 version: "9.20"
 maintainer:
   name: Mathieu Schroeter

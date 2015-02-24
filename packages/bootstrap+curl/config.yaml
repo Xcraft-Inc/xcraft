@@ -1,6 +1,6 @@
 subpackage:
   - "runtime*"
-name: toolchain+curl
+name: bootstrap+curl
 version: 7.40.0
 maintainer:
   name: Mathieu Schroeter

@@ -1,6 +1,6 @@
 subpackage:
   - "runtime*"
-name: toolchain+git
+name: bootstrap+git
 version: 2.3.0
 maintainer:
   name: Mathieu Schroeter

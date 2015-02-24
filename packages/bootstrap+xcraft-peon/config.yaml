@@ -1,4 +1,4 @@
-name: toolchain+xcraft-peon
+name: bootstrap+xcraft-peon
 version: 0.1.0
 maintainer:
   name: Mathieu Schroeter
