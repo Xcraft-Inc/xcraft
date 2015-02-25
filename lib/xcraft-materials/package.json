@@ -1,6 +1,7 @@
 {
   "name": "xcraft-materials",
   "version": "0.1.0",
+  "description": "Xcraft Components",
   "main": "xcraft-materials.js",
   "dependencies": {
     "cli-color": "^0.3.2",
@@ -14,6 +15,10 @@
     "react": "^0.12.2",
     "reflux": ">=0.2.3",
     "lodash": "2.4.1"
+  },
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-materials"
   },
   "author": {
     "name": "Samuel Loup"
