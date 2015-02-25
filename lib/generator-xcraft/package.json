@@ -23,6 +23,10 @@
     "xdk",
     "yeoman-generator"
   ],
+  "repository": {
+    "type": "file",
+    "url": "lib/generator-xcraft"
+  },
   "dependencies": {
     "yeoman-generator": "^0.18.0",
     "chalk": "~0.5.1",

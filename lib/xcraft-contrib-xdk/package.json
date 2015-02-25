@@ -24,6 +24,10 @@
     "goblin",
     "gadget"
   ],
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-contrib-xdk"
+  },
   "author": "Samuel Loup",
   "license": "MIT"
 }
