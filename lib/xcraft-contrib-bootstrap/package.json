@@ -1,5 +1,5 @@
 {
-  "name": "xcraft-core-bootstrap",
+  "name": "xcraft-contrib-bootstrap",
   "version": "0.1.0",
   "description": "Xcraft bootstrap",
   "main": "bootstrap.js",
@@ -12,7 +12,7 @@
   ],
   "repository" : {
     "type" : "file",
-    "url" : "lib/xcraft-core-bootstrap"
+    "url" : "lib/xcraft-contrib-bootstrap"
   },
   "author": "Mathieu Schroeter",
   "license": "MIT",
