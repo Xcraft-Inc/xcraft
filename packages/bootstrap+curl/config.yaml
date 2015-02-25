@@ -19,9 +19,7 @@ architectureHost:
 description:
   brief: curl
   long: ""
-dependency:
-  bootstrap+xcraft-peon:
-    - ""
+dependency: {}
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
   type: src
