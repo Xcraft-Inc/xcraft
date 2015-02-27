@@ -23,7 +23,7 @@ module.exports = function (packagePath, sharePath) {
 
     xLog.verb (xcraft);
 
-    xProcess.spawn (xcraft, args, function (err) {
+    xProcess.spawn (xcraft, args, {}, function (err) {
       callback (err);
     }, function (line) {
       xLog.verb (line);

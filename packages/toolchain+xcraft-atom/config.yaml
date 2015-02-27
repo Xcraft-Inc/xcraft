@@ -9,7 +9,7 @@ description:
   brief: Xcraft atom-shell runtime
   long: "Needed for graphical interfaces"
 dependency:
-  toolchain+xcraft-peon:
+  bootstrap+xcraft-peon:
     - ""
 data:
   uri: "self:///root"

@@ -1,8 +1,5 @@
 {
-  "install": {
+  "build": {
     "desc": "build and install CMake"
-  },
-  "uninstall": {
-    "desc": "uninstall CMake"
   }
 }

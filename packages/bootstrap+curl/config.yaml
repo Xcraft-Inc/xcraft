@@ -1,6 +1,6 @@
 subpackage:
   - "runtime*"
-name: toolchain+curl
+name: bootstrap+curl
 version: 7.40.0
 maintainer:
   name: Mathieu Schroeter
@@ -19,9 +19,7 @@ architectureHost:
 description:
   brief: curl
   long: ""
-dependency:
-  toolchain+xcraft-peon:
-    - ""
+dependency: {}
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
   type: src

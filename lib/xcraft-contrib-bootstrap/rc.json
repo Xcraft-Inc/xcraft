@@ -1,0 +1,11 @@
+{
+  "wpkg": {
+    "desc": "bootstrap the package manager"
+  },
+  "peon": {
+    "desc": "bootstrap for devroot/"
+  },
+  "all": {
+    "desc": "bootstrap everything"
+  }
+}

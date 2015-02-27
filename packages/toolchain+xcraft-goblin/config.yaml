@@ -11,7 +11,7 @@ description:
 dependency:
   toolchain+xcraft-atom:
     - ""
-  toolchain+xcraft-peon:
+  bootstrap+xcraft-peon:
     - ""
 data:
   uri: "self:///root"

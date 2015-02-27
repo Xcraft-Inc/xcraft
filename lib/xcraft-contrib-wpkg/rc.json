@@ -1,8 +1,5 @@
 {
-  "install": {
+  "build": {
     "desc": "build and install WPKG"
-  },
-  "uninstall": {
-    "desc": "uninstall WPKG"
   }
 }
