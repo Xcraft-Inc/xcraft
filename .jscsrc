@@ -41,6 +41,8 @@
   "disallowSpacesInsideArrayBrackets"         : "all",
   "disallowSpacesInsideObjectBrackets"        : "all",
 
+  "disallowSpaceAfterObjectKeys":             true,
+
   "disallowYodaConditions"                    : true,
 
   "safeContextKeyword"                        : ["self"],
