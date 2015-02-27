@@ -4,17 +4,17 @@
   "description": "Xcraft Components",
   "main": "xcraft-materials.js",
   "dependencies": {
+    "bootstrap-material": "^0.1.5",
     "cli-color": "^0.3.2",
     "figlet": "^1.1.0",
-    "xcraft-core-utils": "0.1.0",
-    "xcraft-core-log": "0.1.0",
-    "react-router": "^0.11.6",
+    "lodash": "^2.4.1",
     "material-ui": "^0.5.0",
-    "bootstrap-material": ">=0.1.5",
-    "react-bootstrap": ">=0.13.0",
     "react": "^0.12.2",
-    "reflux": ">=0.2.3",
-    "lodash": "2.4.1"
+    "react-bootstrap": "^0.15.1",
+    "react-router": "^0.11.6",
+    "reflux": "^0.2.5",
+    "xcraft-core-log": "0.1.0",
+    "xcraft-core-utils": "0.1.0"
   },
   "repository": {
     "type": "file",

@@ -28,9 +28,9 @@
     "url": "lib/generator-xcraft"
   },
   "dependencies": {
-    "yeoman-generator": "^0.18.0",
-    "chalk": "~0.5.1",
-    "yosay": "~0.3.0"
+    "chalk": "^0.5.1",
+    "yeoman-generator": "^0.18.9",
+    "yosay": "^0.3.0"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
