@@ -15,7 +15,7 @@ dependency:
 data:
   uri: "chest:portablegit-1.9.5-preview20141217.tar.gz"
   type: bin
-  configure: mv ('data', 'root/opt/msysgit');
+  configure: "mv ('data', 'root/opt/msysgit');"
   rules:
     type: copy
     location: root
