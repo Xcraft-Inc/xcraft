@@ -1,4 +1,4 @@
-name: toolchain+msysgit
+name: bootstrap+msysgit
 version: 1.9.5-preview20141217
 maintainer:
   name: Mathieu Schroeter
@@ -10,7 +10,7 @@ description:
   brief: Git is a free and open source distributed version control system.
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 dependency:
-  toolchain+xcraft-peon:
+  bootstrap+xcraft-peon:
     - ""
 data:
   uri: "https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20141217/PortableGit-1.9.5-preview20141217.7z"
