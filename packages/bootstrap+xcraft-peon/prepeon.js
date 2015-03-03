@@ -18,7 +18,7 @@ module.exports = function (packagePath, sharePath) {
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
     var args = [
       '--modprefix', nodeModules,
-      'install', 'xcraft-core-peon', 'xcraft-core-placeholder'
+      'install', 'xcraft-contrib-peon', 'xcraft-core-placeholder'
     ];
 
     xLog.verb (xcraft);

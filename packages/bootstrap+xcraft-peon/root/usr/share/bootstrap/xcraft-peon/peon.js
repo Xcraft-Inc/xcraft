@@ -5,7 +5,7 @@ var path = require ('path');
 var Action = function (root, currentDir, binaryDir) {
   var fs   = require ('fs');
 
-  var xPeon = require ('xcraft-core-peon');
+  var xPeon = require ('xcraft-contrib-peon');
   var xPh   = require ('xcraft-core-placeholder');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
