@@ -22,5 +22,7 @@ data:
     args:
       postinst: ""
       prerm: ""
+  path:
+    - opt/msysgit/cmd
   embedded: true
 distribution: toolchain/
