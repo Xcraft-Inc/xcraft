@@ -3,6 +3,11 @@
     "ecma5",
     "ecma6"
   ],
+  "loadEagerly": [
+    "./lib/**/*.js",
+    "./packages/**/*.js",
+    "./home/xdk/**/*.js"
+  ],
   "plugins": {
     "complete_strings": {},
     "node": {},
