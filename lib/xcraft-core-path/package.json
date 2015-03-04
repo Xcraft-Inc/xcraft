@@ -11,12 +11,15 @@
     "helpers",
     "path"
   ],
-  "repository" : {
-    "type" : "file",
-    "url" : "lib/xcraft-core-path"
+  "repository": {
+    "type": "file",
+    "url": "lib/xcraft-core-path"
   },
   "author": "Mathieu Schroeter",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "xcraft-core-etc": "0.1.0",
+    "xcraft-core-platform": "0.1.0"
+  },
   "devDependencies": {}
 }

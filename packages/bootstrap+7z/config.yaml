@@ -15,7 +15,7 @@ dependency:
 data:
   uri: "http://www.7-zip.org/a/7za920.zip"
   type: bin
-  configure: mv ('7za.exe', 'root/usr/bin/7za.exe');
+  configure: mv ('data/7za.exe', 'root/usr/bin/7za.exe');
   rules:
     type: copy
     location: root
