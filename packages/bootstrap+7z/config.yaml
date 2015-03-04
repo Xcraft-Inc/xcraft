@@ -17,7 +17,7 @@ data:
   type: bin
   configure: mv ('data/7za.exe', 'root/usr/bin/7za.exe');
   rules:
-    type: copy
+    type: move
     location: root
     args:
       postinst: ""

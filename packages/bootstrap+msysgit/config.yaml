@@ -17,7 +17,7 @@ data:
   type: bin
   configure: "mv ('data', 'root/opt/msysgit');"
   rules:
-    type: copy
+    type: move
     location: root
     args:
       postinst: ""
