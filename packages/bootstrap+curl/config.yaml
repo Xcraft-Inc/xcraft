@@ -28,10 +28,11 @@ data:
   configure: "!cd data/curl-7.40.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
   rules:
     type: make
-    location: "data/curl-7.40.0/"
+    location: data/curl-7.40.0/
     args:
       postinst: ""
       prerm: ""
       makeall: ""
+  path: []
   embedded: true
 distribution: toolchain/
