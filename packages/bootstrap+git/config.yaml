@@ -22,6 +22,8 @@ description:
 dependency:
   bootstrap+curl:
     - ""
+  bootstrap+zlib:
+    - ""
 data:
   uri: "https://github.com/git/git/archive/v2.3.0.tar.gz"
   type: src
