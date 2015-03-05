@@ -19,7 +19,9 @@ architectureHost:
 description:
   brief: curl
   long: ""
-dependency: {}
+dependency:
+  bootstrap+zlib:
+    - ""
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
   type: src
