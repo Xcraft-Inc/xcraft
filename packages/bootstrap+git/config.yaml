@@ -36,7 +36,7 @@ data:
     args:
       postinst: ""
       prerm: ""
-      makeall: "prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes"
+      makeall: "prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes"
   path: []
   embedded: true
 distribution: toolchain/
