@@ -1,0 +1,85 @@
+From 1f876fe465809ee667bc5e6cebd98f61a18689d0 Mon Sep 17 00:00:00 2001
+From: Yevgeny Krasovsky <jkrasovsky@gmail.com>
+Date: Wed, 29 Oct 2014 07:40:56 +0000
+Subject: [PATCH 1/5] Added support for MinGW 64-bit toolchain. - Reworked
+ CMake files replacing MINGW32 with MINGW according to
+ http://www.cmake.org/Wiki/CMake_Useful_Variables. - Replaced all MO_MINGW32
+ occurrences with MO_MINGW. - Enhanced compiler architecture detection. -
+ Changed mingw32 OS type to mswindows for MINGW builds. - Added _WINDOWS
+ compiler definition since there is at least one header file which rely on it.
+
+---
+ wpkg/CMakeLists.txt                              | 44 +++++++++++++-----------
+ wpkg/dev/mingw32-toolchain.cmake                 |  4 +--
+ wpkg/libdebpackages/CMakeLists.txt               |  6 ++--
+ wpkg/libdebpackages/libdebpackages/wpkg_output.h |  2 +-
+ wpkg/libdebpackages/strptime.c                   |  4 +--
+ wpkg/libdebpackages/wpkg_filename.cpp            | 15 ++++----
+ wpkg/libdebpackages/wpkg_output.cpp              |  2 +-
+ wpkg/libtld/CMakeLists.txt                       |  2 +-
+ wpkg/tools/CMakeLists.txt                        |  4 +--
+ wpkg/tools/wpkg.cpp                              |  6 ++--
+ 10 files changed, 44 insertions(+), 45 deletions(-)
+
+diff --git a/wpkg/libdebpackages/libdebpackages/wpkg_output.h b/wpkg/libdebpackages/libdebpackages/wpkg_output.h
+index ac3faa5..1e04e50 100644
+--- a/wpkg/libdebpackages/libdebpackages/wpkg_output.h
++++ b/wpkg/libdebpackages/libdebpackages/wpkg_output.h
+@@ -236,7 +236,7 @@ public:
+     log& arg(const unsigned int v);
+     log& arg(const signed long v);
+     log& arg(const unsigned long v);
+-#if defined(MO_WINDOWS) && defined(_WIN64) && !defined(MO_MINGW32)
++#if defined(MO_WINDOWS) && defined(_WIN64)
+     log& arg(const size_t v);
+ #endif
+     log& arg(const float v);
+--- a/wpkg/libdebpackages/wpkg_output.cpp	2015-03-06 15:17:47.000000000 +0100
++++ b/wpkg/libdebpackages/wpkg_output.cpp	2015-03-06 15:22:22.000000000 +0100
+@@ -1599,13 +1599,13 @@
+     ss << v;
+     f_args.push_back(ss.str());
+     return *this;
+ }
+
+
+-#if defined(MO_WINDOWS) && defined(_WIN64) && !defined(MO_MINGW32)
++#if defined(MO_WINDOWS) && defined(_WIN64)
+ /** \brief Replace an argument with the size_t value.
+  *
+  * This function replaces an argument in the format string with the
+  * numeric value of the specified parameter.
+  *
+  * \param[in] v  The value to replace the corresponding argument in the format string.
+--- a/wpkg/libdebpackages/CMakeLists.txt	2015-03-06 15:06:03.000000000 +0100
++++ b/wpkg/libdebpackages/CMakeLists.txt	2015-03-06 14:59:49.000000000 +0100
+@@ -43,13 +43,13 @@
+ # WARNING: C/CXX flags are defined once for all the CMakeLists.txt projects
+ if( MSVC )
+     set( DEBPACKAGES_FOLDER libs/debpackages )
+     # disable warnings about dll linkage concerns but we do not have any inlines (warning 4251)
+     set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4251" )
+ endif()
+-if( MSVC OR MINGW32 OR MSYS )
++if( MSVC OR MINGW32 OR MINGW OR MSYS )
+     set ( EXTRA_LIBRARIES wsock32 ws2_32 mpr ole32 uuid )
+ endif()
+
+ file( GLOB LIBDEBPACKAGES_INCLUDE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/libdebpackages/*.h" )
+
+ project( debpackages_static )
+@@ -173,13 +173,13 @@
+
+ add_library( ${PROJECT_NAME} SHARED
+     ${LIBDEBPACKAGES_INCLUDE_FILES}
+     ${LIBDEBPACKAGES_SOURCE_FILES}
+ )
+
+-if( MSVC OR MINGW32 OR MSYS )
++if( MSVC OR MINGW32 OR MSYS )
+     set_target_properties( ${PROJECT_NAME} PROPERTIES
+         COMPILE_FLAGS -DDEBIAN_PACKAGE_DLL
+         LINK_FLAGS ${WIN_MACHINE_FLAGS}
+         FOLDER ${DEBPACKAGES_FOLDER}
+     )
+ endif()
