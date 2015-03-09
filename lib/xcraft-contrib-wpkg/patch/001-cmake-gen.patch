@@ -1,0 +1,13 @@
+diff --git a/wpkg/libdebpackages/wpkgar_build.cpp b/wpkg/libdebpackages/wpkgar_build.cpp
+index 98a3b82..a029b00 100644
+--- a/wpkg/libdebpackages/wpkgar_build.cpp
++++ b/wpkg/libdebpackages/wpkgar_build.cpp
+@@ -1901,7 +1901,7 @@ bool wpkgar_build::run_cmake(const std::string& package_name, const wpkg_filenam
+     cmd += "cmake ";
+     if(!f_cmake_generator.empty())
+     {
+-        cmd += "-G " + wpkg_util::make_safe_console_string(f_cmake_generator);
++        cmd += "-G " + wpkg_util::make_safe_console_string(f_cmake_generator) + " ";
+     }
+     cmd += wpkg_util::make_safe_console_string(sourcedir.full_path());
+ 
