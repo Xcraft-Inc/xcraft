@@ -26,6 +26,8 @@ dependency:
     - ""
   bootstrap+expat:
     - ""
+  bootstrap+xcraft-peon:
+    - ""
 data:
   uri: "https://github.com/git/git/archive/v2.3.0.tar.gz"
   type: src

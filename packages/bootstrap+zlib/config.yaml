@@ -19,7 +19,9 @@ architectureHost:
 description:
   brief: A Massively Spiffy Yet Delicately Unobtrusive Compression Library
   long: ""
-dependency: {}
+dependency:
+  bootstrap+xcraft-peon:
+    - ""
 data:
   uri: "http://prdownloads.sourceforge.net/libpng/zlib-1.2.8.tar.gz?download"
   type: src
