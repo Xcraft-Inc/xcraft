@@ -19,9 +19,7 @@ architectureHost:
 description:
   brief: The Expat XML Parser
   long: Expat is an XML parser library written in C. It is a stream-oriented parser in which an application registers handlers for things the parser might find in the XML document (like start tags).
-dependency:
-  bootstrap+xcraft-peon:
-    - ""
+dependency: {}
 data:
   uri: "http://sourceforge.net/projects/expat/files/expat/2.1.0/expat-2.1.0.tar.gz"
   type: src
