@@ -33,7 +33,7 @@ module.exports = function (packagePath, sharePath) {
   };
 
   return {
-    copy: function (callback) {
+    run: function (callback) {
       xcraftInstall (callback);
     }
   };
