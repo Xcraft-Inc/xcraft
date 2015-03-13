@@ -6,8 +6,10 @@ module.exports = function (packagePath, sharePath) {
 
   return {
     copy: function (callback) {
-      xFs.mv (path.join (sharePath, 'cache/data/zlib-1.2.8/ChangeLog'),
-              path.join (sharePath, 'cache/data/zlib-1.2.8/ChangeLog.orig'));
+      try {
+        xFs.mv (path.join (sharePath, 'cache/data/zlib-1.2.8/ChangeLog'),
+                path.join (sharePath, 'cache/data/zlib-1.2.8/ChangeLog.orig'));
+      } catch (ex) {}
       callback ();
     }
   };
