@@ -35,7 +35,7 @@ module.exports = function (packagePath, sharePath) {
       xcraftInstall (function (err) {
         var nodeModules = path.join (sharePath, 'node_modules');
 
-        xFs.rm (nodeModules);
+        //xFs.rm (nodeModules);
         callback (err);
       });
     }
