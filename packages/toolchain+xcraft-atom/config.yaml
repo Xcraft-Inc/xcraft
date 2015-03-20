@@ -14,6 +14,7 @@ dependency:
 data:
   uri: "self:///root"
   type: bin
+  configure: "cp ('<PEON.XCRAFTHOME>/xdk/xcraft-atom', '<PEON.WPKGSTAG>/usr/share/toolchain/xcraft-atom');"
   rules:
     type: copy
     location: ""
