@@ -47,19 +47,20 @@ app.on ('ready', function () {
       process.exit(1);
     }
     console.log ('Connected to zog daemon!');
-
-    busClient.subscriptions.on ('message', function (topic, msg) {
-      var action;
-      if (msg) {
-        action = xUtils.topic2Action (topic);
-        var receivedEvent = {
-          name: action,
-          msg: msg
-        };
-        event.sender.send ('trigger-event', receivedEvent);
-      }
+    ipc.on ('subscribe-event', function (event, topic) {
+      busClient.subscriptions.on ('message', function (topic, msg) {
+        var action;
+        if (msg) {
+          action = xUtils.topic2Action (topic);
+          var receivedEvent = {
+            name: action,
+            msg: msg
+          };
+          event.sender.send ('trigger-event', receivedEvent);
+        }
+      });
     });
-
+    
     ipc.on ('send-cmd', function (event, command) {
       busClient.command.send (command);
     });
