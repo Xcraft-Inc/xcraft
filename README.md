@@ -116,9 +116,17 @@ The commands provided by the Zog shell depends directly of the xcraft packages
 which were installed. The Zog shell starts the Xcraft server, then it asks for
 the list of commands to the commands registry.
 
-### Lokthar shell
+## Goblin Environnement
 
-...
+Xcraft is shipped with pluggable front-end's running on the same infrastructure.
+The Goblin is able to display gagdet's for tweaking and playing with
+the toolchain under all platforms.
+
+## XDK (Xcraft Development Kit)
+
+The XDK pretend to help non-core developpers to extend Xcraft features.
+It's an early set of shell commands for generating UI gadgets and 
+high level 'contrib' modules.
 
 ## Advanced
 
