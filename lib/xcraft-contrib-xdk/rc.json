@@ -6,7 +6,7 @@
 		}
 	},
 	"build": {
-		"desc": "build a goblin gadget",
+		"desc": "build a goblin gadget in /home/xdk",
 		"options": {
 			"scope": "goblin",
 			"params": {
@@ -14,14 +14,8 @@
 			}
 		}
 	},
-	"install": {
-		"desc": "install goblin environnement",
-		"options": {
-			"scope": "goblin"
-		}
-	},
 	"craft": {
-		"desc": "craft a goblin gadget (by default in /home/xdk)",
+		"desc": "craft a goblin gadget in /home/xdk",
 		"options": {
 			"scope": "goblin",
 			"params": {
@@ -30,7 +24,13 @@
 		}
 	},
 	"digin": {
-		"desc": "Search for goblin gadgets (by default in /home/xdk)",
+		"desc": "Search for goblin gadgets in /home/xdk",
+		"options": {
+			"scope": "goblin"
+		}
+	},
+	"install": {
+		"desc": "install goblin environnement in devroot",
 		"options": {
 			"scope": "goblin"
 		}
