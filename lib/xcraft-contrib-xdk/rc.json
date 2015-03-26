@@ -1,47 +1,47 @@
 {
-	"test": {
-		"desc": "start /home/xdk dev goblin",
-		"options": {
-			"scope": "goblin"
-		}
-	},
-	"build": {
-		"desc": "build a goblin gadget in /home/xdk",
-		"options": {
-			"scope": "goblin",
-			"params": {
-				"required": "gadgetName"
-			}
-		}
-	},
-	"craft": {
-		"desc": "craft a goblin gadget in /home/xdk",
-		"options": {
-			"scope": "goblin",
-			"params": {
-				"required": "gadgetName"
-			}
-		}
-	},
-	"digin": {
-		"desc": "Search for goblin gadgets in /home/xdk",
-		"options": {
-			"scope": "goblin"
-		}
-	},
-	"install": {
-		"desc": "install goblin environnement in devroot",
-		"options": {
-			"scope": "goblin"
-		}
-	},
-	"run": {
-		"desc": "start goblin desktop",
-		"options": {
-			"scope": "goblin",
-			"params": {
-				"optional": "gadgetName"
-			}
-		}
-	}
+  "test": {
+    "desc": "start /home/xdk dev goblin",
+    "options": {
+      "scope": "goblin"
+    }
+  },
+  "build": {
+    "desc": "build a goblin gadget in /home/xdk",
+    "options": {
+      "scope": "goblin",
+      "params": {
+        "required": "gadgetName"
+      }
+    }
+  },
+  "craft": {
+    "desc": "craft a goblin gadget in /home/xdk",
+    "options": {
+      "scope": "goblin",
+      "params": {
+        "required": "gadgetName"
+      }
+    }
+  },
+  "digin": {
+    "desc": "Search for goblin gadgets in /home/xdk",
+    "options": {
+      "scope": "goblin"
+    }
+  },
+  "install": {
+    "desc": "install goblin environnement in devroot",
+    "options": {
+      "scope": "goblin"
+    }
+  },
+  "run": {
+    "desc": "start goblin desktop",
+    "options": {
+      "scope": "goblin",
+      "params": {
+        "optional": "gadgetName"
+      }
+    }
+  }
 }
