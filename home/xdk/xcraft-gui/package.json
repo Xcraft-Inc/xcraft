@@ -23,8 +23,8 @@
     "xcraft-materials": "0.1.0"
   },
   "scripts": {
-    "postinstall": "webpack --target atom -p --config webpack.prod.js",
-    "start": "webpack --watch --target atom --progress --colors -d --config webpack.xdk.js"
+    "postinstall": "webpack -p --progress --config webpack.prod.js",
+    "start": "webpack --watch --progress --colors -d --config webpack.xdk.js"
   },
   "author": "Samuel Loup",
   "license": "MIT"
