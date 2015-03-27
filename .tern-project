@@ -5,8 +5,7 @@
   ],
   "loadEagerly": [
     "./lib/**/*.js",
-    "./packages/**/*.js",
-    "./home/xdk/**/*.js"
+    "./packages/**/*.js"
   ],
   "plugins": {
     "complete_strings": {},
