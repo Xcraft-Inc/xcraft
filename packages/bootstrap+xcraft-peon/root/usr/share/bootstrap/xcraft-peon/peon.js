@@ -16,7 +16,7 @@ var Action = function (root, currentDir, binaryDir) {
      * destination unix arbo. /usr
      */
     var installDir = binaryDir.replace (/build$/, path.normalize ('install/runtime/usr'));
-    xPh.set ('INSTALLDIR', installDir);
+    xPh.global.set ('INSTALLDIR', installDir);
   }
 
   var peonRun = function (extra) {
