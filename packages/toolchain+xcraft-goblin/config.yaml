@@ -9,10 +9,11 @@ description:
   brief: Xcraft Desktop Manager
   long: "Manage your workspace, and run funny crafted gadget'apps!"
 dependency:
-  toolchain+xcraft-atom:
-    - ""
-  bootstrap+xcraft-peon:
-    - ""
+  runtime:
+    toolchain+xcraft-atom:
+      - ""
+    bootstrap+xcraft-peon:
+      - ""
 data:
   uri: "self:///root"
   type: bin

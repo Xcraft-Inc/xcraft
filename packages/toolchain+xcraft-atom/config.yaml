@@ -9,8 +9,9 @@ description:
   brief: Xcraft atom-shell runtime
   long: "Needed for graphical interfaces"
 dependency:
-  bootstrap+xcraft-peon:
-    - ""
+  runtime:
+    bootstrap+xcraft-peon:
+      - ""
 data:
   uri: "self:///root"
   type: bin

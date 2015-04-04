@@ -19,7 +19,8 @@ architectureHost:
 description:
   brief: A Massively Spiffy Yet Delicately Unobtrusive Compression Library
   long: ""
-dependency: {}
+dependency:
+  runtime: {}
 data:
   uri: "http://downloads.sourceforge.net/project/libpng/zlib/1.2.8/zlib-1.2.8.tar.gz?r=&use_mirror=heanet"
   type: src

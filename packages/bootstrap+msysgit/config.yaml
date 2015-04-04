@@ -10,8 +10,9 @@ description:
   brief: Git is a free and open source distributed version control system.
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 dependency:
-  bootstrap+xcraft-peon:
-    - ""
+  runtime:
+    bootstrap+xcraft-peon:
+      - ""
 data:
   uri: "https://wpkg.epsitec.ch/resources/portablegit-1.9.5-preview20141217.tar.gz"
   type: bin

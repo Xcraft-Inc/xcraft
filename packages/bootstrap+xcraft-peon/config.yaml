@@ -8,7 +8,8 @@ architecture:
 description:
   brief: A core dependency for many packages.
   long: ""
-dependency: {}
+dependency:
+  runtime: {}
 data:
   uri: "self:///root"
   type: bin

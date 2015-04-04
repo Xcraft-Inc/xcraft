@@ -9,10 +9,11 @@ description:
   brief: Xcraft GUI
   long: "Manage and edit Xcraft packages and settings"
 dependency:
-  toolchain+xcraft-goblin:
-    - ""
-  bootstrap+xcraft-peon:
-    - ""
+  runtime:
+    toolchain+xcraft-goblin:
+      - ""
+    bootstrap+xcraft-peon:
+      - ""
 data:
   uri: "self:///root"
   type: bin
