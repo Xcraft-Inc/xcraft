@@ -13,11 +13,13 @@ dependency:
 data:
   uri: "self:///root"
   type: bin
+  configure: ""
   rules:
     type: copy
     location: ""
     args:
       postinst: ""
       prerm: ""
+  path: []
   embedded: true
 distribution: toolchain/

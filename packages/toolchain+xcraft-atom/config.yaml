@@ -7,7 +7,7 @@ architecture:
   - all
 description:
   brief: Xcraft atom-shell runtime
-  long: "Needed for graphical interfaces"
+  long: Needed for graphical interfaces
 dependency:
   runtime:
     bootstrap+xcraft-peon:
@@ -22,5 +22,6 @@ data:
     args:
       postinst: ""
       prerm: ""
+  path: []
   embedded: true
 distribution: toolchain/

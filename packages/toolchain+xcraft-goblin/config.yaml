@@ -24,5 +24,6 @@ data:
     args:
       postinst: ""
       prerm: ""
+  path: []
   embedded: true
 distribution: toolchain/

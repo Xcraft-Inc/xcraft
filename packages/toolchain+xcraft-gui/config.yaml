@@ -7,7 +7,7 @@ architecture:
   - all
 description:
   brief: Xcraft GUI
-  long: "Manage and edit Xcraft packages and settings"
+  long: Manage and edit Xcraft packages and settings
 dependency:
   runtime:
     toolchain+xcraft-goblin:
@@ -24,5 +24,6 @@ data:
     args:
       postinst: ""
       prerm: ""
+  path: []
   embedded: true
 distribution: toolchain/

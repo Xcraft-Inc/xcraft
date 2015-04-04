@@ -16,11 +16,13 @@ dependency:
 data:
   uri: "chest:vs2013_rtm_dskexp_enu.tar.gz"
   type: bin
+  configure: ""
   rules:
     type: exec
     location: data/VS2013_RTM_DskExp_ENU/wdexpress_full.exe
     args:
       postinst: /Passive /NoRestart /NoWeb /Full
       prerm: /Passive /NoRestart /NoWeb /Uninstall
+  path: []
   embedded: true
 distribution: toolchain/
