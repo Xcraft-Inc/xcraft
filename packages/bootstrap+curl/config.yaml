@@ -23,6 +23,9 @@ dependency:
   runtime:
     bootstrap+zlib:
       - ""
+  build:
+    bootstrap+xcraft-peon:
+      - ""
 data:
   uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
   type: src
