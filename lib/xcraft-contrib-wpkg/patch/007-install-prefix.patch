@@ -1,0 +1,30 @@
+--- a/wpkg/libdebpackages/wpkgar_build.cpp	2015-04-06 14:10:01.288186323 +0200
++++ b/wpkg/libdebpackages/wpkgar_build.cpp	2015-04-06 15:50:54.110215576 +0200
+@@ -2841,6 +2841,11 @@
+                     cmd += f_manager->get_database_path().full_path();
+                     cmd += " --build ";
+                     cmd += sources[i]->f_filename.full_path();
++                    if(!f_install_prefix.empty())
++                    {
++                      cmd += " --install-prefix ";
++                      cmd += wpkg_util::make_safe_console_string(f_install_prefix.original_filename());
++                    }
+                     cmd += " --output-repository-dir ";
+                     bool add_to_repository_list(false);
+                     if(f_output_repository_dir.empty())
+--- a/wpkg/tools/wpkg.cpp	2015-04-06 14:10:01.320187348 +0200
++++ b/wpkg/tools/wpkg.cpp	2015-04-06 16:13:37.657927135 +0200
+@@ -4183,6 +4183,14 @@
+                 }
+                 need_lock = true;
+             }
++            else if(filename.is_dir())
++            {
++              // if compiling a source repository
++              if(cl.opt().is_defined("install-prefix"))
++              {
++                  pkg_build->set_install_prefix(cl.opt().get_string("install-prefix"));
++              }
++            }
+         }
+     }
