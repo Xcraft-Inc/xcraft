@@ -27,12 +27,12 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "http://curl.haxx.se/download/curl-7.40.0.tar.gz"
+  uri: "http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz"
   type: src
-  configure: "!cd data/curl-7.40.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: "!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>"
   rules:
     type: make
-    location: data/curl-7.40.0/
+    location: data/curl-<THIS.VERSION>/
     args:
       postinst: ""
       prerm: ""

@@ -24,12 +24,12 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "http://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz?r=&use_mirror=heanet"
+  uri: "http://downloads.sourceforge.net/project/expat/expat/<THIS.VERSION>/expat-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet"
   type: src
-  configure: "!cd data/expat-2.1.0/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: "!cd data/expat-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>"
   rules:
     type: make
-    location: data/expat-2.1.0/
+    location: data/expat-<THIS.VERSION>/
     args:
       postinst: ""
       prerm: ""
