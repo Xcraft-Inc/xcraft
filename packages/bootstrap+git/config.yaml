@@ -31,7 +31,9 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz"
+  get:
+    uri: "https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz"
+    out: ""
   type: src
   configure: ""
   rules:

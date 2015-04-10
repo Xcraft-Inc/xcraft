@@ -14,7 +14,9 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "chest:vs2013_rtm_dskexp_enu.tar.gz"
+  get:
+    uri: "chest:vs2013_rtm_dskexp_enu.tar.gz"
+    out: ""
   type: bin
   configure: ""
   rules:

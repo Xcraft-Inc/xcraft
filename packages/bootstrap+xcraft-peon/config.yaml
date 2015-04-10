@@ -10,7 +10,8 @@ description:
   long: ""
 dependency: {}
 data:
-  uri: "self:///root"
+  get:
+    uri: "self:///root"
   type: bin
   configure: ""
   rules:

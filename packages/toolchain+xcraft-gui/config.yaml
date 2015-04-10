@@ -15,7 +15,8 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "self:///root"
+  get:
+    uri: "self:///root"
   type: bin
   configure: "cp ('<PEON.XCRAFTHOME>/xdk/xcraft-gui', '<PEON.WPKGSTAG>/usr/share/toolchain/xcraft-gui');"
   rules:

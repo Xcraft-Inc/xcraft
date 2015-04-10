@@ -14,7 +14,9 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "http://www.7-zip.org/a/7za920.zip"
+  get:
+    uri: "http://www.7-zip.org/a/7za920.zip"
+    out: ""
   type: bin
   configure: "mv ('data/7za.exe', 'root/usr/bin/7za.exe');"
   rules:

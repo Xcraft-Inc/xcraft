@@ -14,7 +14,9 @@ dependency:
     bootstrap+xcraft-peon:
       - ""
 data:
-  uri: "https://wpkg.epsitec.ch/resources/portablegit-<THIS.VERSION>.tar.gz"
+  get:
+    uri: "https://wpkg.epsitec.ch/resources/portablegit-<THIS.VERSION>.tar.gz"
+    out: ""
   type: bin
   configure: "mv ('data', 'root/opt/msysgit');"
   rules:
