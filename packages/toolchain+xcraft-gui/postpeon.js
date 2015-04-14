@@ -9,7 +9,7 @@ module.exports = function (packagePath, sharePath) {
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process') ('xlog', {mod: packageName});
+    var xProcess  = require ('xcraft-core-process') ({logger: 'xlog', mod: packageName});
 
     xLog.info ('postpeon for xcraft-gui');
 
