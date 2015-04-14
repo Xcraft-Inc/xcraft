@@ -8,7 +8,7 @@ module.exports = function (packagePath, sharePath) {
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process');
+    var xProcess  = require ('xcraft-core-process') ('xlog', {mod: packageName});
 
     /* prefix to /usr/share */
     var nodeModules = sharePath;
@@ -25,10 +25,6 @@ module.exports = function (packagePath, sharePath) {
 
     xProcess.spawn (xcraft, args, {}, function (err) {
       callback (err);
-    }, function (line) {
-      xLog.verb (line);
-    }, function (line) {
-      xLog.err (line);
     });
   };
 
