@@ -18,7 +18,7 @@ data:
   get:
     uri: "self:///root"
   type: bin
-  configure: "cp ('<PEON.XCRAFTHOME>/xdk/xcraft-goblin', '<PEON.WPKGSTAG>/usr/share/toolchain/xcraft-goblin');"
+  configure: "cp ('<PEON.XCRAFT.HOME>/xdk/xcraft-goblin', '<PEON.WPKG.STAG>/usr/share/toolchain/xcraft-goblin');"
   rules:
     type: copy
     location: ""
