@@ -25,6 +25,7 @@ data:
     args:
       postinst: /Q /S /Passive /NoRestart /NoWeb /Full
       prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
-  path: []
+  path:
+    - "<OS.PROGRAMFILES.32>/MSBuild/<THIS.VERSION>.0/Bin"
   embedded: true
 distribution: toolchain/
