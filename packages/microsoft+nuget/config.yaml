@@ -1,0 +1,29 @@
+name: microsoft+nuget
+version: 2.8.5
+maintainer:
+  name: Mathieu Schroeter
+  email: "schroeter@epsitec.ch"
+architecture:
+  - all
+description:
+  brief: Package manager for the Microsoft development platform including .NET.
+  long: The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.
+dependency:
+  runtime:
+    bootstrap+xcraft-peon:
+      - ""
+data:
+  get:
+    uri: "https://nuget.org/nuget.exe"
+    out: ""
+  type: bin
+  configure: "mv ('nuget.exe', 'root/usr/bin/nuget.exe');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ""
+      prerm: ""
+  path: []
+  embedded: true
+distribution: toolchain/
