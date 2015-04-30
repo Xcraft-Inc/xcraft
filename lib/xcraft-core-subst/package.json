@@ -1,22 +1,25 @@
 {
-  "name": "xcraft-core-platform",
+  "name": "xcraft-core-subst",
   "version": "0.1.0",
-  "description": "Xcraft cross-platform helpers",
+  "description": "Xcraft win-subst helpers",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "xcraft",
-    "helpers",
-    "platform"
+    "subst",
+    "win"
   ],
   "repository" : {
     "type" : "file",
-    "url" : "lib/xcraft-core-platform"
+    "url" : "lib/xcraft-core-subst"
   },
   "author": "Mathieu Schroeter",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "xcraft-core-platform": "0.1.0",
+    "xcraft-core-process": "0.1.0"
+  },
   "devDependencies": {}
 }
