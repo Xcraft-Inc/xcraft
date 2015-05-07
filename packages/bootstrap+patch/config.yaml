@@ -1,0 +1,30 @@
+name: bootstrap+patch
+version: 2.5.9-7
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Apply a diff file to an original.
+  long: '`patch` takes a patch file containing a difference listing produced by diff and applies those differences to one or more original files, producing patched versions.'
+dependency:
+  runtime:
+    bootstrap+xcraft-peon:
+      - ''
+data:
+  get:
+    uri: 'https://wpkg.epsitec.ch/resources/patch-<THIS.VERSION>-bin.tar.gz'
+    out: ''
+  type: bin
+  configure: "mv ('data', 'root/usr');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  path: []
+  embedded: true
+distribution: toolchain/
