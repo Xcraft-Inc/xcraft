@@ -1,0 +1,14 @@
+{
+  "start": {
+    "desc": "start the gitlab runner"
+  },
+  "stop": {
+    "desc": "stop the gitlab runner"
+  },
+  "restart": {
+    "desc": "restart the gitlab runner"
+  },
+  "register": {
+    "desc": "register your gitlab runner"
+  }
+}
