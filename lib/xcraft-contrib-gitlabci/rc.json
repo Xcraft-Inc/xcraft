@@ -25,5 +25,13 @@
         "required": "token"
       }
     }
+  },
+  "delete": {
+    "desc": "delete and unregister a gitlab runner",
+    "options": {
+      "params": {
+        "required": "id"
+      }
+    }
   }
 }
