@@ -6,7 +6,7 @@
     "desc": "start a gitlab-ci runner",
     "options": {
       "params": {
-        "required": "token"
+        "required": "id"
       }
     }
   },
@@ -14,7 +14,7 @@
     "desc": "stop a gitlab-ci runner",
     "options": {
       "params": {
-        "required": "token"
+        "required": "id"
       }
     }
   },
