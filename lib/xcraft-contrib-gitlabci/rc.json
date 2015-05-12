@@ -1,14 +1,29 @@
 {
+  "list": {
+    "desc": "display available runners"
+  },
   "start": {
-    "desc": "start the gitlab runner"
+    "desc": "start a gitlab-ci runner",
+    "options": {
+      "params": {
+        "required": "token"
+      }
+    }
   },
   "stop": {
-    "desc": "stop the gitlab runner"
+    "desc": "stop a gitlab-ci runner",
+    "options": {
+      "params": {
+        "required": "token"
+      }
+    }
   },
-  "restart": {
-    "desc": "restart the gitlab runner"
-  },
-  "register": {
-    "desc": "register your gitlab runner"
+  "create": {
+    "desc": "create and register a new gitlab runner",
+    "options": {
+      "params": {
+        "required": "token"
+      }
+    }
   }
 }
