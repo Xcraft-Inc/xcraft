@@ -1,0 +1,37 @@
+{
+  "list": {
+    "desc": "display available runners"
+  },
+  "start": {
+    "desc": "start a gitlab-ci runner",
+    "options": {
+      "params": {
+        "required": "id"
+      }
+    }
+  },
+  "stop": {
+    "desc": "stop a gitlab-ci runner",
+    "options": {
+      "params": {
+        "required": "id"
+      }
+    }
+  },
+  "create": {
+    "desc": "create and register a new gitlab runner",
+    "options": {
+      "params": {
+        "required": "token"
+      }
+    }
+  },
+  "delete": {
+    "desc": "delete and unregister a gitlab runner",
+    "options": {
+      "params": {
+        "required": "id"
+      }
+    }
+  }
+}
