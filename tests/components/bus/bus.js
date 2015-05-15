@@ -5,7 +5,7 @@ var moduleName = 'test';
 var xLog    = require ('xcraft-core-log') (moduleName);
 var zogBoot = require ('../../../scripts/zogBoot.js');
 
-var busClient    = require ('xcraft-core-busclient');
+var busClient    = require ('xcraft-core-busclient').global;
 
 var mainShutdown = function () {
   busClient.stop (function (done) { /* jshint ignore:line */

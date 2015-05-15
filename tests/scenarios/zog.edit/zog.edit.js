@@ -9,7 +9,7 @@ var zogConfig = require ('../../../scripts/zogConfig.js') ();
 var zogBoot   = require ('../../../scripts/zogBoot.js');
 
 var xLog      = require ('xcraft-core-log') (moduleName);
-var busClient = require ('xcraft-core-busclient');
+var busClient = require ('xcraft-core-busclient').global;
 
 var pkgWizard = require (zogConfig.libPkgWizard);
 pkgWizard.initConfig (zogConfig);

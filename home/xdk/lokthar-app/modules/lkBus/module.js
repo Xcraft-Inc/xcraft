@@ -3,7 +3,7 @@
 //
 var mod           = angular.module('lk-bus', []);
 var remote        = require('remote');
-var busClient     = remote.require ('xcraft-core-busclient');
+var busClient     = remote.require ('xcraft-core-busclient').global;
 
 mod.factory ('busClient', function () {
   return busClient;
