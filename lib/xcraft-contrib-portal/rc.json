@@ -1,0 +1,26 @@
+{
+  "open": {
+    "desc": "open the portal",
+    "options": {
+      "scope": "portal",
+      "params": {
+        "required": "server"
+      }
+    }
+  },
+  "close": {
+    "desc": "close the portal",
+    "options": {
+      "scope": "portal"
+    }
+  },
+  "send": {
+    "desc": "send a command in the portal",
+    "options": {
+      "scope": "portal",
+      "params": {
+        "required": "command"
+      }
+    }
+  }
+}
