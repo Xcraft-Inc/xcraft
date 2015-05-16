@@ -45,7 +45,7 @@ app.on ('ready', function () {
     }
     console.log ('Connected to zog daemon!');
 
-    busClient.subscriptions.on ('message', function (topic, msg) {
+    busClient.events.catchAll (function (topic, msg) {
       var action;
       if (msg) {
         topic = topic.replace (/[^:]*::/, '');
