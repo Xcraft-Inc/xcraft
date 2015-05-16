@@ -4,7 +4,6 @@
   "description": "Xcraft gitlab-ci runner",
   "main": "./ci.runners.js",
   "dependencies": {
-    "argsplit": "0.0.1",
     "request": "^2.53.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
