@@ -1,3 +1,4 @@
-# xcraft-contrib-glrunner
+# xcraft-contrib-gitlabci
 
-Forked from awesome (gcr)[https://github.com/evanlucas/gcr]
+Forked from awesome (gcr)[https://github.com/evanlucas/gcr] and heavily
+modified.
