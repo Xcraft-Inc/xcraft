@@ -4,19 +4,12 @@
   "description": "Xcraft gitlab-ci runner",
   "main": "./ci.runners.js",
   "dependencies": {
+    "argsplit": "0.0.1",
+    "request": "^2.53.0",
     "xcraft-core-busclient": "0.1.0",
-    "xcraft-core-log": "0.1.0",
     "xcraft-core-etc": "0.1.0",
     "xcraft-core-fs": "0.1.0",
-    "argsplit": "~0.0.1",
-    "help": "~2.0.0",
-    "mkdirp": "~0.3.5",
-    "nconf": "~0.6.9",
-    "nopt": "~2.2.0",
-    "request": "~2.53.0",
-    "rimraf": "~2.2.6",
-    "slide": "~1.1.5",
-    "which": "~1.0.5"
+    "xcraft-core-log": "0.1.0"
   },
   "repository": {
     "type": "file",
