@@ -21,8 +21,9 @@
   "create": {
     "desc": "create and register a new gitlab runner",
     "options": {
+      "wizard": true,
       "params": {
-        "required": "token"
+        "optional": "token"
       }
     }
   },
