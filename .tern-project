@@ -4,8 +4,8 @@
     "ecma6"
   ],
   "loadEagerly": [
-    "./lib/**/*.js",
-    "./packages/**/*.js"
+    "lib/**/*.js",
+    "packages/**/*.js"
   ],
   "plugins": {
     "complete_strings": {},
