@@ -20,7 +20,7 @@ description:
   brief: curl
   long: ""
 dependency:
-  runtime:
+  install:
     bootstrap+zlib:
       - ""
   build:

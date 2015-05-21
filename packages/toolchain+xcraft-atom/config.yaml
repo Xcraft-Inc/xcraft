@@ -9,7 +9,7 @@ description:
   brief: Xcraft atom-shell runtime
   long: Needed for graphical interfaces
 dependency:
-  runtime:
+  install:
     bootstrap+xcraft-peon:
       - ""
 data:

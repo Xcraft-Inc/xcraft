@@ -10,7 +10,7 @@ description:
   brief: Microsoft Build Tools.
   long: Build Tools 2013 provides the essential tools for building managed applications.
 dependency:
-  runtime:
+  install:
     bootstrap+xcraft-peon:
       - ""
 data:

@@ -9,7 +9,7 @@ description:
   brief: Xcraft Desktop Manager
   long: "Manage your workspace, and run funny crafted gadget'apps!"
 dependency:
-  runtime:
+  install:
     toolchain+xcraft-atom:
       - ""
     bootstrap+xcraft-peon:

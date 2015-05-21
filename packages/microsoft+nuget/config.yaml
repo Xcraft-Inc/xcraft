@@ -9,7 +9,7 @@ description:
   brief: Package manager for the Microsoft development platform including .NET.
   long: The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.
 dependency:
-  runtime:
+  install:
     bootstrap+xcraft-peon:
       - ""
 data:

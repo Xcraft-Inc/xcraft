@@ -10,7 +10,7 @@ description:
   brief: Apply a diff file to an original.
   long: '`patch` takes a patch file containing a difference listing produced by diff and applies those differences to one or more original files, producing patched versions.'
 dependency:
-  runtime:
+  install:
     bootstrap+xcraft-peon:
       - ''
 data:

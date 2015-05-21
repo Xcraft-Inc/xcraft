@@ -9,7 +9,7 @@ description:
   brief: Xcraft GUI
   long: Manage and edit Xcraft packages and settings
 dependency:
-  runtime:
+  install:
     toolchain+xcraft-goblin:
       - ""
     bootstrap+xcraft-peon:
