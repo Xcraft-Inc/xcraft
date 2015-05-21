@@ -1,8 +1,9 @@
 name: microsoft+nuget
 version: 2.8.5
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - all
 description:
@@ -11,19 +12,18 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "https://nuget.org/nuget.exe"
-    out: ""
+    uri: 'https://nuget.org/nuget.exe'
+    out: ''
   type: bin
   configure: "mv ('nuget.exe', 'root/usr/bin/nuget.exe');"
   rules:
     type: move
     location: root
     args:
-      postinst: ""
-      prerm: ""
+      postinst: ''
+      prerm: ''
   path: []
   embedded: true
-distribution: toolchain/

@@ -1,30 +1,30 @@
 name: bootstrap+7z
-version: "9.20"
+version: '9.20'
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
   brief: 7-Zip is a file archiver with a high compression ratio.
-  long: ""
+  long: ''
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "http://www.7-zip.org/a/7za920.zip"
-    out: ""
+    uri: 'http://www.7-zip.org/a/7za920.zip'
+    out: ''
   type: bin
   configure: "mv ('data/7za.exe', 'root/usr/bin/7za.exe');"
   rules:
     type: move
     location: root
     args:
-      postinst: ""
-      prerm: ""
+      postinst: ''
+      prerm: ''
   path: []
   embedded: true
-distribution: toolchain/

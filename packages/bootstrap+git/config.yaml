@@ -1,10 +1,11 @@
 subpackage:
-  - "runtime*"
+  - 'runtime*'
 name: bootstrap+git
 version: 2.3.0
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - source
 architectureHost:
@@ -22,27 +23,26 @@ description:
 dependency:
   install:
     bootstrap+curl:
-      - ""
+      - ''
     bootstrap+zlib:
-      - ""
+      - ''
     bootstrap+expat:
-      - ""
+      - ''
   build:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz"
-    out: ""
+    uri: 'https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz'
+    out: ''
   type: src
-  configure: ""
+  configure: ''
   rules:
     type: make
-    location: data/git-<THIS.VERSION>/
+    location: 'data/git-<THIS.VERSION>/'
     args:
-      postinst: ""
-      prerm: ""
-      makeall: "prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes"
+      postinst: ''
+      prerm: ''
+      makeall: 'prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes'
   path: []
   embedded: true
-distribution: toolchain/

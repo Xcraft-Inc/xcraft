@@ -1,10 +1,11 @@
 subpackage:
-  - "runtime*"
+  - 'runtime*'
 name: bootstrap+expat
 version: 2.1.0
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - source
 architectureHost:
@@ -22,20 +23,19 @@ description:
 dependency:
   build:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "http://downloads.sourceforge.net/project/expat/expat/<THIS.VERSION>/expat-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet"
-    out: ""
+    uri: 'http://downloads.sourceforge.net/project/expat/expat/<THIS.VERSION>/expat-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
+    out: ''
   type: src
-  configure: "!cd data/expat-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: '!cd data/expat-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
   rules:
     type: make
-    location: data/expat-<THIS.VERSION>/
+    location: 'data/expat-<THIS.VERSION>/'
     args:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   path: []
   embedded: true
-distribution: toolchain/

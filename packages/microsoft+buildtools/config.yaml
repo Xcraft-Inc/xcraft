@@ -1,8 +1,9 @@
 name: microsoft+buildtools
-version: "12"
+version: '12'
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - mswindows-i386
   - mswindows-amd64
@@ -12,13 +13,13 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "http://download.microsoft.com/download/9/B/B/9BB1309E-1A8F-4A47-A6C5-ECF76672A3B3/BuildTools_Full.exe"
-    out: ""
+    uri: 'http://download.microsoft.com/download/9/B/B/9BB1309E-1A8F-4A47-A6C5-ECF76672A3B3/BuildTools_Full.exe'
+    out: ''
   type: bin
-  configure: ""
+  configure: ''
   rules:
     type: exec
     location: BuildTools_Full.exe
@@ -26,6 +27,5 @@ data:
       postinst: /Q /S /Passive /NoRestart /NoWeb /Full
       prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
   path:
-    - "<OS.PROGRAMFILES.32>/MSBuild/<THIS.VERSION>.0/Bin"
+    - '<OS.PROGRAMFILES.32>/MSBuild/<THIS.VERSION>.0/Bin'
   embedded: true
-distribution: toolchain/

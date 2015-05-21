@@ -1,8 +1,9 @@
 name: bootstrap+msysgit
 version: 1.9.5-preview20141217
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - mswindows-i386
   - mswindows-amd64
@@ -12,20 +13,19 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "https://wpkg.epsitec.ch/resources/portablegit-<THIS.VERSION>.tar.gz"
-    out: ""
+    uri: 'https://wpkg.epsitec.ch/resources/portablegit-<THIS.VERSION>.tar.gz'
+    out: ''
   type: bin
   configure: "mv ('data', 'root/opt/msysgit');"
   rules:
     type: move
     location: root
     args:
-      postinst: ""
-      prerm: ""
+      postinst: ''
+      prerm: ''
   path:
     - opt/msysgit/cmd
   embedded: true
-distribution: toolchain/

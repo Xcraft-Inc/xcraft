@@ -1,10 +1,11 @@
 subpackage:
-  - "runtime*"
+  - 'runtime*'
 name: bootstrap+curl
 version: 7.40.0
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - source
 architectureHost:
@@ -18,27 +19,26 @@ architectureHost:
   - freebsd-amd64
 description:
   brief: curl
-  long: ""
+  long: ''
 dependency:
   install:
     bootstrap+zlib:
-      - ""
+      - ''
   build:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz"
-    out: ""
+    uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'
+    out: ''
   type: src
-  configure: "!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: '!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
   rules:
     type: make
-    location: data/curl-<THIS.VERSION>/
+    location: 'data/curl-<THIS.VERSION>/'
     args:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   path: []
   embedded: true
-distribution: toolchain/

@@ -1,26 +1,26 @@
 name: bootstrap+xcraft-peon
 version: 0.1.0
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - all
 description:
   brief: A core dependency for many packages.
-  long: ""
+  long: ''
 dependency: {}
 data:
   get:
-    uri: "self:///root"
-    out: ""
+    uri: 'self:///root'
+    out: ''
   type: bin
-  configure: ""
+  configure: ''
   rules:
     type: copy
-    location: ""
+    location: ''
     args:
-      postinst: ""
-      prerm: ""
+      postinst: ''
+      prerm: ''
   path: []
   embedded: true
-distribution: toolchain/

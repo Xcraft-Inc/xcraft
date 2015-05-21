@@ -1,8 +1,9 @@
 name: toolchain+xcraft-gui
 version: 0.1.0
+distribution: toolchain/
 maintainer:
   name: Samuel Loup
-  email: "loup@epsitec.ch"
+  email: loup@epsitec.ch
 architecture:
   - all
 description:
@@ -11,20 +12,20 @@ description:
 dependency:
   install:
     toolchain+xcraft-goblin:
-      - ""
+      - ''
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "self:///root"
+    uri: 'self:///root'
+    out: ''
   type: bin
   configure: "cp ('<PEON.XCRAFT.HOME>/xdk/xcraft-gui', '<PEON.WPKG.STAG>/usr/share/toolchain/xcraft-gui');"
   rules:
     type: copy
-    location: ""
+    location: ''
     args:
-      postinst: ""
-      prerm: ""
+      postinst: ''
+      prerm: ''
   path: []
   embedded: true
-distribution: toolchain/

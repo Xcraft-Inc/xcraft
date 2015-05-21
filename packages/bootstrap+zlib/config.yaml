@@ -1,10 +1,11 @@
 subpackage:
-  - "runtime*"
+  - 'runtime*'
 name: bootstrap+zlib
 version: 1.2.8
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: schroeter@epsitec.ch
 architecture:
   - source
 architectureHost:
@@ -18,24 +19,23 @@ architectureHost:
   - freebsd-amd64
 description:
   brief: A Massively Spiffy Yet Delicately Unobtrusive Compression Library
-  long: ""
+  long: ''
 dependency:
   build:
     bootstrap+xcraft-peon:
-      - ""
+      - ''
 data:
   get:
-    uri: "http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet"
-    out: ""
+    uri: 'http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
+    out: ''
   type: src
-  configure: "!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>"
+  configure: '!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
   rules:
     type: make
-    location: data/zlib-<THIS.VERSION>/
+    location: 'data/zlib-<THIS.VERSION>/'
     args:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   path: []
   embedded: true
-distribution: toolchain/
