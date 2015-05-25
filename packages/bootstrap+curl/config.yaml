@@ -39,6 +39,6 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
   path: []
   embedded: true
