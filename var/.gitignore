@@ -2,5 +2,6 @@
 /devroot
 /unpm
 /wpkg
-/xcraft-core-eventstore
 /xcraft-contrib-gitlabci
+/xcraft-contrib-pacman
+/xcraft-core-eventstore
