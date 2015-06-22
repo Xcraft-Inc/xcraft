@@ -62,6 +62,7 @@ var Action = function (root, currentDir, binaryDir) {
 
     makeall: function () {
       extra.args = config.rules.args.makeall;
+      extra.deploy = config.deploy;
 
       patchApply (function () {
         peonRun (extra);
