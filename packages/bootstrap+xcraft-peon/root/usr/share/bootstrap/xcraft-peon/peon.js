@@ -1,6 +1,11 @@
 'use strict';
 
+var moduleName = 'peon';
+
 var path = require ('path');
+
+var xLog = require ('xcraft-core-log') (moduleName);
+
 
 var Action = function (root, currentDir, binaryDir) {
   var fs   = require ('fs');
@@ -29,12 +34,12 @@ var Action = function (root, currentDir, binaryDir) {
   };
 
   var peonRun = function (extra) {
-    console.log ('command: %s %s', extra.location, extra.args);
+    xLog.verb ('Command: %s %s', extra.location, extra.args);
 
     xPeon[config.type][config.rules.type] (config.get, root, currentDir, extra, function (err) {
       if (err) {
-        console.error (err);
-        console.error ('can not %s %s', config.rules.type, config.type);
+        xLog.err (err);
+        xLog.err ('Can not %s %s', config.rules.type, config.type);
         process.exit (1);
       }
     });
@@ -78,6 +83,6 @@ if (process.argv.length >= 4) {
   var prefix = process.argv[5];
   var main = new Action (root, share, prefix);
 
-  console.log ('run the action: ' + action);
+  xLog.verb ('run the action: ' + action);
   main[action] ();
 }

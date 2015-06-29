@@ -19,8 +19,9 @@ module.exports = function (packagePath, sharePath) {
     var args = [
       '--modprefix', nodeModules,
       'install',
-      'xcraft-core-devel',
       'xcraft-contrib-peon',
+      'xcraft-core-devel',
+      'xcraft-core-log',
       'xcraft-core-placeholder'
     ];
 
