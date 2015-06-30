@@ -6,8 +6,6 @@ module.exports = function (packagePath, sharePath) {
 
   var xLog = require ('xcraft-core-log') (packageName);
 
-  require ('xcraft-core-buslog') (xLog);
-
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
     var xProcess  = require ('xcraft-core-process') ({logger: 'xlog', mod: packageName});
