@@ -3,7 +3,7 @@
 var app           = require ('app');
 var ipc           = require ('ipc');
 var BrowserWindow = require ('browser-window');
-var busClient     = require ('xcraft-core-busclient').global;
+var busClient     = require ('xcraft-core-busclient').getGlobal ();
 
 // Report crashes to our server.
 require('crash-reporter').start();
