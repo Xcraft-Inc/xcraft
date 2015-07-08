@@ -49,7 +49,7 @@ app.on ('ready', function () {
       var action;
       if (msg) {
         topic = topic.replace (/[^:]*::/, '');
-        action = xUtils.topic2Action (topic);
+        action = xUtils.string.camelcasify (topic);
         var receivedEvent = {
           name: action,
           msg: msg
