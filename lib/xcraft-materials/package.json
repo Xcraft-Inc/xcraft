@@ -4,6 +4,7 @@
   "description": "Xcraft Components",
   "main": "xcraft-materials.js",
   "dependencies": {
+    "ansi-regex": "^2.0.0",
     "bootstrap-material": "^0.1.5",
     "cli-color": "^1.0.0",
     "figlet": "^1.1.0",
