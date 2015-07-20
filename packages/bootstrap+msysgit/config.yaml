@@ -16,7 +16,7 @@ dependency:
       - ''
 data:
   get:
-    uri: 'https://wpkg.epsitec.ch/resources/portablegit-<THIS.VERSION>.tar.gz'
+    uri: 'chest:portablegit-<THIS.VERSION>.tar.gz'
     out: ''
   type: bin
   configure: "mv ('data', 'root/opt/msysgit');"

@@ -16,7 +16,7 @@ dependency:
       - ''
 data:
   get:
-    uri: 'https://wpkg.epsitec.ch/resources/patch-<THIS.VERSION>-bin.tar.gz'
+    uri: 'chest:patch-<THIS.VERSION>-bin.tar.gz'
     out: ''
   type: bin
   configure: "mv ('data', 'root/usr');"
