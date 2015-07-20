@@ -1,4 +1,4 @@
-name: microsoft+portablelibrary.vs2013-4
+name: microsoft+portablelibrary-vs
 version: '2013.4'
 distribution: toolchain/
 maintainer:
