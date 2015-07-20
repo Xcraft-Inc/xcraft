@@ -1,0 +1,31 @@
+name: microsoft+portablelibrary.vs2013-4
+version: '2013.4'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Microsoft Portable Library Multi-Targeting Pack
+  long: ''
+dependency:
+  install:
+    bootstrap+xcraft-peon:
+      - ''
+data:
+  get:
+    uri: 'chest:portablelibrary-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/PortableLibrary_DTP.msi
+    args:
+      postinst: /quiet /passive /norestart
+      prerm: /quiet /passive /norestart /uninstall
+  path: []
+  embedded: true
