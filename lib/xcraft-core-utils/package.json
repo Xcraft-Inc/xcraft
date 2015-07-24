@@ -18,6 +18,8 @@
   "author": "Mathieu Schroeter",
   "license": "MIT",
   "dependencies": {
+    "ansi-regex": "^2.0.0",
+    "cli-color": "^1.0.0",
     "js-yaml": "^3.2.7"
   },
   "devDependencies": {}
