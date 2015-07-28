@@ -4,8 +4,8 @@
   "description": "Xcraft gitlab-ci runner",
   "main": "./ci.runners.js",
   "dependencies": {
-    "async": "^1.2.1",
-    "request": "^2.53.0",
+    "async": "^1.4.0",
+    "request": "^2.60.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
     "xcraft-core-fs": "0.1.0",

@@ -15,7 +15,7 @@
     "url": "lib/xcraft-contrib-wpkg"
   },
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^1.4.0",
     "xcraft-contrib-cmake": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-devel": "0.1.0",

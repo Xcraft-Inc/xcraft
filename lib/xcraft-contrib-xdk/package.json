@@ -4,7 +4,7 @@
   "description": "Xcraft Dev Kit",
   "main": "xdk.goblin.js",
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^1.4.0",
     "generator-xcraft": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-etc": "0.1.0",
