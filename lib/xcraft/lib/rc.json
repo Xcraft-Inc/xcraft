@@ -91,6 +91,14 @@
       }
     }
   },
+  "ncu": {
+    "desc": "check for updatable modules (dependencies)",
+    "options": {
+      "params": {
+        "optional": "modules..."
+      }
+    }
+  },
   "modprefix": {
     "desc": "prefix for node_modules directory",
     "options": {
@@ -98,5 +106,8 @@
         "required": "location"
       }
     }
+  },
+  "ncu-ua": {
+    "desc": "upgrade the package.json versions for all dependencies"
   }
 }
