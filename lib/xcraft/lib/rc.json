@@ -84,7 +84,7 @@
     }
   },
   "verify": {
-    "desc": "check outdated packages",
+    "desc": "check for outdated modules (our)",
     "options": {
       "params": {
         "optional": "modules..."
