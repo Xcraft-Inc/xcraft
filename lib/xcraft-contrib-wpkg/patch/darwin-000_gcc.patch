@@ -1,0 +1,526 @@
+--- a/wpkg/controlled_vars/controlled_vars_auto_init.h	2015-07-29 16:16:37.000000000 +0200
++++ b/wpkg/controlled_vars/controlled_vars_auto_init.h	2015-07-29 16:16:07.000000000 +0200
+@@ -67,7 +67,7 @@
+ 	auto_init(int32_t v) { f_value = static_cast<primary_type_t>(v); }
+ 	auto_init(uint32_t v) { f_value = static_cast<primary_type_t>(v); }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init(long v) { f_value = static_cast<primary_type_t>(v); }
++//	auto_init(long v) { f_value = static_cast<primary_type_t>(v); }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init(unsigned long v) { f_value = static_cast<primary_type_t>(v); }
+@@ -82,7 +82,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init(size_t v) { f_value = static_cast<primary_type_t>(v); }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init(time_t v) { f_value = static_cast<primary_type_t>(v); }
+ #endif
+ 	operator T () const { return f_value; }
+@@ -111,7 +111,7 @@
+ 	auto_init& operator = (int32_t v) { f_value = v; return *this; }
+ 	auto_init& operator = (uint32_t v) { f_value = v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator = (long v) { f_value = v; return *this; }
++//	auto_init& operator = (long v) { f_value = v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator = (unsigned long v) { f_value = v; return *this; }
+@@ -126,7 +126,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator = (size_t v) { f_value = v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator = (time_t v) { f_value = v; return *this; }
+ #endif
+ 	auto_init& operator *= (const auto_init& n) { f_value *= n.f_value; return *this; }
+@@ -142,7 +142,7 @@
+ 	auto_init& operator *= (int32_t v) { f_value *= v; return *this; }
+ 	auto_init& operator *= (uint32_t v) { f_value *= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator *= (long v) { f_value *= v; return *this; }
++//	auto_init& operator *= (long v) { f_value *= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator *= (unsigned long v) { f_value *= v; return *this; }
+@@ -157,7 +157,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator *= (size_t v) { f_value *= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator *= (time_t v) { f_value *= v; return *this; }
+ #endif
+ 	auto_init& operator /= (const auto_init& n) { f_value /= n.f_value; return *this; }
+@@ -173,7 +173,7 @@
+ 	auto_init& operator /= (int32_t v) { f_value /= v; return *this; }
+ 	auto_init& operator /= (uint32_t v) { f_value /= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator /= (long v) { f_value /= v; return *this; }
++//	auto_init& operator /= (long v) { f_value /= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator /= (unsigned long v) { f_value /= v; return *this; }
+@@ -188,7 +188,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator /= (size_t v) { f_value /= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator /= (time_t v) { f_value /= v; return *this; }
+ #endif
+ 	auto_init& operator %= (const auto_init& n) { f_value %= n.f_value; return *this; }
+@@ -204,7 +204,7 @@
+ 	auto_init& operator %= (int32_t v) { f_value %= v; return *this; }
+ 	auto_init& operator %= (uint32_t v) { f_value %= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator %= (long v) { f_value %= v; return *this; }
++//	auto_init& operator %= (long v) { f_value %= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator %= (unsigned long v) { f_value %= v; return *this; }
+@@ -214,7 +214,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator %= (size_t v) { f_value %= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator %= (time_t v) { f_value %= v; return *this; }
+ #endif
+ 	auto_init& operator += (const auto_init& n) { f_value += n.f_value; return *this; }
+@@ -230,7 +230,7 @@
+ 	auto_init& operator += (int32_t v) { f_value += v; return *this; }
+ 	auto_init& operator += (uint32_t v) { f_value += v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator += (long v) { f_value += v; return *this; }
++//	auto_init& operator += (long v) { f_value += v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator += (unsigned long v) { f_value += v; return *this; }
+@@ -245,7 +245,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator += (size_t v) { f_value += v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator += (time_t v) { f_value += v; return *this; }
+ #endif
+ 	auto_init& operator -= (const auto_init& n) { f_value -= n.f_value; return *this; }
+@@ -261,7 +261,7 @@
+ 	auto_init& operator -= (int32_t v) { f_value -= v; return *this; }
+ 	auto_init& operator -= (uint32_t v) { f_value -= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator -= (long v) { f_value -= v; return *this; }
++//	auto_init& operator -= (long v) { f_value -= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator -= (unsigned long v) { f_value -= v; return *this; }
+@@ -276,7 +276,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator -= (size_t v) { f_value -= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator -= (time_t v) { f_value -= v; return *this; }
+ #endif
+ 	auto_init& operator <<= (const auto_init& n) { f_value <<= n.f_value; return *this; }
+@@ -292,7 +292,7 @@
+ 	auto_init& operator <<= (int32_t v) { f_value <<= v; return *this; }
+ 	auto_init& operator <<= (uint32_t v) { f_value <<= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator <<= (long v) { f_value <<= v; return *this; }
++//	auto_init& operator <<= (long v) { f_value <<= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator <<= (unsigned long v) { f_value <<= v; return *this; }
+@@ -302,7 +302,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator <<= (size_t v) { f_value <<= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator <<= (time_t v) { f_value <<= v; return *this; }
+ #endif
+ 	auto_init& operator >>= (const auto_init& n) { f_value >>= n.f_value; return *this; }
+@@ -318,7 +318,7 @@
+ 	auto_init& operator >>= (int32_t v) { f_value >>= v; return *this; }
+ 	auto_init& operator >>= (uint32_t v) { f_value >>= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator >>= (long v) { f_value >>= v; return *this; }
++//	auto_init& operator >>= (long v) { f_value >>= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator >>= (unsigned long v) { f_value >>= v; return *this; }
+@@ -328,7 +328,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator >>= (size_t v) { f_value >>= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator >>= (time_t v) { f_value >>= v; return *this; }
+ #endif
+ 	auto_init& operator &= (const auto_init& n) { f_value &= n.f_value; return *this; }
+@@ -344,7 +344,7 @@
+ 	auto_init& operator &= (int32_t v) { f_value &= v; return *this; }
+ 	auto_init& operator &= (uint32_t v) { f_value &= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator &= (long v) { f_value &= v; return *this; }
++//	auto_init& operator &= (long v) { f_value &= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator &= (unsigned long v) { f_value &= v; return *this; }
+@@ -354,7 +354,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator &= (size_t v) { f_value &= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator &= (time_t v) { f_value &= v; return *this; }
+ #endif
+ 	auto_init& operator |= (const auto_init& n) { f_value |= n.f_value; return *this; }
+@@ -370,7 +370,7 @@
+ 	auto_init& operator |= (int32_t v) { f_value |= v; return *this; }
+ 	auto_init& operator |= (uint32_t v) { f_value |= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator |= (long v) { f_value |= v; return *this; }
++//	auto_init& operator |= (long v) { f_value |= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator |= (unsigned long v) { f_value |= v; return *this; }
+@@ -380,7 +380,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator |= (size_t v) { f_value |= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator |= (time_t v) { f_value |= v; return *this; }
+ #endif
+ 	auto_init& operator ^= (const auto_init& n) { f_value ^= n.f_value; return *this; }
+@@ -396,7 +396,7 @@
+ 	auto_init& operator ^= (int32_t v) { f_value ^= v; return *this; }
+ 	auto_init& operator ^= (uint32_t v) { f_value ^= v; return *this; }
+ #if UINT_MAX == ULONG_MAX
+-	auto_init& operator ^= (long v) { f_value ^= v; return *this; }
++//	auto_init& operator ^= (long v) { f_value ^= v; return *this; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	auto_init& operator ^= (unsigned long v) { f_value ^= v; return *this; }
+@@ -406,7 +406,7 @@
+ #if 0 //def __APPLE__
+ 	auto_init& operator ^= (size_t v) { f_value ^= v; return *this; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	auto_init& operator ^= (time_t v) { f_value ^= v; return *this; }
+ #endif
+ 	T operator * (const auto_init& n) { return f_value * n.f_value; }
+@@ -422,7 +422,7 @@
+ 	T operator * (int32_t v) { return f_value * v; }
+ 	T operator * (uint32_t v) { return f_value * v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator * (long v) { return f_value * v; }
++//	T operator * (long v) { return f_value * v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator * (unsigned long v) { return f_value * v; }
+@@ -437,7 +437,7 @@
+ #if 0 //def __APPLE__
+ 	T operator * (size_t v) { return f_value * v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator * (time_t v) { return f_value * v; }
+ #endif
+ 	T operator / (const auto_init& n) { return f_value / n.f_value; }
+@@ -453,7 +453,7 @@
+ 	T operator / (int32_t v) { return f_value / v; }
+ 	T operator / (uint32_t v) { return f_value / v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator / (long v) { return f_value / v; }
++//	T operator / (long v) { return f_value / v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator / (unsigned long v) { return f_value / v; }
+@@ -468,7 +468,7 @@
+ #if 0 //def __APPLE__
+ 	T operator / (size_t v) { return f_value / v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator / (time_t v) { return f_value / v; }
+ #endif
+ 	T operator % (const auto_init& n) { return f_value % n.f_value; }
+@@ -484,7 +484,7 @@
+ 	T operator % (int32_t v) { return f_value % v; }
+ 	T operator % (uint32_t v) { return f_value % v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator % (long v) { return f_value % v; }
++//	T operator % (long v) { return f_value % v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator % (unsigned long v) { return f_value % v; }
+@@ -494,7 +494,7 @@
+ #if 0 //def __APPLE__
+ 	T operator % (size_t v) { return f_value % v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator % (time_t v) { return f_value % v; }
+ #endif
+ 	T operator + (const auto_init& n) { return f_value + n.f_value; }
+@@ -510,7 +510,7 @@
+ 	T operator + (int32_t v) { return f_value + v; }
+ 	T operator + (uint32_t v) { return f_value + v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator + (long v) { return f_value + v; }
++//	T operator + (long v) { return f_value + v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator + (unsigned long v) { return f_value + v; }
+@@ -525,7 +525,7 @@
+ #if 0 //def __APPLE__
+ 	T operator + (size_t v) { return f_value + v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator + (time_t v) { return f_value + v; }
+ #endif
+ 	T operator - (const auto_init& n) { return f_value - n.f_value; }
+@@ -541,7 +541,7 @@
+ 	T operator - (int32_t v) { return f_value - v; }
+ 	T operator - (uint32_t v) { return f_value - v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator - (long v) { return f_value - v; }
++//	T operator - (long v) { return f_value - v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator - (unsigned long v) { return f_value - v; }
+@@ -556,7 +556,7 @@
+ #if 0 //def __APPLE__
+ 	T operator - (size_t v) { return f_value - v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator - (time_t v) { return f_value - v; }
+ #endif
+ 	T operator << (const auto_init& n) { return f_value << n.f_value; }
+@@ -572,7 +572,7 @@
+ 	T operator << (int32_t v) { return f_value << v; }
+ 	T operator << (uint32_t v) { return f_value << v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator << (long v) { return f_value << v; }
++//	T operator << (long v) { return f_value << v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator << (unsigned long v) { return f_value << v; }
+@@ -582,7 +582,7 @@
+ #if 0 //def __APPLE__
+ 	T operator << (size_t v) { return f_value << v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator << (time_t v) { return f_value << v; }
+ #endif
+ 	T operator >> (const auto_init& n) { return f_value >> n.f_value; }
+@@ -598,7 +598,7 @@
+ 	T operator >> (int32_t v) { return f_value >> v; }
+ 	T operator >> (uint32_t v) { return f_value >> v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator >> (long v) { return f_value >> v; }
++//	T operator >> (long v) { return f_value >> v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator >> (unsigned long v) { return f_value >> v; }
+@@ -608,7 +608,7 @@
+ #if 0 //def __APPLE__
+ 	T operator >> (size_t v) { return f_value >> v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator >> (time_t v) { return f_value >> v; }
+ #endif
+ 	T operator & (const auto_init& n) { return f_value & n.f_value; }
+@@ -624,7 +624,7 @@
+ 	T operator & (int32_t v) { return f_value & v; }
+ 	T operator & (uint32_t v) { return f_value & v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator & (long v) { return f_value & v; }
++//	T operator & (long v) { return f_value & v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator & (unsigned long v) { return f_value & v; }
+@@ -634,7 +634,7 @@
+ #if 0 //def __APPLE__
+ 	T operator & (size_t v) { return f_value & v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator & (time_t v) { return f_value & v; }
+ #endif
+ 	T operator | (const auto_init& n) { return f_value | n.f_value; }
+@@ -650,7 +650,7 @@
+ 	T operator | (int32_t v) { return f_value | v; }
+ 	T operator | (uint32_t v) { return f_value | v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator | (long v) { return f_value | v; }
++//	T operator | (long v) { return f_value | v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator | (unsigned long v) { return f_value | v; }
+@@ -660,7 +660,7 @@
+ #if 0 //def __APPLE__
+ 	T operator | (size_t v) { return f_value | v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator | (time_t v) { return f_value | v; }
+ #endif
+ 	T operator ^ (const auto_init& n) { return f_value ^ n.f_value; }
+@@ -676,7 +676,7 @@
+ 	T operator ^ (int32_t v) { return f_value ^ v; }
+ 	T operator ^ (uint32_t v) { return f_value ^ v; }
+ #if UINT_MAX == ULONG_MAX
+-	T operator ^ (long v) { return f_value ^ v; }
++//	T operator ^ (long v) { return f_value ^ v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	T operator ^ (unsigned long v) { return f_value ^ v; }
+@@ -686,7 +686,7 @@
+ #if 0 //def __APPLE__
+ 	T operator ^ (size_t v) { return f_value ^ v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	T operator ^ (time_t v) { return f_value ^ v; }
+ #endif
+ 	bool operator == (const auto_init& n) { return f_value == n.f_value; }
+@@ -702,7 +702,7 @@
+ 	bool operator == (int32_t v) { return f_value == v; }
+ 	bool operator == (uint32_t v) { return f_value == v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator == (long v) { return f_value == v; }
++//	bool operator == (long v) { return f_value == v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator == (unsigned long v) { return f_value == v; }
+@@ -717,7 +717,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator == (size_t v) { return f_value == v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator == (time_t v) { return f_value == v; }
+ #endif
+ 	bool operator != (const auto_init& n) { return f_value != n.f_value; }
+@@ -733,7 +733,7 @@
+ 	bool operator != (int32_t v) { return f_value != v; }
+ 	bool operator != (uint32_t v) { return f_value != v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator != (long v) { return f_value != v; }
++//	bool operator != (long v) { return f_value != v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator != (unsigned long v) { return f_value != v; }
+@@ -748,7 +748,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator != (size_t v) { return f_value != v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator != (time_t v) { return f_value != v; }
+ #endif
+ 	bool operator < (const auto_init& n) { return f_value < n.f_value; }
+@@ -764,7 +764,7 @@
+ 	bool operator < (int32_t v) { return f_value < v; }
+ 	bool operator < (uint32_t v) { return f_value < v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator < (long v) { return f_value < v; }
++//	bool operator < (long v) { return f_value < v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator < (unsigned long v) { return f_value < v; }
+@@ -779,7 +779,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator < (size_t v) { return f_value < v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator < (time_t v) { return f_value < v; }
+ #endif
+ 	bool operator <= (const auto_init& n) { return f_value <= n.f_value; }
+@@ -795,7 +795,7 @@
+ 	bool operator <= (int32_t v) { return f_value <= v; }
+ 	bool operator <= (uint32_t v) { return f_value <= v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator <= (long v) { return f_value <= v; }
++//	bool operator <= (long v) { return f_value <= v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator <= (unsigned long v) { return f_value <= v; }
+@@ -810,7 +810,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator <= (size_t v) { return f_value <= v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator <= (time_t v) { return f_value <= v; }
+ #endif
+ 	bool operator > (const auto_init& n) { return f_value > n.f_value; }
+@@ -826,7 +826,7 @@
+ 	bool operator > (int32_t v) { return f_value > v; }
+ 	bool operator > (uint32_t v) { return f_value > v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator > (long v) { return f_value > v; }
++//	bool operator > (long v) { return f_value > v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator > (unsigned long v) { return f_value > v; }
+@@ -841,7 +841,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator > (size_t v) { return f_value > v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator > (time_t v) { return f_value > v; }
+ #endif
+ 	bool operator >= (const auto_init& n) { return f_value >= n.f_value; }
+@@ -857,7 +857,7 @@
+ 	bool operator >= (int32_t v) { return f_value >= v; }
+ 	bool operator >= (uint32_t v) { return f_value >= v; }
+ #if UINT_MAX == ULONG_MAX
+-	bool operator >= (long v) { return f_value >= v; }
++//	bool operator >= (long v) { return f_value >= v; }
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ 	bool operator >= (unsigned long v) { return f_value >= v; }
+@@ -872,7 +872,7 @@
+ #if 0 //def __APPLE__
+ 	bool operator >= (size_t v) { return f_value >= v; }
+ #endif
+-#if 0 //def __APPLE__
++#ifdef __APPLE__
+ 	bool operator >= (time_t v) { return f_value >= v; }
+ #endif
+ #ifdef CONTROLLED_VARS_DEBUG
+@@ -893,7 +893,7 @@
+ typedef auto_init<int32_t> zint32_t;
+ typedef auto_init<uint32_t> zuint32_t;
+ #if UINT_MAX == ULONG_MAX
+-typedef auto_init<long> zplain_long_t;
++//typedef auto_init<long> zplain_long_t;
+ #endif
+ #if UINT_MAX == ULONG_MAX
+ typedef auto_init<unsigned long> zplain_ulong_t;
+@@ -903,8 +903,8 @@
+ #if 0 //def __APPLE__
+ typedef auto_init<size_t> zsize_t;
+ #endif
+-#if 0 //def __APPLE__
+-typedef auto_init<time_t> ztime_t;
++#ifdef __APPLE__
++//typedef auto_init<time_t> ztime_t;
+ #endif
+ typedef std::conditional<
+     sizeof(time_t) == 8,
