@@ -28,6 +28,8 @@ dependency:
       - ''
     bootstrap+expat:
       - ''
+    bootstrap+libiconv:
+      - ''
   build:
     bootstrap+xcraft-peon:
       - ''
