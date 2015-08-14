@@ -36,6 +36,7 @@ dependency:
 data:
   get:
     uri: 'https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz'
+    ref: ''
     out: ''
   type: src
   configure: ''
@@ -46,5 +47,6 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT> prefix=<PEON.INSTALLDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes'
+  deploy: ''
   path: []
   embedded: true
