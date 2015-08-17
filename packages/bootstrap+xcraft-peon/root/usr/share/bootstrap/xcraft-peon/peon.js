@@ -20,8 +20,11 @@ var Action = function (root, currentDir, binaryDir) {
      * we need to rework packageDef model before
      * destination unix arbo. /usr
      */
-    var installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime/usr'));
-    xPh.global.set ('INSTALLDIR', installDir);
+    var installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
+    var prefixDir = path.join (installDir, 'usr');
+    xPh.global
+      .set ('PREFIXDIR',  prefixDir)
+      .set ('INSTALLDIR', installDir);
   }
 
   var patchApply = function (callback) {

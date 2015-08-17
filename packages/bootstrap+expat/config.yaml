@@ -29,7 +29,7 @@ data:
     uri: 'http://downloads.sourceforge.net/project/expat/expat/<THIS.VERSION>/expat-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
     out: ''
   type: src
-  configure: '!cd data/expat-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
+  configure: '!cd data/expat-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/expat-<THIS.VERSION>/'

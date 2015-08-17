@@ -32,7 +32,7 @@ data:
     uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'
     out: ''
   type: src
-  configure: '!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
+  configure: '!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/curl-<THIS.VERSION>/'

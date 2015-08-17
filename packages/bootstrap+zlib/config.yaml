@@ -29,7 +29,7 @@ data:
     uri: 'http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
     out: ''
   type: src
-  configure: '!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
+  configure: '!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/zlib-<THIS.VERSION>/'

@@ -30,7 +30,7 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/libiconv-<THIS.VERSION>/ && ./configure --prefix=<PEON.INSTALLDIR>'
+  configure: '!cd data/libiconv-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/libiconv-<THIS.VERSION>/'
