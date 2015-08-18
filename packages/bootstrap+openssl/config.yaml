@@ -33,7 +33,7 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/openssl-<THIS.VERSION>/ && ./Configure <PEON.OS=darwin?darwin64-x86_64-cc:> --install_prefix=<PEON.INSTALLDIR> --prefix=/usr'
+  configure: '!cd data/openssl-<THIS.VERSION>/ && ./<PEON.OS=Configure darwin?darwin64-x86_64-cc:config> --install_prefix=<PEON.INSTALLDIR> --prefix=/usr'
   rules:
     type: make
     location: 'data/openssl-<THIS.VERSION>/'
