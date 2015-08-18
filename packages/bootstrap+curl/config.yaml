@@ -24,12 +24,15 @@ dependency:
   install:
     bootstrap+zlib:
       - ''
+    bootstrap+openssl:
+      - ''
   build:
     bootstrap+xcraft-peon:
       - ''
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'
+    ref: ''
     out: ''
   type: src
   configure: '!cd data/curl-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
@@ -40,6 +43,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
-      makeinstall: 'install'
+      makeinstall: install
+  deploy: ''
   path: []
   embedded: true
