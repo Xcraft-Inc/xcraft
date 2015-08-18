@@ -37,7 +37,7 @@ var Action = function (root, currentDir, binaryDir) {
   };
 
   var peonRun = function (extra) {
-    xLog.verb ('Command: %s %s', extra.location, extra.args);
+    xLog.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
 
     xPeon[config.type][config.rules.type] (config.get, root, currentDir, extra, function (err) {
       if (err) {
@@ -56,7 +56,9 @@ var Action = function (root, currentDir, binaryDir) {
 
   return {
     postinst: function () {
-      extra.args = config.rules.args.postinst;
+      extra.args = {
+        postinst: config.rules.args.postinst
+      };
 
       patchApply (function () {
         peonRun (extra);
@@ -64,12 +66,17 @@ var Action = function (root, currentDir, binaryDir) {
     },
 
     prerm: function () {
-      extra.args = config.rules.args.prerm;
+      extra.args = {
+        prerm: config.rules.args.prerm
+      };
       peonRun (extra);
     },
 
     makeall: function () {
-      extra.args = config.rules.args.makeall;
+      extra.args = {
+        all:     config.rules.args.makeall,
+        install: config.rules.args.makeinstall
+      };
       extra.deploy = config.deploy;
 
       patchApply (function () {

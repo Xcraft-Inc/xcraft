@@ -41,6 +41,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: 'CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
+      makeinstall: 'CFLAGS= LDFLAGS= install_sw'
   deploy: ''
   path: []
   embedded: true

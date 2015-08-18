@@ -47,6 +47,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes'
+      makeinstall: 'prefix=<PEON.PREFIXDIR> NO_OPENSSL=Yes NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes install'
   deploy: ''
   path: []
   embedded: true

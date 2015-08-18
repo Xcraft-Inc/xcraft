@@ -38,6 +38,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: 'install'
   deploy: ''
   path: []
   embedded: true
