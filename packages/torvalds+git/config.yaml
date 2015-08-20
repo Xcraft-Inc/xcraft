@@ -1,6 +1,6 @@
 subpackage:
   - 'runtime*'
-name: bootstrap+git
+name: torvalds+git
 version: 2.3.0
 distribution: toolchain/
 maintainer:
@@ -13,23 +13,23 @@ description:
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 dependency:
   install:
-    bootstrap+curl:
+    bagder+curl:
       - version: ''
         architecture: []
-    bootstrap+zlib:
+    adler+zlib:
       - version: ''
         architecture: []
-    bootstrap+expat:
+    clark+expat:
       - version: ''
         architecture: []
-    bootstrap+openssl:
+    openssl+openssl:
       - version: ''
         architecture: []
-    bootstrap+libiconv:
+    gnu+libiconv:
       - version: ''
         architecture: []
   build:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

@@ -12,7 +12,7 @@ description:
   long: Build Tools 2013 provides the essential tools for building managed applications.
 dependency:
   install:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

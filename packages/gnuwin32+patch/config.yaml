@@ -1,4 +1,4 @@
-name: bootstrap+patch
+name: gnuwin32+patch
 version: 2.5.9-7
 distribution: toolchain/
 maintainer:
@@ -12,7 +12,7 @@ description:
   long: '`patch` takes a patch file containing a difference listing produced by diff and applies those differences to one or more original files, producing patched versions.'
 dependency:
   install:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

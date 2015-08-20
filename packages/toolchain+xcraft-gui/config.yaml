@@ -14,7 +14,7 @@ dependency:
     toolchain+xcraft-goblin:
       - version: ''
         architecture: []
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

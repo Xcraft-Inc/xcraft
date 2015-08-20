@@ -11,7 +11,7 @@ description:
   long: Needed for graphical interfaces
 dependency:
   install:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

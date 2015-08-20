@@ -12,16 +12,16 @@ description:
   long: ''
 dependency:
   install:
-    bootstrap+7z:
+    pavlov+7z:
       - version: ''
         architecture: []
-    bootstrap+msysgit:
+    schindelin+msysgit:
       - version: ''
         architecture: []
-    bootstrap+patch:
+    gnuwin32+patch:
       - version: ''
         architecture: []
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

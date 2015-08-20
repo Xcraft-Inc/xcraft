@@ -1,6 +1,6 @@
 subpackage:
   - 'runtime*'
-name: bootstrap+libiconv
+name: gnu+libiconv
 version: '1.14'
 distribution: toolchain/
 maintainer:
@@ -13,7 +13,7 @@ description:
   long: ''
 dependency:
   build:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

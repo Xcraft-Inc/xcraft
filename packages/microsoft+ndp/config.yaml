@@ -12,7 +12,7 @@ description:
   long: ''
 dependency:
   install:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

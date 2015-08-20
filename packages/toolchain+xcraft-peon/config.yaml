@@ -1,4 +1,4 @@
-name: bootstrap+xcraft-peon
+name: toolchain+xcraft-peon
 version: 0.1.0
 distribution: toolchain/
 maintainer:

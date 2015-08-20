@@ -1,6 +1,6 @@
 subpackage:
   - 'runtime*'
-name: bootstrap+openssl
+name: openssl+openssl
 version: 1.0.1p
 distribution: toolchain/
 maintainer:
@@ -13,11 +13,11 @@ description:
   long: ''
 dependency:
   install:
-    bootstrap+zlib:
+    adler+zlib:
       - version: ''
         architecture: []
   build:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

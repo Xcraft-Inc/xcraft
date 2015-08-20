@@ -1,6 +1,6 @@
 subpackage:
   - 'runtime*'
-name: bootstrap+curl
+name: bagder+curl
 version: 7.40.0
 distribution: toolchain/
 maintainer:
@@ -13,14 +13,14 @@ description:
   long: ''
 dependency:
   install:
-    bootstrap+zlib:
+    adler+zlib:
       - version: ''
         architecture: []
-    bootstrap+openssl:
+    openssl+openssl:
       - version: ''
         architecture: []
   build:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:

@@ -1,4 +1,4 @@
-name: bootstrap+msysgit
+name: schindelin+msysgit
 version: 1.9.5-preview20141217
 distribution: toolchain/
 maintainer:
@@ -12,7 +12,7 @@ description:
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 dependency:
   install:
-    bootstrap+xcraft-peon:
+    toolchain+xcraft-peon:
       - version: ''
         architecture: []
 data:
