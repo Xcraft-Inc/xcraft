@@ -12,12 +12,15 @@ description:
 dependency:
   install:
     toolchain+xcraft-goblin:
-      - ''
+      - version: ''
+        architecture: []
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
+    ref: ''
     out: ''
   type: bin
   configure: "cp ('<PEON.XCRAFT.HOME>/xdk/xcraft-gui', '<PEON.WPKG.STAG>/usr/share/toolchain/xcraft-gui');"

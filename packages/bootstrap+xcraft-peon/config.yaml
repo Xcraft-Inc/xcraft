@@ -13,6 +13,7 @@ dependency: {}
 data:
   get:
     uri: 'self:///root'
+    ref: ''
     out: ''
   type: bin
   configure: ''

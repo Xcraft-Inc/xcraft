@@ -14,12 +14,15 @@ description:
 dependency:
   install:
     bootstrap+zlib:
-      - ''
+      - version: ''
+        architecture: []
     bootstrap+openssl:
-      - ''
+      - version: ''
+        architecture: []
   build:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'

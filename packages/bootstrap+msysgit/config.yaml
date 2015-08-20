@@ -13,10 +13,12 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'chest:portablegit-<THIS.VERSION>.tar.gz'
+    ref: ''
     out: ''
   type: bin
   configure: "mv ('data', 'root/opt/msysgit');"

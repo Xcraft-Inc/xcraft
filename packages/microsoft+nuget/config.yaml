@@ -12,10 +12,12 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://nuget.org/nuget.exe'
+    ref: ''
     out: ''
   type: bin
   configure: "mv ('nuget.exe', 'root/usr/bin/nuget.exe');"

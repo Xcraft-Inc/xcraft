@@ -13,10 +13,12 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'chest:vs2013_rtm_dskexp_enu.tar.gz'
+    ref: ''
     out: ''
   type: bin
   configure: ''

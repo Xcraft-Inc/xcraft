@@ -14,7 +14,8 @@ description:
 dependency:
   build:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.VERSION>.tar.gz'
@@ -29,7 +30,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
-      makeinstall: 'install'
+      makeinstall: install
   deploy: ''
   path: []
   embedded: true

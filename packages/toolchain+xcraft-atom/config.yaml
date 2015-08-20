@@ -12,10 +12,12 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
+    ref: ''
     out: ''
   type: bin
   configure: "cp ('<PEON.XCRAFT.HOME>/xdk/xcraft-atom', '<PEON.WPKG.STAG>/usr/share/toolchain/xcraft-atom');"

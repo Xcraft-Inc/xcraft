@@ -14,10 +14,12 @@ description:
 dependency:
   build:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
+    ref: ''
     out: ''
   type: src
   configure: '!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
@@ -28,6 +30,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
-      makeinstall: 'install'
+      makeinstall: install
+  deploy: ''
   path: []
   embedded: true

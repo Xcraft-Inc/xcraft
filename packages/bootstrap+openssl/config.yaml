@@ -14,10 +14,12 @@ description:
 dependency:
   install:
     bootstrap+zlib:
-      - ''
+      - version: ''
+        architecture: []
   build:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.openssl.org/source/openssl-<THIS.VERSION>.tar.gz'
@@ -32,7 +34,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: 'CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
-      makeinstall: 'CFLAGS= LDFLAGS= install_sw'
+      makeinstall: CFLAGS= LDFLAGS= install_sw
   deploy: ''
   path: []
   embedded: true

@@ -13,7 +13,8 @@ description:
 dependency:
   install:
     bootstrap+xcraft-peon:
-      - ''
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'chest:portablelibrary-<THIS.VERSION>.tar.gz'
