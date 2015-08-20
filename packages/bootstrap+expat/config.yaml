@@ -8,15 +8,6 @@ maintainer:
   email: schroeter@epsitec.ch
 architecture:
   - source
-architectureHost:
-  - linux-i386
-  - linux-amd64
-  - darwin-i386
-  - darwin-amd64
-  - solaris-i386
-  - solaris-amd64
-  - freebsd-i386
-  - freebsd-amd64
 description:
   brief: The Expat XML Parser
   long: Expat is an XML parser library written in C. It is a stream-oriented parser in which an application registers handlers for things the parser might find in the XML document (like start tags).
