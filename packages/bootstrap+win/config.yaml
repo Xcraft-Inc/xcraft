@@ -1,0 +1,41 @@
+name: bootstrap+win
+version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Bootstrap win.
+  long: ''
+dependency:
+  install:
+    bootstrap+7z:
+      - version: ''
+        architecture: []
+    bootstrap+msysgit:
+      - version: ''
+        architecture: []
+    bootstrap+patch:
+      - version: ''
+        architecture: []
+    bootstrap+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  path: []
+  embedded: true

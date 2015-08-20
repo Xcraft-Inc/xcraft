@@ -1,0 +1,35 @@
+name: bootstrap+darwin
+version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-i386
+  - darwin-amd64
+description:
+  brief: Bootstrap for darwin.
+  long: ''
+dependency:
+  install:
+    bootstrap+xcraft-peon:
+      - version: ''
+        architecture: []
+    bootstrap+git:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  path: []
+  embedded: true
