@@ -1,0 +1,36 @@
+subpackage:
+  - 'runtime*'
+name: xamarin+mono
+version: 4.0.3.20
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: "Mono is an open source implementation of Microsoft's .NET Framework."
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://download.mono-project.com/sources/mono/mono-<THIS.VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd data/mono-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/mono-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  path: []
+  embedded: true
