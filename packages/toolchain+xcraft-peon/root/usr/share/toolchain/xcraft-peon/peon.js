@@ -27,11 +27,11 @@ var Action = function (root, currentDir, binaryDir) {
       .set ('INSTALLDIR', installDir);
   }
 
-  var patchApply = function (callback) {
+  var patchApply = function (extra, callback) {
     var xDevel = require ('xcraft-core-devel');
 
     var patchesDir = path.join (currentDir, 'patches');
-    var srcDir     = path.join (currentDir, 'cache');
+    var srcDir     = path.join (currentDir, 'cache', extra.location);
 
     xDevel.autoPatch (patchesDir, srcDir, callback);
   };
@@ -60,7 +60,7 @@ var Action = function (root, currentDir, binaryDir) {
         postinst: config.rules.args.postinst
       };
 
-      patchApply (function () {
+      patchApply (extra, function () {
         peonRun (extra);
       });
     },
@@ -79,7 +79,7 @@ var Action = function (root, currentDir, binaryDir) {
       };
       extra.deploy = config.deploy;
 
-      patchApply (function () {
+      patchApply (extra, function () {
         peonRun (extra);
       });
     }
