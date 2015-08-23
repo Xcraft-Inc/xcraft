@@ -166,8 +166,8 @@ possible to remove these files. The make command is already using the clean
 command internally.
 
 
-[1]: pacman.devroot.md
-[2]: pacman.definition.md
-[3]: pacman.repository.md
-[4]: /xcraft-contrib-peon/docs/peon.md
-[5]: /xcraft-core-process/docs/process.md
+[1]: xcraft-contrib-pacman.devroot.md
+[2]: xcraft-contrib-pacman.definition.md
+[3]: xcraft-contrib-pacman.repository.md
+[4]: xcraft-contrib-peon.md
+[5]: xcraft-core-process.md
