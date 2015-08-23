@@ -1,0 +1,36 @@
+subpackage:
+  - 'runtime*'
+name: gnu+gettext
+version: 0.19.5.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU gettext
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftp.gnu.org/pub/gnu/gettext/gettext-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd data/gettext-<THIS.VERSION>/ && touch ./ChangeLog && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/gettext-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  path: []
+  embedded: true
