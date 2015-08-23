@@ -22,10 +22,10 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/mono-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: '!cd data/mono-4.0.3/ && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: 'data/mono-<THIS.VERSION>/'
+    location: data/mono-4.0.3/
     args:
       postinst: ''
       prerm: ''
