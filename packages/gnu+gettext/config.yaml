@@ -12,6 +12,13 @@ description:
   brief: GNU gettext
   long: ''
 dependency:
+  install:
+    clark+expat:
+      - version: ''
+        architecture: []
+    gnu+libiconv:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
