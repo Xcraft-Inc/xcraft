@@ -1,0 +1,36 @@
+subpackage:
+  - 'runtime*'
+name: gnu+libtool
+version: 2.4.6
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU libtool
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/libtool/libtool-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd data/libtool-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/libtool-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
+  path: []
+  embedded: true
