@@ -12,7 +12,7 @@ description:
   brief: M4
   long: ''
 dependency:
-  install:
+  build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
