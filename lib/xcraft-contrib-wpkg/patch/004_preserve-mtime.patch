@@ -1,0 +1,42 @@
+--- a/wpkg/libdebpackages/wpkgar_build.cpp	2015-08-23 11:32:29.202499590 +0200
++++ b/wpkg/libdebpackages/wpkgar_build.cpp	2015-08-25 12:34:16.821036973 +0200
+@@ -2130,7 +2130,6 @@
+         info.set_filename(filename.full_path());
+         info.set_user("Administrator");
+         info.set_group("Administrators");
+-        info.set_mtime(now);
+         append_file(data, info, file_data);
+
+         // regular files get an md5sums
+--- a/wpkg/libdebpackages/memfile.cpp	2015-08-25 14:37:42.852880207 +0200
++++ b/wpkg/libdebpackages/memfile.cpp	2015-08-25 14:46:28.634010622 +0200
+@@ -59,6 +59,8 @@
+ #include    <stdlib.h>
+ #include    <memory.h>
+ #include    <stdarg.h>
++#include    <sys/types.h>
++#include    <utime.h>
+ #include    <ctime>
+ #include    <algorithm>
+ #include    <iostream>
+@@ -1067,6 +1067,22 @@
+         }
+     }
+ #endif
++
++    struct utimbuf times = {
++        info.get_atime(),
++        info.get_mtime()
++    };
++    if(utime(os_name.get_utf8().c_str(), &times) != 0)
++    {
++        if(err & file_info_return_errors)
++        {
++            err |= file_info_owner_error; // FIXME: file_info_time_error
++        }
++        else
++        {
++            throw memfile_exception_io("cannot change access and modification times of \"" + filename.original_filename() + "\" as expected (not running as Administrator/root?)");
++        }
++    }
+ }
