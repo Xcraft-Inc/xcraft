@@ -1,0 +1,39 @@
+subpackage:
+  - 'runtime*'
+name: gnu+automake
+version: '1.15'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU automake
+  long: ''
+dependency:
+  build:
+    gnu+autoconf:
+      - version: ''
+        architecture: []
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftp.gnu.org/gnu/automake/automake-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd data/automake-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/automake-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  path: []
+  embedded: true
