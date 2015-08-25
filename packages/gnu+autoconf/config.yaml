@@ -1,0 +1,39 @@
+subpackage:
+  - 'runtime*'
+name: gnu+autoconf
+version: '2.69'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU autoconf
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftp.gnu.org/gnu/autoconf/autoconf-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd data/autoconf-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/autoconf-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
+  path: []
+  embedded: true
