@@ -10,8 +10,10 @@ var xLog = require ('xcraft-core-log') (moduleName);
 var Action = function (root, currentDir, binaryDir) {
   var fs   = require ('fs');
 
-  var xPeon = require ('xcraft-contrib-peon');
-  var xPh   = require ('xcraft-core-placeholder');
+  var xPeon     = require ('xcraft-contrib-peon');
+  var xPh       = require ('xcraft-core-placeholder');
+  var xFs       = require ('xcraft-core-fs');
+  var xPlatform = require ('xcraft-core-platform');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
@@ -25,6 +27,14 @@ var Action = function (root, currentDir, binaryDir) {
     xPh.global
       .set ('PREFIXDIR',  prefixDir)
       .set ('INSTALLDIR', installDir);
+
+    /* Copy postinst and prerm scripts for the binary package. */
+    var installWpkgDir = path.join (installDir, 'WPKG');
+    xFs.mkdir (installWpkgDir);
+    ['postinst', 'prerm'].forEach (function (script) {
+      script = script + xPlatform.getShellExt ();
+      xFs.cp (path.join (root, script), path.join (installWpkgDir, script));
+    });
   }
 
   var patchApply = function (extra, callback) {

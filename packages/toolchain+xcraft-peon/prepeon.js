@@ -20,8 +20,10 @@ module.exports = function (packagePath, sharePath) {
       'install',
       'xcraft-contrib-peon',
       'xcraft-core-devel',
+      'xcraft-core-fs',
       'xcraft-core-log',
-      'xcraft-core-placeholder'
+      'xcraft-core-placeholder',
+      'xcraft-core-platform'
     ];
 
     xLog.verb (xcraft);
