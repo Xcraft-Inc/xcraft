@@ -35,6 +35,23 @@ var Action = function (root, currentDir, binaryDir) {
       script = script + xPlatform.getShellExt ();
       xFs.cp (path.join (root, script), path.join (installWpkgDir, script));
     });
+
+    /* Generate the config.json file. */
+    var newConfig = {
+      type: 'bin',
+      configure: config.runtime.configure,
+      rules: {
+        type: 'meta',
+        location: '',
+        args: {}
+      },
+      embedded: true
+    };
+    var data = JSON.stringify (newConfig, null, '  ');
+    var fullName = currentDir.match (/.\/([^\/]+)\/([^\/]+)\/?$/);
+    var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
+    xFs.mkdir (shareDir);
+    fs.writeFileSync (path.join (shareDir, 'config.json'), data);
   }
 
   var patchApply = function (extra, callback) {

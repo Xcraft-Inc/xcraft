@@ -41,3 +41,5 @@ data:
   deploy: ''
   path: []
   embedded: true
+  runtime:
+    configure: ''
