@@ -37,10 +37,12 @@ var Action = function (root, currentDir, binaryDir) {
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
 
+  /* This condition is true only when wpkg is building a new binary package
+   * from a source package.
+   */
   if (binaryDir) {
     /* HACK: forced subpackage /runtime
      * we need to rework packageDef model before
-     * destination unix arbo. /usr
      */
     var installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
     var prefixDir = path.join (installDir, 'usr');
@@ -120,10 +122,11 @@ var Action = function (root, currentDir, binaryDir) {
 };
 
 if (process.argv.length >= 4) {
-  var root = process.argv[2];
-  var share = path.join (root, process.argv[3]);
+  var root   = process.argv[2];
+  var share  = path.join (root, process.argv[3]);
   var action = process.argv[4];
   var prefix = process.argv[5];
+
   var main = new Action (root, share, prefix);
 
   xLog.verb ('run the action: ' + action);
