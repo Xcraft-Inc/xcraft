@@ -25,7 +25,7 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/automake-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/automake-<THIS.VERSION>/'

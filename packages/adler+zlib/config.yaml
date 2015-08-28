@@ -22,7 +22,7 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/zlib-<THIS.VERSION>/ && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: 'data/zlib-<THIS.VERSION>/'
