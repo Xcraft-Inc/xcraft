@@ -3,16 +3,36 @@
 var moduleName = 'peon';
 
 var path = require ('path');
+var fs   = require ('fs');
 
 var xLog = require ('xcraft-core-log') (moduleName);
+var xFs  = require ('xcraft-core-fs');
 
+
+var genConfig = function (currentDir, prefixDir, config) {
+  var newConfig = {
+    type: 'bin',
+    configure: config.configure,
+    rules: {
+      type: 'meta',
+      location: '',
+      args: {}
+    },
+    embedded: true
+  };
+
+  var data     = JSON.stringify (newConfig, null, '  ');
+  var fullName = currentDir.match (/.\/([^\/]+)\/([^\/]+)\/?$/);
+
+  var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
+  xFs.mkdir (shareDir);
+
+  fs.writeFileSync (path.join (shareDir, 'config.json'), data);
+};
 
 var Action = function (root, currentDir, binaryDir) {
-  var fs   = require ('fs');
-
   var xPeon     = require ('xcraft-contrib-peon');
   var xPh       = require ('xcraft-core-placeholder');
-  var xFs       = require ('xcraft-core-fs');
   var xPlatform = require ('xcraft-core-platform');
 
   var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
@@ -37,21 +57,7 @@ var Action = function (root, currentDir, binaryDir) {
     });
 
     /* Generate the config.json file. */
-    var newConfig = {
-      type: 'bin',
-      configure: config.runtime.configure,
-      rules: {
-        type: 'meta',
-        location: '',
-        args: {}
-      },
-      embedded: true
-    };
-    var data = JSON.stringify (newConfig, null, '  ');
-    var fullName = currentDir.match (/.\/([^\/]+)\/([^\/]+)\/?$/);
-    var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
-    xFs.mkdir (shareDir);
-    fs.writeFileSync (path.join (shareDir, 'config.json'), data);
+    genConfig (currentDir, prefixDir, config.runtime);
   }
 
   var patchApply = function (extra, callback) {
