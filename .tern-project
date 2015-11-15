@@ -1,8 +1,4 @@
 {
-  "libs": [
-    "ecma5",
-    "ecma6"
-  ],
   "loadEagerly": [
     "lib/**/*.js",
     "packages/**/*.js"

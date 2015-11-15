@@ -1,0 +1,4 @@
+[submodule "lib/xcraft-contrib-darkportal"]
+	path = lib/xcraft-contrib-darkportal
+	url = https://git.epsitec.ch/SL/Legobox.git
+	branch = xcraft
