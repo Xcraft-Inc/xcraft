@@ -6,7 +6,7 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {
+  "peerDependencies": {
     "async": "^1.4.0",
     "cli-color": "^1.0.0",
     "npm-check-updates": "^2.2.0",
