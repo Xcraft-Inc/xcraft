@@ -48,7 +48,8 @@ data:
       makeall: '-j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes>'
       makeinstall: 'prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes> install'
   deploy: ''
-  path: []
+  env:
+    path: []
   embedded: true
   runtime:
     configure: ''

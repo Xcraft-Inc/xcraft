@@ -28,5 +28,6 @@ data:
     args:
       postinst: ''
       prerm: ''
-  path: []
+  env:
+    path: []
   embedded: true

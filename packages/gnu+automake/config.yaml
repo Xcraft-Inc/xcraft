@@ -35,7 +35,8 @@ data:
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
   deploy: ''
-  path: []
+  env:
+    path: []
   embedded: true
   runtime:
     configure: ''

@@ -28,5 +28,6 @@ data:
     args:
       postinst: /Passive /NoRestart /NoWeb /Full
       prerm: /Passive /NoRestart /NoWeb /Uninstall
-  path: []
+  env:
+    path: []
   embedded: true

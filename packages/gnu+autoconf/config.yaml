@@ -35,7 +35,8 @@ data:
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
   deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
-  path: []
+  env:
+    path: []
   embedded: true
   runtime:
     configure: ''

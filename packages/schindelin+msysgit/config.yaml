@@ -28,6 +28,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-  path:
-    - opt/msysgit/cmd
+  env:
+    path:
+      - opt/msysgit/cmd
   embedded: true

@@ -28,5 +28,6 @@ data:
     args:
       postinst: /quiet /passive /norestart
       prerm: /quiet /passive /norestart /uninstall
-  path: []
+  env:
+    path: []
   embedded: true

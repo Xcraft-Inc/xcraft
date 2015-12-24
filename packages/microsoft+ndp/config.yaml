@@ -28,5 +28,6 @@ data:
     args:
       postinst: /norestart /q
       prerm: /norestart /q /uninstall
-  path: []
+  env:
+    path: []
   embedded: true

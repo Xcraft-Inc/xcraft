@@ -36,7 +36,8 @@ data:
       makeall: 'CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
       makeinstall: CFLAGS= LDFLAGS= install_sw
   deploy: ''
-  path: []
+  env:
+    path: []
   embedded: true
   runtime:
     configure: ''
