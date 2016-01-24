@@ -37,6 +37,13 @@ data:
   deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
   env:
     path: []
+    ldpath: []
+    other:
+      AUTOCONF: '<OS.ROOTDIR>/usr/bin/autoconf'
+      AUTOHEADER: '<OS.ROOTDIR>/usr/bin/autoheader'
+      AUTOM4TE: '<OS.ROOTDIR>/usr/bin/autom4te'
+      autom4te_perllibdir: '<OS.ROOTDIR>/usr/share/autoconf'
+      AC_MACRODIR: '<OS.ROOTDIR>/usr/share/autoconf'
   embedded: true
   runtime:
     configure: ''
