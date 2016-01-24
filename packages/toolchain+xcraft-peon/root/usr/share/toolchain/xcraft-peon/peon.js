@@ -60,6 +60,9 @@ var Action = function (root, currentDir, binaryDir) {
 
     /* Generate the config.json file. */
     genConfig (currentDir, prefixDir, config.runtime);
+
+    /* Copy etc/ files if available. */
+    xFs.cp (path.join (root, 'etc'), path.join (installDir, 'etc'));
   }
 
   var patchApply = function (extra, callback) {
