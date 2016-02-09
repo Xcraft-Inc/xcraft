@@ -4,8 +4,8 @@ call .\.node.cmd passive
 setlocal enabledelayedexpansion
 for %%F in ("%node%") do set PATH=%%~dpF;!PATH!
 
-for /F "delims=" %%F in ('node -p -e "Boolean(process.stdout.isTTY)"') do set isTTY=%%F
-if [%isTTY%]==[false] (
+where winpty >NUL 2>&1
+if [%errorlevel%]==[0] (
   set exec=winpty
 ) else (
   set exec=
