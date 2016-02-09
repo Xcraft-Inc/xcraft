@@ -4,4 +4,11 @@ call .\.node.cmd passive
 setlocal enabledelayedexpansion
 for %%F in ("%node%") do set PATH=%%~dpF;!PATH!
 
-.\node_modules\.bin\zog.cmd %*
+for /F "delims=" %%F in ('node -p -e "Boolean(process.stdout.isTTY)"') do set isTTY=%%F
+if [%isTTY%]==[false] (
+  set exec=winpty
+) else (
+  set exec=
+)
+
+%exec% .\node_modules\.bin\zog.cmd %*
