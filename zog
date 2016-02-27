@@ -3,7 +3,7 @@
 . ./.node passive
 PATH=${node%/*}:$PATH
 
-isTTY=$(node -p -e "Boolean(process.stdout.isTTY)")
-[ $isTTY == "false" ] && exec="winpty sh" || exec=
+which winpty >/dev/null 2>&1
+[ "$?" = 0 ] && exec="winpty sh" || exec=
 
 $exec ./node_modules/.bin/zog $@
