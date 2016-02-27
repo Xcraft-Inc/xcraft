@@ -62,7 +62,11 @@ var Action = function (root, currentDir, binaryDir) {
     genConfig (currentDir, prefixDir, config.runtime);
 
     /* Copy etc/ files if available. */
-    xFs.cp (path.join (root, 'etc'), path.join (installDir, 'etc'));
+    try {
+      xFs.cp (path.join (root, 'etc'), path.join (installDir, 'etc'));
+    } catch (ex) {
+      xLog.warn ('the etc/ directory is not available');
+    }
   }
 
   var patchApply = function (extra, callback) {
