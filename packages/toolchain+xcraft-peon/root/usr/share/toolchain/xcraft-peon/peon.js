@@ -99,7 +99,7 @@ var Action = function (root, currentDir, binaryDir) {
   return {
     postinst: function () {
       extra.args = {
-        postinst: config.rules.args.postinst
+        all: config.rules.args.postinst
       };
 
       patchApply (extra, function () {
@@ -109,7 +109,7 @@ var Action = function (root, currentDir, binaryDir) {
 
     prerm: function () {
       extra.args = {
-        prerm: config.rules.args.prerm
+        all: config.rules.args.prerm
       };
       peonRun (extra);
     },
