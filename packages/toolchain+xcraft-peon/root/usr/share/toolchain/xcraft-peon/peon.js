@@ -22,7 +22,7 @@ var genConfig = function (currentDir, prefixDir, config) {
   };
 
   var data     = JSON.stringify (newConfig, null, '  ');
-  var fullName = currentDir.match (/.\/([^\/]+)\/([^\/]+)\/?$/);
+  var fullName = currentDir.match (/.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/);
 
   var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
   xFs.mkdir (shareDir);
