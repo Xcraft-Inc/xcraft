@@ -50,6 +50,10 @@ data:
   deploy: ''
   env:
     path: []
+    ldpath: []
+    other:
+      GIT_EXEC_PATH: '<OS.ROOTDIR>/usr/libexec/git-core'
+      GIT_TEMPLATE_DIR: '<OS.ROOTDIR>/usr/share/git-core/templates'
   embedded: true
   runtime:
     configure: ''
