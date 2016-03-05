@@ -11,10 +11,11 @@ var xFs  = require ('xcraft-core-fs');
 
 var genConfig = function (currentDir, prefixDir, config) {
   var newConfig = {
+    get: {},
     type: 'bin',
     configure: config.configure,
     rules: {
-      type: 'meta',
+      type: 'configure',
       location: '',
       args: {}
     },
