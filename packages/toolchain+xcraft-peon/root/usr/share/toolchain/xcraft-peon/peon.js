@@ -103,6 +103,10 @@ var Action = function (root, currentDir, binaryDir) {
         all: config.rules.args.postinst
       };
 
+      if (config.rules.type === 'configure') {
+        extra.forceConfigure = true;
+      }
+
       patchApply (extra, function () {
         peonRun (extra);
       });
