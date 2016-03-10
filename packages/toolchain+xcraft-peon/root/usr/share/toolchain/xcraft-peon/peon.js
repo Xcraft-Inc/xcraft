@@ -108,6 +108,7 @@ var Action = function (root, currentDir, binaryDir) {
       }
 
       patchApply (extra, function () {
+        // FIXME: call internalConfigure() here
         peonRun (extra);
       });
     },
