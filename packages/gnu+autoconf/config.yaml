@@ -46,4 +46,4 @@ data:
       AC_MACRODIR: '<OS.ROOTDIR>/usr/share/autoconf'
   embedded: true
   runtime:
-    configure: "batch.sed ('<PEON.ROOTDIR>/usr/share/autoconf', /\\/[^']+\\/wpkg-[0-9]+\\/install\\/runtime/g, '<PEON.ROOTDIR>');"
+    configure: ''
