@@ -20,6 +20,7 @@
   "dependencies": {
     "ansi-regex": "^2.0.0",
     "cli-color": "^1.0.0",
+    "escape-string-regexp": "^1.0.3",
     "js-yaml": "^3.3.1",
     "xcraft-core-fs": "0.1.0"
   },
