@@ -1,5 +1,5 @@
 {
-  "name": "xcraft-contrib-wpkg",
+  "name": "xcraft-contrib-bootwpkg",
   "version": "0.1.0",
   "description": "Xcraft wpkg support",
   "main": "wpkg.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "file",
-    "url": "lib/xcraft-contrib-wpkg"
+    "url": "lib/xcraft-contrib-bootwpkg"
   },
   "dependencies": {
     "async": "^1.4.0",
