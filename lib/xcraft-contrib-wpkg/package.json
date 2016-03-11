@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "async": "^1.4.0",
-    "xcraft-contrib-cmake": "0.1.0",
+    "xcraft-contrib-bootcmake": "0.1.0",
     "xcraft-core-busclient": "0.1.0",
     "xcraft-core-devel": "0.1.0",
     "xcraft-core-env": "0.1.0",
