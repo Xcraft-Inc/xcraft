@@ -124,20 +124,31 @@ var Action = function (pkg, root, currentDir, binaryDir) {
       }
 
       patchApply (extra, function () {
-        if (extra.forceConfigure) {
-          const wpkg = require ('xcraft-contrib-wpkg');
-          const list = [];
-          wpkg.listFiles (pkg.name, root, list, err => {
-            if (err) {
-              xLog.err (err);
-              return;
+        if (!extra.forceConfigure) {
+          peonRun (extra);
+          return;
+        }
+
+        const tar  = require ('tar-fs');
+        const tarFile = path.join (root, 'var/lib/wpkg', pkg.name, 'data.tar');
+        const list = [];
+
+        fs.createReadStream (tarFile)
+          .pipe (tar.extract ('', {
+            ignore: entry => {
+              list.push (entry);
+              return true;
             }
+          }))
+          .on ('finish', err => {
+            if (err) {
+              xLog (err);
+              process.exit (1);
+            }
+
             internalConfigure (root, list);
             peonRun (extra);
           });
-        } else {
-          peonRun (extra);
-        }
       });
     },
 
