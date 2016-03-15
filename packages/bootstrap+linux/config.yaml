@@ -18,6 +18,9 @@ dependency:
     torvalds+git:
       - version: ''
         architecture: []
+    freedesktop+pkgconfig:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
@@ -33,4 +36,6 @@ data:
       prerm: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
