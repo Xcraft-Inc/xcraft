@@ -9,6 +9,22 @@ var xLog = require ('xcraft-core-log') (moduleName);
 var xFs  = require ('xcraft-core-fs');
 
 
+function internalConfigure (root, fileList) {
+  fileList.forEach (_file => {
+    const file = path.join (root, _file);
+
+    if (!fs.existsSync (file) || fs.statSync (file).isDirectory ()) {
+      return;
+    }
+
+    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"']+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+
+    if (xFs.sed (file, regex, root)) {
+      xLog.warn (`target root fixed for ${file}`);
+    }
+  });
+}
+
 var genConfig = function (currentDir, prefixDir, config) {
   var newConfig = {
     get: {},
@@ -31,7 +47,7 @@ var genConfig = function (currentDir, prefixDir, config) {
   fs.writeFileSync (path.join (shareDir, 'config.json'), data);
 };
 
-var Action = function (root, currentDir, binaryDir) {
+var Action = function (pkg, root, currentDir, binaryDir) {
   var xPeon     = require ('xcraft-contrib-peon');
   var xPh       = require ('xcraft-core-placeholder');
   var xPlatform = require ('xcraft-core-platform');
@@ -108,8 +124,20 @@ var Action = function (root, currentDir, binaryDir) {
       }
 
       patchApply (extra, function () {
-        // FIXME: call internalConfigure() here
-        peonRun (extra);
+        if (extra.forceConfigure) {
+          const wpkg = require ('xcraft-contrib-wpkg');
+          const list = [];
+          wpkg.listFiles (pkg.name, root, list, err => {
+            if (err) {
+              xLog.err (err);
+              return;
+            }
+            internalConfigure (root, list);
+            peonRun (extra);
+          });
+        } else {
+          peonRun (extra);
+        }
       });
     },
 
@@ -144,7 +172,7 @@ if (process.argv.length >= 4) {
     version: process.argv[7]  // FIXME
   };
 
-  var main = new Action (root, share, prefix);
+  var main = new Action (pkg, root, share, prefix);
 
   xLog.verb ('run the action: ' + action);
   main[action] ();
