@@ -139,6 +139,10 @@ if (process.argv.length >= 4) {
   var share  = path.join (root, process.argv[3]);
   var action = process.argv[4];
   var prefix = process.argv[5];
+  var pkg = {
+    name:    process.argv[6],
+    version: process.argv[7]  // FIXME
+  };
 
   var main = new Action (root, share, prefix);
 
