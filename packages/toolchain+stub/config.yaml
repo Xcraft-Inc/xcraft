@@ -1,0 +1,37 @@
+subpackage:
+  - 'runtime*'
+name: toolchain+stub
+version: 0.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Stub
+  long: ''
+dependency: {}
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+  type: bin
+  configure: "sed ('../../../../../wpkg/control.info', /(Package\\/runtime: .*)/, '$1-stub');"
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: ''
+      makeinstall: ''
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
