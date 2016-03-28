@@ -19,6 +19,9 @@ dependency:
     estes+flex:
       - version: ''
         architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.bz2'
