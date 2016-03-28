@@ -1,24 +1,30 @@
-name: bootstrap+darwin
-version: 0.1.0
+name: toolchain+build-essential
+version: 0.0.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
+  - linux-i386
+  - linux-amd64
   - darwin-i386
   - darwin-amd64
+  - solaris-i386
+  - solaris-amd64
+  - freebsd-i386
+  - freebsd-amd64
 description:
-  brief: Bootstrap for darwin.
+  brief: Essential tools for building.
   long: ''
 dependency:
   install:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    torvalds+git:
+    freedesktop+pkgconfig:
       - version: ''
         architecture: []
-    toolchain+build-essential:
+    gnu+libtool:
       - version: ''
         architecture: []
 data:

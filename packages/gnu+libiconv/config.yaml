@@ -16,6 +16,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.VERSION>.tar.gz'
