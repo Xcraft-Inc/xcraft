@@ -1,0 +1,41 @@
+subpackage:
+  - 'runtime*'
+name: estes+flex
+version: 2.6.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Fast Lexical Analyzer.
+  long: 'Flex is a tool for generating scanners. A scanner, sometimes called a tokenizer, is a program which recognizes lexical patterns in text.'
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://downloads.sourceforge.net/project/flex/flex-<THIS.VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: 'data/flex-<THIS.VERSION>/'
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
