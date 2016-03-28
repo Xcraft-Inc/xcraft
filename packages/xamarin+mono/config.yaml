@@ -1,7 +1,7 @@
 subpackage:
   - 'runtime*'
 name: xamarin+mono
-version: 4.0.3.20
+version: 4.2.3.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -13,10 +13,17 @@ description:
   long: ''
 dependency:
   install:
+    gnu+libiconv:
+      - version: ''
+        architecture: []
+  build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
     toolchain+build-essential:
+      - version: ''
+        architecture: []
+    gnu+automake:
       - version: ''
         architecture: []
 data:
@@ -25,18 +32,20 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && LDFLAGS="-liconv -L<PEON.ROOTDIR>/usr/lib" C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure --prefix=<PEON.PREFIXDIR> --disable-nls --enable-small-config --disable-boehm --with-xen_opt=no --without-x --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no --disable-system-aot'
   rules:
     type: make
-    location: data/mono-4.0.3/
+    location: data/mono-4.2.3/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '-j<PEON.CPUS.COUNT> LDFLAGS="-liconv -L<PEON.ROOTDIR>/usr/lib"'
       makeinstall: install
   deploy: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''
