@@ -20,6 +20,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.openssl.org/source/openssl-<THIS.VERSION>.tar.gz'

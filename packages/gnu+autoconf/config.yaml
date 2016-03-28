@@ -12,11 +12,15 @@ description:
   brief: GNU autoconf
   long: ''
 dependency:
+  install:
+    gnu+m4:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    gnu+m4:
+    toolchain+build-essential:
       - version: ''
         architecture: []
 data:

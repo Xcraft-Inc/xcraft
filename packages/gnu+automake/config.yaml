@@ -12,11 +12,15 @@ description:
   brief: GNU automake
   long: ''
 dependency:
-  build:
+  install:
     gnu+autoconf:
       - version: ''
         architecture: []
+  build:
     toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
       - version: ''
         architecture: []
 data:

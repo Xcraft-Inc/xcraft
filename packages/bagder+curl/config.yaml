@@ -23,6 +23,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'

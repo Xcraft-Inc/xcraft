@@ -32,6 +32,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz'
