@@ -18,7 +18,7 @@ data:
     ref: ''
     out: ''
   type: bin
-  configure: "sed ('../../../../../wpkg/control.info', /(Package\\/runtime: .*)/, '$1-stub');"
+  configure: "sed ('<PEON.WPKG.STAG>/wpkg/control.info', /(Package\\/runtime: .*)/, '$1-stub');"
   rules:
     type: configure
     location: ''
