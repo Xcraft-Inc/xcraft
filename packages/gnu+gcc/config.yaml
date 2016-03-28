@@ -28,7 +28,7 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed -i "s,m4-not-required,m4,g" ./gmp/configure && (mkdir objdir || :) && cd objdir && ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib --disable-bootstrap --enable-languages=c,c++'
+  configure: '!cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed -i "s,m4-not-needed,m4,g" ./gmp/configure && (mkdir objdir || :) && cd objdir && ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib --disable-bootstrap --enable-languages=c,c++'
   rules:
     type: make
     location: 'data/gcc-<THIS.VERSION>/objdir'
