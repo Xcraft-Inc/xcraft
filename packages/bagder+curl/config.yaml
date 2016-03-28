@@ -44,6 +44,8 @@ data:
   deploy: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''
