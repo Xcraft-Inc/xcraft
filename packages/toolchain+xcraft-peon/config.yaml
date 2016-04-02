@@ -9,7 +9,11 @@ architecture:
 description:
   brief: A core dependency for many packages.
   long: ''
-dependency: {}
+dependency:
+  install:
+    toolchain+devrootfs:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
@@ -25,4 +29,6 @@ data:
       prerm: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
