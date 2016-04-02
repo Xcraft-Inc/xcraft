@@ -16,6 +16,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://mirror.switch.ch/ftp/mirror/gnu/libtool/libtool-<THIS.VERSION>.tar.gz'
@@ -34,6 +37,8 @@ data:
   deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''

@@ -27,6 +27,9 @@ dependency:
     gnu+libtool:
       - version: ''
         architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
