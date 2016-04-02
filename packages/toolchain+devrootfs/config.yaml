@@ -1,0 +1,30 @@
+name: toolchain+devrootfs
+version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Base directories tree for devroot FS
+  long: ''
+dependency: {}
+data:
+  get:
+    uri: 'self:///root'
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: copy
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
