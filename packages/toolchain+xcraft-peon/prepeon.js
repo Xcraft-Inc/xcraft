@@ -2,12 +2,15 @@
 
 var moduleName = 'prepeon';
 
-module.exports = function (packagePath, sharePath) {
-  var xLog = require ('xcraft-core-log') (moduleName);
+module.exports = function (packagePath, sharePath, packageDef, response) {
+  var xLog = require ('xcraft-core-log') (moduleName, null);
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process') ({logger: 'xlog', mod: moduleName});
+    var xProcess  = require ('xcraft-core-process') ({
+      logger: 'xlog',
+      response: response
+    });
 
     /* prefix to /usr/share */
     var nodeModules = sharePath;

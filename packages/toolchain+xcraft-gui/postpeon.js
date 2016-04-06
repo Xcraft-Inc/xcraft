@@ -2,15 +2,18 @@
 
 var moduleName = 'postpeon';
 
-module.exports = function (packagePath, sharePath) {
+module.exports = function (packagePath, sharePath, packageDef, response) {
   var path = require ('path');
 
-  var xLog = require ('xcraft-core-log') (moduleName);
+  var xLog = require ('xcraft-core-log') (moduleName, null);
   var xFs  = require ('xcraft-core-fs');
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process') ({logger: 'xlog', mod: moduleName});
+    var xProcess  = require ('xcraft-core-process') ({
+      logger: 'xlog',
+      response: response
+    });
 
     xLog.info ('postpeon for xcraft-gui');
 
