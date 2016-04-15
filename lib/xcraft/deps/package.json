@@ -15,7 +15,7 @@
     "grunt-jscs": "^1.2.0",
     "mocha": "^2.3.4",
     "npm-check-updates": "^2.2.0",
-    "shellcraft": "^1.1.10",
+    "shellcraft": "^1.2.2",
     "should": "^5.2.0",
     "unpm": "^1.4.0",
     "unpm-fs-backend": "^0.1.0",
