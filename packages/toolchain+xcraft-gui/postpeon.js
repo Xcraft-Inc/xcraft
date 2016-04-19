@@ -12,7 +12,7 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
     var xPlatform = require ('xcraft-core-platform');
     var xProcess  = require ('xcraft-core-process') ({
       logger: 'xlog',
-      response: response
+      resp:   response
     });
 
     xLog.info ('postpeon for xcraft-gui');
