@@ -1,15 +1,14 @@
 'use strict';
 
-var moduleName = 'peon';
+const moduleName = 'peon';
 
 var path = require ('path');
 var fs   = require ('fs');
 
-var xLog = require ('xcraft-core-log') (moduleName);
 var xFs  = require ('xcraft-core-fs');
 
 
-function internalConfigure (root, fileList) {
+function internalConfigure (root, fileList, response) {
   fileList.forEach (_file => {
     const file = path.join (root, _file);
 
@@ -20,7 +19,7 @@ function internalConfigure (root, fileList) {
     const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"']+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
 
     if (xFs.sed (file, regex, root)) {
-      xLog.warn (`target root fixed for ${file}`);
+      response.log.warn (`target root fixed for ${file}`);
     }
   });
 }
@@ -47,7 +46,7 @@ var genConfig = function (currentDir, prefixDir, config) {
   fs.writeFileSync (path.join (shareDir, 'config.json'), data);
 };
 
-var Action = function (pkg, root, currentDir, binaryDir) {
+var Action = function (pkg, root, currentDir, binaryDir, response) {
   var xPeon     = require ('xcraft-contrib-peon');
   var xPh       = require ('xcraft-core-placeholder');
   var xPlatform = require ('xcraft-core-platform');
@@ -82,7 +81,7 @@ var Action = function (pkg, root, currentDir, binaryDir) {
     try {
       xFs.cp (path.join (root, 'etc'), path.join (installDir, 'etc'));
     } catch (ex) {
-      xLog.warn ('the etc/ directory is not available');
+      response.log.warn ('the etc/ directory is not available');
     }
   }
 
@@ -92,16 +91,16 @@ var Action = function (pkg, root, currentDir, binaryDir) {
     var patchesDir = path.join (currentDir, 'patches');
     var srcDir     = path.join (currentDir, 'cache', extra.location);
 
-    xDevel.autoPatch (patchesDir, srcDir, callback);
+    xDevel.autoPatch (patchesDir, srcDir, response, callback);
   };
 
   var peonRun = function (extra) {
-    xLog.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
+    response.log.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
 
-    xPeon[config.type][config.rules.type] (config.get, root, currentDir, extra, function (err) {
+    xPeon[config.type][config.rules.type] (config.get, root, currentDir, extra, response, function (err) {
       if (err) {
-        xLog.err (err);
-        xLog.err ('Can not %s %s', config.rules.type, config.type);
+        response.log.err (err);
+        response.log.err ('Can not %s %s', config.rules.type, config.type);
         process.exit (1);
       }
     });
@@ -142,11 +141,11 @@ var Action = function (pkg, root, currentDir, binaryDir) {
           }))
           .on ('finish', err => {
             if (err) {
-              xLog (err);
+              response.log.err (err);
               process.exit (1);
             }
 
-            internalConfigure (root, list);
+            internalConfigure (root, list, response);
             peonRun (extra);
           });
       });
@@ -183,8 +182,13 @@ if (process.argv.length >= 4) {
     version: process.argv[7]  // FIXME
   };
 
-  var main = new Action (pkg, root, share, prefix);
+  const xBusClient = require ('xcraft-core-busclient');
+  const response = xBusClient.newResponse (moduleName);
 
-  xLog.verb ('run the action: ' + action);
+  require ('xcraft-core-log') (moduleName, response);
+
+  var main = new Action (pkg, root, share, prefix, response);
+
+  response.log.verb ('run the action: ' + action);
   main[action] ();
 }
