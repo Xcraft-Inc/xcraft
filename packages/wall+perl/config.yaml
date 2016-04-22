@@ -1,0 +1,41 @@
+subpackage:
+  - runtime*
+name: wall+perl
+version: 5.22.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Perl.
+  long: ''
+dependency:
+  build:
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://www.cpan.org/src/5.0/perl-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && sh Configure -des -Dprefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/perl-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
