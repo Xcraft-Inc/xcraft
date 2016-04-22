@@ -16,6 +16,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.VERSION>.tar.gz'
