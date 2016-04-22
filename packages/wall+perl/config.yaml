@@ -22,7 +22,9 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && sh Configure -des -Dprefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && sh Configure -Dprefix=<PEON.PREFIXDIR>
+    -Duserelocatableinc -des
   rules:
     type: make
     location: data/perl-<THIS.VERSION>/
