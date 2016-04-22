@@ -1,0 +1,41 @@
+subpackage:
+  - runtime*
+name: gnu+make
+version: '4.1'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Make.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/make/make-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/make-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
