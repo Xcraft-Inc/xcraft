@@ -3,7 +3,7 @@
 var moduleName = 'prepeon';
 
 module.exports = function (packagePath, sharePath, packageDef, response) {
-  var xLog = require ('xcraft-core-log') (moduleName, null);
+  var xLog = require ('xcraft-core-log') (moduleName, response);
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
