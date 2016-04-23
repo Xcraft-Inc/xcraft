@@ -215,11 +215,11 @@ function postrm (root, pkg) {
 }
 
 if (process.argv.length >= 4) {
-  var root   = process.argv[2];
-  var action = process.argv[4];
+  const root    = process.argv[2];
+  const action  = process.argv[4];
   const wpkgAct = process.argv[5];
-  var prefix = process.argv[6];
-  var pkg = {
+  const prefix  = process.argv[6];
+  const pkg = {
     name:    process.argv[7],
     version: process.argv[8]
   };
@@ -232,7 +232,7 @@ if (process.argv.length >= 4) {
   require ('xcraft-core-log') (moduleName, response);
 
   if (action !== 'postrm') {
-    var main = new Action (pkg, root, share, prefix, response);
+    const main = new Action (pkg, root, share, prefix, response);
 
     response.log.verb ('run the action: ' + action);
     main[action] ();
