@@ -36,10 +36,11 @@ function getBasePath (root, pkg) {
 }
 
 class Action {
-  constructor (pkg, root, currentDir, binaryDir, resp) {
+  constructor (pkg, root, currentDir, binaryDir, hook, resp) {
     this._pkg    = pkg;
     this._share  = currentDir;
     this._root   = root;
+    this._global = hook === 'global'; /* local otherwise */
     this._resp   = resp;
 
     try {
@@ -241,12 +242,13 @@ function guessSharePath (root, share, pkg) {
 
 if (process.argv.length >= 4) {
   const root    = process.argv[2];
-  const action  = process.argv[4];
-  const wpkgAct = process.argv[5];
-  const prefix  = process.argv[6];
+  const hook    = process.argv[4];
+  const action  = process.argv[5];
+  const wpkgAct = process.argv[6];
+  const prefix  = process.argv[7];
   const pkg = {
-    name:    process.argv[7],
-    version: process.argv[8]
+    name:    process.argv[8],
+    version: process.argv[9]
   };
 
   const share = guessSharePath (root, process.argv[3], pkg);
@@ -256,7 +258,7 @@ if (process.argv.length >= 4) {
 
   require ('xcraft-core-log') (moduleName, resp);
 
-  const main = new Action (pkg, root, share, prefix, resp);
+  const main = new Action (pkg, root, share, prefix, hook, resp);
 
   resp.log.verb ('run the action: ' + action);
   main[action] (wpkgAct);
