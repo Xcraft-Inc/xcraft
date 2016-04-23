@@ -217,10 +217,11 @@ function postrm (root, pkg) {
 if (process.argv.length >= 4) {
   var root   = process.argv[2];
   var action = process.argv[4];
-  var prefix = process.argv[5];
+  const wpkgAct = process.argv[5];
+  var prefix = process.argv[6];
   var pkg = {
-    name:    process.argv[6],
-    version: process.argv[7]
+    name:    process.argv[7],
+    version: process.argv[8]
   };
 
   const share = guessSharePath (root, process.argv[3], pkg);
