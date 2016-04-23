@@ -236,7 +236,7 @@ if (process.argv.length >= 4) {
 
     response.log.verb ('run the action: ' + action);
     main[action] ();
-  } else {
+  } else if (wpkgAct === 'remove') {
     postrm (root, pkg);
   }
 }
