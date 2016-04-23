@@ -4,6 +4,7 @@ const moduleName = 'peon';
 
 const path = require ('path');
 const fs   = require ('fs');
+const watt = require ('watt');
 
 const xFs       = require ('xcraft-core-fs');
 const xPeon     = require ('xcraft-contrib-peon');
@@ -57,6 +58,8 @@ class Action {
     if (binaryDir) {
       this._genBinWpkg (binaryDir);
     }
+
+    watt.wrapAll (this);
   }
 
   _genConfig (prefixDir, config) {
@@ -134,29 +137,29 @@ class Action {
     });
   }
 
-  _patchApply (extra, callback) {
+  * _patchApply (extra, next) {
     const xDevel = require ('xcraft-core-devel');
 
     const patchesDir = path.join (this._share, 'patches');
     const srcDir     = path.join (this._share, 'cache', extra.location);
 
-    xDevel.autoPatch (patchesDir, srcDir, this._resp, callback);
+    yield xDevel.autoPatch (patchesDir, srcDir, this._resp, next);
   }
 
-  _peonRun (extra) {
+  * _peonRun (extra, next) {
     this._resp.log.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
 
     const peonAction = xPeon[this._config.type][this._config.rules.type];
-    peonAction (this._config.get, this._root, this._share, extra, this._resp, (err) => {
-      if (err) {
-        this._resp.log.err (err);
-        this._resp.log.err ('Can not %s %s', this._config.rules.type, this._config.type);
-        process.exit (1);
-      }
-    });
+    try {
+      yield peonAction (this._config.get, this._root, this._share, extra, this._resp, next);
+    } catch (ex) {
+      this._resp.log.err (ex.stack || ex);
+      this._resp.log.err ('Can not %s %s', this._config.rules.type, this._config.type);
+      process.exit (1);
+    }
   }
 
-  postinst () {
+  * postinst (wpkgAct, next) {
     const extra = this._getExtra ();
     extra.args = {
       all: this._config.rules.args.postinst
@@ -166,41 +169,40 @@ class Action {
       extra.forceConfigure = true;
     }
 
-    this._patchApply (extra, () => {
-      if (!extra.forceConfigure) {
-        this._peonRun (extra);
-        return;
-      }
+    yield this._patchApply (extra);
+    if (!extra.forceConfigure) {
+      yield this._peonRun (extra);
+      return;
+    }
 
-      const tar  = require ('tar-fs');
-      const tarFile = path.join (this._root, 'var/lib/wpkg', this._pkg.name, 'data.tar');
-      const list = [];
+    const tar  = require ('tar-fs');
+    const tarFile = path.join (this._root, 'var/lib/wpkg', this._pkg.name, 'data.tar');
+    const list = [];
 
-      fs.createReadStream (tarFile)
+    try {
+      yield fs.createReadStream (tarFile)
         .pipe (tar.extract ('', {
           ignore: entry => {
             list.push (entry);
             return true;
           }
         }))
-        .on ('finish', err => {
-          if (err) {
-            this._resp.log.err (err);
-            process.exit (1);
-          }
+        .on ('finish', next);
 
-          this._internalConfigure (list);
-          this._peonRun (extra);
-        });
-    });
+      this._internalConfigure (list);
+      yield this._peonRun (extra);
+    } catch (ex) {
+      this._resp.log.err (ex.stack || ex);
+      process.exit (1);
+    }
   }
 
-  prerm () {
+  * prerm () {
     const extra = this._getExtra ();
     extra.args = {
       all: this._config.rules.args.prerm
     };
-    this._peonRun (extra);
+    yield this._peonRun (extra);
   }
 
   postrm (wpkgAct) {
@@ -213,7 +215,7 @@ class Action {
     }
   }
 
-  makeall () {
+  * makeall () {
     const extra = this._getExtra ();
     extra.args = {
       all:     this._config.rules.args.makeall,
@@ -221,9 +223,8 @@ class Action {
     };
     extra.deploy = this._config.deploy;
 
-    this._patchApply (extra, () => {
-      this._peonRun (extra);
-    });
+    yield this._patchApply (extra);
+    yield this._peonRun (extra);
   }
 }
 

@@ -17,16 +17,18 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
 
     xLog.info ('prepeon for xcraft modules installation');
 
+    /* FIXME: tar-fs and watt are missing */
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
     var args = [
       '--modprefix', nodeModules,
       'install',
       'xcraft-contrib-peon',
+      'xcraft-core-busclient',
       'xcraft-core-devel',
       'xcraft-core-fs',
       'xcraft-core-log',
       'xcraft-core-placeholder',
-      'xcraft-core-platform'
+      'xcraft-core-platform',
     ];
 
     xLog.verb (xcraft);
