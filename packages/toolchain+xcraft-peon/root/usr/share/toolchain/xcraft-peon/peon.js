@@ -2,13 +2,13 @@
 
 const moduleName = 'peon';
 
-var path = require ('path');
-var fs   = require ('fs');
+const path = require ('path');
+const fs   = require ('fs');
 
-var xFs       = require ('xcraft-core-fs');
-var xPeon     = require ('xcraft-contrib-peon');
-var xPh       = require ('xcraft-core-placeholder');
-var xPlatform = require ('xcraft-core-platform');
+const xFs       = require ('xcraft-core-fs');
+const xPeon     = require ('xcraft-contrib-peon');
+const xPh       = require ('xcraft-core-placeholder');
+const xPlatform = require ('xcraft-core-platform');
 
 
 function isPackageSrc (pkg) {
@@ -60,7 +60,7 @@ class Action {
   }
 
   _genConfig (prefixDir, config) {
-    var newConfig = {
+    const newConfig = {
       get: {},
       type: 'bin',
       configure: config.configure,
@@ -72,10 +72,10 @@ class Action {
       embedded: true
     };
 
-    var data     = JSON.stringify (newConfig, null, '  ');
-    var fullName = this._share.match (/.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/);
+    const data     = JSON.stringify (newConfig, null, '  ');
+    const fullName = this._share.match (/.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/);
 
-    var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
+    const shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
     xFs.mkdir (shareDir);
 
     fs.writeFileSync (path.join (shareDir, 'config.json'), data);
@@ -93,14 +93,14 @@ class Action {
     /* HACK: forced subpackage /runtime
      * we need to rework packageDef model before
      */
-    var installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
-    var prefixDir = path.join (installDir, 'usr');
+    const installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
+    const prefixDir = path.join (installDir, 'usr');
     xPh.global
       .set ('PREFIXDIR',  prefixDir)
       .set ('INSTALLDIR', installDir);
 
     /* Copy postinst and prerm scripts for the binary package. */
-    var installWpkgDir = path.join (installDir, 'WPKG');
+    const installWpkgDir = path.join (installDir, 'WPKG');
     xFs.mkdir (installWpkgDir);
     ['postinst', 'prerm'].forEach ((script) => {
       script = script + xPlatform.getShellExt ();
@@ -135,10 +135,10 @@ class Action {
   }
 
   _patchApply (extra, callback) {
-    var xDevel = require ('xcraft-core-devel');
+    const xDevel = require ('xcraft-core-devel');
 
-    var patchesDir = path.join (this._share, 'patches');
-    var srcDir     = path.join (this._share, 'cache', extra.location);
+    const patchesDir = path.join (this._share, 'patches');
+    const srcDir     = path.join (this._share, 'cache', extra.location);
 
     xDevel.autoPatch (patchesDir, srcDir, this._resp, callback);
   }
