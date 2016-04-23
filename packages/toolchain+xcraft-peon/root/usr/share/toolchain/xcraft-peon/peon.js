@@ -172,23 +172,70 @@ var Action = function (pkg, root, currentDir, binaryDir, response) {
   };
 };
 
+function explodeName (name) {
+  return {
+    prefix: name.replace (/\+.*/, ''),
+    name:   name.replace (/.*\+/, '').replace (/-src$/, '')
+  };
+}
+
+function isPackageSrc (pkg) {
+  return /-src$/.test (pkg.name);
+}
+
+function getBasePath (root, pkg) {
+  const isSrc   = isPackageSrc (pkg);
+  const expName = explodeName (pkg.name);
+
+  let base = './';
+  if (isSrc) {
+    base = `usr/src/${expName.prefix}+${expName.name}_${pkg.version}`;
+  }
+
+  return path.join (root, base);
+}
+
+function guessSharePath (root, share, pkg) {
+  if (share && share.length) {
+    return path.join (root, share);
+  }
+
+  const base    = getBasePath (root, pkg);
+  const expName = explodeName (pkg.name);
+
+  return path.join (base, `usr/share/${expName.prefix}/${expName.name}`);
+}
+
+function postrm (root, pkg) {
+  if (!isPackageSrc (pkg)) {
+    return;
+  }
+
+  xFs.rm (getBasePath (root, pkg));
+}
+
 if (process.argv.length >= 4) {
   var root   = process.argv[2];
-  var share  = path.join (root, process.argv[3]);
   var action = process.argv[4];
   var prefix = process.argv[5];
   var pkg = {
     name:    process.argv[6],
-    version: process.argv[7]  // FIXME
+    version: process.argv[7]
   };
+
+  const share = guessSharePath (root, process.argv[3], pkg);
 
   const xBusClient = require ('xcraft-core-busclient');
   const response = xBusClient.newResponse (moduleName);
 
   require ('xcraft-core-log') (moduleName, response);
 
-  var main = new Action (pkg, root, share, prefix, response);
+  if (action !== 'postrm') {
+    var main = new Action (pkg, root, share, prefix, response);
 
-  response.log.verb ('run the action: ' + action);
-  main[action] ();
+    response.log.verb ('run the action: ' + action);
+    main[action] ();
+  } else {
+    postrm (root, pkg);
+  }
 }
