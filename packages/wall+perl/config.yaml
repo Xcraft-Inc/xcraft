@@ -13,6 +13,9 @@ description:
   long: ''
 dependency:
   build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
     toolchain+build-essential:
       - version: ''
         architecture: []
