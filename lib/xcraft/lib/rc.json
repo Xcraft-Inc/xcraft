@@ -27,7 +27,7 @@
     "desc": "populate the bin/ directory with base commands",
     "options": {
       "params": {
-        "required": "bins..."
+        "optional": "bins..."
       }
     }
   },
