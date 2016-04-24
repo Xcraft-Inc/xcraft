@@ -134,7 +134,7 @@ class Action {
         return;
       }
 
-      const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"']+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+      const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"'\n$]+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
 
       try {
         if (xFs.sed (file, regex, this._root)) {
