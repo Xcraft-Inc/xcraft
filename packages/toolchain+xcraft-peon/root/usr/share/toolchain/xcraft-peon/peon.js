@@ -135,8 +135,15 @@ class Action {
 
       const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"']+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
 
-      if (xFs.sed (file, regex, this._root)) {
-        this._resp.log.warn (`target root fixed for ${file}`);
+      try {
+        if (xFs.sed (file, regex, this._root)) {
+          this._resp.log.warn (`target root fixed for ${file}`);
+        }
+      } catch (ex) {
+        if (ex.code !== 'EACCES') {
+          throw ex;
+        }
+        this._resp.log.warn (`${file} is readonly, cannot be fixed`);
       }
     });
   }
