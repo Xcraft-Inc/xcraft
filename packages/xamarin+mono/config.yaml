@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: xamarin+mono
 version: 4.2.3.4
 distribution: toolchain/
@@ -9,7 +9,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: "Mono is an open source implementation of Microsoft's .NET Framework."
+  brief: Mono is an open source implementation of Microsoft's .NET Framework.
   long: ''
 dependency:
   install:
@@ -32,14 +32,20 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && LDFLAGS="-liconv -L<PEON.ROOTDIR>/usr/lib" C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure --prefix=<PEON.PREFIXDIR> --disable-nls --enable-small-config --disable-boehm --with-xen_opt=no --without-x --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no --disable-system-aot'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
+    C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure
+    --prefix=<PEON.PREFIXDIR> --disable-nls --disable-rpath --disable-libraries
+    --enable-small-config --disable-boehm --with-xen_opt=no --without-x
+    --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no
+    --disable-system-aot
   rules:
     type: make
     location: data/mono-4.2.3/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT> LDFLAGS="-liconv -L<PEON.ROOTDIR>/usr/lib"'
+      makeall: '-j<PEON.CPUS.COUNT> LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"'
       makeinstall: install
   deploy: ''
   env:
