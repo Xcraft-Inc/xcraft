@@ -198,6 +198,9 @@ class Action {
         if (/__peon_colon__/.test (file)) {
           newFile = newFile.replace (/__peon_colon__/g, ':');
         }
+        if (/__peon_[0-9]+__$/.test (file)) {
+          newFile = newFile.replace (/^(.*)__peon_[0-9]+__$/, '$1');
+        }
         if (newFile !== file) {
           xFs.cp (file, newFile);
         }
