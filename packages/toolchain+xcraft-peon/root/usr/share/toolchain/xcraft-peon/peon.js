@@ -192,8 +192,8 @@ class Action {
         /* TODO: keep a file with all copies, then it can be removed
          *       with postrm.
          */
-        if (/\.__peon__$/i.test (file)) {
-          newFile = newFile.replace (/^(.*)\.__peon__$/i, '$1');
+        if (/__peon__$/.test (file)) {
+          newFile = newFile.replace (/^(.*)__peon__$/, '$1');
         }
         if (/__peon_colon__/.test (file)) {
           newFile = newFile.replace (/__peon_colon__/g, ':');
