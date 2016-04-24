@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: openssl+openssl
 version: 1.0.1r
 distribution: toolchain/
@@ -23,24 +23,32 @@ dependency:
     toolchain+build-essential:
       - version: ''
         architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.openssl.org/source/openssl-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && CFLAGS="-fPIC" ./<PEON.OS=darwin?Configure darwin64-x86_64-cc:config> shared --install_prefix=<PEON.INSTALLDIR> --prefix=/usr'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="-fPIC" ./<PEON.OS=darwin?Configure
+    darwin64-x86_64-cc:config> shared --install_prefix=<PEON.INSTALLDIR>
+    --prefix=/usr
   rules:
     type: make
-    location: 'data/openssl-<THIS.VERSION>/'
+    location: data/openssl-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: 'CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
+      makeall: CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>
       makeinstall: CFLAGS= LDFLAGS= install_sw
   deploy: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''
