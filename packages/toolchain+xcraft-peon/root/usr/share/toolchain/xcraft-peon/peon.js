@@ -154,7 +154,14 @@ class Action {
     const patchesDir = path.join (this._share, 'patches');
     const srcDir     = path.join (this._share, 'cache', extra.location);
 
-    yield xDevel.autoPatch (patchesDir, srcDir, this._resp, next);
+    try {
+      yield xDevel.autoPatch (patchesDir, srcDir, this._resp, next);
+    } catch (ex) {
+      if (ex.code !== 'ENOENT') {
+        throw ex;
+      }
+      this._resp.log.warn ('no cache directory, patches skipped (stub package?)');
+    }
   }
 
   * _peonRun (extra, next) {
