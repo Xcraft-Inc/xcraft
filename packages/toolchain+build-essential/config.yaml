@@ -30,6 +30,9 @@ dependency:
     gnu+m4:
       - version: ''
         architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''

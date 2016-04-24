@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: gnu+libtool
-version: 2.4.6
+name: gnu+make
+version: '4.1'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,36 +9,29 @@ maintainer:
 architecture:
   - source
 description:
-  brief: GNU libtool
+  brief: Make.
   long: ''
 dependency:
   build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    gnu+m4:
-      - version: ''
-        architecture: []
-    gnu+make:
-      - version: ''
-        architecture: []
 data:
   get:
-    uri: >-
-      http://mirror.switch.ch/ftp/mirror/gnu/libtool/libtool-<THIS.VERSION>.tar.gz
+    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/make/make-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/libtool-<THIS.VERSION>/
+    location: data/make-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
+  deploy: ''
   env:
     path: []
     ldpath: []

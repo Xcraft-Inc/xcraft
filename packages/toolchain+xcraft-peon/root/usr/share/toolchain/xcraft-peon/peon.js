@@ -2,185 +2,25 @@
 
 const moduleName = 'peon';
 
-var path = require ('path');
-var fs   = require ('fs');
+const path = require ('path');
+const fs   = require ('fs');
+const watt = require ('watt');
 
-var xFs  = require ('xcraft-core-fs');
+const xFs       = require ('xcraft-core-fs');
+const xPeon     = require ('xcraft-contrib-peon');
+const xPh       = require ('xcraft-core-placeholder');
+const xPlatform = require ('xcraft-core-platform');
 
 
-function internalConfigure (root, fileList, response) {
-  fileList.forEach (_file => {
-    const file = path.join (root, _file);
-
-    if (!fs.existsSync (file) || fs.statSync (file).isDirectory ()) {
-      return;
-    }
-
-    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"']+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
-
-    if (xFs.sed (file, regex, root)) {
-      response.log.warn (`target root fixed for ${file}`);
-    }
-  });
+function isPackageSrc (pkg) {
+  return /-src$/.test (pkg.name);
 }
-
-var genConfig = function (currentDir, prefixDir, config) {
-  var newConfig = {
-    get: {},
-    type: 'bin',
-    configure: config.configure,
-    rules: {
-      type: 'configure',
-      location: '',
-      args: {}
-    },
-    embedded: true
-  };
-
-  var data     = JSON.stringify (newConfig, null, '  ');
-  var fullName = currentDir.match (/.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/);
-
-  var shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
-  xFs.mkdir (shareDir);
-
-  fs.writeFileSync (path.join (shareDir, 'config.json'), data);
-};
-
-var Action = function (pkg, root, currentDir, binaryDir, response) {
-  var xPeon     = require ('xcraft-contrib-peon');
-  var xPh       = require ('xcraft-core-placeholder');
-  var xPlatform = require ('xcraft-core-platform');
-
-  var config = JSON.parse (fs.readFileSync (path.join (currentDir, './config.json')));
-
-  /* This condition is true only when wpkg is building a new binary package
-   * from a source package.
-   */
-  if (binaryDir) {
-    /* HACK: forced subpackage /runtime
-     * we need to rework packageDef model before
-     */
-    var installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
-    var prefixDir = path.join (installDir, 'usr');
-    xPh.global
-      .set ('PREFIXDIR',  prefixDir)
-      .set ('INSTALLDIR', installDir);
-
-    /* Copy postinst and prerm scripts for the binary package. */
-    var installWpkgDir = path.join (installDir, 'WPKG');
-    xFs.mkdir (installWpkgDir);
-    ['postinst', 'prerm'].forEach (function (script) {
-      script = script + xPlatform.getShellExt ();
-      xFs.cp (path.join (root, script), path.join (installWpkgDir, script));
-    });
-
-    /* Generate the config.json file. */
-    genConfig (currentDir, prefixDir, config.runtime);
-
-    /* Copy etc/ files if available. */
-    try {
-      xFs.cp (path.join (root, 'etc'), path.join (installDir, 'etc'));
-    } catch (ex) {
-      response.log.warn ('the etc/ directory is not available');
-    }
-  }
-
-  var patchApply = function (extra, callback) {
-    var xDevel = require ('xcraft-core-devel');
-
-    var patchesDir = path.join (currentDir, 'patches');
-    var srcDir     = path.join (currentDir, 'cache', extra.location);
-
-    xDevel.autoPatch (patchesDir, srcDir, response, callback);
-  };
-
-  var peonRun = function (extra) {
-    response.log.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
-
-    xPeon[config.type][config.rules.type] (config.get, root, currentDir, extra, response, function (err) {
-      if (err) {
-        response.log.err (err);
-        response.log.err ('Can not %s %s', config.rules.type, config.type);
-        process.exit (1);
-      }
-    });
-  };
-
-  var extra = {
-    location:  config.rules.location,
-    configure: config.configure,
-    embedded:  config.embedded
-  };
-
-  return {
-    postinst: function () {
-      extra.args = {
-        all: config.rules.args.postinst
-      };
-
-      if (config.rules.type === 'configure') {
-        extra.forceConfigure = true;
-      }
-
-      patchApply (extra, function () {
-        if (!extra.forceConfigure) {
-          peonRun (extra);
-          return;
-        }
-
-        const tar  = require ('tar-fs');
-        const tarFile = path.join (root, 'var/lib/wpkg', pkg.name, 'data.tar');
-        const list = [];
-
-        fs.createReadStream (tarFile)
-          .pipe (tar.extract ('', {
-            ignore: entry => {
-              list.push (entry);
-              return true;
-            }
-          }))
-          .on ('finish', err => {
-            if (err) {
-              response.log.err (err);
-              process.exit (1);
-            }
-
-            internalConfigure (root, list, response);
-            peonRun (extra);
-          });
-      });
-    },
-
-    prerm: function () {
-      extra.args = {
-        all: config.rules.args.prerm
-      };
-      peonRun (extra);
-    },
-
-    makeall: function () {
-      extra.args = {
-        all:     config.rules.args.makeall,
-        install: config.rules.args.makeinstall
-      };
-      extra.deploy = config.deploy;
-
-      patchApply (extra, function () {
-        peonRun (extra);
-      });
-    }
-  };
-};
 
 function explodeName (name) {
   return {
     prefix: name.replace (/\+.*/, ''),
     name:   name.replace (/.*\+/, '').replace (/-src$/, '')
   };
-}
-
-function isPackageSrc (pkg) {
-  return /-src$/.test (pkg.name);
 }
 
 function getBasePath (root, pkg) {
@@ -195,6 +35,247 @@ function getBasePath (root, pkg) {
   return path.join (root, base);
 }
 
+class Action {
+  constructor (pkg, root, currentDir, binaryDir, hook, resp) {
+    this._pkg    = pkg;
+    this._share  = currentDir;
+    this._root   = root;
+    this._global = hook === 'global'; /* local otherwise */
+    this._resp   = resp;
+    this._prefix = null;
+
+    try {
+      this._config = JSON.parse (fs.readFileSync (path.join (this._share, './config.json')));
+    } catch (ex) {
+      if (ex.code !== 'ENOENT') {
+        throw ex;
+      }
+      this._resp.log.warn (`no config file, ensure that it's a postrm action`);
+      this._config = null;
+    }
+
+    /* This condition is true only when wpkg is building a new binary package
+     * from a source package.
+     */
+    if (binaryDir) {
+      this._genBinWpkg (binaryDir);
+    }
+
+    watt.wrapAll (this);
+  }
+
+  _genConfig (prefixDir, config) {
+    const newConfig = {
+      get: {},
+      type: 'bin',
+      configure: config.configure,
+      rules: {
+        type: 'configure',
+        location: '',
+        args: {}
+      },
+      embedded: true
+    };
+
+    const data     = JSON.stringify (newConfig, null, '  ');
+    const fullName = this._share.match (/.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/);
+
+    const shareDir = path.join (prefixDir, 'share', fullName[1], fullName[2]);
+    xFs.mkdir (shareDir);
+
+    fs.writeFileSync (path.join (shareDir, 'config.json'), data);
+  }
+
+  _getExtra () {
+    return {
+      location:       this._config.rules.location,
+      configure:      this._config.configure,
+      embedded:       this._config.embedded,
+      forceConfigure: this._config.rules.type === 'configure'
+    };
+  }
+
+  _genBinWpkg (binaryDir) {
+    /* HACK: forced subpackage /runtime
+     * we need to rework packageDef model before
+     */
+    const installDir = path.normalize (binaryDir.replace (/build$/, 'install/runtime'));
+    const prefixDir = path.join (installDir, 'usr');
+    xPh.global
+      .set ('PREFIXDIR',  prefixDir)
+      .set ('INSTALLDIR', installDir);
+
+    this._prefix = prefixDir;
+
+    /* Copy postinst and prerm scripts for the binary package. */
+    const installWpkgDir = path.join (installDir, 'WPKG');
+    xFs.mkdir (installWpkgDir);
+    ['postinst', 'prerm'].forEach ((script) => {
+      script = script + xPlatform.getShellExt ();
+      xFs.cp (path.join (this._root, script), path.join (installWpkgDir, script));
+    });
+
+    /* Generate the config.json file. */
+    this._genConfig (prefixDir, this._config.runtime);
+
+    /* Copy etc/ files if available. */
+    try {
+      xFs.cp (path.join (this._root, 'etc'), path.join (installDir, 'etc'));
+    } catch (ex) {
+      this._resp.log.warn ('the etc/ directory is not available');
+    }
+  }
+
+  _internalConfigure (fileList) {
+    fileList.forEach (_file => {
+      const file = path.join (this._root, _file);
+
+      if (!fs.existsSync (file) || fs.statSync (file).isDirectory ()) {
+        return;
+      }
+
+      const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"'\n$]+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+
+      try {
+        if (xFs.sed (file, regex, this._root)) {
+          this._resp.log.warn (`target root fixed for ${file}`);
+        }
+      } catch (ex) {
+        if (ex.code !== 'EACCES') {
+          throw ex;
+        }
+        this._resp.log.warn (`${file} is readonly, cannot be fixed`);
+      }
+    });
+  }
+
+  * _patchApply (extra, next) {
+    const xDevel = require ('xcraft-core-devel');
+
+    const patchesDir = path.join (this._share, 'patches');
+    const srcDir     = path.join (this._share, 'cache', extra.location);
+
+    try {
+      yield xDevel.autoPatch (patchesDir, srcDir, this._resp, next);
+    } catch (ex) {
+      if (ex.code !== 'ENOENT') {
+        throw ex;
+      }
+      this._resp.log.warn ('no cache directory, patches skipped (stub package?)');
+    }
+  }
+
+  * _peonRun (extra, next) {
+    this._resp.log.verb ('Command: %s %s', extra.location, JSON.stringify (extra.args));
+
+    const peonAction = xPeon[this._config.type][this._config.rules.type];
+    try {
+      yield peonAction (this._config.get, this._root, this._share, extra, this._resp, next);
+    } catch (ex) {
+      this._resp.log.err (ex.stack || ex);
+      this._resp.log.err ('Can not %s %s', this._config.rules.type, this._config.type);
+      process.exit (1);
+    }
+  }
+
+  * _listFromTar (tarFile, next) {
+    const tar  = require ('tar-fs');
+    const list = [];
+
+    yield fs.createReadStream (tarFile)
+      .pipe (tar.extract ('', {
+        ignore: entry => {
+          list.push (entry);
+          return true;
+        }
+      }))
+      .on ('finish', next);
+
+    return list;
+  }
+
+  * postinst () {
+    const tarFile = path.join (this._root, 'var/lib/wpkg', this._pkg.name, 'data.tar');
+
+    if (this._global) {
+      /* Restore the original filenames. */
+      const list = yield this._listFromTar (tarFile);
+
+      /* No move here because the files are handled by wpkg. */
+      list.forEach ((file) => {
+        let newFile = file;
+        /* TODO: keep a file with all copies, then it can be removed
+         *       with postrm.
+         */
+        if (/__peon__$/.test (file)) {
+          newFile = newFile.replace (/^(.*)__peon__$/, '$1');
+        }
+        if (/__peon_colon__/.test (file)) {
+          newFile = newFile.replace (/__peon_colon__/g, ':');
+        }
+        if (/__peon_[0-9]+__$/.test (file)) {
+          newFile = newFile.replace (/^(.*)__peon_[0-9]+__$/, '$1');
+        }
+        if (newFile !== file) {
+          xFs.cp (file, newFile);
+        }
+      });
+      return;
+    }
+
+    const extra = this._getExtra ();
+    extra.args = {
+      all: this._config.rules.args.postinst
+    };
+
+    yield this._patchApply (extra);
+    if (!extra.forceConfigure) {
+      yield this._peonRun (extra);
+      return;
+    }
+
+    try {
+      const list = yield this._listFromTar (tarFile);
+      this._internalConfigure (list);
+      yield this._peonRun (extra);
+    } catch (ex) {
+      this._resp.log.err (ex.stack || ex);
+      process.exit (1);
+    }
+  }
+
+  * prerm () {
+    const extra = this._getExtra ();
+    extra.args = {
+      all: this._config.rules.args.prerm
+    };
+    yield this._peonRun (extra);
+  }
+
+  postrm (wpkgAct) {
+    if (!isPackageSrc (this._pkg)) {
+      return;
+    }
+
+    if (wpkgAct === 'remove') {
+      xFs.rm (getBasePath (this._root, this._pkg));
+    }
+  }
+
+  * makeall () {
+    const extra = this._getExtra ();
+    extra.args = {
+      all:     this._config.rules.args.makeall,
+      install: this._config.rules.args.makeinstall
+    };
+    extra.deploy = this._config.deploy;
+    extra.prefix = this._prefix;
+
+    yield this._patchApply (extra);
+    yield this._peonRun (extra);
+  }
+}
+
 function guessSharePath (root, share, pkg) {
   if (share && share.length) {
     return path.join (root, share);
@@ -206,36 +287,26 @@ function guessSharePath (root, share, pkg) {
   return path.join (base, `usr/share/${expName.prefix}/${expName.name}`);
 }
 
-function postrm (root, pkg) {
-  if (!isPackageSrc (pkg)) {
-    return;
-  }
-
-  xFs.rm (getBasePath (root, pkg));
-}
-
 if (process.argv.length >= 4) {
-  var root   = process.argv[2];
-  var action = process.argv[4];
-  var prefix = process.argv[5];
-  var pkg = {
-    name:    process.argv[6],
-    version: process.argv[7]
+  const root    = process.argv[2];
+  const hook    = process.argv[4];
+  const action  = process.argv[5];
+  const wpkgAct = process.argv[6];
+  const prefix  = process.argv[7];
+  const pkg = {
+    name:    process.argv[8],
+    version: process.argv[9]
   };
 
   const share = guessSharePath (root, process.argv[3], pkg);
 
   const xBusClient = require ('xcraft-core-busclient');
-  const response = xBusClient.newResponse (moduleName);
+  const resp = xBusClient.newResponse (moduleName);
 
-  require ('xcraft-core-log') (moduleName, response);
+  require ('xcraft-core-log') (moduleName, resp);
 
-  if (action !== 'postrm') {
-    var main = new Action (pkg, root, share, prefix, response);
+  const main = new Action (pkg, root, share, prefix, hook, resp);
 
-    response.log.verb ('run the action: ' + action);
-    main[action] ();
-  } else {
-    postrm (root, pkg);
-  }
+  resp.log.verb ('run the action: ' + action);
+  main[action] (wpkgAct);
 }

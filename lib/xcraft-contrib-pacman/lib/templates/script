@@ -4,14 +4,18 @@ set -e
 NAME=<PACMAN.NAME>
 VERSION=<PACMAN.VERSION>
 SHARE=<PACMAN.SHARE>
+HOOK=<PACMAN.HOOK>
 ACTION=<PACMAN.ACTION>
 SYSROOT=<PACMAN.SYSROOT>
 CONFIG=<PACMAN.CONFIG>
+WPKGACT="$1"
 [ "$1" = cmake ] && CMAKE_BINARY_DIR="$2" || CMAKE_BINARY_DIR=
 
-PEON=$(node -e "process.stdout.write (require ('path').resolve (__dirname, '$SYSROOT', require (require ('path').resolve (__dirname, '$SYSROOT', '$CONFIG')).bin));")
+[ ! -f "$CONFIG" ] && exit 0
+
+PEON=$(node -e "process.stdout.write (require ('path').resolve (__dirname, '$SYSROOT', require (require ('path').resolve (__dirname, '$CONFIG')).bin));")
 
 [ -z "$NAME" ] && NAME="$2"
 [ -z "$VERSION" ] && VERSION="$3"
 
-node "$PEON" "$(pwd)" "$SHARE" $ACTION "$CMAKE_BINARY_DIR" "$NAME" "$VERSION"
+node "$PEON" "$(pwd)" "$SHARE" "$HOOK" $ACTION "$WPKGACT" "$CMAKE_BINARY_DIR" "$NAME" "$VERSION"
