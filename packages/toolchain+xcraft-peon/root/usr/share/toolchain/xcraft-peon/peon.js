@@ -42,6 +42,7 @@ class Action {
     this._root   = root;
     this._global = hook === 'global'; /* local otherwise */
     this._resp   = resp;
+    this._prefix = null;
 
     try {
       this._config = JSON.parse (fs.readFileSync (path.join (this._share, './config.json')));
@@ -102,6 +103,8 @@ class Action {
     xPh.global
       .set ('PREFIXDIR',  prefixDir)
       .set ('INSTALLDIR', installDir);
+
+    this._prefix = prefixDir;
 
     /* Copy postinst and prerm scripts for the binary package. */
     const installWpkgDir = path.join (installDir, 'WPKG');
@@ -184,12 +187,17 @@ class Action {
       const list = yield this._listFromTar (tarFile);
 
       /* No move here because the files are handled by wpkg. */
-      list.filter ((file) => /\.__PEON__$/i.test (file)).forEach ((file) => {
+      list.forEach ((file) => {
+        let newFile = file;
         /* TODO: keep a file with all copies, then it can be removed
          *       with postrm.
          */
-        const newFile = file.replace (/^(.*)\.__PEON__$/i, '$1');
-        xFs.cp (file, newFile);
+        if (/\.__peon__$/i.test (file)) {
+          newFile = newFile.replace (/^(.*)\.__peon__$/i, '$1');
+        }
+        if (newFile !== file) {
+          xFs.cp (file, newFile);
+        }
       });
       return;
     }
@@ -244,6 +252,7 @@ class Action {
       install: this._config.rules.args.makeinstall
     };
     extra.deploy = this._config.deploy;
+    extra.prefix = this._prefix;
 
     yield this._patchApply (extra);
     yield this._peonRun (extra);
