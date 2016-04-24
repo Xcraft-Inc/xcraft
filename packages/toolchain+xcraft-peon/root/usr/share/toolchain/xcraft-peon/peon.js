@@ -160,7 +160,40 @@ class Action {
     }
   }
 
-  * postinst (wpkgAct, next) {
+  * _listFromTar (tarFile, next) {
+    const tar  = require ('tar-fs');
+    const list = [];
+
+    yield fs.createReadStream (tarFile)
+      .pipe (tar.extract ('', {
+        ignore: entry => {
+          list.push (entry);
+          return true;
+        }
+      }))
+      .on ('finish', next);
+
+    return list;
+  }
+
+  * postinst () {
+    const tarFile = path.join (this._root, 'var/lib/wpkg', this._pkg.name, 'data.tar');
+
+    if (this._global) {
+      /* Restore the original filenames. */
+      const list = yield this._listFromTar (tarFile);
+
+      /* No move here because the files are handled by wpkg. */
+      list.filter ((file) => /\.__PEON__$/i.test (file)).forEach ((file) => {
+        /* TODO: keep a file with all copies, then it can be removed
+         *       with postrm.
+         */
+        const newFile = file.replace (/^(.*)\.__PEON__$/i, '$1');
+        xFs.cp (file, newFile);
+      });
+      return;
+    }
+
     const extra = this._getExtra ();
     extra.args = {
       all: this._config.rules.args.postinst
@@ -176,20 +209,8 @@ class Action {
       return;
     }
 
-    const tar  = require ('tar-fs');
-    const tarFile = path.join (this._root, 'var/lib/wpkg', this._pkg.name, 'data.tar');
-    const list = [];
-
     try {
-      yield fs.createReadStream (tarFile)
-        .pipe (tar.extract ('', {
-          ignore: entry => {
-            list.push (entry);
-            return true;
-          }
-        }))
-        .on ('finish', next);
-
+      const list = yield this._listFromTar (tarFile);
       this._internalConfigure (list);
       yield this._peonRun (extra);
     } catch (ex) {
