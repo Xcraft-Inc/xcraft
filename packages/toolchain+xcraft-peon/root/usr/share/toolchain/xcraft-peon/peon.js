@@ -88,9 +88,10 @@ class Action {
 
   _getExtra () {
     return {
-      location:  this._config.rules.location,
-      configure: this._config.configure,
-      embedded:  this._config.embedded
+      location:       this._config.rules.location,
+      configure:      this._config.configure,
+      embedded:       this._config.embedded,
+      forceConfigure: this._config.rules.type === 'configure'
     };
   }
 
@@ -226,10 +227,6 @@ class Action {
     extra.args = {
       all: this._config.rules.args.postinst
     };
-
-    if (this._config.rules.type === 'configure') {
-      extra.forceConfigure = true;
-    }
 
     yield this._patchApply (extra);
     if (!extra.forceConfigure) {
