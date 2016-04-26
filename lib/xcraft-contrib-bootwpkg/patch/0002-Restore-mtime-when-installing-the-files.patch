@@ -1,0 +1,61 @@
+From 00745a0ae2a08b8b4947c68066cd65472cfa20c0 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Tue, 26 Apr 2016 15:20:44 +0200
+Subject: [PATCH 2/2] Restore mtime when installing the files
+
+---
+ wpkg/libdebpackages/memfile.cpp      | 18 ++++++++++++++++++
+ wpkg/libdebpackages/wpkgar_build.cpp |  1 -
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/wpkg/libdebpackages/memfile.cpp b/wpkg/libdebpackages/memfile.cpp
+index 5bfc259..03b6557 100644
+--- a/wpkg/libdebpackages/memfile.cpp
++++ b/wpkg/libdebpackages/memfile.cpp
+@@ -59,6 +59,8 @@
+ #include    <stdlib.h>
+ #include    <memory.h>
+ #include    <stdarg.h>
++#include    <sys/types.h>
++#include    <utime.h>
+ #include    <ctime>
+ #include    <algorithm>
+ #include    <iostream>
+@@ -1068,6 +1070,22 @@ void memory_file::info_to_disk_file(const wpkg_filename::uri_filename& filename,
+         }
+     }
+ #endif
++
++    struct utimbuf times = {
++        info.get_atime(),
++        info.get_mtime()
++    };
++    if(utime(os_name.get_utf8().c_str(), &times) != 0)
++    {
++        if(err & file_info_return_errors)
++        {
++            err |= file_info_owner_error; // FIXME: file_info_time_error
++        }
++        else
++        {
++            throw memfile_exception_io("cannot change access and modification times of \"" + filename.original_filename() + "\" as expected (not running as Administrator/root?)");
++        }
++    }
+ }
+ 
+ 
+diff --git a/wpkg/libdebpackages/wpkgar_build.cpp b/wpkg/libdebpackages/wpkgar_build.cpp
+index d97b693..0b7a68f 100644
+--- a/wpkg/libdebpackages/wpkgar_build.cpp
++++ b/wpkg/libdebpackages/wpkgar_build.cpp
+@@ -2130,7 +2130,6 @@ void wpkgar_build::build_source()
+         info.set_filename(filename.full_path());
+         info.set_user("Administrator");
+         info.set_group("Administrators");
+-        info.set_mtime(now);
+         append_file(data, info, file_data);
+ 
+         // regular files get an md5sums
+-- 
+2.6.3
+
