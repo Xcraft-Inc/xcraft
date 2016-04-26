@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: gnu+gcc
 version: 4.9.3
 distribution: toolchain/
@@ -10,7 +10,10 @@ architecture:
   - source
 description:
   brief: 'GCC, the GNU Compiler Collection.'
-  long: 'The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, Ada, and Go, as well as libraries for these languages (libstdc++, libgcj,...).'
+  long: >-
+    The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+    Fortran, Java, Ada, and Go, as well as libraries for these languages
+    (libstdc++, libgcj,...).
 dependency:
   build:
     toolchain+xcraft-peon:
@@ -22,22 +25,30 @@ dependency:
     gnu+m4:
       - version: ''
         architecture: []
+    gnu+bison:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.bz2'
+    uri: >-
+      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.bz2
     ref: ''
     out: ''
   type: src
-  configure: '!cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed -i "s,m4-not-needed,m4,g" ./gmp/configure && (mkdir objdir || :) && cd objdir && ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib --disable-bootstrap --enable-languages=c,c++'
+  configure: >-
+    !cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed -i
+    "s,m4-not-needed,m4,g" ./gmp/configure && (mkdir objdir || :) && cd objdir
+    && ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
+    --disable-bootstrap --enable-languages=c,c++
   rules:
     type: make
-    location: 'data/gcc-<THIS.VERSION>/objdir'
+    location: data/gcc-<THIS.VERSION>/objdir
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
+  deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
     ldpath: []
