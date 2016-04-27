@@ -1,0 +1,45 @@
+subpackage:
+  - runtime*
+name: gnu+help2man
+version: 1.43.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Help2Man.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      http://mirror.switch.ch/ftp/mirror/gnu/help2man/help2man-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/help2man-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
