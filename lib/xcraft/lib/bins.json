@@ -39,6 +39,7 @@
   "patch": ".*",
   "ps": ".*",
   "pwd": ".*",
+  "ranlib": ".*",
   "readlink": ".*",
   "rm": ".*",
   "rmdir": ".*",
