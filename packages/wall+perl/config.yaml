@@ -16,9 +16,6 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    toolchain+build-essential:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: 'http://www.cpan.org/src/5.0/perl-<THIS.VERSION>.tar.gz'
