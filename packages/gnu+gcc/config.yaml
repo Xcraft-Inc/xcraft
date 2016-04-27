@@ -28,6 +28,9 @@ dependency:
     gnu+bison:
       - version: ''
         architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
