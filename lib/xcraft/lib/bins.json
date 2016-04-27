@@ -28,6 +28,7 @@
   "id": ".*",
   "install": ".*",
   "ld": ".*",
+  "lipo": "^darwin$",
   "ln": ".*",
   "ls": ".*",
   "lsattr": ".*",
