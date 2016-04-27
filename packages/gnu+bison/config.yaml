@@ -16,13 +16,24 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    gnu+help2man:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://mirror.switch.ch/ftp/mirror/gnu/bison/bison-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-rpath --disable-nls
   rules:
     type: make
     location: data/bison-<THIS.VERSION>/
@@ -35,7 +46,8 @@ data:
   env:
     path: []
     ldpath: []
-    other: {}
+    other:
+      BISON_PKGDATADIR: <OS.ROOTDIR>/usr/share/bison
   embedded: true
   runtime:
     configure: ''
