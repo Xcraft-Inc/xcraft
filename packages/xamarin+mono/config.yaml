@@ -34,7 +34,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
-    C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure
+    CFLAGS="-std=gnu11" C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure
     --prefix=<PEON.PREFIXDIR> --disable-nls --disable-rpath --disable-libraries
     --enable-small-config --disable-boehm --with-xen_opt=no --without-x
     --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no
@@ -45,7 +45,9 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT> LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"'
+      makeall: >-
+        -j<PEON.CPUS.COUNT> CFLAGS="-std=gnu11"
+        LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
       makeinstall: install
   deploy: ''
   env:
