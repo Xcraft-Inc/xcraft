@@ -43,7 +43,7 @@ data:
     '' "s,m4-not-needed,m4,g" ./gmp/configure && sed -i '' -e "s,^#define
     __need_size_t.*,," -e "s,^#undef __need_size_t.*,," ./gmp/gmp-h.in && (mkdir
     objdir || :) && cd objdir && ../configure --prefix=<PEON.PREFIXDIR>
-    --disable-multilib --disable-bootstrap --enable-languages=c,c++
+    --enable-languages=c,c++
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
