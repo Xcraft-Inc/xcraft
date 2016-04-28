@@ -52,5 +52,7 @@ data:
   env:
     path: []
     ldpath: []
-    other: {}
+    other:
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include'
+      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
   embedded: true
