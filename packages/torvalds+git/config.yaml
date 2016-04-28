@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: torvalds+git
 version: 2.3.0
 distribution: toolchain/
@@ -10,7 +10,10 @@ architecture:
   - source
 description:
   brief: Git is a free and open source distributed version control system.
-  long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+  long: >-
+    Git is a free and open source distributed version control system designed to
+    handle everything from small to very large projects with speed and
+    efficiency.
 dependency:
   install:
     bagder+curl:
@@ -44,19 +47,25 @@ data:
   configure: ''
   rules:
     type: make
-    location: 'data/git-<THIS.VERSION>/'
+    location: data/git-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes>'
-      makeinstall: 'prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes> install'
+      makeall: >-
+        -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
+        NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes>
+        CFLAGS="-I<PEON.ROOTDIR>/usr/include" LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
+      makeinstall: >-
+        prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
+        <PEON.OS=darwin?:NO_ICONV=Yes> CFLAGS="-I<PEON.ROOTDIR>/usr/include"
+        LDFLAGS="-L<PEON.ROOTDIR>/usr/lib" install
   deploy: ''
   env:
     path: []
     ldpath: []
     other:
-      GIT_EXEC_PATH: '<OS.ROOTDIR>/usr/libexec/git-core'
-      GIT_TEMPLATE_DIR: '<OS.ROOTDIR>/usr/share/git-core/templates'
+      GIT_EXEC_PATH: <OS.ROOTDIR>/usr/libexec/git-core
+      GIT_TEMPLATE_DIR: <OS.ROOTDIR>/usr/share/git-core/templates
   embedded: true
   runtime:
     configure: ''
