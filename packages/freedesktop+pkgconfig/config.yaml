@@ -35,7 +35,8 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework
+    CoreFoundation -framework Carbon":> ./configure --prefix=<PEON.PREFIXDIR>
     --with-internal-glib
   rules:
     type: make
