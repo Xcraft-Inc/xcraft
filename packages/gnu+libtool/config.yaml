@@ -22,6 +22,9 @@ dependency:
     gnu+make:
       - version: ''
         architecture: []
+    gnu+gcc:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-

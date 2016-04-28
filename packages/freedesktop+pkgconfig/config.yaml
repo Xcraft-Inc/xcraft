@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: freedesktop+pkgconfig
 version: 0.29.1
 distribution: toolchain/
@@ -10,7 +10,12 @@ architecture:
   - source
 description:
   brief: helper tool used when compiling applications and libraries
-  long: 'It helps you insert the correct compiler options on the command line so an application can use gcc -o test test.cpkg-config --libs --cflags glib-2.0 for instance, rather than hard-coding values on where to find glib (or other libraries). It is language-agnostic, so it can be used for defining the location of documentation tools, for instance.'
+  long: >-
+    It helps you insert the correct compiler options on the command line so an
+    application can use gcc -o test test.cpkg-config --libs --cflags glib-2.0
+    for instance, rather than hard-coding values on where to find glib (or other
+    libraries). It is language-agnostic, so it can be used for defining the
+    location of documentation tools, for instance.
 dependency:
   build:
     toolchain+xcraft-peon:
@@ -19,16 +24,22 @@ dependency:
     gnu+make:
       - version: ''
         architecture: []
+    gnu+gcc:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: 'https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.VERSION>.tar.gz'
+    uri: >-
+      https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.VERSION>.tar.gz
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --with-internal-glib'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --with-internal-glib
   rules:
     type: make
-    location: 'data/pkg-config-<THIS.VERSION>/'
+    location: data/pkg-config-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
@@ -39,7 +50,7 @@ data:
     path: []
     ldpath: []
     other:
-      PKG_CONFIG_PATH: '<OS.ROOTDIR>/usr/lib/pkgconfig'
+      PKG_CONFIG_PATH: <OS.ROOTDIR>/usr/lib/pkgconfig
   embedded: true
   runtime:
     configure: ''
