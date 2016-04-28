@@ -39,11 +39,11 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed -i
-    '' "s,m4-not-needed,m4,g" ./gmp/configure && sed -i '' -e "s,^#define
-    __need_size_t.*,," -e "s,^#undef __need_size_t.*,," ./gmp/gmp-h.in && (mkdir
-    objdir || :) && cd objdir && ../configure --prefix=<PEON.PREFIXDIR>
-    --enable-languages=c,c++
+    !cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed
+    -i'.bak' -e "s,m4-not-needed,m4,g" ./gmp/configure && sed -i'.bak' -e
+    "s,^#define __need_size_t.*,," -e "s,^#undef __need_size_t.*,,"
+    ./gmp/gmp-h.in && (mkdir objdir || :) && cd objdir && ../configure
+    --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
