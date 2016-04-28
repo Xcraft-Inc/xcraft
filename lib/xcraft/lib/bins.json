@@ -40,6 +40,8 @@
   "mv": ".*",
   "net": "^win32$",
   "nm": ".*",
+  "nmedit": "^darwin$",
+  "otool": "^darwin$",
   "patch": ".*",
   "ps": ".*",
   "pwd": ".*",
