@@ -56,7 +56,9 @@ data:
   env:
     path: []
     ldpath: []
-    other: {}
+    other:
+      CC: <OS.ROOTDIR>/usr/bin/gcc
+      CXX: <OS.ROOTDIR>/usr/bin/g++
   embedded: true
   runtime:
     configure: ''
