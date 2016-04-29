@@ -27,7 +27,7 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && AR=libtool ./configure
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure
     --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
