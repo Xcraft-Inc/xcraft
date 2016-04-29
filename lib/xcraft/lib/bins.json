@@ -4,6 +4,7 @@
   "as": ".*",
   "awk": ".*",
   "basename": ".*",
+  "bash": ".*",
   "bzip2": ".*",
   "c++filt": "^darwin$",
   "cat": ".*",
