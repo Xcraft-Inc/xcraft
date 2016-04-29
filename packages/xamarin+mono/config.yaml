@@ -46,9 +46,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: >-
-        -j<PEON.CPUS.COUNT> CFLAGS="-std=gnu11"
-        LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
+      makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
   deploy: ''
   env:
