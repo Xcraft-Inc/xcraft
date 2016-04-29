@@ -38,7 +38,7 @@ data:
     --prefix=<PEON.PREFIXDIR> --disable-nls --disable-rpath --disable-libraries
     --enable-small-config --disable-boehm --with-xen_opt=no --without-x
     --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no
-    --disable-system-aot
+    --disable-system-aot --with-tls=pthread
   rules:
     type: make
     location: data/mono-4.2.3/
