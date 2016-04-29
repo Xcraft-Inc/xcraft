@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: adler+zlib
 version: 1.2.8
 distribution: toolchain/
@@ -21,14 +21,17 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
+    uri: >-
+      http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && AR=libtool ./configure
+    --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: 'data/zlib-<THIS.VERSION>/'
+    location: data/zlib-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
@@ -37,6 +40,8 @@ data:
   deploy: ''
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''
