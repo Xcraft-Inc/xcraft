@@ -1,0 +1,35 @@
+From fca3223a948f7a5182fe4d46a5ebab12aeea5686 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Sun, 1 May 2016 11:59:01 +0200
+Subject: [PATCH 1/4] Disable pkg-explorer build
+
+---
+ CMakeLists.txt | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2e58065..fc2894e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -61,12 +61,12 @@ unigw_ConfigureMakeProject(
+     CONFIG_ARGS  -DWPKG_VERSION=${UNIGW_VERSION}
+ )
+ 
+-unigw_ConfigureMakeProject(
+-    PROJECT_NAME pkg-explorer
+-    DEPENDS      wpkg-Release
+-    BUILD_TYPE   Release
+-    CONFIG_ARGS  -DWPKG_VERSION=${UNIGW_VERSION}
+-)
++# unigw_ConfigureMakeProject(
++#     PROJECT_NAME pkg-explorer
++#     DEPENDS      wpkg-Release
++#     BUILD_TYPE   Release
++#     CONFIG_ARGS  -DWPKG_VERSION=${UNIGW_VERSION}
++# )
+ 
+ get_property( BUILD_TARGETS GLOBAL PROPERTY BUILD_TARGETS )
+ get_property( CLEAN_TARGETS GLOBAL PROPERTY CLEAN_TARGETS )
+-- 
+2.8.1
+
