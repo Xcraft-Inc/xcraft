@@ -1,0 +1,37 @@
+name: xamarin+pcl
+version: 2014.04.14
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: PCL.
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      http://download.mono-project.com/repo/debian/pool/main/r/referenceassemblies-pcl/referenceassemblies-pcl_<THIS.VERSION>.orig.tar.bz2
+    ref: ''
+    out: ''
+  type: bin
+  configure: >-
+    mv ('data/PortableReferenceAssemblies-2014-04-14',
+    'root/usr/lib/mono/xbuild-frameworks/.NETPortable')
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
