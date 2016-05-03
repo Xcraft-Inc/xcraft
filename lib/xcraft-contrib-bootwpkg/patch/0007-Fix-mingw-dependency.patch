@@ -1,6 +1,6 @@
 --- a/wpkg/package/CMakeLists.txt	2015-11-16 22:24:57.000000000 +0100
 +++ b/wpkg/package/CMakeLists.txt	2016-05-02 16:50:12.502391800 +0200
-@@ -41,18 +41,18 @@
+@@ -41,25 +41,25 @@
  #    return()
  #endif()
  
@@ -30,7 +30,18 @@
 +# endif()
  
  set( LOCAL_WPKG_ROOT "${CMAKE_BINARY_DIR}/WPKG" )
- if( UNIX )
+-if( UNIX )
++# if( UNIX )
+     set( INSTALL_PREFIX "/usr" )
+-else()
+-    set( INSTALL_PREFIX "" )
+-endif()
++# else()
++#     set( INSTALL_PREFIX "" )
++# endif()
+ 
+ if( NOT EXISTS "${WPKG_ROOT}" )
+     file( MAKE_DIRECTORY "${WPKG_ROOT}" )
 @@ -73,14 +73,14 @@
      set( COMPONENT_LIST runtime development documentation headers )
      set( INSTALL_PACKAGES wpkg wpkg-dev wpkg-doc wpkg-hdrs-dev )
