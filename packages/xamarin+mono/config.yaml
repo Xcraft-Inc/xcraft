@@ -55,4 +55,4 @@ data:
     other: {}
   embedded: true
   runtime:
-    configure: ''
+    configure: '!mozroots --import --sync'
