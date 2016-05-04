@@ -27,6 +27,12 @@
       }
     }
   },
+  "create.prepare": {
+    "parallel": true
+  },
+  "create.runner": {
+    "parallel": true
+  },
   "delete": {
     "desc": "delete and unregister a gitlab runner",
     "options": {
