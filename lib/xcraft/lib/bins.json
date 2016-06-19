@@ -1,5 +1,4 @@
 {
-  "cmd": "^win32$",
   "ar": "^darwin|freebsd|linux|sunos$",
   "as": "^darwin|freebsd|linux|sunos$",
   "awk": "^darwin|freebsd|linux|sunos$",
@@ -10,6 +9,7 @@
   "cat": "^darwin|freebsd|linux|sunos$",
   "cc": "^darwin|freebsd|linux|sunos$",
   "chmod": "^darwin|freebsd|linux|sunos$",
+  "cmd": "^win32$",
   "cmp": "^darwin|freebsd|linux|sunos$",
   "cp": "^darwin|freebsd|linux|sunos$",
   "cut": "^darwin|freebsd|linux|sunos$",
