@@ -2,3 +2,75 @@
 	path = lib/xcraft-contrib-darkportal
 	url = https://git.epsitec.ch/SL/Legobox.git
 	branch = xcraft
+[submodule "lib/xcraft-core-env"]
+	path = lib/xcraft-core-env
+	url = https://github.com/Xcraft-Inc/xcraft-core-env.git
+[submodule "lib/xcraft-core-eventstore"]
+	path = lib/xcraft-core-eventstore
+	url = https://github.com/Xcraft-Inc/xcraft-core-eventstore.git
+[submodule "lib/xcraft-core-etc"]
+	path = lib/xcraft-core-etc
+	url = https://github.com/Xcraft-Inc/xcraft-core-etc.git
+[submodule "lib/xcraft-core-extract"]
+	path = lib/xcraft-core-extract
+	url = https://github.com/Xcraft-Inc/xcraft-core-extract.git
+[submodule "lib/xcraft-core-fs"]
+	path = lib/xcraft-core-fs
+	url = https://github.com/Xcraft-Inc/xcraft-core-fs.git
+[submodule "lib/xcraft-core-ftp"]
+	path = lib/xcraft-core-ftp
+	url = https://github.com/Xcraft-Inc/xcraft-core-ftp.git
+[submodule "lib/xcraft-core-devel"]
+	path = lib/xcraft-core-devel
+	url = https://github.com/Xcraft-Inc/xcraft-core-devel.git
+[submodule "lib/xcraft-core-http"]
+	path = lib/xcraft-core-http
+	url = https://github.com/Xcraft-Inc/xcraft-core-http.git
+[submodule "lib/xcraft-core-log"]
+	path = lib/xcraft-core-log
+	url = https://github.com/Xcraft-Inc/xcraft-core-log.git
+[submodule "lib/xcraft-core-daemon"]
+	path = lib/xcraft-core-daemon
+	url = https://github.com/Xcraft-Inc/xcraft-core-daemon.git
+[submodule "lib/xcraft-core-placeholder"]
+	path = lib/xcraft-core-placeholder
+	url = https://github.com/Xcraft-Inc/xcraft-core-placeholder.git
+[submodule "lib/xcraft-core-buslog"]
+	path = lib/xcraft-core-buslog
+	url = https://github.com/Xcraft-Inc/xcraft-core-buslog.git
+[submodule "lib/xcraft-core-platform"]
+	path = lib/xcraft-core-platform
+	url = https://github.com/Xcraft-Inc/xcraft-core-platform.git
+[submodule "lib/xcraft-core-busclient"]
+	path = lib/xcraft-core-busclient
+	url = https://github.com/Xcraft-Inc/xcraft-core-busclient.git
+[submodule "lib/xcraft-core-scm"]
+	path = lib/xcraft-core-scm
+	url = https://github.com/Xcraft-Inc/xcraft-core-scm.git
+[submodule "lib/xcraft-core-bus"]
+	path = lib/xcraft-core-bus
+	url = https://github.com/Xcraft-Inc/xcraft-core-bus.git
+[submodule "lib/xcraft-core-bin"]
+	path = lib/xcraft-core-bin
+	url = https://github.com/Xcraft-Inc/xcraft-core-bin.git
+[submodule "lib/xcraft-core-server"]
+	path = lib/xcraft-core-server
+	url = https://github.com/Xcraft-Inc/xcraft-core-server.git
+[submodule "lib/xcraft-core-subst"]
+	path = lib/xcraft-core-subst
+	url = https://github.com/Xcraft-Inc/xcraft-core-subst.git
+[submodule "lib/xcraft-core-activity"]
+	path = lib/xcraft-core-activity
+	url = https://github.com/Xcraft-Inc/xcraft-core-activity.git
+[submodule "lib/xcraft-core-utils"]
+	path = lib/xcraft-core-utils
+	url = https://github.com/Xcraft-Inc/xcraft-core-utils.git
+[submodule "lib/xcraft-core-wizard"]
+	path = lib/xcraft-core-wizard
+	url = https://github.com/Xcraft-Inc/xcraft-core-wizard.git
+[submodule "lib/xcraft-core-uri"]
+	path = lib/xcraft-core-uri
+	url = https://github.com/Xcraft-Inc/xcraft-core-uri.git
+[submodule "lib/xcraft-core-process"]
+	path = lib/xcraft-core-process
+	url = https://github.com/Xcraft-Inc/xcraft-core-process.git
