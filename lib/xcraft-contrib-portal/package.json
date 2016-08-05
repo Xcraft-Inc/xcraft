@@ -4,8 +4,8 @@
   "description": "Xcraft portal on an other Xcraft",
   "main": "portal.js",
   "dependencies": {
-    "xcraft-core-busclient": "0.1.0",
-    "xcraft-core-log": "0.1.0"
+    "xcraft-core-busclient": "^1.0.0",
+    "xcraft-core-log": "^1.0.0"
   },
   "peerDependencies": {},
   "scripts": {
