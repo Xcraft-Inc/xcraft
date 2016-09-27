@@ -298,6 +298,13 @@ if (process.argv.length >= 4) {
     version: process.argv[9]
   };
 
+  /* HACK: clean PATH; it can be altered by batch scripts like:
+   *   set PATH=C:\\blabla;%PATH% && something else
+   * A space is added at the end because it should be:
+   *   set PATH=C:\\blabla;%PATH%&something else
+   */
+  process.env.PATH = process.env.PATH.trim ();
+
   const share = guessSharePath (root, process.argv[3], pkg);
 
   const xBusClient = require ('xcraft-core-busclient');
