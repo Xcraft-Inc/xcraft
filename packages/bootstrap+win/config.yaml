@@ -15,7 +15,7 @@ dependency:
     pavlov+7z:
       - version: ''
         architecture: []
-    schindelin+msysgit:
+    schindelin+mingit:
       - version: ''
         architecture: []
     gnuwin32+patch:
