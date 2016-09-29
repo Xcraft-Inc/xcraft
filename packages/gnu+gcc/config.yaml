@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 4.9.3
+version: 6.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -39,11 +39,12 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd data/gcc-<THIS.VERSION>/ && ./contrib/download_prerequisites && sed
-    -i'.bak' -e "s,m4-not-needed,m4,g" ./gmp/configure && sed -i'.bak' -e
-    "s,^#define __need_size_t.*,," -e "s,^#undef __need_size_t.*,,"
-    ./gmp/gmp-h.in && (mkdir objdir || :) && cd objdir && ../configure
-    --prefix=<PEON.PREFIXDIR> --disable-multilib --enable-languages=c,c++
+    !cd data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4,"
+    -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
+    "s,ISL=.*,ISL=isl-0.16.1," ./contrib/download_prerequisites &&
+    ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
+    ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
+    --enable-languages=c,c++
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
