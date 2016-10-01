@@ -34,6 +34,9 @@ dependency:
     samba+ccache:
       - version: ''
         architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
