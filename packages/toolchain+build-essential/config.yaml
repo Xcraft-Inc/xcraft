@@ -36,6 +36,9 @@ dependency:
     gnu+gcc:
       - version: ''
         architecture: []
+    samba+ccache:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
