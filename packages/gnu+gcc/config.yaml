@@ -31,6 +31,9 @@ dependency:
     gnu+wget:
       - version: ''
         architecture: []
+    samba+ccache:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
@@ -57,9 +60,7 @@ data:
   env:
     path: []
     ldpath: []
-    other:
-      CC: <OS.ROOTDIR>/usr/bin/gcc
-      CXX: <OS.ROOTDIR>/usr/bin/g++
+    other: {}
   embedded: true
   runtime:
     configure: ''
