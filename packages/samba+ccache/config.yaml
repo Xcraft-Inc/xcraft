@@ -47,6 +47,7 @@ data:
     other:
       CC: <OS.ROOTDIR>/usr/local/bin/gcc
       CXX: <OS.ROOTDIR>/usr/local/bin/g++
+      CCACHE_DIR: <OS.ROOTDIR>/var/ccache
   embedded: true
   runtime:
     configure: ''
