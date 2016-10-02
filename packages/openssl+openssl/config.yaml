@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.0.1r
+version: 1.1.0b
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -34,8 +34,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="-fPIC" ./<PEON.OS=darwin?Configure
-    darwin64-x86_64-cc:config> shared --install_prefix=<PEON.INSTALLDIR>
-    --prefix=/usr
+    darwin64-x86_64-cc:config> shared --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/openssl-<THIS.VERSION>/
