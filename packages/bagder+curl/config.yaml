@@ -1,7 +1,7 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: bagder+curl
-version: 7.40.0
+version: 7.50.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -35,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: 'data/curl-<THIS.VERSION>/'
+    location: data/curl-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
