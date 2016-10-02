@@ -33,7 +33,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-rpath --disable-nls
+    --disable-nls
   rules:
     type: make
     location: data/bison-<THIS.VERSION>/

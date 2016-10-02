@@ -33,10 +33,9 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="$CFLAGS -std=gnu99 -lcharset
-    -liconv" CXXFLAGS="$CXXFLAGS -std=c++11"
-    C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include" ./configure
-    --prefix=<PEON.PREFIXDIR> --disable-nls --disable-rpath --disable-libraries
+    !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="$CFLAGS -std=gnu99"
+    CXXFLAGS="$CXXFLAGS -std=c++11" C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/include"
+    ./configure --prefix=<PEON.PREFIXDIR> --disable-nls --disable-libraries
     --enable-small-config --disable-boehm --with-xen_opt=no --without-x
     --with-monodroid=no --with-monotouch=no --with-xammac=no --with-mcs-docs=no
     --disable-system-aot <PEON.OS=darwin?--with-tls=pthread:>
