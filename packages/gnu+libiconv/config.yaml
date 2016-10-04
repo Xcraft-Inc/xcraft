@@ -1,5 +1,5 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: gnu+libiconv
 version: '1.14'
 distribution: toolchain/
@@ -25,18 +25,25 @@ data:
     ref: ''
     out: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-nls'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
+    --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: 'data/libiconv-<THIS.VERSION>/'
+    location: data/libiconv-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: ''
+  deploy: >-
+    <PEON.OS=darwin?!install_name_tool -id @rpath/libiconv.dylib
+    "<PEON.PREFIXDIR>/lib/libiconv.dylib" && install_name_tool -id
+    @rpath/libcharset.dylib "<PEON.PREFIXDIR>/lib/libcharset.dylib":>
   env:
     path: []
+    ldpath: []
+    other: {}
   embedded: true
   runtime:
     configure: ''
