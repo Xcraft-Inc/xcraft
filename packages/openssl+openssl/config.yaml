@@ -44,7 +44,10 @@ data:
       prerm: ''
       makeall: CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>
       makeinstall: CFLAGS= LDFLAGS= install_sw
-  deploy: ''
+  deploy: >-
+    !<PEON.OS=darwin?install_name_tool -id @rpath/libssl.dylib
+    "<PEON.PREFIXDIR>/lib/libssl.dylib" && install_name_tool -id
+    @rpath/libcrypto.dylib "<PEON.PREFIXDIR>/lib/libcrypto.dylib":>
   env:
     path: []
     ldpath: []
