@@ -63,7 +63,10 @@ data:
   env:
     path: []
     ldpath: []
-    other: {}
+    other:
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,@executable_path/../lib,-rpath,<OS.ROOTDIR>/usr/lib'
+      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,@executable_path/../lib,-rpath,<OS.ROOTDIR>/usr/lib'
+      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
   embedded: true
   runtime:
     configure: ''
