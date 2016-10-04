@@ -32,6 +32,7 @@
   "hostname": "^darwin|freebsd|linux|sunos$",
   "id": "^darwin|freebsd|linux|sunos$",
   "install": "^darwin|freebsd|linux|sunos$",
+  "install_name_tool": "^darwin$",
   "ld": "^darwin|freebsd|linux|sunos$",
   "lipo": "^darwin$",
   "ln": "^darwin|freebsd|linux|sunos$",
