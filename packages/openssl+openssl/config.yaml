@@ -33,8 +33,9 @@ data:
     out: ''
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="-fPIC" ./<PEON.OS=darwin?Configure
-    darwin64-x86_64-cc:config> shared --prefix=<PEON.PREFIXDIR>
+    !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="$CFLAGS -fPIC"
+    ./<PEON.OS=darwin?Configure darwin64-x86_64-cc:config> shared
+    --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/openssl-<THIS.VERSION>/

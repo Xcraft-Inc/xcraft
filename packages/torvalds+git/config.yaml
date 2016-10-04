@@ -53,12 +53,13 @@ data:
       prerm: ''
       makeall: >-
         -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
-        NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes>
-        CFLAGS="-I<PEON.ROOTDIR>/usr/include" LDFLAGS="-L<PEON.ROOTDIR>/usr/lib"
+        NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes> CFLAGS="$CFLAGS
+        -I<PEON.ROOTDIR>/usr/include" LDFLAGS="$LDFLAGS
+        -L<PEON.ROOTDIR>/usr/lib"
       makeinstall: >-
         prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
-        <PEON.OS=darwin?:NO_ICONV=Yes> CFLAGS="-I<PEON.ROOTDIR>/usr/include"
-        LDFLAGS="-L<PEON.ROOTDIR>/usr/lib" install
+        NO_ICONV=Yes CFLAGS="$CFLAGS -I<PEON.ROOTDIR>/usr/include"
+        LDFLAGS="$LDFLAGS -L<PEON.ROOTDIR>/usr/lib" install
   deploy: ''
   env:
     path: []
