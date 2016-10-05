@@ -41,7 +41,9 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: ''
+  deploy: >-
+    <PEON.OS=darwin?install_name_tool -id @loader_path/../lib/libcurl.dylib
+    "<PEON.PREFIXDIR>/lib/libcurl.dylib":>
   env:
     path: []
     ldpath: []
