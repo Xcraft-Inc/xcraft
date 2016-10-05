@@ -64,8 +64,8 @@ data:
     path: []
     ldpath: []
     other:
-      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,@executable_path/../lib,-rpath,<OS.ROOTDIR>/usr/lib'
-      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,@executable_path/../lib,-rpath,<OS.ROOTDIR>/usr/lib'
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include'
+      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include'
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
   embedded: true
   runtime:
