@@ -37,12 +37,11 @@ data:
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
   deploy: >-
-    <PEON.OS=darwin?!install_name_tool -id @loader_path/../lib/libiconv.2.dylib
+    <PEON.OS=darwin?!install_name_tool -id @rpath/libiconv.2.dylib
     "<PEON.PREFIXDIR>/lib/libiconv.2.dylib" && install_name_tool -id
-    @loader_path/../lib/libcharset.1.dylib
-    "<PEON.PREFIXDIR>/lib/libcharset.1.dylib" && install_name_tool -change
-    "<PEON.PREFIXDIR>/lib/libiconv.2.dylib" @loader_path/../lib/libiconv.2.dylib
-    "<PEON.PREFIXDIR>/bin/iconv":>
+    @rpath/libcharset.1.dylib "<PEON.PREFIXDIR>/lib/libcharset.1.dylib" &&
+    install_name_tool -change "<PEON.PREFIXDIR>/lib/libiconv.2.dylib"
+    @rpath/libiconv.2.dylib "<PEON.PREFIXDIR>/bin/iconv":>
   env:
     path: []
     ldpath: []
