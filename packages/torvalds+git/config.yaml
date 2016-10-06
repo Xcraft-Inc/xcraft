@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: torvalds+git
-version: 2.3.0
+version: 2.10.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
