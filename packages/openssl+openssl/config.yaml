@@ -51,7 +51,10 @@ data:
     "<PEON.PREFIXDIR>/lib/libcrypto.1.1.dylib" && install_name_tool -change
     "<PEON.PREFIXDIR>/lib/libssl.1.1.dylib" @loader_path/../lib/libssl.1.1.dylib
     -change "<PEON.PREFIXDIR>/lib/libcrypto.1.1.dylib"
-    @loader_path/../lib/libcrypto.1.1.dylib "<PEON.PREFIXDIR>/bin/openssl":>
+    @loader_path/../lib/libcrypto.1.1.dylib "<PEON.PREFIXDIR>/bin/openssl" &&
+    install_name_tool -change "<PEON.PREFIXDIR>/lib/libcrypto.1.1.dylib"
+    @loader_path/../lib/libcrypto.1.1.dylib
+    "<PEON.PREFIXDIR>/lib/libssl.1.1.dylib":>
   env:
     path: []
     ldpath: []
