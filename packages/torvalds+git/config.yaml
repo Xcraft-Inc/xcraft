@@ -53,13 +53,12 @@ data:
       prerm: ''
       makeall: >-
         -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
-        NO_TCLTK=Yes CC="<PEON.ENV.CC>" CFLAGS="<PEON.ENV.CFLAGS>"
-        LDFLAGS="<PEON.ENV.LDFLAGS>" NO_APPLE_COMMON_CRYPTO=1)
-        -j<PEON.CPUS.COUNT>
+        NO_TCLTK=Yes CC="<PEON.ENV.CC>" CFLAGS=<PEON.ENV.CFLAGS>
+        LDFLAGS=<PEON.ENV.LDFLAGS> NO_APPLE_COMMON_CRYPTO=1
       makeinstall: >-
         prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
-        CC="<PEON.ENV.CC>" CFLAGS="<PEON.ENV.CFLAGS>"
-        LDFLAGS="<PEON.ENV.LDFLAGS>" NO_APPLE_COMMON_CRYPTO=1 install
+        CC="<PEON.ENV.CC>" CFLAGS=<PEON.ENV.CFLAGS>
+        LDFLAGS=<PEON.ENV.LDFLAGS> NO_APPLE_COMMON_CRYPTO=1 install
   deploy: ''
   env:
     path: []
