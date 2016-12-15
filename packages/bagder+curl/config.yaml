@@ -41,11 +41,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: >-
-    <PEON.OS=darwin?!install_name_tool -id @rpath/libcurl.4.dylib
-    "<PEON.PREFIXDIR>/lib/libcurl.4.dylib" && install_name_tool -change
-    "<PEON.PREFIXDIR>/lib/libcurl.4.dylib" @rpath/libcurl.4.dylib
-    "<PEON.PREFIXDIR>/bin/curl":>
+  deploy: rpathFixup ('<PEON.PREFIXDIR>');
   env:
     path: []
     ldpath: []
