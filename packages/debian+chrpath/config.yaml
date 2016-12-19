@@ -1,0 +1,45 @@
+subpackage:
+  - runtime*
+name: debian+chrpath
+version: '0.16'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Command line tool to adjust the RPATH or RUNPATH of ELF binaries.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://alioth.debian.org/frs/download.php/file/3979/chrpath-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/chrpath-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
