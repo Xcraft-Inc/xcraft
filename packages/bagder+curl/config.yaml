@@ -41,7 +41,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       makeinstall: install
-  deploy: rpathFixup ('<PEON.PREFIXDIR>');
+  deploy: ''
   env:
     path: []
     ldpath: []

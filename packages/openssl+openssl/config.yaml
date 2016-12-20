@@ -44,7 +44,7 @@ data:
       prerm: ''
       makeall: CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>
       makeinstall: CFLAGS= LDFLAGS= install_sw
-  deploy: rpathFixup ('<PEON.PREFIXDIR>');
+  deploy: ''
   env:
     path: []
     ldpath: []
