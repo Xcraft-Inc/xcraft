@@ -19,6 +19,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.samba.org/ftp/ccache/ccache-<THIS.VERSION>.tar.bz2'
