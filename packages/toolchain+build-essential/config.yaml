@@ -39,9 +39,6 @@ dependency:
     samba+ccache:
       - version: ''
         architecture: []
-    debian+chrpath:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: ''
