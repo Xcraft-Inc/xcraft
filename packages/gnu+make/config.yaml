@@ -16,6 +16,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    debian+chrpath:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://mirror.switch.ch/ftp/mirror/gnu/make/make-<THIS.VERSION>.tar.gz'
