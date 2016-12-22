@@ -49,8 +49,8 @@ data:
     -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
     "s,ISL=.*,ISL=isl-0.16.1," ./contrib/download_prerequisites &&
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
-    ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
-    --enable-languages=c,c++
+    CFLAGS="-fPIC" CXXFLAGS="-fPIC" ../configure --prefix=<PEON.PREFIXDIR>
+    --disable-multilib --enable-languages=c,c++
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
@@ -64,8 +64,8 @@ data:
     path: []
     ldpath: []
     other:
-      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
-      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -fPIC'
+      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -fPIC'
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
   embedded: true
   runtime:
