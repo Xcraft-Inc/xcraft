@@ -16,9 +16,6 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    gnu+make:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: >-
