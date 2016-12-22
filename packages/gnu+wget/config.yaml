@@ -24,8 +24,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-rpath --disable-nls --without-libpsl --without-ssl
-    --without-openssl
+    --disable-nls --without-libpsl --without-ssl --without-openssl
   rules:
     type: make
     location: data/wget-<THIS.VERSION>/

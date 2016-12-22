@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: gnu+make
-version: '4.1'
+name: nixos+patchelf
+version: '0.9'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,26 +9,24 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Make.
+  brief: PatchELF is a small utility to modify the dynamic linker and RPATH.
   long: ''
 dependency:
   build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    nixos+patchelf:
-      - version: ''
-        architecture: []
 data:
   get:
-    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/make/make-<THIS.VERSION>.tar.gz'
+    uri: >-
+      https://nixos.org/releases/patchelf/patchelf-<THIS.VERSION>/patchelf-<THIS.VERSION>.tar.bz2
     ref: ''
     out: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/make-<THIS.VERSION>/
+    location: data/patchelf-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
