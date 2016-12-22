@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: debian+chrpath
-version: '0.16'
+name: nixos+patchelf
+version: '0.9'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +9,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Command line tool to adjust the RPATH or RUNPATH of ELF binaries.
+  brief: PatchELF is a small utility to modify the dynamic linker and RPATH.
   long: ''
 dependency:
   build:
@@ -22,14 +22,14 @@ dependency:
 data:
   get:
     uri: >-
-      https://alioth.debian.org/frs/download.php/file/3979/chrpath-<THIS.VERSION>.tar.gz
+      https://nixos.org/releases/patchelf/patchelf-<THIS.VERSION>/patchelf-<THIS.VERSION>.tar.bz2
     ref: ''
     out: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/chrpath-<THIS.VERSION>/
+    location: data/patchelf-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -15,7 +15,7 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    debian+chrpath:
+    nixos+patchelf:
       - version: ''
         architecture: []
     torvalds+git:
