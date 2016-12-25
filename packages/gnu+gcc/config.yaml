@@ -50,7 +50,7 @@ data:
     "s,ISL=.*,ISL=isl-0.16.1," ./contrib/download_prerequisites &&
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
-    --enable-languages=c,c++
+    --enable-languages=c,c++,objc,obj-c++
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
