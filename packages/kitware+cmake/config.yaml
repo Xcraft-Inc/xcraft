@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: kitware+cmake
+version: 3.7.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'Build, Test and Package Your Software With CMake.'
+  long: >-
+    CMake is an open-source, cross-platform family of tools designed to build,
+    test and package software.
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cmake.org/files/v3.7/cmake-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./bootstrap --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/cmake-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: install
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
