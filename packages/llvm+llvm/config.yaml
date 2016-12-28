@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: llvm+llvm
+version: 3.9.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: LLVM
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+    llvm+clang:
+      - version: = 3.9.1
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://releases.llvm.org/<THIS.VERSION>/llvm-<THIS.VERSION>.src.tar.xz'
+    ref: ''
+    out: ''
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ln -sf
+    <PEON.ROOTDIR>/usr/src/llvm+clang_<THIS.VERSION> tools/clang && mkdir -p
+    BUILD && cd BUILD && cmake -G "Unix Makefiles" ..
+  rules:
+    type: make
+    location: data/llvm-<THIS.VERSION>.src/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C BUILD -j<PEON.CPUS.COUNT>'
+      makeinstall: '-C BUILD install'
+  deploy: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

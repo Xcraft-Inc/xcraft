@@ -1,0 +1,36 @@
+name: llvm+clang
+version: 3.9.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: LLVM Clang
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://releases.llvm.org/<THIS.VERSION>/cfe-<THIS.VERSION>.src.tar.xz'
+    ref: ''
+    out: ''
+  type: bin
+  configure: >-
+    mv ('data/cfe-<THIS.VERSION>.src',
+    'root/usr/src/llvm+clang_<THIS.VERSION>');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
