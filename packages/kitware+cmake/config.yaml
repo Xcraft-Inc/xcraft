@@ -22,9 +22,6 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    toolchain+build-essential:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: 'https://cmake.org/files/v3.7/cmake-<THIS.VERSION>.tar.gz'
