@@ -24,6 +24,15 @@ dependency:
     gnu+gcc:
       - version: ''
         architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+    samba+ccache:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
     freedesktop+pkgconfig:
       - version: ''
         architecture: []
@@ -31,12 +40,6 @@ dependency:
       - version: ''
         architecture: []
     gnu+m4:
-      - version: ''
-        architecture: []
-    gnu+make:
-      - version: ''
-        architecture: []
-    samba+ccache:
       - version: ''
         architecture: []
 data:
