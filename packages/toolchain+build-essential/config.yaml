@@ -30,9 +30,6 @@ dependency:
     samba+ccache:
       - version: ''
         architecture: []
-    kitware+cmake:
-      - version: ''
-        architecture: []
     freedesktop+pkgconfig:
       - version: ''
         architecture: []
