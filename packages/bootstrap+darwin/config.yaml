@@ -15,6 +15,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
     torvalds+git:
       - version: ''
         architecture: []

@@ -18,6 +18,9 @@ dependency:
     nixos+patchelf:
       - version: ''
         architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
     torvalds+git:
       - version: ''
         architecture: []
