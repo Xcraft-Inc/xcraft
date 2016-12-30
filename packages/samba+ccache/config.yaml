@@ -51,7 +51,6 @@ data:
       CC: <OS.ROOTDIR>/usr/local/bin/gcc
       CXX: <OS.ROOTDIR>/usr/local/bin/g++
       CCACHE_DIR: <OS.ROOTDIR>/var/ccache
-      CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
     configure: ''

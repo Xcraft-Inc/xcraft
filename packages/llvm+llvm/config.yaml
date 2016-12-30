@@ -52,7 +52,8 @@ data:
   env:
     path: []
     ldpath: []
-    other: {}
+    other:
+      CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
     configure: ''
