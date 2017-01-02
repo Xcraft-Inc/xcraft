@@ -252,13 +252,18 @@ class Action {
     yield this._peonRun (extra);
   }
 
-  postrm (wpkgAct) {
+  * postrm (wpkgAct, next) {
     if (!isPackageSrc (this._pkg)) {
       return;
     }
 
     if (wpkgAct === 'remove') {
-      xFs.rm (getBasePath (this._root, this._pkg));
+      const xSubst = require ('xcraft-core-subst');
+
+      yield xSubst.wrap (this._root, this._resp, (err, dest, callback) => {
+        xFs.rm (getBasePath (dest, this._pkg));
+        callback ();
+      }, next);
     }
   }
 

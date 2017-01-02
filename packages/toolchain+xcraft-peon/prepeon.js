@@ -29,6 +29,7 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
       'xcraft-core-log',
       'xcraft-core-placeholder',
       'xcraft-core-platform',
+      'xcraft-core-subst',
     ];
 
     xLog.verb (xcraft);
