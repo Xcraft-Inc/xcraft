@@ -258,7 +258,7 @@ class Action {
     }
 
     if (wpkgAct === 'remove') {
-      xFs.rm (getBasePath (this._root, this._pkg));
+      xFs.rmFiles (getBasePath (this._root, this._pkg));
     }
   }
 
