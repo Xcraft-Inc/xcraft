@@ -17,6 +17,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    microsoft+ndp-45:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
