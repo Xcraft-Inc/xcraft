@@ -273,6 +273,13 @@ class Action {
 
     yield this._patchApply (extra);
     yield this._peonRun (extra);
+
+    if (xPlatform.getOs () === 'win') {
+      /* HACK: remove junctions because the links are related to a no longer
+       *       available subst'ed drive.
+       */
+      xFs.rmSymlinks (getBasePath (this._root, this._pkg));
+    }
   }
 }
 
