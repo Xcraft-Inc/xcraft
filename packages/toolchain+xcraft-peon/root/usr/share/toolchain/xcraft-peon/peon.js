@@ -281,6 +281,13 @@ class Action {
       xFs.rmSymlinks (getBasePath (this._root, this._pkg));
     }
   }
+
+  * maketest () {
+    const extra = this._getExtra ();
+    extra.test = this._config.test;
+
+    yield this._peonRun (extra);
+  }
 }
 
 function guessSharePath (root, share, pkg) {
