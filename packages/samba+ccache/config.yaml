@@ -46,7 +46,6 @@ data:
     <PEON.INSTALLDIR>/usr/local/bin/c++
   env:
     path: []
-    ldpath: []
     other:
       CC: <OS.ROOTDIR>/usr/local/bin/gcc
       CXX: <OS.ROOTDIR>/usr/local/bin/g++

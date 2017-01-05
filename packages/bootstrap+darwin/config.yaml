@@ -39,6 +39,5 @@ data:
       prerm: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true

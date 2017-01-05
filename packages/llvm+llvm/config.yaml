@@ -51,7 +51,6 @@ data:
   deploy: ''
   env:
     path: []
-    ldpath: []
     other:
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true

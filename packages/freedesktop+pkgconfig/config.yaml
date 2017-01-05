@@ -49,7 +49,6 @@ data:
   deploy: ''
   env:
     path: []
-    ldpath: []
     other:
       PKG_CONFIG_PATH: <OS.ROOTDIR>/usr/lib/pkgconfig
   embedded: true

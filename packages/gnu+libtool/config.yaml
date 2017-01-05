@@ -44,7 +44,6 @@ data:
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
   runtime:

@@ -41,7 +41,6 @@ data:
   deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
   env:
     path: []
-    ldpath: []
     other:
       AUTOCONF: '<OS.ROOTDIR>/usr/bin/autoconf'
       AUTOHEADER: '<OS.ROOTDIR>/usr/bin/autoheader'
