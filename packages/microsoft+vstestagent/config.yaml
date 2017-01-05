@@ -1,0 +1,41 @@
+name: microsoft+vstestagent
+version: '14'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Agents for Microsoft Visual Studio 2015
+  long: >-
+    Agents for Visual Studio 2015 contains agents which you can use to run your
+    automated tests on a remote machine.
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://download.microsoft.com/download/8/A/F/8AFFDD5A-53D9-46EB-98D7-B61BBCAF0DE6/vstf_testagent.exe
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: vstf_testagent.exe
+    args:
+      postinst: /Q /S /Passive /NoRestart /NoWeb /Full
+      prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
+  env:
+    path:
+      - >-
+        <OS.PROGRAMFILES.32>/Microsoft Visual Studio
+        <THIS.VERSION>.0/Common7/IDE/CommonExtensions/Microsoft/TestWindow
+    ldpath: []
+    other: {}
+  embedded: true
