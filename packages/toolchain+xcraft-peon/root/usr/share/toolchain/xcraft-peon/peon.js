@@ -57,7 +57,7 @@ class Action {
     /* This condition is true only when wpkg is building a new binary package
      * from a source package.
      */
-    if (binaryDir) {
+    if (binaryDir && binaryDir.length) {
       this._genBinWpkg (binaryDir);
     }
 
