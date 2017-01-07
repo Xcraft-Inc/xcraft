@@ -266,8 +266,10 @@ class Action {
     const extra = this._getExtra ();
     extra.args = {
       all:     this._config.rules.args.makeall,
+      test:    this._config.rules.args.maketest,
       install: this._config.rules.args.makeinstall
     };
+    extra.test   = this._config.rules.test;
     extra.deploy = this._config.deploy;
     extra.prefix = this._prefix;
 
@@ -280,13 +282,6 @@ class Action {
        */
       xFs.rmSymlinks (getBasePath (this._root, this._pkg));
     }
-  }
-
-  * maketest () {
-    const extra = this._getExtra ();
-    extra.test = this._config.test;
-
-    yield this._peonRun (extra);
   }
 }
 
