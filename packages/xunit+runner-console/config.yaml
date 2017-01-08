@@ -1,0 +1,39 @@
+name: xunit+runner-console
+version: 2.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Console runner for the xUnit.net framework
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    microsoft+nuget:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+  type: bin
+  configure: >-
+    !nuget.exe install xunit.runner.console -version <THIS.VERSION>
+    -outputdirectory <THIS.DATA.RULES.LOCATION>/opt/xunit
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - opt/xunit/xunit.runner.console.<THIS.VERSION>/tools
+    other: {}
+  embedded: true
