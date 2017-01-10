@@ -1,0 +1,35 @@
+name: microsoft+visualcppbuildtools
+version: '14'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Visual CPP Build Tools
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: visualcppbuildtools_full.exe
+    args:
+      postinst: /Q /S /Passive /NoRestart /Full
+      prerm: /Q /S /Passive /NoRestart /Uninstall
+  env:
+    path: []
+    other: {}
+  embedded: true
