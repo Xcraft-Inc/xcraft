@@ -12,21 +12,14 @@ description:
   brief: LLVM
   long: ''
 dependency:
-  install:
-    adler+zlib:
-      - version: ''
-        architecture: []
   build:
     toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    kitware+cmake:
       - version: ''
         architecture: []
     llvm+clang:
       - version: = 3.9.1
         architecture: []
-    toolchain+build-essential:
+    samba+ccache:
       - version: ''
         architecture: []
 data:
