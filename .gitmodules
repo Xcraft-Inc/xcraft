@@ -73,3 +73,6 @@
 [submodule "lib/xcraft-materials"]
 	path = lib/xcraft-materials
 	url = https://github.com/Xcraft-Inc/xcraft-materials.git
+[submodule "lib/xcraft-zog"]
+	path = lib/xcraft-zog
+	url = https://github.com/Xcraft-Inc/xcraft-zog.git
