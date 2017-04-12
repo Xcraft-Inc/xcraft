@@ -70,3 +70,6 @@
 [submodule "lib/xcraft-core-process"]
 	path = lib/xcraft-core-process
 	url = https://github.com/Xcraft-Inc/xcraft-core-process.git
+[submodule "lib/xcraft-materials"]
+	path = lib/xcraft-materials
+	url = https://github.com/Xcraft-Inc/xcraft-materials.git
