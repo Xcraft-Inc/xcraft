@@ -27,5 +27,8 @@
     "ci"
   ],
   "author": "Xcraft Team",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "xcraft-dev-rules": "^0.1.15"
+  }
 }
