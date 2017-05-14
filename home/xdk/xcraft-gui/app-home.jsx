@@ -1,19 +1,13 @@
-var React        = require ('react');
+var React = require ('react');
 
-var AppHome     = React.createClass ({
-
+var AppHome = React.createClass ({
   mixins: [],
 
-  propTypes: {
-
-  },
+  propTypes: {},
 
   render: function () {
-    return (
-      <p>Daboo!</p>
-    );
-  }
-
+    return <p>Daboo!</p>;
+  },
 });
 
 module.exports = AppHome;

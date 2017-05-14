@@ -6,22 +6,19 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
   var path = require ('path');
 
   var xLog = require ('xcraft-core-log') (moduleName, response);
-  var xFs  = require ('xcraft-core-fs');
+  var xFs = require ('xcraft-core-fs');
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process') ({
+    var xProcess = require ('xcraft-core-process') ({
       logger: 'xlog',
-      resp:   response
+      resp: response,
     });
 
     xLog.info ('postpeon for xcraft-goblin');
 
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
-    var args = [
-      '--modprefix', sharePath,
-      'install', sharePath
-    ];
+    var args = ['--modprefix', sharePath, 'install', sharePath];
 
     xLog.verb (xcraft);
 
@@ -38,6 +35,6 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
         //xFs.rm (nodeModules);
         callback (err);
       });
-    }
+    },
   };
 };

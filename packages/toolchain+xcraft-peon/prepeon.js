@@ -7,9 +7,9 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
 
   var xcraftInstall = function (callback) {
     var xPlatform = require ('xcraft-core-platform');
-    var xProcess  = require ('xcraft-core-process') ({
+    var xProcess = require ('xcraft-core-process') ({
       logger: 'xlog',
-      resp:   response
+      resp: response,
     });
 
     /* prefix to /usr/share */
@@ -20,7 +20,8 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
     /* FIXME: tar-fs and watt are missing */
     var xcraft = 'xcraft' + xPlatform.getCmdExt ();
     var args = [
-      '--modprefix', nodeModules,
+      '--modprefix',
+      nodeModules,
       'install',
       'xcraft-contrib-peon',
       'xcraft-core-busclient',
@@ -41,6 +42,6 @@ module.exports = function (packagePath, sharePath, packageDef, response) {
   return {
     run: function (callback) {
       xcraftInstall (callback);
-    }
+    },
   };
 };

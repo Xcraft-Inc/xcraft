@@ -8,25 +8,25 @@ module.exports = function (grunt) {
     './packages/**/*.js',
     './tests/**/*.js',
     './lib/xcraft*/**/*.js',
-    './home/xdk/xcraft*/**/*.js'
+    './home/xdk/xcraft*/**/*.js',
   ];
 
   grunt.initConfig ({
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
       },
       all: {
-        src: jsSrc
-      }
+        src: jsSrc,
+      },
     },
 
     jscs: {
       options: {
-        config: '.jscsrc'
+        config: '.jscsrc',
       },
-      src: jsSrc
-    }
+      src: jsSrc,
+    },
   });
 
   if (fs.existsSync ('./node_modules/grunt-contrib-jshint')) {

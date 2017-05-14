@@ -1,11 +1,10 @@
 'use strict';
-var path    = require ('path');
-var fs      = require ('fs');
+var path = require ('path');
+var fs = require ('fs');
 var isBuild = fs.existsSync (path.join (__dirname, '/release/'));
-
 
 module.exports = {
   gadgetName: 'xcraft-gui',
   isBuild: isBuild,
-  icon: 'mdi-content-archive'
+  icon: 'mdi-content-archive',
 };

@@ -1,8 +1,8 @@
 /* Webpack config */
 var webpack = require ('webpack');
 
-var definePlugin = new webpack.DefinePlugin({
-  __WEBPACK__: true
+var definePlugin = new webpack.DefinePlugin ({
+  __WEBPACK__: true,
 });
 
 module.exports = {
@@ -11,12 +11,12 @@ module.exports = {
   context: __dirname,
   devtool: 'source-map',
   entry: {
-    main: './app.jsx'
+    main: './app.jsx',
   },
   output: {
     path: './release/',
     filename: 'bundle.js',
-    publicPath: './release/'
+    publicPath: './release/',
   },
   resolve: {
     modulesDirectories: ['bower_components', 'node_modules'],
@@ -30,8 +30,8 @@ module.exports = {
       {test: /\.png$/, loader: 'url-loader?limit=100000&mimetype=image/png'},
       {test: /\.gif$/, loader: 'url-loader?limit=100000&mimetype=image/gif'},
       {test: /\.jpg$/, loader: 'url-loader?limit=100000&mimetype=image/jpg'},
-      {test: /\.(ttf|eot|svg|woff)/, loader: 'file-loader'}
-    ]
+      {test: /\.(ttf|eot|svg|woff)/, loader: 'file-loader'},
+    ],
   },
-  plugins: [definePlugin]
+  plugins: [definePlugin],
 };

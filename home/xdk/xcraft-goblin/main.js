@@ -1,25 +1,30 @@
 'use strict';
 
-var app           = require ('app');
-var ipc           = require ('ipc');
+var app = require ('app');
+var ipc = require ('ipc');
 var BrowserWindow = require ('browser-window');
-var busClient     = require ('xcraft-core-busclient').getGlobal ();
-var xUtils        = require ('xcraft-core-utils');
-var desktop    = null;
+var busClient = require ('xcraft-core-busclient').getGlobal ();
+var xUtils = require ('xcraft-core-utils');
+var desktop = null;
 var appWindows = [];
 var windex = 0; // WindowIndex
 
 ipc.on ('start-app', function () {
-  appWindows[windex] = new BrowserWindow({width: 960, height: 600, frame: false});
-  appWindows[windex].loadUrl ('file://' + __dirname + '/../xcraft-gui/index.html');
+  appWindows[windex] = new BrowserWindow ({
+    width: 960,
+    height: 600,
+    frame: false,
+  });
+  appWindows[windex].loadUrl (
+    'file://' + __dirname + '/../xcraft-gui/index.html'
+  );
   appWindows[windex].toggleDevTools ();
   appWindows[windex].windex = windex;
   windex++;
 });
 
-
 ipc.on ('exit', function () {
-  appWindows.forEach ( function (window) {
+  appWindows.forEach (function (window) {
     window.close ();
   });
 });
@@ -27,7 +32,12 @@ ipc.on ('exit', function () {
 app.on ('ready', function () {
   var loadDesktop = function () {
     console.log ('opening goblin desktop');
-    desktop = new BrowserWindow({width: 960, height: 600, kiosk: false, fullscreen: true});
+    desktop = new BrowserWindow ({
+      width: 960,
+      height: 600,
+      kiosk: false,
+      fullscreen: true,
+    });
     desktop.toggleDevTools ();
     desktop.loadUrl ('file://' + __dirname + '/index.html');
     desktop.on ('closed', function () {
@@ -52,11 +62,13 @@ app.on ('ready', function () {
         action = xUtils.string.camelcasify (topic);
         var receivedEvent = {
           name: action,
-          msg: msg
+          msg: msg,
         };
         if (topic !== 'heartbeat') {
-          console.log ('GOBLIN EVENT COMMING:' + JSON.stringify (receivedEvent));
-          appWindows.forEach ( function (window) {
+          console.log (
+            'GOBLIN EVENT COMMING:' + JSON.stringify (receivedEvent)
+          );
+          appWindows.forEach (function (window) {
             if (window !== null) {
               if (window.webContents !== null) {
                 console.log ('Event sent to window: ' + window.windex);

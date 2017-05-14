@@ -1,19 +1,18 @@
 require ('./main.less');
-var remote            = require ('remote');
-var React             = require ('react');
-var xCraftMaterials   = require ('xcraft-materials')('web');
+var remote = require ('remote');
+var React = require ('react');
+var xCraftMaterials = require ('xcraft-materials') ('web');
 
-
-var actions            = xCraftMaterials.Actions;
+var actions = xCraftMaterials.Actions;
 var toggleActivityList = actions.toggleActivityList;
 
-var Window        = xCraftMaterials.Window;
-var Workspace     = xCraftMaterials.Workspace;
-var Titlebar      = xCraftMaterials.Titlebar;
-var ActivityList  = xCraftMaterials.ActivityList;
-var PackageList   = xCraftMaterials.PackageList;
+var Window = xCraftMaterials.Window;
+var Workspace = xCraftMaterials.Workspace;
+var Titlebar = xCraftMaterials.Titlebar;
+var ActivityList = xCraftMaterials.ActivityList;
+var PackageList = xCraftMaterials.PackageList;
 
-var Lokthar       = React.createClass ({
+var Lokthar = React.createClass ({
   getInitialState: function () {
     return {isMaximized: false};
   },
@@ -27,10 +26,10 @@ var Lokthar       = React.createClass ({
           menuAction={this._toggleActivityList}
           closeAction={this._close}
           minimizeAction={this._minimize}
-          maximizeAction={this._maximize} />
+          maximizeAction={this._maximize}
+        />
         <ActivityList />
-        <Workspace name="main">
-        </Workspace>
+        <Workspace name="main" />
       </Window>
     );
   },
@@ -40,26 +39,25 @@ var Lokthar       = React.createClass ({
   },
 
   _close: function () {
-    remote.getCurrentWindow().close();
+    remote.getCurrentWindow ().close ();
   },
 
   _minimize: function () {
-    remote.getCurrentWindow().minimize();
+    remote.getCurrentWindow ().minimize ();
   },
 
   _maximize: function () {
     if (!this.state.isMaximized) {
-      remote.getCurrentWindow().maximize();
+      remote.getCurrentWindow ().maximize ();
       this.setState ({isMaximized: true});
     } else {
-      remote.getCurrentWindow().unmaximize();
+      remote.getCurrentWindow ().unmaximize ();
       this.setState ({isMaximized: false});
     }
-  }
-
+  },
 });
 
-console.log ('windows index: ' + remote.getCurrentWindow().windex);
-remote.getCurrentWindow().toggleDevTools();
+console.log ('windows index: ' + remote.getCurrentWindow ().windex);
+remote.getCurrentWindow ().toggleDevTools ();
 
 module.exports = Lokthar;
