@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 6.3.0
+version: 7.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -37,6 +37,9 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+    gnu+coreutils:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
@@ -62,7 +65,6 @@ data:
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
-    ldpath: []
     other:
       CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
       CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
