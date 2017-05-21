@@ -33,7 +33,7 @@ data:
       makeall: '-j<PEON.CPUS.COUNT>'
       maketest: ''
       makeinstall: install
-    test: vstest
+    test: none
   deploy: ''
   env:
     path: []
