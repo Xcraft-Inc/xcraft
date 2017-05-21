@@ -61,7 +61,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
