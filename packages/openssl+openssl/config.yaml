@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.0b
+version: 1.1.0f
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -43,11 +43,12 @@ data:
       postinst: ''
       prerm: ''
       makeall: CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>
+      maketest: ''
       makeinstall: CFLAGS= LDFLAGS= install_sw
+    test: none
   deploy: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
   runtime:
