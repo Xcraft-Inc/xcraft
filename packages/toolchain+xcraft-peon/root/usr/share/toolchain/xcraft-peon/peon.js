@@ -180,11 +180,6 @@ class Action {
       JSON.stringify (extra.args)
     );
 
-    /* Looks like a stub package. */
-    if (!this._config.type || !this._config.rules.type) {
-      return;
-    }
-
     const peonAction = xPeon[this._config.type][this._config.rules.type];
     try {
       yield peonAction (
