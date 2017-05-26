@@ -18,7 +18,8 @@ data:
     ref: ''
     out: ''
   type: bin
-  configure: "sed ('<PEON.WPKG.STAG>/wpkg/control.info', /(Package\\/runtime: .*)/, '$1-stub'); sed ('<PEON.WPKG.STAG>/wpkg/ChangeLog', /([^ ]+)(.*; urgency=.*)/, '$1-stub$2'); sed ('<PEON.WPKG.STAG>/CMakeLists.txt', /(.*CPACK_SOURCE_PACKAGE_FILE_NAME ")([^ _]+)(_.*)/, '$1$2-stub$3');"
+  configure: >
+    sed ('<PEON.WPKG.STAG>/wpkg/control.info', /(Package\/runtime: .*)/, '$1-stub'); sed ('<PEON.WPKG.STAG>/wpkg/ChangeLog', /([^ ]+)(.*; urgency=.*)/, '$1-stub$2'); sed ('<PEON.WPKG.STAG>/CMakeLists.txt', /(.*CPACK_SOURCE_PACKAGE_FILE_NAME ")([^ _]+)(_.*)/, '$1$2-stub$3');
   rules:
     type: configure
     location: ''
