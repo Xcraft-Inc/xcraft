@@ -76,3 +76,6 @@
 [submodule "lib/xcraft-zog"]
 	path = lib/xcraft-zog
 	url = https://github.com/Xcraft-Inc/xcraft-zog.git
+[submodule "lib/xcraft-core-transport"]
+	path = lib/xcraft-core-transport
+	url = https://github.com/Xcraft-Inc/xcraft-core-transport.git
