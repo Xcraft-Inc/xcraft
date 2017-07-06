@@ -12,6 +12,8 @@
     "es_modules": {},
     "doc_comment": {
       "fullDocs": true
-    }
-  }
+    },
+    "node_resolve": {}
+  },
+  "dontLoad": []
 }
