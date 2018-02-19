@@ -88,3 +88,6 @@
 [submodule "lib/xcraft-contrib-wpkg"]
 	path = lib/xcraft-contrib-wpkg
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-wpkg.git
+[submodule "lib/xcraft-contrib-pacman"]
+	path = lib/xcraft-contrib-pacman
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-pacman.git
