@@ -82,3 +82,6 @@
 [submodule "lib/xcraft-contrib-bootcmake"]
 	path = lib/xcraft-contrib-bootcmake
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-bootcmake.git
+[submodule "lib/xcraft-contrib-bootwpkg"]
+	path = lib/xcraft-contrib-bootwpkg
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-bootwpkg.git
