@@ -79,3 +79,6 @@
 [submodule "lib/xcraft-core-transport"]
 	path = lib/xcraft-core-transport
 	url = https://github.com/Xcraft-Inc/xcraft-core-transport.git
+[submodule "lib/xcraft-contrib-bootcmake"]
+	path = lib/xcraft-contrib-bootcmake
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-bootcmake.git
