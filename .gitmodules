@@ -85,3 +85,6 @@
 [submodule "lib/xcraft-contrib-bootwpkg"]
 	path = lib/xcraft-contrib-bootwpkg
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-bootwpkg.git
+[submodule "lib/xcraft-contrib-wpkg"]
+	path = lib/xcraft-contrib-wpkg
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-wpkg.git
