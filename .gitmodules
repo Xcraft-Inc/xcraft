@@ -91,3 +91,6 @@
 [submodule "lib/xcraft-contrib-pacman"]
 	path = lib/xcraft-contrib-pacman
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-pacman.git
+[submodule "lib/xcraft-contrib-peon"]
+	path = lib/xcraft-contrib-peon
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-peon.git
