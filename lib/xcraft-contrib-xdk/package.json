@@ -32,6 +32,6 @@
     "xcraft-core-process": "^1.0.0"
   },
   "devDependencies": {
-    "xcraft-dev-rules": "^0.1.15"
+    "xcraft-dev-rules": "^0.2.0"
   }
 }
