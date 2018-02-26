@@ -10,7 +10,9 @@
     "xcraft-deps": "file:./lib/xcraft/deps"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha node_modules/xcraft-*/test/*.js"
+    "test": "node_modules/.bin/mocha node_modules/xcraft-*/test/*.js",
+    "postinstall": "startcraft",
+    "postshrinkwrap": "startcraft"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "startcraft": "^1.0.1",
     "xcraft-dev-rules": "^0.2.0"
   }
 }
