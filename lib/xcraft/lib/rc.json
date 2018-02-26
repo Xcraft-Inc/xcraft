@@ -67,6 +67,10 @@
       }
     }
   },
+  "startcraft": {
+    "desc": "install all modules via startcraft",
+    "options": {}
+  },
   "upi": {
     "desc": "unpublish -> publish -> install (tempory workaround to alias)",
     "options": {
