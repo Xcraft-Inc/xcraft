@@ -1,9 +1,9 @@
-var React = require ('react');
-var Router = require ('react-router');
+var React = require('react');
+var Router = require('react-router');
 var Route = Router.Route;
 var Redirect = Router.Redirect;
 var DefaultRoute = Router.DefaultRoute;
-var Goblin = require ('./goblin.jsx');
+var Goblin = require('./goblin.jsx');
 
 var AppRoutes = (
   <Route name="root" path="/" handler={Goblin}>
@@ -11,10 +11,10 @@ var AppRoutes = (
   </Route>
 );
 
-Router.create ({
+Router.create({
   routes: AppRoutes,
   scrollBehavior: Router.ScrollToTopBehavior,
-}).run (function (Handler) {
+}).run(function(Handler) {
   // whenever the url changes, this callback is called again
-  React.render (<Handler />, document.body);
+  React.render(<Handler />, document.body);
 });

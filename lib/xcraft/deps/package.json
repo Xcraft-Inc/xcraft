@@ -43,9 +43,7 @@
     "type": "file",
     "url": "lib/xcraft/deps"
   },
-  "keywords": [
-    "xcraft"
-  ],
+  "keywords": ["xcraft"],
   "author": "",
   "license": "MIT"
 }

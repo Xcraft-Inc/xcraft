@@ -1,7 +1,7 @@
 /* Webpack config */
-var webpack = require ('webpack');
+var webpack = require('webpack');
 
-var definePlugin = new webpack.DefinePlugin ({
+var definePlugin = new webpack.DefinePlugin({
   __WEBPACK__: true,
 });
 

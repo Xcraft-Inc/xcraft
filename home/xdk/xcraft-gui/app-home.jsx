@@ -1,11 +1,11 @@
-var React = require ('react');
+var React = require('react');
 
-var AppHome = React.createClass ({
+var AppHome = React.createClass({
   mixins: [],
 
   propTypes: {},
 
-  render: function () {
+  render: function() {
     return <p>Daboo!</p>;
   },
 });

@@ -1,7 +1,7 @@
-require ('./main.less');
-var remote = require ('remote');
-var React = require ('react');
-var xCraftMaterials = require ('xcraft-materials') ('web');
+require('./main.less');
+var remote = require('remote');
+var React = require('react');
+var xCraftMaterials = require('xcraft-materials')('web');
 
 var actions = xCraftMaterials.Actions;
 var toggleActivityList = actions.toggleActivityList;
@@ -12,12 +12,12 @@ var Titlebar = xCraftMaterials.Titlebar;
 var ActivityList = xCraftMaterials.ActivityList;
 var PackageList = xCraftMaterials.PackageList;
 
-var Lokthar = React.createClass ({
-  getInitialState: function () {
+var Lokthar = React.createClass({
+  getInitialState: function() {
     return {isMaximized: false};
   },
 
-  render: function () {
+  render: function() {
     return (
       <Window>
         <Titlebar
@@ -34,30 +34,30 @@ var Lokthar = React.createClass ({
     );
   },
 
-  _toggleActivityList: function () {
-    toggleActivityList ();
+  _toggleActivityList: function() {
+    toggleActivityList();
   },
 
-  _close: function () {
-    remote.getCurrentWindow ().close ();
+  _close: function() {
+    remote.getCurrentWindow().close();
   },
 
-  _minimize: function () {
-    remote.getCurrentWindow ().minimize ();
+  _minimize: function() {
+    remote.getCurrentWindow().minimize();
   },
 
-  _maximize: function () {
+  _maximize: function() {
     if (!this.state.isMaximized) {
-      remote.getCurrentWindow ().maximize ();
-      this.setState ({isMaximized: true});
+      remote.getCurrentWindow().maximize();
+      this.setState({isMaximized: true});
     } else {
-      remote.getCurrentWindow ().unmaximize ();
-      this.setState ({isMaximized: false});
+      remote.getCurrentWindow().unmaximize();
+      this.setState({isMaximized: false});
     }
   },
 });
 
-console.log ('windows index: ' + remote.getCurrentWindow ().windex);
-remote.getCurrentWindow ().toggleDevTools ();
+console.log('windows index: ' + remote.getCurrentWindow().windex);
+remote.getCurrentWindow().toggleDevTools();
 
 module.exports = Lokthar;

@@ -36,7 +36,7 @@
 @menu-background-color: @white;
 @menu-item-data-height: 32px;
 @menu-item-height: 48px;
-@menu-item-hover-color: rgba(0, 0, 0, .035);
+@menu-item-hover-color: rgba(0, 0, 0, 0.035);
 @menu-item-padding: @desktop-gutter;
 @menu-item-selected-text-color: @accent-1-color;
 @menu-container-background-color: white;
@@ -49,22 +49,31 @@
 @flat-button-color: @white;
 @flat-button-hover-color: darken(@flat-button-color, 10%);
 @flat-button-text-color: @body-text-color;
-@flat-button-ripple-color: rgba(0,0,0,0.1);
+@flat-button-ripple-color: rgba(0, 0, 0, 0.1);
 @flat-button-focus-ripple-color: fade(@flat-button-ripple-color, 7%);
 @flat-button-primary-hover-color: lighten(@accent-1-color, 32%);
 @flat-button-primary-text-color: @accent-1-color;
 @flat-button-primary-ripple-color: fade(@flat-button-primary-text-color, 20%);
-@flat-button-primary-focus-ripple-color: fade(@flat-button-primary-ripple-color, 20%);
+@flat-button-primary-focus-ripple-color: fade(
+  @flat-button-primary-ripple-color,
+  20%
+);
 @flat-button-secondary-hover-color: lighten(@primary-1-color, 52%);
 @flat-button-secondary-text-color: @primary-1-color;
-@flat-button-secondary-ripple-color: fade(@flat-button-secondary-text-color, 20%);
-@flat-button-secondary-focus-ripple-color: fade(@flat-button-secondary-ripple-color, 20%);
+@flat-button-secondary-ripple-color: fade(
+  @flat-button-secondary-text-color,
+  20%
+);
+@flat-button-secondary-focus-ripple-color: fade(
+  @flat-button-secondary-ripple-color,
+  20%
+);
 @flat-button-disabled-text-color: fade(@flat-button-text-color, 30%);
 
 @raised-button-color: @white;
 @raised-button-hover-color: darken(@raised-button-color, 10%);
 @raised-button-text-color: @body-text-color;
-@raised-button-ripple-color: rgba(0,0,0,0.1);
+@raised-button-ripple-color: rgba(0, 0, 0, 0.1);
 @raised-button-focus-ripple-color: fade(@raised-button-ripple-color, 7%);
 @raised-button-primary-color: @accent-1-color;
 @raised-button-primary-hover-color: darken(@accent-1-color, 15%);
@@ -129,9 +138,9 @@
 // toolbar
 @toolbar-background-color: darken(#eeeeee, 5%);
 @toolbar-height: 56px;
-@toolbar-icon-color: rgba(0, 0, 0, .40);
-@toolbar-separator-color: rgba(0, 0, 0, .175);
-@toolbar-menu-hover-color: rgba(0, 0, 0, .10);
+@toolbar-icon-color: rgba(0, 0, 0, 0.4);
+@toolbar-separator-color: rgba(0, 0, 0, 0.175);
+@toolbar-menu-hover-color: rgba(0, 0, 0, 0.1);
 @toolbar-menu-hover-color: @white;
 
 // slider

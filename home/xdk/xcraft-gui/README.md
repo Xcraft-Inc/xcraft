@@ -1,6 +1,5 @@
 # Lokthar React Version
 
-
 ## hack
 
 npm install
@@ -8,7 +7,6 @@ npm install
 npm start
 
 atom .
-
 
 ## Why
 
