@@ -17,23 +17,6 @@
     "unpm-fs-backend": "^0.1.0",
     "which": "^1.2.4"
   },
-  "peerDependencies": {
-    "async": "*",
-    "chai": "*",
-    "chai-as-promised": "*",
-    "cli-color": "*",
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-jscs": "*",
-    "mocha": "*",
-    "npm-check-updates": "*",
-    "shellcraft": "*",
-    "should": "*",
-    "unpm": "*",
-    "unpm-fs-backend": "*",
-    "which": "*"
-  },
   "scripts": {},
   "repository": {
     "type": "file",
