@@ -27,6 +27,6 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "xcraft-dev-rules": "^0.1.15"
+    "xcraft-dev-rules": "^0.2.0"
   }
 }
