@@ -125,7 +125,7 @@ the toolchain under all platforms.
 ## XDK (Xcraft Development Kit)
 
 The XDK pretend to help non-core developpers to extend Xcraft features.
-It's an early set of shell commands for generating UI gadgets and 
+It's an early set of shell commands for generating UI gadgets and
 high level 'contrib' modules.
 
 ## Advanced
