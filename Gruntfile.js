@@ -1,8 +1,8 @@
 'use strict';
 
-var fs = require ('fs');
+var fs = require('fs');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   var jsSrc = [
     './Gruntfile.js',
     './packages/**/*.js',
@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     './home/xdk/xcraft*/**/*.js',
   ];
 
-  grunt.initConfig ({
+  grunt.initConfig({
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -29,10 +29,10 @@ module.exports = function (grunt) {
     },
   });
 
-  if (fs.existsSync ('./node_modules/grunt-contrib-jshint')) {
-    grunt.loadNpmTasks ('grunt-contrib-jshint');
+  if (fs.existsSync('./node_modules/grunt-contrib-jshint')) {
+    grunt.loadNpmTasks('grunt-contrib-jshint');
   }
-  if (fs.existsSync ('./node_modules/grunt-jscs')) {
-    grunt.loadNpmTasks ('grunt-jscs');
+  if (fs.existsSync('./node_modules/grunt-jscs')) {
+    grunt.loadNpmTasks('grunt-jscs');
   }
 };
