@@ -63,7 +63,6 @@
   "strip": "^darwin|freebsd|linux|sunos$",
   "stty": "^darwin|freebsd|linux|sunos$",
   "subst": "^win32$",
-  "uname": "^darwin|freebsd|linux|sunos$",
   "sw_vers": "^darwin$",
   "tar": "^darwin|freebsd|linux|sunos$",
   "tee": "^darwin|freebsd|linux|sunos$",
