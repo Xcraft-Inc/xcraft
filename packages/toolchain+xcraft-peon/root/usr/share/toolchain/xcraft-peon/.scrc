@@ -1,0 +1,27 @@
+{
+  "npmInstallArgs": [],
+  "modules": [
+    "../../../../../../../../../lib/xcraft-contrib-peon",
+    "../../../../../../../../../lib/xcraft-core-activity",
+    "../../../../../../../../../lib/xcraft-core-bus",
+    "../../../../../../../../../lib/xcraft-core-busclient",
+    "../../../../../../../../../lib/xcraft-core-devel",
+    "../../../../../../../../../lib/xcraft-core-etc",
+    "../../../../../../../../../lib/xcraft-core-extract",
+    "../../../../../../../../../lib/xcraft-core-fs",
+    "../../../../../../../../../lib/xcraft-core-http",
+    "../../../../../../../../../lib/xcraft-core-log",
+    "../../../../../../../../../lib/xcraft-core-placeholder",
+    "../../../../../../../../../lib/xcraft-core-platform",
+    "../../../../../../../../../lib/xcraft-core-process",
+    "../../../../../../../../../lib/xcraft-core-scm",
+    "../../../../../../../../../lib/xcraft-core-subst",
+    "../../../../../../../../../lib/xcraft-core-transport",
+    "../../../../../../../../../lib/xcraft-core-utils"
+  ],
+  "exclude": [],
+  "scripts": {
+    "presc": {},
+    "postsc": {}
+  }
+}

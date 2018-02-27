@@ -17,26 +17,12 @@ module.exports = function(packagePath, sharePath, packageDef, response) {
 
     xLog.info('prepeon for xcraft modules installation');
 
-    /* FIXME: tar-fs and watt are missing */
-    var xcraft = 'xcraft' + xPlatform.getCmdExt();
-    var args = [
-      '--modprefix',
-      nodeModules,
-      'install',
-      'xcraft-contrib-peon',
-      'xcraft-core-busclient',
-      'xcraft-core-devel',
-      'xcraft-core-fs',
-      'xcraft-core-log',
-      'xcraft-core-placeholder',
-      'xcraft-core-platform',
-    ];
+    var xcraft = 'npm' + xPlatform.getCmdExt();
+    var args = ['--production', 'install'];
 
-    xLog.verb(xcraft);
+    xLog.verb(`${xcraft} ${args.join(' ')}`);
 
-    xProcess.spawn(xcraft, args, {}, function(err) {
-      callback(err);
-    });
+    xProcess.spawn(xcraft, args, {cwd: nodeModules}, callback);
   };
 
   return {
