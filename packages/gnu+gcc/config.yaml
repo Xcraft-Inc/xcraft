@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 7.1.0
+version: 7.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -43,14 +43,14 @@ dependency:
 data:
   get:
     uri: >-
-      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.bz2
+      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.xz
     ref: ''
     out: ''
   type: src
   configure: >-
     !cd data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4,"
     -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
-    "s,ISL=.*,ISL=isl-0.16.1," ./contrib/download_prerequisites &&
+    "s,ISL=.*,ISL=isl-0.18," ./contrib/download_prerequisites &&
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
     --enable-languages=c,c++,objc,obj-c++
