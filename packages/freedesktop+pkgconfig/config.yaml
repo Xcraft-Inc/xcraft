@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: freedesktop+pkgconfig
-version: 0.29.1
+version: 0.29.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
