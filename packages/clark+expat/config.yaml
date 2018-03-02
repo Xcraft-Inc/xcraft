@@ -1,7 +1,7 @@
 subpackage:
   - 'runtime*'
 name: clark+expat
-version: 2.1.0
+version: 2.2.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +21,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://downloads.sourceforge.net/project/expat/expat/<THIS.VERSION>/expat-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet'
+    uri: 'https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-<THIS.VERSION>.tar.bz2'
     ref: ''
     out: ''
   type: src
