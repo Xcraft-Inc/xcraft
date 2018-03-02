@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: adler+zlib
-version: 1.2.8
+version: 1.2.11
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,8 +21,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://downloads.sourceforge.net/project/libpng/zlib/<THIS.VERSION>/zlib-<THIS.VERSION>.tar.gz?r=&use_mirror=heanet
+    uri: 'https://zlib.net/zlib-<THIS.VERSION>.tar.xz'
     ref: ''
     out: ''
   type: src
