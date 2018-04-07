@@ -1,6 +1,7 @@
 {
   "npmInstallArgs": [],
   "modules": [
+    "./lib/xcraft-axon",
     "./lib/xcraft-contrib-bootcmake",
     "./lib/xcraft-contrib-bootstrap",
     "./lib/xcraft-contrib-bootwpkg",

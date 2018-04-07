@@ -94,3 +94,9 @@
 [submodule "lib/xcraft-contrib-peon"]
 	path = lib/xcraft-contrib-peon
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-peon.git
+[submodule "lib/axon"]
+	path = lib/axon
+	url = https://github.com/Xcraft-Inc/axon.git
+[submodule "lib/xcraft-axon"]
+	path = lib/xcraft-axon
+	url = https://github.com/Xcraft-Inc/axon.git
