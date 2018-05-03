@@ -15,6 +15,7 @@
     "../../../../../../../../../lib/xcraft-core-platform",
     "../../../../../../../../../lib/xcraft-core-process",
     "../../../../../../../../../lib/xcraft-core-scm",
+    "../../../../../../../../../lib/xcraft-core-shredder",
     "../../../../../../../../../lib/xcraft-core-subst",
     "../../../../../../../../../lib/xcraft-core-transport",
     "../../../../../../../../../lib/xcraft-core-utils"

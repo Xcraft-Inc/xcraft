@@ -100,3 +100,15 @@
 [submodule "lib/xcraft-axon"]
 	path = lib/xcraft-axon
 	url = https://github.com/Xcraft-Inc/axon.git
+[submodule "lib/xcraft-core-horde"]
+	path = lib/xcraft-core-horde
+	url = https://github.com/Xcraft-Inc/xcraft-core-horde
+[submodule "lib/xcraft-core-shredder"]
+	path = lib/xcraft-core-shredder
+	url = https://github.com/Xcraft-Inc/xcraft-core-shredder
+[submodule "lib/xcraft-server"]
+	path = lib/xcraft-server
+	url = https://github.com/Xcraft-Inc/xcraft-server
+[submodule "lib/xcraft-core-host"]
+	path = lib/xcraft-core-host
+	url = https://github.com/Xcraft-Inc/xcraft-core-host
