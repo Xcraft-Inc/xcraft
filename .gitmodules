@@ -112,3 +112,6 @@
 [submodule "lib/xcraft-core-host"]
 	path = lib/xcraft-core-host
 	url = https://github.com/Xcraft-Inc/xcraft-core-host
+[submodule "lib/shellcraft.js"]
+	path = lib/shellcraft
+	url = https://github.com/Xcraft-Inc/shellcraft.js.git
