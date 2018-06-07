@@ -1,0 +1,36 @@
+name: microsoft+buildtools-vcxx
+version: 15.7.27703.2026
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: 'Build Windows desktop app. using the MS C++ toolset, ATL, or MFC.'
+  long: >-
+    Build Windows desktop applications using the Microsoft C++ toolset, ATL, or
+    MFC.
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'chest://microsoft+buildtools-vcxx.zip'
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: vs_BuildTools.exe
+    args:
+      postinst: '--all --quiet --norestart --wait --nocache --noUpdateInstaller --noWeb'
+      prerm: 'uninstall --quiet --norestart --wait --noUpdateInstaller --noWeb'
+  env:
+    path: []
+    other: {}
+  embedded: true
