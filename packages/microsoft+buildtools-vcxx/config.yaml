@@ -19,7 +19,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest://microsoft+buildtools-vcxx.zip'
+    uri: 'chest://wpkg.epsitec.ch:443/microsoft+buildtools-vcxx.zip'
     ref: ''
     out: ''
   type: bin
