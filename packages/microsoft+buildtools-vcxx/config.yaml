@@ -48,6 +48,6 @@ data:
         --noUpdateInstaller
   env:
     path:
-      - <OS.ROOTDIR>/xcraft/microsoft/buildtools-vcxx/MSBuild/15.0/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx/MSBuild/15.0/Bin
     other: {}
   embedded: true
