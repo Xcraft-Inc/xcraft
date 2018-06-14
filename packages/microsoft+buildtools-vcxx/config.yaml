@@ -8,7 +8,7 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: 'Visual C++ build tools.'
+  brief: Visual C++ build tools.
   long: >-
     Build Windows desktop applications using the Microsoft C++ toolset, ATL, or
     MFC.
@@ -28,8 +28,21 @@ data:
     type: exec
     location: data/microsoft+buildtools-vcxx/vs_BuildTools.exe
     args:
-      postinst: '--all --quiet --norestart --wait --nocache --noUpdateInstaller --noWeb'
-      prerm: 'uninstall --quiet --norestart --wait --noUpdateInstaller --noWeb'
+      postinst: >-
+        --locale En-us --add Microsoft.VisualStudio.Workload.VCTools --add
+        Microsoft.VisualStudio.Component.TestTools.BuildTools --add
+        Microsoft.VisualStudio.Component.VC.140 --add
+        Microsoft.VisualStudio.Component.VC.ATL --add
+        Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
+        --nocache --noUpdateInstaller
+      prerm: >-
+        uninstall --locale En-us --remove
+        Microsoft.VisualStudio.Workload.VCTools --remove
+        Microsoft.VisualStudio.Component.TestTools.BuildTools --remove
+        Microsoft.VisualStudio.Component.VC.140 --remove
+        Microsoft.VisualStudio.Component.VC.ATL --remove
+        Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
+        --noUpdateInstaller
   env:
     path: []
     other: {}
