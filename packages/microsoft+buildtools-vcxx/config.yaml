@@ -29,14 +29,17 @@ data:
     location: data/microsoft+buildtools-vcxx/vs_BuildTools.exe
     args:
       postinst: >-
-        --locale En-us --add Microsoft.VisualStudio.Workload.VCTools --add
+        --locale En-us --installPath
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx --add
+        Microsoft.VisualStudio.Workload.VCTools --add
         Microsoft.VisualStudio.Component.TestTools.BuildTools --add
         Microsoft.VisualStudio.Component.VC.140 --add
         Microsoft.VisualStudio.Component.VC.ATL --add
         Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
         --nocache --noUpdateInstaller
       prerm: >-
-        uninstall --locale En-us --remove
+        --locale En-us --installPath
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx --remove
         Microsoft.VisualStudio.Workload.VCTools --remove
         Microsoft.VisualStudio.Component.TestTools.BuildTools --remove
         Microsoft.VisualStudio.Component.VC.140 --remove
@@ -44,6 +47,7 @@ data:
         Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
         --noUpdateInstaller
   env:
-    path: []
+    path:
+      - <OS.ROOTDIR>/xcraft/microsoft/buildtools-vcxx/MSBuild/15.0/Bin
     other: {}
   embedded: true
