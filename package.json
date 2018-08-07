@@ -11,7 +11,7 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.1.0",
     "cli-color": "^1.0.0",
-    "mocha": "^2.3.4",
+    "mocha": "^5.2.0",
     "npm-check-updates": "^2.2.0",
     "should": "^5.2.0",
     "unpm": "^1.4.0",
