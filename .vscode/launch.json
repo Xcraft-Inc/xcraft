@@ -14,7 +14,7 @@
       "type": "node",
       "request": "launch",
       "name": "Lancer le programme",
-      "program": "${workspaceFolder}/node_modules/.bin/zog",
+      "program": "${workspaceFolder}/node_modules/xcraft-zog/bin/zog",
       "console": "integratedTerminal",
       "autoAttachChildProcesses": true,
       "env": {
