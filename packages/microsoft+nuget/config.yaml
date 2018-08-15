@@ -1,5 +1,5 @@
 name: microsoft+nuget
-version: 3.5.0
+version: 4.7.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,7 +23,7 @@ data:
     ref: ''
     out: ''
   type: bin
-  configure: 'mv (''nuget.exe'', ''root/usr/bin/nuget.exe'');'
+  configure: "mv ('nuget.exe', 'root/usr/bin/nuget.exe');"
   rules:
     type: move
     location: root
