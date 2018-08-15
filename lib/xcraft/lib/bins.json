@@ -49,6 +49,7 @@
   "objdump": "^linux$",
   "otool": "^darwin$",
   "patch": "^darwin|freebsd|linux|sunos$",
+  "powershell": "^win32$",
   "ps": "^darwin|freebsd|linux|sunos$",
   "pwd": "^darwin|freebsd|linux|sunos$",
   "ranlib": "^darwin|freebsd|linux|sunos$",
