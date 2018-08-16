@@ -1,0 +1,43 @@
+name: microsoft+buildtools-net45
+version: 15.7.27703.2026
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Visual NET 4.5 build tools.
+  long: Visual NET 4.5 build tools.
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'chest:microsoft+buildtools-net45.zip'
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-net45/vs_BuildTools.exe
+    args:
+      postinst: >-
+        --locale En-us --installPath
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
+        Microsoft.Net.Component.4.5.TargetingPack --quiet --norestart --wait
+        --nocache --noUpdateInstaller
+      prerm: >-
+        --locale En-us --installPath
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
+        Microsoft.Net.Component.4.5.TargetingPack --quiet --norestart --wait
+        --noUpdateInstaller
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/15.0/Bin
+    other: {}
+  embedded: true
