@@ -1,0 +1,36 @@
+name: microsoft+dotnet-sdk-win
+version: 2.1.400
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: .NET Core SDK
+  long: .NET Core SDK
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://download.microsoft.com/download/9/D/2/9D2354BE-778B-42D6-BA4F-3CEF489A4FDE/dotnet-sdk-<THIS.VERSION>-win-x86.zip
+    ref: ''
+    out: ''
+  type: bin
+  configure: "mv ('data', 'root/opt/dotnet-sdk');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - opt/dotnet-sdk
+    other: {}
+  embedded: true
