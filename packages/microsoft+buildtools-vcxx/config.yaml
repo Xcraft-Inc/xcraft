@@ -1,5 +1,5 @@
 name: microsoft+buildtools-vcxx
-version: 15.7.27703.2026
+version: '15.7.27703.2026-1'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -30,7 +30,7 @@ data:
     args:
       postinst: >-
         --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx --add
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
         Microsoft.VisualStudio.Workload.VCTools --add
         Microsoft.VisualStudio.Component.TestTools.BuildTools --add
         Microsoft.VisualStudio.Component.VC.140 --add
@@ -39,7 +39,7 @@ data:
         --nocache --noUpdateInstaller
       prerm: >-
         --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx --remove
+        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
         Microsoft.VisualStudio.Workload.VCTools --remove
         Microsoft.VisualStudio.Component.TestTools.BuildTools --remove
         Microsoft.VisualStudio.Component.VC.140 --remove
@@ -48,6 +48,6 @@ data:
         --noUpdateInstaller
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools-vcxx/MSBuild/15.0/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/15.0/Bin
     other: {}
   embedded: true
