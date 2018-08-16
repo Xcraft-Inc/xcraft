@@ -1,6 +1,6 @@
 ```sh
 ./vs_BuildTools.exe \
-  --layout local.buildtools-vcxx \
+  --layout microsoft+buildtools-vcxx \
   --lang En-us \
   --locale En-us \
   --add Microsoft.VisualStudio.Workload.VCTools \
