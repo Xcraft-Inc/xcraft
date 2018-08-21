@@ -1,4 +1,4 @@
-name: microsoft+buildtools-net45
+name: microsoft+buildtools-net452
 version: 15.7.27703.2026
 distribution: toolchain/
 maintainer:
@@ -8,8 +8,8 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: Visual NET 4.5 build tools.
-  long: Visual NET 4.5 build tools.
+  brief: Visual NET 4.5.2 build tools.
+  long: Visual NET 4.5.2 build tools.
 dependency:
   install:
     toolchain+xcraft-peon:
@@ -17,24 +17,26 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest:microsoft+buildtools-net45.zip'
+    uri: 'chest:microsoft+buildtools-net452.zip'
     ref: ''
     out: ''
   type: bin
   configure: ''
   rules:
     type: exec
-    location: data/microsoft+buildtools-net45/vs_BuildTools.exe
+    location: data/microsoft+buildtools-net452/vs_BuildTools.exe
     args:
       postinst: >-
         --locale En-us --installPath
         <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
-        Microsoft.Net.Component.4.5.TargetingPack --quiet --norestart --wait
+        Microsoft.Net.Component.4.5.2.TargetingPack --add
+        Microsoft.VisualStudio.Component.NuGet --quiet --norestart --wait
         --nocache --noUpdateInstaller
       prerm: >-
         --locale En-us --installPath
         <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
-        Microsoft.Net.Component.4.5.TargetingPack --quiet --norestart --wait
+        Microsoft.Net.Component.4.5.2.TargetingPack --remove
+        Microsoft.VisualStudio.Component.NuGet --quiet --norestart --wait
         --noUpdateInstaller
   env:
     path:
