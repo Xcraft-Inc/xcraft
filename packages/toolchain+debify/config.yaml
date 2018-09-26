@@ -1,0 +1,37 @@
+name: toolchain+debify
+version: 0.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+description:
+  brief: Tools for goblin debifier.
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    stedolan+jq:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
