@@ -13,6 +13,7 @@
     "../../../../../../../../../lib/xcraft-core-log",
     "../../../../../../../../../lib/xcraft-core-placeholder",
     "../../../../../../../../../lib/xcraft-core-platform",
+    "../../../../../../../../../lib/xcraft-core-probe",
     "../../../../../../../../../lib/xcraft-core-process",
     "../../../../../../../../../lib/xcraft-core-scm",
     "../../../../../../../../../lib/xcraft-core-shredder",
