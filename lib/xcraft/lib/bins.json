@@ -64,6 +64,7 @@
   "sh": "^darwin|freebsd|linux|sunos$",
   "sleep": "^darwin|freebsd|linux|sunos$",
   "sort": "^darwin|freebsd|linux|sunos$",
+  "ssh": "^darwin|freebsd|linux|sunos$",
   "stat": "^darwin|freebsd|linux|sunos$",
   "strip": "^darwin|freebsd|linux|sunos$",
   "stty": "^darwin|freebsd|linux|sunos$",
