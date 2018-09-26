@@ -115,3 +115,6 @@
 [submodule "lib/shellcraft.js"]
 	path = lib/shellcraft
 	url = https://github.com/Xcraft-Inc/shellcraft.js.git
+[submodule "lib/xcraft-core-probe"]
+	path = lib/xcraft-core-probe
+	url = https://github.com/Xcraft-Inc/xcraft-core-probe.git
