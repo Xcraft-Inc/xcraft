@@ -1,0 +1,45 @@
+subpackage:
+  - runtime*
+name: stedolan+jq
+version: 1.5
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: JQ.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://github.com/stedolan/jq/releases/download/jq-<THIS.VERSION>/jq-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-maintainer-mode --disable-valgrind
+  rules:
+    type: make
+    location: data/jq-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

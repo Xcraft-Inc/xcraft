@@ -37,7 +37,6 @@
   "id": "^darwin|freebsd|linux|sunos$",
   "install": "^darwin|freebsd|linux|sunos$",
   "install_name_tool": "^darwin$",
-  "jq": "^linux$",
   "ld": "^darwin|freebsd|linux|sunos$",
   "ld.gold": "^freebsd|linux|sunos$",
   "lipo": "^darwin$",
