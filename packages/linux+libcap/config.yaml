@@ -1,0 +1,43 @@
+subpackage:
+  - runtime*
+name: linux+libcap
+version: 2.25
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Libcap.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.VERSION>.tar.xz
+    ref: ''
+    out: ''
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/libcap-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install RAISE_SETFCAP=no FAKEROOT=<PEON.INSTALLDIR>
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

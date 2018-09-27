@@ -23,7 +23,6 @@
   "egrep": "^darwin|freebsd|linux|sunos$",
   "env": "^darwin|freebsd|linux|sunos$",
   "expr": "^darwin|freebsd|linux|sunos$",
-  "fakeroot": "^linux$",
   "find": "^darwin|freebsd|linux|sunos$",
   "findstr": "^win32$",
   "gcc": "^darwin|freebsd|linux|sunos$",
