@@ -118,3 +118,12 @@
 [submodule "lib/xcraft-core-probe"]
 	path = lib/xcraft-core-probe
 	url = https://github.com/Xcraft-Inc/xcraft-core-probe.git
+[submodule "lib/goblin-builder"]
+	path = lib/goblin-builder
+	url = https://github.com/Xcraft-Inc/goblin-builder.git
+[submodule "lib/goblin-webpack"]
+	path = lib/goblin-webpack
+	url = https://github.com/Xcraft-Inc/goblin-webpack.git
+[submodule "lib/xcraft-core-goblin"]
+	path = lib/xcraft-core-goblin
+	url = https://github.com/Xcraft-Inc/xcraft-core-goblin.git

@@ -1,6 +1,8 @@
 {
   "npmInstallArgs": [],
   "modules": [
+    "./lib/goblin-builder",
+    "./lib/goblin-webpack",
     "./lib/shellcraft",
     "./lib/xcraft-axon",
     "./lib/xcraft-contrib-bootcmake",
@@ -26,6 +28,7 @@
     "./lib/xcraft-core-extract",
     "./lib/xcraft-core-fs",
     "./lib/xcraft-core-ftp",
+    "./lib/xcraft-core-goblin",
     "./lib/xcraft-core-http",
     "./lib/xcraft-core-horde",
     "./lib/xcraft-core-host",
