@@ -18,6 +18,9 @@ dependency:
     stedolan+jq:
       - version: ''
         architecture: []
+    debian+fakeroot:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
