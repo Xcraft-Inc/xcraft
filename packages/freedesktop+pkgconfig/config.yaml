@@ -37,7 +37,7 @@ data:
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework
     CoreFoundation -framework Carbon":> ./configure --prefix=<PEON.PREFIXDIR>
-    --with-internal-glib
+    --with-internal-glib --with-libiconv=no --disable-maintainer-mode
   rules:
     type: make
     location: data/pkg-config-<THIS.VERSION>/
