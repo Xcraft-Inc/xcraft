@@ -45,12 +45,14 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
     other:
-      PKG_CONFIG_PATH: <OS.ROOTDIR>/usr/lib/pkgconfig
+      PKG_CONFIG_PATH: '<OS.ROOTDIR>/usr/lib/pkgconfig:<OS.ROOTDIR>/usr/lib64/pkgconfig'
   embedded: true
   runtime:
     configure: ''
