@@ -342,8 +342,16 @@ if (process.argv.length >= 4) {
 
   const share = guessSharePath(root, process.argv[3], pkg);
 
+  let resp;
   const xBusClient = require('xcraft-core-busclient');
-  const resp = xBusClient.newResponse(moduleName);
+
+  if (process.env.XCRAFT_CONFIG) {
+    const busConfig = JSON.parse(process.env.XCRAFT_CONFIG)['xcraft-core-bus'];
+    const busClient = new xBusClient.BusClient(busConfig);
+    resp = busClient.newResponse(moduleName);
+  } else {
+    resp = xBusClient.newResponse(moduleName);
+  }
 
   require('xcraft-core-log')(moduleName, resp);
 
