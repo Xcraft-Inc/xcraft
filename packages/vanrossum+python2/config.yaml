@@ -1,0 +1,39 @@
+subpackage:
+  - runtime*
+name: vanrossum+python2
+version: 2.7.15
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Python programming language.
+  long: ''
+dependency: {}
+data:
+  get:
+    uri: >-
+      https://www.python.org/ftp/python/<THIS.VERSION>/Python-<THIS.VERSION>.tar.xz
+    ref: ''
+    out: ''
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/Python-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: []
+  embedded: true
+  runtime:
+    configure: ''
