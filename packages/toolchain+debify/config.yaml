@@ -21,6 +21,9 @@ dependency:
     debian+fakeroot:
       - version: ''
         architecture: []
+    vanrossum+python2:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
