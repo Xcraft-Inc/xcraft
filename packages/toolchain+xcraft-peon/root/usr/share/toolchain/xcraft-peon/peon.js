@@ -79,9 +79,7 @@ class Action {
     };
 
     const data = JSON.stringify(newConfig, null, '  ');
-    const fullName = this._share.match(
-      /.[\/\\]([^\/\\]+)[\/\\]([^\/\\]+)[\/\\]?$/
-    );
+    const fullName = this._share.match(/.[/\\]([^/\\]+)[/\\]([^/\\]+)[/\\]?$/);
 
     const shareDir = path.join(prefixDir, 'share', fullName[1], fullName[2]);
     xFs.mkdir(shareDir);
