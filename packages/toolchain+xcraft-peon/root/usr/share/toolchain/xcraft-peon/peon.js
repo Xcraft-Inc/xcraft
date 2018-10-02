@@ -349,14 +349,7 @@ if (process.argv.length >= 4) {
 
   let resp;
   const xBusClient = require('xcraft-core-busclient');
-
-  if (process.env.XCRAFT_CONFIG) {
-    const busConfig = JSON.parse(process.env.XCRAFT_CONFIG)['xcraft-core-bus'];
-    const busClient = new xBusClient.BusClient(busConfig);
-    resp = busClient.newResponse(moduleName);
-  } else {
-    resp = xBusClient.newResponse(moduleName);
-  }
+  resp = xBusClient.newResponse(moduleName);
 
   require('xcraft-core-log')(moduleName, resp);
 
