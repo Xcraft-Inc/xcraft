@@ -104,7 +104,12 @@ class Action {
       binaryDir.replace(/build$/, 'install/runtime')
     );
     const prefixDir = path.join(installDir, 'usr');
-    xPh.global.set('PREFIXDIR', prefixDir).set('INSTALLDIR', installDir);
+    const srcDir = path.join(this._share, 'cache', this._getExtra().location);
+
+    xPh.global
+      .set('PREFIXDIR', prefixDir)
+      .set('INSTALLDIR', installDir)
+      .set('SRCDIR', srcDir);
 
     this._prefix = prefixDir;
 
