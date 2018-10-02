@@ -19,7 +19,8 @@
       "autoAttachChildProcesses": true,
       "env": {
         "XCRAFT_LOGS": "1",
-        "XCRAFT_LOG": "2"
+        "XCRAFT_LOG": "2",
+        "XCRAFT_DEBUG": "1"
       }
     }
   ]
