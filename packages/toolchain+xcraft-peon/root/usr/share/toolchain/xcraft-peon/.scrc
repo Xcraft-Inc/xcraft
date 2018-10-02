@@ -1,6 +1,7 @@
 {
   "npmInstallArgs": [],
   "modules": [
+    "../../../../../../../../../lib/xcraft-axon",
     "../../../../../../../../../lib/xcraft-contrib-peon",
     "../../../../../../../../../lib/xcraft-core-activity",
     "../../../../../../../../../lib/xcraft-core-bus",
