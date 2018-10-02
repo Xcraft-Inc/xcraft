@@ -2,6 +2,7 @@
   "npmInstallArgs": [],
   "modules": [
     "./lib/goblin-builder",
+    "./lib/goblin-warehouse",
     "./lib/goblin-webpack",
     "./lib/shellcraft",
     "./lib/xcraft-axon",
