@@ -34,6 +34,7 @@
   "devDependencies": {
     "startcraft": "^1.0.1",
     "node-pre-gyp": "^0.10.0",
-    "xcraft-dev-rules": "^0.2.0"
+    "xcraft-dev-rules": "^0.2.0",
+    "prettier": "1.12.1"
   }
 }
