@@ -10,11 +10,7 @@
   "scripts": {
     "test": ""
   },
-  "keywords": [
-    "xcraft",
-    "gitlab",
-    "ci"
-  ],
+  "keywords": ["xcraft", "gitlab", "ci"],
   "author": "Xcraft Team",
   "license": "MIT",
   "config": {
@@ -34,6 +30,6 @@
     "xcraft-core-wizard": "^1.0.0"
   },
   "devDependencies": {
-    "xcraft-dev-rules": "^0.2.0"
+    "xcraft-dev-rules": "^0.3.0"
   }
 }
