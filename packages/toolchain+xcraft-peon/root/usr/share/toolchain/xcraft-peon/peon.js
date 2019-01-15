@@ -4,7 +4,7 @@ const moduleName = 'peon';
 
 const path = require('path');
 const fs = require('fs');
-const watt = require('watt');
+const watt = require('gigawatts');
 
 const xFs = require('xcraft-core-fs');
 const xPeon = require('xcraft-contrib-peon');
