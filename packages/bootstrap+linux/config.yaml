@@ -24,6 +24,9 @@ dependency:
     torvalds+git:
       - version: ''
         architecture: []
+    kaspar030+git-cache:
+      - version: ''
+        architecture: []
     toolchain+build-essential:
       - version: ''
         architecture: []

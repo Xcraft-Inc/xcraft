@@ -1,46 +1,40 @@
-name: bootstrap+darwin
+name: kaspar030+git-cache
 version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - darwin-i386
-  - darwin-amd64
+  - all
 description:
-  brief: Bootstrap for darwin.
+  brief: Simple git cache management script
   long: ''
 dependency:
   install:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    kitware+cmake:
-      - version: ''
-        architecture: []
     torvalds+git:
-      - version: ''
-        architecture: []
-    kaspar030+git-cache:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
       - version: ''
         architecture: []
 data:
   get:
-    uri: ''
+    uri: >-
+      https://github.com/kaspar030/git-cache/archive/f76c3a5f0e15f08c28e53fb037755f29f0b76d88.zip
     ref: ''
     out: ''
   type: bin
-  configure: ''
+  configure: >-
+    mv('data/git-cache-f76c3a5f0e15f08c28e53fb037755f29f0b76d88/git-cache',
+    'root/usr/bin/git-cache'); chmod('root/usr/bin/git-cache', 0o755);
   rules:
-    type: meta
-    location: ''
+    type: move
+    location: root
     args:
       postinst: ''
       prerm: ''
   env:
     path: []
-    other: {}
+    other:
+      GIT_CACHE_DIR: <OS.ROOTDIR>/var/git-cache
   embedded: true

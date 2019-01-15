@@ -18,6 +18,9 @@ dependency:
     schindelin+mingit:
       - version: ''
         architecture: []
+    kaspar030+git-cache:
+      - version: ''
+        architecture: []
     gnuwin32+patch:
       - version: ''
         architecture: []
