@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 7.3.0
+version: 8.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
