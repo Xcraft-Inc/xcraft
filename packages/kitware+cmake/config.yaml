@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: kitware+cmake
-version: 3.12.0
+version: 3.13.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://cmake.org/files/v3.12/cmake-<THIS.VERSION>.tar.gz'
+    uri: 'https://cmake.org/files/v3.13/cmake-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
