@@ -36,5 +36,5 @@ data:
   env:
     path: []
     other:
-      GIT_CACHE_DIR: <OS.ROOTDIR>/var/git-cache
+      GIT_CACHE_DIR: <OS.ROOTTEMP>/git-cache
   embedded: true
