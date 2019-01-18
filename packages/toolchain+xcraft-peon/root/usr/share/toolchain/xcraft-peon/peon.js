@@ -238,17 +238,22 @@ class Action {
         /* TODO: keep a file with all copies, then it can be removed
          *       with postrm.
          */
-        if (/__peon_[0-9]+__$/.test(file)) {
-          newFile = newFile.replace(/^(.*)__peon_[0-9]+__$/, '$1');
+        if (/__peon_[0-9]+__/.test(newFile)) {
+          newFile = newFile.replace(/__peon_[0-9]+__/, '');
         }
-        if (/__peon__$/.test(newFile)) {
-          newFile = newFile.replace(/^(.*)__peon__$/, '$1');
+        if (/__peon__/.test(newFile)) {
+          newFile = newFile.replace(/__peon__/, '');
         }
         if (/__peon_colon__/.test(newFile)) {
           newFile = newFile.replace(/__peon_colon__/g, ':');
         }
         if (newFile !== file) {
           xFs.cp(file, newFile);
+        }
+        if (/__peon_symlink__/.test(newFile)) {
+          const target = fs.readFileSync(newFile).toString();
+          newFile = newFile.replace(/__peon_symlink__/, '');
+          fs.symlinkSync(target, newFile);
         }
       });
       return;
