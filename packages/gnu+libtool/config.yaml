@@ -27,8 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://mirror.switch.ch/ftp/mirror/gnu/libtool/libtool-<THIS.VERSION>.tar.gz
+    uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
@@ -40,7 +39,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []

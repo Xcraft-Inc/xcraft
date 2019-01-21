@@ -18,8 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://mirror.switch.ch/ftp/mirror/gnu/coreutils/coreutils-<THIS.VERSION>.tar.xz
+    uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.VERSION>.tar.xz'
     ref: ''
     out: ''
   type: src

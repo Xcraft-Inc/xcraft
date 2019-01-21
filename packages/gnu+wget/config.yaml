@@ -18,7 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/wget/wget-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/wget/wget-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
@@ -32,11 +32,12 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
   runtime:

@@ -27,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://mirror.switch.ch/ftp/mirror/gnu/bison/bison-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/bison/bison-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
@@ -41,11 +41,12 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
-    ldpath: []
     other:
       BISON_PKGDATADIR: <OS.ROOTDIR>/usr/share/bison
   embedded: true

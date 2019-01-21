@@ -21,8 +21,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://mirror.switch.ch/ftp/mirror/gnu/help2man/help2man-<THIS.VERSION>.tar.gz
+    uri: 'http://ftpmirror.gnu.org/help2man/help2man-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
   type: src
@@ -34,7 +33,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
