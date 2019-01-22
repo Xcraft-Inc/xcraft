@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+bison
-version: 3.0.4
+version: 3.2.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
