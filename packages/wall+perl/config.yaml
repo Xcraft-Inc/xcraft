@@ -24,7 +24,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && sh Configure -Dprefix=<PEON.PREFIXDIR>
-    -Duserelocatableinc -de
+    -Duserelocatableinc -de -Dman1dir=none -Dman3dir=none
   rules:
     type: make
     location: data/perl-<THIS.VERSION>/
@@ -32,11 +32,12 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
   runtime:
