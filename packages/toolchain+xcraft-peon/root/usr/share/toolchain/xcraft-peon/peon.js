@@ -247,13 +247,12 @@ class Action {
         if (/__peon_colon__/.test(newFile)) {
           newFile = newFile.replace(/__peon_colon__/g, ':');
         }
-        if (newFile !== file) {
-          xFs.cp(file, newFile);
-        }
         if (/__peon_symlink__/.test(newFile)) {
-          const target = fs.readFileSync(newFile).toString();
+          const target = fs.readFileSync(file).toString();
           newFile = newFile.replace(/__peon_symlink__/, '');
           fs.symlinkSync(target, newFile);
+        } else if (newFile !== file) {
+          xFs.cp(file, newFile);
         }
       });
       return;
