@@ -250,6 +250,14 @@ class Action {
         if (/__peon_symlink__/.test(newFile)) {
           const target = fs.readFileSync(file).toString();
           newFile = newFile.replace(/__peon_symlink__/, '');
+
+          try {
+            fs.unlinkSync(newFile);
+          } catch (ex) {
+            if (ex.code !== 'ENOENT') {
+              throw ex;
+            }
+          }
           fs.symlinkSync(target, newFile);
         } else if (newFile !== file) {
           xFs.cp(file, newFile);
