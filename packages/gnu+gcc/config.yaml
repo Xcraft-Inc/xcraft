@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 8.2.0
+version: 8.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -46,6 +46,7 @@ data:
       ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.xz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4,"
@@ -54,6 +55,8 @@ data:
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
     --enable-languages=c,c++,objc,obj-c++
+    --with-native-system-header-dir=/usr/include
+    <PEON.OS=darwin?--with-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk:>
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
