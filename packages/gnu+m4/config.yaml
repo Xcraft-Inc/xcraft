@@ -24,6 +24,7 @@ data:
     uri: 'http://ftp.gnu.org/gnu/m4/m4-<THIS.VERSION>.tar.bz2'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
