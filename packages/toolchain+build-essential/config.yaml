@@ -30,6 +30,9 @@ dependency:
     samba+ccache:
       - version: ''
         architecture: []
+    gnu+libiconv:
+      - version: ''
+        architecture: []
     freedesktop+pkgconfig:
       - version: ''
         architecture: []

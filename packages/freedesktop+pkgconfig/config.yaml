@@ -27,12 +27,16 @@ dependency:
     gnu+gcc:
       - version: ''
         architecture: []
+    gnu+libiconv:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
       https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.VERSION>.tar.gz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework

@@ -16,7 +16,13 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    toolchain+build-essential:
+    gnu+m4:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+    gnu+gcc:
       - version: ''
         architecture: []
 data:
