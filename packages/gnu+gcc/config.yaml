@@ -56,7 +56,7 @@ data:
     ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
     --enable-languages=c,c++,objc,obj-c++
     --with-native-system-header-dir=/usr/include
-    <PEON.OS=darwin?--with-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk:>
+    <PEON.OS=darwin?--with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk:>
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
