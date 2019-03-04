@@ -1,5 +1,5 @@
-name: bootstrap+darwin
-version: 0.1.0
+name: toolchain+build-essential-llvm
+version: 0.0.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,23 +8,32 @@ architecture:
   - darwin-i386
   - darwin-amd64
 description:
-  brief: Bootstrap for darwin.
+  brief: Essential tools for building with LLVM.
   long: ''
 dependency:
   install:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    kitware+cmake:
+    llvm+llvm:
       - version: ''
         architecture: []
-    torvalds+git:
+    gnu+make:
       - version: ''
         architecture: []
-    kaspar030+git-cache:
+    samba+ccache:
       - version: ''
         architecture: []
-    toolchain+build-essential-clang:
+    gnu+libiconv:
+      - version: ''
+        architecture: []
+    freedesktop+pkgconfig:
+      - version: ''
+        architecture: []
+    gnu+libtool:
+      - version: ''
+        architecture: []
+    gnu+m4:
       - version: ''
         architecture: []
 data:

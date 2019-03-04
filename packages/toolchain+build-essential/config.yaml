@@ -7,8 +7,6 @@ maintainer:
 architecture:
   - linux-i386
   - linux-amd64
-  - darwin-i386
-  - darwin-amd64
   - solaris-i386
   - solaris-amd64
   - freebsd-i386
