@@ -32,7 +32,7 @@ dependency:
     gnu+libiconv:
       - version: ''
         architecture: []
-    llvm+clang:
+    llvm+llvm:
       - version: ''
         architecture:
           - darwin-i386

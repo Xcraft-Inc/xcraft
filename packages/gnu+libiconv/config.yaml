@@ -27,7 +27,7 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
-    llvm+clang:
+    llvm+llvm:
       - version: ''
         architecture:
           - darwin-i386
