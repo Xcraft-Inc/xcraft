@@ -26,10 +26,17 @@ dependency:
         architecture: []
     gnu+gcc:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     gnu+libiconv:
       - version: ''
         architecture: []
+    llvm+clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: >-
