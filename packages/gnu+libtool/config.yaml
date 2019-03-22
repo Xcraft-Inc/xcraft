@@ -37,6 +37,7 @@ data:
     uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:

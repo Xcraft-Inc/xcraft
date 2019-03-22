@@ -19,6 +19,7 @@ data:
     uri: 'self:///root'
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:
@@ -29,6 +30,5 @@ data:
       prerm: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
