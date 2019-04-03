@@ -24,7 +24,7 @@ dependency:
     kaspar030+git-cache:
       - version: ''
         architecture: []
-    toolchain+build-essential-clang:
+    toolchain+build-essential:
       - version: ''
         architecture: []
 data:
