@@ -24,12 +24,20 @@ dependency:
         architecture: []
     gnu+gcc:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+    llvm+llvm:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
@@ -41,11 +49,12 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true
   runtime:

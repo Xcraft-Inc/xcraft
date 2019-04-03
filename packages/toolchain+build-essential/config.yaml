@@ -23,7 +23,9 @@ dependency:
         architecture: []
     gnu+gcc:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     gnu+make:
       - version: ''
         architecture: []
@@ -42,11 +44,17 @@ dependency:
     gnu+m4:
       - version: ''
         architecture: []
+    llvm+llvm:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: ''
   rules:
