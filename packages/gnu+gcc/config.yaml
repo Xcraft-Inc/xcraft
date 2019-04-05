@@ -31,9 +31,16 @@ dependency:
     gnu+wget:
       - version: ''
         architecture: []
-    samba+ccache:
+    samba+ccache-gcc:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
     wall+perl:
       - version: ''
         architecture: []
