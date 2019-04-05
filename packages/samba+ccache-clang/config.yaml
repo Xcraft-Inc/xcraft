@@ -1,0 +1,39 @@
+name: samba+ccache-clang
+version: 1.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: ccache for CLANG
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    samba+ccache:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'self:///root'
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''''''
+  rules:
+    type: copy
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      CC: <OS.ROOTDIR>/usr/local/bin/clang
+      CXX: <OS.ROOTDIR>/usr/local/bin/clang++
+  embedded: true
