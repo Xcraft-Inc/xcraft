@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: samba+ccache
-version: 3.3.2
+version: '3.6'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,6 +27,7 @@ data:
     uri: 'https://www.samba.org/ftp/ccache/ccache-<THIS.VERSION>.tar.bz2'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure
@@ -38,6 +39,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
   deploy: >-
     !ln -s ccache <PEON.INSTALLDIR>/usr/local/bin/gcc; ln -s ccache
