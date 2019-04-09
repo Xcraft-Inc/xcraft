@@ -60,8 +60,8 @@ data:
     -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
     "s,ISL=.*,ISL=isl-0.18," ./contrib/download_prerequisites &&
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
-    ../configure --prefix=<PEON.PREFIXDIR> --disable-multilib
-    --enable-languages=c,c++,objc,obj-c++
+    LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu:/usr/lib32:/usr/libx32
+    ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
     --with-native-system-header-dir=/usr/include
     <PEON.OS=darwin?--with-sysroot=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk:>
   rules:
