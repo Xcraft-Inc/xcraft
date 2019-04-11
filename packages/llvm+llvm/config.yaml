@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 7.0.1
+version: 8.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,7 +17,7 @@ dependency:
       - version: ''
         architecture: []
     llvm+clang:
-      - version: = 7.0.1
+      - version: = 8.0.0
         architecture: []
     samba+ccache-gcc:
       - version: ''
