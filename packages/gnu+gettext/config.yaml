@@ -18,7 +18,9 @@ dependency:
         architecture: []
     gnu+libiconv:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
   build:
     toolchain+xcraft-peon:
       - version: ''

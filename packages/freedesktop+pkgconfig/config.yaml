@@ -31,7 +31,9 @@ dependency:
           - linux-amd64
     gnu+libiconv:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     llvm+llvm:
       - version: ''
         architecture:
