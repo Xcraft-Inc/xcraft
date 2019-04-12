@@ -48,7 +48,7 @@ data:
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework
     CoreFoundation -framework Carbon":> ./configure --prefix=<PEON.PREFIXDIR>
-    --with-internal-glib --with-libiconv=<PEON.OS=linux?gnu:no>
+    --with-internal-glib <PEON.OS=linux?--with-libiconv=gnu:>
     --disable-host-tool --disable-maintainer-mode
   rules:
     type: make
