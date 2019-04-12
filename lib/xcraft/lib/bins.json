@@ -82,5 +82,6 @@
   "uniq": "^darwin|freebsd|linux|sunos$",
   "wc": "^darwin|freebsd|linux|sunos$",
   "which": "^darwin|freebsd|linux|sunos$",
-  "xargs": "^darwin|freebsd|linux|sunos$"
+  "xargs": "^darwin|freebsd|linux|sunos$",
+  "xcrun": "^darwin$"
 }
