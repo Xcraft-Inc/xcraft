@@ -30,7 +30,10 @@ data:
     externals: true
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ln -sf
+    !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s clang "<PEON.PREFIXDIR>/bin/gcc"
+    && ln -s clang "<PEON.PREFIXDIR>/bin/cc" && ln -s clang++
+    "<PEON.PREFIXDIR>/bin/g++" && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++" && cd
+    <THIS.DATA.RULES.LOCATION> && ln -sf
     <PEON.ROOTDIR>/usr/src/llvm+clang_<THIS.VERSION> tools/clang && mkdir -p
     BUILD && cd BUILD && cmake -G "Unix Makefiles"
     -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
