@@ -21,14 +21,7 @@ dependency:
         architecture: []
     samba+ccache-gcc:
       - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-    samba+ccache-clang:
-      - version: ''
-        architecture:
-          - darwin-i386
-          - darwin-amd64
+        architecture: []
 data:
   get:
     uri: 'http://releases.llvm.org/<THIS.VERSION>/llvm-<THIS.VERSION>.src.tar.xz'
