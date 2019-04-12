@@ -1,0 +1,37 @@
+name: llvm+libcxxabi
+version: 8.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: LLVM libc++ ABI
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      http://releases.llvm.org/<THIS.VERSION>/libcxxabi-<THIS.VERSION>.src.tar.xz
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: >-
+    mv ('data/libcxxabi-<THIS.VERSION>.src',
+    'root/usr/src/llvm+libcxxabi_<THIS.VERSION>');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

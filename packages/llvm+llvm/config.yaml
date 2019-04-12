@@ -19,6 +19,12 @@ dependency:
     llvm+clang:
       - version: = 8.0.0
         architecture: []
+    llvm+libcxx:
+      - version: = 8.0.0
+        architecture: []
+    llvm+libcxxabi:
+      - version: = 8.0.0
+        architecture: []
     samba+ccache-gcc:
       - version: ''
         architecture:
@@ -41,8 +47,10 @@ data:
     && ln -s clang "<PEON.PREFIXDIR>/bin/cc" && ln -s clang++
     "<PEON.PREFIXDIR>/bin/g++" && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++" && cd
     <THIS.DATA.RULES.LOCATION> && ln -sf
-    <PEON.ROOTDIR>/usr/src/llvm+clang_<THIS.VERSION> tools/clang && mkdir -p
-    BUILD && cd BUILD && cmake -G "Unix Makefiles"
+    <PEON.ROOTDIR>/usr/src/llvm+clang_<THIS.VERSION> tools/clang && ln -sf
+    <PEON.ROOTDIR>/usr/src/llvm+libcxx_<THIS.VERSION> projects/libcxx && ln -sf
+    <PEON.ROOTDIR>/usr/src/llvm+libcxxabi_<THIS.VERSION> projects/libcxxabi &&
+    mkdir -p BUILD && cd BUILD && cmake -G "Unix Makefiles"
     -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make

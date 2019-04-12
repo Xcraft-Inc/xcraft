@@ -1,0 +1,36 @@
+name: llvm+libcxx
+version: 8.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: LLVM libc++
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://releases.llvm.org/<THIS.VERSION>/libcxx-<THIS.VERSION>.src.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: >-
+    mv ('data/libcxx-<THIS.VERSION>.src',
+    'root/usr/src/llvm+libcxx_<THIS.VERSION>');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
