@@ -51,6 +51,9 @@ data:
   env:
     path: []
     other:
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include'
+      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include'
+      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
