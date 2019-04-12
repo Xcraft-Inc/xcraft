@@ -27,6 +27,7 @@ data:
     uri: 'http://releases.llvm.org/<THIS.VERSION>/llvm-<THIS.VERSION>.src.tar.xz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ln -sf
@@ -40,7 +41,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-C BUILD -j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: '-C BUILD install'
+    test: none
   deploy: ''
   env:
     path: []

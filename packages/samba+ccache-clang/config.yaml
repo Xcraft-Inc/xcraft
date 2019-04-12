@@ -24,7 +24,7 @@ data:
     out: ''
     externals: false
   type: bin
-  configure: ''''''
+  configure: ''
   rules:
     type: copy
     location: ''
