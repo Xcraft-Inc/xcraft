@@ -9,6 +9,8 @@
   "cat": "^darwin|freebsd|linux|sunos$",
   "cc": "^darwin|freebsd|linux|sunos$",
   "chmod": "^darwin|freebsd|linux|sunos$",
+  "clang": "^darwin|freebsd|linux|sunos$",
+  "clang++": "^darwin|freebsd|linux|sunos$",
   "cmd": "^win32$",
   "cmp": "^darwin|freebsd|linux|sunos$",
   "cp": "^darwin|freebsd|linux|sunos$",
