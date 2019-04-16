@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: torvalds+git
-version: 2.10.1
+version: 2.21.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -45,6 +45,7 @@ data:
     uri: 'https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: ''
   rules:
@@ -57,10 +58,12 @@ data:
         -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
         NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes> CC:=$(CC) CFLAGS:=$(CFLAGS)
         LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1
+      maketest: ''
       makeinstall: >-
         prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
         <PEON.OS=darwin?:NO_ICONV=Yes> CC:=$(CC) CFLAGS:=$(CFLAGS)
         LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1 install
+    test: none
   deploy: ''
   env:
     path: []
