@@ -66,8 +66,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
-      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
+      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments'
+      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments'
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
