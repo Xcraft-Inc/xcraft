@@ -56,8 +56,9 @@ data:
     externals: true
   type: src
   configure: >-
-    !cd data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4,"
-    -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
+    !-p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" && cd
+    data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4," -e
+    "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
     "s,ISL=.*,ISL=isl-0.18," ./contrib/download_prerequisites &&
     ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
