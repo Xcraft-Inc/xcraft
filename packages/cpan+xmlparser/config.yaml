@@ -1,0 +1,58 @@
+subpackage:
+  - runtime*
+name: cpan+xmlparser
+version: '2.44'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XML Parser.
+  long: ''
+dependency:
+  install:
+    clark+expat:
+      - version: ''
+        architecture: []
+  build:
+    wall+perl:
+      - version: ''
+        architecture: []
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && perl Makefile.PL
+    EXPATLIBPATH=<PEON.ROOTDIR>/usr/lib EXPATINCPATH=<PEON.ROOTDIR>/usr/include
+    PREFIX=<PEON.PREFIXDIR> INSTALLDIRS=perl
+  rules:
+    type: make
+    location: data/XML-Parser-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT> CCFLAGS=-Wl,-rpath,<PEON.ROOTDIR>/usr/lib'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: >-
+    chmod('<PEON.PREFIXDIR>/lib/perl5/5.22.1/x86_64-linux/auto/XML/Parser/Expat/Expat.so',
+    0o755); yield rpath('<PEON.PREFIXDIR>',
+    '<PEON.PREFIXDIR>/lib/perl5/5.22.1/x86_64-linux/auto/XML/Parser/Expat',
+    null);
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
