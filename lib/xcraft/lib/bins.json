@@ -72,6 +72,7 @@
   "stat": "^darwin|freebsd|linux|sunos$",
   "strip": "^darwin|freebsd|linux|sunos$",
   "stty": "^darwin|freebsd|linux|sunos$",
+  "sysctl": "^darwin|freebsd|linux|sunos$",
   "subst": "^win32$",
   "sw_vers": "^darwin$",
   "tar": "^darwin|freebsd|linux|sunos$",
