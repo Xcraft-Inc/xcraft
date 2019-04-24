@@ -13,7 +13,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Lancer le programme",
+      "name": "Run Zog Shell",
       "runtimeExecutable": "${workspaceFolder}/.node",
       "program": "${workspaceFolder}/node_modules/xcraft-zog/bin/zog",
       "console": "integratedTerminal",
