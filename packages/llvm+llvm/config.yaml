@@ -68,7 +68,7 @@ data:
     other:
       CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments'
       CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++'
-      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
+      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -stdlib=libc++'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
