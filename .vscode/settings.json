@@ -1,0 +1,13 @@
+{
+    "files.watcherExclude": {
+        "**/usr/doc/**": true,
+        "**/usr/include/**": true,
+        "**/usr/share/**": true,
+        "**/var/devroot/**": true,
+        "**/var/tmp/**": true,
+        "**/var/wpkg/**": true
+    },
+    "search.exclude": {
+        "**/var/devroot/**": true
+    }
+}
