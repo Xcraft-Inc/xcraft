@@ -26,11 +26,15 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/westes/flex/releases/download/v<THIS.VERSION>/flex-<THIS.VERSION>.tar.gz'
+    uri: >-
+      https://github.com/westes/flex/releases/download/v<THIS.VERSION>/flex-<THIS.VERSION>.tar.gz
     ref: ''
     out: ''
+    externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-libfl
   rules:
     type: make
     location: data/flex-<THIS.VERSION>/
@@ -38,7 +42,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
