@@ -34,7 +34,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-libfl
+    --disable-libfl <PEON.OS=linux?CFLAGS=-D_GNU_SOURCE:>
   rules:
     type: make
     location: data/flex-<THIS.VERSION>/
