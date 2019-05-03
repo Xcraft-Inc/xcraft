@@ -69,6 +69,7 @@
   "readlink": "^darwin|freebsd|linux|sunos$",
   "rm": "^darwin|freebsd|linux|sunos$",
   "rmdir": "^darwin|freebsd|linux|sunos$",
+  "ruby": "^darwin$",
   "sed": "^darwin|freebsd|linux|sunos$",
   "sh": "^darwin|freebsd|linux|sunos$",
   "shlock": "^darwin$",
