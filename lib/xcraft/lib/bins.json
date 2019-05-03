@@ -65,6 +65,7 @@
   "ps": "^darwin|freebsd|linux|sunos$",
   "pwd": "^darwin|freebsd|linux|sunos$",
   "ranlib": "^darwin|freebsd|linux|sunos$",
+  "read": "^darwin|freebsd|linux|sunos$",
   "readlink": "^darwin|freebsd|linux|sunos$",
   "rm": "^darwin|freebsd|linux|sunos$",
   "rmdir": "^darwin|freebsd|linux|sunos$",
