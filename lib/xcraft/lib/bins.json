@@ -27,11 +27,13 @@
   "egrep": "^darwin|freebsd|linux|sunos$",
   "env": "^darwin|freebsd|linux|sunos$",
   "expr": "^darwin|freebsd|linux|sunos$",
+  "false": "^darwin|freebsd|linux|sunos$",
   "fgrep": "^linux$",
   "find": "^darwin|freebsd|linux|sunos$",
   "findstr": "^win32$",
   "flock": "^linux$",
   "gcc": "^darwin|freebsd|linux|sunos$",
+  "genstrings": "^freebsd|darwin$",
   "getopt": "^linux$",
   "g++": "^darwin|freebsd|linux|sunos$",
   "gold": "^freebsd|linux|sunos$",
@@ -39,6 +41,7 @@
   "gzip": "^darwin|freebsd|linux|sunos$",
   "head": "^darwin|freebsd|linux|sunos$",
   "hostname": "^darwin|freebsd|linux|sunos$",
+  "ibtool": "^darwin$",
   "id": "^darwin|freebsd|linux|sunos$",
   "install": "^darwin|freebsd|linux|sunos$",
   "install_name_tool": "^darwin$",
@@ -88,5 +91,6 @@
   "wc": "^darwin|freebsd|linux|sunos$",
   "which": "^darwin|freebsd|linux|sunos$",
   "xargs": "^darwin|freebsd|linux|sunos$",
+  "xcodebuild": "^darwin$",
   "xcrun": "^darwin$"
 }
