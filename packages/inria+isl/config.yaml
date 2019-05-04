@@ -1,0 +1,54 @@
+subpackage:
+  - runtime*
+name: inria+isl
+version: 0.21
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Integer Set Library.
+  long: >-
+    isl is a library for manipulating sets and relations of integer points
+    bounded by linear constraints.
+dependency:
+  install:
+    gnu+gmp:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://isl.gforge.inria.fr/isl-<THIS.VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-shared --enable-static
+  rules:
+    type: make
+    location: data/isl-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

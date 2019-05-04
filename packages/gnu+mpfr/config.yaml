@@ -1,0 +1,54 @@
+subpackage:
+  - runtime*
+name: gnu+mpfr
+version: 4.0.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU MPFR Library.
+  long: >-
+    The MPFR library is a C library for multiple-precision floating-point
+    computations with correct rounding.
+dependency:
+  install:
+    gnu+gmp:
+      - version: '>= 5'
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.mpfr.org/mpfr-current/mpfr-<THIS.VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-shared --enable-static
+  rules:
+    type: make
+    location: data/mpfr-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

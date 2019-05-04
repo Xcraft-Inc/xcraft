@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 8.3.0
+version: 9.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -15,6 +15,19 @@ description:
     Fortran, Java, Ada, and Go, as well as libraries for these languages
     (libstdc++, libgcj,...).
 dependency:
+  install:
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 2.4.2'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 0.8.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
@@ -57,12 +70,11 @@ data:
   type: src
   configure: >-
     !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" &&
-    cd data/gcc-<THIS.VERSION>/ && sed -i'.bak' -e "s,MPFR=.*,MPFR=mpfr-3.1.4,"
-    -e "s,GMP=.*,GMP=gmp-6.1.0," -e "s,MPC=.*,MPC=mpc-1.0.3," -e
-    "s,ISL=.*,ISL=isl-0.18," ./contrib/download_prerequisites &&
-    ./contrib/download_prerequisites && (mkdir objdir || :) && cd objdir &&
+    cd data/gcc-<THIS.VERSION>/ && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
-    --disable-multilib
+    --disable-multilib --with-gmp=<PEON.ROOTDIR>/usr
+    --with-mpfr=<PEON.ROOTDIR>/usr --with-mpc=<PEON.ROOTDIR>/usr
+    --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir

@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: gnu+gmp
+version: 6.1.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU Multiple Precision Arithmetic Library.
+  long: >-
+    GMP is a free library for arbitrary precision arithmetic, operating on
+    signed integers, rational numbers, and floating-point numbers.
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://gmplib.org/download/gmp/gmp-<THIS.VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-shared --enable-static
+  rules:
+    type: make
+    location: data/gmp-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
