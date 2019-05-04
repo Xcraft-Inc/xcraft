@@ -19,6 +19,9 @@ dependency:
     llvm+clang:
       - version: = 8.0.0
         architecture: []
+    llvm+polly:
+      - version: = 8.0.0
+        architecture: []
     llvm+libcxx:
       - version: = 8.0.0
         architecture: []
@@ -48,6 +51,7 @@ data:
     "<PEON.PREFIXDIR>/bin/g++" && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++" && cd
     <THIS.DATA.RULES.LOCATION> && ln -sf
     <PEON.ROOTDIR>/usr/src/llvm+clang_<THIS.VERSION> tools/clang && ln -sf
+    <PEON.ROOTDIR>/usr/src/llvm+polly_<THIS.VERSION> tools/polly && ln -sf
     <PEON.ROOTDIR>/usr/src/llvm+libcxx_<THIS.VERSION> projects/libcxx && ln -sf
     <PEON.ROOTDIR>/usr/src/llvm+libcxxabi_<THIS.VERSION> projects/libcxxabi &&
     mkdir -p BUILD && cd BUILD && cmake -G "Unix Makefiles"
@@ -66,8 +70,12 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments'
-      CXXFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++'
+      CFLAGS: >-
+        -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
+        -Qunused-arguments
+      CXXFLAGS: >-
+        -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
+        -Qunused-arguments -stdlib=libc++
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -stdlib=libc++'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true

@@ -1,0 +1,36 @@
+name: llvm+polly
+version: 8.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: LLVM Polly
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://releases.llvm.org/<THIS.VERSION>/polly-<THIS.VERSION>.src.tar.xz'
+    ref: ''
+    out: ''
+  type: bin
+  configure: >-
+    mv ('data/polly-<THIS.VERSION>.src',
+    'root/usr/src/llvm+polly_<THIS.VERSION>');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    ldpath: []
+    other: {}
+  embedded: true
