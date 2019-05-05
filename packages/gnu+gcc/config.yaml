@@ -15,22 +15,6 @@ description:
     Fortran, Java, Ada, and Go, as well as libraries for these languages
     (libstdc++, libgcj,...).
 dependency:
-  install:
-    gnu+gmp:
-      - version: '>= 4.3.2'
-        architecture: []
-    gnu+mpfr:
-      - version: '>= 2.4.2'
-        architecture: []
-    gnu+mpc:
-      - version: '>= 0.8.1'
-        architecture: []
-    inria+isl:
-      - version: '>= 0.15'
-        architecture: []
-    gnu+libiconv:
-      - version: ''
-        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
@@ -61,6 +45,21 @@ dependency:
       - version: ''
         architecture: []
     gnu+coreutils:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 2.4.2'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 0.8.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
+    gnu+libiconv:
       - version: ''
         architecture: []
 data:
