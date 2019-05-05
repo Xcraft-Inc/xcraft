@@ -14,16 +14,15 @@ description:
     The MPFR library is a C library for multiple-precision floating-point
     computations with correct rounding.
 dependency:
-  install:
-    gnu+gmp:
-      - version: '>= 5'
-        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
     gnu+make:
       - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 5'
         architecture: []
 data:
   get:

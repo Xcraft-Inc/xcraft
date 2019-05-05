@@ -14,19 +14,18 @@ description:
     GNU MPC is a C library for the arithmetic of complex numbers with
     arbitrarily high precision and correct rounding of the result.
 dependency:
-  install:
-    gnu+gmp:
-      - version: '>= 5'
-        architecture: []
-    gnu+mpfr:
-      - version: '>= 3'
-        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
     gnu+make:
       - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 5'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 3'
         architecture: []
 data:
   get:
