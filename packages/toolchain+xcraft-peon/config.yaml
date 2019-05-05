@@ -30,5 +30,8 @@ data:
       prerm: ''
   env:
     path: []
-    other: {}
+    other:
+      C_INCLUDE_PATH: <OS.ROOTDIR>/usr/include
+      CPLUS_INCLUDE_PATH: <OS.ROOTDIR>/usr/include
+      LIBRARY_PATH: <OS.ROOTDIR>/usr/lib
   embedded: true
