@@ -22,16 +22,6 @@ dependency:
     gnu+make:
       - version: ''
         architecture: []
-    gnu+gcc:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-    llvm+llvm:
-      - version: ''
-        architecture:
-          - darwin-i386
-          - darwin-amd64
 data:
   get:
     uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.VERSION>.tar.gz'
@@ -41,7 +31,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
-    --prefix=<PEON.PREFIXDIR>
+    --prefix=<PEON.PREFIXDIR> --enable-static --disable-shared
   rules:
     type: make
     location: data/libiconv-<THIS.VERSION>/
