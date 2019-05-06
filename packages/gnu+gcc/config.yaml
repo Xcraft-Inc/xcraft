@@ -74,7 +74,7 @@ data:
     !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" &&
     cd data/gcc-<THIS.VERSION>/ && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
-    --disable-multilib --disable-shared --with-gmp=<PEON.ROOTDIR>/usr
+    --disable-multilib --disable-nls --with-gmp=<PEON.ROOTDIR>/usr
     --with-mpfr=<PEON.ROOTDIR>/usr --with-mpc=<PEON.ROOTDIR>/usr
     --with-isl=<PEON.ROOTDIR>/usr --with-libiconv-prefix=<PEON.ROOTDIR>/usr
   rules:
