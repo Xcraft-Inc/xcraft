@@ -29,11 +29,6 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
-    gnu+libiconv:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
     llvm+llvm:
       - version: ''
         architecture:
@@ -50,8 +45,8 @@ data:
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework
     CoreFoundation -framework Carbon":> ./configure --prefix=<PEON.PREFIXDIR>
-    --with-internal-glib <PEON.OS=linux?--with-libiconv=gnu:>
-    --disable-host-tool --disable-maintainer-mode
+    --with-internal-glib --disable-nls --disable-host-tool
+    --disable-maintainer-mode
   rules:
     type: make
     location: data/pkg-config-<THIS.VERSION>/
