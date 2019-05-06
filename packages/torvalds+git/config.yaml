@@ -28,9 +28,6 @@ dependency:
     openssl+openssl:
       - version: ''
         architecture: []
-    gnu+libiconv:
-      - version: ''
-        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
@@ -54,13 +51,13 @@ data:
       prerm: ''
       makeall: >-
         -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
-        NO_TCLTK=Yes <PEON.OS=darwin?:NO_ICONV=Yes> CC:=$(CC) CFLAGS:=$(CFLAGS)
-        LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1
+        NO_TCLTK=Yes CC:=$(CC) CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS)
+        NO_APPLE_COMMON_CRYPTO=1
       maketest: ''
       makeinstall: >-
         prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
-        <PEON.OS=darwin?:NO_ICONV=Yes> CC:=$(CC) CFLAGS:=$(CFLAGS)
-        LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1 install
+        CC:=$(CC) CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1
+        install
     test: none
   deploy: ''
   env:
