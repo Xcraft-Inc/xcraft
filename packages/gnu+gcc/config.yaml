@@ -59,9 +59,6 @@ dependency:
     inria+isl:
       - version: '>= 0.15'
         architecture: []
-    gnu+libiconv:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: >-
@@ -76,7 +73,7 @@ data:
     ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
     --disable-multilib --disable-nls --with-gmp=<PEON.ROOTDIR>/usr
     --with-mpfr=<PEON.ROOTDIR>/usr --with-mpc=<PEON.ROOTDIR>/usr
-    --with-isl=<PEON.ROOTDIR>/usr --with-libiconv-prefix=<PEON.ROOTDIR>/usr
+    --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
     location: data/gcc-<THIS.VERSION>/objdir
