@@ -16,11 +16,6 @@ dependency:
     clark+expat:
       - version: ''
         architecture: []
-    gnu+libiconv:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
   build:
     toolchain+xcraft-peon:
       - version: ''
