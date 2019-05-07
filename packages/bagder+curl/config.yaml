@@ -31,8 +31,11 @@ data:
     uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-ldap --disable-ldaps
   rules:
     type: make
     location: data/curl-<THIS.VERSION>/
@@ -40,7 +43,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
