@@ -32,9 +32,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "startcraft": "^1.2.3",
     "node-pre-gyp": "^0.12.0",
-    "xcraft-dev-rules": "^0.4.0",
-    "prettier": "1.16.4"
-  }
+    "prettier": "1.18.2",
+    "startcraft": "^1.2.3",
+    "xcraft-dev-prettier": "^1.0.0",
+    "xcraft-dev-rules": "^1.0.2"
+  },
+  "prettier": "xcraft-dev-prettier"
 }
