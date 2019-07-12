@@ -10,7 +10,11 @@
   "scripts": {
     "test": ""
   },
-  "keywords": ["xcraft", "gitlab", "ci"],
+  "keywords": [
+    "xcraft",
+    "gitlab",
+    "ci"
+  ],
   "author": "Xcraft Team",
   "license": "MIT",
   "config": {
@@ -30,6 +34,9 @@
     "xcraft-core-wizard": "^1.0.0"
   },
   "devDependencies": {
-    "xcraft-dev-rules": "^0.4.0"
-  }
+    "prettier": "1.18.2",
+    "xcraft-dev-prettier": "^1.0.0",
+    "xcraft-dev-rules": "^1.0.2"
+  },
+  "prettier": "xcraft-dev-prettier"
 }
