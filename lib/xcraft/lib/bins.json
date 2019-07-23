@@ -57,6 +57,7 @@
   "lsattr": "^darwin|freebsd|linux|sunos$",
   "make": "^darwin|freebsd|linux|sunos$",
   "mkdir": "^darwin|freebsd|linux|sunos$",
+  "mktemp": "^darwin|freebsd|linux|sunos$",
   "mv": "^darwin|freebsd|linux|sunos$",
   "net": "^win32$",
   "nm": "^darwin|freebsd|linux|sunos$",
