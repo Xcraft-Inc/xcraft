@@ -88,9 +88,9 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
+      CFLAGS: '-O2 -g0 -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
       CXXFLAGS: >-
-        -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
+        -O2 -g0 -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
         -static-libstdc++
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
       CCACHE_PATH: <OS.ENV.PATH>
