@@ -19,18 +19,16 @@ data:
     uri: 'http://releases.llvm.org/<THIS.VERSION>/polly-<THIS.VERSION>.src.tar.xz'
     ref: ''
     out: ''
+    externals: true
   type: bin
-  configure: >-
-    mv ('data/polly-<THIS.VERSION>.src',
-    'root/usr/src/llvm+polly_<THIS.VERSION>');
+  configure: ''
   rules:
-    type: move
-    location: root
+    type: configure
+    location: data/
     args:
       postinst: ''
       prerm: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true

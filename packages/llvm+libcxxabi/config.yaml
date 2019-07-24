@@ -22,12 +22,10 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: >-
-    mv ('data/libcxxabi-<THIS.VERSION>.src',
-    'root/usr/src/llvm+libcxxabi_<THIS.VERSION>');
+  configure: ''
   rules:
-    type: move
-    location: root
+    type: configure
+    location: data/
     args:
       postinst: ''
       prerm: ''
