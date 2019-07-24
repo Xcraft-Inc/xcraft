@@ -30,8 +30,12 @@ data:
     uri: 'https://cmake.org/files/v3.13/cmake-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./bootstrap --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./bootstrap --prefix=<PEON.PREFIXDIR>
+    --parallel=<PEON.CPUS.COUNT> -- -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_CXX_FLAGS_RELEASE='-O2 -g0'
   rules:
     type: make
     location: data/cmake-<THIS.VERSION>/
@@ -39,7 +43,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
