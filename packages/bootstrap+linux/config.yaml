@@ -35,6 +35,7 @@ data:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: ''
   rules:
