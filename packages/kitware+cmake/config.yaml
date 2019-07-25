@@ -35,7 +35,8 @@ data:
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./bootstrap --prefix=<PEON.PREFIXDIR>
     --parallel=<PEON.CPUS.COUNT> -- -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_CXX_FLAGS_RELEASE='-O2 -g0'
+    -DCMAKE_C_FLAGS_RELEASE="$CFLAGS" -DCMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS"
+    -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS"
   rules:
     type: make
     location: data/cmake-<THIS.VERSION>/
