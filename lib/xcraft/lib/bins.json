@@ -63,6 +63,7 @@
   "nm": "^darwin|freebsd|linux|sunos$",
   "nmedit": "^darwin$",
   "objdump": "^linux$",
+  "od": "^darwin|freebsd|linux|sunos$",
   "otool": "^darwin$",
   "patch": "^darwin|freebsd|linux|sunos$",
   "powershell": "^win32$",
