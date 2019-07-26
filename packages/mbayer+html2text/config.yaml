@@ -1,0 +1,48 @@
+subpackage:
+  - runtime*
+name: mbayer+html2text
+version: 1.3.2a
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'A command line utility, that converts HTML documents into plain text'
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://www.mbayer.de/html2text/downloads/html2text-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure'
+  rules:
+    type: make
+    location: data/html2text-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: ''
+    test: none
+  deploy: >-
+    !install -D -s -m 755 <THIS.DATA.RULES.LOCATION>html2text -t
+    <PEON.PREFIXDIR>/bin
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
