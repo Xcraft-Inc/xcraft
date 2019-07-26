@@ -1,0 +1,42 @@
+name: debian+lintian
+version: 2.16.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+description:
+  brief: Dissects Debian packages and reports bugs and policy violations.
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://salsa.debian.org/lintian/lintian/-/archive/<THIS.VERSION>/lintian-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: >-
+    mv('data/lintian-<THIS.VERSION>', 'root/usr/share/lintian');
+    mkdir('root/usr/bin'); ln('../share/lintian/frontend/lintian',
+    'root/usr/bin/lintian');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
