@@ -244,6 +244,15 @@ class Action {
         if (/__peon__/.test(newFile)) {
           newFile = newFile.replace(/__peon__/, '');
         }
+        if (/__peon_pipe__/.test(newFile)) {
+          newFile = newFile.replace(/__peon_pipe__/g, '|');
+        }
+        if (/__peon_space__/.test(newFile)) {
+          newFile = newFile.replace(/__peon_space__/g, ' ');
+        }
+        if (/__peon_quote__/.test(newFile)) {
+          newFile = newFile.replace(/__peon_quote__/g, '"');
+        }
         if (/__peon_colon__/.test(newFile)) {
           newFile = newFile.replace(/__peon_colon__/g, ':');
         }
