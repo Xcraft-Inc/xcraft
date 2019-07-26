@@ -1,0 +1,53 @@
+subpackage:
+  - runtime*
+name: debian+dpkg
+version: 1.19.7
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: DPKG
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_<THIS.VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls --enable-static
+    --disable-shared --disable-dselect --disable-start-stop-daemon
+    --disable-update-alternatives --disable-devel-docs --prefix=<PEON.PREFIXDIR>
+  rules:
+    type: make
+    location: data/dpkg-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
