@@ -21,6 +21,7 @@ data:
     uri: 'http://www.cpan.org/src/5.0/perl-<THIS.VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && sh Configure -Dprefix=<PEON.PREFIXDIR>
@@ -38,7 +39,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      PERL_LIBDIR: <OS.ROOTDIR>/usr/share/perl5
   embedded: true
   runtime:
     configure: ''
