@@ -13,6 +13,9 @@ description:
   long: ''
 dependency:
   install:
+    debian+fakeroot:
+      - version: ''
+        architecture: []
     wall+perl:
       - version: ''
         architecture: []
