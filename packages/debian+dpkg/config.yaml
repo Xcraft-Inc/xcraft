@@ -50,7 +50,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      DPKG_DATADIR: <OS.ROOTDIR>/usr/share/dpkg
   embedded: true
   runtime:
     configure: ''
