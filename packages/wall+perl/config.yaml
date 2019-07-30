@@ -40,7 +40,6 @@ data:
   env:
     path: []
     other:
-      PERL_LIBDIR: <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>
       PERL5LIB: <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>
   embedded: true
   runtime:
