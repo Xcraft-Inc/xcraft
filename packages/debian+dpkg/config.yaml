@@ -48,7 +48,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: ''
+  deploy: '!touch <PEON.PREFIXDIR>/var/lib/dpkg/status'
   env:
     path: []
     other:
