@@ -31,6 +31,7 @@
   "expr": "^darwin|freebsd|linux|sunos$",
   "false": "^darwin|freebsd|linux|sunos$",
   "fgrep": "^linux$",
+  "file": "^darwin|freebsd|linux|sunos$",
   "find": "^darwin|freebsd|linux|sunos$",
   "findstr": "^win32$",
   "flock": "^linux$",
