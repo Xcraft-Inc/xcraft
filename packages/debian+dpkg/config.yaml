@@ -37,8 +37,9 @@ data:
     externals: true
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && PERL_LIBDIR=<PEON.PREFIXDIR>/lib/perl5lib
-    ./configure --disable-nls --enable-static --disable-shared --disable-dselect
+    !cd <THIS.DATA.RULES.LOCATION> &&
+    PERL_LIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl ./configure --disable-nls
+    --enable-static --disable-shared --disable-dselect
     --disable-start-stop-daemon --disable-update-alternatives
     --disable-devel-docs --prefix=<PEON.PREFIXDIR>
   rules:
