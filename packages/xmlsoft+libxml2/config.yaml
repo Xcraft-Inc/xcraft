@@ -28,8 +28,8 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-debug --without-docbook --without-ftp --without-html
-    --without-http --without-iconv --without-zlib --without-lzma
+    --without-debug --without-docbook --without-ftp --with-html --without-http
+    --without-iconv --without-zlib --without-lzma --without-python
   rules:
     type: make
     location: data/libxml2-<THIS.VERSION>/
