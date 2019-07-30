@@ -43,11 +43,11 @@ data:
       prerm: ''
       makeall: >-
         build -j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>
-        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl
+        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
       maketest: ''
       makeinstall: >-
         install PREFIX=<PEON.PREFIXDIR>
-        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl
+        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
     test: none
   deploy: ''
   env:
