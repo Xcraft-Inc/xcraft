@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: mquinson+po4a
+version: '0.56'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The po4a (PO for anything)
+  long: ''
+dependency:
+  install:
+    xmlsoft+libxslt:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    perl+module-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://github.com/mquinson/po4a/releases/download/v<THIS.VERSION>/po4a-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
+  rules:
+    type: script
+    location: data/po4a-<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!./Build'
+      maketest: ''
+      makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
