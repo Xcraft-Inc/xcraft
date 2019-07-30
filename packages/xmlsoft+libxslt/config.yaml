@@ -1,0 +1,49 @@
+subpackage:
+  - runtime*
+name: xmlsoft+libxslt
+version: 1.1.33
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XSLT itself is a an XML language to define transformation for XML.
+  long: ''
+dependency:
+  install:
+    xmlsoft+libxml2:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'ftp://xmlsoft.org/libxml2/libxslt-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --without-crypto --without-debugger
+  rules:
+    type: make
+    location: data/libxslt-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
