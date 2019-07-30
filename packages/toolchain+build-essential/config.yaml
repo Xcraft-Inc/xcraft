@@ -26,6 +26,11 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+    gnu+binutils:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
     gnu+make:
       - version: ''
         architecture: []
