@@ -19,6 +19,9 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+    debian+debhelper:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
