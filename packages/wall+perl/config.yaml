@@ -40,7 +40,8 @@ data:
   env:
     path: []
     other:
-      PERL5LIB: '<OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5lib'
+      PERL5LIB: >-
+        <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl
   embedded: true
   runtime:
     configure: ''
