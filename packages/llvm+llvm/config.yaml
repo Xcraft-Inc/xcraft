@@ -59,7 +59,7 @@ data:
     projects/libcxx && ln -sf
     <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.VERSION>.src
     projects/libcxxabi && mkdir -p BUILD && cd BUILD && cmake -G "Unix
-    Makefiles" -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+    Makefiles" -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DLLVM_CCACHE_BUILD=ON
     -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
