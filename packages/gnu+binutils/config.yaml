@@ -1,0 +1,64 @@
+subpackage:
+  - runtime*
+name: gnu+binutils
+version: '2.32'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU Bin Utils.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+gcc:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: ''
+        architecture: []
+    gnu+mpfr:
+      - version: ''
+        architecture: []
+    gnu+mpc:
+      - version: ''
+        architecture: []
+    inria+isl:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --with-gmp=<PEON.ROOTDIR>/usr --with-mpfr=<PEON.ROOTDIR>/usr
+    --with-mpc=<PEON.ROOTDIR>/usr --with-isl=<PEON.ROOTDIR>/usr
+  rules:
+    type: make
+    location: data/binutils-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

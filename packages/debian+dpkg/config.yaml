@@ -58,6 +58,7 @@ data:
     other:
       DPKG_DATADIR: <OS.ROOTDIR>/usr/share/dpkg
       DPKG_ADMINDIR: <OS.ROOTDIR>/usr/var/lib/dpkg
+      DEB_VENDOR: Debian
   embedded: true
   runtime:
     configure: ''
