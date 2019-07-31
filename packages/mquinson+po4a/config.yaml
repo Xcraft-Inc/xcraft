@@ -23,6 +23,9 @@ dependency:
     perl+module-build:
       - version: ''
         architecture: []
+    gnu+gettext:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
