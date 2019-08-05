@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: perl+module-runtime
+version: '0.016'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: runtime module handling
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    perl+module-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Module-Runtime-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
+  rules:
+    type: script
+    location: data/Module-Runtime-<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!./Build'
+      maketest: ''
+      makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
