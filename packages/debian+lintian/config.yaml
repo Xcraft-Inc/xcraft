@@ -39,6 +39,9 @@ dependency:
     perl+clone:
       - version: ''
         architecture: []
+    perl+file-basedir:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
