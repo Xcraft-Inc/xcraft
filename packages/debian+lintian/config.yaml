@@ -21,6 +21,9 @@ dependency:
     perl+io-async:
       - version: ''
         architecture: []
+    perl+future:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
