@@ -18,6 +18,9 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+    perl+io-async:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
