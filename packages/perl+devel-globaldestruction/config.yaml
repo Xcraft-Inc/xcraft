@@ -16,6 +16,9 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+    perl+sub-exporter-progressive:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
