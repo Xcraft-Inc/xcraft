@@ -9,7 +9,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Asynchronous event-driven programming
+  brief: represent an operation awaiting completion
   long: ''
 dependency:
   install:
