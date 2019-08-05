@@ -24,6 +24,9 @@ dependency:
     perl+future:
       - version: ''
         architecture: []
+    perl+struct-dumb:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
