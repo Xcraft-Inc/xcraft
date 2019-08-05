@@ -46,9 +46,9 @@ data:
       makeinstall: install
     test: none
   deploy: >-
-    chmod('<PEON.PREFIXDIR>/lib/perl5/5.22.1/x86_64-linux/auto/XML/Parser/Expat/Expat.so',
+    chmod('<PEON.PREFIXDIR>/lib/perl5/<ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat/Expat.so',
     0o755); yield rpath('<PEON.PREFIXDIR>',
-    '<PEON.PREFIXDIR>/lib/perl5/5.22.1/x86_64-linux/auto/XML/Parser/Expat',
+    '<PEON.PREFIXDIR>/lib/perl5/<ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat',
     null);
   env:
     path: []
