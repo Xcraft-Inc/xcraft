@@ -22,6 +22,9 @@ dependency:
     perl+devel-globaldestruction:
       - version: ''
         architecture: []
+    perl+sub-quote:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
