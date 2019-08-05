@@ -48,6 +48,9 @@ dependency:
     perl+path-tiny:
       - version: ''
         architecture: []
+    perl+cgi:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
