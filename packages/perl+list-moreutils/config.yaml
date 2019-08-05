@@ -9,7 +9,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Provide the stuff missing in List::Util
+  brief: 'Provide the stuff missing in List::Util'
   long: ''
 dependency:
   install:
@@ -37,7 +37,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: 'install'
+      makeinstall: install
     test: none
   deploy: >-
     rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
