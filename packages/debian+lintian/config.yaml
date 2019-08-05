@@ -36,6 +36,9 @@ dependency:
     perl+ipc-run:
       - version: ''
         architecture: []
+    perl+clone:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
