@@ -54,6 +54,9 @@ dependency:
     debian+dpkg:
       - version: ''
         architecture: []
+    perl+list-compare:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
