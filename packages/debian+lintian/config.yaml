@@ -42,6 +42,9 @@ dependency:
     perl+file-basedir:
       - version: ''
         architecture: []
+    perl+class-accessor:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
