@@ -49,8 +49,9 @@ data:
   type: bin
   configure: >-
     mv('data/lintian-<THIS.VERSION>', 'root/usr/share/lintian');
-    mkdir('root/usr/bin'); ln('../share/lintian/frontend/lintian',
-    'root/usr/bin/lintian');
+    mkdir('root/usr/bin'); sed('root/usr/share/lintian/frontend/dplint',
+    /^#!\/usr\/bin\/perl -w/, '#!/usr/bin/env -S perl -w');
+    ln('../share/lintian/frontend/lintian', 'root/usr/bin/lintian');
   rules:
     type: move
     location: root
