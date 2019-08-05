@@ -45,6 +45,9 @@ dependency:
     perl+class-accessor:
       - version: ''
         architecture: []
+    perl+path-tiny:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
