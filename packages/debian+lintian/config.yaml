@@ -30,6 +30,9 @@ dependency:
     perl+list-moreutils:
       - version: ''
         architecture: []
+    perl+exporter-tiny:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
