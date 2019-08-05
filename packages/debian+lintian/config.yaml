@@ -57,6 +57,9 @@ dependency:
     perl+list-compare:
       - version: ''
         architecture: []
+    perl+moo:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
