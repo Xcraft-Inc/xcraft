@@ -9,7 +9,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: 'recursively copy Perl datatypes'
+  brief: recursively copy Perl datatypes
   long: ''
 dependency:
   install:
@@ -18,6 +18,9 @@ dependency:
         architecture: []
   build:
     toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
       - version: ''
         architecture: []
 data:
