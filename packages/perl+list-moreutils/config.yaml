@@ -1,0 +1,48 @@
+subpackage:
+  - runtime*
+name: perl+list-moreutils
+version: '0.428'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Provide the stuff missing in List::Util
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/R/RE/REHSACK/List-MoreUtils-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/List-MoreUtils-<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: 'install'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
