@@ -27,6 +27,9 @@ dependency:
     perl+struct-dumb:
       - version: ''
         architecture: []
+    perl+list-moreutils:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
