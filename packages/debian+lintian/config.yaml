@@ -60,6 +60,9 @@ dependency:
     perl+moo:
       - version: ''
         architecture: []
+    perl+parse-debianchangelog:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
