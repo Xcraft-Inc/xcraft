@@ -41,7 +41,7 @@ data:
     path: []
     other:
       PERL5LIB: >-
-        <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl
+        <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl
       XCRAFT_PERL_VERSION: <THIS.VERSION>
   embedded: true
   runtime:
