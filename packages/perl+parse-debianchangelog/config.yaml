@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: perl+parse-debianchangelog
+version: '1.2.0'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: parse Debian changelogs and output them in other formats
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+    perl+class-accessor:
+      - version: ''
+        architecture: []
+    perl+cgi:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    perl+module-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      http://www.djpig.de/software/Parse-DebianChangelog-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
+  rules:
+    type: script
+    location: data/Parse-DebianChangelog-v<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!./Build'
+      maketest: ''
+      makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
