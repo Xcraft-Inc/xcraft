@@ -39,7 +39,7 @@ data:
       maketest: ''
       makeinstall: 'install'
     test: none
-  deploy: ''
+  deploy: rm('<PEON.PREFIXDIR>/lib/perl5/5.22.1/x86_64-linux/perllocal.pod')
   env:
     path: []
     other: {}
