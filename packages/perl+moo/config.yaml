@@ -19,6 +19,9 @@ dependency:
     perl+module-runtime:
       - version: ''
         architecture: []
+    perl+devel-globaldestruction:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
