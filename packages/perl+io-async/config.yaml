@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: perl+io-async
+version: '0.74'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Asynchronous event-driven programming
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    perl+module-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/IO-Async-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
+  rules:
+    type: script
+    location: data/IO-Async-<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!./Build'
+      maketest: ''
+      makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
