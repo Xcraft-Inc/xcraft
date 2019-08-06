@@ -46,7 +46,7 @@ data:
       prerm: ''
       makeall: '!./Build'
       maketest: ''
-      makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
+      makeinstall: '!./Build install --destdir=<PEON.PREFIXDIR>'
     test: none
   deploy: ''
   env:
