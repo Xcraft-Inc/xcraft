@@ -148,6 +148,28 @@ class Action {
     }
   }
 
+  _wrapForWriting(file, wrap) {
+    const st = fs.lstatSync(file);
+    if ((st.mode & 0o220) === 0o220) {
+      return;
+    }
+
+    const mode = st.mode | 0o220; /* Set write rights */
+    try {
+      this._resp.log.warn(`read-only file, try to change mode for ${file}`);
+      fs.chmodSync(file, mode);
+      wrap(file, mode);
+    } catch (ex) {
+      if (ex.code !== 'EACCES') {
+        throw ex;
+      }
+      this._resp.log.warn(`target root for ${file} cannot be fixed`);
+    } finally {
+      /* Restore original rights */
+      fs.chmodSync(file, st.mode);
+    }
+  }
+
   _internalConfigure(fileList) {
     fileList.forEach(_file => {
       const file = path.join(this._root, _file);
@@ -161,21 +183,7 @@ class Action {
       }
 
       /* Read-only case */
-      const st = fs.lstatSync(file);
-      const mode = st.mode | 0o220; /* Set write rights */
-      try {
-        this._resp.log.warn(`read-only file, try to change mode for ${file}`);
-        fs.chmodSync(file, mode);
-        this._targetRootFix(file);
-      } catch (ex) {
-        if (ex.code !== 'EACCES') {
-          throw ex;
-        }
-        this._resp.log.warn(`target root for ${file} cannot be fixed`);
-      } finally {
-        /* Restore original rights */
-        fs.chmodSync(file, st.mode);
-      }
+      this._wrapForWriting(file, file => this._targetRootFix(file));
     });
   }
 
