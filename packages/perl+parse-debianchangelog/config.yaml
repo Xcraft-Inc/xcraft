@@ -29,6 +29,9 @@ dependency:
     perl+module-build:
       - version: ''
         architecture: []
+    mquinson+po4a:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
