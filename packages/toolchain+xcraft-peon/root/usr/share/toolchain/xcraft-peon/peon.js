@@ -151,6 +151,7 @@ class Action {
   _wrapForWriting(file, wrap) {
     const st = fs.lstatSync(file);
     if ((st.mode & 0o220) === 0o220) {
+      wrap(file);
       return;
     }
 
@@ -303,7 +304,9 @@ class Action {
         } else if (newFile !== file) {
           this._wrapForWriting(file, (file, mode) => {
             xFs.cp(file, newFile);
-            fs.chmodSync(newFile, mode);
+            if (mode) {
+              fs.chmodSync(newFile, mode);
+            }
           });
         }
       });
