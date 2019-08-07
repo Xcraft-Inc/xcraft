@@ -301,7 +301,10 @@ class Action {
           }
           fs.symlinkSync(target, newFile);
         } else if (newFile !== file) {
-          xFs.cp(file, newFile);
+          this._wrapForWriting(file, (file, mode) => {
+            xFs.cp(file, newFile);
+            fs.chmodSync(newFile, mode);
+          });
         }
       });
       return;
