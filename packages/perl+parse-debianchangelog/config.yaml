@@ -25,6 +25,9 @@ dependency:
     perl+locale-gettext:
       - version: ''
         architecture: []
+    perl+timedate:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
