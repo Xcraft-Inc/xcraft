@@ -132,6 +132,22 @@ class Action {
     }
   }
 
+  _targetRootFix(file) {
+    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"'\n$]+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+
+    try {
+      if (xFs.sed(file, regex, this._root)) {
+        this._resp.log.warn(`target root fixed for ${file}`);
+      }
+      return true;
+    } catch (ex) {
+      if (ex.code !== 'EACCES') {
+        throw ex;
+      }
+      return false;
+    }
+  }
+
   _internalConfigure(fileList) {
     fileList.forEach(_file => {
       const file = path.join(this._root, _file);
@@ -140,17 +156,25 @@ class Action {
         return;
       }
 
-      const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"'\n$]+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+      if (this._targetRootFix(file)) {
+        return;
+      }
 
+      /* Read-only case */
+      const st = fs.lstatSync(file);
+      const mode = st.mode | 0o220; /* Set write rights */
       try {
-        if (xFs.sed(file, regex, this._root)) {
-          this._resp.log.warn(`target root fixed for ${file}`);
-        }
+        this._resp.log.warn(`read-only file, try to change mode for ${file}`);
+        fs.chmodSync(file, mode);
+        this._targetRootFix(file);
       } catch (ex) {
         if (ex.code !== 'EACCES') {
           throw ex;
         }
-        this._resp.log.warn(`${file} is readonly, cannot be fixed`);
+        this._resp.log.warn(`target root for ${file} cannot be fixed`);
+      } finally {
+        /* Restore original rights */
+        fs.chmodSync(file, st.mode);
       }
     });
   }
