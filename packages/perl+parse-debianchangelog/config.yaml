@@ -22,6 +22,9 @@ dependency:
     perl+cgi:
       - version: ''
         architecture: []
+    perl+locale-gettext:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
