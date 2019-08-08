@@ -19,6 +19,9 @@ dependency:
     seward+bzip2:
       - version: ''
         architecture: []
+    lz4+lz4:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
