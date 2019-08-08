@@ -66,6 +66,9 @@ dependency:
     perl+archive-zip:
       - version: ''
         architecture: []
+    perl+xml-simple:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
