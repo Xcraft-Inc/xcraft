@@ -78,6 +78,9 @@ dependency:
     perl+capture-tiny:
       - version: ''
         architecture: []
+    perl+try-tiny:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
