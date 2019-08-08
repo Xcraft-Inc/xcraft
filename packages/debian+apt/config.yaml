@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: debian+apt
+version: 1.8.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The APT package management tool
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+    klode+triehash:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://salsa.debian.org/apt-team/apt/-/archive/<THIS.VERSION>/apt-<THIS.VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION>/ && cmake -G "Unix Makefiles" -DWITH_DOC=OFF
+    -DUSE_NLS=OFF -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+    -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release .
+  rules:
+    type: make
+    location: data/apt-<THIS.VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
