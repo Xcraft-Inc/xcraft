@@ -1,0 +1,46 @@
+subpackage:
+  - runtime*
+name: lz4+lz4
+version: 1.9.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Extremely fast compression
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/lz4/lz4/archive/v<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/lz4-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install PREFIX=<PEON.PREFIXDIR>
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
