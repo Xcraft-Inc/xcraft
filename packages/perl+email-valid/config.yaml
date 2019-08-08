@@ -16,6 +16,9 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+    perl+mailtools:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
