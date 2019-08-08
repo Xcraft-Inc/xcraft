@@ -63,6 +63,9 @@ dependency:
     perl+parse-debianchangelog:
       - version: ''
         architecture: []
+    debian+aptpkg:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
