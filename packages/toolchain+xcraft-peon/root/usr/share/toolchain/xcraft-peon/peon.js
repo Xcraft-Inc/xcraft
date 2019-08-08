@@ -192,7 +192,11 @@ class Action {
     const xDevel = require('xcraft-core-devel');
 
     const patchesDir = path.join(this._share, 'patches');
-    const srcDir = path.join(this._share, 'cache', extra.location);
+
+    const srcDir =
+      this._config.rules.type === 'move'
+        ? this._root
+        : path.join(this._share, 'cache', extra.location);
 
     try {
       yield xDevel.autoPatch(patchesDir, srcDir, this._resp, next);
