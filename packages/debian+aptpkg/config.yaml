@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: debian+apt
-version: 1.8.2
+name: debian+aptpkg
+version: '0.1.36'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,20 +9,14 @@ maintainer:
 architecture:
   - source
 description:
-  brief: The APT package management tool
+  brief: Perl interface to libapt-pkg
   long: ''
 dependency:
   install:
     wall+perl:
       - version: ''
         architecture: []
-    adler+zlib:
-      - version: ''
-        architecture: []
-    seward+bzip2:
-      - version: ''
-        architecture: []
-    lz4+lz4:
+    debian+apt:
       - version: ''
         architecture: []
   build:
@@ -32,24 +26,18 @@ dependency:
     toolchain+build-essential:
       - version: ''
         architecture: []
-    klode+triehash:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: >-
-      https://salsa.debian.org/apt-team/apt/-/archive/<THIS.VERSION>/apt-<THIS.VERSION>.tar.gz
+      https://salsa.debian.org/bod/libapt-pkg-perl/-/archive/v<THIS.VERSION>/libapt-pkg-perl-v<THIS.VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION>/ && cmake -G "Unix Makefiles" -DWITH_DOC=OFF
-    -DUSE_NLS=OFF -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
-    -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release .
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/apt-<THIS.VERSION>
+    location: data/libapt-pkg-perl-v<THIS.VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -57,7 +45,8 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: ''
+  deploy: >-
+    rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
   env:
     path: []
     other: {}
