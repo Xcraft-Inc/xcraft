@@ -1,6 +1,6 @@
 'use strict';
 
-var moduleName = 'prepeon';
+var moduleName = 'postpeon';
 
 module.exports = function(packagePath, sharePath, packageDef, response) {
   var xLog = require('xcraft-core-log')(moduleName, response);
@@ -15,7 +15,7 @@ module.exports = function(packagePath, sharePath, packageDef, response) {
     /* prefix to /usr/share */
     var nodeModules = sharePath;
 
-    xLog.info('prepeon for xcraft modules installation');
+    xLog.info(`${moduleName} for xcraft modules installation`);
 
     var xcraft = 'npm' + xPlatform.getCmdExt();
     var args = ['--production', 'install'];
