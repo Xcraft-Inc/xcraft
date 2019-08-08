@@ -1,0 +1,41 @@
+name: klode+triehash
+version: 0.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Generator for order-preserving minimal perfect hash functions in C.
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/julian-klode/triehash/archive/v<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: >-
+    mv('data/triehash-<THIS.VERSION>', 'root/usr/share/triehash');
+    mkdir('root/usr/bin'); sed('root/usr/share/triehash/triehash.pl',
+    /^#!\/usr\/bin\/perl -w/, '#!/usr/bin/env -S perl -w');
+    ln('../share/triehash/triehash.pl', 'root/usr/bin/triehash');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
