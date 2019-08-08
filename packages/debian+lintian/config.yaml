@@ -72,6 +72,9 @@ dependency:
     perl+email-valid:
       - version: ''
         architecture: []
+    perl+text-levenshtein:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
