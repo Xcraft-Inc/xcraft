@@ -1,0 +1,10 @@
+--- a/usr/share/lintian/lib/Lintian/Internal/FrontendUtil.pm	2019-08-06 09:41:25.000000000 +0200
++++ b/usr/share/lintian/lib/Lintian/Internal/FrontendUtil.pm	2019-08-08 13:57:18.593356081 +0200
+@@ -56,6 +56,7 @@
+     # some random "TAR_OPTIONS" or "GZIP" values.
+     my %PRESERVE_ENV = map { $_ => 1 } qw(
+       DEBRELEASE_DEBS_DIR
++      DEB_VENDOR
+       HOME
+       LANG
+       LC_ALL
