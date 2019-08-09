@@ -81,6 +81,9 @@ dependency:
     perl+try-tiny:
       - version: ''
         architecture: []
+    perl+yaml-libyaml:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
