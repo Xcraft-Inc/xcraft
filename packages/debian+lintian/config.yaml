@@ -84,6 +84,9 @@ dependency:
     perl+yaml-libyaml:
       - version: ''
         architecture: []
+    perl+uri:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
