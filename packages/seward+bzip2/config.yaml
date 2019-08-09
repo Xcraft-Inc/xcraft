@@ -34,7 +34,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT> CFLAGS+=-fPIC LDFLAGS:=$(LDFLAGS)'
+      makeall: '-j<PEON.CPUS.COUNT> CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS)'
       maketest: ''
       makeinstall: install PREFIX=<PEON.PREFIXDIR>
     test: none
