@@ -23,7 +23,6 @@
   "diff": "^darwin|freebsd|linux|sunos$",
   "dirname": "^darwin|freebsd|linux|sunos$",
   "diskutil": "^darwin$",
-  "dpkg-deb": "^linux$",
   "dsymutil": "^darwin$",
   "echo": "^darwin|freebsd|linux|sunos$",
   "egrep": "^darwin|freebsd|linux|sunos$",
