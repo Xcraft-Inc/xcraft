@@ -25,6 +25,9 @@ dependency:
     lz4+lz4:
       - version: ''
         architecture: []
+    debian+dpkg:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
