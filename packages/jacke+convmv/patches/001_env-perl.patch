@@ -1,0 +1,8 @@
+--- a/convmv	2019-08-13 09:04:24.000000000 +0200
++++ b/convmv	2019-08-13 09:04:34.000000000 +0200
+@@ -1,4 +1,4 @@
+-#!/usr/bin/perl
++#!/usr/bin/env perl
+ # convmv 2.05 - converts filenames from one encoding to another
+ # Copyright © 2003-2018 Bjoern JACKE <bjoern@j3e.de>
+ #
