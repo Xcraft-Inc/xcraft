@@ -1,0 +1,63 @@
+subpackage:
+  - runtime*
+name: imagemagick+imagemagick
+version: 7.0.8-60
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'Use ImageMagick® to create, edit, compose, or convert bitmap images.'
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    libpng+libpng:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/ImageMagick/ImageMagick/archive/<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --disable-deprecated --disable-cipher
+    --disable-docs --without-perl --without-bzlib --with-zlib --without-zstd
+    --without-dps --without-fftw --without-flif --without-fpx --without-djvu
+    --without-fontconfig --without-freetype --without-raqm --without-gslib
+    --without-gvc --without-heic --without-jbig --without-jpeg --without-lcms
+    --without-openjp2 --without-lqr --without-lzma --without-openexr
+    --without-pango --with-png --without-raw --without-rsvg --without-tiff
+    --without-webp --without-wmf --without-xml --without-magick-plus-plus
+    --without-x --without-ltdl --disable-hdri
+  rules:
+    type: make
+    location: data/ImageMagick-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
