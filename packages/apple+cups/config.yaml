@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: apple+cups
+version: 2.2.11
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: curl
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://github.com/apple/cups/releases/download/v<THIS.VERSION>/cups-<THIS.VERSION>-source.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --enable-shared
+    --disable-static --disable-libpaper --disable-libusb --disable-tcp-wrappers
+    --disable-acl --disable-dbus --disable-debug --disable-gssapi --disable-ssl
+    --disable-pam --disable-avahi --disable-dnssd --disable-launchd
+    --disable-systemd --disable-upstart --disable-browsing
+    --disable-default-shared --disable-raw-printing --disable-webif
+  rules:
+    type: make
+    location: data/cups-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: BUILDROOT=<PEON.PREFIXDIR>/../ install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
