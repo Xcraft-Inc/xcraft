@@ -98,6 +98,8 @@
   "true": "^darwin|freebsd|linux|sunos$",
   "uname": "^darwin|freebsd|linux|sunos$",
   "uniq": "^darwin|freebsd|linux|sunos$",
+  "update-desktop-database": "^linux$",
+  "update-mime-database": "^linux$",
   "wc": "^darwin|freebsd|linux|sunos$",
   "which": "^darwin|freebsd|linux|sunos$",
   "xargs": "^darwin|freebsd|linux|sunos$",
