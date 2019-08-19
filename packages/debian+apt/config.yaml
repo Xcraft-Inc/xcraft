@@ -31,6 +31,9 @@ dependency:
     gnu+gnutls:
       - version: ''
         architecture: []
+    lzmautils+xz:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
