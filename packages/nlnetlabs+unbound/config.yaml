@@ -1,0 +1,53 @@
+subpackage:
+  - runtime*
+name: nlnetlabs+unbound
+version: 1.9.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'Unbound is a validating, recursive, caching DNS resolver'
+  long: ''
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://nlnetlabs.nl/downloads/unbound/unbound-<THIS.VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --with-libunbound-only
+    --with-ssl=<PEON.ROOTDIR>/usr/
+  rules:
+    type: make
+    location: data/unbound-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
