@@ -28,7 +28,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --disable-doc
+    --enable-static --enable-shared --disable-doc
   rules:
     type: make
     location: data/libtasn1-<THIS.VERSION>/
