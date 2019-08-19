@@ -28,6 +28,9 @@ dependency:
     debian+dpkg:
       - version: ''
         architecture: []
+    gnu+gnutls:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
