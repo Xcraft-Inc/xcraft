@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: lzmautils+xz
+version: 5.2.4
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Data compression software with a high compression ratio
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.VERSION>.tar.xz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --disable-nls --disable-xz --disable-xzdec --disable-lzmadec
+    --disable-lzmainfo --disable-lzma-links --disable-scripts --disable-doc
+  rules:
+    type: make
+    location: data/xz-<THIS.VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
