@@ -28,7 +28,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared
+    --enable-static --enable-shared
   rules:
     type: make
     location: data/libunistring-<THIS.VERSION>/

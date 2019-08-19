@@ -38,7 +38,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
-    --prefix=<PEON.PREFIXDIR> --enable-static --disable-shared --disable-tools
+    --prefix=<PEON.PREFIXDIR> --enable-static --enable-shared --disable-tools
     --disable-bash-tests --disable-doc --disable-cxx --disable-tests
     --without-p11-kit --disable-libdane
   rules:
