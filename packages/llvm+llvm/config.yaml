@@ -84,6 +84,7 @@ data:
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
         -Qunused-arguments -stdlib=libc++
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -L<OS.ROOTDIR>/usr/lib64 -stdlib=libc++'
+      MACOSX_DEPLOYMENT_TARGET: '10.10'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
