@@ -76,11 +76,11 @@ data:
     path: []
     other:
       CFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
+        -O2 -g0 -fPIC -march=core2 -mtune=haswell -I<OS.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
         -Qunused-arguments
       CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
+        -O2 -g0 -fPIC -march=core2 -mtune=haswell -I<OS.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
         -Qunused-arguments -stdlib=libc++
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -L<OS.ROOTDIR>/usr/lib64 -stdlib=libc++'
