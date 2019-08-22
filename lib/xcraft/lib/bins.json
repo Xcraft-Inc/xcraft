@@ -29,7 +29,7 @@
   "env": "^darwin|freebsd|linux|sunos$",
   "expr": "^darwin|freebsd|linux|sunos$",
   "false": "^darwin|freebsd|linux|sunos$",
-  "fgrep": "^linux$",
+  "fgrep": "^darwin|freebsd|linux|sunos$",
   "file": "^darwin|freebsd|linux|sunos$",
   "find": "^darwin|freebsd|linux|sunos$",
   "findstr": "^win32$",
