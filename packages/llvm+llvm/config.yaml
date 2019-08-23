@@ -78,18 +78,18 @@ data:
       CFLAGS: >-
         -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
-        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.12:>
+        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.10:>
       CXXFLAGS: >-
         -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
-        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.12:>
+        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.10:>
         -stdlib=libc++
       OBJCFLAGS: >-
         -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
-        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.12:>
+        -Qunused-arguments <OS.NAME=darwin?-mmacosx-version-min=10.10:>
       LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -L<OS.ROOTDIR>/usr/lib64 -stdlib=libc++'
-      MACOSX_DEPLOYMENT_TARGET: '10.12'
+      MACOSX_DEPLOYMENT_TARGET: '10.10'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
