@@ -32,5 +32,5 @@ data:
   env:
     path: []
     other:
-      MACOSSDK_1012: <OS.ROOTDIR>/usr/share/apple/macosx-sdk/data/cache/data/MacOSX10.12.sdk
+      MACOSSDK_1012: <OS.ROOTDIR>/usr/share/apple/macos-sdk-1012/cache/data/MacOSX10.12.sdk
   embedded: true
