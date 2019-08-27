@@ -1,0 +1,36 @@
+name: apple+macos-sdk-1012
+version: '10.12'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-i386
+  - darwin-amd64
+description:
+  brief: macOS SDK 10.12 (Sierra)
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/TCQdn55CiYGDSB4/download'
+    ref: ''
+    out: MacOSX10.12.sdk.tar.gz
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      MACOSSDK_1012: <OS.ROOTDIR>/usr/share/apple/macosx-sdk/data/cache/data/MacOSX10.12.sdk
+  embedded: true
