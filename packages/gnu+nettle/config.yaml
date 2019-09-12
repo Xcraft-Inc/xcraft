@@ -28,7 +28,8 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --enable-shared --disable-openssl --disable-documentation
+    --libdir=<PEON.PREFIXDIR>/lib --enable-static --enable-shared
+    --disable-openssl --disable-documentation
   rules:
     type: make
     location: data/nettle-<THIS.VERSION>/
