@@ -76,14 +76,12 @@ data:
     path: []
     other:
       CFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
+        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
         -Qunused-arguments
       CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.ROOTDIR>/usr/lib,-rpath,<OS.ROOTDIR>/usr/lib64
+        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
         -Qunused-arguments -stdlib=libc++
-      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -L<OS.ROOTDIR>/usr/lib64 -stdlib=libc++'
+      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib -stdlib=libc++'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
