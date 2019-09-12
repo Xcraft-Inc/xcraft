@@ -32,11 +32,11 @@ data:
     externals: true
   type: src
   configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --enable-shared
-    --disable-static --disable-libpaper --disable-libusb --disable-tcp-wrappers
-    --disable-acl --disable-dbus --disable-debug --disable-gssapi --disable-ssl
-    --disable-pam --disable-avahi --disable-dnssd --disable-launchd
-    --disable-systemd --disable-upstart --disable-browsing
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --libdir=/usr/lib
+    --enable-shared --disable-static --disable-libpaper --disable-libusb
+    --disable-tcp-wrappers --disable-acl --disable-dbus --disable-debug
+    --disable-gssapi --disable-ssl --disable-pam --disable-avahi --disable-dnssd
+    --disable-launchd --disable-systemd --disable-upstart --disable-browsing
     --disable-default-shared --disable-raw-printing --disable-webif
   rules:
     type: make
