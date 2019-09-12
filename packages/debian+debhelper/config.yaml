@@ -29,7 +29,7 @@ dependency:
 data:
   get:
     uri: >-
-      http://ftp.debian.org/debian/pool/main/d/debhelper/debhelper_<THIS.VERSION>.tar.xz
+      https://salsa.debian.org/debian/debhelper/-/archive/debian/<THIS.VERSION>/debhelper-debian-<THIS.VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +37,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/debhelper/
+    location: data/debhelper-debian-<THIS.VERSION>/
     args:
       postinst: ''
       prerm: ''
