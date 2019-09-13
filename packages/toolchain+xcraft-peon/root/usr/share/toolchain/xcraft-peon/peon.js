@@ -416,8 +416,14 @@ if (process.argv.length >= 4) {
 
   require('xcraft-core-log')(moduleName, resp);
 
-  const main = new Action(pkg, root, share, prefix, hook, resp);
+  resp.log.verb(
+    `run the action '${action}' for ${
+      pkg.name
+    }\n - distribution: ${pkg.distribution || 'n/a'}\n - root: ${root ||
+      'n/a'}\n - hook: ${hook || 'n/a'}\n - prefix: ${prefix ||
+      'n/a'}\n - share: ${share || 'n/a'}`
+  );
 
-  resp.log.verb('run the action: ' + action);
+  const main = new Action(pkg, root, share, prefix, hook, resp);
   main[action](wpkgAct);
 }
