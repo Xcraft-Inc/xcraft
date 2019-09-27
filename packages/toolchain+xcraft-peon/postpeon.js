@@ -2,14 +2,14 @@
 
 var moduleName = 'postpeon';
 
-module.exports = function(packagePath, sharePath, packageDef, response) {
-  var xLog = require('xcraft-core-log')(moduleName, response);
+module.exports = function(packagePath, sharePath, packageDef, resp) {
+  var xLog = require('xcraft-core-log')(moduleName, resp);
 
   var xcraftInstall = function(callback) {
     var xPlatform = require('xcraft-core-platform');
     var xProcess = require('xcraft-core-process')({
       logger: 'xlog',
-      resp: response,
+      resp,
     });
 
     /* prefix to /usr/share */
