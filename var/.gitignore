@@ -1,7 +1,8 @@
 /chest
 /devroot
+/prodroot*
 /unpm
-/wpkg
+/wpkg*
 /xcraft-contrib-gitlabci
 /xcraft-contrib-pacman
 /xcraft-core-eventstore
