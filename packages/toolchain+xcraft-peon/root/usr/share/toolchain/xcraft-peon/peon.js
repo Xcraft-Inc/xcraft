@@ -11,10 +11,6 @@ const xPeon = require('xcraft-contrib-peon');
 const xPh = require('xcraft-core-placeholder');
 const xPlatform = require('xcraft-core-platform');
 
-function isPackageSrc(pkg) {
-  return /-src$/.test(pkg.name);
-}
-
 function explodeName(name) {
   return {
     prefix: name.replace(/\+.*/, ''),
@@ -23,11 +19,11 @@ function explodeName(name) {
 }
 
 function getBasePath(root, pkg) {
-  const isSrc = isPackageSrc(pkg);
-  const expName = explodeName(pkg.name);
-
+  const {isSrc} = pkg;
   let base = './';
+
   if (isSrc) {
+    const expName = explodeName(pkg.name);
     base = `usr/src/${expName.prefix}+${expName.name}_${pkg.version}`;
   }
 
@@ -43,10 +39,29 @@ class Action {
     this._resp = resp;
     this._prefix = null;
 
+    const wpkgControlFile = path.join(this._root, 'var/lib/wpkg/core/control');
+    this._distribution =
+      this._pkg.distribution ||
+      this._controlParser(wpkgControlFile).Distribution;
+
+    this._resp.log.info(`detected distribution: ${this._distribution}`);
+
     try {
-      this._config = JSON.parse(
-        fs.readFileSync(path.join(this._share, './config.json'))
-      );
+      let data;
+      try {
+        data = fs.readFileSync(
+          path.join(
+            this._share,
+            `config.${this._distribution.replace('/', '')}.json`
+          )
+        );
+      } catch (ex) {
+        if (ex.code !== 'ENOENT') {
+          throw ex;
+        }
+        data = fs.readFileSync(path.join(this._share, 'config.json'));
+      }
+      this._config = JSON.parse(data);
     } catch (ex) {
       if (ex.code !== 'ENOENT') {
         throw ex;
@@ -113,12 +128,18 @@ class Action {
 
     this._prefix = prefixDir;
 
+    const basePath = getBasePath(this._root, this._pkg);
+
     /* Copy postinst and prerm scripts for the binary package. */
     const installWpkgDir = path.join(installDir, 'WPKG');
     xFs.mkdir(installWpkgDir);
+    const ph = new xPh.Placeholder();
     ['postinst', 'prerm'].forEach(script => {
       script = script + xPlatform.getShellExt();
-      xFs.cp(path.join(this._root, script), path.join(installWpkgDir, script));
+      const input = path.join(basePath, script);
+      const output = path.join(installWpkgDir, script);
+      ph.set('DISTRIBUTION', this._distribution) //
+        .injectFile('PACMAN', input, output);
     });
 
     /* Generate the config.json file. */
@@ -126,7 +147,7 @@ class Action {
 
     /* Copy etc/ files if available. */
     try {
-      xFs.cp(path.join(this._root, 'etc'), path.join(installDir, 'etc'));
+      xFs.cp(path.join(basePath, 'etc'), path.join(installDir, 'etc'));
     } catch (ex) {
       this._resp.log.warn('the etc/ directory is not available');
     }
@@ -221,7 +242,7 @@ class Action {
     try {
       yield peonAction(
         this._config.get,
-        this._root,
+        getBasePath(this._root, this._pkg),
         this._share,
         extra,
         this._resp,
@@ -255,6 +276,20 @@ class Action {
       .on('finish', next);
 
     return list;
+  }
+
+  /* See https://github.com/blinkdog/debian-control */
+  _controlParser(controlFile) {
+    return fs
+      .readFileSync(controlFile)
+      .toString()
+      .split('\n')
+      .filter(row => !!row)
+      .reduce((ctrl, row) => {
+        const map = row.split(':').map(entry => entry.trim());
+        ctrl[map[0]] = map[1];
+        return ctrl;
+      }, {});
   }
 
   *postinst() {
@@ -347,7 +382,7 @@ class Action {
   }
 
   postrm(wpkgAct) {
-    if (!isPackageSrc(this._pkg)) {
+    if (!this._pkg.isSrc) {
       return;
     }
 
@@ -368,37 +403,80 @@ class Action {
     extra.prefix = this._prefix;
 
     yield this._patchApply(extra);
+
+    /* With source package, update the changelog, the control.info and the
+     * makeall file in order to replace the list of distributions by the
+     * target distribution.
+     */
+    const basePath = getBasePath(this._root, this._pkg);
+    const changelogFile = path.join(basePath, 'wpkg/changelog');
+    const controlFile = path.join(basePath, 'wpkg/control.info');
+
+    const distributions = this._controlParser(controlFile).Distribution;
+
+    if (
+      !distributions.split(' ').some(distrib => distrib === this._distribution)
+    ) {
+      throw new Error(
+        `This source package doesn't support this distribution: ${this._distribution}`
+      );
+    }
+
+    fs.writeFileSync(
+      changelogFile,
+      fs
+        .readFileSync(changelogFile)
+        .toString()
+        .replace(`${distributions};`, `${this._distribution};`)
+    );
+    fs.writeFileSync(
+      controlFile,
+      fs
+        .readFileSync(controlFile)
+        .toString()
+        .replace(
+          `Distribution: ${distributions}`,
+          `Distribution: ${this._distribution}`
+        )
+    );
+
     yield this._peonRun(extra);
 
     if (xPlatform.getOs() === 'win') {
       /* HACK: remove junctions because the links are related to a no longer
        *       available subst'ed drive.
        */
-      xFs.rmSymlinks(getBasePath(this._root, this._pkg));
+      xFs.rmSymlinks(basePath);
     }
   }
 }
 
 function guessSharePath(root, share, pkg) {
-  if (share && share.length) {
-    return path.join(root, share);
+  const base = getBasePath(root, pkg);
+
+  if (share) {
+    return path.join(base, share);
   }
 
-  const base = getBasePath(root, pkg);
   const expName = explodeName(pkg.name);
 
   return path.join(base, `usr/share/${expName.prefix}/${expName.name}`);
 }
 
 if (process.argv.length >= 4) {
-  const root = process.argv[2];
+  const root = path.join(process.argv[2], process.argv[10]);
   const hook = process.argv[4];
   const action = process.argv[5];
   const wpkgAct = process.argv[6];
   const prefix = process.argv[7];
+  const name = process.argv[8];
+  const version = process.argv[9];
+  const distribution = process.argv[11];
   const pkg = {
-    name: process.argv[8],
-    version: process.argv[9],
+    name,
+    version,
+    distribution,
+    isSrc: /-src$/.test(name) || action === 'makeall',
   };
 
   /* HACK: clean PATH; it can be altered by batch scripts like:
