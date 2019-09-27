@@ -88,11 +88,11 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib'
+      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
       CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.ROOTDIR>/usr/include -Wl,-rpath,<OS.ROOTDIR>/usr/lib
+        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib
         -static-libstdc++
-      LDFLAGS: '-L<OS.ROOTDIR>/usr/lib'
+      LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
