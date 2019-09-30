@@ -418,7 +418,7 @@ class Action {
       !distributions.split(' ').some(distrib => distrib === this._distribution)
     ) {
       this._resp.log.warn(
-        `This source package doesn't support this distribution: ${this._distribution}`
+        `This source package hasn't direct support for this distribution: ${this._distribution}`
       );
     }
 
