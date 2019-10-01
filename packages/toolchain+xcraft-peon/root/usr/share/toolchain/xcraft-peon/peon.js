@@ -104,6 +104,7 @@ class Action {
 
   _getExtra() {
     return {
+      distribution: this._distribution,
       location: this._config.rules.location,
       configure: this._config.configure,
       embedded: this._config.embedded,
