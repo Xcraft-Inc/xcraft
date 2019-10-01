@@ -35,4 +35,5 @@ data:
       CPLUS_INCLUDE_PATH: <OS.PROD.ROOTDIR>/usr/include
       LIBRARY_PATH: <OS.PROD.ROOTDIR>/usr/lib
       XCRAFT_DEVROOT: <OS.ROOTDIR>
+      XCRAFT_TARGETROOT: <OS.PROD.ROOTDIR>
   embedded: true
