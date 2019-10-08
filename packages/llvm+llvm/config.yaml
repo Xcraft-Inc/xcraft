@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 8.0.1
+version: 9.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,16 +17,16 @@ dependency:
       - version: ''
         architecture: []
     llvm+clang:
-      - version: = 8.0.1
+      - version: = 9.0.0
         architecture: []
     llvm+polly:
-      - version: = 8.0.1
+      - version: = 9.0.0
         architecture: []
     llvm+libcxx:
-      - version: = 8.0.1
+      - version: = 9.0.0
         architecture: []
     llvm+libcxxabi:
-      - version: = 8.0.1
+      - version: = 9.0.0
         architecture: []
     samba+ccache-gcc:
       - version: ''
@@ -41,7 +41,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.VERSION>/llvm-<THIS.VERSION>.src.tar.xz
+      https://releases.llvm.org/<THIS.VERSION>/llvm-<THIS.VERSION>.src.tar.xz
     ref: ''
     out: ''
     externals: true
