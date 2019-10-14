@@ -1,0 +1,36 @@
+name: apple+macos-sdk-1013
+version: '10.13'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-i386
+  - darwin-amd64
+description:
+  brief: macOS SDK 10.13 (High Sierra)
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/tqpfq8ZtwmnTNjG/download'
+    ref: ''
+    out: MacOSX10.13.sdk.tar.gz
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      MACOSSDK_1013: <OS.ROOTDIR>/usr/share/apple/macos-sdk-1013/cache/data/MacOSX10.13.sdk
+  embedded: true
