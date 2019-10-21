@@ -1,5 +1,6 @@
 name: debian+lintian
 version: 2.16.0
+$version: 2.16.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -93,13 +94,13 @@ dependency:
 data:
   get:
     uri: >-
-      https://salsa.debian.org/lintian/lintian/-/archive/<THIS.VERSION>/lintian-<THIS.VERSION>.tar.gz
+      https://salsa.debian.org/lintian/lintian/-/archive/<THIS.$VERSION>/lintian-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
   type: bin
   configure: >-
-    mv('data/lintian-<THIS.VERSION>', 'root/usr/share/lintian');
+    mv('data/lintian-<THIS.$VERSION>', 'root/usr/share/lintian');
     mkdir('root/usr/bin'); ln('../share/lintian/frontend/lintian',
     'root/usr/bin/lintian');
   rules:

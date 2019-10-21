@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: debian+dpkg
 version: 1.19.7
+$version: 1.19.7
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -31,7 +32,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_<THIS.VERSION>.tar.xz'
+    uri: 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -44,7 +45,7 @@ data:
     --disable-devel-docs --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: data/dpkg-<THIS.VERSION>/
+    location: data/dpkg-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

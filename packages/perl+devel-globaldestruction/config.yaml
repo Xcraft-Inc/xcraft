@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+devel-globaldestruction
 version: '0.14'
+$version: '0.14'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/H/HA/HAARG/Devel-GlobalDestruction-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/H/HA/HAARG/Devel-GlobalDestruction-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/Devel-GlobalDestruction-<THIS.VERSION>
+    location: data/Devel-GlobalDestruction-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

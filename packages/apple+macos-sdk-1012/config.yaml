@@ -1,5 +1,6 @@
 name: apple+macos-sdk-1012
 version: '10.12'
+$version: '10.12'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter

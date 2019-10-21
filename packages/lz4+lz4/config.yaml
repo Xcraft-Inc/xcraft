@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: lz4+lz4
 version: 1.9.1
+$version: 1.9.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/lz4/lz4/archive/v<THIS.VERSION>.tar.gz'
+    uri: 'https://github.com/lz4/lz4/archive/v<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -29,7 +30,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/lz4-<THIS.VERSION>/
+    location: data/lz4-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

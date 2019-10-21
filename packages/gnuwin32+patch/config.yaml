@@ -1,5 +1,6 @@
 name: gnuwin32+patch
 version: 2.5.9-7
+$version: 2.5.9
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +10,10 @@ architecture:
   - mswindows-amd64
 description:
   brief: Apply a diff file to an original.
-  long: '`patch` takes a patch file containing a difference listing produced by diff and applies those differences to one or more original files, producing patched versions.'
+  long: >-
+    `patch` takes a patch file containing a difference listing produced by diff
+    and applies those differences to one or more original files, producing
+    patched versions.
 dependency:
   install:
     toolchain+xcraft-peon:
@@ -17,11 +21,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest:patch-<THIS.VERSION>-bin.tar.gz'
+    uri: 'chest:patch-<THIS.$VERSION>-bin.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: bin
-  configure: "mv ('data', 'root/usr');"
+  configure: 'mv (''data'', ''root/usr'');'
   rules:
     type: move
     location: root
@@ -30,4 +35,5 @@ data:
       prerm: ''
   env:
     path: []
+    other: {}
   embedded: true

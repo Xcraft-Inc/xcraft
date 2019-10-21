@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: estes+flex
 version: 2.6.4
+$version: 2.6.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,7 +28,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/westes/flex/releases/download/v<THIS.VERSION>/flex-<THIS.VERSION>.tar.gz
+      https://github.com/westes/flex/releases/download/v<THIS.$VERSION>/flex-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
     --disable-libfl <PEON.OS=linux?CFLAGS=-D_GNU_SOURCE:>
   rules:
     type: make
-    location: data/flex-<THIS.VERSION>/
+    location: data/flex-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

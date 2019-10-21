@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: samba+ccache
 version: '3.6'
+$version: '3.6'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -24,7 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.samba.org/ftp/ccache/ccache-<THIS.VERSION>.tar.bz2'
+    uri: 'https://www.samba.org/ftp/ccache/ccache-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
     --prefix=<PEON.PREFIXDIR>/local
   rules:
     type: make
-    location: data/ccache-<THIS.VERSION>/
+    location: data/ccache-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

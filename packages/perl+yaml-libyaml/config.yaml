@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+yaml-libyaml
 version: '0.79'
+$version: '0.79'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-LibYAML-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/YAML-LibYAML-<THIS.VERSION>
+    location: data/YAML-LibYAML-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

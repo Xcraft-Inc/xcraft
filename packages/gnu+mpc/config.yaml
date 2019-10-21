@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+mpc
 version: 1.1.0
+$version: 1.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://ftp.gnu.org/gnu/mpc/mpc-<THIS.VERSION>.tar.gz'
+    uri: 'https://ftp.gnu.org/gnu/mpc/mpc-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -39,7 +40,7 @@ data:
     --disable-shared --enable-static
   rules:
     type: make
-    location: data/mpc-<THIS.VERSION>/
+    location: data/mpc-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

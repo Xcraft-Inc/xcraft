@@ -1,7 +1,8 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: gnu+gettext
 version: 0.19.5.1
+$version: 0.19.5.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,22 +26,28 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.gnu.org/pub/gnu/gettext/gettext-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftp.gnu.org/pub/gnu/gettext/gettext-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-nls'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-nls
   rules:
     type: make
-    location: 'data/gettext-<THIS.VERSION>/'
+    location: data/gettext-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
+    other: {}
   embedded: true
   runtime:
     configure: ''

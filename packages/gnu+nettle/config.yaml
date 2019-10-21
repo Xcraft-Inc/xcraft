@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+nettle
 version: 3.5.1
+$version: 3.5.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/nettle/nettle-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/nettle/nettle-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -32,7 +33,7 @@ data:
     --disable-openssl --disable-documentation
   rules:
     type: make
-    location: data/nettle-<THIS.VERSION>/
+    location: data/nettle-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

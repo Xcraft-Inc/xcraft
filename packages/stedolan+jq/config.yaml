@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: stedolan+jq
-version: 1.5
+version: '1.5'
+$version: '1.5'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,16 +20,17 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/stedolan/jq/releases/download/jq-<THIS.VERSION>/jq-<THIS.VERSION>.tar.gz
+      https://github.com/stedolan/jq/releases/download/jq-<THIS.$VERSION>/jq-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
     --disable-maintainer-mode --disable-valgrind
   rules:
     type: make
-    location: data/jq-<THIS.VERSION>/
+    location: data/jq-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

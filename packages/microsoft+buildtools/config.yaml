@@ -1,5 +1,6 @@
 name: microsoft+buildtools
 version: '14'
+$version: '14'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,6 +27,7 @@ data:
       https://download.microsoft.com/download/E/E/D/EEDF18A8-4AED-4CE0-BEBE-70A83094FC5A/BuildTools_Full.exe
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:
@@ -36,7 +38,6 @@ data:
       prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
   env:
     path:
-      - <OS.PROGRAMFILES.32>/MSBuild/<THIS.VERSION>.0/Bin
-    ldpath: []
+      - <OS.PROGRAMFILES.32>/MSBuild/<THIS.$VERSION>.0/Bin
     other: {}
   embedded: true

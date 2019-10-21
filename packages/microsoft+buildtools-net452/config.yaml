@@ -1,5 +1,6 @@
 name: microsoft+buildtools-net452
 version: 15.7.27703.2026
+$version: 15.7.27703.2026
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,6 +21,7 @@ data:
     uri: 'chest:microsoft+buildtools-net452.zip'
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:
@@ -30,14 +32,14 @@ data:
         --locale En-us --installPath
         <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
         Microsoft.Net.Component.4.5.2.TargetingPack --add
-        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart --wait
-        --nocache --noUpdateInstaller
+        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart
+        --wait --nocache --noUpdateInstaller
       prerm: >-
         --locale En-us --installPath
         <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
         Microsoft.Net.Component.4.5.2.TargetingPack --remove
-        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart --wait
-        --noUpdateInstaller
+        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart
+        --wait --noUpdateInstaller
   env:
     path:
       - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/15.0/Bin

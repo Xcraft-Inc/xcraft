@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: lzmautils+xz
 version: 5.2.4
+$version: 5.2.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -22,18 +23,19 @@ dependency:
 data:
   get:
     uri: >-
-      https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.VERSION>.tar.xz
+      https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
     externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --disable-nls --disable-xz --disable-xzdec --disable-lzmadec
-    --disable-lzmainfo --disable-lzma-links --disable-scripts --disable-doc
+    --enable-static --disable-shared --disable-nls --disable-xz --disable-xzdec
+    --disable-lzmadec --disable-lzmainfo --disable-lzma-links --disable-scripts
+    --disable-doc
   rules:
     type: make
-    location: data/xz-<THIS.VERSION>/
+    location: data/xz-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -1,5 +1,6 @@
 name: xamarin+pcl
 version: 2014.04.14
+$version: 2014.04.14
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,9 +18,10 @@ dependency:
 data:
   get:
     uri: >-
-      http://download.mono-project.com/repo/debian/pool/main/r/referenceassemblies-pcl/referenceassemblies-pcl_<THIS.VERSION>.orig.tar.bz2
+      http://download.mono-project.com/repo/debian/pool/main/r/referenceassemblies-pcl/referenceassemblies-pcl_<THIS.$VERSION>.orig.tar.bz2
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: >-
     mv ('data/PortableReferenceAssemblies-2014-04-14',
@@ -32,6 +34,5 @@ data:
       prerm: ''
   env:
     path: []
-    ldpath: []
     other: {}
   embedded: true

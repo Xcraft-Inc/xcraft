@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: jacke+convmv
 version: '2.05'
+$version: '2.05'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,7 +26,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.j3e.de/linux/convmv/convmv-<THIS.VERSION>.tar.gz'
+    uri: 'https://www.j3e.de/linux/convmv/convmv-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -33,7 +34,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/convmv-<THIS.VERSION>/
+    location: data/convmv-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

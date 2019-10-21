@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: kitware+cmake
 version: 3.15.2
+$version: 3.15.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,7 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://cmake.org/files/v3.15/cmake-<THIS.VERSION>.tar.gz'
+    uri: 'https://cmake.org/files/v3.15/cmake-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -39,7 +40,7 @@ data:
     -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS"
   rules:
     type: make
-    location: data/cmake-<THIS.VERSION>/
+    location: data/cmake-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

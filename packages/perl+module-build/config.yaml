@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+module-build
 version: '0.4229'
+$version: '0.4229'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,7 +24,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -31,7 +32,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/Module-Build-<THIS.VERSION>
+    location: data/Module-Build-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

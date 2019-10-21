@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+struct-dumb
 version: '0.09'
+$version: '0.09'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Struct-Dumb-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Struct-Dumb-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/Struct-Dumb-<THIS.VERSION>
+    location: data/Struct-Dumb-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: nixos+patchelf
 version: '0.9'
+$version: '0.9'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,19 +20,22 @@ dependency:
 data:
   get:
     uri: >-
-      https://nixos.org/releases/patchelf/patchelf-<THIS.VERSION>/patchelf-<THIS.VERSION>.tar.bz2
+      https://nixos.org/releases/patchelf/patchelf-<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/patchelf-<THIS.VERSION>/
+    location: data/patchelf-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []

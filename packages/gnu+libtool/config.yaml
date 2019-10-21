@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+libtool
 version: 2.4.6
+$version: 2.4.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -34,7 +35,7 @@ dependency:
           - darwin-amd64
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -42,7 +43,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/libtool-<THIS.VERSION>/
+    location: data/libtool-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

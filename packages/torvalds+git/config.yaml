@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: torvalds+git
 version: 2.21.0
+$version: 2.21.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -37,7 +38,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/git/git/archive/v<THIS.VERSION>.tar.gz'
+    uri: 'https://github.com/git/git/archive/v<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -45,7 +46,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/git-<THIS.VERSION>/
+    location: data/git-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

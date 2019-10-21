@@ -1,5 +1,6 @@
 name: llvm+libcxxabi
 version: 9.0.0
+$version: 9.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,7 +18,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://releases.llvm.org/<THIS.VERSION>/libcxxabi-<THIS.VERSION>.src.tar.xz
+      https://releases.llvm.org/<THIS.$VERSION>/libcxxabi-<THIS.$VERSION>.src.tar.xz
     ref: ''
     out: ''
     externals: true

@@ -1,7 +1,8 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: gnu+autoconf
 version: '2.69'
+$version: '2.69'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,28 +26,31 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.gnu.org/gnu/autoconf/autoconf-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftp.gnu.org/gnu/autoconf/autoconf-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: 'data/autoconf-<THIS.VERSION>/'
+    location: data/autoconf-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
-  deploy: "rm ('<PEON.PREFIXDIR>/share/info/dir');"
+    test: none
+  deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
     other:
-      AUTOCONF: '<OS.ROOTDIR>/usr/bin/autoconf'
-      AUTOHEADER: '<OS.ROOTDIR>/usr/bin/autoheader'
-      AUTOM4TE: '<OS.ROOTDIR>/usr/bin/autom4te'
-      autom4te_perllibdir: '<OS.ROOTDIR>/usr/share/autoconf'
-      AC_MACRODIR: '<OS.ROOTDIR>/usr/share/autoconf'
+      AUTOCONF: <OS.ROOTDIR>/usr/bin/autoconf
+      AUTOHEADER: <OS.ROOTDIR>/usr/bin/autoheader
+      AUTOM4TE: <OS.ROOTDIR>/usr/bin/autom4te
+      autom4te_perllibdir: <OS.ROOTDIR>/usr/share/autoconf
+      AC_MACRODIR: <OS.ROOTDIR>/usr/share/autoconf
   embedded: true
   runtime:
     configure: ''

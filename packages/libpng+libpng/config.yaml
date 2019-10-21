@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: libpng+libpng
 version: 1.6.37
+$version: 1.6.37
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://downloads.sourceforge.net/project/libpng/libpng16/<THIS.VERSION>/libpng-<THIS.VERSION>.tar.xz
+      https://downloads.sourceforge.net/project/libpng/libpng16/<THIS.$VERSION>/libpng-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
     externals: true
@@ -36,7 +37,7 @@ data:
     --enable-static --disable-shared
   rules:
     type: make
-    location: data/libpng-<THIS.VERSION>/
+    location: data/libpng-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

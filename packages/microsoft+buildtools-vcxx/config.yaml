@@ -1,5 +1,6 @@
 name: microsoft+buildtools-vcxx
-version: '15.7.27703.2026-1'
+version: 15.7.27703.2026-1
+$version: 15.7.27703.2026
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -22,6 +23,7 @@ data:
     uri: 'chest:microsoft+buildtools-vcxx.zip'
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:

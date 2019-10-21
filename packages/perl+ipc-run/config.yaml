@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+ipc-run
 version: '20180523.0'
+$version: '20180523.0'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,7 +24,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/T/TO/TODDR/IPC-Run-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/T/TO/TODDR/IPC-Run-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -31,7 +32,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/IPC-Run-<THIS.VERSION>
+    location: data/IPC-Run-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

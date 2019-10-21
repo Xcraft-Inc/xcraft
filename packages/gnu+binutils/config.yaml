@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+binutils
 version: '2.32'
+$version: '2.32'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -36,7 +37,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -47,7 +48,7 @@ data:
     --with-mpc=<PEON.ROOTDIR>/usr --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
-    location: data/binutils-<THIS.VERSION>/
+    location: data/binutils-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -1,7 +1,8 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: gnu+automake
 version: '1.15'
+$version: '1.15'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,19 +26,22 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.gnu.org/gnu/automake/automake-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftp.gnu.org/gnu/automake/automake-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: 'data/automake-<THIS.VERSION>/'
+    location: data/automake-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []

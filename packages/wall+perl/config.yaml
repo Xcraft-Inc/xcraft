@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: wall+perl
 version: 5.30.0
+$version: 5.30.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,7 +19,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://www.cpan.org/src/5.0/perl-<THIS.VERSION>.tar.gz'
+    uri: 'http://www.cpan.org/src/5.0/perl-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -28,7 +29,7 @@ data:
     -Duserelocatableinc -Dusedl -de -Dman1dir= -Dman3dir=
   rules:
     type: make
-    location: data/perl-<THIS.VERSION>/
+    location: data/perl-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
@@ -41,8 +42,8 @@ data:
     path: []
     other:
       PERL5LIB: >-
-        <OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/<THIS.VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl
-      XCRAFT_PERL_VERSION: <THIS.VERSION>
+        <OS.ROOTDIR>/usr/lib/perl5/<THIS.$VERSION>:<OS.ROOTDIR>/usr/lib/perl5/<THIS.$VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.$VERSION>:<OS.ROOTDIR>/usr/lib/perl5/site_perl/<THIS.$VERSION>/<OS.ARCH2>-<OS.NAME>:<OS.ROOTDIR>/usr/lib/perl5/site_perl
+      XCRAFT_PERL_VERSION: <THIS.$VERSION>
   embedded: true
   runtime:
     configure: ''

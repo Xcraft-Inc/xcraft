@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: xmlsoft+libxml2
 version: 2.9.9
+$version: 2.9.9
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'ftp://xmlsoft.org/libxml2/libxml2-<THIS.VERSION>.tar.gz'
+    uri: 'ftp://xmlsoft.org/libxml2/libxml2-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -32,7 +33,7 @@ data:
     --without-iconv --without-zlib --without-lzma --without-python
   rules:
     type: make
-    location: data/libxml2-<THIS.VERSION>/
+    location: data/libxml2-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

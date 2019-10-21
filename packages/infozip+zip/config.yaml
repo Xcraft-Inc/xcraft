@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: infozip+zip
 version: '3.0'
+$version: '3.0'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter

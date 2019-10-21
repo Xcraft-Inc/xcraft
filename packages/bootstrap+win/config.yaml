@@ -1,5 +1,6 @@
 name: bootstrap+win
 version: 0.1.0
+$version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -32,6 +33,7 @@ data:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: ''
   rules:
@@ -42,4 +44,5 @@ data:
       prerm: ''
   env:
     path: []
+    other: {}
   embedded: true

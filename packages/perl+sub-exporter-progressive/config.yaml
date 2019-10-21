@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+sub-exporter-progressive
 version: '0.001013'
+$version: '0.001013'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Only use Sub::Exporter if you need it
+  brief: 'Only use Sub::Exporter if you need it'
   long: ''
 dependency:
   install:
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/F/FR/FREW/Sub-Exporter-Progressive-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/F/FR/FREW/Sub-Exporter-Progressive-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/Sub-Exporter-Progressive-<THIS.VERSION>
+    location: data/Sub-Exporter-Progressive-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: vanrossum+python2
 version: 2.7.15
+$version: 2.7.15
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -15,14 +16,15 @@ dependency: {}
 data:
   get:
     uri: >-
-      https://www.python.org/ftp/python/<THIS.VERSION>/Python-<THIS.VERSION>.tar.xz
+      https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/Python-<THIS.VERSION>/
+    location: data/Python-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
@@ -33,7 +35,7 @@ data:
   deploy: ''
   env:
     path: []
-    other: []
+    other: {}
   embedded: true
   runtime:
     configure: ''

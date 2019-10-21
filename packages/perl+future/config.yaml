@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+future
 version: '0.41'
+$version: '0.41'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/Future-<THIS.VERSION>
+    location: data/Future-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

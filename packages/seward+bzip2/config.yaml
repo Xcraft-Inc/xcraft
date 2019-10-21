@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: seward+bzip2
 version: 1.0.6
+$version: 1.0.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -22,7 +23,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://downloads.sourceforge.net/project/bzip2/bzip2-<THIS.VERSION>.tar.gz
+      https://downloads.sourceforge.net/project/bzip2/bzip2-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -30,7 +31,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/bzip2-<THIS.VERSION>/
+    location: data/bzip2-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

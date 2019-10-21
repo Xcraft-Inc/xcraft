@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+file-basedir
 version: '0.08'
+$version: '0.08'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/K/KI/KIMRYAN/File-BaseDir-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/K/KI/KIMRYAN/File-BaseDir-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/File-BaseDir-<THIS.VERSION>
+    location: data/File-BaseDir-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

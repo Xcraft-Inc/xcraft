@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+gnutls
 version: 3.6.9
+$version: 3.6.9
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -31,7 +32,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-<THIS.VERSION>.tar.xz'
+    uri: 'ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -43,7 +44,7 @@ data:
     --without-p11-kit --disable-libdane
   rules:
     type: make
-    location: data/gnutls-<THIS.VERSION>/
+    location: data/gnutls-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

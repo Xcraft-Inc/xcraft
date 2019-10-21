@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+list-moreutils
 version: '0.428'
+$version: '0.428'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,7 +24,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/R/RE/REHSACK/List-MoreUtils-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/R/RE/REHSACK/List-MoreUtils-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -31,7 +32,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/List-MoreUtils-<THIS.VERSION>
+    location: data/List-MoreUtils-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

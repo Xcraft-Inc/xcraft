@@ -1,5 +1,6 @@
 name: toolchain+debify
 version: 0.0.1
+$version: 0.0.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,6 +30,7 @@ data:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: ''
   rules:

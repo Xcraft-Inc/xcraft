@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+libtasn1
-version: 4.14
+version: '4.14'
+$version: '4.14'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: The ASN.1 library used by GnuTLS, p11-kit and some other packages
+  brief: 'The ASN.1 library used by GnuTLS, p11-kit and some other packages'
   long: ''
 dependency:
   build:
@@ -21,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/libtasn1/libtasn1-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/libtasn1/libtasn1-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -31,7 +32,7 @@ data:
     --enable-static --enable-shared --disable-doc
   rules:
     type: make
-    location: data/libtasn1-<THIS.VERSION>/
+    location: data/libtasn1-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

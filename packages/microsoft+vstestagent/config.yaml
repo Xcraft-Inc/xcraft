@@ -1,5 +1,6 @@
 name: microsoft+vstestagent
 version: '14'
+$version: '14'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,6 +24,7 @@ data:
       https://download.microsoft.com/download/8/A/F/8AFFDD5A-53D9-46EB-98D7-B61BBCAF0DE6/vstf_testagent.exe
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:
@@ -35,7 +37,6 @@ data:
     path:
       - >-
         <OS.PROGRAMFILES.32>/Microsoft Visual Studio
-        <THIS.VERSION>.0/Common7/IDE/CommonExtensions/Microsoft/TestWindow
-    ldpath: []
+        <THIS.$VERSION>.0/Common7/IDE/CommonExtensions/Microsoft/TestWindow
     other: {}
   embedded: true

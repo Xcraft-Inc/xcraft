@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: imagemagick+imagemagick
-version: 7.0.8-60
+version: 7.0.8-60-0
+$version: 7.0.8-60
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,7 +29,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/ImageMagick/ImageMagick/archive/<THIS.VERSION>.tar.gz'
+    uri: 'https://github.com/ImageMagick/ImageMagick/archive/<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -46,7 +47,7 @@ data:
     --without-x --without-ltdl --disable-hdri
   rules:
     type: make
-    location: data/ImageMagick-<THIS.VERSION>/
+    location: data/ImageMagick-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

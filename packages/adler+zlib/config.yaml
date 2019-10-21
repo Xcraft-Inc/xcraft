@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: adler+zlib
 version: 1.2.11
+$version: 1.2.11
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,19 +22,22 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://zlib.net/zlib-<THIS.VERSION>.tar.xz'
+    uri: 'https://zlib.net/zlib-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/zlib-<THIS.VERSION>/
+    location: data/zlib-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []

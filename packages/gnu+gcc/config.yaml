@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+gcc
 version: 9.2.0
+$version: 9.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -62,21 +63,21 @@ dependency:
 data:
   get:
     uri: >-
-      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.VERSION>/gcc-<THIS.VERSION>.tar.xz
+      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
     externals: true
   type: src
   configure: >-
     !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" &&
-    cd data/gcc-<THIS.VERSION>/ && (mkdir objdir || :) && cd objdir &&
+    cd data/gcc-<THIS.$VERSION>/ && (mkdir objdir || :) && cd objdir &&
     ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
     --disable-multilib --disable-nls --with-gmp=<PEON.ROOTDIR>/usr
     --with-mpfr=<PEON.ROOTDIR>/usr --with-mpc=<PEON.ROOTDIR>/usr
     --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
-    location: data/gcc-<THIS.VERSION>/objdir
+    location: data/gcc-<THIS.$VERSION>/objdir
     args:
       postinst: ''
       prerm: ''
@@ -88,10 +89,12 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
+      CFLAGS: >-
+        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
+        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib
       CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib
-        -static-libstdc++
+        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
+        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true

@@ -1,5 +1,6 @@
 name: xunit+runner-console
 version: 2.1.0
+$version: 2.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -22,9 +23,10 @@ data:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: >-
-    !nuget.exe install xunit.runner.console -version <THIS.VERSION>
+    !nuget.exe install xunit.runner.console -version <THIS.$VERSION>
     -outputdirectory <THIS.DATA.RULES.LOCATION>/opt/xunit
   rules:
     type: move
@@ -34,6 +36,6 @@ data:
       prerm: ''
   env:
     path:
-      - opt/xunit/xunit.runner.console.<THIS.VERSION>/tools
+      - opt/xunit/xunit.runner.console.<THIS.$VERSION>/tools
     other: {}
   embedded: true

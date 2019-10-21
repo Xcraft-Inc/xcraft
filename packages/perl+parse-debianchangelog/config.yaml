@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+parse-debianchangelog
 version: 1.2.0
+$version: 1.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -40,7 +41,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://www.djpig.de/software/Parse-DebianChangelog-<THIS.VERSION>.tar.gz'
+    uri: 'http://www.djpig.de/software/Parse-DebianChangelog-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -48,7 +49,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/Parse-DebianChangelog-v<THIS.VERSION>
+    location: data/Parse-DebianChangelog-v<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

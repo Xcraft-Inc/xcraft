@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: debian+debhelper
 version: '12.3'
+$version: '12.3'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://salsa.debian.org/debian/debhelper/-/archive/debian/<THIS.VERSION>/debhelper-debian-<THIS.VERSION>.tar.gz
+      https://salsa.debian.org/debian/debhelper/-/archive/debian/<THIS.$VERSION>/debhelper-debian-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
   configure: ''
   rules:
     type: make
-    location: data/debhelper-debian-<THIS.VERSION>/
+    location: data/debhelper-debian-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

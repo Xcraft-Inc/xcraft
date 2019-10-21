@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: nongnu+freetype
 version: 2.10.1
+$version: 2.10.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://download.savannah.gnu.org/releases/freetype/freetype-<THIS.VERSION>.tar.xz
+      https://download.savannah.gnu.org/releases/freetype/freetype-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
     externals: true
@@ -39,7 +40,7 @@ data:
     --enable-shared --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: data/freetype-<THIS.VERSION>/
+    location: data/freetype-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

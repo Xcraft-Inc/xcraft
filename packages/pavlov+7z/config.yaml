@@ -1,5 +1,6 @@
 name: pavlov+7z
 version: '9.20'
+$version: '9.20'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,8 +21,9 @@ data:
     uri: 'http://www.7-zip.org/a/7za920.zip'
     ref: ''
     out: ''
+    externals: true
   type: bin
-  configure: "mv ('data/7za.exe', 'root/usr/bin/7za.exe');"
+  configure: 'mv (''data/7za.exe'', ''root/usr/bin/7za.exe'');'
   rules:
     type: move
     location: root
@@ -30,4 +32,5 @@ data:
       prerm: ''
   env:
     path: []
+    other: {}
   embedded: true

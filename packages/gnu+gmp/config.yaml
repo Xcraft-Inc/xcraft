@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+gmp
 version: 6.1.2
+$version: 6.1.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,7 +24,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://gmplib.org/download/gmp/gmp-<THIS.VERSION>.tar.xz'
+    uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -33,7 +34,7 @@ data:
     --disable-shared --enable-static
   rules:
     type: make
-    location: data/gmp-<THIS.VERSION>/
+    location: data/gmp-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

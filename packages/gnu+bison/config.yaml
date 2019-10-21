@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+bison
 version: 3.2.4
+$version: 3.2.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,16 +28,17 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/bison/bison-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/bison/bison-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
     --disable-nls
   rules:
     type: make
-    location: data/bison-<THIS.VERSION>/
+    location: data/bison-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+m4
 version: 1.4.18
+$version: 1.4.18
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.gnu.org/gnu/m4/m4-<THIS.VERSION>.tar.bz2'
+    uri: 'http://ftp.gnu.org/gnu/m4/m4-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
@@ -29,7 +30,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/m4-<THIS.VERSION>/
+    location: data/m4-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

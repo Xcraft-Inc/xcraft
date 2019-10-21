@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: freedesktop+pkgconfig
 version: 0.29.2
+$version: 0.29.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -37,7 +38,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.VERSION>.tar.gz
+      https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -49,7 +50,7 @@ data:
     --disable-maintainer-mode
   rules:
     type: make
-    location: data/pkg-config-<THIS.VERSION>/
+    location: data/pkg-config-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: mquinson+po4a
 version: '0.56'
+$version: '0.56'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/mquinson/po4a/releases/download/v<THIS.VERSION>/po4a-<THIS.VERSION>.tar.gz
+      https://github.com/mquinson/po4a/releases/download/v<THIS.$VERSION>/po4a-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
     type: script
-    location: data/po4a-<THIS.VERSION>
+    location: data/po4a-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+coreutils
 version: '8.30'
+$version: '8.30'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,14 +19,15 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/coreutils-<THIS.VERSION>/
+    location: data/coreutils-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

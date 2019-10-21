@@ -1,5 +1,6 @@
 name: microsoft+portablelibrary-vs
 version: '2013.4'
+$version: '2013.4'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,9 +18,10 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest:portablelibrary-<THIS.VERSION>.tar.gz'
+    uri: 'chest:portablelibrary-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: ''
   rules:
@@ -30,4 +32,5 @@ data:
       prerm: /quiet /passive /norestart /uninstall
   env:
     path: []
+    other: {}
   embedded: true

@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: perl+email-valid
-version: 1.202
+version: '1.202'
+$version: '1.202'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,7 +30,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Valid-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Valid-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/Email-Valid-<THIS.VERSION>
+    location: data/Email-Valid-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

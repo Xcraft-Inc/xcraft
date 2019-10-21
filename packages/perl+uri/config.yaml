@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: perl+uri
 version: '1.76'
+$version: '1.76'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/O/OA/OALDERS/URI-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/O/OA/OALDERS/URI-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/URI-<THIS.VERSION>
+    location: data/URI-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

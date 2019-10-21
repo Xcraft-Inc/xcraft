@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: linux+libcap
-version: 2.25
+version: '2.25'
+$version: '2.25'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,14 +20,15 @@ dependency:
 data:
   get:
     uri: >-
-      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.VERSION>.tar.xz
+      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: ''
   rules:
     type: make
-    location: data/libcap-<THIS.VERSION>/
+    location: data/libcap-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

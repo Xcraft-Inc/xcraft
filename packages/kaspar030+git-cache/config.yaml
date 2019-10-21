@@ -1,5 +1,6 @@
 name: kaspar030+git-cache
 version: 0.1.0
+$version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,6 +24,7 @@ data:
       https://github.com/kaspar030/git-cache/archive/f76c3a5f0e15f08c28e53fb037755f29f0b76d88.zip
     ref: ''
     out: ''
+    externals: true
   type: bin
   configure: >-
     mv('data/git-cache-f76c3a5f0e15f08c28e53fb037755f29f0b76d88/git-cache',

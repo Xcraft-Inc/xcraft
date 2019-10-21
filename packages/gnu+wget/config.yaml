@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+wget
 version: 1.17.1
+$version: 1.17.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,16 +19,17 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/wget/wget-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/wget/wget-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
     --disable-nls --without-libpsl --without-ssl --without-openssl
   rules:
     type: make
-    location: data/wget-<THIS.VERSION>/
+    location: data/wget-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+make
 version: 4.2.1
+$version: 4.2.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,14 +22,15 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/make/make-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftpmirror.gnu.org/make/make-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/make-<THIS.VERSION>/
+    location: data/make-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

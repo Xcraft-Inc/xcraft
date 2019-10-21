@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: gnu+libiconv
 version: '1.14'
+$version: '1.14'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -24,7 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.VERSION>.tar.gz'
+    uri: 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
     --prefix=<PEON.PREFIXDIR> --enable-static --disable-shared
   rules:
     type: make
-    location: data/libiconv-<THIS.VERSION>/
+    location: data/libiconv-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

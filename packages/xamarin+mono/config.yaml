@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: xamarin+mono
 version: 4.6.2.7
+$version: 4.6.2.7
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -30,9 +31,10 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://download.mono-project.com/sources/mono/mono-<THIS.VERSION>.tar.bz2'
+    uri: 'http://download.mono-project.com/sources/mono/mono-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && CFLAGS="$CFLAGS -std=gnu99"
@@ -48,7 +50,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []

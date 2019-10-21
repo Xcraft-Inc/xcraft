@@ -1,5 +1,6 @@
 name: bootstrap+linux
 version: 0.1.0
+$version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter

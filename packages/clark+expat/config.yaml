@@ -1,7 +1,8 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: clark+expat
 version: 2.2.5
+$version: 2.2.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,7 +11,10 @@ architecture:
   - source
 description:
   brief: The Expat XML Parser
-  long: Expat is an XML parser library written in C. It is a stream-oriented parser in which an application registers handlers for things the parser might find in the XML document (like start tags).
+  long: >-
+    Expat is an XML parser library written in C. It is a stream-oriented parser
+    in which an application registers handlers for things the parser might find
+    in the XML document (like start tags).
 dependency:
   build:
     toolchain+xcraft-peon:
@@ -21,22 +25,27 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-<THIS.VERSION>.tar.bz2'
+    uri: >-
+      https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-<THIS.$VERSION>.tar.bz2
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: 'data/expat-<THIS.VERSION>/'
+    location: data/expat-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
       makeinstall: install
+    test: none
   deploy: ''
   env:
     path: []
+    other: {}
   embedded: true
   runtime:
     configure: ''

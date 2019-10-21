@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: cpan+xmlparser
 version: '2.44'
+$version: '2.44'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -37,7 +38,7 @@ data:
     PREFIX=<PEON.PREFIXDIR> INSTALLDIRS=perl
   rules:
     type: make
-    location: data/XML-Parser-<THIS.VERSION>/
+    location: data/XML-Parser-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

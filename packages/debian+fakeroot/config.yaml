@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: debian+fakeroot
-version: 1.23
+version: '1.23'
+$version: '1.23'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,14 +24,15 @@ dependency:
 data:
   get:
     uri: >-
-      http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.VERSION>.orig.tar.xz
+      http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.xz
     ref: ''
     out: ''
+    externals: true
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/fakeroot-<THIS.VERSION>/
+    location: data/fakeroot-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

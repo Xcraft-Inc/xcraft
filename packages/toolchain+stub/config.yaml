@@ -1,7 +1,8 @@
 subpackage:
-  - 'runtime*'
+  - runtime*
 name: toolchain+stub
 version: 0.0.0
+$version: 0.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,9 +18,13 @@ data:
     uri: ''
     ref: ''
     out: ''
+    externals: false
   type: bin
   configure: >
-    sed ('<PEON.WPKG.STAG>/wpkg/control.info', /(Package\/runtime: .*)/, '$1-stub'); sed ('<PEON.WPKG.STAG>/wpkg/changelog', /([^ ]+)(.*; urgency=.*)/, '$1-stub$2'); sed ('<PEON.WPKG.STAG>/CMakeLists.txt', /(.*CPACK_SOURCE_PACKAGE_FILE_NAME ")([^ _]+)(_.*)/, '$1$2-stub$3');
+    sed ('<PEON.WPKG.STAG>/wpkg/control.info', /(Package\/runtime: .*)/,
+    '$1-stub'); sed ('<PEON.WPKG.STAG>/wpkg/changelog', /([^ ]+)(.*;
+    urgency=.*)/, '$1-stub$2'); sed ('<PEON.WPKG.STAG>/CMakeLists.txt',
+    /(.*CPACK_SOURCE_PACKAGE_FILE_NAME ")([^ _]+)(_.*)/, '$1$2-stub$3');
   rules:
     type: configure
     location: ''
@@ -27,7 +32,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: ''
+      maketest: ''
       makeinstall: ''
+    test: ''
   deploy: ''
   env:
     path: []

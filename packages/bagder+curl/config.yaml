@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: bagder+curl
 version: 7.50.3
+$version: 7.50.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,7 +29,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://curl.haxx.se/download/curl-<THIS.VERSION>.tar.gz'
+    uri: 'http://curl.haxx.se/download/curl-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -38,7 +39,7 @@ data:
     --disable-ldap --disable-ldaps
   rules:
     type: make
-    location: data/curl-<THIS.VERSION>/
+    location: data/curl-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

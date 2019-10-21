@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: perl+capture-tiny
-version: 0.48
+version: '0.48'
+$version: '0.48'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Capture STDOUT and STDERR from Perl, XS or external programs
+  brief: 'Capture STDOUT and STDERR from Perl, XS or external programs'
   long: ''
 dependency:
   install:
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Capture-Tiny-<THIS.VERSION>.tar.gz
+      https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Capture-Tiny-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -34,7 +35,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/Capture-Tiny-<THIS.VERSION>
+    location: data/Capture-Tiny-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

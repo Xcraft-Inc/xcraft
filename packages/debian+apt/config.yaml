@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: debian+apt
 version: 1.8.2
+$version: 1.8.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -47,7 +48,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://salsa.debian.org/apt-team/apt/-/archive/<THIS.VERSION>/apt-<THIS.VERSION>.tar.gz
+      https://salsa.debian.org/apt-team/apt/-/archive/<THIS.$VERSION>/apt-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -58,7 +59,7 @@ data:
     -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release .
   rules:
     type: make
-    location: data/apt-<THIS.VERSION>
+    location: data/apt-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

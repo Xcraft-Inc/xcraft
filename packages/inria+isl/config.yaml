@@ -1,7 +1,8 @@
 subpackage:
   - runtime*
 name: inria+isl
-version: 0.21
+version: '0.21'
+$version: '0.21'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://isl.gforge.inria.fr/isl-<THIS.VERSION>.tar.xz'
+    uri: 'http://isl.gforge.inria.fr/isl-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -36,7 +37,7 @@ data:
     --disable-shared --enable-static
   rules:
     type: make
-    location: data/isl-<THIS.VERSION>/
+    location: data/isl-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''

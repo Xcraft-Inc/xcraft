@@ -2,6 +2,7 @@ subpackage:
   - runtime*
 name: apple+cups
 version: 2.2.11
+$version: 2.2.11
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,7 +27,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/apple/cups/releases/download/v<THIS.VERSION>/cups-<THIS.VERSION>-source.tar.gz
+      https://github.com/apple/cups/releases/download/v<THIS.$VERSION>/cups-<THIS.$VERSION>-source.tar.gz
     ref: ''
     out: ''
     externals: true
@@ -40,7 +41,7 @@ data:
     --disable-default-shared --disable-raw-printing --disable-webif
   rules:
     type: make
-    location: data/cups-<THIS.VERSION>/
+    location: data/cups-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
