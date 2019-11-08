@@ -1,6 +1,7 @@
 {
   "npmInstallArgs": [],
   "modules": [
+    "./lib/goblin-ancestors",
     "./lib/goblin-builder",
     "./lib/goblin-warehouse",
     "./lib/goblin-webpack",
