@@ -1,4 +1,5 @@
 /bin/
+/etc/goblin-*
 /etc/xcraft
 /etc/xcraft-contrib*
 /etc/xcraft-core*
