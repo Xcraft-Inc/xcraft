@@ -1,6 +1,6 @@
-name: microsoft+dotnet-core
-version: 3.0.1
-$version: 3.0.1
+name: microsoft+dotnet-sdk-linux
+version: 3.0.101
+$version: 3.0.101
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - linux-amd64
 description:
-  brief: .NET Core
+  brief: .NET Core SDK
   long: ''
 dependency:
   install:
@@ -18,12 +18,12 @@ dependency:
 data:
   get:
     uri: >-
-      https://download.visualstudio.microsoft.com/download/pr/30ab052d-dbb6-4bce-8a44-a831034589ed/7ffaad695afb7ccd778b0d3fc1c89f50/dotnet-runtime-3.0.1-linux-x64.tar.gz
+      https://download.visualstudio.microsoft.com/download/pr/4f51cfd8-311d-43fe-a887-c80b40358cfd/440d10dc2091b8d0f1a12b7124034e49/dotnet-sdk-<THIS.VERSION>-linux-x64.tar.gz
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: 'mv (''data'', ''root/opt/dotnet-core'');'
+  configure: "mv ('data', 'root/opt/dotnet-sdk');"
   rules:
     type: move
     location: root
@@ -32,6 +32,6 @@ data:
       prerm: ''
   env:
     path:
-      - opt/dotnet-core
+      - opt/dotnet-sdk
     other: {}
   embedded: true
