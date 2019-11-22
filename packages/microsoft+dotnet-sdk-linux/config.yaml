@@ -23,7 +23,7 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: "mv ('data', 'root/opt/dotnet-sdk');"
+  configure: 'mv (''data'', ''root/opt/dotnet-sdk'');'
   rules:
     type: move
     location: root
