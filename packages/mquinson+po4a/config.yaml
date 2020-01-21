@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: mquinson+po4a
-version: '0.56'
-$version: '0.56'
+version: '0.57'
+$version: '0.57'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,6 +25,9 @@ dependency:
       - version: ''
         architecture: []
     gnu+gettext:
+      - version: ''
+        architecture: []
+    perl+locale-gettext:
       - version: ''
         architecture: []
 data:
