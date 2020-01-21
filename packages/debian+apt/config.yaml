@@ -45,6 +45,9 @@ dependency:
     klode+triehash:
       - version: ''
         architecture: []
+    debian+docbook:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
