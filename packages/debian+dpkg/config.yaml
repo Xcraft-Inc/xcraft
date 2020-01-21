@@ -57,7 +57,8 @@ data:
     !touch <PEON.PREFIXDIR>/var/lib/dpkg/status && mkdir -p
     <PEON.PREFIXDIR>/etc/dpkg/origins && echo "Vendor: Debian\nVendor-URL:
     http://www.debian.org/\nBugs: debbugs://bugs.debian.org" >
-    <PEON.PREFIXDIR>/etc/dpkg/origins/Debian
+    <PEON.PREFIXDIR>/etc/dpkg/origins/Debian && ln -s Debian
+    <PEON.PREFIXDIR>/etc/dpkg/origins/default
   env:
     path: []
     other:
