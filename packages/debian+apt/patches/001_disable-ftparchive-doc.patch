@@ -2,7 +2,8 @@
 +++ b/CMakeLists.txt	2019-08-08 16:17:01.777837924 +0200
 @@ -237,7 +237,7 @@
  add_subdirectory(completions)
- add_subdirectory(doc)
+-add_subdirectory(doc)
++#add_subdirectory(doc)
  add_subdirectory(dselect)
 -add_subdirectory(ftparchive)
 +#add_subdirectory(ftparchive)
