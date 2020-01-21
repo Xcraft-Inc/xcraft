@@ -1,0 +1,11 @@
+--- a/CMake/Documentation.cmake	2019-05-28 16:41:12.000000000 +0200
++++ b/CMake/Documentation.cmake	2020-01-21 17:21:02.220034056 +0100
+@@ -41,7 +41,7 @@
+          NO_DEFAULT_PATH)
+ 
+ if(NOT DOCBOOK_XSL)
+-    message(FATAL_ERROR "Could not find docbook xsl")
++    # message(FATAL_ERROR "Could not find docbook xsl")
+ endif()
+ 
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docbook-text-style.xsl.cmake.in
