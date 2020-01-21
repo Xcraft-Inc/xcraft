@@ -17,6 +17,9 @@ dependency:
     xmlsoft+libxslt:
       - version: ''
         architecture: []
+    debian+docbook:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
