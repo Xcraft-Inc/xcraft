@@ -17,9 +17,6 @@ dependency:
     xmlsoft+libxslt:
       - version: ''
         architecture: []
-    debian+docbook:
-      - version: ''
-        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
@@ -31,6 +28,9 @@ dependency:
       - version: ''
         architecture: []
     perl+locale-gettext:
+      - version: ''
+        architecture: []
+    debian+docbook:
       - version: ''
         architecture: []
 data:
