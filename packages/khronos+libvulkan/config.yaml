@@ -1,0 +1,55 @@
+subpackage:
+  - runtime*
+name: khronos+libvulkan
+version: 1.2.131-7
+$version: 1.2.131
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Vulkan Loader
+  long: ''
+dependency:
+  build:
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+    khronos+vulkan-headers:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://github.com/KhronosGroup/Vulkan-Loader/archive/v<THIS.$VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION>/ && mkdir build && cd build && cmake -G "Unix
+    Makefiles" -DBUILD_LOADER=ON -DBUILD_TESTS=OFF -DUSE_CCACHE=ON
+    -DBUILD_SHARED_LIBS=OFF -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+    -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/Vulkan-Loader-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C build install'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
