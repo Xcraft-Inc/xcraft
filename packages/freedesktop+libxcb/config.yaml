@@ -1,0 +1,65 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxcb
+version: 1.13.1-4
+$version: 1.13.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB Proto
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-proto:
+      - version: ''
+        architecture: []
+    freedesktop+libpthread-stubs:
+      - version: ''
+        architecture: []
+    xorg+libxau:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/libxcb-<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-devel-docs --disable-composite --disable-damage --disable-dpms
+    --disable-dri2 --disable-dri3 --disable-ge --disable-glx --disable-present
+    --disable-randr --disable-record --disable-render --disable-resource
+    --disable-screensaver --disable-shape --disable-shm --disable-sync
+    --disable-xevie --disable-xfixes --disable-xfree86-dri --disable-xinerama
+    --disable-xinput --disable-xkb --disable-xprint --disable-selinux
+    --disable-xtest --disable-xv --disable-xvmc --without-doxygen
+  rules:
+    type: make
+    location: data/libxcb-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

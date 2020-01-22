@@ -13,6 +13,10 @@ description:
   brief: Vulkan Loader
   long: ''
 dependency:
+  install:
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
   build:
     toolchain+build-essential:
       - version: ''
@@ -34,6 +38,7 @@ data:
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION>/ && mkdir build && cd build && cmake -G "Unix
     Makefiles" -DBUILD_LOADER=ON -DBUILD_TESTS=OFF -DUSE_CCACHE=ON
+    -DBUILD_WSI_XLIB_SUPPORT=OFF -DBUILD_WSI_WAYLAND_SUPPORT=OFF
     -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
     -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
   rules:
