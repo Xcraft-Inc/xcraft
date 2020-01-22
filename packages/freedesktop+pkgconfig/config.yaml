@@ -62,7 +62,8 @@ data:
   env:
     path: []
     other:
-      PKG_CONFIG_PATH: <OS.PROD.ROOTDIR>/usr/lib/pkgconfig
+      PKG_CONFIG_PATH: >-
+        <OS.PROD.ROOTDIR>/usr/lib/pkgconfig:<OS.PROD.ROOTDIR>/usr/share/pkgconfig
   embedded: true
   runtime:
     configure: ''
