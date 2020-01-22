@@ -48,6 +48,9 @@ dependency:
     debian+docbook:
       - version: ''
         architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
