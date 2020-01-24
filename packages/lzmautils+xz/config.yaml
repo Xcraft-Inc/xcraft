@@ -30,7 +30,7 @@ data:
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --disable-nls --disable-xz --disable-xzdec
+    --enable-static --disable-shared --disable-nls --enable-xz --disable-xzdec
     --disable-lzmadec --disable-lzmainfo --disable-lzma-links --disable-scripts
     --disable-doc
   rules:
