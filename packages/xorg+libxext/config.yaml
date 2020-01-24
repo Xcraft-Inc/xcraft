@@ -1,0 +1,49 @@
+subpackage:
+  - runtime*
+name: xorg+libxext
+version: 1.3.3
+$version: 1.3.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: lib Xext
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.x.org/releases/individual/lib/libXext-<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --without-xmlto --without-xsltproc --without-perl
+  rules:
+    type: make
+    location: data/libXext-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

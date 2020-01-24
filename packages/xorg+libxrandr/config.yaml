@@ -1,0 +1,55 @@
+subpackage:
+  - runtime*
+name: xorg+libxrandr
+version: 1.5.2-2
+$version: 1.5.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xrandr
+  long: ''
+dependency:
+  install:
+    xorg+libxext:
+      - version: ''
+        architecture: []
+    xorg+libxrender:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://www.x.org/releases/individual/lib/libXrandr-<THIS.$VERSION>.tar.bz2
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/libXrandr-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

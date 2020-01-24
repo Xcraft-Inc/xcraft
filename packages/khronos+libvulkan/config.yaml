@@ -20,6 +20,9 @@ dependency:
     xorg+libx11:
       - version: ''
         architecture: []
+    xorg+libxrandr:
+      - version: ''
+        architecture: []
   build:
     toolchain+build-essential:
       - version: ''

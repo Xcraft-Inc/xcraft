@@ -1,0 +1,49 @@
+subpackage:
+  - runtime*
+name: xorg+libxrender
+version: 0.9.10
+$version: 0.9.10
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: lib Xrender
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.x.org/releases/individual/lib/libXrender-<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --without-xmlto --without-xsltproc --without-perl
+  rules:
+    type: make
+    location: data/libXrender-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
