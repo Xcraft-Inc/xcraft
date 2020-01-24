@@ -2,7 +2,7 @@
 +++ b/usr/share/lintian/frontend/dplint	2019-08-10 17:05:08.973549548 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/perl -w
-+#!/usr/bin/env -S perl -w
++#!/usr/bin/env perl
  #
  # dplint -- General purpose frontend for Debian package checker
  #
@@ -26,7 +26,7 @@
 +++ b/usr/share/lintian/helpers/coll/strings-helper	2019-08-10 17:05:27.422174788 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/perl -w
-+#!/usr/bin/env -S perl -w
++#!/usr/bin/env perl
  # strings -- lintian collection script
  
  # Copyright (C) 2012 Niels Thykier <niels@thykier.net>
