@@ -26,6 +26,9 @@ dependency:
     toolchain+build-essential:
       - version: ''
         architecture: []
+    nixos+patchelf:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.tcpdump.org/release/libpcap-<THIS.$VERSION>.tar.gz'
@@ -48,10 +51,10 @@ data:
       makeinstall: install
     test: none
   deploy: >-
-    mv('<PEON.PREFIXDIR>/lib/libpcap.so.1',
-    '<PEON.PREFIXDIR>/lib/libpcap.so.0.8');
-    rm('<PEON.PREFIXDIR>/lib/libpcap.so'); ln('libpcap.so.0.8',
-    '<PEON.PREFIXDIR>/lib/libpcap.so');
+    !mv '<PEON.PREFIXDIR>/lib/libpcap.so.1'
+    '<PEON.PREFIXDIR>/lib/libpcap.so.0.8' && ln -sf 'libpcap.so.0.8'
+    '<PEON.PREFIXDIR>/lib/libpcap.so' && patchelf --set-soname libpcap.so.0.8
+    '<PEON.PREFIXDIR>/lib/libpcap.so'
   env:
     path: []
     other: {}
