@@ -13,6 +13,10 @@ description:
   brief: lib Xrender
   long: ''
 dependency:
+  install:
+    xorg+libx11:
+      - version: ''
+        architecture: []
   build:
     toolchain+xcraft-peon:
       - version: ''
@@ -22,7 +26,8 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.x.org/releases/individual/lib/libXrender-<THIS.$VERSION>.tar.bz2'
+    uri: >-
+      https://www.x.org/releases/individual/lib/libXrender-<THIS.$VERSION>.tar.bz2
     ref: ''
     out: ''
     externals: true

@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: xorg+libxext
-version: 1.3.3
-$version: 1.3.3
+name: freedesktop+libdbus
+version: 1.13.12-1
+$version: 1.13.12
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,14 +10,14 @@ maintainer:
 architecture:
   - source
 description:
-  brief: lib Xext
+  brief: DBus
   long: ''
 dependency:
   install:
     xorg+libx11:
       - version: ''
         architecture: []
-    xorg+xproto:
+    clark+expat:
       - version: ''
         architecture: []
   build:
@@ -29,17 +29,19 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.x.org/releases/individual/lib/libXext-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://dbus.freedesktop.org/releases/dbus/dbus-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-xmlto --without-xsltproc
+    --disable-xml-docs --disable-doxygen-docs --disable-ducktype-docs
+    --disable-embedded-tests --disable-modular-tests --disable-tests
+    --disable-installed-tests --disable-code-coverage --disable-stats
   rules:
     type: make
-    location: data/libXext-<THIS.$VERSION>/
+    location: data/dbus-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
