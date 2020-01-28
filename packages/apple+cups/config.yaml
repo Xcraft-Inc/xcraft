@@ -39,6 +39,7 @@ data:
     --disable-gssapi --disable-ssl --disable-pam --disable-avahi --disable-dnssd
     --disable-launchd --disable-systemd --disable-upstart --disable-browsing
     --disable-default-shared --disable-raw-printing --disable-webif
+    --with-components=core
   rules:
     type: make
     location: data/cups-<THIS.$VERSION>/
