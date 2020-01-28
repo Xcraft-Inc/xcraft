@@ -57,7 +57,9 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      FONTCONFIG_SYSROOT: <OS.PROD.ROOTDIR>/
+      FONTCONFIG_PATH: <OS.PROD.ROOTDIR>/usr/etc/fonts/
   embedded: true
   runtime:
     configure: ''
