@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: freedesktop+fontconfig
+version: 2.13.92-1
+$version: 2.13.92
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Fontconfig
+  long: ''
+dependency:
+  install:
+    clark+expat:
+      - version: ''
+        architecture: []
+    gnu+libiconv:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+    gnu+gperf:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://www.freedesktop.org/software/fontconfig/release/fontconfig-<THIS.$VERSION>.tar.xz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-iconv --disable-docs --disable-nls
+  rules:
+    type: make
+    location: data/fontconfig-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
