@@ -45,6 +45,8 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>/ && mkdir build && cd build && cmake -G "Unix
     Makefiles" -DBUILD_LOADER=ON -DBUILD_TESTS=OFF -DUSE_CCACHE=ON
     -DBUILD_WSI_WAYLAND_SUPPORT=OFF -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+    -DX11_X11_INCLUDE_PATH=<PEON.PROD.ROOTDIR>/usr/include
+    -DX11_X11_LIB=<PEON.PROD.ROOTDIR>/usr/lib/libX11.so
     -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
