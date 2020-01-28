@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: gnu+tar
+version: 1.32-3
+$version: '1.32'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GNU Tar provides the ability to create tar archives.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/tar/tar-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
+    --prefix=<PEON.PREFIXDIR>
+  rules:
+    type: make
+    location: data/tar-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: >-
+    rm('<PEON.PREFIXDIR>/libexec/rmt');
+    rm('<PEON.PREFIXDIR>/share/man/man8/rmt.8')
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

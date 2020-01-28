@@ -59,6 +59,9 @@ dependency:
         architecture:
           - darwin-i386
           - darwin-amd64
+    gnu+tar:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
