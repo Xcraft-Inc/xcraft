@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: freedesktop+fontconfig
-version: 2.13.92-1
+version: 2.13.92
 $version: 2.13.92
 distribution: toolchain/
 maintainer:

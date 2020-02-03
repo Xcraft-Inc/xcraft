@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: xorg+libxrandr
-version: 1.5.2-2
+version: 1.5.2
 $version: 1.5.2
 distribution: toolchain/
 maintainer:

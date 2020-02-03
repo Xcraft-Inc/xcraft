@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: xorg+libx11
-version: 1.6.9-3
+version: 1.6.9
 $version: 1.6.9
 distribution: toolchain/
 maintainer:

@@ -1,5 +1,5 @@
 name: microsoft+buildtools-vcxx
-version: 15.7.27703.2026-1
+version: 15.7.27703.2026
 $version: 15.7.27703.2026
 distribution: toolchain/
 maintainer:

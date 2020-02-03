@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: freedesktop+libdbus
-version: 1.13.12-1
+version: 1.13.12
 $version: 1.13.12
 distribution: toolchain/
 maintainer:

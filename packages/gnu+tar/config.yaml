@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+tar
-version: 1.32-3
+version: 1.32
 $version: '1.32'
 distribution: toolchain/
 maintainer:

@@ -1,5 +1,5 @@
 name: debian+docbook
-version: 1.0.0-buster-11
+version: 1.0.0-buster
 $version: 1.0.0-buster
 distribution: toolchain/
 maintainer:

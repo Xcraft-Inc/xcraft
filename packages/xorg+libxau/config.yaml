@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: xorg+libxau
-version: 1.0.9-1
+version: 1.0.9
 $version: 1.0.9
 distribution: toolchain/
 maintainer:
