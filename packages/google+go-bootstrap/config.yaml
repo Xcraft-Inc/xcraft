@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: google+go-bootstrap
+version: 1.4-9
+$version: '1.4'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GO bootstrap
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://dl.google.com/go/go<THIS.$VERSION>-bootstrap-20171003.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/src'
+  rules:
+    type: script
+    location: data/go
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!cd src && CGO_ENABLED=0 ./make.bash'
+      maketest: ''
+      makeinstall: >-
+        !mkdir <PEON.PREFIXDIR>/../opt && cp -a ../go
+        <PEON.PREFIXDIR>/../opt/go-bootstrap
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other:
+      GOROOT_BOOTSTRAP: <OS.ROOTDIR>/opt/go-bootstrap
+  embedded: true
+  runtime:
+    configure: ''
