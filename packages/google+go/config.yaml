@@ -23,6 +23,11 @@ dependency:
     google+go-bootstrap:
       - version: ''
         architecture: []
+    apple+macos-sdk-1013:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: 'https://dl.google.com/go/go<THIS.$VERSION>.src.tar.gz'
@@ -37,7 +42,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!./make.bash'
+      makeall: '!<PEON.OS=darwin?SDKROOT="$MACOSSDK_1013":> ./make.bash'
       maketest: ''
       makeinstall: '!mkdir <PEON.INSTALLDIR>/opt && cp -a ../../go <PEON.INSTALLDIR>/opt/go'
     test: none
