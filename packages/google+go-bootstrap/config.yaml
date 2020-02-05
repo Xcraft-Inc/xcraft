@@ -27,18 +27,18 @@ data:
     out: ''
     externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION>/src'
+  configure: ''
   rules:
     type: script
-    location: data/go
+    location: data/go/src
     args:
       postinst: ''
       prerm: ''
-      makeall: '!cd src && CGO_ENABLED=0 ./make.bash'
+      makeall: '!CGO_ENABLED=0 ./make.bash'
       maketest: ''
       makeinstall: >-
-        !mkdir <PEON.PREFIXDIR>/../opt && cp -a ../go
-        <PEON.PREFIXDIR>/../opt/go-bootstrap
+        !mkdir <PEON.INSTALLDIR>/opt && cp -a ../../go
+        <PEON.INSTALLDIR>/opt/go-bootstrap
     test: none
   deploy: ''
   env:
