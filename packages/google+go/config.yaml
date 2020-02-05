@@ -1,0 +1,52 @@
+subpackage:
+  - runtime*
+name: google+go
+version: 1.13.7-3
+$version: 1.13.7
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GO lang
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+    google+go-bootstrap:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://dl.google.com/go/go<THIS.$VERSION>.src.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/go/src
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!./make.bash'
+      maketest: ''
+      makeinstall: '!mkdir <PEON.INSTALLDIR>/opt && cp -a ../../go <PEON.INSTALLDIR>/opt/go'
+    test: none
+  deploy: ''
+  env:
+    path:
+      - opt/go/bin
+    other:
+      GOROOT: <OS.ROOTDIR>/opt/go
+  embedded: true
+  runtime:
+    configure: ''
