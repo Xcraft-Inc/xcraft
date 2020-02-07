@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: unicode+icu
+version: '65.1'
+$version: '65.1'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: ICU is the premier library for software internationalization.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure  --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --enable-release --disable-icuio
+    --disable-layoutex --enable-tools --disable-tests --disable-samples
+  rules:
+    type: make
+    location: data/icu/source/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
