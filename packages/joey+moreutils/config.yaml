@@ -23,6 +23,9 @@ dependency:
     xmlsoft+libxslt:
       - version: ''
         architecture: []
+    debian+docbook:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'git://git.joeyh.name/moreutils'
@@ -38,7 +41,9 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>'
+      makeall: >-
+        -j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>
+        DOCBOOKXSL=<PEON.ROOTDIR>/usr/share/debian/docbook/cache/data/docbook/usr/share/xml/docbook/stylesheet/docbook-xsl
       maketest: ''
       makeinstall: install PREFIX=<PEON.PREFIXDIR>
     test: none
