@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: joey+moreutils
+version: 0.63-1
+$version: '0.63'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Joey More Utils (sponge and more).
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+    xmlsoft+libxslt:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'git://git.joeyh.name/moreutils'
+    ref: '0.63'
+    out: ''
+    externals: true
+    $ref: aeddd0f4caa9d10aaa691040773fa4764e12ff46
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>'
+      maketest: ''
+      makeinstall: install PREFIX=<PEON.PREFIXDIR>
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

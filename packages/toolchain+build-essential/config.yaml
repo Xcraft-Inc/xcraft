@@ -62,6 +62,9 @@ dependency:
     gnu+tar:
       - version: ''
         architecture: []
+    joey+moreutils:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
