@@ -1,0 +1,47 @@
+subpackage:
+  - runtime*
+name: infozip+unzip
+version: '3.0'
+$version: '3.0'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Unzip for extracting and viewing files in .zip archives.
+  long: ''
+dependency:
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'ftp://ftp.info-zip.org/pub/infozip/src/unzip60.tgz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/unzip60/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-f unix/Makefile generic_gcc -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR>'
+      maketest: ''
+      makeinstall: '-f unix/Makefile install prefix=<PEON.PREFIXDIR>'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
