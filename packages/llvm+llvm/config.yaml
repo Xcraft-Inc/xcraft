@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 9.0.0
-$version: 9.0.0
+version: 9.0.1
+$version: 9.0.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,16 +18,16 @@ dependency:
       - version: ''
         architecture: []
     llvm+clang:
-      - version: = 9.0.0
+      - version: = 9.0.1
         architecture: []
     llvm+polly:
-      - version: = 9.0.0
+      - version: = 9.0.1
         architecture: []
     llvm+libcxx:
-      - version: = 9.0.0
+      - version: = 9.0.1
         architecture: []
     llvm+libcxxabi:
-      - version: = 9.0.0
+      - version: = 9.0.1
         architecture: []
     samba+ccache-gcc:
       - version: ''
