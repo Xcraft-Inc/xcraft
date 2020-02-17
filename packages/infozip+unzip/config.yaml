@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Unzip for extracting and viewing files in .zip archives.
+  brief: UnZip is an extraction utility for archives compressed in .zip format.
   long: ''
 dependency:
   build:
