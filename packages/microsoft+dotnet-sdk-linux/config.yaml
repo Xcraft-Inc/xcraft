@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-linux
-version: 3.0.101
-$version: 3.0.101
+version: 3.1.200
+$version: 3.1.200
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,12 +18,12 @@ dependency:
 data:
   get:
     uri: >-
-      https://download.visualstudio.microsoft.com/download/pr/4f51cfd8-311d-43fe-a887-c80b40358cfd/440d10dc2091b8d0f1a12b7124034e49/dotnet-sdk-<THIS.VERSION>-linux-x64.tar.gz
+      https://download.visualstudio.microsoft.com/download/pr/daec2daf-b458-4ae1-9046-b8ba09b5fb49/733e2d73b41640d6e6bdf1cc6b9ef03b/dotnet-sdk-<THIS.VERSION>-linux-x64.tar.gz
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: 'mv (''data'', ''root/opt/dotnet-sdk'');'
+  configure: "mv('data', 'root/opt/dotnet-sdk');"
   rules:
     type: move
     location: root
