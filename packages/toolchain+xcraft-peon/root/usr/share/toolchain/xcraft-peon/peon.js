@@ -103,13 +103,19 @@ class Action {
   }
 
   _getExtra() {
-    return {
+    const extra = {
       distribution: this._distribution,
-      location: this._config.rules.location,
       configure: this._config.configure,
+      location: this._config.rules.location,
       embedded: this._config.embedded,
       forceConfigure: this._config.rules.type === 'configure',
     };
+
+    if (this._config.get.prepare) {
+      extra.prepare = this._config.get.prepare;
+    }
+
+    return extra;
   }
 
   _genBinWpkg(binaryDir) {
