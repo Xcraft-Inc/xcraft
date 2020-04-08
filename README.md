@@ -131,4 +131,4 @@ high level 'contrib' modules.
 ## Advanced
 
 1. [The package make process overview](docs/package.make.overview.md)
-   * [The package definitions](docs/package.def.md)
+   - [The package definitions](docs/package.def.md)
