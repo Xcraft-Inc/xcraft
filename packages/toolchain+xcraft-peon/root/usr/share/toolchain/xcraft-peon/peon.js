@@ -145,7 +145,7 @@ class Action {
     const installWpkgDir = path.join(installDir, 'WPKG');
     xFs.mkdir(installWpkgDir);
     const ph = new xPh.Placeholder();
-    ['postinst', 'prerm'].forEach(script => {
+    ['postinst', 'prerm'].forEach((script) => {
       script = script + xPlatform.getShellExt();
       const input = path.join(basePath, script);
       const output = path.join(installWpkgDir, script);
@@ -204,7 +204,7 @@ class Action {
   }
 
   _internalConfigure(fileList) {
-    fileList.forEach(_file => {
+    fileList.forEach((_file) => {
       const file = path.join(this._root, _file);
 
       if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
@@ -216,7 +216,7 @@ class Action {
       }
 
       /* Read-only case */
-      this._wrapForWriting(file, file => this._targetRootFix(file));
+      this._wrapForWriting(file, (file) => this._targetRootFix(file));
     });
   }
 
@@ -278,7 +278,7 @@ class Action {
       .createReadStream(tarFile)
       .pipe(
         tar.extract('', {
-          ignore: entry => {
+          ignore: (entry) => {
             list.push(entry);
             return true;
           },
@@ -295,9 +295,9 @@ class Action {
       .readFileSync(controlFile)
       .toString()
       .split('\n')
-      .filter(row => !!row)
+      .filter((row) => !!row)
       .reduce((ctrl, row) => {
-        const map = row.split(':').map(entry => entry.trim());
+        const map = row.split(':').map((entry) => entry.trim());
         ctrl[map[0]] = map[1];
         return ctrl;
       }, {});
@@ -316,7 +316,7 @@ class Action {
       const list = yield this._listFromTar(tarFile);
 
       /* No move here because the files are handled by wpkg. */
-      list.forEach(file => {
+      list.forEach((file) => {
         let newFile = file;
         /* TODO: keep a file with all copies, then it can be removed
          *       with postrm.
@@ -426,7 +426,9 @@ class Action {
     const distributions = this._controlParser(controlFile).Distribution;
 
     if (
-      !distributions.split(' ').some(distrib => distrib === this._distribution)
+      !distributions
+        .split(' ')
+        .some((distrib) => distrib === this._distribution)
     ) {
       this._resp.log.warn(
         `This source package hasn't direct support for this distribution: ${this._distribution}`
@@ -506,11 +508,11 @@ if (process.argv.length >= 4) {
   require('xcraft-core-log')(moduleName, resp);
 
   resp.log.verb(
-    `run the action '${action}' for ${
-      pkg.name
-    }\n - distribution: ${pkg.distribution || 'n/a'}\n - root: ${root ||
-      'n/a'}\n - hook: ${hook || 'n/a'}\n - prefix: ${prefix ||
-      'n/a'}\n - share: ${share || 'n/a'}`
+    `run the action '${action}' for ${pkg.name}\n - distribution: ${
+      pkg.distribution || 'n/a'
+    }\n - root: ${root || 'n/a'}\n - hook: ${hook || 'n/a'}\n - prefix: ${
+      prefix || 'n/a'
+    }\n - share: ${share || 'n/a'}`
   );
 
   const main = new Action(pkg, root, share, prefix, hook, resp);

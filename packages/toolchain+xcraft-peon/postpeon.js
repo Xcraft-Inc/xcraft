@@ -2,10 +2,10 @@
 
 var moduleName = 'postpeon';
 
-module.exports = function(packagePath, sharePath, packageDef, resp) {
+module.exports = function (packagePath, sharePath, packageDef, resp) {
   var xLog = require('xcraft-core-log')(moduleName, resp);
 
-  var xcraftInstall = function(callback) {
+  var xcraftInstall = function (callback) {
     var xPlatform = require('xcraft-core-platform');
     var xProcess = require('xcraft-core-process')({
       logger: 'xlog',
@@ -26,7 +26,7 @@ module.exports = function(packagePath, sharePath, packageDef, resp) {
   };
 
   return {
-    run: function(callback) {
+    run: function (callback) {
       xcraftInstall(callback);
     },
   };
