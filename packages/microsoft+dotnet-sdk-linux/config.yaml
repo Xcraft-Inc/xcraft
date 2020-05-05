@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-linux
-version: 3.1.200
-$version: 3.1.200
+version: 3.1.201-1
+$version: 3.1.201
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,12 +18,12 @@ dependency:
 data:
   get:
     uri: >-
-      https://download.visualstudio.microsoft.com/download/pr/daec2daf-b458-4ae1-9046-b8ba09b5fb49/733e2d73b41640d6e6bdf1cc6b9ef03b/dotnet-sdk-<THIS.VERSION>-linux-x64.tar.gz
+      https://download.visualstudio.microsoft.com/download/pr/f65a8eb0-4537-4e69-8ff3-1a80a80d9341/cc0ca9ff8b9634f3d9780ec5915c1c66/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: "mv('data', 'root/opt/dotnet-sdk');"
+  configure: 'mv(''data'', ''root/opt/dotnet-sdk'');'
   rules:
     type: move
     location: root
@@ -33,5 +33,6 @@ data:
   env:
     path:
       - opt/dotnet-sdk
-    other: {}
+    other:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   embedded: true
