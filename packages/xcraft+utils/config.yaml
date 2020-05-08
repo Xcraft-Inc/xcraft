@@ -1,0 +1,39 @@
+name: xcraft+utils
+version: 0.1.0-4
+$version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+description:
+  brief: Standalonize executables with RPATH
+  long: ''
+dependency:
+  install:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    nixos+patchelf:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'self:///root'
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: copy
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

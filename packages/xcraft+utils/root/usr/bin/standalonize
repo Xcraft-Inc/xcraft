@@ -1,0 +1,89 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: standalonize <path>"
+  exit 0;
+fi
+
+export LANGUAGE=en_US
+export LANG=$LANGUAGE.UTF-8
+
+baseDir="$1"
+
+if [ ! -d "$baseDir" ]; then
+  >&2 echo "'$baseDir' is not a directory"
+  exit 1
+fi
+
+releaseDir="$baseDir"
+
+baseLibs=(
+  libc
+  libcom_err
+  libdl
+  libgcc_s
+  libgmp
+  libm
+  libmvec
+  libpthread
+  librt
+  libstdc++
+)
+otherLibs=()
+
+is_in_array()
+{
+  local _array="$1[@]"
+  local array=("${!_array}")
+  local lib=$2
+  for it in "${array[@]}"; do
+    [[ "$lib" = "$it" ]] && return 0
+  done
+  return 1
+}
+
+isexec() { [[ -f "$1" && -x $(realpath "$1") ]]; }
+
+IFS=$'\n'
+
+for inLib in "$releaseDir"/*; do
+  if ! isexec "$inLib"; then continue; fi
+
+  patched=false
+
+  for inDep in $(ldd "$inLib" | grep '=>' | sed 's, ([^)]\+)$,,'); do
+    inDep=$(echo "$inDep" | xargs)
+    inFullName=${inDep##*/}
+    inName=${inFullName%%.so.*}
+    inSoName=${inFullName%% =>*}
+    inFullPath=${inDep##* => }
+
+    if [ "$inFullPath" = "not found" ]; then
+      >&2 echo "${inSoName} is not found for $inLib"
+      continue;
+    fi
+
+    # Ignore base libs
+    if is_in_array baseLibs "$inName"; then continue; fi
+
+    # Ignore already relative libs
+    if [[ $inFullPath =~ ^$baseDir ]]; then continue; fi
+
+    # Ignore duplicate
+    patched=true
+    if is_in_array otherLibs "$inName"; then continue; fi
+    otherLibs+=("$inName")
+
+    # Set RPATH for third party libs
+    if cp "$inFullPath" "$releaseDir/$inFullName"; then
+      echo "copy '$inFullPath' to '$releaseDir/$inFullName'"
+    fi
+    patchelf --set-rpath "\$ORIGIN" "$releaseDir/$inFullName"
+  done
+
+  if "$patched"; then
+    # Set RPATH for dotnet libs
+    patchelf --set-rpath "\$ORIGIN" "$inLib"
+  fi
+done
+
