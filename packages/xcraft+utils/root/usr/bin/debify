@@ -46,6 +46,7 @@ for dep in "${depends[@]}"; do
   fi
 done
 
+ARCH=amd64
 WORK_DIR=$(mktemp -d)
 
 cleanup()
@@ -65,7 +66,7 @@ Version: ${projectVersion}
 Depends: ${packageDepends}
 Section: non-free/otherosfs
 Priority: optional
-Architecture: amd64
+Architecture: ${ARCH}
 Maintainer: ${maintainerName} <${maintainerEmail}>
 Description: ${projectShortDescription}
  ${projectLongDescription}
@@ -118,7 +119,7 @@ done
 
 # Create the final binary package
 fakeroot dpkg-deb --build debian
-DEB_NAME="${projectName}_${projectVersion}_amd64.deb"
+DEB_NAME="${projectName}_${projectVersion}_${ARCH}.deb"
 mkdir -p "${outputDir}"
 mv debian.deb "${outputDir}/${DEB_NAME}"
 
