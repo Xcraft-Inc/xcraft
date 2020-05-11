@@ -5,7 +5,7 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
   echo "              <project short description>"
   echo "              <project long description>"
   echo "              <maintainer name> <maintainer email>"
-  echo "              <project dir> [dependencies]..."
+  echo "              <project dir> <output dir> [dependencies]..."
   exit 0;
 fi
 
@@ -18,6 +18,7 @@ projectLongDescription="$4"
 maintainerName="$5"
 maintainerEmail="$6"
 projectDir="$7"
+outputDir="$8"
 
 if [ -z "${projectName}" ];             then >&2 echo "The project name is missing"; exit 1; fi
 if [ -z "${projectVersion}" ];          then >&2 echo "The project version is missing"; exit 1; fi
@@ -26,8 +27,9 @@ if [ -z "${projectLongDescription}" ];  then >&2 echo "The project long descript
 if [ -z "${maintainerName}" ];          then >&2 echo "The maintainer name is missing"; exit 1; fi
 if [ -z "${maintainerEmail}" ];         then >&2 echo "The maintainer email is missing"; exit 1; fi
 if [ -z "${projectDir}" ];              then >&2 echo "The project directory is missing"; exit 1; fi
+if [ -z "${outputDir}" ];               then >&2 echo "The output directory is missing"; exit 1; fi
 
-shift 7
+shift 8
 
 depends=("libc6 (>= 2.11)")
 while [ ! -z "$1" ]; do
@@ -117,12 +119,13 @@ done
 # Create the final binary package
 fakeroot dpkg-deb --build debian
 DEB_NAME="${projectName}_${projectVersion}_amd64.deb"
-mv debian.deb "${DEB_NAME}"
+mkdir -p "${outputDir}"
+mv debian.deb "${outputDir}/${DEB_NAME}"
 
-if [ ! -f "${DEB_NAME}" ]; then
+if [ ! -f "${outputDir}/${DEB_NAME}" ]; then
     exit 1
 fi
 
 # Run lintian
-lintian "${DEB_NAME}"
+lintian "${outputDir}/${DEB_NAME}"
 exit 0
