@@ -1,0 +1,123 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: debify <project name> <project version>"
+  echo "              <project short description>"
+  echo "              <project long description>"
+  echo "              <maintainer name> <maintainer email>"
+  echo "              <project dir> [dependencies]..."
+  exit 0;
+fi
+
+shopt -s globstar nullglob
+
+projectName="$1"
+projectVersion="$2"
+projectShortDescription="$3"
+projectLongDescription="$4"
+maintainerName="$5"
+maintainerEmail="$6"
+projectDir="$7"
+
+if [ -z "${projectName}" ];             then >&2 echo "The project name is missing"; exit 1; fi
+if [ -z "${projectVersion}" ];          then >&2 echo "The project version is missing"; exit 1; fi
+if [ -z "${projectShortDescription}" ]; then >&2 echo "The project short description is missing"; exit 1; fi
+if [ -z "${projectLongDescription}" ];  then >&2 echo "The project long description is missing"; exit 1; fi
+if [ -z "${maintainerName}" ];          then >&2 echo "The maintainer name is missing"; exit 1; fi
+if [ -z "${maintainerEmail}" ];         then >&2 echo "The maintainer email is missing"; exit 1; fi
+if [ -z "${projectDir}" ];              then >&2 echo "The project directory is missing"; exit 1; fi
+
+shift 7
+
+depends=("libc6 (>= 2.11)")
+while [ ! -z "$1" ]; do
+    depends+=("$1")
+    shift
+done
+
+packageDepends=""
+for dep in "${depends[@]}"; do
+    if [ ! -z "$packageDepends" ]; then
+        packageDepends="${packageDepends}, ${dep}"
+    else
+        packageDepends="${dep}"
+    fi
+done
+
+WORK_DIR=$(mktemp -d)
+
+cleanup()
+{
+  rm -rf "${WORK_DIR}"
+}
+
+trap cleanup EXIT
+
+cd "${WORK_DIR}" || exit 1
+
+mkdir -p debian/DEBIAN
+
+cat <<EOF > debian/DEBIAN/control
+Package: ${projectName}
+Version: ${projectVersion}
+Depends: ${packageDepends}
+Section: non-free/otherosfs
+Priority: optional
+Architecture: amd64
+Maintainer: ${maintainerName} <${maintainerEmail}>
+Description: ${projectShortDescription}
+ ${projectLongDescription}
+EOF
+
+cat debian/DEBIAN/control
+
+# Prepare the final project directory
+mkdir -p "debian/opt/${projectName}"
+
+# Copy the projects files to the final project directory
+cp -a "${projectDir}/." "debian/opt/${projectName}/"
+
+# Ensure that all directories are using 0755
+find debian -type d -print0 | xargs -0 chmod 755
+
+trim()
+{
+    local var="$*"
+    var="${var#"${var%%[![:space:]]*}"}"
+    var="${var%"${var##*[![:space:]]}"}"   
+    printf '%s' "$var"
+}
+
+for f in debian/opt/**/*; do
+    IFS=','
+    for p in $(file -bN "$f"); do
+        param=$(trim "$p")
+        if [ "$param" = "not stripped" ]; then
+            if ! strip "$f"; then
+                >&2 echo "strip failed for '$f'"
+            fi
+        elif [[ "$param" =~ ^ELF.*shared\ object$ ]]; then
+            chmod 644 "$f"
+        elif [[ "$param" =~ ^ELF.*pie\ executable$ ]]; then
+            chmod 644 "$f"
+        elif [[ "$param" =~ ^ELF.*executable$ ]]; then
+            chmod 755 "$f"
+        elif [[ "$param" =~ ^PE32 ]]; then
+            chmod 644 "$f"
+        elif [[ "$param" =~ executable$ ]]; then
+            chmod 755 "$f"
+        fi
+    done
+    unset IFS
+
+    st=$(stat -c %a "$f")
+    if [ "$st" = 744 ]; then chmod 644 "$f"; fi
+done
+
+# Create the final binary package
+fakeroot dpkg-deb --build debian
+DEB_NAME="${projectName}_${projectVersion}_amd64.deb"
+mv debian.deb "${DEB_NAME}"
+
+# Run lintian
+lintian "${DEB_NAME}"
