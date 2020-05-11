@@ -19,6 +19,15 @@ dependency:
     nixos+patchelf:
       - version: ''
         architecture: []
+    debian+dpkg:
+      - version: ''
+        architecture: []
+    debian+lintian:
+      - version: ''
+        architecture: []
+    debian+fakeroot:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
