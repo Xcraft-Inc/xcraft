@@ -33,17 +33,17 @@ shift 8
 
 depends=("libc6 (>= 2.11)")
 while [ ! -z "$1" ]; do
-    depends+=("$1")
-    shift
+  depends+=("$1")
+  shift
 done
 
 packageDepends=""
 for dep in "${depends[@]}"; do
-    if [ ! -z "$packageDepends" ]; then
-        packageDepends="${packageDepends}, ${dep}"
-    else
-        packageDepends="${dep}"
-    fi
+  if [ ! -z "$packageDepends" ]; then
+    packageDepends="${packageDepends}, ${dep}"
+  else
+    packageDepends="${dep}"
+  fi
 done
 
 WORK_DIR=$(mktemp -d)
@@ -84,36 +84,36 @@ find debian -type d -print0 | xargs -0 chmod 755
 
 trim()
 {
-    local var="$*"
-    var="${var#"${var%%[![:space:]]*}"}"
-    var="${var%"${var##*[![:space:]]}"}"   
-    printf '%s' "$var"
+  local var="$*"
+  var="${var#"${var%%[![:space:]]*}"}"
+  var="${var%"${var##*[![:space:]]}"}"
+  printf '%s' "$var"
 }
 
 for f in debian/opt/**/*; do
-    IFS=','
-    for p in $(file -bN "$f"); do
-        param=$(trim "$p")
-        if [ "$param" = "not stripped" ]; then
-            if ! strip "$f"; then
-                >&2 echo "strip failed for '$f'"
-            fi
-        elif [[ "$param" =~ ^ELF.*shared\ object$ ]]; then
-            chmod 644 "$f"
-        elif [[ "$param" =~ ^ELF.*pie\ executable$ ]]; then
-            chmod 644 "$f"
-        elif [[ "$param" =~ ^ELF.*executable$ ]]; then
-            chmod 755 "$f"
-        elif [[ "$param" =~ ^PE32 ]]; then
-            chmod 644 "$f"
-        elif [[ "$param" =~ executable$ ]]; then
-            chmod 755 "$f"
-        fi
-    done
-    unset IFS
+  IFS=','
+  for p in $(file -bN "$f"); do
+    param=$(trim "$p")
+    if [ "$param" = "not stripped" ]; then
+      if ! strip "$f"; then
+        >&2 echo "strip failed for '$f'"
+      fi
+    elif [[ "$param" =~ ^ELF.*shared\ object$ ]]; then
+      chmod 644 "$f"
+    elif [[ "$param" =~ ^ELF.*pie\ executable$ ]]; then
+      chmod 644 "$f"
+    elif [[ "$param" =~ ^ELF.*executable$ ]]; then
+      chmod 755 "$f"
+    elif [[ "$param" =~ ^PE32 ]]; then
+      chmod 644 "$f"
+    elif [[ "$param" =~ executable$ ]]; then
+      chmod 755 "$f"
+    fi
+  done
+  unset IFS
 
-    st=$(stat -c %a "$f")
-    if [ "$st" = 744 ]; then chmod 644 "$f"; fi
+  st=$(stat -c %a "$f")
+  if [ "$st" = 744 ]; then chmod 644 "$f"; fi
 done
 
 # Create the final binary package
@@ -123,7 +123,7 @@ mkdir -p "${outputDir}"
 mv debian.deb "${outputDir}/${DEB_NAME}"
 
 if [ ! -f "${outputDir}/${DEB_NAME}" ]; then
-    exit 1
+  exit 1
 fi
 
 # Run lintian
