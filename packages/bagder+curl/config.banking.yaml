@@ -1,0 +1,4 @@
+data:
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-shared --disable-static --disable-ldap --disable-ldaps
