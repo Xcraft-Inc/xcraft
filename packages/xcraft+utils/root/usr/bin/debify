@@ -119,5 +119,10 @@ fakeroot dpkg-deb --build debian
 DEB_NAME="${projectName}_${projectVersion}_amd64.deb"
 mv debian.deb "${DEB_NAME}"
 
+if [ ! -f "${DEB_NAME}" ]; then
+    exit 1
+fi
+
 # Run lintian
 lintian "${DEB_NAME}"
+exit 0
