@@ -42,12 +42,34 @@ is_in_array()
   return 1
 }
 
-isexec() { [[ -f "$1" && -x $(realpath "$1") ]]; }
+trim()
+{
+  local var="$*"
+  var="${var#"${var%%[![:space:]]*}"}"
+  var="${var%"${var##*[![:space:]]}"}"
+  printf '%s' "$var"
+}
+
+iself()
+{
+  local file="$1"
+  local elf=1
+  local IFS=','
+
+  for p in $(file -bN "$file"); do
+    param=$(trim "$p")
+    if [[ "$param" =~ ^ELF ]]; then
+      elf=0
+    fi
+  done
+
+  return $elf
+}
 
 IFS=$'\n'
 
 for inLib in "$releaseDir"/*; do
-  if ! isexec "$inLib"; then continue; fi
+  if ! iself "$inLib"; then continue; fi
 
   patched=false
 
