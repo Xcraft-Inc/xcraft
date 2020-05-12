@@ -1,5 +1,5 @@
 --- a/usr/share/lintian/profiles/debian/main.profile	2019-08-08 14:07:41.000000000 +0200
-+++ a/usr/share/lintian/profiles/debian/main.profile	2019-08-09 08:13:22.926855989 +0200
++++ b/usr/share/lintian/profiles/debian/main.profile	2019-08-09 08:13:22.926855989 +0200
 @@ -11,4 +11,6 @@
   source-changelog, source-copyright, standards-version, symlinks, systemd,
   testsuite, triggers, udev, upstream-metadata, upstream-signing-key, usrmerge,
