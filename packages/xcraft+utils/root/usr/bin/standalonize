@@ -26,6 +26,7 @@ baseLibs=(
   libm
   libmvec
   libpthread
+  libresolv
   librt
   libstdc++
 )
