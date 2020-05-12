@@ -1,0 +1,28 @@
+--- a/configure	2012-06-14 04:33:21.000000000 +0200
++++ b/configure	2020-05-12 16:08:53.522976210 +0200
+@@ -13280,13 +13280,13 @@
+ 
+ else
+ 
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for opj_setup_decoder in -lopenjpeg2" >&5
+-$as_echo_n "checking for opj_setup_decoder in -lopenjpeg2... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for opj_setup_decoder in -lopenjp2" >&5
++$as_echo_n "checking for opj_setup_decoder in -lopenjp2... " >&6; }
+ if ${ac_cv_lib_openjpeg2_opj_setup_decoder+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lopenjpeg2  $LIBS"
++LIBS="-lopenjp2  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -13318,7 +13318,7 @@
+ $as_echo "$ac_cv_lib_openjpeg2_opj_setup_decoder" >&6; }
+ if test "x$ac_cv_lib_openjpeg2_opj_setup_decoder" = xyes; then :
+ 
+-  JP2000_LIBS="-lopenjpeg2"
++  JP2000_LIBS="-lopenjp2"
+ 
+   for ac_header in openjpeg.h
+ do :

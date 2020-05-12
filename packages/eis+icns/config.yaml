@@ -1,0 +1,62 @@
+subpackage:
+  - runtime*
+name: eis+icns
+version: 0.8.1-9
+$version: 0.8.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: library for manipulation of the Mac OS icns resource format
+  long: >-
+    libicns is a library for manipulation of the Mac OS icns resource format,
+    also known as the IconFamily resource type.
+dependency:
+  install:
+    libpng+libpng:
+      - version: ''
+        architecture: []
+    uclouvain+openjpeg:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://downloads.sourceforge.net/project/icns/libicns-<THIS.$VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && CPPFLAGS="$CPPFLAGS $(pkg-config
+    libopenjpeg1 libpng --cflags)" LDFLAGS="$LDFLAGS $(pkg-config libopenjpeg1
+    libpng --libs --static)" ./configure --prefix=<PEON.PREFIXDIR>
+    --disable-shared --enable-static
+  rules:
+    type: make
+    location: data/libicns-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
