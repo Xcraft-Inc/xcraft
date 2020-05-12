@@ -1,0 +1,67 @@
+subpackage:
+  - runtime*
+name: graphicsmagick+graphicsmagick
+version: 1.3.35
+$version: 1.3.35
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Swiss army knife of image processing.
+  long: >-
+    GraphicsMagick provides a set of commandline tools and programming APIs for
+    manipulating, editing, and converting raster and vector images.
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+    libpng+libpng:
+      - version: ''
+        architecture: []
+  build:
+    toolchain+xcraft-peon:
+      - version: ''
+        architecture: []
+    toolchain+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-static --disable-shared --without-perl --with-bzlib --with-zlib
+    --without-zstd --without-dps --without-jbig --without-webp --without-jpeg
+    -without-jp2 --without-lcms2 --without-lzma --with-png --without-tiff
+    --without-trio --without-ttf --without-wmf --without-xml
+    --without-magick-plus-plus --without-x
+  rules:
+    type: make
+    location: data/GraphicsMagick-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
