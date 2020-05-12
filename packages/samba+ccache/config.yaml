@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: samba+ccache
-version: '3.6'
-$version: '3.6'
+version: 3.7.9
+$version: 3.7.9
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,10 +25,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.samba.org/ftp/ccache/ccache-<THIS.$VERSION>.tar.bz2'
+    uri: >-
+      https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.xz
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure
