@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ] || [ -z "$2" ]; then
+  echo "usage: writefile <string> <output>"
+  exit 0;
+fi
+
+string="$1"
+output="$2"
+
+echo -n "${string}" > "${output}"
