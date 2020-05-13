@@ -1,5 +1,5 @@
 name: microsoft+dotnet-sdk-linux
-version: 3.1.201-1
+version: 3.1.201-2
 $version: 3.1.201
 distribution: toolchain/
 maintainer:
@@ -15,6 +15,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    bagder+curl:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
@@ -23,7 +26,12 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: 'mv(''data'', ''root/opt/dotnet-sdk'');'
+  configure: >-
+    mv('data', 'root/opt/dotnet-sdk'); mkdir('root/opt/dotnet-sdk/bin'); yield
+    exec('writefile', '#!/bin/bash\nexport
+    LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+    'root/opt/dotnet-sdk/bin/dotnet'); yield exec('chmod', 'a+x',
+    'root/opt/dotnet-sdk/bin/dotnet');
   rules:
     type: move
     location: root
@@ -32,7 +40,7 @@ data:
       prerm: ''
   env:
     path:
-      - opt/dotnet-sdk
+      - opt/dotnet-sdk/bin
     other:
       DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   embedded: true
