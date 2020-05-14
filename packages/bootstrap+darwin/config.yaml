@@ -28,9 +28,6 @@ dependency:
     toolchain+build-essential:
       - version: ''
         architecture: []
-    epsitec+zou:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: ''

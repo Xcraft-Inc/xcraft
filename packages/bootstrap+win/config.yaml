@@ -28,9 +28,6 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
-    epsitec+zou:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: ''
