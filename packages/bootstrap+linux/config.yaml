@@ -31,6 +31,9 @@ dependency:
     toolchain+build-essential:
       - version: ''
         architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
