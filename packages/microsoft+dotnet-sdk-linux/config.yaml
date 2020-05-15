@@ -15,6 +15,9 @@ dependency:
     toolchain+xcraft-peon:
       - version: ''
         architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
     bagder+curl:
       - version: ''
         architecture: []
