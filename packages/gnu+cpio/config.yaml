@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+cpio
-version: '2.12'
-$version: '2.12'
+version: '2.13'
+$version: '2.13'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,6 +26,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
