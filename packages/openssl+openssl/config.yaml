@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.1a
+version: 1.1.1a-1
 $version: 1.1.1a
 distribution: toolchain/
 maintainer:
@@ -33,6 +33,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: >-
     !cd <THIS.DATA.RULES.LOCATION> && CC="$CC $CFLAGS"
@@ -51,7 +52,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      SSL_CERT_DIR: /etc/ssl/certs
   embedded: true
   runtime:
     configure: ''
