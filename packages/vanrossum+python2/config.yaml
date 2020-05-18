@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: vanrossum+python2
-version: 2.7.15
-$version: 2.7.15
+version: 2.7.18
+$version: 2.7.18
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -11,7 +11,9 @@ architecture:
   - source
 description:
   brief: Python programming language.
-  long: ''
+  long: >-
+    Python is a programming language that lets you work quickly and integrate
+    systems more effectively.
 dependency: {}
 data:
   get:
@@ -20,6 +22,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
