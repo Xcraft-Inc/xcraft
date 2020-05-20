@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 10.1.0
+version: 10.1.0-1
 $version: 10.1.0
 distribution: toolchain/
 maintainer:
@@ -67,6 +67,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: >-
     !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" &&
@@ -96,6 +97,7 @@ data:
         -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib'
+      CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:

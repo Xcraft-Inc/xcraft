@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 9.0.1
+version: 9.0.1-1
 $version: 9.0.1
 distribution: toolchain/
 maintainer:
@@ -41,10 +41,12 @@ dependency:
           - darwin-amd64
 data:
   get:
-    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'
+    uri: >-
+      https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: >-
     !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s clang "<PEON.PREFIXDIR>/bin/gcc"
@@ -82,6 +84,7 @@ data:
         -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -stdlib=libc++'
+      CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
   runtime:
