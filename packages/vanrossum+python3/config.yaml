@@ -1,0 +1,53 @@
+subpackage:
+  - runtime*
+name: vanrossum+python3
+version: 3.8.3
+$version: 3.8.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Python programming language.
+  long: >-
+    Python is a programming language that lets you work quickly and integrate
+    systems more effectively.
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-optimizations
+  rules:
+    type: make
+    location: data/Python-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
