@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: vanrossum+python2
-version: 2.7.18
+version: 2.7.18-3
 $version: 2.7.18
 distribution: toolchain/
 maintainer:
@@ -14,7 +14,14 @@ description:
   long: >-
     Python is a programming language that lets you work quickly and integrate
     systems more effectively.
-dependency: {}
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
@@ -24,7 +31,9 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
+    --enable-optimizations
   rules:
     type: make
     location: data/Python-<THIS.$VERSION>/
@@ -35,7 +44,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: ''
+  deploy: rm('<PEON.PREFIXDIR>/bin/2to3')
   env:
     path: []
     other: {}
