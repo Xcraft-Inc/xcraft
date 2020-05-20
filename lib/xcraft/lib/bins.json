@@ -37,6 +37,7 @@
   "flock": "^linux$",
   "gcc": "^darwin|freebsd|linux|sunos$",
   "genstrings": "^freebsd|darwin$",
+  "getconf": "^darwin|freebsd|linux|sunos$",
   "getopt": "^linux$",
   "g++": "^darwin|freebsd|linux|sunos$",
   "gold": "^freebsd|linux|sunos$",
