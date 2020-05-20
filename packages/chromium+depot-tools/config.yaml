@@ -1,0 +1,45 @@
+name: chromium+depot-tools
+version: 0.1.0-5
+$version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Tools for working with Chromium development.
+  long: Tools for working with Chromium development. It requires python 2.7.
+dependency:
+  install:
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+    torvalds+git:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
+    ref: 5a7be3da2119b1a8614fed5609412638693f7025
+    out: ''
+    externals: true
+    $ref: 5a7be3da2119b1a8614fed5609412638693f7025
+  type: bin
+  configure: 'mv(''data'', ''root/opt/depot_tools'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      GCLIENT_PY3: '1'
+      DEPOT_TOOLS_UPDATE: '0'
+      GIT_CACHE_PATH: <OS.ROOTTEMP>/gclient-git-cache
+  embedded: true
