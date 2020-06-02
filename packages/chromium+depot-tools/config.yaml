@@ -12,6 +12,9 @@ description:
   long: Tools for working with Chromium development. It requires python 2.7.
 dependency:
   install:
+    vanrossum+python2:
+      - version: ''
+        architecture: []
     vanrossum+python3:
       - version: ''
         architecture: []
