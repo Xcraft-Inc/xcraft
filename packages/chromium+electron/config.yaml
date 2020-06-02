@@ -17,6 +17,10 @@ dependency:
     chromium+depot-tools:
       - version: ''
         architecture: []
+    openjdk+jdk14-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
 data:
   get:
     uri: ''
