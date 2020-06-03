@@ -96,7 +96,7 @@ data:
       CXXFLAGS: >-
         -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
         -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++
-      LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib'
+      LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
   embedded: true
