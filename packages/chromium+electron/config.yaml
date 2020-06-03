@@ -55,7 +55,7 @@ data:
         electron:electron_dist_zip
       maketest: ''
       makeinstall: >-
-        cp("out/Release/dist.zip",
+        cp("src/out/Release/dist.zip",
         "<PEON.INSTALLDIR>/opt/electron/electron_<THIS.$VERSION>_linux_amd64.zip")
     test: none
   deploy: ''
