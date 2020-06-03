@@ -21,6 +21,9 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
+    gnu+gperf:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
