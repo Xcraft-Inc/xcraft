@@ -18,6 +18,10 @@ dependency:
     bagder+curl:
       - version: ''
         architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-
