@@ -14,8 +14,8 @@ dependency:
     schindelin+mingit:
       - version: ''
         architecture:
-          - win32-i386
-          - win32-amd64
+          - mswindows-i386
+          - mswindows-amd64
     torvalds+git:
       - version: ''
         architecture:
@@ -29,8 +29,8 @@ dependency:
     gnuwin32+patch:
       - version: ''
         architecture:
-          - win32-i386
-          - win32-amd64
+          - mswindows-i386
+          - mswindows-amd64
 data:
   get:
     uri: ''
