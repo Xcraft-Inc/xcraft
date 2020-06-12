@@ -1,0 +1,6 @@
+data:
+  configure: >-
+    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
+    --prefix=<PEON.PREFIXDIR> --disable-static --enable-shared --disable-tools
+    --disable-bash-tests --disable-doc --disable-cxx --disable-tests
+    --without-p11-kit --disable-libdane
