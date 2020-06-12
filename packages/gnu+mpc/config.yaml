@@ -16,7 +16,7 @@ description:
     arbitrarily high precision and correct rounding of the result.
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     gnu+make:

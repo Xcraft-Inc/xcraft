@@ -15,7 +15,7 @@ description:
     applications.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     microsoft+ndp-45:

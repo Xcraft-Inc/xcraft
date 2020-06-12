@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   build:
-    toolchain+build-essential:
+    xcraft+base-build:
       - version: ''
         architecture: []
     kitware+cmake:

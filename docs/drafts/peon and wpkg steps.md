@@ -52,8 +52,8 @@ description:
   brief: Git is a free and open source distributed version control system.
   long: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 dependency:
-  toolchain+xcraft-peon:
-    - ""
+  xcraft+peon:
+    - ''
 data:
   uri: "https://github.com/git/git/archive/v2.2.0.tar.gz"
   type: src

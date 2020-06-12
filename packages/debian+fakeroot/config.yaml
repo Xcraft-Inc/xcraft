@@ -18,7 +18,7 @@ dependency:
       - version: ''
         architecture: []
   build:
-    toolchain+xcraft-peon:
+    xcraft+base-build:
       - version: ''
         architecture: []
 data:

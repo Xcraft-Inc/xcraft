@@ -18,10 +18,10 @@ dependency:
       - version: ''
         architecture: []
   build:
-    wall+perl:
+    xcraft+base-build:
       - version: ''
         architecture: []
-    toolchain+xcraft-peon:
+    wall+perl:
       - version: ''
         architecture: []
 data:

@@ -17,7 +17,7 @@ description:
     (libstdc++, libgcj,...).
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     estes+flex:

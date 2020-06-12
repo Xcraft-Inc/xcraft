@@ -24,6 +24,10 @@ dependency:
     openssl+openssl:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'

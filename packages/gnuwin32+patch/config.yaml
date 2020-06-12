@@ -16,7 +16,7 @@ description:
     patched versions.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:

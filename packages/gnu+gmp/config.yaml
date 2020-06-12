@@ -16,7 +16,7 @@ description:
     signed integers, rational numbers, and floating-point numbers.
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     gnu+make:

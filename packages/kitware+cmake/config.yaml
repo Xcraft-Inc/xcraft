@@ -20,10 +20,10 @@ dependency:
       - version: ''
         architecture: []
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
-    toolchain+build-essential:
+    xcraft+build-essential:
       - version: ''
         architecture: []
 data:

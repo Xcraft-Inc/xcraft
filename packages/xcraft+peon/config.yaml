@@ -1,5 +1,5 @@
-name: toolchain+xcraft-peon
-version: 0.2.0
+name: xcraft+peon
+version: 0.2.0-3
 $version: 0.2.0
 distribution: toolchain/
 maintainer:
@@ -12,7 +12,7 @@ description:
   long: ''
 dependency:
   install:
-    toolchain+devrootfs:
+    xcraft+devrootfs:
       - version: ''
         architecture: []
 data:

@@ -19,7 +19,7 @@ description:
     location of documentation tools, for instance.
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     gnu+make:

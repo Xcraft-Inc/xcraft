@@ -1,31 +1,28 @@
-name: bootstrap+darwin
-version: 0.1.0
-$version: 0.1.0
+name: xcraft+debify
+version: 0.0.1
+$version: 0.0.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - darwin-i386
-  - darwin-amd64
+  - linux-i386
+  - linux-amd64
 description:
-  brief: Bootstrap for darwin.
+  brief: Tools for goblin debifier.
   long: ''
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
-    kitware+cmake:
+    stedolan+jq:
       - version: ''
         architecture: []
-    torvalds+git:
+    debian+fakeroot:
       - version: ''
         architecture: []
-    kaspar030+git-cache:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
+    vanrossum+python2:
       - version: ''
         architecture: []
 data:

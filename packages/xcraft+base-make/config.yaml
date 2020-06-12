@@ -1,39 +1,39 @@
-name: bootstrap+linux
+name: xcraft+base-make
 version: 0.1.0
 $version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
-architecture:
-  - linux-i386
-  - linux-amd64
+architecture: []
 description:
-  brief: Bootstrap linux.
+  brief: Base making packages dependencies.
   long: ''
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
-    nixos+patchelf:
+    schindelin+mingit:
       - version: ''
-        architecture: []
-    kitware+cmake:
-      - version: ''
-        architecture: []
+        architecture:
+          - win32-i386
+          - win32-amd64
     torvalds+git:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
     kaspar030+git-cache:
       - version: ''
         architecture: []
-    toolchain+build-essential:
+    gnuwin32+patch:
       - version: ''
-        architecture: []
-    xcraft+utils:
-      - version: ''
-        architecture: []
+        architecture:
+          - win32-i386
+          - win32-amd64
 data:
   get:
     uri: ''

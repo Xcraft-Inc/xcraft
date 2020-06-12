@@ -17,10 +17,7 @@ description:
     part.
 dependency:
   build:
-    toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
+    xcraft+base-build:
       - version: ''
         architecture: []
 data:

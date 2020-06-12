@@ -1,0 +1,82 @@
+name: xcraft+build-essential
+version: 0.0.1
+$version: 0.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+  - darwin-i386
+  - darwin-amd64
+  - solaris-i386
+  - solaris-amd64
+  - freebsd-i386
+  - freebsd-amd64
+description:
+  brief: Essential tools for building.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    gnu+gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    gnu+binutils:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    gnu+make:
+      - version: ''
+        architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+    freedesktop+pkgconfig:
+      - version: ''
+        architecture: []
+    gnu+libtool:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+    llvm+llvm:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+    gnu+tar:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

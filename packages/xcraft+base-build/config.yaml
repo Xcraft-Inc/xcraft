@@ -1,67 +1,68 @@
-name: toolchain+build-essential
-version: 0.0.1
-$version: 0.0.1
+name: xcraft+base-build
+version: 0.1.0
+$version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
-architecture:
-  - linux-i386
-  - linux-amd64
-  - darwin-i386
-  - darwin-amd64
-  - solaris-i386
-  - solaris-amd64
-  - freebsd-i386
-  - freebsd-amd64
+architecture: []
 description:
-  brief: Essential tools for building.
+  brief: Base development packages.
   long: ''
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
-    gnu+gcc:
+    nixos+patchelf:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
-    gnu+binutils:
+    kitware+cmake:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
-    gnu+make:
-      - version: ''
-        architecture: []
-    samba+ccache-gcc:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-    samba+ccache-clang:
-      - version: ''
-        architecture:
           - darwin-i386
           - darwin-amd64
-    freedesktop+pkgconfig:
-      - version: ''
-        architecture: []
-    gnu+libtool:
-      - version: ''
-        architecture: []
-    gnu+m4:
-      - version: ''
-        architecture: []
-    llvm+llvm:
+    schindelin+mingit:
       - version: ''
         architecture:
+          - win32-i386
+          - win32-amd64
+    torvalds+git:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
           - darwin-i386
           - darwin-amd64
-    gnu+tar:
+    kaspar030+git-cache:
       - version: ''
         architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+    xcraft+utils:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    pavlov+7z:
+      - version: ''
+        architecture:
+          - win32-i386
+          - win32-amd64
+    gnuwin32+patch:
+      - version: ''
+        architecture:
+          - win32-i386
+          - win32-amd64
 data:
   get:
     uri: ''

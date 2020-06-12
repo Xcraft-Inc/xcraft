@@ -15,7 +15,7 @@ description:
     automated tests on a remote machine.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:

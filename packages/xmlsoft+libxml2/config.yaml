@@ -17,7 +17,7 @@ description:
     the MIT License.
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:

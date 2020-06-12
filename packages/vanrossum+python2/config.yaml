@@ -22,6 +22,10 @@ dependency:
     seward+bzip2:
       - version: ''
         architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: >-

@@ -15,7 +15,7 @@ description:
     MFC.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:

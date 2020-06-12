@@ -24,10 +24,7 @@ dependency:
       - version: ''
         architecture: []
   build:
-    toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
+    xcraft+base-build:
       - version: ''
         architecture: []
     gnu+gperf:

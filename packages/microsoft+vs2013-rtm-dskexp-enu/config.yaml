@@ -16,7 +16,7 @@ description:
     Foundation (WPF), Windows Forms, and Win32.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:

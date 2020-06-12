@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     llvm+clang:

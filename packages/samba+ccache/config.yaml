@@ -17,7 +17,7 @@ description:
     Supported languages are C, C++, Objective-C and Objective-C++.
 dependency:
   build:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
     gnu+make:

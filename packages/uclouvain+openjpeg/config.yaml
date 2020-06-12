@@ -24,13 +24,10 @@ dependency:
       - version: ''
         architecture: []
   build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
     kitware+cmake:
-      - version: ''
-        architecture: []
-    toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
       - version: ''
         architecture: []
 data:

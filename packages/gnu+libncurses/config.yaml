@@ -19,10 +19,7 @@ description:
     SVr4 curses became the basis of X/Open Curses.
 dependency:
   build:
-    toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
+    xcraft+base-build:
       - version: ''
         architecture: []
 data:

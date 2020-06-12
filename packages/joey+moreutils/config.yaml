@@ -14,16 +14,17 @@ description:
   long: ''
 dependency:
   build:
-    toolchain+xcraft-peon:
-      - version: ''
-        architecture: []
-    toolchain+build-essential:
+    xcraft+base-build:
       - version: ''
         architecture: []
     xmlsoft+libxslt:
       - version: ''
         architecture: []
     debian+docbook:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
       - version: ''
         architecture: []
 data:

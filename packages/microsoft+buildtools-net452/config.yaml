@@ -13,7 +13,7 @@ description:
   long: Visual NET 4.5.2 build tools.
 dependency:
   install:
-    toolchain+xcraft-peon:
+    xcraft+peon:
       - version: ''
         architecture: []
 data:
