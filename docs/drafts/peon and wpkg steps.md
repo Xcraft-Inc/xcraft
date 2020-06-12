@@ -31,7 +31,6 @@
                     +--------------+-----------------------+-------------------------+------------------+
 ```
 
-
 # building git-src example
 
 - prefetch, fetch src
@@ -40,12 +39,12 @@
 
 ```yaml
 subpackage:
-  - "runtime*"
+  - 'runtime*'
 name: toolchain+git
 version: 2.2.0
 maintainer:
   name: Mathieu Schroeter
-  email: "schroeter@epsitec.ch"
+  email: 'schroeter@epsitec.ch'
 architecture:
   - source
 description:
@@ -55,7 +54,7 @@ dependency:
   xcraft+peon:
     - ''
 data:
-  uri: "https://github.com/git/git/archive/v2.2.0.tar.gz"
+  uri: 'https://github.com/git/git/archive/v2.2.0.tar.gz'
   type: src
   configure:
     type: shell-script
@@ -64,12 +63,13 @@ data:
     type: make
     location: git-2.2.0/
     args:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   embedded: true
 distribution: toolchain/
 ```
+
 # non embedded steps
 
 ## 3. prepare index
@@ -92,36 +92,37 @@ distribution: toolchain/
 
 ```yaml
 data:
-  uri: "https://.../7z.zip"
+  uri: 'https://.../7z.zip'
   type: bin
   configure:
     type: peon-script
     args: mkdir ('usr/bin) && mv ('7zip.exe', 'usr/bin')
   rules:
     type: copy
-    location: ""
+    location: ''
     hooks:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   embedded: true
 ```
+
 # package.yaml embedded 7zip
 
 ```yaml
 data:
-  uri: "https://.../7z.zip"
+  uri: 'https://.../7z.zip'
   type: bin
   configure:
     type: peon-script
     args: mkdir ('usr/bin) && mv ('7zip.exe', 'usr/bin')
   rules:
     type: copy
-    location: ""
+    location: ''
     hooks:
-      postinst: ""
-      prerm: ""
-      makeall: ""
+      postinst: ''
+      prerm: ''
+      makeall: ''
   embedded: false
 ```
 
