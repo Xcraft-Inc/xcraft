@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: toolchain+stub
+name: xcraft+stub
 version: 0.0.0
 $version: 0.0.0
 distribution: toolchain/
