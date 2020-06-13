@@ -49,11 +49,6 @@ dependency:
           - linux-amd64
           - darwin-i386
           - darwin-amd64
-    xcraft+utils:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
     pavlov+7z:
       - version: ''
         architecture:
