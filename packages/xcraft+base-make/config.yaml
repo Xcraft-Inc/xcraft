@@ -5,7 +5,8 @@ distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
-architecture: []
+architecture:
+  - all
 description:
   brief: Base making packages dependencies.
   long: ''
