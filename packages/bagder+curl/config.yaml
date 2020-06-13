@@ -21,7 +21,10 @@ dependency:
       - version: ''
         architecture: []
   build:
-    xcraft+base-build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
       - version: ''
         architecture: []
 data:

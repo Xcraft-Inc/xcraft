@@ -17,7 +17,10 @@ description:
     in the XML document (like start tags).
 dependency:
   build:
-    xcraft+base-build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
       - version: ''
         architecture: []
 data:
