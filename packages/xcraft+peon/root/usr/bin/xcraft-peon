@@ -1,3 +1,3 @@
 #!/bin/sh
 
-node "$(dirname "$0")/../share/toolchain/xcraft-peon/peon.js" "$@"
+node "$(dirname "$0")/../share/xcraft/peon/peon.js" "$@"
