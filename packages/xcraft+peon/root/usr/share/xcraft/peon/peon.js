@@ -442,16 +442,27 @@ class Action {
         .toString()
         .replace(`${distributions};`, `${this._distribution};`)
     );
-    fs.writeFileSync(
-      controlFile,
-      fs
-        .readFileSync(controlFile)
-        .toString()
-        .replace(
-          `Distribution: ${distributions}`,
-          `Distribution: ${this._distribution}`
-        )
-    );
+
+    let dataControl = fs
+      .readFileSync(controlFile)
+      .toString()
+      .replace(
+        `Distribution: ${distributions}`,
+        `Distribution: ${this._distribution}`
+      );
+
+    if (this._distribution === 'toolchain/') {
+      if (/\nDepends: /.test(dataControl)) {
+        dataControl = dataControl.replace(
+          /(\nDepends: [^\n]+)/,
+          '$1, xcraft+peon'
+        );
+      } else {
+        dataControl += 'Depends: xcraft+peon\n';
+      }
+    }
+
+    fs.writeFileSync(controlFile, dataControl);
 
     yield this._peonRun(extra);
 
