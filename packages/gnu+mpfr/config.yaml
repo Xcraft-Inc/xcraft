@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: The GNU MPFR Library.
-  long: >-
+  long: |-
     The MPFR library is a C library for multiple-precision floating-point
     computations with correct rounding.
 dependency:
@@ -31,10 +31,13 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-shared --enable-static
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-shared
+                --enable-static
   rules:
     type: make
     location: data/mpfr-<THIS.$VERSION>/

@@ -32,9 +32,10 @@ data:
   configure: |-
     mv('data', 'root/opt/dotnet-sdk');
     mkdir('root/opt/dotnet-sdk/bin');
-    yield exec('writefile',
-               '#!/bin/bash\nexport LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
-               'root/opt/dotnet-sdk/bin/dotnet'
+    yield exec(
+      'writefile',
+      '#!/bin/bash\nexport LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+      'root/opt/dotnet-sdk/bin/dotnet'
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
   rules:

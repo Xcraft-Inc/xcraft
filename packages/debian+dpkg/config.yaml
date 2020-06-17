@@ -33,13 +33,19 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> &&
-    PERL_LIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl ./configure --disable-nls
-    --enable-static --disable-shared --disable-dselect
-    --disable-start-stop-daemon --disable-update-alternatives
-    --disable-devel-docs --prefix=<PEON.PREFIXDIR>
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    PERL_LIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --disable-dselect
+                --disable-start-stop-daemon
+                --disable-update-alternatives
+                --disable-devel-docs
+                --disable-nls
   rules:
     type: make
     location: data/dpkg-<THIS.$VERSION>/
@@ -50,12 +56,12 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: >-
-    !touch <PEON.PREFIXDIR>/var/lib/dpkg/status && mkdir -p
-    <PEON.PREFIXDIR>/etc/dpkg/origins && echo "Vendor: Debian\nVendor-URL:
-    http://www.debian.org/\nBugs: debbugs://bugs.debian.org" >
-    <PEON.PREFIXDIR>/etc/dpkg/origins/Debian && ln -s Debian
-    <PEON.PREFIXDIR>/etc/dpkg/origins/default
+  deploy: |-
+    !touch <PEON.PREFIXDIR>/var/lib/dpkg/status
+      && mkdir -p <PEON.PREFIXDIR>/etc/dpkg/origins
+      && echo "Vendor: Debian\nVendor-URL: http://www.debian.org/\nBugs: debbugs://bugs.debian.org"
+           > <PEON.PREFIXDIR>/etc/dpkg/origins/Debian
+      && ln -s Debian <PEON.PREFIXDIR>/etc/dpkg/origins/default
   env:
     path: []
     other:

@@ -26,11 +26,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://salsa.debian.org/debian/debhelper/-/archive/debian/<THIS.$VERSION>/debhelper-debian-<THIS.$VERSION>.tar.gz
+    uri: 'https://salsa.debian.org/debian/debhelper/-/archive/debian/<THIS.$VERSION>/debhelper-debian-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: ''
   rules:
@@ -39,18 +39,26 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: >-
-        build -j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>
-        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
+      makeall: |-
+        build -j<PEON.CPUS.COUNT>
+              PREFIX=<PEON.PREFIXDIR>
+              PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
       maketest: ''
-      makeinstall: >-
+      makeinstall: |-
         install PREFIX=<PEON.PREFIXDIR>
-        PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
+                PERLLIBDIR=<PEON.PREFIXDIR>/lib/perl5/site_perl/Debian/Debhelper
     test: none
-  deploy: >-
-    batch.sed('<PEON.PREFIXDIR>/bin/', /^#!\/usr\/bin\/perl\n/, '#!/usr/bin/env
-    perl'); batch.sed('<PEON.PREFIXDIR>/bin/', /^#!\/usr\/bin\/perl -w\n/,
-    '#!/usr/bin/env perl');
+  deploy: |-
+    batch.sed(
+      '<PEON.PREFIXDIR>/bin/',
+      /^#!\/usr\/bin\/perl\n/,
+      '#!/usr/bin/env perl'
+    );
+    batch.sed(
+      '<PEON.PREFIXDIR>/bin/',
+      /^#!\/usr\/bin\/perl -w\n/,
+      '#!/usr/bin/env perl'
+    );
   env:
     path: []
     other: {}

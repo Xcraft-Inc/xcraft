@@ -30,9 +30,12 @@ data:
     type: configure
     location: data
     args:
-      postinst: >-
-        batch.sed('docbook/usr/share/', /([^a-z0-9])\/usr\/share\/xml/g,
-        '$1<OS.ROOTDIR>/usr/share/debian/docbook/cache/data/docbook/usr/share/xml');
+      postinst: |-
+        batch.sed(
+          'docbook/usr/share/',
+          /([^a-z0-9])\/usr\/share\/xml/g,
+          '$1<OS.ROOTDIR>/usr/share/debian/docbook/cache/data/docbook/usr/share/xml'
+        );
       prerm: ''
   env:
     path: []

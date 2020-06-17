@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: 'GCC, the GNU Compiler Collection.'
-  long: >-
+  long: |-
     The GNU Compiler Collection includes front ends for C, C++, Objective-C,
     Fortran, Java, Ada, and Go, as well as libraries for these languages
     (libstdc++, libgcj,...).
@@ -62,20 +62,26 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz
+    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s gcc "<PEON.PREFIXDIR>/bin/cc" &&
-    cd data/gcc-<THIS.$VERSION>/ && (mkdir objdir || :) && cd objdir &&
-    ../configure --prefix=<PEON.PREFIXDIR> --enable-languages=c,c++,objc,obj-c++
-    --disable-multilib --disable-nls --with-gmp=<PEON.ROOTDIR>/usr
-    --with-mpfr=<PEON.ROOTDIR>/usr --with-mpc=<PEON.ROOTDIR>/usr
-    --with-isl=<PEON.ROOTDIR>/usr
+  configure: |-
+    !mkdir -p "<PEON.PREFIXDIR>/bin"
+      && ln -s gcc "<PEON.PREFIXDIR>/bin/cc"
+      && cd data/gcc-<THIS.$VERSION>/
+      && (mkdir objdir || :)
+      && cd objdir
+      && ../configure --prefix=<PEON.PREFIXDIR>
+                      --enable-languages=c,c++,objc,obj-c++
+                      --disable-multilib
+                      --disable-nls
+                      --with-gmp=<PEON.ROOTDIR>/usr
+                      --with-mpfr=<PEON.ROOTDIR>/usr
+                      --with-mpc=<PEON.ROOTDIR>/usr
+                      --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
     location: data/gcc-<THIS.$VERSION>/objdir
@@ -90,12 +96,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib
-      CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++
+      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
+      CXXFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>

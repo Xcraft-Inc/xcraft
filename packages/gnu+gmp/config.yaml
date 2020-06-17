@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: The GNU Multiple Precision Arithmetic Library.
-  long: >-
+  long: |-
     GMP is a free library for arbitrary precision arithmetic, operating on
     signed integers, rational numbers, and floating-point numbers.
 dependency:
@@ -28,10 +28,13 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-shared --enable-static
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-shared
+                --enable-static
   rules:
     type: make
     location: data/gmp-<THIS.$VERSION>/

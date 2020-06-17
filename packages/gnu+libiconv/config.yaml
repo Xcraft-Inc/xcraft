@@ -29,10 +29,14 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
-    --prefix=<PEON.PREFIXDIR> --enable-static --disable-shared
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-nls
+                --enable-static
+                --disable-shared
   rules:
     type: make
     location: data/libiconv-<THIS.$VERSION>/

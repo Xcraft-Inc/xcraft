@@ -35,31 +35,37 @@ data:
     externals: false
     prepare: '!mkdir <THIS.DATA.RULES.LOCATION>'
   type: src
-  configure: >-
-    !export PATH=<PEON.ROOTDIR>/opt/depot_tools:$PATH; unset NODE_ENV; cd
-    <THIS.DATA.RULES.LOCATION> && gclient config --name "src/electron"
-    --unmanaged https://github.com/electron/electron && git clone
-    https://github.com/electron/electron.git src/electron && git -C src/electron
-    checkout v<THIS.$VERSION> && gclient sync --with_branch_heads --with_tags
+  configure: |-
+    !export PATH=<PEON.ROOTDIR>/opt/depot_tools:$PATH ;
+    unset NODE_ENV ;
+    cd <THIS.DATA.RULES.LOCATION>
+      && gclient config --name "src/electron"
+                        --unmanaged https://github.com/electron/electron
+      && git clone https://github.com/electron/electron.git src/electron
+      && git -C src/electron checkout v<THIS.$VERSION>
+      && gclient sync --with_branch_heads --with_tags
   rules:
     type: script
     location: data
     args:
       postinst: ''
       prerm: ''
-      makeall: >-
-        !export PATH=<PEON.ROOTDIR>/opt/depot_tools:$PATH; unset NODE_ENV;
-        export CHROMIUM_BUILDTOOLS_PATH=$(pwd)/src/buildtools; export
-        GN_EXTRA_ARGS="${GN_EXTRA_ARGS}
-        cc_wrapper=\"$(pwd)/src/electron/external_binaries/sccache\""; cd src &&
-        gn gen out/Release --args="import(\"//electron/build/args/release.gn\")
-        $GN_EXTRA_ARGS" && ninja -C out/Release electron &&
-        electron/script/strip-binaries.py -d out/Release && ninja -C out/Release
-        electron:electron_dist_zip
+      makeall: |-
+        !export PATH=<PEON.ROOTDIR>/opt/depot_tools:$PATH ;
+        unset NODE_ENV ;
+        export CHROMIUM_BUILDTOOLS_PATH=$(pwd)/src/buildtools ;
+        export GN_EXTRA_ARGS="${GN_EXTRA_ARGS} cc_wrapper=\"$(pwd)/src/electron/external_binaries/sccache\"" ;
+        cd src
+          && gn gen out/Release --args="import(\"//electron/build/args/release.gn\") $GN_EXTRA_ARGS"
+          && ninja -C out/Release electron
+          && electron/script/strip-binaries.py -d out/Release
+          && ninja -C out/Release electron:electron_dist_zip
       maketest: ''
-      makeinstall: >-
-        cp("src/out/Release/dist.zip",
-        "<PEON.INSTALLDIR>/opt/electron/electron_<THIS.$VERSION>_linux_amd64.zip")
+      makeinstall: |-
+        cp(
+          "src/out/Release/dist.zip",
+          "<PEON.INSTALLDIR>/opt/electron/electron_<THIS.$VERSION>_linux_amd64.zip"
+        );
     test: none
   deploy: ''
   env:

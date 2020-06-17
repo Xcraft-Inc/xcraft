@@ -41,11 +41,15 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --with-gmp=<PEON.ROOTDIR>/usr --with-mpfr=<PEON.ROOTDIR>/usr
-    --with-mpc=<PEON.ROOTDIR>/usr --with-isl=<PEON.ROOTDIR>/usr
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --with-gmp=<PEON.ROOTDIR>/usr
+                --with-mpfr=<PEON.ROOTDIR>/usr
+                --with-mpc=<PEON.ROOTDIR>/usr
+                --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: make
     location: data/binutils-<THIS.$VERSION>/

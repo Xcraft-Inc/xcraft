@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: GNU Multiple-precision C library.
-  long: >-
+  long: |-
     GNU MPC is a C library for the arithmetic of complex numbers with
     arbitrarily high precision and correct rounding of the result.
 dependency:
@@ -34,10 +34,13 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-shared --enable-static
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-shared
+                --enable-static
   rules:
     type: make
     location: data/mpc-<THIS.$VERSION>/

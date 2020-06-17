@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: The ncurses library is a free software emulation of curses
-  long: >-
+  long: |-
     The ncurses (new curses) library is a free software emulation of curses in
     System V Release 4.0 (SVr4), and more. It uses terminfo format, supports
     pads and color and multiple highlights and forms characters and function-key
@@ -30,13 +30,29 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --without-ada --disable-db-install
-    --without-manpages --without-progs --without-tack --without-tests
-    --enable-pc-files --without-shared --without-debug --without-profile
-    --without-cxx-shared --without-termlib --without-ticlib --without-gpm
-    --without-dlsym --without-pcre2 --without-sysmouse --without-develop
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --without-ada
+                --disable-db-install
+                --without-manpages
+                --without-progs
+                --without-tack
+                --without-tests
+                --enable-pc-files
+                --without-shared
+                --without-debug
+                --without-profile
+                --without-cxx-shared
+                --without-termlib
+                --without-ticlib
+                --without-gpm
+                --without-dlsym
+                --without-pcre2
+                --without-sysmouse
+                --without-develop
   rules:
     type: make
     location: data/ncurses-<THIS.$VERSION>/

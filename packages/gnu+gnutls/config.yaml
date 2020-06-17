@@ -33,12 +33,21 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --disable-nls
-    --prefix=<PEON.PREFIXDIR> --enable-static --enable-shared --disable-tools
-    --disable-bash-tests --disable-doc --disable-cxx --disable-tests
-    --without-p11-kit --disable-libdane
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-nls
+                --enable-static
+                --enable-shared
+                --disable-tools
+                --disable-bash-tests
+                --disable-doc
+                --disable-cxx
+                --disable-tests
+                --without-p11-kit
+                --disable-libdane
   rules:
     type: make
     location: data/gnutls-<THIS.$VERSION>/

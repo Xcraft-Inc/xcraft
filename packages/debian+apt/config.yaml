@@ -50,16 +50,20 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://salsa.debian.org/apt-team/apt/-/archive/<THIS.$VERSION>/apt-<THIS.$VERSION>.tar.gz
+    uri: 'https://salsa.debian.org/apt-team/apt/-/archive/<THIS.$VERSION>/apt-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION>/ && cmake -G "Unix Makefiles" -DWITH_DOC=OFF
-    -DUSE_NLS=OFF -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
-    -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release .
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>/ ;
+    cmake -G "Unix Makefiles"
+          -DWITH_DOC=OFF
+          -DUSE_NLS=OFF
+          -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+          -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+          -DCMAKE_BUILD_TYPE=Release .
   rules:
     type: make
     location: data/apt-<THIS.$VERSION>
