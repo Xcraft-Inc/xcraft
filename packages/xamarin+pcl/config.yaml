@@ -17,15 +17,16 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://download.mono-project.com/repo/debian/pool/main/r/referenceassemblies-pcl/referenceassemblies-pcl_<THIS.$VERSION>.orig.tar.bz2
+    uri: 'http://download.mono-project.com/repo/debian/pool/main/r/referenceassemblies-pcl/referenceassemblies-pcl_<THIS.$VERSION>.orig.tar.bz2'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: >-
-    mv ('data/PortableReferenceAssemblies-2014-04-14',
-    'root/usr/lib/mono/xbuild-frameworks/.NETPortable')
+  configure: |-
+    mv (
+      'data/PortableReferenceAssemblies-2014-04-14',
+      'root/usr/lib/mono/xbuild-frameworks/.NETPortable'
+    );
   rules:
     type: move
     location: root
