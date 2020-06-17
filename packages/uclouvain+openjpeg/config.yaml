@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: An open-source JPEG 2000 codec written in C.
-  long: >-
+  long: |-
     OpenJPEG is an open-source JPEG 2000 codec written in C language. It has
     been developed in order to promote the use of JPEG 2000, a still-image
     compression standard from the Joint Photographic Experts Group (JPEG).
@@ -32,17 +32,20 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://github.com/uclouvain/openjpeg/archive/version.<THIS.$VERSION>.tar.gz
+    uri: 'https://github.com/uclouvain/openjpeg/archive/version.<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION>/ && mkdir build && cd build && cmake -G "Unix
-    Makefiles" -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
-    -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DCMAKE_BUILD_TYPE=Release ..
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>/ ;
+    mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
     location: data/openjpeg-version.<THIS.$VERSION>

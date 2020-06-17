@@ -24,18 +24,19 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://download.visualstudio.microsoft.com/download/pr/f65a8eb0-4537-4e69-8ff3-1a80a80d9341/cc0ca9ff8b9634f3d9780ec5915c1c66/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/f65a8eb0-4537-4e69-8ff3-1a80a80d9341/cc0ca9ff8b9634f3d9780ec5915c1c66/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: >-
-    mv('data', 'root/opt/dotnet-sdk'); mkdir('root/opt/dotnet-sdk/bin'); yield
-    exec('writefile', '#!/bin/bash\nexport
-    LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
-    'root/opt/dotnet-sdk/bin/dotnet'); yield exec('chmod', 'a+x',
-    'root/opt/dotnet-sdk/bin/dotnet');
+  configure: |-
+    mv('data', 'root/opt/dotnet-sdk');
+    mkdir('root/opt/dotnet-sdk/bin');
+    yield exec('writefile',
+               '#!/bin/bash\nexport LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+               'root/opt/dotnet-sdk/bin/dotnet'
+    );
+    yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
   rules:
     type: move
     location: root

@@ -23,12 +23,21 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-nls --disable-locale --disable-iconv-open --disable-iconv
-    --disable-acl-support --disable-xattr-support --with-included-zlib
-    --with-included-popt --disable-maintainer-mode --disable-debug
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-nls
+                --disable-locale
+                --disable-iconv-open
+                --disable-iconv
+                --disable-acl-support
+                --disable-xattr-support
+                --with-included-zlib
+                --with-included-popt
+                --disable-maintainer-mode
+                --disable-debug
   rules:
     type: make
     location: data/rsync-<THIS.$VERSION>/
