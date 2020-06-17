@@ -25,9 +25,10 @@ data:
     out: ''
     externals: false
   type: bin
-  configure: >-
-    !nuget.exe install xunit.runner.console -version <THIS.$VERSION>
-    -outputdirectory <THIS.DATA.RULES.LOCATION>/opt/xunit
+  configure: |-
+    !nuget.exe install xunit.runner.console
+               -version <THIS.$VERSION>
+               -outputdirectory <THIS.DATA.RULES.LOCATION>/opt/xunit
   rules:
     type: move
     location: root
