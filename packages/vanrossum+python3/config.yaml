@@ -32,9 +32,7 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-optimizations
+  configure: '!cd <THIS.DATA.RULES.LOCATION> ; ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
     location: data/Python-<THIS.$VERSION>/
