@@ -19,7 +19,9 @@
     "type": "file",
     "url": "."
   },
-  "keywords": ["xcraft"],
+  "keywords": [
+    "xcraft"
+  ],
   "author": "",
   "license": "MIT"
 }
