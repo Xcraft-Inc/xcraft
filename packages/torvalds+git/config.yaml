@@ -42,6 +42,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: ''
   rules:
@@ -50,14 +51,26 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: >-
-        -j<PEON.CPUS.COUNT> prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes
-        NO_TCLTK=Yes CC:=$(CC) CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS)
+      makeall: |-
+        -j<PEON.CPUS.COUNT>
+        prefix=<PEON.PREFIXDIR>
+        NO_GETTEXT=Yes
+        NO_PERL=Yes
+        NO_TCLTK=Yes
+        CC:=$(CC)
+        CFLAGS:=$(CFLAGS)
+        LDFLAGS:=$(LDFLAGS)
         NO_APPLE_COMMON_CRYPTO=1
       maketest: ''
-      makeinstall: >-
-        prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes
-        CC:=$(CC) CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1
+      makeinstall: |-
+        prefix=<PEON.PREFIXDIR>
+        NO_GETTEXT=Yes
+        NO_PERL=Yes
+        NO_TCLTK=Yes
+        CC:=$(CC)
+        CFLAGS:=$(CFLAGS)
+        LDFLAGS:=$(LDFLAGS)
+        NO_APPLE_COMMON_CRYPTO=1
         install
     test: none
   deploy: ''

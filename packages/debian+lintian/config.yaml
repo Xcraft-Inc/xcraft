@@ -93,16 +93,15 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://salsa.debian.org/lintian/lintian/-/archive/<THIS.$VERSION>/lintian-<THIS.$VERSION>.tar.gz
+    uri: 'https://salsa.debian.org/lintian/lintian/-/archive/<THIS.$VERSION>/lintian-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: >-
+  configure: |-
     mv('data/lintian-<THIS.$VERSION>', 'root/usr/share/lintian');
-    mkdir('root/usr/bin'); ln('../share/lintian/frontend/lintian',
-    'root/usr/bin/lintian');
+    mkdir('root/usr/bin');
+    ln('../share/lintian/frontend/lintian', 'root/usr/bin/lintian');
   rules:
     type: move
     location: root

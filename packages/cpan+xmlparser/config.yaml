@@ -26,16 +26,19 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-<THIS.$VERSION>.tar.gz
+    uri: 'https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && perl Makefile.PL
-    EXPATLIBPATH=<PEON.ROOTDIR>/usr/lib EXPATINCPATH=<PEON.ROOTDIR>/usr/include
-    PREFIX=<PEON.PREFIXDIR> INSTALLDIRS=perl
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    perl Makefile.PL
+         EXPATLIBPATH=<PEON.ROOTDIR>/usr/lib
+         EXPATINCPATH=<PEON.ROOTDIR>/usr/include
+         PREFIX=<PEON.PREFIXDIR>
+         INSTALLDIRS=perl
   rules:
     type: make
     location: data/XML-Parser-<THIS.$VERSION>/
@@ -46,11 +49,16 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: >-
-    chmod('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat/Expat.so',
-    0o755); yield rpath('<PEON.PREFIXDIR>',
-    '<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat',
-    null);
+  deploy: |-
+    chmod(
+      '<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat/Expat.so',
+      0o755
+    );
+    yield rpath(
+      '<PEON.PREFIXDIR>',
+      '<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/auto/XML/Parser/Expat',
+      null
+    );
   env:
     path: []
     other: {}

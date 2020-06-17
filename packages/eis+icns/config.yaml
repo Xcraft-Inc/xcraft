@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: library for manipulation of the Mac OS icns resource format
-  long: >-
+  long: |-
     libicns is a library for manipulation of the Mac OS icns resource format,
     also known as the IconFamily resource type.
 dependency:
@@ -28,18 +28,19 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://downloads.sourceforge.net/project/icns/libicns-<THIS.$VERSION>.tar.gz
+    uri: 'https://downloads.sourceforge.net/project/icns/libicns-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: false
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && CPPFLAGS="$CPPFLAGS $(pkg-config
-    libopenjpeg1 libpng --cflags)" LDFLAGS="$LDFLAGS $(pkg-config libopenjpeg1
-    libpng --libs --static)" ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-shared --enable-static
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    CPPFLAGS="$CPPFLAGS $(pkg-config libopenjpeg1 libpng --cflags)"
+    LDFLAGS="$LDFLAGS $(pkg-config libopenjpeg1 libpng --libs --static)"
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-shared
+                --enable-static
   rules:
     type: make
     location: data/libicns-<THIS.$VERSION>/
