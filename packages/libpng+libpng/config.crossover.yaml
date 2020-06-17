@@ -1,4 +1,6 @@
 data:
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --enable-shared
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --enable-shared

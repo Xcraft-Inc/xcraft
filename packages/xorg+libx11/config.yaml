@@ -33,10 +33,14 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-xmlto --without-xsltproc --without-perl
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --without-xmlto
+                --without-xsltproc
+                --without-perl
   rules:
     type: make
     location: data/libX11-<THIS.$VERSION>/

@@ -29,9 +29,12 @@ data:
     out: ''
     externals: true
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-xmlto --without-xsltproc --without-perl
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --without-xmlto
+                --without-xsltproc
+                --without-perl
   rules:
     type: make
     location: data/libXrender-<THIS.$VERSION>/

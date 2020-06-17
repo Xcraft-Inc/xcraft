@@ -11,9 +11,7 @@ architecture:
   - source
 description:
   brief: Swiss army knife of image processing.
-  long: >-
-    GraphicsMagick provides a set of commandline tools and programming APIs for
-    manipulating, editing, and converting raster and vector images.
+  long: 'GraphicsMagick provides a set of commandline tools and programming APIs for manipulating, editing, and converting raster and vector images.'
 dependency:
   install:
     adler+zlib:
@@ -31,20 +29,36 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz
+    uri: 'https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --without-perl --with-bzlib --with-zlib
-    --without-zstd --without-dps --without-jbig --without-webp --without-jpeg
-    -without-jp2 --without-lcms2 --without-lzma --with-png --without-tiff
-    --without-trio --without-ttf --without-wmf --without-xml
-    --without-magick-plus-plus --without-x
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --without-perl
+                --with-bzlib
+                --with-zlib
+                --without-zstd
+                --without-dps
+                --without-jbig
+                --without-webp
+                --without-jpeg
+                --without-jp2
+                --without-lcms2
+                --without-lzma
+                --with-png
+                --without-tiff
+                --without-trio
+                --without-ttf
+                --without-wmf
+                --without-xml
+                --without-magick-plus-plus
+                --without-x
   rules:
     type: make
     location: data/GraphicsMagick-<THIS.$VERSION>/

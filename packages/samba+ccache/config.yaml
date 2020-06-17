@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: A fast C/C++ compiler cache.
-  long: >-
+  long: |-
     ccache is a compiler cache. It speeds up recompilation by caching previous
     compilations and detecting when the same compilation is being done again.
     Supported languages are C, C++, Objective-C and Objective-C++.
@@ -25,16 +25,15 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.xz
+    uri: 'https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure
-    --prefix=<PEON.PREFIXDIR>/local
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>/local
   rules:
     type: make
     location: data/ccache-<THIS.$VERSION>/

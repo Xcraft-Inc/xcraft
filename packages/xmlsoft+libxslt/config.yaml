@@ -27,10 +27,15 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --without-crypto --without-debugger
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --without-crypto
+                --without-debugger
   rules:
     type: make
     location: data/libxslt-<THIS.$VERSION>/

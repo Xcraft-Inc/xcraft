@@ -19,17 +19,25 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.$VERSION>.tar.xz
+    uri: 'https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --disable-nls --enable-xz --disable-xzdec
-    --disable-lzmadec --disable-lzmainfo --disable-lzma-links --disable-scripts
-    --disable-doc
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --disable-nls
+                --enable-xz
+                --disable-xzdec
+                --disable-lzmadec
+                --disable-lzmainfo
+                --disable-lzma-links
+                --disable-scripts
+                --disable-doc
   rules:
     type: make
     location: data/xz-<THIS.$VERSION>/

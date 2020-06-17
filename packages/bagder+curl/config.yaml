@@ -34,9 +34,11 @@ data:
     out: ''
     externals: true
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-ldap --disable-ldaps
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-ldap
+                --disable-ldaps
   rules:
     type: make
     location: data/curl-<THIS.$VERSION>/

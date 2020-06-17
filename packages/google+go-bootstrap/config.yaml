@@ -33,9 +33,9 @@ data:
       prerm: ''
       makeall: '!CGO_ENABLED=0 ./make.bash'
       maketest: ''
-      makeinstall: >-
-        !mkdir <PEON.INSTALLDIR>/opt && cp -a ../../go
-        <PEON.INSTALLDIR>/opt/go-bootstrap
+      makeinstall: |-
+        !mkdir <PEON.INSTALLDIR>/opt
+          && cp -a ../../go <PEON.INSTALLDIR>/opt/go-bootstrap
     test: none
   deploy: ''
   env:

@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: inria+isl
-version: '0.22.1'
-$version: '0.22.1'
+version: 0.22.1
+$version: 0.22.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -11,9 +11,7 @@ architecture:
   - source
 description:
   brief: Integer Set Library.
-  long: >-
-    isl is a library for manipulating sets and relations of integer points
-    bounded by linear constraints.
+  long: isl is a library for manipulating sets and relations of integer points bounded by linear constraints.
 dependency:
   build:
     xcraft+peon:
@@ -31,10 +29,13 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-shared --enable-static
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-shared
+                --enable-static
   rules:
     type: make
     location: data/isl-<THIS.$VERSION>/

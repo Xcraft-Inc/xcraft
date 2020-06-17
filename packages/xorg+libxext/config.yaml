@@ -30,10 +30,13 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-xmlto --without-xsltproc
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --without-xmlto
+                --without-xsltproc
   rules:
     type: make
     location: data/libXext-<THIS.$VERSION>/

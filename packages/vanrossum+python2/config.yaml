@@ -11,9 +11,7 @@ architecture:
   - source
 description:
   brief: Python programming language.
-  long: >-
-    Python is a programming language that lets you work quickly and integrate
-    systems more effectively.
+  long: Python is a programming language that lets you work quickly and integrate systems more effectively.
 dependency:
   install:
     adler+zlib:
@@ -28,8 +26,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz
+    uri: 'https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true

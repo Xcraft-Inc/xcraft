@@ -11,11 +11,11 @@ architecture:
   - source
 description:
   brief: The Network Authentication Protocol
-  long: >-
+  long: |-
     Kerberos is a network authentication protocol. It is designed to provide
     strong authentication for client/server applications by using secret-key
-    cryptography. A free implementation of this protocol is available from the
-    Massachusetts Institute of Technology.
+    cryptography. A free implementation of this protocol is available from
+    the Massachusetts Institute of Technology.
 dependency:
   install:
     openssl+openssl:
@@ -36,13 +36,27 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-athena --disable-nls --disable-aesni --disable-kdc-lookaside-cache
-    --disable-asan --disable-pkinit --without-system-et --without-system-ss
-    --without-system-db --without-ldap --without-keyutils
-    --without-spake-openssl --without-lmdb --without-libedit --without-readline
-    --without-system-verto --without-tcl --without-krb5-config
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --disable-athena
+                --disable-nls
+                --disable-aesni
+                --disable-kdc-lookaside-cache
+                --disable-asan
+                --disable-pkinit
+                --without-system-et
+                --without-system-ss
+                --without-system-db
+                --without-ldap
+                --without-keyutils
+                --without-spake-openssl
+                --without-lmdb
+                --without-libedit
+                --without-readline
+                --without-system-verto
+                --without-tcl
+                --without-krb5-config
   rules:
     type: make
     location: data/krb5-<THIS.$VERSION>/src/

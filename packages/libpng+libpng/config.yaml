@@ -23,15 +23,17 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://downloads.sourceforge.net/project/libpng/libpng16/<THIS.$VERSION>/libpng-<THIS.$VERSION>.tar.xz
+    uri: 'https://downloads.sourceforge.net/project/libpng/libpng16/<THIS.$VERSION>/libpng-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
   rules:
     type: make
     location: data/libpng-<THIS.$VERSION>/

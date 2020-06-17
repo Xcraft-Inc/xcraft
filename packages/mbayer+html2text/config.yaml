@@ -23,6 +23,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure'
   rules:
@@ -35,9 +36,7 @@ data:
       maketest: ''
       makeinstall: ''
     test: none
-  deploy: >-
-    !install -D -s -m 755 <THIS.DATA.RULES.LOCATION>html2text -t
-    <PEON.PREFIXDIR>/bin
+  deploy: '!install -D -s -m 755 <THIS.DATA.RULES.LOCATION>html2text -t <PEON.PREFIXDIR>/bin'
   env:
     path: []
     other: {}

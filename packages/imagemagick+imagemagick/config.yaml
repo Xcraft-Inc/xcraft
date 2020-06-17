@@ -30,18 +30,50 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --disable-deprecated --disable-cipher
-    --disable-docs --without-perl --without-bzlib --with-zlib --without-zstd
-    --without-dps --without-fftw --without-flif --without-fpx --without-djvu
-    --without-fontconfig --without-freetype --without-raqm --without-gslib
-    --without-gvc --without-heic --without-jbig --without-jpeg --without-lcms
-    --without-openjp2 --without-lqr --without-lzma --without-openexr
-    --without-pango --with-png --without-raw --without-rsvg --without-tiff
-    --without-webp --without-wmf --without-xml --without-magick-plus-plus
-    --without-x --without-ltdl --disable-hdri
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --disable-deprecated
+                --disable-cipher
+                --disable-docs
+                --without-perl
+                --without-bzlib
+                --with-zlib
+                --without-zstd
+                --without-dps
+                --without-fftw
+                --without-flif
+                --without-fpx
+                --without-djvu
+                --without-fontconfig
+                --without-freetype
+                --without-raqm
+                --without-gslib
+                --without-gvc
+                --without-heic
+                --without-jbig
+                --without-jpeg
+                --without-lcms
+                --without-openjp2
+                --without-lqr
+                --without-lzma
+                --without-openexr
+                --without-pango
+                --with-png
+                --without-raw
+                --without-rsvg
+                --without-tiff
+                --without-webp
+                --without-wmf
+                --without-xml
+                --without-magick-plus-plus
+                --without-x
+                --without-ltdl
+                --disable-hdri
   rules:
     type: make
     location: data/ImageMagick-<THIS.$VERSION>/

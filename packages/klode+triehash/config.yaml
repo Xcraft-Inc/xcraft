@@ -25,10 +25,10 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: >-
+  configure: |-
     mv('data/triehash-<THIS.$VERSION>', 'root/usr/share/triehash');
-    mkdir('root/usr/bin'); sed('root/usr/share/triehash/triehash.pl',
-    /^#!\/usr\/bin\/perl -w/, '#!/usr/bin/env perl');
+    mkdir('root/usr/bin');
+    sed('root/usr/share/triehash/triehash.pl', /^#!\/usr\/bin\/perl -w/, '#!/usr/bin/env perl');
     ln('../share/triehash/triehash.pl', 'root/usr/bin/triehash');
   rules:
     type: move

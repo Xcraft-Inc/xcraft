@@ -41,28 +41,29 @@ dependency:
           - darwin-amd64
 data:
   get:
-    uri: >-
-      https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz
+    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !mkdir -p "<PEON.PREFIXDIR>/bin" && ln -s clang "<PEON.PREFIXDIR>/bin/gcc"
-    && ln -s clang "<PEON.PREFIXDIR>/bin/cc" && ln -s clang++
-    "<PEON.PREFIXDIR>/bin/g++" && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++" && cd
-    <THIS.DATA.RULES.LOCATION> && ln -sf
-    <PEON.ROOTDIR>/usr/share/llvm/clang/cache/data/cfe-<THIS.$VERSION>.src
-    tools/clang && ln -sf
-    <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src
-    tools/polly && ln -sf
-    <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src
-    projects/libcxx && ln -sf
-    <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src
-    projects/libcxxabi && mkdir -p BUILD && cd BUILD && cmake -G "Unix
-    Makefiles" -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR> -DLLVM_CCACHE_BUILD=ON
-    -DCMAKE_BUILD_TYPE=Release ..
+  configure: |-
+    !mkdir -p "<PEON.PREFIXDIR>/bin"
+      && ln -s clang "<PEON.PREFIXDIR>/bin/gcc"
+      && ln -s clang "<PEON.PREFIXDIR>/bin/cc"
+      && ln -s clang++ "<PEON.PREFIXDIR>/bin/g++"
+      && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++"
+      && cd <THIS.DATA.RULES.LOCATION>
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/clang/cache/data/cfe-<THIS.$VERSION>.src tools/clang
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src tools/polly
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src projects/libcxxabi
+      && mkdir -p BUILD
+      && cd BUILD
+      && cmake -G "Unix Makefiles"
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DLLVM_CCACHE_BUILD=ON
+               -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
     location: data/llvm-<THIS.$VERSION>.src/
@@ -77,12 +78,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments
-      CXXFLAGS: >-
-        -O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include
-        -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++
+      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments'
+      CXXFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++'
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -stdlib=libc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>

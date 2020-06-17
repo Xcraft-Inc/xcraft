@@ -27,11 +27,15 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --with-libunbound-only
-    --with-ssl=<PEON.ROOTDIR>/usr/
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --with-libunbound-only
+                --with-ssl=<PEON.ROOTDIR>/usr/
   rules:
     type: make
     location: data/unbound-<THIS.$VERSION>/

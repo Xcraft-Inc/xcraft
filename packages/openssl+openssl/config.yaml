@@ -35,10 +35,14 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && CC="$CC $CFLAGS"
-    ./<PEON.OS=darwin?Configure darwin64-x86_64-cc:config> shared
-    --prefix=<PEON.PREFIXDIR>
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    CC="$CC $CFLAGS"
+    <PEON.OS=darwin?
+      ./Configure darwin64-x86_64-cc
+    :
+      ./config
+    > shared --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/openssl-<THIS.$VERSION>/

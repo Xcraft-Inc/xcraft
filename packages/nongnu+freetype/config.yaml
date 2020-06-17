@@ -26,15 +26,17 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://download.savannah.gnu.org/releases/freetype/freetype-<THIS.$VERSION>.tar.xz
+    uri: 'https://download.savannah.gnu.org/releases/freetype/freetype-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --enable-static
-    --enable-shared --prefix=<PEON.PREFIXDIR>
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --enable-static
+                --enable-shared
+                --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/freetype-<THIS.$VERSION>/

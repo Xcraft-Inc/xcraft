@@ -23,20 +23,36 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://github.com/apple/cups/releases/download/v<THIS.$VERSION>/cups-<THIS.$VERSION>-source.tar.gz
+    uri: 'https://github.com/apple/cups/releases/download/v<THIS.$VERSION>/cups-<THIS.$VERSION>-source.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --libdir=/usr/lib
-    --enable-shared --disable-static --disable-libpaper --disable-libusb
-    --disable-tcp-wrappers --disable-acl --disable-dbus --disable-debug
-    --disable-gssapi --disable-ssl --disable-pam --disable-avahi --disable-dnssd
-    --disable-launchd --disable-systemd --disable-upstart --disable-browsing
-    --disable-default-shared --disable-raw-printing --disable-webif
-    --with-components=core
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --libdir=/usr/lib
+                --enable-shared
+                --disable-static
+                --disable-libpaper
+                --disable-libusb
+                --disable-tcp-wrappers
+                --disable-acl
+                --disable-dbus
+                --disable-debug
+                --disable-gssapi
+                --disable-ssl
+                --disable-pam
+                --disable-avahi
+                --disable-dnssd
+                --disable-launchd
+                --disable-systemd
+                --disable-upstart
+                --disable-browsing
+                --disable-default-shared
+                --disable-raw-printing
+                --disable-webif
+                --with-components=core
   rules:
     type: make
     location: data/cups-<THIS.$VERSION>/

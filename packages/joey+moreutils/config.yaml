@@ -33,7 +33,7 @@ data:
     ref: '0.63'
     out: ''
     externals: true
-    $ref: aeddd0f4caa9d10aaa691040773fa4764e12ff46
+    prepare: ''
   type: src
   configure: ''
   rules:
@@ -42,8 +42,9 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: >-
-        -j<PEON.CPUS.COUNT> PREFIX=<PEON.PREFIXDIR>
+      makeall: |-
+        -j<PEON.CPUS.COUNT>
+        PREFIX=<PEON.PREFIXDIR>
         DOCBOOKXSL=<PEON.ROOTDIR>/usr/share/debian/docbook/cache/data/docbook/usr/share/xml/docbook/stylesheet/docbook-xsl
       maketest: ''
       makeinstall: install PREFIX=<PEON.PREFIXDIR>

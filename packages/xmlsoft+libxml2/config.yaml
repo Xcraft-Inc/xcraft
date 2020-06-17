@@ -11,10 +11,10 @@ architecture:
   - source
 description:
   brief: The XML C parser and toolkit of Gnome.
-  long: >-
-    Libxml2 is the XML C parser and toolkit developed for the Gnome project (but
-    usable outside of the Gnome platform), it is free software available under
-    the MIT License.
+  long: |-
+    Libxml2 is the XML C parser and toolkit developed for the Gnome project
+    (but usable outside of the Gnome platform), it is free software available
+    under the MIT License.
 dependency:
   build:
     xcraft+peon:
@@ -26,11 +26,20 @@ data:
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --without-debug --without-docbook --without-ftp --with-html --without-http
-    --without-iconv --without-zlib --without-lzma --without-python
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --without-debug
+                --without-docbook
+                --without-ftp
+                --with-html
+                --without-http
+                --without-iconv
+                --without-zlib
+                --without-lzma
+                --without-python
   rules:
     type: make
     location: data/libxml2-<THIS.$VERSION>/
