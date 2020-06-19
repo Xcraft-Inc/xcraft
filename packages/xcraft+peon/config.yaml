@@ -22,9 +22,11 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: ''
+  configure: |-
+    cp('.', '<PEON.WPKG.STAG>');
+    yield exec('npm', 'install', '--production', '--prefix', '<PEON.WPKG.STAG>/usr/share/xcraft/peon');
   rules:
-    type: copy
+    type: configure
     location: ''
     args:
       postinst: ''
