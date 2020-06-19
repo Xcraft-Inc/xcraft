@@ -31,8 +31,8 @@ data:
                  -Duserelocatableinc
                  -Dusedl
                  -de
-                 -Dman1dir=
-                 -Dman3dir=
+                 -Uman1dir=
+                 -Uman3dir=
   rules:
     type: make
     location: data/perl-<THIS.$VERSION>/
