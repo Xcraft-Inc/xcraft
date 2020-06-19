@@ -23,8 +23,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://www.x.org/releases/individual/lib/libXrender-<THIS.$VERSION>.tar.bz2
+    uri: 'https://www.x.org/releases/individual/lib/libXrender-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
