@@ -34,6 +34,7 @@
     "./lib/xcraft-core-http",
     "./lib/xcraft-core-horde",
     "./lib/xcraft-core-host",
+    "./lib/xcraft-core-journal",
     "./lib/xcraft-core-log",
     "./lib/xcraft-core-placeholder",
     "./lib/xcraft-core-platform",
