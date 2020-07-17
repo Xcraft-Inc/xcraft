@@ -1,0 +1,64 @@
+subpackage:
+  - runtime*
+name: lukyanov+lftp
+version: 4.9.1-2
+$version: 4.9.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A sophisticated file transfer program with command line interface.
+  long: 'LFTP is a sophisticated file transfer program with command line interface. It supports FTP, HTTP, FISH, SFTP, HTTPS and FTPS protocols. GNU Readline library is used for input. BitTorrent protocol is supported as built-in `torrent'' command.'
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    gnu+gnutls:
+      - version: ''
+        architecture: []
+    clark+expat:
+      - version: ''
+        architecture: []
+    gnu+readline:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://lftp.yar.ru/ftp/lftp-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION> ;
+    ./configure --prefix=<PEON.PREFIXDIR>
+                --enable-static
+                --disable-shared
+                --without-openssl
+                --with-readline=<PEON.ROOTDIR>/usr
+  rules:
+    type: make
+    location: data/lftp-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
