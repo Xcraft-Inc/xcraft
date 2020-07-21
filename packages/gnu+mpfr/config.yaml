@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+mpfr
-version: 4.0.2
-$version: 4.0.2
+version: 4.1.0
+$version: 4.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://www.mpfr.org/mpfr-current/mpfr-<THIS.$VERSION>.tar.xz'
+    uri: 'https://ftp.gnu.org/gnu/mpfr/mpfr-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
