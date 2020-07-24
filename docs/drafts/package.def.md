@@ -58,10 +58,10 @@ packages available in the `packages/` directory.
 For example, you must add a dependency on `libfoobar` where the version range is
 (>= 1.0 and < 2.0). In this case you must add two dependencies.
 
- 0. Add `libfoobar`
- 1. Set the range: `>= 1.0`
- 2. Add `libfoobar` a second time
- 3. Set the range: `<< 2.0`
+0.  Add `libfoobar`
+1.  Set the range: `>= 1.0`
+2.  Add `libfoobar` a second time
+3.  Set the range: `<< 2.0`
 
 The range is optional. You can return immediately if you have no restriction
 on the version.
@@ -78,7 +78,7 @@ name: libfoobar
 version: 0.1.0
 maintainer:
   name: John Doe
-  email: "john@doe.com"
+  email: 'john@doe.com'
 architecture:
   - win32-i386
   - linux-i386
@@ -88,7 +88,7 @@ description:
   long: It is dedicated to a test for a package definition file.
 dependency:
   libfoobar2:
-    - ">= 1.0"
+    - '>= 1.0'
     - << 2.0
 distribution: toolchain/
 ```

@@ -78,8 +78,8 @@ pacman.make srcpackage,@deps \
 ```
 
 It makes the srcpackage and its dependencies. The package will be created with
-the version 1.0.0, and because this package is related to a *git* repository,
-the tag *v1.0.0* will be used.
+the version 1.0.0, and because this package is related to a _git_ repository,
+the tag _v1.0.0_ will be used.
 
 > In this case, the reference can be a commit, a branch or a tag.
 
@@ -87,12 +87,12 @@ the tag *v1.0.0* will be used.
 
 A package is not re-maked if the files in its `packages/` have not changed.
 A timestamp is saved in the `var/xcraft-contrib-pacman/` directory with the
-current timestamp. Before a *make*, this timestamp is compared against all
+current timestamp. Before a _make_, this timestamp is compared against all
 timestamps (mtime) of the files available in `packages/`.
 
 > Note that if a `data.get.uri` target has changed, this mechanism will not
 > detect anything. File, repository, etc,... is only downloaded or copied
-> by the [xcraft-contrib-peon][4] (*make* or *install* time, it depends if the
+> by the [xcraft-contrib-peon][4] (_make_ or _install_ time, it depends if the
 > package embeds the data or not).
 
 Here an example where it can be a problem:
@@ -104,9 +104,9 @@ data:
     uri: home:///foobar
 ```
 
-The `foobar/` directory is located in the toolchain, but for *pacman*, it is
+The `foobar/` directory is located in the toolchain, but for _pacman_, it is
 just a data location like `http` for example. If you change something in the
-`foobar/` directory, nothing will be detected by *pacman*.
+`foobar/` directory, nothing will be detected by _pacman_.
 
 > Note that the version should probably change in this case. Then the package
 > will be processed because the definition file will have a newer timestamp.
@@ -123,8 +123,8 @@ is not found in the repository, the installation will fail.
 
 #### MS Windows and MSI
 
-Maybe you have a package with an *MSI* installer. In this case, it can be
-possible that this *MSI* needs a reboot in order to continue the
+Maybe you have a package with an _MSI_ installer. In this case, it can be
+possible that this _MSI_ needs a reboot in order to continue the
 installation. If it happens, you must restart the system, then you can send
 the same command again, then the next dependencies will be installed as
 expected.
@@ -145,7 +145,7 @@ It's possible to check if a package is already installed with this command.
 
 ### pacman.build
 
-When a package is a *source* package, then it's possible to use this
+When a package is a _source_ package, then it's possible to use this
 command in order to generate a binary package. Then all build steps are
 handled here. The new package is published in the repository. Then it's
 possible to install this new package in `devroot/`.
@@ -164,7 +164,6 @@ possibility to uninstall.
 The make command generates temporary files in `var/tmp/wpkg/`. Here, it's
 possible to remove these files. The make command is already using the clean
 command internally.
-
 
 [1]: xcraft-contrib-pacman.devroot.md
 [2]: xcraft-contrib-pacman.definition.md
