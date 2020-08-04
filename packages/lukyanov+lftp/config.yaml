@@ -11,7 +11,11 @@ architecture:
   - source
 description:
   brief: A sophisticated file transfer program with command line interface.
-  long: "LFTP is a sophisticated file transfer program with command line interface. It supports FTP, HTTP, FISH, SFTP, HTTPS and FTPS protocols. GNU Readline library is used for input. BitTorrent protocol is supported as built-in `torrent' command."
+  long: |-
+    LFTP is a sophisticated file transfer program with command line interface.
+    It supports FTP, HTTP, FISH, SFTP, HTTPS and FTPS protocols. GNU Readline
+    library is used for input. BitTorrent protocol is supported as built-in
+    'torrent' command.
 dependency:
   install:
     adler+zlib:
