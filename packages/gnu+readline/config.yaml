@@ -29,7 +29,7 @@ data:
     !cd <THIS.DATA.RULES.LOCATION> ;
     ./configure --prefix=<PEON.PREFIXDIR>
                 --enable-static
-                --disable-shared
+                --enable-shared
   rules:
     type: make
     location: data/readline-<THIS.$VERSION>/
