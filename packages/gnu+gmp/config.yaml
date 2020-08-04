@@ -33,8 +33,13 @@ data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
     ./configure --prefix=<PEON.PREFIXDIR>
+    <PEON.OS=darwin?
+                --enable-shared
+                --disable-static
+    :
                 --disable-shared
                 --enable-static
+    >
   rules:
     type: make
     location: data/gmp-<THIS.$VERSION>/
