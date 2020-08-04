@@ -34,7 +34,7 @@ data:
     !cd <THIS.DATA.RULES.LOCATION> ;
     ./configure --prefix=<PEON.PREFIXDIR>
                 --enable-static
-                --disable-shared
+                --enable-shared
                 --without-ada
                 --disable-db-install
                 --without-manpages
