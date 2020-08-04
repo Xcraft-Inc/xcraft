@@ -26,6 +26,11 @@ dependency:
     gnu+readline:
       - version: ''
         architecture: []
+    gnu+libncurses:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
   build:
     xcraft+base-build:
       - version: ''
