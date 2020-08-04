@@ -13,6 +13,10 @@ description:
   brief: a low-level cryptographic library
   long: ''
 dependency:
+  install:
+    gnu+gmp:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
