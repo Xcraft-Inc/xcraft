@@ -49,6 +49,9 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
+    <PEON.OS=linux?
+      export LIBS="-lreadline -lncurses" ;
+    :>
     ./configure --prefix=<PEON.PREFIXDIR>
                 --enable-static
                 --disable-shared
