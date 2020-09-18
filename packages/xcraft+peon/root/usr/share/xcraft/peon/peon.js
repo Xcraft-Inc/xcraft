@@ -312,6 +312,9 @@ class Action {
     );
 
     if (this._global) {
+      const regexReplace = (newFile, regex, pattern) =>
+        regex.test(newFile) ? newFile.replace(regex, pattern) : newFile;
+
       /* Restore the original filenames. */
       const list = yield this._listFromTar(tarFile);
 
@@ -321,24 +324,13 @@ class Action {
         /* TODO: keep a file with all copies, then it can be removed
          *       with postrm.
          */
-        if (/__peon_[0-9]+__/.test(newFile)) {
-          newFile = newFile.replace(/__peon_[0-9]+__/, '');
-        }
-        if (/__peon__/.test(newFile)) {
-          newFile = newFile.replace(/__peon__/, '');
-        }
-        if (/__peon_pipe__/.test(newFile)) {
-          newFile = newFile.replace(/__peon_pipe__/g, '|');
-        }
-        if (/__peon_space__/.test(newFile)) {
-          newFile = newFile.replace(/__peon_space__/g, ' ');
-        }
-        if (/__peon_quote__/.test(newFile)) {
-          newFile = newFile.replace(/__peon_quote__/g, '"');
-        }
-        if (/__peon_colon__/.test(newFile)) {
-          newFile = newFile.replace(/__peon_colon__/g, ':');
-        }
+        newFile = regexReplace(newFile, /__peon_[0-9]+__/, '');
+        newFile = regexReplace(newFile, /__peon__/, '');
+        newFile = regexReplace(newFile, /__peon_pipe__/g, '|');
+        newFile = regexReplace(newFile, /__peon_space__/g, ' ');
+        newFile = regexReplace(newFile, /__peon_quote__/g, '"');
+        newFile = regexReplace(newFile, /__peon_colon__/g, ':');
+
         if (/__peon_symlink__/.test(newFile)) {
           const target = fs.readFileSync(file).toString();
           newFile = newFile.replace(/__peon_symlink__/, '');
