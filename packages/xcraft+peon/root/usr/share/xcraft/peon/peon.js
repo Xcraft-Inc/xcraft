@@ -326,6 +326,11 @@ class Action {
          */
         newFile = regexReplace(newFile, /__peon_[0-9]+__/, '');
         newFile = regexReplace(newFile, /__peon__/, '');
+        newFile = regexReplace(
+          newFile,
+          /__peon_(aux|con|com[1-9]|lpt[1-9]|nul|prn)(\.[^.]*)?__/,
+          '$1$2'
+        );
         newFile = regexReplace(newFile, /__peon_pipe__/g, '|');
         newFile = regexReplace(newFile, /__peon_space__/g, ' ');
         newFile = regexReplace(newFile, /__peon_quote__/g, '"');
