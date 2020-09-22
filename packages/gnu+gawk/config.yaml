@@ -1,0 +1,44 @@
+subpackage:
+  - runtime*
+name: gnu+gawk
+version: 5.1.0-1
+$version: 5.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Effective AWK Programming.
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/gawk/gawk-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-nls --disable-mpfr'
+  rules:
+    type: make
+    location: data/gawk-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
