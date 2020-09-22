@@ -1,0 +1,48 @@
+subpackage:
+  - runtime*
+name: torvalds+linux-headers-x-aarch64-linux
+version: 5.8.10-5
+$version: 5.8.10
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Linux Kernel headers
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/linux-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make ARCH=arm64 INSTALL_HDR_PATH=<PEON.PREFIXDIR>/aarch64-linux headers_install'
+      maketest: ''
+      makeinstall: ''
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

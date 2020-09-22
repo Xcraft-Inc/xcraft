@@ -1,0 +1,91 @@
+subpackage:
+  - runtime*
+name: gnu+gcc-stage1-x-aarch64-linux
+version: 10.2.0-11
+$version: 10.2.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'GCC, the GNU Compiler Collection.'
+  long: |-
+    The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+    Fortran, Java, Ada, and Go, as well as libraries for these languages
+    (libstdc++, libgcj,...).
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    gnu+gcc-stage0-x-aarch64-linux:
+      - version: ''
+        architecture: []
+    gnu+glibc-stage0-x-aarch64-linux:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd data/gcc-<THIS.$VERSION>/
+      && (mkdir objdir || :)
+      && cd objdir
+      && export CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+                C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+                LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+      && ../configure --prefix=<PEON.PREFIXDIR>
+                      --enable-languages=c,c++
+                      --target=aarch64-linux
+                      --disable-multilib
+                      --disable-nls
+                      --disable-shared
+                      --disable-libssp
+                      --with-sysroot=<PEON.ROOTDIR>/usr/aarch64-linux
+                      --with-gmp=<PEON.ROOTDIR>/usr
+                      --with-mpfr=<PEON.ROOTDIR>/usr
+                      --with-mpc=<PEON.ROOTDIR>/usr
+                      --with-isl=<PEON.ROOTDIR>/usr
+  rules:
+    type: script
+    location: data/gcc-<THIS.$VERSION>/objdir
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+                C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+                LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make -j<PEON.CPUS.COUNT> all-target-libgcc
+      maketest: ''
+      makeinstall: |-
+        !export CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+                C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+                LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make install-target-libgcc
+    test: none
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/share/info/dir');
+    rm('<PEON.PREFIXDIR>/share/man/man7');
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

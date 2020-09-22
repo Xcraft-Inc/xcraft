@@ -1,0 +1,99 @@
+subpackage:
+  - runtime*
+name: gnu+glibc-stage0-x-aarch64-linux
+version: 2.32-15
+$version: '2.32'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU C Library
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    gnu+gawk:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+    gnu+gcc-stage0-x-aarch64-linux:
+      - version: ''
+        architecture: []
+    torvalds+linux-headers-x-aarch64-linux:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd data/glibc-<THIS.$VERSION>/
+      && (mkdir objdir || :)
+      && cd objdir
+      && export CC=aarch64-linux-gcc
+                CXX=aarch64-linux-g++
+                CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+      && ../configure --prefix=<PEON.PREFIXDIR>/aarch64-linux
+                      --build=$MACHTYPE
+                      --host=aarch64-linux
+                      --target=aarch64-linux
+                      --with-headers=<PEON.ROOTDIR>/usr/aarch64-linux/include
+                      --disable-multilib
+                      libc_cv_forced_unwind=yes
+  rules:
+    type: script
+    location: data/glibc-<THIS.$VERSION>/objdir
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export CC=aarch64-linux-gcc
+                CXX=aarch64-linux-g++
+                CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+          && make install-bootstrap-headers=yes install-headers
+          && make -j<PEON.CPUS.COUNT> csu/subdir_lib'
+      maketest: ''
+      makeinstall: |-
+        !export CC=aarch64-linux-gcc
+                CXX=aarch64-linux-g++
+                CFLAGS=
+                CXXFLAGS=
+                LDFLAGS=
+                CPPFLAGS=
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t <PEON.PREFIXDIR>/aarch64-linux/lib -D
+          && $CC -nostdlib
+                 -nostartfiles
+                 -shared
+                 -x c /dev/null
+                 -o <PEON.PREFIXDIR>/aarch64-linux/lib/libc.so
+          && touch <PEON.PREFIXDIR>/aarch64-linux/include/gnu/stubs.h
+          && mkdir <PEON.PREFIXDIR>/aarch64-linux/usr
+          && ln -s ../include <PEON.PREFIXDIR>/aarch64-linux/usr/include
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
