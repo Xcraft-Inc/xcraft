@@ -23,6 +23,9 @@ dependency:
     x-aarch64-linux+gnu-gcc-stage1:
       - version: ''
         architecture: []
+    x-aarch64-linux+gnu-glibc-stage1:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
@@ -51,7 +54,7 @@ data:
           && make install-target-libstdc++-v3
           && touch ../xcraft-stage2
     test: none
-  deploy: ''
+  deploy: 'mv(''<PEON.ROOTDIR>/var/tmp/x-aarch64-linux'', ''<PEON.PREFIXDIR>/usr'');'
   env:
     path: []
     other: {}
