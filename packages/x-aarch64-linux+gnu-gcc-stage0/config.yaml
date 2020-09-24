@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: gnu+gcc-stage0-x-aarch64-linux
+name: x-aarch64-linux+gnu-gcc-stage0
 version: 10.2.0-17
 $version: 10.2.0
 distribution: toolchain/
@@ -60,7 +60,7 @@ dependency:
     inria+isl:
       - version: '>= 0.15'
         architecture: []
-    gnu+binutils-x-aarch64-linux:
+    x-aarch64-linux+gnu-binutils:
       - version: ''
         architecture: []
 data:
@@ -72,9 +72,9 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !rm -rf "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
-      && cp -a data/gcc-<THIS.$VERSION> "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
-      && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
+    !rm -rf "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc"
+      && cp -a data/gcc-<THIS.$VERSION> "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc"
+      && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc"
       && (mkdir -p objdir || :)
       && cd objdir
       && export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
@@ -97,12 +97,12 @@ data:
       prerm: ''
       makeall: |-
         !export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc/objdir"
           && make -j<PEON.CPUS.COUNT> all-gcc
       maketest: ''
       makeinstall: |-
         !export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc/objdir"
           && make install-gcc
           && touch ../xcraft-stage0
     test: none

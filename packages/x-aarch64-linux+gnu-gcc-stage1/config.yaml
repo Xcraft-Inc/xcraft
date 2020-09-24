@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: gnu+gcc-final-x-aarch64-linux
-version: 10.2.0-14
+name: x-aarch64-linux+gnu-gcc-stage1
+version: 10.2.0-21
 $version: 10.2.0
 distribution: toolchain/
 maintainer:
@@ -20,7 +20,10 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    gnu+glibc-stage1-x-aarch64-linux:
+    x-aarch64-linux+gnu-gcc-stage0:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-glibc-stage0:
       - version: ''
         architecture: []
 data:
@@ -41,15 +44,15 @@ data:
       makeall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
                 CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
-          && make -j<PEON.CPUS.COUNT> all-target-libstdc++-v3
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc/objdir"
+          && make -j<PEON.CPUS.COUNT> all-target-libgcc
       maketest: ''
       makeinstall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
                 CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
-          && make install-target-libstdc++-v3
-          && touch ../xcraft-final
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc/objdir"
+          && make install-target-libgcc
+          && touch ../xcraft-stage1
     test: none
   deploy: ''
   env:

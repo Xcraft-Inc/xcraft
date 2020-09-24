@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: gnu+glibc-stage1-x-aarch64-linux
+name: x-aarch64-linux+gnu-glibc-stage1
 version: 2.32-8
 $version: '2.32'
 distribution: toolchain/
@@ -20,10 +20,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
-    gnu+gcc-stage1-x-aarch64-linux:
+    x-aarch64-linux+gnu-gcc-stage1:
       - version: ''
         architecture: []
-    torvalds+linux-headers-x-aarch64-linux:
+    x-aarch64-linux+linux-headers:
       - version: ''
         architecture: []
 data:
@@ -44,13 +44,13 @@ data:
       makeall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
                 CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-glibc/objdir"
           && make -j<PEON.CPUS.COUNT>'
       maketest: ''
       makeinstall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
                 CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
+          && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-glibc/objdir"
           && make install
           && touch ../xcraft-stage1
     test: none

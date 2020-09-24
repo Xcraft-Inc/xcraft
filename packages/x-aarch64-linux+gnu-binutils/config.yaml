@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: gnu+binutils-x-aarch64-linux
+name: x-aarch64-linux+gnu-binutils
 version: 2.32-3
 $version: '2.32'
 distribution: toolchain/
