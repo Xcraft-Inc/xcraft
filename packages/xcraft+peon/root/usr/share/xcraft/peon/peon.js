@@ -165,10 +165,10 @@ class Action {
   }
 
   _targetRootFix(file) {
-    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/][^"'\n$]+[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime/g;
+    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/](?:(?![\\/]install[\\/]runtime)[^"'\n$])*[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime([\\/]?[^"'\n$ ]+)?/g;
 
     try {
-      if (xFs.sed(file, regex, this._root)) {
+      if (xFs.sed(file, regex, `${this._root}$1`)) {
         this._resp.log.warn(`target root fixed for ${file}`);
       }
       return true;
