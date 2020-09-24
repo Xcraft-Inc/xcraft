@@ -54,7 +54,7 @@ data:
           && make install-target-libstdc++-v3
           && touch ../xcraft-stage2
     test: none
-  deploy: 'mv(''<PEON.ROOTDIR>/var/tmp/x-aarch64-linux'', ''<PEON.PREFIXDIR>/usr'');'
+  deploy: 'mv(''<PEON.ROOTDIR>/var/tmp/x-aarch64-linux'', ''<PEON.PREFIXDIR>'');'
   env:
     path: []
     other: {}
