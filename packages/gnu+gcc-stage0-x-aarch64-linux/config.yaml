@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gcc-stage0-x-aarch64-linux
-version: 10.2.0-11
+version: 10.2.0-17
 $version: 10.2.0
 distribution: toolchain/
 maintainer:
@@ -63,9 +63,6 @@ dependency:
     gnu+binutils-x-aarch64-linux:
       - version: ''
         architecture: []
-    torvalds+linux-headers-x-aarch64-linux:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
@@ -75,14 +72,13 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd data/gcc-<THIS.$VERSION>/
-      && (mkdir objdir || :)
+    !rm -rf "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
+      && cp -a data/gcc-<THIS.$VERSION> "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
+      && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux"
+      && (mkdir -p objdir || :)
       && cd objdir
-      && export CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
-      && ../configure --prefix=<PEON.PREFIXDIR>
+      && export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+      && ../configure --prefix="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux"
                       --enable-languages=c,c++
                       --target=aarch64-linux
                       --disable-multilib
@@ -95,27 +91,22 @@ data:
                       --with-isl=<PEON.ROOTDIR>/usr
   rules:
     type: script
-    location: data/gcc-<THIS.$VERSION>/objdir
+    location: data/gcc-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
       makeall: |-
-        !export CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
+        !export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
           && make -j<PEON.CPUS.COUNT> all-gcc
       maketest: ''
       makeinstall: |-
-        !export CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
+        !export CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
           && make install-gcc
+          && touch ../xcraft-stage0
     test: none
-  deploy: |-
-    rm('<PEON.PREFIXDIR>/share/info/dir');
-    rm('<PEON.PREFIXDIR>/share/man/man7');
+  deploy: ''
   env:
     path: []
     other: {}

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+binutils-x-aarch64-linux
-version: 2.32-2
+version: 2.32-3
 $version: '2.32'
 distribution: toolchain/
 maintainer:
@@ -30,17 +30,17 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
+    ./configure --prefix="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux"
+                --target=aarch64-linux
+                --disable-multilib
+                --disable-nls
                 --with-gmp=<PEON.ROOTDIR>/usr
                 --with-mpfr=<PEON.ROOTDIR>/usr
                 --with-mpc=<PEON.ROOTDIR>/usr
                 --with-isl=<PEON.ROOTDIR>/usr
-                --target=aarch64-linux
-                --disable-multilib
-                --disable-nls
   rules:
     type: make
-    location: data/binutils-<THIS.$VERSION>/
+    location: data/binutils-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -48,7 +48,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: rm('<PEON.PREFIXDIR>/share/info')
+  deploy: ''
   env:
     path: []
     other: {}

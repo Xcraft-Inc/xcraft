@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: torvalds+linux-headers-x-aarch64-linux
-version: 5.8.10-5
+version: 5.8.10-6
 $version: 5.8.10
 distribution: toolchain/
 maintainer:
@@ -31,11 +31,11 @@ data:
   configure: ''
   rules:
     type: script
-    location: data/linux-<THIS.$VERSION>/
+    location: data/linux-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '!make ARCH=arm64 INSTALL_HDR_PATH=<PEON.PREFIXDIR>/aarch64-linux headers_install'
+      makeall: '!make ARCH=arm64 INSTALL_HDR_PATH=<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux headers_install'
       maketest: ''
       makeinstall: ''
     test: none

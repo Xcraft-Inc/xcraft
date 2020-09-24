@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+glibc-stage0-x-aarch64-linux
-version: 2.32-15
+version: 2.32-26
 $version: '2.32'
 distribution: toolchain/
 maintainer:
@@ -41,54 +41,42 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd data/glibc-<THIS.$VERSION>/
+    !rm -rf "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux"
+      && cp -a data/glibc-<THIS.$VERSION> "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux"
+      && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux"
       && (mkdir objdir || :)
       && cd objdir
-      && export CC=aarch64-linux-gcc
-                CXX=aarch64-linux-g++
-                CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
-      && ../configure --prefix=<PEON.PREFIXDIR>/aarch64-linux
+      && export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
+                CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+      && ../configure --prefix="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux"
                       --build=$MACHTYPE
                       --host=aarch64-linux
                       --target=aarch64-linux
-                      --with-headers=<PEON.ROOTDIR>/usr/aarch64-linux/include
+                      --with-headers=<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux/include
                       --disable-multilib
                       libc_cv_forced_unwind=yes
   rules:
     type: script
-    location: data/glibc-<THIS.$VERSION>/objdir
+    location: data/glibc-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
       makeall: |-
-        !export CC=aarch64-linux-gcc
-                CXX=aarch64-linux-g++
-                CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
+        !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
+                CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
           && make install-bootstrap-headers=yes install-headers
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib'
       maketest: ''
       makeinstall: |-
-        !export CC=aarch64-linux-gcc
-                CXX=aarch64-linux-g++
-                CFLAGS=
-                CXXFLAGS=
-                LDFLAGS=
-                CPPFLAGS=
-          && install csu/crt1.o csu/crti.o csu/crtn.o -t <PEON.PREFIXDIR>/aarch64-linux/lib -D
-          && $CC -nostdlib
-                 -nostartfiles
-                 -shared
-                 -x c /dev/null
-                 -o <PEON.PREFIXDIR>/aarch64-linux/lib/libc.so
-          && touch <PEON.PREFIXDIR>/aarch64-linux/include/gnu/stubs.h
-          && mkdir <PEON.PREFIXDIR>/aarch64-linux/usr
-          && ln -s ../include <PEON.PREFIXDIR>/aarch64-linux/usr/include
+        !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
+                CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux/lib" -D
+          && aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null
+                               -o "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux/lib/libc.so"
+          && touch "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux/include/gnu/stubs.h"
+          && touch ../xcraft-stage0
     test: none
   deploy: ''
   env:

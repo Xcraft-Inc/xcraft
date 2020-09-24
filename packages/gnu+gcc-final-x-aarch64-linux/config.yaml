@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: gnu+glibc-stage1-x-aarch64-linux
-version: 2.32-8
-$version: '2.32'
+name: gnu+gcc-final-x-aarch64-linux
+version: 10.2.0-14
+$version: 10.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,20 +10,17 @@ maintainer:
 architecture:
   - source
 description:
-  brief: The GNU C Library
-  long: ''
+  brief: 'GCC, the GNU Compiler Collection.'
+  long: |-
+    The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+    Fortran, Java, Ada, and Go, as well as libraries for these languages
+    (libstdc++, libgcj,...).
 dependency:
   build:
     xcraft+peon:
       - version: ''
         architecture: []
-    xcraft+base-build:
-      - version: ''
-        architecture: []
-    gnu+gcc-stage1-x-aarch64-linux:
-      - version: ''
-        architecture: []
-    torvalds+linux-headers-x-aarch64-linux:
+    gnu+glibc-stage1-x-aarch64-linux:
       - version: ''
         architecture: []
 data:
@@ -43,16 +40,16 @@ data:
       prerm: ''
       makeall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
-                CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
-          && make -j<PEON.CPUS.COUNT>'
+                CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
+          && make -j<PEON.CPUS.COUNT> all-target-libstdc++-v3
       maketest: ''
       makeinstall: |-
         !export PATH="<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/bin:$PATH"
-                CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
-          && cd "<PEON.ROOTDIR>/var/tmp/gnu+glibc-x-aarch64-linux/objdir"
-          && make install
-          && touch ../xcraft-stage1
+                CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+          && cd "<PEON.ROOTDIR>/var/tmp/gnu+gcc-x-aarch64-linux/objdir"
+          && make install-target-libstdc++-v3
+          && touch ../xcraft-final
     test: none
   deploy: ''
   env:
