@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-stage0
-version: 10.2.0-17
+version: 10.2.0-19
 $version: 10.2.0
 distribution: toolchain/
 maintainer:

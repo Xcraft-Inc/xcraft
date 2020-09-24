@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: x-aarch64-linux+linux-headers
-version: 5.8.10-8
-$version: 5.8.10
+name: x-aarch64-linux+gnu-gcc-glibc
+version: 10.2-2.32-0
+$version: 10.2-2.32
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,39 +10,40 @@ maintainer:
 architecture:
   - source
 description:
-  brief: The Linux Kernel headers
+  brief: AARCH64 GCC cross-compiler
   long: ''
 dependency:
   build:
     xcraft+peon:
       - version: ''
         architecture: []
-    xcraft+base-build:
+    x-aarch64-linux+gnu-gcc-stage2:
       - version: ''
         architecture: []
 data:
   get:
-    uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'
+    uri: ''
     ref: ''
     out: ''
-    externals: true
+    externals: false
     prepare: ''
   type: src
-  configure: ''
+  configure: rm('<PEON.ROOTDIR>/var/tmp/x-aarch64-linux');
   rules:
     type: script
-    location: data/linux-<THIS.$VERSION>
+    location: ''
     args:
       postinst: ''
       prerm: ''
-      makeall: |-
-        !make ARCH=arm64
-              INSTALL_HDR_PATH=<PEON.ROOTDIR>/var/tmp/x-aarch64-linux/aarch64-linux
-              headers_install
+      makeall: ''
       maketest: ''
       makeinstall: ''
     test: none
-  deploy: ''
+  deploy: |-
+    mv('<PEON.ROOTDIR>/var/tmp/x-aarch64-linux', '<PEON.PREFIXDIR>'';
+    rm('<PEON.PREFIXDIR>/share/info');
+    rm('<PEON.PREFIXDIR>/share/man/man7');
+    rm('<PEON.PREFIXDIR>/share/gcc-10.2.0');
   env:
     path: []
     other: {}

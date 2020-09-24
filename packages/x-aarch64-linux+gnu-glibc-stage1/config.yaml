@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-glibc-stage1
-version: 2.32-8
+version: 2.32-9
 $version: '2.32'
 distribution: toolchain/
 maintainer:
@@ -28,7 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'self:///root'
+    uri: ''
     ref: ''
     out: ''
     externals: true
@@ -52,7 +52,8 @@ data:
                 CC= CXX= CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
           && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-glibc/objdir"
           && make install
-          && touch ../xcraft-stage1
+          && cd -
+          && rm -rf "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-glibc"
     test: none
   deploy: ''
   env:

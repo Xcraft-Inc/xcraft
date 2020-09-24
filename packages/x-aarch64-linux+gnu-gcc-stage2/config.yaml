@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-stage2
-version: 10.2.0-14
+version: 10.2.0-17
 $version: 10.2.0
 distribution: toolchain/
 maintainer:
@@ -28,7 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'self:///root'
+    uri: ''
     ref: ''
     out: ''
     externals: true
@@ -52,9 +52,10 @@ data:
                 CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
           && cd "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc/objdir"
           && make install-target-libstdc++-v3
-          && touch ../xcraft-stage2
+          && cd -
+          && rm -rf "<PEON.ROOTDIR>/var/tmp/x-aarch64-linux+gnu-gcc"
     test: none
-  deploy: 'mv(''<PEON.ROOTDIR>/var/tmp/x-aarch64-linux'', ''<PEON.PREFIXDIR>'');'
+  deploy: ''
   env:
     path: []
     other: {}
