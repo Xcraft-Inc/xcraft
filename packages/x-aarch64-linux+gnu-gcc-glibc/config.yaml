@@ -10,14 +10,69 @@ maintainer:
 architecture:
   - source
 description:
-  brief: AARCH64 GCC cross-compiler
+  brief: AARCH64 GCC/glibc cross-compiler
   long: ''
 dependency:
   build:
     xcraft+peon:
       - version: ''
         architecture: []
-    x-aarch64-linux+gnu-gcc-stage2:
+    estes+flex:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+    gnu+bison:
+      - version: ''
+        architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+    wall+perl:
+      - version: ''
+        architecture: []
+    gnu+coreutils:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 2.4.2'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 0.8.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
+    gnu+gawk:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-binutils:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+linux-kernel:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-glibc:
       - version: ''
         architecture: []
 data:
@@ -28,19 +83,102 @@ data:
     externals: false
     prepare: ''
   type: src
-  configure: rm('<PEON.ROOTDIR>/var/tmp/x-aarch64-linux');
+  configure: |-
+    mkdir('data/binutils');
+    mkdir('data/gcc');
+    mkdir('data/glibc');
   rules:
     type: script
-    location: ''
+    location: data
     args:
       postinst: ''
       prerm: ''
-      makeall: ''
+      makeall: |-
+        !export PATH="<PEON.PREFIXDIR>/bin:$PATH"
+                CFLAGS= CXXFLAGS= LDFLAGS= CPPFLAGS=
+        && _CC=$CC _CXX=$CXX
+
+        && : /// binutils ///
+          && cd binutils
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/binutils/configure"
+          && $CONFIGURE --prefix="<PEON.PREFIXDIR>"
+                        --target=aarch64-linux
+                        --disable-multilib
+                        --disable-nls
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+          && make -j<PEON.CPUS.COUNT>
+          && make install
+          && cd ..
+
+        && : /// gcc - stage 0 ///
+          && cd gcc
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/gcc/configure"
+          && $CONFIGURE --prefix="<PEON.PREFIXDIR>"
+                        --enable-languages=c,c++
+                        --target=aarch64-linux
+                        --disable-multilib
+                        --disable-nls
+                        --disable-shared
+                        --disable-libssp
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+          && make -j<PEON.CPUS.COUNT> all-gcc
+          && make install-gcc
+          && cd ..
+
+        && : /// linux - headers ///
+          && make -C "<PEON.ROOTDIR>/var/x-aarch64-linux/linux"
+                  ARCH=arm64
+                  INSTALL_HDR_PATH="<PEON.PREFIXDIR>/aarch64-linux"
+                  headers_install
+
+        && : /// glibc - stage 0 ///
+          && cd glibc
+          && unset CC CXX
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/glibc/configure"
+          && $CONFIGURE --prefix="<PEON.PREFIXDIR>/aarch64-linux"
+                        --build=$MACHTYPE
+                        --host=aarch64-linux
+                        --target=aarch64-linux
+                        --with-headers="<PEON.PREFIXDIR>/aarch64-linux/include"
+                        --disable-multilib
+                        libc_cv_forced_unwind=yes
+          && make install-bootstrap-headers=yes install-headers
+          && make -j<PEON.CPUS.COUNT> csu/subdir_lib'
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/aarch64-linux/lib" -D
+          && aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null
+                               -o "<PEON.PREFIXDIR>/aarch64-linux/lib/libc.so"
+          && touch "<PEON.PREFIXDIR>/aarch64-linux/include/gnu/stubs.h"
+          && cd ..
+
+        && : /// gcc - stage 1 ///
+          && cd gcc
+          && export CC=$_CC CXX=$_CXX
+          && make -j<PEON.CPUS.COUNT> all-target-libgcc
+          && make install-target-libgcc
+          && cd ..
+
+        && : /// glibc - stage 1 ///
+          && cd glibc
+          && unset CC CXX
+          && make -j<PEON.CPUS.COUNT>
+          && make install
+          && cd ..
+
+        && : /// gcc - stage 2 ///
+          && cd gcc
+          && export CC=$_CC CXX=$_CXX
+          && make -j<PEON.CPUS.COUNT> all-target-libstdc++-v3
+          && make install-target-libstdc++-v3
       maketest: ''
       makeinstall: ''
     test: none
   deploy: |-
-    mv('<PEON.ROOTDIR>/var/tmp/x-aarch64-linux', '<PEON.PREFIXDIR>'';
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
     rm('<PEON.PREFIXDIR>/share/gcc-10.2.0');

@@ -1,6 +1,6 @@
-name: x-aarch64-linux+gnu-binutils
-version: '2.32'
-$version: '2.32'
+name: x-aarch64-linux+linux-kernel
+version: 5.8.10
+$version: 5.8.10
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - all
 description:
-  brief: GNU Bin Utils.
+  brief: The Linux Kernel
   long: ''
 dependency:
   install:
@@ -17,12 +17,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.xz'
+    uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: "mv('data/binutils-<THIS.$VERSION>', 'root/var/x-aarch64-linux/binutils');"
+  configure: 'mv(''data/linux-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/linux'');'
   rules:
     type: move
     location: root

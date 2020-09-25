@@ -1,4 +1,4 @@
-name: x-aarch64-linux+gnu-binutils
+name: x-aarch64-linux+gnu-glibc
 version: '2.32'
 $version: '2.32'
 distribution: toolchain/
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - all
 description:
-  brief: GNU Bin Utils.
+  brief: The GNU C Library
   long: ''
 dependency:
   install:
@@ -17,12 +17,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: "mv('data/binutils-<THIS.$VERSION>', 'root/var/x-aarch64-linux/binutils');"
+  configure: 'mv(''data/glibc-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/glibc'');'
   rules:
     type: move
     location: root
