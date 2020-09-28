@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: vlasenko+busybox
+version: 1.32.0-7
+$version: 1.32.0
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Thw Swiss Army Knife of Embedded Linux
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.busybox.net/downloads/busybox-<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
+      && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
+  rules:
+    type: script
+    location: data/busybox-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: |-
+        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- install CONFIG_PREFIX="<PEON.INSTALLDIR>"
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
