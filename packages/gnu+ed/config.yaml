@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: gnu+ed
+version: 1.16-4
+$version: '1.16'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: An arbitrary precision numeric processing language.
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+  make:
+    diaz+lzip:
+      - version: ''
+        architecture: []
+    gnu+tar:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/ed/ed-<THIS.$VERSION>.tar.lz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: |-
+      !mkdir data
+        && tar xf ed-<THIS.$VERSION>.tar.lz -C data
+        && rm -f ed-<THIS.$VERSION>.tar.lz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+  rules:
+    type: make
+    location: data/ed-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
