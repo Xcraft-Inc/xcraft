@@ -1,0 +1,59 @@
+subpackage:
+  - runtime*
+name: linux+kernel
+version: 5.8.10-3
+$version: 5.8.10
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Linux Kernel
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    gnu+bc:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
+  rules:
+    type: script
+    location: data/linux-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: |-
+        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
+          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
+          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- INSTALL_PATH="<PEON.INSTALLDIR>" install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
