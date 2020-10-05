@@ -20,7 +20,7 @@ dependency:
     gnu+bc:
       - version: ''
         architecture: []
-    x-aarch64-linux+gnu-gcc-glibc:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
       - version: ''
         architecture: []
 data:
@@ -35,20 +35,14 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
   rules:
-    type: script
+    type: make
     location: data/linux-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: |-
-        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
-          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
-          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
+      makeall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
       maketest: ''
-      makeinstall: |-
-        !export C_INCLUDE_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/include"
-          && export LIBRARY_PATH="<PEON.ROOTDIR>/usr/aarch64-linux/lib"
-          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- INSTALL_PATH="<PEON.INSTALLDIR>" install
+      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- INSTALL_PATH="<PEON.INSTALLDIR>" install
     test: none
   deploy: ''
   env:

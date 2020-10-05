@@ -22,7 +22,7 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: 'mv(''data/linux-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/linux'');'
+  configure: "mv('data/linux-<THIS.$VERSION>', 'root/var/x-aarch64-linux/linux');"
   rules:
     type: move
     location: root
