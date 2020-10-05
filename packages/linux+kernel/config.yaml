@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: linux+kernel
-version: 5.8.10-3
-$version: 5.8.10
+version: 5.8.13-1
+$version: 5.8.13
 distribution: carnotzet/
 maintainer:
   name: Mathieu Schroeter

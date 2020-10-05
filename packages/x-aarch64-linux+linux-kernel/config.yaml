@@ -1,6 +1,6 @@
 name: x-aarch64-linux+linux-kernel
-version: 5.8.10
-$version: 5.8.10
+version: 5.8.13
+$version: 5.8.13
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
