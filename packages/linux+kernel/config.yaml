@@ -13,6 +13,10 @@ description:
   brief: The Linux Kernel
   long: ''
 dependency:
+  install:
+    vlasenko+busybox:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -34,6 +38,8 @@ data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
+      && sed -i 's,^CONFIG_INITRAMFS_SOURCE="",CONFIG_INITRAMFS_SOURCE="<PEON.PROD.ROOTDIR>/var/aarch64-linux/rootfs"\nCONFIG_INITRAMFS_COMPRESSION_GZIP=y,' .config
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- olddefconfig
       && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
   rules:
     type: script
