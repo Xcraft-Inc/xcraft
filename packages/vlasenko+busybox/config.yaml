@@ -32,6 +32,7 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
       && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
+      && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
   rules:
     type: make
     location: data/busybox-<THIS.$VERSION>
@@ -40,7 +41,7 @@ data:
       prerm: ''
       makeall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
       maketest: ''
-      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- install CONFIG_PREFIX="<PEON.INSTALLDIR>"
+      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
     test: none
   deploy: ''
   env:
