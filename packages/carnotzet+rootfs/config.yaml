@@ -1,0 +1,45 @@
+subpackage:
+  - runtime*
+name: carnotzet+rootfs
+version: 0.1.0-13
+$version: 0.1.0
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Carnotzet Root Filesystem
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'self:///root'
+    ref: ''
+    out: ''
+    externals: false
+    prepare: 'cp(''.'', ''<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data'');'
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: ''
+      maketest: ''
+      makeinstall: 'cp(''.'', ''<PEON.INSTALLDIR>'')'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
