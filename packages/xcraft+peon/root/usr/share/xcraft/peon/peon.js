@@ -355,6 +355,23 @@ class Action {
               fs.chmodSync(newFile, mode);
             }
           });
+        } else {
+          const st = fs.lstatSync(file);
+          if (st.isSymbolicLink()) {
+            let target = fs.readlinkSync(file);
+            target = path.relative(
+              path.dirname(path.join(this._root, file)),
+              target
+            );
+            try {
+              fs.unlinkSync(file);
+            } catch (ex) {
+              if (ex.code !== 'ENOENT') {
+                throw ex;
+              }
+            }
+            fs.symlinkSync(target, file);
+          }
         }
       });
       return;
