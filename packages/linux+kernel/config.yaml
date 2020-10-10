@@ -55,7 +55,7 @@ data:
           && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
-        !make ARCH=arm64
+        !: /// disable module installation /// make ARCH=arm64
               CROSS_COMPILE=aarch64-linux-
               INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
             modules_install
