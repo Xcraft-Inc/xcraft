@@ -43,7 +43,7 @@ data:
       maketest: ''
       makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
     test: none
-  deploy: ''
+  deploy: rm("<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/linuxrc");
   env:
     path: []
     other: {}
