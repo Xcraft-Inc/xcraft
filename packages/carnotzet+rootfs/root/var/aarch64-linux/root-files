@@ -10,4 +10,4 @@ dir /proc 0755 0 0
 dir /sys 0755 0 0
 dir /sys/kernel 0755 0 0
 dir /sys/kernel/debug 0755 0 0
-dir /root 0755 0 0
+dir /root 0700 0 0
