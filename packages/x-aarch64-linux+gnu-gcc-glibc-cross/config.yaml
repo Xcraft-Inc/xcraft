@@ -127,9 +127,11 @@ data:
                         --target=aarch64-linux
                         --enable-static
                         --enable-shared
+                        --enable-host-shared
                         --disable-multilib
                         --disable-nls
                         --disable-libssp
+                        --with-pic
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
