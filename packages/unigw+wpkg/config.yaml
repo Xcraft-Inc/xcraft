@@ -1,0 +1,61 @@
+subpackage:
+  - runtime*
+name: unigw+wpkg
+version: 1.0.2-25
+$version: 1.0.2
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A Unix Packager For MS-Windows Systems
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/ceac57545ce3f759ce7621020c9a6112c54d0234.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cd <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cmake ..
+      && make
+      && cd -
+      && cd <THIS.DATA.RULES.LOCATION>
+      && cmake -G "Unix Makefiles"
+              -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-aarch64-linux.cmake
+              ..
+      && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
+  rules:
+    type: script
+    location: data/wpkg-ceac57545ce3f759ce7621020c9a6112c54d0234/build
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export PATH="$(pwd):$PATH"
+          && make -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: 'cp("<THIS.DATA.RULES.LOCATION>/dist/usr", "<PEON.INSTALLDIR>")'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
