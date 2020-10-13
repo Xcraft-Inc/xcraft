@@ -17,6 +17,9 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
     estes+flex:
       - version: ''
         architecture: []
