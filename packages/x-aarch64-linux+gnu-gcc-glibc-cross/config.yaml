@@ -125,9 +125,10 @@ data:
           && $CONFIGURE --prefix="<PEON.PREFIXDIR>"
                         --enable-languages=c,c++
                         --target=aarch64-linux
+                        --enable-static
+                        --enable-shared
                         --disable-multilib
                         --disable-nls
-                        --disable-shared
                         --disable-libssp
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
