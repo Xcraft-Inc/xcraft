@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   build:
-    xcraft+peon:
+    xcraft+base-build:
       - version: ''
         architecture: []
     xcraft+utils:
