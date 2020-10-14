@@ -20,6 +20,9 @@ dependency:
     vlasenko+busybox:
       - version: ''
         architecture: []
+    unigw+wpkg:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
