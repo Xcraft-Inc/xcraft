@@ -17,6 +17,9 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
@@ -34,7 +37,12 @@ data:
       prerm: ''
       makeall: ''
       maketest: ''
-      makeinstall: 'cp(''.'', ''<PEON.INSTALLDIR>'')'
+      makeinstall: |-
+        cp('.', '<PEON.INSTALLDIR>');
+        cp('<PEON.ROOTDIR>/usr/aarch64-linux/lib/libm-2.32.so', '<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/lib/libm.so.6');
+        cp('<PEON.ROOTDIR>/usr/aarch64-linux/lib/libc-2.32.so', '<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/lib/libc.so.6');
+        cp('<PEON.ROOTDIR>/usr/aarch64-linux/lib/ld-linux-aarch64.so.1', '<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/lib/ld-linux-aarch64.so.1');
+        cp('<PEON.ROOTDIR>/usr/aarch64-linux/lib/ld-2.32.so', '<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/lib/ld-2.32.so');
     test: none
   deploy: ''
   env:
