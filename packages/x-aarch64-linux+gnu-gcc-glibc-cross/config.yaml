@@ -193,9 +193,15 @@ data:
     rm('<PEON.PREFIXDIR>/share/gcc-10.2.0');
     mkdir('<PEON.PREFIXDIR>/local/bin');
     const exp =
-      'export LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/lib\n' +
-      'export C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/include\n' +
-      'unset CPLUS_INCLUDE_PATH\n';
+      'unset CPLUS_INCLUDE_PATH\n' +
+      'LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/lib\n' +
+      'C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/include\n' +
+      'if [ ! -z "${PEON_SHARE}" ]; then\n' +
+      '    CCACHE_BASEDIR=${PEON_SHARE}\n' +
+      'else\n' +
+      '    CCACHE_BASEDIR=${XCRAFT_TARGETROOT}\n' +
+      'fi\n' +
+      'export LIBRARY_PATH C_INCLUDE_PATH CCACHE_BASEDIR\n';
     for (const bin of ['gcc', 'g++', 'ld']) {
       const ccache = bin !== 'ld' ? 'CCACHE=\ncommand -v ccache >/dev/null 2>&1 && CCACHE=ccache\n$CCACHE ' : '';
       yield exec(

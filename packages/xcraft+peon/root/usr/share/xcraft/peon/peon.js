@@ -526,6 +526,8 @@ if (process.argv.length >= 4) {
 
   const share = guessSharePath(root, process.argv[3], pkg);
 
+  process.env.PEON_SHARE = share;
+
   let resp;
   const xBusClient = require('xcraft-core-busclient');
   resp = xBusClient.newResponse(moduleName);

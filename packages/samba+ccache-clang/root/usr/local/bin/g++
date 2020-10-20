@@ -1,1 +1,10 @@
-ccache
+#!/bin/bash
+
+if [ ! -z "${PEON_SHARE}" ]; then
+    CCACHE_BASEDIR=${PEON_SHARE}
+else
+    CCACHE_BASEDIR=${XCRAFT_DEVROOT}
+fi
+export CCACHE_BASEDIR
+
+ccache "$(dirname "$0")/../../bin/g++" "$@"
