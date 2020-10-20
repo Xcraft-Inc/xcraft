@@ -17,12 +17,6 @@ dependency:
     carnotzet+rootfs:
       - version: ''
         architecture: []
-    vlasenko+busybox:
-      - version: ''
-        architecture: []
-    unigw+wpkg:
-      - version: ''
-        architecture: []
   build:
     xcraft+peon:
       - version: ''
