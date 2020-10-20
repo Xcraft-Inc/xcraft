@@ -1,0 +1,65 @@
+subpackage:
+  - runtime*
+name: gnu+glibc
+version: 2.32-7
+$version: '2.32'
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU C Library
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && cd <THIS.DATA.RULES.LOCATION>
+      && unset CC CXX
+      && ../configure --prefix=/usr
+                      --build=$MACHTYPE
+                      --host=aarch64-linux
+                      --target=aarch64-linux
+                      --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
+                      --disable-multilib
+                      libc_cv_forced_unwind=yes
+  rules:
+    type: script
+    location: data/glibc-<THIS.$VERSION>/build
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !unset CC CXX
+          && make -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: |-
+        !unset CC CXX
+          && make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs
+          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/etc"
+          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr"
+          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/var"
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
