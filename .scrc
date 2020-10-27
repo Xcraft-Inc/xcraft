@@ -3,6 +3,7 @@
   "modules": [
     "./lib/goblin-ancestors",
     "./lib/goblin-builder",
+    "./lib/goblin-overwatch",
     "./lib/goblin-warehouse",
     "./lib/goblin-webpack",
     "./lib/shellcraft",

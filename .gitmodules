@@ -133,3 +133,6 @@
 [submodule "lib/xcraft-core-journal"]
 	path = lib/xcraft-core-journal
 	url = https://github.com/Xcraft-Inc/xcraft-core-journal.git
+[submodule "lib/goblin-overwatch"]
+	path = lib/goblin-overwatch
+	url = https://github.com/Xcraft-Inc/goblin-overwatch.git
