@@ -8,7 +8,7 @@ fi
 export CCACHE_BASEDIR
 
 COMMAND="$(dirname "$0")/../../bin/g++"
-if ! command -v "$COMMAND"; then
+if ! command -v "$COMMAND" >/dev/null; then
     COMMAND="g++"
 fi
 
