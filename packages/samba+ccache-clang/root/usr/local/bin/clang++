@@ -7,4 +7,9 @@ else
 fi
 export CCACHE_BASEDIR
 
-ccache "$(dirname "$0")/../../bin/clang++" "$@"
+COMMAND="$(dirname "$0")/../../bin/clang++"
+if ! command -v "$COMMAND"; then
+    COMMAND="clang++"
+fi
+
+ccache "$COMMAND" "$@"

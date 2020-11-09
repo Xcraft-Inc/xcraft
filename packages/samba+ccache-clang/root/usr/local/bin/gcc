@@ -7,4 +7,9 @@ else
 fi
 export CCACHE_BASEDIR
 
-ccache "$(dirname "$0")/../../bin/gcc" "$@"
+COMMAND="$(dirname "$0")/../../bin/gcc"
+if ! command -v "$COMMAND"; then
+    COMMAND="gcc"
+fi
+
+ccache "$COMMAND" "$@"
