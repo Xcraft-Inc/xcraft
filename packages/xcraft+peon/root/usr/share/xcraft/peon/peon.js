@@ -363,6 +363,9 @@ class Action {
               path.dirname(path.join(this._root, file)),
               target
             );
+            if (!target) {
+              return; /* Continue with the next file because this symlink is strange */
+            }
             try {
               fs.unlinkSync(file);
             } catch (ex) {
