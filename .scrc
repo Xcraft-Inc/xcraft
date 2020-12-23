@@ -2,6 +2,7 @@
   "npmInstallArgs": [],
   "modules": [
     "./lib/goblin-ancestors",
+    "./lib/goblin-blacksmith",
     "./lib/goblin-builder",
     "./lib/goblin-overwatch",
     "./lib/goblin-warehouse",

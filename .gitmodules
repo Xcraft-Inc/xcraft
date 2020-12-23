@@ -136,3 +136,6 @@
 [submodule "lib/goblin-overwatch"]
 	path = lib/goblin-overwatch
 	url = https://github.com/Xcraft-Inc/goblin-overwatch.git
+[submodule "lib/goblin-blacksmith"]
+	path = lib/goblin-blacksmith
+	url = https://github.com/Xcraft-Inc/goblin-blacksmith.git
