@@ -50,6 +50,7 @@
     "./lib/xcraft-core-uri",
     "./lib/xcraft-core-utils",
     "./lib/xcraft-core-wizard",
+    "./lib/xcraft-dev-frontend-deps",
     "./lib/xcraft-materials",
     "./lib/xcraft-server",
     "./lib/xcraft-zog"
