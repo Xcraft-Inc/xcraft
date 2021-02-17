@@ -10,6 +10,7 @@
     "../../../../../../../../../lib/xcraft-core-etc",
     "../../../../../../../../../lib/xcraft-core-extract",
     "../../../../../../../../../lib/xcraft-core-fs",
+    "../../../../../../../../../lib/xcraft-core-horde",
     "../../../../../../../../../lib/xcraft-core-http",
     "../../../../../../../../../lib/xcraft-core-log",
     "../../../../../../../../../lib/xcraft-core-placeholder",
