@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 9.0.1-1
-$version: 9.0.1
+version: 11.1.0-3
+$version: 11.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,16 +18,16 @@ dependency:
       - version: ''
         architecture: []
     llvm+clang:
-      - version: = 9.0.1
+      - version: '= 11.1.0'
         architecture: []
     llvm+polly:
-      - version: = 9.0.1
+      - version: '= 11.1.0'
         architecture: []
     llvm+libcxx:
-      - version: = 9.0.1
+      - version: '= 11.1.0'
         architecture: []
     llvm+libcxxabi:
-      - version: = 9.0.1
+      - version: '= 11.1.0'
         architecture: []
     samba+ccache-gcc:
       - version: ''
@@ -56,8 +56,8 @@ data:
       && cd <THIS.DATA.RULES.LOCATION>
       && ln -sf <PEON.ROOTDIR>/usr/share/llvm/clang/cache/data/clang-<THIS.$VERSION>.src tools/clang
       && ln -sf <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src tools/polly
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src projects/libcxxabi
+      && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
+      && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src projects/libcxxabi
       && mkdir -p BUILD
       && cd BUILD
       && cmake -G "Unix Makefiles"
