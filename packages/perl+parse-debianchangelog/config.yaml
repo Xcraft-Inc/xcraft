@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+parse-debianchangelog
-version: '1.2.0-1'
+version: 1.2.0-3
 $version: 1.2.0
 distribution: toolchain/
 maintainer:
@@ -27,6 +27,15 @@ dependency:
       - version: ''
         architecture: []
     perl+timedate:
+      - version: ''
+        architecture: []
+    perl+test-pod:
+      - version: ''
+        architecture: []
+    perl+test-pod-coverage:
+      - version: ''
+        architecture: []
+    perl+pod-parser:
       - version: ''
         architecture: []
   build:
