@@ -1,0 +1,51 @@
+subpackage:
+  - runtime*
+name: perl+pod-parser
+version: 1.63-1
+$version: '1.63'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Base class for creating POD filters and translators
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/Pod-Parser-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod');
+    mv('<PEON.PREFIXDIR>/lib/perl5/Pod',
+       '<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/Pod');
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

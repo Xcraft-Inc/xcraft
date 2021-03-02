@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: perl+test-pod-coverage
+version: '1.10'
+$version: '1.10'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Check for pod coverage in your distribution
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/N/NE/NEILB/Test-Pod-Coverage-<THIS.$VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/Test-Pod-Coverage-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: >-
+    rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

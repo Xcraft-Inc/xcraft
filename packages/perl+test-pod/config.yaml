@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: perl+test-pod
+version: '1.52'
+$version: '1.52'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Check for POD errors in files
+  long: ''
+dependency:
+  install:
+    wall+perl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: >-
+      https://cpan.metacpan.org/authors/id/E/ET/ETHER/Test-Pod-<THIS.$VERSION>.tar.gz
+    ref: ''
+    out: ''
+    externals: true
+  type: src
+  configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
+  rules:
+    type: make
+    location: data/Test-Pod-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: >-
+    rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
