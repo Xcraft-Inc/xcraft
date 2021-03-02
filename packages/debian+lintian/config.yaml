@@ -88,6 +88,9 @@ dependency:
     perl+uri:
       - version: ''
         architecture: []
+    perl+locale-gettext:
+      - version: ''
+        architecture: []
     debian+aptpkg:
       - version: ''
         architecture: []
