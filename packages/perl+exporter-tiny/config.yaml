@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+exporter-tiny
-version: '1.002001'
+version: '1.002001-1'
 $version: '1.002001'
 distribution: toolchain/
 maintainer:

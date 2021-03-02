@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+archive-zip
-version: '1.64'
+version: '1.64-1'
 $version: '1.64'
 distribution: toolchain/
 maintainer:

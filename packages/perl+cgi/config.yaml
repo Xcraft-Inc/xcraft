@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+cgi
-version: '4.44'
+version: '4.44-1'
 $version: '4.44'
 distribution: toolchain/
 maintainer:

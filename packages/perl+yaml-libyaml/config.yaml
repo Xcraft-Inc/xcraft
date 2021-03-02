@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+yaml-libyaml
-version: '0.79'
+version: '0.79-1'
 $version: '0.79'
 distribution: toolchain/
 maintainer:

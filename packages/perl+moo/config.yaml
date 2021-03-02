@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+moo
-version: '2.003004'
+version: '2.003004-1'
 $version: '2.003004'
 distribution: toolchain/
 maintainer:
