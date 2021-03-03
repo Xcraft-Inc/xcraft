@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: unigw+wpkg
-version: 1.0.2-25
+version: 1.0.2-30
 $version: 1.0.2
 distribution: carnotzet/
 maintainer:
@@ -22,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/095f509ece2d6fe907455126fcb2174609a7fe51.tar.gz'
+    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/efb8d756d7d8194b7c0a714ea717f404abe488f7.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -42,7 +42,7 @@ data:
       && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
   rules:
     type: script
-    location: data/wpkg-095f509ece2d6fe907455126fcb2174609a7fe51/build
+    location: data/wpkg-efb8d756d7d8194b7c0a714ea717f404abe488f7/build
     args:
       postinst: ''
       prerm: ''
