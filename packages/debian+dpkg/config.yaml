@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: debian+dpkg
-version: 1.19.7
+version: 1.19.7-1
 $version: 1.19.7
 distribution: toolchain/
 maintainer:

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: debian+apt
-version: 1.8.2
+version: 1.8.2-1
 $version: 1.8.2
 distribution: toolchain/
 maintainer:

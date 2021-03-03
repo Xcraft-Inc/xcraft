@@ -1,5 +1,5 @@
 name: debian+lintian
-version: 2.16.0
+version: 2.16.0-1
 $version: 2.16.0
 distribution: toolchain/
 maintainer:

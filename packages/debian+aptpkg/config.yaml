@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: debian+aptpkg
-version: 0.1.36
+version: 0.1.36-1
 $version: 0.1.36
 distribution: toolchain/
 maintainer:

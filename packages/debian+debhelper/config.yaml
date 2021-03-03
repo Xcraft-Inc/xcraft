@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: debian+debhelper
-version: '12.3'
+version: '12.3-1'
 $version: '12.3'
 distribution: toolchain/
 maintainer:
