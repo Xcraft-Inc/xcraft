@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gnutls
-version: 3.6.9
+version: 3.6.9-1
 $version: 3.6.9
 distribution: toolchain/
 maintainer:
@@ -49,14 +49,14 @@ data:
                 --without-p11-kit
                 --disable-libdane
   rules:
-    type: make
+    type: script
     location: data/gnutls-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '!make install'
     test: none
   deploy: ''
   env:

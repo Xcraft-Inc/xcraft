@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.1a-1
+version: 1.1.1a-3
 $version: 1.1.1a
 distribution: toolchain/
 maintainer:
@@ -44,14 +44,14 @@ data:
       ./config
     > shared --prefix=<PEON.PREFIXDIR>
   rules:
-    type: make
+    type: script
     location: data/openssl-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>
+      makeall: '!make CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: CFLAGS= LDFLAGS= install_sw
+      makeinstall: '!make CFLAGS= LDFLAGS= install_sw'
     test: none
   deploy: ''
   env:

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: adler+zlib
-version: 1.2.11
+version: 1.2.11-12
 $version: 1.2.11
 distribution: toolchain/
 maintainer:
@@ -29,14 +29,14 @@ data:
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
-    type: make
+    type: script
     location: data/zlib-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '!make install'
     test: none
   deploy: ''
   env:

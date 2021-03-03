@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: bagder+curl
-version: 7.50.3
+version: 7.50.3-2
 $version: 7.50.3
 distribution: toolchain/
 maintainer:
@@ -40,14 +40,14 @@ data:
                 --disable-ldap
                 --disable-ldaps
   rules:
-    type: make
+    type: script
     location: data/curl-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '!make install'
     test: none
   deploy: ''
   env:

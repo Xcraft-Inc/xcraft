@@ -1,2 +1,5 @@
 data:
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --static'
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :> ./configure --prefix=<PEON.PREFIXDIR> --static'
+  rules:
+    args:
+      makeall: '!<PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :> make -j<PEON.CPUS.COUNT>'

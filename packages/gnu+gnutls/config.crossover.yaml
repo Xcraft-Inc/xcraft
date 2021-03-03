@@ -1,6 +1,7 @@
 data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
+    <PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :>
     ./configure --prefix=<PEON.PREFIXDIR>
                 --disable-nls
                 --disable-static
@@ -12,3 +13,6 @@ data:
                 --disable-tests
                 --without-p11-kit
                 --disable-libdane
+  rules:
+    args:
+      makeall: '!<PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :> make -j<PEON.CPUS.COUNT>'

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: libpng+libpng
-version: 1.6.37
+version: 1.6.37-1
 $version: 1.6.37
 distribution: toolchain/
 maintainer:
@@ -35,14 +35,14 @@ data:
                 --enable-static
                 --disable-shared
   rules:
-    type: make
+    type: script
     location: data/libpng-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '!make install'
     test: none
   deploy: ''
   env:
