@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: bagder+curl
-version: 7.50.3-2
+version: 7.50.3-6
 $version: 7.50.3
 distribution: toolchain/
 maintainer:
@@ -35,7 +35,7 @@ data:
     externals: true
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
+    !cd <THIS.DATA.RULES.LOCATION> &&
     ./configure --prefix=<PEON.PREFIXDIR>
                 --disable-ldap
                 --disable-ldaps

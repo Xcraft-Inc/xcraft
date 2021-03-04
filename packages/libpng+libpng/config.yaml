@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: libpng+libpng
-version: 1.6.37-1
+version: 1.6.37-2
 $version: 1.6.37
 distribution: toolchain/
 maintainer:
@@ -30,7 +30,7 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
+    !cd <THIS.DATA.RULES.LOCATION> &&
     ./configure --prefix=<PEON.PREFIXDIR>
                 --enable-static
                 --disable-shared

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.1a-3
+version: 1.1.1a-7
 $version: 1.1.1a
 distribution: toolchain/
 maintainer:
@@ -36,7 +36,7 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
+    !cd <THIS.DATA.RULES.LOCATION> &&
     CC="$CC $CFLAGS"
     <PEON.OS=darwin?
       ./Configure darwin64-x86_64-cc

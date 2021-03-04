@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gnutls
-version: 3.6.9-1
+version: 3.6.9-2
 $version: 3.6.9
 distribution: toolchain/
 maintainer:
@@ -36,7 +36,7 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
+    !cd <THIS.DATA.RULES.LOCATION> &&
     ./configure --prefix=<PEON.PREFIXDIR>
                 --disable-nls
                 --enable-static

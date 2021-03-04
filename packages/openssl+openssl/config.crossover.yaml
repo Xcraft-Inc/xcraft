@@ -1,7 +1,10 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    <PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :>
+    !cd <THIS.DATA.RULES.LOCATION> &&
+    <PEON.OS=darwin?
+      SDKROOT="$MACOSSDK_1013"
+      MACOSX_DEPLOYMENT_TARGET=10.10
+    :>
     CC="$CC $CFLAGS"
     <PEON.OS=darwin?
       ./Configure darwin64-x86_64-cc
@@ -10,4 +13,8 @@ data:
     > <PEON.OS=darwin? no-shared : shared > --prefix=<PEON.PREFIXDIR>
   rules:
     args:
-      makeall: '!<PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :> make -j<PEON.CPUS.COUNT>'
+      makeall: |-
+        !<PEON.OS=darwin?
+          SDKROOT="$MACOSSDK_1013"
+          MACOSX_DEPLOYMENT_TARGET=10.10
+        :> make -j<PEON.CPUS.COUNT>
