@@ -23,7 +23,7 @@ data:
   get:
     uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/G3BoX2dLazGLCZ5/download'
     ref: ''
-    out: ''
+    out: 'patch-<THIS.$VERSION>-bin.tar.gz'
     externals: true
   type: bin
   configure: "mv ('data', 'root/usr');"
