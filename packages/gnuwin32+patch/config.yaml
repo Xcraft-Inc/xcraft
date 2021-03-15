@@ -21,12 +21,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest:patch-<THIS.$VERSION>-bin.tar.gz'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/G3BoX2dLazGLCZ5/download'
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: 'mv (''data'', ''root/usr'');'
+  configure: "mv ('data', 'root/usr');"
   rules:
     type: move
     location: root
