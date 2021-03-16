@@ -103,7 +103,6 @@
   "update-desktop-database": "^linux$",
   "update-mime-database": "^linux$",
   "wc": "^darwin|freebsd|linux|sunos$",
-  "where": "^win32$",
   "which": "^darwin|freebsd|linux|sunos$",
   "xargs": "^darwin|freebsd|linux|sunos$",
   "xcodebuild": "^darwin$",
