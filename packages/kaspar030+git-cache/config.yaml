@@ -1,12 +1,17 @@
 name: kaspar030+git-cache
-version: 0.1.0
+version: 0.1.0-2
 $version: 0.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - all
+  - linux-i386
+  - linux-amd64
+  - darwin-i386
+  - darwin-amd64
+  - mswindows-i386
+  - mswindows-amd64
 description:
   brief: Simple git cache management script
   long: ''
