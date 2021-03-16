@@ -24,7 +24,8 @@ data:
   type: bin
   configure: |-
     cp('.', '<PEON.WPKG.STAG>');
-    yield exec('npm', 'install', '--production', '--prefix', '<PEON.WPKG.STAG>/usr/share/xcraft/peon');
+    cd('<PEON.WPKG.STAG>/usr/share/xcraft/peon');
+    yield exec('npm', 'install', '--production');
   rules:
     type: configure
     location: ''
