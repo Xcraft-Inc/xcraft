@@ -6,14 +6,7 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - linux-i386
-  - linux-amd64
-  - darwin-i386
-  - darwin-amd64
-  - solaris-i386
-  - solaris-amd64
-  - freebsd-i386
-  - freebsd-amd64
+  - all
 description:
   brief: Essential tools for building.
   long: ''
@@ -34,7 +27,15 @@ dependency:
           - linux-amd64
     gnu+make:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
     samba+ccache-gcc:
       - version: ''
         architecture:
@@ -47,13 +48,37 @@ dependency:
           - darwin-amd64
     freedesktop+pkgconfig:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
     gnu+libtool:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
     gnu+m4:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
     llvm+llvm:
       - version: ''
         architecture:
@@ -61,7 +86,15 @@ dependency:
           - darwin-amd64
     gnu+tar:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
 data:
   get:
     uri: ''
