@@ -6,7 +6,12 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - all
+  - linux-i386
+  - linux-amd64
+  - darwin-i386
+  - darwin-amd64
+  - mswindows-i386
+  - mswindows-amd64
 description:
   brief: Base making packages dependencies.
   long: ''
