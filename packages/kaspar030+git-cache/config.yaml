@@ -17,7 +17,16 @@ dependency:
         architecture: []
     torvalds+git:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+    schindelin+mingit:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
 data:
   get:
     uri: 'https://github.com/kaspar030/git-cache/archive/f76c3a5f0e15f08c28e53fb037755f29f0b76d88.zip'
