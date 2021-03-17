@@ -1,0 +1,28 @@
+--- a/usr/bin/git-cache	2020-07-11 09:17:33.000000000 +0200
++++ b/usr/bin/git-cache	2021-03-17 09:03:45.454050674 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/sh -e
++#!/bin/bash -e
+ 
+ [ "$GIT_CACHE_VERBOSE" != "1" ] && Q=-q
+ 
+@@ -61,6 +61,19 @@
+ 
+         rm $lockfile
+     }
++elif [[ "$(uname)" =~ ^MINGW ]]; then
++    _locked() {
++        local lockfile="$1"
++        shift
++
++        while ! mkdir "$lockfile" &>/dev/null; do
++            sleep 1
++        done
++
++        $*
++
++        rm -rf "$lockfile"
++    }
+ else
+     _locked() {
+         local lockfile="$1"
