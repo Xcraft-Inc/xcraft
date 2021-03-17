@@ -1,6 +1,6 @@
 name: kaspar030+git-cache
-version: 0.1.0-2
-$version: 0.1.0
+version: 0.2.0
+$version: 0.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -34,13 +34,13 @@ dependency:
           - mswindows-amd64
 data:
   get:
-    uri: 'https://github.com/kaspar030/git-cache/archive/f76c3a5f0e15f08c28e53fb037755f29f0b76d88.zip'
+    uri: 'https://github.com/kaspar030/git-cache/archive/36e2d0a1ed6e7a1becfd3d5f03efae84c7d3ec46.zip'
     ref: ''
     out: ''
     externals: true
   type: bin
   configure: |-
-    mv('data/git-cache-f76c3a5f0e15f08c28e53fb037755f29f0b76d88/git-cache',
+    mv('data/git-cache-36e2d0a1ed6e7a1becfd3d5f03efae84c7d3ec46/git-cache',
        'root/usr/bin/git-cache'); chmod('root/usr/bin/git-cache', 0o755);
   rules:
     type: move
