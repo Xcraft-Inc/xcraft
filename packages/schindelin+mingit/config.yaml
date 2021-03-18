@@ -20,7 +20,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/git-for-windows/git/releases/download/v<THIS.$VERSION>.windows.1/MinGit-<THIS.$VERSION>-64-bit.zip'
+    uri: 'https://github.com/git-for-windows/git/releases/download/v<THIS.$VERSION>.windows.1/MinGit-<THIS.$VERSION>-busybox-64-bit.zip'
     ref: ''
     out: ''
     externals: true
