@@ -45,6 +45,7 @@ data:
         --add Microsoft.VisualStudio.Component.VC.ATL
         --add Microsoft.VisualStudio.Component.VC.ATLMFC
       prerm: |-
+        modify
         --quiet
         --norestart
         --wait
