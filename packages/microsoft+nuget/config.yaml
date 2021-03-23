@@ -1,6 +1,6 @@
 name: microsoft+nuget
-version: 4.7.1
-$version: 4.7.1
+version: 5.8.1
+$version: 5.8.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,10 +9,7 @@ architecture:
   - all
 description:
   brief: Package manager for the Microsoft development platform including .NET.
-  long: >-
-    The NuGet client tools provide the ability to produce and consume packages.
-    The NuGet Gallery is the central package repository used by all package
-    authors and consumers.
+  long: The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.
 dependency:
   install:
     xcraft+peon:
