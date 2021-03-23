@@ -42,8 +42,8 @@ data:
         --add Microsoft.VisualStudio.Workload.VCTools
         --add Microsoft.VisualStudio.Component.TestTools.BuildTools
         --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
-        --add Microsoft.VisualStudio.Component.VC.ATL
         --add Microsoft.VisualStudio.Component.VC.ATLMFC
+        --add Microsoft.VisualStudio.Component.VC.ATL
       prerm: |-
         modify
         --quiet
@@ -56,8 +56,8 @@ data:
         --remove Microsoft.VisualStudio.Workload.VCTools
         --remove Microsoft.VisualStudio.Component.TestTools.BuildTools
         --remove Microsoft.VisualStudio.Component.VC.Tools.x86.x64
-        --remove Microsoft.VisualStudio.Component.VC.ATL
         --remove Microsoft.VisualStudio.Component.VC.ATLMFC
+        --remove Microsoft.VisualStudio.Component.VC.ATL
   env:
     path:
       - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
