@@ -59,6 +59,6 @@ data:
         --remove Microsoft.VisualStudio.Component.VC.ATLMFC
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/16.0/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
     other: {}
   embedded: true
