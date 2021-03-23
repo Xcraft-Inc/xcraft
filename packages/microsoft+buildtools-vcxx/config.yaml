@@ -1,5 +1,5 @@
 name: microsoft+buildtools-vcxx
-version:  16.9.2+31112.23
+version: 16.9.2+31112.23
 $version: 16.9.2+31112.23
 distribution: toolchain/
 maintainer:
@@ -10,9 +10,7 @@ architecture:
   - mswindows-amd64
 description:
   brief: Visual C++ build tools.
-  long: >-
-    Build Windows desktop applications using the Microsoft C++ toolset, ATL, or
-    MFC.
+  long: 'Build Windows desktop applications using the Microsoft C++ toolset, ATL, or MFC.'
 dependency:
   install:
     xcraft+peon:
@@ -22,7 +20,7 @@ data:
   get:
     uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/JqKPeywMAjewLCJ/download'
     ref: ''
-    out: 'microsoft+buildtools-vcxx-<THIS.$VERSION>.zip'
+    out: microsoft+buildtools-vcxx-<THIS.$VERSION>.zip
     externals: true
   type: bin
   configure: ''
