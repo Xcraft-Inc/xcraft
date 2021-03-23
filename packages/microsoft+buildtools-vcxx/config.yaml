@@ -1,6 +1,6 @@
 name: microsoft+buildtools-vcxx
-version: 15.7.27703.2026
-$version: 15.7.27703.2026
+version:  16.9.2+31112.23
+$version: 16.9.2+31112.23
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,36 +20,43 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'chest:microsoft+buildtools-vcxx.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/JqKPeywMAjewLCJ/download'
     ref: ''
-    out: ''
+    out: 'microsoft+buildtools-vcxx-<THIS.$VERSION>.zip'
     externals: true
   type: bin
   configure: ''
   rules:
     type: exec
-    location: data/microsoft+buildtools-vcxx/vs_BuildTools.exe
+    location: data/microsoft+buildtools-vcxx-<THIS.$VERSION>/vs_BuildTools.exe
     args:
-      postinst: >-
-        --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
-        Microsoft.VisualStudio.Workload.VCTools --add
-        Microsoft.VisualStudio.Component.TestTools.BuildTools --add
-        Microsoft.VisualStudio.Component.VC.140 --add
-        Microsoft.VisualStudio.Component.VC.ATL --add
-        Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
-        --nocache --noUpdateInstaller
-      prerm: >-
-        --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
-        Microsoft.VisualStudio.Workload.VCTools --remove
-        Microsoft.VisualStudio.Component.TestTools.BuildTools --remove
-        Microsoft.VisualStudio.Component.VC.140 --remove
-        Microsoft.VisualStudio.Component.VC.ATL --remove
-        Microsoft.VisualStudio.Component.VC.ATLMFC --quiet --norestart --wait
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --nocache
         --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.VisualStudio.Workload.VCTools
+        --add Microsoft.VisualStudio.Component.TestTools.BuildTools
+        --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+        --add Microsoft.VisualStudio.Component.VC.ATL
+        --add Microsoft.VisualStudio.Component.VC.ATLMFC
+      prerm: |-
+        --quiet
+        --norestart
+        --wait
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.VisualStudio.Workload.VCTools
+        --remove Microsoft.VisualStudio.Component.TestTools.BuildTools
+        --remove Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+        --remove Microsoft.VisualStudio.Component.VC.ATL
+        --remove Microsoft.VisualStudio.Component.VC.ATLMFC
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/15.0/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/16.0/Bin
     other: {}
   embedded: true
