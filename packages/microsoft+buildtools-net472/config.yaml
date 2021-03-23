@@ -1,0 +1,57 @@
+name: microsoft+buildtools-net472
+version: 16.9.2+31112.23
+$version: 16.9.2+31112.23
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Visual NET 4.7.2 build tools.
+  long: Visual NET 4.7.2 build tools.
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/tTJyaoMdGED78AM/download'
+    ref: ''
+    out: microsoft+buildtools-net472-<THIS.$VERSION>.zip
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-net472-<THIS.$VERSION>/vs_BuildTools.exe
+    args:
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --nocache
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.Net.Component.4.5.2.TargetingPack
+        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+      prerm: |-
+        modify
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.Net.Component.4.5.2.TargetingPack
+        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+    other: {}
+  embedded: true
