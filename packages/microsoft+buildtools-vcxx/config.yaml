@@ -34,7 +34,7 @@ data:
         --quiet
         --norestart
         --wait
-        --noweb
+        --noWeb
         --nocache
         --noUpdateInstaller
         --locale En-us
@@ -48,7 +48,7 @@ data:
         --quiet
         --norestart
         --wait
-        --noweb
+        --noWeb
         --noUpdateInstaller
         --locale En-us
         --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
