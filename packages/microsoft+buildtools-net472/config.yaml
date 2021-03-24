@@ -37,9 +37,9 @@ data:
         --noUpdateInstaller
         --locale En-us
         --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
         --add Microsoft.Net.Component.4.7.2.TargetingPack
         --add Microsoft.Net.Component.4.7.2.SDK
-        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
       prerm: |-
         modify
         --quiet
@@ -49,9 +49,9 @@ data:
         --noUpdateInstaller
         --locale En-us
         --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
         --remove Microsoft.Net.Component.4.7.2.TargetingPack
         --remove Microsoft.Net.Component.4.7.2.SDK
-        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
   env:
     path:
       - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin

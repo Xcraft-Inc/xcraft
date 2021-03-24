@@ -5,7 +5,7 @@ https://download.visualstudio.microsoft.com/download/pr/1192d0de-5c6d-4274-b64d-
   --layout microsoft+buildtools-net472 \
   --lang En-us \
   --locale En-us \
+  --add Microsoft.VisualStudio.Component.NuGet.BuildTools \
   --add Microsoft.Net.Component.4.7.2.TargetingPack \
-  --add Microsoft.Net.Component.4.7.2.SDK \
-  --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+  --add Microsoft.Net.Component.4.7.2.SDK
 ```
