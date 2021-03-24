@@ -1,0 +1,59 @@
+name: microsoft+buildtools-net-sdk
+version: 16.9.2+31112.23
+$version: 16.9.2+31112.23
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Visual NET SDK build tools.
+  long: Visual NET SDK build tools.
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/igq6k2rXbBkxHXQ/download'
+    ref: ''
+    out: microsoft+buildtools-net-sdk-<THIS.$VERSION>.zip
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-net-sdk-<THIS.$VERSION>/vs_BuildTools.exe
+    args:
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --nocache
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.NetCore.Component.Runtime.5.0
+        --add Microsoft.NetCore.Component.Runtime.3.1
+        --add Microsoft.NetCore.Component.SDK
+      prerm: |-
+        modify
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.NetCore.Component.Runtime.5.0
+        --remove Microsoft.NetCore.Component.Runtime.3.1
+        --remove Microsoft.NetCore.Component.SDK
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+    other: {}
+  embedded: true
