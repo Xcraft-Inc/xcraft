@@ -1,5 +1,5 @@
 name: microsoft+windows-sdk-81
-version: 8.1
+version: 8.1-1
 $version: 8.1
 distribution: toolchain/
 maintainer:
@@ -18,7 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: https://owncloud.epsitec.ch/owncloud/index.php/s/7oao27aatcwnsnH/download
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/7oao27aatcwnsnH/download'
     ref: ''
     out: microsoft+windows-sdk-<THIS.$VERSION>.zip
     externals: true
@@ -29,12 +29,14 @@ data:
     location: data/microsoft+windows-sdk-<THIS.$VERSION>/sdksetup.exe
     args:
       postinst: |-
+        <=0;1001
         /quiet
         /norestart
         /ceip off
         /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk81
         /features OptionId.WindowsDesktopSoftwareDevelopmentKit
       prerm: |-
+        <=0;1001
         /uninstall
         /quiet
         /norestart
@@ -43,6 +45,6 @@ data:
         /features OptionId.WindowsDesktopSoftwareDevelopmentKit
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk81
+      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk81/bin/x86
     other: {}
   embedded: true
