@@ -1,0 +1,48 @@
+name: microsoft+windows-sdk-81
+version: 8.1
+$version: 8.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Microsoft Windows SDK 8.1
+  long: Microsoft Windows SDK 8.1
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: https://owncloud.epsitec.ch/owncloud/index.php/s/7oao27aatcwnsnH/download
+    ref: ''
+    out: microsoft+windows-sdk-<THIS.$VERSION>.zip
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+windows-sdk-<THIS.$VERSION>/sdksetup.exe
+    args:
+      postinst: |-
+        /quiet
+        /norestart
+        /ceip off
+        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk81
+        /features OptionId.WindowsDesktopSoftwareDevelopmentKit
+      prerm: |-
+        /uninstall
+        /quiet
+        /norestart
+        /ceip off
+        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk81
+        /features OptionId.WindowsDesktopSoftwareDevelopmentKit
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk81
+    other: {}
+  embedded: true
