@@ -15,7 +15,7 @@
     "should": "^5.2.0",
     "unpm": "^1.4.0",
     "unpm-fs-backend": "^0.1.0",
-    "which": "^1.2.4"
+    "which": "^2.0.2"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha node_modules/xcraft-*/test/*.js",
