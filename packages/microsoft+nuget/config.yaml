@@ -32,5 +32,6 @@ data:
       prerm: ''
   env:
     path: []
-    other: {}
+    other:
+      NUGET_EXE_NO_PROMPT: '1'
   embedded: true
