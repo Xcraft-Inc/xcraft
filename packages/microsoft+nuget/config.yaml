@@ -1,12 +1,13 @@
 name: microsoft+nuget
-version: 5.8.1
+version: 5.8.1-7
 $version: 5.8.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - all
+  - mswindows-i386
+  - mswindows-amd64
 description:
   brief: Package manager for the Microsoft development platform including .NET.
   long: The NuGet client tools provide the ability to produce and consume packages. The NuGet Gallery is the central package repository used by all package authors and consumers.
