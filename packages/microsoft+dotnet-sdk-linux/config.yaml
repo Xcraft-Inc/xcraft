@@ -48,5 +48,6 @@ data:
     path:
       - opt/dotnet-sdk/bin
     other:
+      DOTNET_ROOT: '<OS.ROOTDIR>/opt/dotnet-sdk'
       DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   embedded: true

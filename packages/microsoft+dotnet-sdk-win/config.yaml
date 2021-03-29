@@ -34,5 +34,6 @@ data:
   env:
     path:
       - opt/dotnet-sdk
-    other: {}
+    other:
+      DOTNET_ROOT: '<OS.ROOTDIR>/opt/dotnet-sdk'
   embedded: true
