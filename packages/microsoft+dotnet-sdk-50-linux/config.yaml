@@ -1,0 +1,45 @@
+name: microsoft+dotnet-sdk-50-linux
+version: 5.0.201
+$version: 5.0.201
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: .NET SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/73a9cb2a-1acd-4d20-b864-d12797ca3d40/075dbe1dc3bba4aa85ca420167b861b6/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    yield exec(
+      'writefile',
+      '#!/bin/sh\ndotnet msbuild "$@"\n',
+      'data/sdk/<THIS.$VERSION>/msbuild'
+    );
+    yield exec('chmod', 'a+x', 'data/sdk/<THIS.$VERSION>/msbuild');
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-linux
-version: 3.1.406
-$version: 3.1.406
+version: 10.0.0
+$version: 10.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - linux-amd64
 description:
-  brief: .NET Core SDK
+  brief: .NET Core SDK 3.1 and 5.0
   long: ''
 dependency:
   install:
@@ -22,22 +22,29 @@ dependency:
     xcraft+utils:
       - version: ''
         architecture: []
+    microsoft+dotnet-sdk-31-linux:
+      - version: ''
+        architecture: []
+    microsoft+dotnet-sdk-50-linux:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/d7b8da76-a160-44a1-8038-b4b91404b8f2/af410f6d2e213ef7ee9dfefd853e97c0/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    uri: ''
     ref: ''
     out: ''
     externals: true
   type: bin
   configure: |-
-    mv('data', 'root/opt/dotnet-sdk');
     mkdir('root/opt/dotnet-sdk/bin');
     yield exec(
       'writefile',
-      '#!/bin/bash\nexport LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+      '#!/bin/sh\nexport LD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
       'root/opt/dotnet-sdk/bin/dotnet'
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-31-linux/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-50-linux/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
@@ -48,6 +55,6 @@ data:
     path:
       - opt/dotnet-sdk/bin
     other:
-      DOTNET_ROOT: '<OS.ROOTDIR>/opt/dotnet-sdk'
+      DOTNET_ROOT: <OS.ROOTDIR>/opt/dotnet-sdk
       DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   embedded: true

@@ -1,0 +1,45 @@
+name: microsoft+dotnet-sdk-31-linux
+version: 3.1.406
+$version: 3.1.406
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: .NET Core SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/d7b8da76-a160-44a1-8038-b4b91404b8f2/af410f6d2e213ef7ee9dfefd853e97c0/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    yield exec(
+      'writefile',
+      '#!/bin/sh\ndotnet msbuild "$@"\n',
+      'data/sdk/<THIS.$VERSION>/msbuild'
+    );
+    yield exec('chmod', 'a+x', 'data/sdk/<THIS.$VERSION>/msbuild');
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
