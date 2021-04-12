@@ -1,6 +1,6 @@
 name: microsoft+buildtools-net472
-version: 16.9.2+31112.23-3
-$version: 16.9.2+31112.23
+version: 16.9.3+31129.286
+$version: 16.9.3+31129.286
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,7 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/tTJyaoMdGED78AM/download'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/QgWsMwkALnqS6Mz/download/microsoft+buildtools-net472-<THIS.$VERSION>.zip'
     ref: ''
     out: microsoft+buildtools-net472-<THIS.$VERSION>.zip
     externals: true
