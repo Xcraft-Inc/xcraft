@@ -1,6 +1,6 @@
 name: microsoft+buildtools-net-sdk
-version: 16.9.3+31129.286
-$version: 16.9.3+31129.286
+version: 16.9.4+31205.134
+$version: 16.9.4+31205.134
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,9 +18,9 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/aTSBdr54SEQedAL/download/microsoft+buildtools-net-sdk-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/CioCw3N59PpWMLq/download/microsoft+buildtools-net-sdk-<THIS.$VERSION>.zip'
     ref: ''
-    out: microsoft+buildtools-net-sdk-<THIS.$VERSION>.zip
+    out: ''
     externals: true
   type: bin
   configure: ''

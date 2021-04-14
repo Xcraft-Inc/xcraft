@@ -1,4 +1,4 @@
-name: microsoft+buildtools-net472
+name: microsoft+buildtools-win-sdk-10
 version: 16.9.4+31205.134
 $version: 16.9.4+31205.134
 distribution: toolchain/
@@ -9,8 +9,8 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: Visual NET 4.7.2 build tools.
-  long: Visual NET 4.7.2 build tools.
+  brief: Microsoft Windows SDK 10
+  long: Microsoft Windows SDK 10
 dependency:
   install:
     xcraft+peon:
@@ -18,7 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/HXox3wAjJQpje3P/download/microsoft+buildtools-net472-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/Sn4k3TFyxec73DN/download/microsoft+buildtools-win-sdk-10-<THIS.$VERSION>.zip'
     ref: ''
     out: ''
     externals: true
@@ -26,7 +26,7 @@ data:
   configure: ''
   rules:
     type: exec
-    location: data/microsoft+buildtools-net472-<THIS.$VERSION>/vs_BuildTools.exe
+    location: data/microsoft+buildtools-win-sdk-10-<THIS.$VERSION>/vs_BuildTools.exe
     args:
       postinst: |-
         --quiet
@@ -37,9 +37,7 @@ data:
         --noUpdateInstaller
         --locale En-us
         --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
-        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
-        --add Microsoft.Net.Component.4.7.2.TargetingPack
-        --add Microsoft.Net.Component.4.7.2.SDK
+        --add Microsoft.VisualStudio.Component.Windows10SDK.19041
       prerm: |-
         modify
         --quiet
@@ -49,11 +47,8 @@ data:
         --noUpdateInstaller
         --locale En-us
         --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
-        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
-        --remove Microsoft.Net.Component.4.7.2.TargetingPack
-        --remove Microsoft.Net.Component.4.7.2.SDK
+        --remove Microsoft.VisualStudio.Component.Windows10SDK.19041
   env:
-    path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+    path: []
     other: {}
   embedded: true

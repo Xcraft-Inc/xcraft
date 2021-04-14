@@ -5,9 +5,5 @@ https://download.visualstudio.microsoft.com/download/pr/1192d0de-5c6d-4274-b64d-
   --layout microsoft+buildtools-vcxx \
   --lang En-us \
   --locale En-us \
-  --add Microsoft.VisualStudio.Component.TestTools.BuildTools \
-  --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 \
-  --add Microsoft.VisualStudio.Component.VC.ATL \
-  --add Microsoft.VisualStudio.Component.VC.ATLMFC \
-  --add Microsoft.VisualStudio.Workload.VCTools
+  --add Microsoft.VisualStudio.Component.Windows10SDK.19041
 ```
