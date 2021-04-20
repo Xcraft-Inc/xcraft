@@ -53,7 +53,6 @@ data:
                      --enable-prompt-string-decoding
                      --enable-readline
                      --enable-select
-                     --enable-static-link
                      --disable-nls
   rules:
     type: make
