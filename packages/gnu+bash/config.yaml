@@ -1,0 +1,74 @@
+subpackage:
+  - runtime*
+name: gnu+bash
+version: '5.1'
+$version: '5.1'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Bash is the GNU Project's shell—the Bourne Again SHell
+  long: 'This is an sh-compatible shell that incorporates useful features from the Korn shell (ksh) and the C shell (csh). It is intended to conform to the IEEE POSIX P1003.2/ISO 9945.2 Shell and Tools standard. It offers functional improvements over sh for both programming and interactive use. In addition, most sh scripts can be run by Bash without modification.'
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/bash/bash-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-alias
+                     --enable-arith-for-command
+                     --enable-array-variables
+                     --enable-brace-expansion
+                     --enable-casemod-attributes
+                     --enable-casemod-expansions
+                     --enable-command-timing
+                     --enable-cond-command
+                     --enable-cond-regexp
+                     --enable-coprocesses
+                     --enable-dev-fd-stat-broken
+                     --enable-direxpand-default
+                     --enable-directory-stack
+                     --enable-disabled-builtins
+                     --enable-dparen-arithmetic
+                     --enable-extended-glob
+                     --enable-extended-glob-default
+                     --enable-function-import
+                     --enable-glob-asciiranges-default
+                     --enable-job-control
+                     --enable-multibyte
+                     --enable-process-substitution
+                     --enable-prompt-string-decoding
+                     --enable-readline
+                     --enable-select
+                     --enable-static-link
+                     --disable-nls
+  rules:
+    type: make
+    location: data/bash-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
