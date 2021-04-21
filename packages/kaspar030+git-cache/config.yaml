@@ -52,4 +52,5 @@ data:
     path: []
     other:
       GIT_CACHE_DIR: <OS.ROOTTEMP>/git-cache
+      GIT_CACHE_VERBOSE: '1'
   embedded: true
