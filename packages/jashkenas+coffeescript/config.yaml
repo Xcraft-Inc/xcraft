@@ -1,0 +1,36 @@
+name: jashkenas+coffeescript
+version: 2.5.1-3
+$version: 2.5.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: CoffeeScript is a little language that compiles into JavaScript.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: '!mkdir node_modules && cd node_modules && npm install coffeescript@<THIS.$VERSION>'
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      COFFEE: <OS.ROOTDIR>/usr/share/jashkenas/coffeescript/cache/node_modules/.bin/coffee
+  embedded: true
