@@ -1,0 +1,54 @@
+subpackage:
+  - runtime*
+name: jemalloc+jemalloc
+version: 5.2.1-1
+$version: 5.2.1
+distribution: westeros/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: memory allocator
+  long: jemalloc is a general purpose malloc(3) implementation that emphasizes fragmentation avoidance and scalable concurrency support.
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/jemalloc/jemalloc/releases/download/<THIS.$VERSION>/jemalloc-<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --disable-autogen
+                     --disable-stats
+  rules:
+    type: make
+    location: data/jemalloc-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
