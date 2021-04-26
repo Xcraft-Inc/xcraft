@@ -1,0 +1,36 @@
+name: browserify+browserify
+version: 13.1.0
+$version: 13.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Browser-side require() the node.js way.
+  long: Browserify lets you require('modules') in the browser by bundling up all of your dependencies.
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: '!mkdir node_modules && cd node_modules && npm install browserify@<THIS.$VERSION>'
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      BROWSERIFY: <OS.ROOTDIR>/usr/share/browserify/browserify/cache/node_modules/.bin/browserify
+  embedded: true
