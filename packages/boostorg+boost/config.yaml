@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: boostorg+boost
-version: 1.76.0-3
-$version: 1.76.0
+version: 1.72.0
+$version: 1.72.0
 distribution: westeros/
 maintainer:
   name: Mathieu Schroeter
@@ -22,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://downloads.sourceforge.net/project/boost/boost/<THIS.$VERSION>/boost_1_76_0.tar.gz'
+    uri: 'https://downloads.sourceforge.net/project/boost/boost/<THIS.$VERSION>/boost_1_72_0.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -34,7 +34,7 @@ data:
                         --without-icu
   rules:
     type: script
-    location: data/boost_1_76_0
+    location: data/boost_1_72_0
     args:
       postinst: ''
       prerm: ''
