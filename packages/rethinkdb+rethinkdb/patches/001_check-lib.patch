@@ -1,0 +1,11 @@
+--- a/configure       2021-04-26 14:11:56.332522092 +0200
++++ b/configure       2021-04-26 14:12:06.300862326 +0200
+@@ -1019,7 +1019,7 @@
+         code='int main(){ return 0; }'
+     fi
+     echo "$code" > "$bfile.cc"
+-    if $CXX -std=gnu++0x ${CXXFLAGS:-} ${LDFLAGS:-} ${LIB_SEARCH_PATHS:-} "$bfile.cc" $1 -o "$bfile.out" 1>"$bfile.log" 2>&1; then
++    if $CXX -std=gnu++0x "$bfile.cc" $1 ${CXXFLAGS:-} ${LDFLAGS:-} ${LIB_SEARCH_PATHS:-} -o "$bfile.out" 1>"$bfile.log" 2>&1; then
+         show "${1:-ok}"
+         var_append $(uc $2)_LIBS "$1"
+         var HAS_$(uc $2) 1

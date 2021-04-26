@@ -1,0 +1,11 @@
+--- a/configure       2021-04-26 14:11:56.332522092 +0200
++++ b/configure       2021-04-26 14:12:06.300862326 +0200
+@@ -944,7 +944,7 @@
+     try_lib_paths="$lib_paths $cc_paths $ld_paths"
+     try_lib_paths=$(for path in $try_lib_paths; do
+             test -d "$path" && niceabspath "$path"
+-        done | sort -u)
++        done)
+ }
+ 
+ # check_lib <name> <required/optional>

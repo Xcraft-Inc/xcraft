@@ -1,0 +1,84 @@
+subpackage:
+  - runtime*
+name: rethinkdb+rethinkdb
+version: 2.4.1-24
+$version: 2.4.1
+distribution: westeros/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The open-source database for the realtime web.
+  long: 'RethinkDB is the first open-source, scalable JSON database built from the ground up for the realtime web. It inverts the traditional database architecture by exposing an exciting new access model – instead of polling for changes, the developer can tell RethinkDB to continuously push updated query results to applications in realtime. RethinkDB’s realtime push architecture dramatically reduces the time and effort necessary to build scalable realtime apps.'
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
+    google+protobuf:
+      - version: ''
+        architecture: []
+    bagder+curl:
+      - version: ''
+        architecture: []
+    jemalloc+jemalloc:
+      - version: ''
+        architecture: []
+    boostorg+boost:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python2:
+      - version: ''
+        architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
+    jashkenas+coffeescript:
+      - version: ''
+        architecture: []
+    browserify+browserify:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/rethinkdb/rethinkdb/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl --static --cflags)"
+         LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl --static --libs)"
+         ./configure --prefix=<PEON.PREFIXDIR>
+                     --static=all
+                     --dynamic=none
+                     --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
+                     --ccache
+  rules:
+    type: make
+    location: data/rethinkdb-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j1'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
