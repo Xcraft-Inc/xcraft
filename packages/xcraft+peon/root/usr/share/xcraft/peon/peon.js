@@ -133,9 +133,9 @@ class Action {
     );
 
     xPh.global
-      .set('PREFIXDIR', prefixDir)
-      .set('INSTALLDIR', installDir)
-      .set('SRCDIR', srcDir);
+      .set('PREFIXDIR', prefixDir.replace(/\\/g, '/'))
+      .set('INSTALLDIR', installDir.replace(/\\/g, '/'))
+      .set('SRCDIR', srcDir.replace(/\\/g, '/'));
 
     this._prefix = prefixDir;
 
