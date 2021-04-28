@@ -61,8 +61,8 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl --static --cflags)"
-         LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl --static --libs)"
+      && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
+         LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
          ./configure --prefix=<PEON.PREFIXDIR>
                      --static=all
                      --dynamic=none
