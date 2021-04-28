@@ -31,11 +31,13 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!CGO_ENABLED=0 ./make.bash'
+      makeall: |-
+        exp('CGO_ENABLED', '0');
+        yield exec('make<PEON.OS=win?.bat:.bash>');
       maketest: ''
       makeinstall: |-
-        !mkdir <PEON.INSTALLDIR>/opt
-          && cp -a ../../go <PEON.INSTALLDIR>/opt/go-bootstrap
+        mkdir('<PEON.INSTALLDIR>/opt');
+        cp('../../go', '<PEON.INSTALLDIR>/opt/go-bootstrap');
     test: none
   deploy: ''
   env:
