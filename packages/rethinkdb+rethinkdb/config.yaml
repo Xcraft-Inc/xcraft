@@ -74,7 +74,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j1'
+      makeall: '-j<PEON.CPUS.COUNT>'
       maketest: ''
       makeinstall: install
     test: none
