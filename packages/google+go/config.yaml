@@ -39,11 +39,15 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!<PEON.OS=darwin? SDKROOT="$MACOSSDK_1013" :> ./make.bash'
+      makeall: |-
+        !<PEON.OS=darwin?
+          SDKROOT="$MACOSSDK_1013"
+        :>
+        <PEON.OS=win? make.bat : ./make.bash >
       maketest: ''
       makeinstall: |-
-        !mkdir <PEON.INSTALLDIR>/opt
-          && cp -a ../../go <PEON.INSTALLDIR>/opt/go
+        mkdir('<PEON.INSTALLDIR>/opt');
+        cp('../../go', '<PEON.INSTALLDIR>/opt/go');
     test: none
   deploy: ''
   env:

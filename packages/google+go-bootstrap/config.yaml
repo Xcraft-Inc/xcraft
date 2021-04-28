@@ -33,7 +33,7 @@ data:
       prerm: ''
       makeall: |-
         exp('CGO_ENABLED', '0');
-        yield exec('make<PEON.OS=win?.bat:.bash>');
+        yield exec(<PEON.OS=win? 'make.bat' : './make.bash' >);
       maketest: ''
       makeinstall: |-
         mkdir('<PEON.INSTALLDIR>/opt');
