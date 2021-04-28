@@ -42,6 +42,9 @@ dependency:
     gnu+wget:
       - version: ''
         architecture: []
+    nodejs+npm3:
+      - version: ''
+        architecture: []
     jashkenas+coffeescript:
       - version: ''
         architecture: []
