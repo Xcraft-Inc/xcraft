@@ -1,0 +1,22 @@
+--- a/dev/null	                            2021-04-23 08:14:23.868016701 +0200
++++ b/mk/support/pkg/patch/v8_4-gcc6+.patch	2021-04-26 22:41:19.696096799 +0200
+@@ -0,0 +1,19 @@
++--- a/build/toolchain.gypi
+++++ b/build/toolchain.gypi
++@@ -1082,6 +1082,5 @@
++             'cflags': [
++-              '-fdata-sections',
++-              '-ffunction-sections',
+++              '-fno-tree-vrp', '-fno-delete-null-pointer-checks',
++               '<(wno_array_bounds)',
++             ],
++             'conditions': [
++@@ -1093,7 +1094,7 @@
++               }],
++               # TODO(crbug.com/272548): Avoid -O3 in NaCl
++               ['nacl_target_arch=="none"', {
++-                'cflags': ['-O3'],
+++                'cflags': ['-O2'],
++                 'cflags!': ['-O2'],
++               }, {
++                 'cflags': ['-O2'],
