@@ -48,7 +48,7 @@ dependency:
     jashkenas+coffeescript1:
       - version: ''
         architecture: []
-    browserify+browserify:
+    browserify+browserify13:
       - version: ''
         architecture: []
 data:

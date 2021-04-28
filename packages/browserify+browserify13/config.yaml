@@ -1,4 +1,4 @@
-name: browserify+browserify
+name: browserify+browserify13
 version: 13.1.0
 $version: 13.1.0
 distribution: toolchain/
@@ -32,5 +32,5 @@ data:
   env:
     path: []
     other:
-      BROWSERIFY: <OS.ROOTDIR>/usr/share/browserify/browserify/cache/node_modules/.bin/browserify
+      BROWSERIFY: <OS.ROOTDIR>/usr/share/browserify/browserify13/cache/node_modules/.bin/browserify
   embedded: true
