@@ -1,0 +1,36 @@
+name: nodejs+npm3
+version: 3.10.10
+$version: 3.10.10
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: A package manager for JavaScript.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: '!mkdir node_modules && cd node_modules && npm install npm@<THIS.$VERSION>'
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      NPM: <OS.ROOTDIR>/usr/share/nodejs/npm3/cache/node_modules/.bin/npm
+  embedded: true
