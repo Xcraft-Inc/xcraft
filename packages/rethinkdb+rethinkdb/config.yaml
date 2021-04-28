@@ -45,7 +45,7 @@ dependency:
     nodejs+npm3:
       - version: ''
         architecture: []
-    jashkenas+coffeescript:
+    jashkenas+coffeescript1:
       - version: ''
         architecture: []
     browserify+browserify:
