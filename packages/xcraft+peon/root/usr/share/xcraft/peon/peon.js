@@ -115,6 +115,10 @@ class Action {
       extra.prepare = this._config.get.prepare;
     }
 
+    if (this._config.rules.env) {
+      extra.env = Object.assign({}, process.env, this._config.rules.env);
+    }
+
     return extra;
   }
 
