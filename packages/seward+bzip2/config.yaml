@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: seward+bzip2
-version: 1.0.6
-$version: 1.0.6
+version: 1.0.8
+$version: 1.0.8
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,11 +19,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://downloads.sourceforge.net/project/bzip2/bzip2-<THIS.$VERSION>.tar.gz
+    uri: 'https://sourceware.org/pub/bzip2/bzip2-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: ''
   rules:
@@ -36,6 +36,7 @@ data:
       maketest: ''
       makeinstall: install PREFIX=<PEON.PREFIXDIR>
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
