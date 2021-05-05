@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 10.2.0
-$version: 10.2.0
+version: 10.3.0
+$version: 10.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -92,6 +92,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
