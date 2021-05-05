@@ -27,16 +27,20 @@ data:
     out: ''
     externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: '<PEON.OS=win?:! cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>>'
   rules:
     type: script
     location: data/zlib-<THIS.$VERSION>/
     args:
       postinst: ''
       prerm: ''
-      makeall: '!make -j<PEON.CPUS.COUNT>'
+      makeall: '!make <PEON.OS=win? -f win32/Makefile.gcc :> -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '!make install'
+      makeinstall: |-
+        !make BINARY_PATH=<PEON.PREFIXDIR>/bin
+              INCLUDE_PATH=<PEON.PREFIXDIR>/include
+              LIBRARY_PATH=<PEON.PREFIXDIR>/lib
+          <PEON.OS=win? SHARED_MODE=1 -f win32/Makefile.gcc :> install
     test: none
   deploy: ''
   env:
