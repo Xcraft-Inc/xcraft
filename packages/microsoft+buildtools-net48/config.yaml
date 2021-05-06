@@ -1,0 +1,59 @@
+name: microsoft+buildtools-net48
+version: 16.9.4+31205.134
+$version: 16.9.4+31205.134
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Visual NET 4.8 build tools.
+  long: Visual NET 4.8 build tools.
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/f9tx2pBBe3r2oCT/download/microsoft+buildtools-net48-<THIS.$VERSION>.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-net48-<THIS.$VERSION>/vs_BuildTools.exe
+    args:
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --nocache
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --add Microsoft.Net.Component.4.8.TargetingPack
+        --add Microsoft.Net.Component.4.8.SDK
+      prerm: |-
+        modify
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --remove Microsoft.Net.Component.4.8.TargetingPack
+        --remove Microsoft.Net.Component.4.8.SDK
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+    other: {}
+  embedded: true
