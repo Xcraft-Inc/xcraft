@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-win
-version: 3.1.407
-$version: 3.1.407
+version: 10.0.0-1
+$version: 10.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,22 +9,30 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: .NET Core SDK
-  long: .NET Core SDK
+  brief: .NET Core SDK 3.1 and 5.0
+  long: ''
 dependency:
   install:
     xcraft+peon:
       - version: ''
         architecture: []
+  make:
+    microsoft+dotnet-sdk-31-win:
+      - version: ''
+        architecture: []
+    microsoft+dotnet-sdk-50-win:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: >-
-      https://download.visualstudio.microsoft.com/download/pr/37b739a1-6cf3-4829-a7d0-6b4130eb8bc5/877cc5fe22c449b1d55cc309e8f82fe5/dotnet-sdk-<THIS.$VERSION>-win-x86.zip
+    uri: ''
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: 'mv (''data'', ''root/opt/dotnet-sdk'');'
+  configure: |-
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-31-win/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-50-win/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
@@ -35,5 +43,6 @@ data:
     path:
       - opt/dotnet-sdk
     other:
-      DOTNET_ROOT: '<OS.ROOTDIR>/opt/dotnet-sdk'
+      DOTNET_ROOT: <OS.ROOTDIR>/opt/dotnet-sdk
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   embedded: true

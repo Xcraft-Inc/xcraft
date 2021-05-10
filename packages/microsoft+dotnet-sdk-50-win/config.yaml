@@ -1,0 +1,36 @@
+name: microsoft+dotnet-sdk-50-win
+version: 5.0.202
+$version: 5.0.202
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: .NET Core SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/4d96ac0d-0797-4fab-8ac0-9a6fc440336f/335046055592ca23ab1d6c28a60bdcad/dotnet-sdk-<THIS.$VERSION>-win-x86.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
