@@ -35,6 +35,7 @@ class Action {
     this._pkg = pkg;
     this._share = currentDir;
     this._root = root;
+    this._binaryDir = binaryDir;
     this._global = hook === 'global'; /* local otherwise */
     this._resp = resp;
     this._prefix = null;
@@ -70,17 +71,10 @@ class Action {
       this._config = null;
     }
 
-    /* This condition is true only when wpkg is building a new binary package
-     * from a source package.
-     */
-    if (binaryDir && binaryDir.length) {
-      this._genBinWpkg(binaryDir);
-    }
-
     watt.wrapAll(this);
   }
 
-  _genConfig(prefixDir, config) {
+  _genConfig(subPackage, prefixDir, config) {
     const newConfig = {
       get: {},
       type: 'bin',
@@ -95,6 +89,9 @@ class Action {
 
     const data = JSON.stringify(newConfig, null, '  ');
     const fullName = this._share.match(/.[/\\]([^/\\]+)[/\\]([^/\\]+)[/\\]?$/);
+    if (subPackage) {
+      fullName[2] += `-${subPackage}`;
+    }
 
     const shareDir = path.join(prefixDir, 'share', fullName[1], fullName[2]);
     xFs.mkdir(shareDir);
@@ -122,54 +119,93 @@ class Action {
     return extra;
   }
 
-  _genBinWpkg(binaryDir) {
-    /* HACK: forced subpackage /runtime
-     * we need to rework packageDef model before
-     */
-    const installDir = path.normalize(
-      binaryDir.replace(/build$/, 'install/runtime')
-    );
-    const prefixDir = path.join(installDir, 'usr');
+  _genBinWpkg(control, binaryDir) {
+    const installDir = {};
+    const prefixDir = {};
+    let mainPackage = 0;
+    const basePath = getBasePath(this._root, this._pkg);
+
     const srcDir = path.join(
       this._share,
       'cache',
       this._getExtra().location.replace(/\/$/, '')
     );
 
+    const subPackages = control['Sub-Packages']
+      .split(', ')
+      .map((subpackage, index) => {
+        if (subpackage.indexOf('*') !== -1) {
+          mainPackage = index;
+          return subpackage.replace(/\*/, '');
+        }
+        return subpackage;
+      });
+
+    for (const subPackage of subPackages) {
+      installDir[subPackage] = path.normalize(
+        binaryDir.replace(/build$/, `install/${subPackage}`)
+      );
+      prefixDir[subPackage] = path.join(installDir[subPackage], 'usr');
+    }
+
     xPh.global
-      .set('PREFIXDIR', prefixDir.replace(/\\/g, '/'))
-      .set('INSTALLDIR', installDir.replace(/\\/g, '/'))
-      .set('SRCDIR', srcDir.replace(/\\/g, '/'));
+      .set('SRCDIR', srcDir.replace(/\\/g, '/'))
+      .set('PREFIXDIR', prefixDir.runtime.replace(/\\/g, '/'))
+      .set('INSTALLDIR', installDir.runtime.replace(/\\/g, '/'));
+
+    subPackages
+      .filter((subPackage) => subPackage !== 'runtime')
+      .forEach((subPackage) => {
+        const key = subPackage.toUpperCase();
+        xPh.global
+          .set(`PREFIXDIR.${key}`, prefixDir[subPackage].replace(/\\/g, '/'))
+          .set(`INSTALLDIR.${key}`, installDir[subPackage].replace(/\\/g, '/'));
+      });
 
     this._prefix = prefixDir;
 
-    const basePath = getBasePath(this._root, this._pkg);
+    for (let i = 0; i < subPackages.length; ++i) {
+      const subPackage = subPackages[i];
 
-    /* Copy postinst and prerm scripts for the binary package. */
-    const installWpkgDir = path.join(installDir, 'WPKG');
-    xFs.mkdir(installWpkgDir);
-    const ph = new xPh.Placeholder();
-    ['postinst', 'prerm'].forEach((script) => {
-      script = script + xPlatform.getShellExt();
-      const input = path.join(basePath, script);
-      const output = path.join(installWpkgDir, script);
-      ph.set('DISTRIBUTION', this._distribution) //
-        .injectFile('PACMAN', input, output);
-    });
+      /* Copy postinst and prerm scripts for the binary package. */
+      const installWpkgDir = path.join(installDir[subPackage], 'WPKG');
+      xFs.mkdir(installWpkgDir);
+      const ph = new xPh.Placeholder();
+      ['postinst', 'prerm'].forEach((script) => {
+        script = script + xPlatform.getShellExt();
+        const input = path.join(basePath, script);
+        const output = path.join(installWpkgDir, script);
+        if (mainPackage !== i) {
+          ph.set('SUBNAME', subPackage);
+        }
+        ph.set('DISTRIBUTION', this._distribution) //
+          .injectFile('PACMAN', input, output);
+      });
 
-    /* Generate the config.json file. */
-    this._genConfig(prefixDir, this._config.runtime);
+      /* Generate the config.json file. */
+      this._genConfig(
+        mainPackage !== i ? subPackage : null,
+        prefixDir[subPackage],
+        this._config.runtime
+      );
 
-    /* Copy etc/ files if available. */
-    try {
-      xFs.cp(path.join(basePath, 'etc'), path.join(installDir, 'etc'));
-    } catch (ex) {
-      this._resp.log.warn('the etc/ directory is not available');
+      /* Copy etc/ files if available. */
+      try {
+        xFs.cp(
+          path.join(basePath, 'etc'),
+          path.join(installDir[subPackage], 'etc')
+        );
+      } catch (ex) {
+        this._resp.log.warn('the etc/ directory is not available');
+      }
     }
   }
 
   _targetRootFix(file) {
-    const regex = /(?:[a-zA-Z]:|\\\\)?[\\/](?:(?![\\/]install[\\/]runtime)[^"'\n$])*[\\/]wpkg-[0-9]+[\\/]install[\\/]runtime([\\/]?[^"'\n$ ]+)?/g;
+    const regex = new RegExp(
+      `(?:[a-zA-Z]:|\\\\)?[\\/](?:(?![\\/]install[\\/][a-z]+)[^"'\n$])*[\\/]wpkg-[0-9]+[\\/]install[\\/][a-z]+([\\/]?[^"'\n$ ]+)?`,
+      'g'
+    );
 
     try {
       if (xFs.sed(file, regex, `${this._root}$1`)) {
@@ -424,6 +460,19 @@ class Action {
   }
 
   *makeall() {
+    const basePath = getBasePath(this._root, this._pkg);
+    const changelogFile = path.join(basePath, 'wpkg/changelog');
+    const controlFile = path.join(basePath, 'wpkg/control.info');
+
+    const control = this._controlParser(controlFile);
+
+    /* This condition is true only when wpkg is building a new binary package
+     * from a source package.
+     */
+    if (this._binaryDir && this._binaryDir.length) {
+      this._genBinWpkg(control, this._binaryDir);
+    }
+
     const extra = this._getExtra();
     extra.args = {
       all: this._config.rules.args.makeall,
@@ -440,11 +489,7 @@ class Action {
      * makeall file in order to replace the list of distributions by the
      * target distribution.
      */
-    const basePath = getBasePath(this._root, this._pkg);
-    const changelogFile = path.join(basePath, 'wpkg/changelog');
-    const controlFile = path.join(basePath, 'wpkg/control.info');
-
-    const distributions = this._controlParser(controlFile).Distribution;
+    const distributions = control.Distribution;
 
     if (
       !distributions
@@ -473,12 +518,13 @@ class Action {
       );
 
     if (this._distribution === 'toolchain/') {
-      if (/\nDepends: /.test(dataControl)) {
+      if (/\nDepends(?:\/[a-z]+)?: /.test(dataControl)) {
         dataControl = dataControl.replace(
-          /(\nDepends: [^\n]+)/,
+          /(\nDepends(?:\/[a-z]+)?: [^\n]+)/,
           '$1, xcraft+peon'
         );
-      } else {
+      }
+      if (!/\nDepends: /.test(dataControl)) {
         dataControl += 'Depends: xcraft+peon\n';
       }
     }
