@@ -8,6 +8,9 @@
         "**/var/wpkg/**": true
     },
     "search.exclude": {
-        "**/var/devroot/**": true
-    }
+        "**/var/devroot/**": true,
+        "**/var/prodroot.*/**": true,
+        "**/var/tmp/**": true
+    },
+    "search.followSymlinks": false
 }
