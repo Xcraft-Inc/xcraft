@@ -17,7 +17,7 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     seward+bzip2:

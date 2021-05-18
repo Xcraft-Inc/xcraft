@@ -20,7 +20,7 @@ dependency:
     bagder+curl:
       - version: ''
         architecture: []
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     clark+expat:

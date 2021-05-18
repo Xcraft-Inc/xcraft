@@ -14,7 +14,7 @@ description:
   long: Python is a programming language that lets you work quickly and integrate systems more effectively.
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     seward+bzip2:

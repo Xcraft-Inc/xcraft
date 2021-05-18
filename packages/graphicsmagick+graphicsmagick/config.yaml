@@ -14,7 +14,7 @@ description:
   long: 'GraphicsMagick provides a set of commandline tools and programming APIs for manipulating, editing, and converting raster and vector images.'
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     seward+bzip2:

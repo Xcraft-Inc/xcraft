@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
   build:
@@ -53,6 +53,7 @@ data:
       maketest: ''
       makeinstall: '!make CFLAGS= LDFLAGS= install_sw'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

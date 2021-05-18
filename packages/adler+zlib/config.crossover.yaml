@@ -4,7 +4,10 @@ data:
     <PEON.OS=darwin?
       SDKROOT="$MACOSSDK_1013"
       MACOSX_DEPLOYMENT_TARGET=10.10
-    :> ./configure --prefix=<PEON.PREFIXDIR> --static
+    :> ./configure --prefix=<PEON.PREFIXDIR>
+                   --libdir=<PEON.PREFIXDIR.DEV>/lib
+                   --includedir=<PEON.PREFIXDIR.DEV>/include
+                   --static
   rules:
     args:
       makeall: |-

@@ -17,7 +17,7 @@ description:
     compression standard from the Joint Photographic Experts Group (JPEG).
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     libpng+libpng:
