@@ -164,6 +164,10 @@ class Action {
 
     this._prefix = prefixDir;
 
+    const etcPath = path.join(basePath, 'etc');
+    const etcDirList = xFs.lsdir(etcPath);
+    const etcFileList = xFs.lsfile(etcPath);
+
     for (let i = 0; i < subPackages.length; ++i) {
       const subPackage = subPackages[i];
 
@@ -191,10 +195,20 @@ class Action {
 
       /* Copy etc/ files if available. */
       try {
-        xFs.cp(
-          path.join(basePath, 'etc'),
-          path.join(installDir[subPackage], 'etc')
+        /* Common etc/ files. */
+        etcFileList.forEach((file) =>
+          xFs.cp(
+            path.join(etcPath, file),
+            path.join(installDir[subPackage], 'etc', file)
+          )
         );
+        /* Specific sub-package etc/ files. */
+        if (etcDirList.indexOf(subPackage) !== -1) {
+          xFs.cp(
+            path.join(etcPath, subPackage),
+            path.join(installDir[subPackage], 'etc')
+          );
+        }
       } catch (ex) {
         this._resp.log.warn('the etc/ directory is not available');
       }
