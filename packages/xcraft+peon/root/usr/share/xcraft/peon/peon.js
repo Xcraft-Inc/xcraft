@@ -165,7 +165,7 @@ class Action {
     this._prefix = prefixDir;
 
     const etcPath = path.join(basePath, 'etc');
-    const hasEtc = fse.existsSync(etcPath);
+    const hasEtc = fs.existsSync(etcPath);
     const etcDirList = hasEtc ? xFs.lsdir(etcPath) : [];
     const etcFileList = hasEtc ? xFs.lsfile(etcPath) : [];
 
