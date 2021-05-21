@@ -165,8 +165,9 @@ class Action {
     this._prefix = prefixDir;
 
     const etcPath = path.join(basePath, 'etc');
-    const etcDirList = xFs.lsdir(etcPath);
-    const etcFileList = xFs.lsfile(etcPath);
+    const hasEtc = fse.existsSync(etcPath);
+    const etcDirList = hasEtc ? xFs.lsdir(etcPath) : [];
+    const etcFileList = hasEtc ? xFs.lsfile(etcPath) : [];
 
     for (let i = 0; i < subPackages.length; ++i) {
       const subPackage = subPackages[i];
