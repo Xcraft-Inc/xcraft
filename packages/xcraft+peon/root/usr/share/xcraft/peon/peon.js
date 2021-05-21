@@ -193,25 +193,61 @@ class Action {
         this._config.runtime
       );
 
+      const cp = (src, dst) => {
+        this._resp.log.verb(`Copy ${src} to ${dst}`);
+        xFs.cp(src, dst);
+      };
+
       /* Copy etc/ files if available. */
-      try {
-        /* Common etc/ files. */
-        etcFileList.forEach((file) =>
-          xFs.cp(
-            path.join(etcPath, file),
-            path.join(installDir[subPackage], 'etc', file)
-          )
-        );
-        /* Specific sub-package etc/ files. */
-        if (etcDirList.indexOf(subPackage) !== -1) {
-          xFs.cp(
-            path.join(etcPath, subPackage),
-            path.join(installDir[subPackage], 'etc')
+      /* Common etc/ files. */
+      etcFileList.forEach((file) =>
+        cp(
+          path.join(etcPath, file),
+          path.join(installDir[subPackage], 'etc', file)
+        )
+      );
+
+      /* etc/xxx, ... */
+      etcDirList.forEach((dir) => {
+        const dirPath = path.join(etcPath, dir);
+
+        if (dir === 'env') {
+          const envFileList = xFs.lsfile(dirPath);
+          const envDirList = xFs.lsdir(dirPath);
+
+          /* Common etc/env, ... files. */
+          envFileList.forEach((file) =>
+            cp(
+              path.join(dirPath, file),
+              path.join(installDir[subPackage], 'etc', dir, file)
+            )
           );
+
+          envDirList.forEach((type) => {
+            const typeDirPath = path.join(dirPath, type);
+            const typeFileList = xFs.lsfile(typeDirPath);
+            const typeDirList = xFs.lsdir(typeDirPath);
+
+            /* Common etc/env/path, etc/env/other files. */
+            typeFileList.forEach((file) =>
+              cp(
+                path.join(typeDirPath, file),
+                path.join(installDir[subPackage], 'etc', dir, type, file)
+              )
+            );
+
+            /* Specific sub-package etc/env/path, etc/env/other, ... files. */
+            if (typeDirList.indexOf(subPackage) !== -1) {
+              cp(
+                path.join(typeDirPath, subPackage),
+                path.join(installDir[subPackage], 'etc', dir, type)
+              );
+            }
+          });
+        } else {
+          cp(dirPath, path.join(installDir[subPackage], 'etc', dir));
         }
-      } catch (ex) {
-        this._resp.log.warn('the etc/ directory is not available');
-      }
+      });
     }
   }
 
