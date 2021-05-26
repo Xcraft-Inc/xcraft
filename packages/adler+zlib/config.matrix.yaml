@@ -1,6 +1,7 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
+    !<PEON.OS=win? exit 0; :>
+    cd <THIS.DATA.RULES.LOCATION> &&
     <PEON.OS=darwin?
       SDKROOT="$MACOSSDK_1013"
       MACOSX_DEPLOYMENT_TARGET=10.10
