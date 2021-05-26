@@ -44,7 +44,7 @@ data:
       prerm: ''
       makeall: |-
         LZMA=0
-        PATCH_LINK+=${LDFLAGS}
+        PATCH_LINK+=$(LDFLAGS)
         PATCH_LINK+=-Wl,-Bstatic
         PATCH_LINK+=-lz
         PATCH_LINK+=-lbz2
