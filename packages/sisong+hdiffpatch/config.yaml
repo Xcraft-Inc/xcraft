@@ -1,0 +1,59 @@
+subpackage:
+  - runtime*
+name: sisong+hdiffpatch
+version: 3.1.1-20
+$version: 3.1.1
+distribution: matrix/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: a C\C++ library and command-line tools for Diff & Patch between binary
+  long: a C\C++ library and command-line tools for Diff & Patch between binary files or directories(folder); cross-platform; run fast; create small delta/differential; support large files and limit memory requires when diff & patch.
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/sisong/HDiffPatch/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: mkdir('<PEON.PREFIXDIR>/bin')
+  rules:
+    type: make
+    location: data/HDiffPatch-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        LZMA=0
+        PATCH_LINK=<PEON.PROD.ROOTDIR>/usr/lib/libz.a
+        PATCH_LINK+=<PEON.PROD.ROOTDIR>/usr/lib/libbz2.a
+      maketest: ''
+      makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
+    test: none
+    env: {}
+  deploy: '!strip -s <PEON.PREFIXDIR>/bin/*'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
