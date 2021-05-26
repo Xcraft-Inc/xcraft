@@ -36,12 +36,11 @@ data:
     prepare: ''
   type: src
   configure: |-
-    <PEON.OS=win?:!
-      cd <THIS.DATA.RULES.LOCATION>
-        && ./configure --prefix=<PEON.PREFIXDIR>
-                       --libdir=<PEON.PREFIXDIR.DEV>/lib
-                       --includedir=<PEON.PREFIXDIR.DEV>/include
-    >
+    !<PEON.OS=win? exit 0 :>
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --libdir=<PEON.PREFIXDIR.DEV>/lib
+                     --includedir=<PEON.PREFIXDIR.DEV>/include
   rules:
     type: script
     location: data/zlib-<THIS.$VERSION>
