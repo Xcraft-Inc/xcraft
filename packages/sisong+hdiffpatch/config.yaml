@@ -44,8 +44,11 @@ data:
       prerm: ''
       makeall: |-
         LZMA=0
-        PATCH_LINK=<PEON.PROD.ROOTDIR>/usr/lib/libz.a
-        PATCH_LINK+=<PEON.PROD.ROOTDIR>/usr/lib/libbz2.a
+        PATCH_LINK+=${LDFLAGS}
+        PATCH_LINK+=-Wl,-Bstatic
+        PATCH_LINK+=-lz
+        PATCH_LINK+=-lbz2
+        PATCH_LINK+=-Wl,-Bdynamic
       maketest: ''
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
     test: none
