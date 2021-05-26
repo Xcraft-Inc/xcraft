@@ -1,0 +1,11 @@
+--- a/file_for_patch.c	2021-05-26 16:59:00.177079400 +0200
++++ b/file_for_patch.c	2021-05-26 17:00:27.543891000 +0200
+@@ -182,7 +182,7 @@
+             if (wsize<=0) return hpatch_FALSE;
+             return 0==_wmkdir(path_w);
+ #else
+-#   ifdef _MSC_VER
++#   if defined(_MSC_VER) || defined(__MINGW32__)
+             return 0==_mkdir(path);
+ #   else
+             const mode_t kDefalutMode=S_IRWXU|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH;//0755
