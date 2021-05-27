@@ -1,0 +1,15 @@
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --without-debug
+                     --without-docbook
+                     --without-ftp
+                     --with-html
+                     --without-http
+                     --without-iconv
+                     --without-zlib
+                     --without-lzma
+                     --without-python
