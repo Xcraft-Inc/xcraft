@@ -18,12 +18,14 @@ dependency:
       - version: ''
         architecture: []
   build:
-    xcraft+peon:
+    xcraft+base-build:
       - version: ''
         architecture: []
-    xcraft+build-essential:
+    apple+macos-sdk-1013:
       - version: ''
-        architecture: []
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: 'https://wimlib.net/downloads/wimlib-<THIS.$VERSION>.tar.gz'
