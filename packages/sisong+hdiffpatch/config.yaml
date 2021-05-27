@@ -48,6 +48,11 @@ data:
         PATCH_LINK+=-Wl,-Bstatic
         PATCH_LINK+=-lz
         PATCH_LINK+=-lbz2
+        <PEON.OS=win?
+          PATCH_LINK+=-Wl,--start-group
+          PATCH_LINK+=-lwinpthread
+          PATCH_LINK+=-Wl,--end-group
+        :>
         PATCH_LINK+=-Wl,-Bdynamic
       maketest: ''
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
