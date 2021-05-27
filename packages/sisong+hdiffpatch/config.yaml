@@ -47,7 +47,9 @@ data:
       makeall: |-
         LZMA=0
         PATCH_LINK+=$(LDFLAGS)
-        PATCH_LINK+=-Wl,-Bstatic
+        <PEON.OS=darwin?:
+          PATCH_LINK+=-Wl,-Bstatic
+        >
         PATCH_LINK+=-lz
         PATCH_LINK+=-lbz2
         <PEON.OS=win?
@@ -55,12 +57,16 @@ data:
           PATCH_LINK+=-lwinpthread
           PATCH_LINK+=-Wl,--end-group
         :>
-        PATCH_LINK+=-Wl,-Bdynamic
+        <PEON.OS=darwin?:
+          PATCH_LINK+=-Wl,-Bdynamic
+        >
       maketest: ''
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
     test: none
-    env: {}
-  deploy: '!strip -s <PEON.PREFIXDIR>/bin/*'
+    env:
+      SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      MACOSX_DEPLOYMENT_TARGET: '10.10'
+  deploy: '!strip <PEON.OS=darwin?: -s > <PEON.PREFIXDIR>/bin/*'
   env:
     path: []
     other: {}
