@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: wimlib+imagex
+version: 1.13.4-4
+$version: 1.13.4
+distribution: matrix/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: the open source Windows Imaging (WIM) library
+  long: 'wimlib is an open source, cross-platform library for creating, extracting, and modifying Windows Imaging (WIM) archives. WIM is a file archiving format, somewhat comparable to ZIP (and many other file archiving formats); but unlike ZIP, it allows storing various Windows-specific metadata, allows storing multiple "images" in a single archive, automatically deduplicates all file contents, and supports optional solid compression to get a better compression ratio. wimlib and its command-line frontend wimlib-imagex provide a free and cross-platform alternative to Microsoft''s WIMGAPI, ImageX, and DISM.'
+dependency:
+  install:
+    xmlsoft+libxml2:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://wimlib.net/downloads/wimlib-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --enable-static
+                     --disable-shared
+                     --prefix=<PEON.PREFIXDIR>
+                     --without-ntfs-3g
+                     --without-fuse
+                     --without-libcrypto
+  rules:
+    type: make
+    location: data/wimlib-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install-strip
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
