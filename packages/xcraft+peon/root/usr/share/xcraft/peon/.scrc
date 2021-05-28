@@ -7,6 +7,7 @@
     "../../../../../../../../../lib/xcraft-core-bus",
     "../../../../../../../../../lib/xcraft-core-busclient",
     "../../../../../../../../../lib/xcraft-core-devel",
+    "../../../../../../../../../lib/xcraft-core-env",
     "../../../../../../../../../lib/xcraft-core-etc",
     "../../../../../../../../../lib/xcraft-core-extract",
     "../../../../../../../../../lib/xcraft-core-fs",

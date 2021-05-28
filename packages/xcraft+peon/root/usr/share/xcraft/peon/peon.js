@@ -10,6 +10,7 @@ const xFs = require('xcraft-core-fs');
 const xPeon = require('xcraft-contrib-peon');
 const xPh = require('xcraft-core-placeholder');
 const xPlatform = require('xcraft-core-platform');
+const xEnv = require('xcraft-core-env');
 
 function explodeName(name) {
   return {
@@ -113,7 +114,11 @@ class Action {
     }
 
     if (this._config.rules.env) {
-      extra.env = Object.assign({}, process.env, this._config.rules.env);
+      extra.env = Object.assign(
+        {},
+        process.env,
+        xEnv.pp(this._config.rules.env)
+      );
     }
 
     return extra;
