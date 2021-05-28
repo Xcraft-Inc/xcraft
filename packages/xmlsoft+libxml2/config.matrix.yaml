@@ -1,15 +1,34 @@
 data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && ./configure --prefix=<PEON.PREFIXDIR>
-                     --enable-static
-                     --disable-shared
-                     --without-debug
-                     --without-docbook
-                     --without-ftp
-                     --with-html
-                     --without-http
-                     --without-iconv
-                     --without-zlib
-                     --without-lzma
-                     --without-python
+    <PEON.OS=win?
+        & cd win32
+        & cscript configure.js compiler=mingw
+                               prefix={PEON.PREFIXDIR}
+                               include={PEON.ROOTDIR}/usr/include
+                               lib={PEON.ROOTDIR}/usr/lib
+                               static=yes
+                               debug=no
+                               docb=no
+                               ftp=no
+                               html=no
+                               iconv=no
+                               zlib=no
+                               lzma=no
+                               python=no
+                               http=no
+    :
+        && ./configure --prefix={PEON.PREFIXDIR}
+                       --enable-static
+                       --disable-shared
+                       --without-debug
+                       --without-docbook
+                       --without-ftp
+                       --without-html
+                       --without-http
+                       --without-iconv
+                       --without-zlib
+                       --without-lzma
+                       --without-python
+                       --without-http
+    >

@@ -29,26 +29,56 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --without-debug
-                --without-docbook
-                --without-ftp
-                --with-html
-                --without-http
-                --without-iconv
-                --without-zlib
-                --without-lzma
-                --without-python
+    !cd <THIS.DATA.RULES.LOCATION>
+    <PEON.OS=win?
+        & cd win32
+        & cscript configure.js compiler=mingw
+                               prefix="{PEON.PREFIXDIR}"
+                               include="{PEON.ROOTDIR}/usr/include"
+                               lib="{PEON.ROOTDIR}/usr/lib"
+                               debug=no
+                               docb=no
+                               ftp=no
+                               html=yes
+                               iconv=no
+                               zlib=no
+                               lzma=no
+                               python=no
+    :
+        && ./configure --prefix={PEON.PREFIXDIR}
+                       --without-debug
+                       --without-docbook
+                       --without-ftp
+                       --with-html
+                       --without-http
+                       --without-iconv
+                       --without-zlib
+                       --without-lzma
+                       --without-python
+    >
   rules:
-    type: make
-    location: data/libxml2-<THIS.$VERSION>/
+    type: script
+    location: data/libxml2-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: |-
+        !<PEON.OS=win?
+          cd win32 &&
+          mingw32-make -f Makefile.mingw
+                       -j{PEON.CPUS.COUNT}
+        :
+          make -j{PEON.CPUS.COUNT}
+        >
       maketest: ''
-      makeinstall: install
+      makeinstall: |-
+        <PEON.OS=win?
+          cp('include/libxml/',  '{PEON.PREFIXDIR}/include/libxml/', /\.h$/);
+          cp('win32/bin.mingw/', '{PEON.PREFIXDIR}/bin/', /\.(dll|exe)$/);
+          cp('win32/bin.mingw/', '{PEON.PREFIXDIR}/lib/', /\.(a|lib)$/);
+        :!
+          make install
+        >
     test: none
   deploy: ''
   env:
