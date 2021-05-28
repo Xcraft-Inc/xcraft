@@ -64,8 +64,8 @@ data:
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
     test: none
     env:
-      SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      MACOSX_DEPLOYMENT_TARGET: '10.10'
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
   deploy: '!strip <PEON.OS=darwin?: -s > <PEON.PREFIXDIR>/bin/*'
   env:
     path: []

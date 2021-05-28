@@ -53,8 +53,8 @@ data:
       makeinstall: install-strip
     test: none
     env:
-      SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      MACOSX_DEPLOYMENT_TARGET: '10.10'
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
   deploy: ''
   env:
     path: []
