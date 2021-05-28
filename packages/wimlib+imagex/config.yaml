@@ -36,7 +36,6 @@ data:
   type: src
   configure: |-
     !{bash}
-    export LDFLAGS="$LDFLAGS -Wl,-Bstatic";
     cd <THIS.DATA.RULES.LOCATION>
       && ./configure --enable-static
                      --disable-shared
@@ -63,6 +62,7 @@ data:
     env:
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
       darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
+      win/LDFLAGS: '<PEON.ENV.LDFLAGS> -Wl,-Bstatic'
       win/LIBXML2_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
       win/LIBXML2_LIBS: '-L<PEON.PROD.ROOTDIR>/usr/lib -lxml2'
   deploy: '<PEON.OS=win?! strip -s {PEON.PREFIXDIR}/bin/*.exe :>'
