@@ -16,6 +16,7 @@
   "cmp": "^darwin|freebsd|linux|sunos$",
   "codesign": "^darwin$",
   "cp": "^darwin|freebsd|linux|sunos$",
+  "cscript": "^win32$",
   "cut": "^darwin|freebsd|linux|sunos$",
   "dash": "^darwin|freebsd|linux|sunos$",
   "date": "^darwin|freebsd|linux|sunos$",
