@@ -35,27 +35,37 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    export LDFLAGS="$LDFLAGS -Wl,-Bstatic";
+    cd <THIS.DATA.RULES.LOCATION>
       && ./configure --enable-static
                      --disable-shared
                      --prefix=<PEON.PREFIXDIR>
                      --without-ntfs-3g
                      --without-fuse
                      --without-libcrypto
+      <PEON.OS=win?  --host=x86_64-w64-mingw32 :>
   rules:
-    type: make
+    type: script
     location: data/wimlib-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!<PEON.OS=win? mingw32-make : make > -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install-strip
+      makeinstall: |-
+        !<PEON.OS=win?
+          mingw32-make install
+        :
+          make install-strip
+        >
     test: none
     env:
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
       darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
-  deploy: ''
+      win/LIBXML2_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
+      win/LIBXML2_LIBS: '-L<PEON.PROD.ROOTDIR>/usr/lib -lxml2'
+  deploy: '<PEON.OS=win?! strip -s {PEON.PREFIXDIR}/bin/*.exe :>'
   env:
     path: []
     other: {}
