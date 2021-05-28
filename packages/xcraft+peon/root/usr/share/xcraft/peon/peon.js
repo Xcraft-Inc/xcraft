@@ -48,6 +48,8 @@ class Action {
 
     this._resp.log.info(`detected distribution: ${this._distribution}`);
 
+    xEnv.devrootUpdate(this._distribution);
+
     try {
       let data;
       try {
