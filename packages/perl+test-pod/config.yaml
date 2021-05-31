@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+test-pod
-version: '1.52'
+version: '1.52-1'
 $version: '1.52'
 distribution: toolchain/
 maintainer:

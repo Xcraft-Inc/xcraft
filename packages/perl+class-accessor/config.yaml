@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+class-accessor
-version: '0.51-1'
+version: '0.51-2'
 $version: '0.51'
 distribution: toolchain/
 maintainer:

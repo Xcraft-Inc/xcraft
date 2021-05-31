@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+parse-debianchangelog
-version: 1.2.0-3
+version: 1.2.0-4
 $version: 1.2.0
 distribution: toolchain/
 maintainer:

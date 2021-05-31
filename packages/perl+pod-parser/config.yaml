@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+pod-parser
-version: 1.63-1
+version: 1.63-2
 $version: '1.63'
 distribution: toolchain/
 maintainer:

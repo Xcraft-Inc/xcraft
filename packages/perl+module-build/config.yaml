@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+module-build
-version: '0.4229-1'
+version: '0.4229-2'
 $version: '0.4229'
 distribution: toolchain/
 maintainer:
