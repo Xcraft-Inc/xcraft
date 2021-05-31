@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+wget
-version: 1.17.1
-$version: 1.17.1
+version: 1.21.1-2
+$version: 1.21.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -13,6 +13,10 @@ description:
   brief: Wget.
   long: ''
 dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -26,15 +30,14 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --disable-nls
-                --without-libpsl
-                --without-ssl
-                --without-openssl
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-nls
+                     --without-libpsl
+                     --with-ssl=openssl
   rules:
     type: make
-    location: data/wget-<THIS.$VERSION>/
+    location: data/wget-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
