@@ -23,6 +23,9 @@ dependency:
     nongnu+freetype:
       - version: ''
         architecture: []
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -32,15 +35,13 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://www.freedesktop.org/software/fontconfig/release/fontconfig-<THIS.$VERSION>.tar.xz
+    uri: 'https://www.freedesktop.org/software/fontconfig/release/fontconfig-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --enable-iconv --disable-docs --disable-nls
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --enable-iconv --disable-docs --disable-nls'
   rules:
     type: make
     location: data/fontconfig-<THIS.$VERSION>/
@@ -51,6 +52,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
