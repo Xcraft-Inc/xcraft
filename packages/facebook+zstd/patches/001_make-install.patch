@@ -1,0 +1,17 @@
+--- a/programs/Makefile	2021-06-01 14:17:46.680897600 +0200
++++ b/programs/Makefile	2021-06-01 14:22:04.587548100 +0200
+@@ -411,7 +411,7 @@
+ #-----------------------------------------------------------------------------
+ # make install is validated only for Linux, macOS, BSD, Hurd and Solaris targets
+ #-----------------------------------------------------------------------------
+-ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku))
++#ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku))
+ 
+ HAVE_COLORNEVER = $(shell echo a | egrep --color=never a > /dev/null 2> /dev/null && echo 1 || echo 0)
+ EGREP_OPTIONS ?=
+@@ -508,4 +508,4 @@
+ 	$(RM) $(DESTDIR)$(MAN1DIR)/zstd.1
+ 	@echo zstd programs successfully uninstalled
+ 
+-endif
++#endif
