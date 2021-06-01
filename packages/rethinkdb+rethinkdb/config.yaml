@@ -78,7 +78,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: '!strip -s <PEON.PREFIXDIR>/bin/rethinkdb'
+  deploy: '!strip <PEON.OS=darwin? -x : -s > <PEON.PREFIXDIR>/bin/rethinkdb'
   env:
     path: []
     other: {}
