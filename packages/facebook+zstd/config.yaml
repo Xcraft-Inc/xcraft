@@ -45,7 +45,9 @@ data:
     !<PEON.OS=win?
       strip -s {PEON.PREFIXDIR}/bin/*.exe
     :
-      strip -s {PEON.PREFIXDIR}/bin/zstd{cat,mt}
+      strip -s {PEON.PREFIXDIR}/bin/zstd
+               {PEON.PREFIXDIR}/bin/zstdcat
+               {PEON.PREFIXDIR}/bin/zstdmt
                {PEON.PREFIXDIR}/bin/*zstd
     >
   env:
