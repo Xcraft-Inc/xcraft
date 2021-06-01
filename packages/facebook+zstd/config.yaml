@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: facebook+zstd
-version: 1.5.0-13
+version: 1.5.0-14
 $version: 1.5.0
 distribution: matrix/
 maintainer:
@@ -46,9 +46,6 @@ data:
       strip -s {PEON.PREFIXDIR}/bin/*.exe
     :
       strip -s {PEON.PREFIXDIR}/bin/zstd
-               {PEON.PREFIXDIR}/bin/zstdcat
-               {PEON.PREFIXDIR}/bin/zstdmt
-               {PEON.PREFIXDIR}/bin/*zstd
     >
   env:
     path: []
