@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+parse-debianchangelog
-version: 1.2.0-4
+version: 1.2.0-5
 $version: 1.2.0
 distribution: toolchain/
 maintainer:
@@ -48,12 +48,16 @@ dependency:
     mquinson+po4a:
       - version: ''
         architecture: []
+    gnu+gettext:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://www.djpig.de/software/Parse-DebianChangelog-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    prepare: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:
@@ -66,6 +70,7 @@ data:
       maketest: ''
       makeinstall: '!./Build install --prefix=<PEON.PREFIXDIR>'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
