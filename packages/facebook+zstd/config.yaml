@@ -1,0 +1,50 @@
+subpackage:
+  - runtime*
+name: facebook+zstd
+version: 1.5.0-5
+$version: 1.5.0
+distribution: matrix/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Zstandard - Fast real-time compression algorithm.
+  long: |-
+    Zstandard, or zstd as short version, is a fast lossless compression algorithm,
+    targeting real-time compression scenarios at zlib-level and better compression
+    ratios.
+    It's backed by a very fast entropy stage, provided by Huff0 and FSE library.
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/facebook/zstd/releases/download/v<THIS.$VERSION>/zstd-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/zstd-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT> zstd-release HAVE_ZLIB=false HAVE_LZMA=false HAVE_LZ4=false'
+      maketest: ''
+      makeinstall: '-C programs install PREFIX=<PEON.PREFIXDIR>'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
