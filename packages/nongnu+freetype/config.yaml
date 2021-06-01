@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: nongnu+freetype
-version: 2.10.1
-$version: 2.10.1
+version: 2.10.4-3
+$version: 2.10.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -37,9 +37,10 @@ data:
     ./configure --enable-static
                 --enable-shared
                 --prefix=<PEON.PREFIXDIR>
+                --enable-freetype-config
   rules:
     type: make
-    location: data/freetype-<THIS.$VERSION>/
+    location: data/freetype-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -47,6 +48,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
