@@ -8,10 +8,10 @@ maintainer:
 architecture:
   - linux-i386
   - linux-amd64
-  - linux-arm64
+  - linux-aarch64
   - darwin-i386
   - darwin-amd64
-  - darwin-arm64
+  - darwin-aarch64
 description:
   brief: 'Files for DocBook XML, XSL and SGML.'
   long: ''
