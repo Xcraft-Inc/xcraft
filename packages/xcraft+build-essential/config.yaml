@@ -8,8 +8,10 @@ maintainer:
 architecture:
   - linux-i386
   - linux-amd64
+  - linux-arm64
   - darwin-i386
   - darwin-amd64
+  - darwin-arm64
   - solaris-i386
   - solaris-amd64
   - freebsd-i386
@@ -29,8 +31,10 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -40,18 +44,22 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     gnu+binutils:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     gnu+make:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -61,18 +69,22 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     samba+ccache-clang:
       - version: ''
         architecture:
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
     freedesktop+pkgconfig:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -82,8 +94,10 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -93,8 +107,10 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -104,13 +120,16 @@ dependency:
         architecture:
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
     gnu+tar:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386

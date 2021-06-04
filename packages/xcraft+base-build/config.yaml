@@ -8,8 +8,10 @@ maintainer:
 architecture:
   - linux-i386
   - linux-amd64
+  - linux-arm64
   - darwin-i386
   - darwin-amd64
+  - darwin-arm64
   - mswindows-i386
   - mswindows-amd64
 description:
@@ -25,13 +27,16 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     kitware+cmake:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
     schindelin+mingit:
       - version: ''
         architecture:
@@ -42,8 +47,10 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
     kaspar030+git-cache:
       - version: ''
         architecture: []
@@ -52,8 +59,10 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
     pavlov+7z:
       - version: ''
         architecture:

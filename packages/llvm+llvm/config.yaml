@@ -34,11 +34,13 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     samba+ccache-clang:
       - version: ''
         architecture:
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
 data:
   get:
     uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'

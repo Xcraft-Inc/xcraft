@@ -28,11 +28,13 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - linux-arm64
     llvm+llvm:
       - version: ''
         architecture:
           - darwin-i386
           - darwin-amd64
+          - darwin-arm64
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.$VERSION>.tar.gz'
