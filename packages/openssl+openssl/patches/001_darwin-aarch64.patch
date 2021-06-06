@@ -1,0 +1,17 @@
+--- a/Configurations/10-main.conf	2018-11-20 14:35:37.000000000 +0100
++++ b/Configurations/10-main.conf	2021-06-06 23:59:37.000000000 +0200
+@@ -1557,6 +1557,14 @@
+         bn_ops           => "SIXTY_FOUR_BIT_LONG",
+         perlasm_scheme   => "macosx",
+     },
++    "darwin64-arm64-cc" => {
++        inherit_from     => [ "darwin-common", asm("aarch64_asm") ],
++        CFLAGS           => add("-Wall"),
++        cflags           => add("-arch arm64"),
++        lib_cppflags     => add("-DL_ENDIAN"),
++        bn_ops           => "SIXTY_FOUR_BIT_LONG",
++        perlasm_scheme   => "ios64",
++    },
+ 
+ ##### GNU Hurd
+     "hurd-x86" => {
