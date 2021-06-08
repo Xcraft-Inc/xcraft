@@ -16,3 +16,5 @@ data:
           SDKROOT="$MACOSSDK_1013"
           MACOSX_DEPLOYMENT_TARGET=10.10
         :> make <PEON.OS=win? -f win32/Makefile.gcc :> -j<PEON.CPUS.COUNT>
+    env:
+      CFLAGS: <PEON.ENV.CFLAGS> -Os

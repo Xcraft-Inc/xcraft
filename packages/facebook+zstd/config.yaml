@@ -40,7 +40,8 @@ data:
       maketest: ''
       makeinstall: '-C programs install PREFIX=<PEON.PREFIXDIR>'
     test: none
-    env: {}
+    env:
+      CFLAGS: <PEON.ENV.CFLAGS> -Os
   deploy: |-
     !<PEON.OS=win?
       strip -s {PEON.PREFIXDIR}/bin/*.exe; exit;

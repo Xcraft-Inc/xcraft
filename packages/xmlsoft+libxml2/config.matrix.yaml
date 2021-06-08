@@ -32,3 +32,6 @@ data:
                        --without-python
                        --without-http
     >
+  rules:
+    env:
+      CFLAGS: <PEON.ENV.CFLAGS> -Os

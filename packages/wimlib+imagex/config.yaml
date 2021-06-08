@@ -60,6 +60,7 @@ data:
         >
     test: none
     env:
+      CFLAGS: <PEON.ENV.CFLAGS> -Os
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
       darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
       win/LDFLAGS: '<PEON.ENV.LDFLAGS> -Wl,-Bstatic'
