@@ -45,6 +45,9 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      OPENSSL_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
+      OPENSSL_LIBS: '-L<PEON.PROD.ROOTDIR>/usr/lib -lssl -lcrypto'
   deploy: ''
   env:
     path: []
