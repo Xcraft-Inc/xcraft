@@ -30,13 +30,15 @@ dependency:
     perl+locale-gettext:
       - version: ''
         architecture: []
+    perl+pod-parser:
+      - version: ''
+        architecture: []
     debian+docbook:
       - version: ''
         architecture: []
 data:
   get:
-    uri: >-
-      https://github.com/mquinson/po4a/releases/download/v<THIS.$VERSION>/po4a-<THIS.$VERSION>.tar.gz
+    uri: 'https://github.com/mquinson/po4a/releases/download/v<THIS.$VERSION>/po4a-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
