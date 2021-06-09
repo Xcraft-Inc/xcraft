@@ -21,7 +21,7 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    xcraft+build-essential:
+    gnu+make:
       - version: ''
         architecture: []
     wall+perl:
