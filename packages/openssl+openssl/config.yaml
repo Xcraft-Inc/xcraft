@@ -37,7 +37,7 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> &&
-    CC="$CC $CFLAGS"
+    CC="${CC:-cc} $CFLAGS"
     <PEON.OS=darwin?
       ./Configure darwin64-{PEON.OS.ARCH2}-cc
     :
