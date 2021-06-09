@@ -35,6 +35,9 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+    gnu+nettle:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
