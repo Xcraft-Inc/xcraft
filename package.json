@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.epsitec.ch/toolchain/toolchain.git"
+    "url": "https://git.epsitec.ch/xcraft/xcraft.git"
   },
   "keywords": [
     "xcraft"
