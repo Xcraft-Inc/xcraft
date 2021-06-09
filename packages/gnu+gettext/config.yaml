@@ -33,6 +33,10 @@ data:
     !cd <THIS.DATA.RULES.LOCATION> ;
     ./configure --prefix=<PEON.PREFIXDIR>
                 --disable-nls
+                --without-git
+                --without-bzip2
+                --without-xz
+                --without-emacs
   rules:
     type: make
     location: data/gettext-<THIS.$VERSION>/
