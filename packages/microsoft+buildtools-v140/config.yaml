@@ -1,0 +1,54 @@
+name: microsoft+buildtools-v140
+version: 16.9.4+31205.134
+$version: 16.9.4+31205.134
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Microsoft Build Tools v140
+  long: Microsoft Build Tools v140
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/sjRrX9K365TGBAY/download/microsoft+buildtools-v140-<THIS.$VERSION>.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-v140-<THIS.$VERSION>/vs_BuildTools.exe
+    args:
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --nocache
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.VisualStudio.Component.VC.140
+      prerm: |-
+        modify
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.VisualStudio.Component.VC.140
+  env:
+    path: []
+    other: {}
+  embedded: true
