@@ -58,6 +58,6 @@ data:
         --remove Microsoft.VisualStudio.Component.VC.ATL
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>
     other: {}
   embedded: true

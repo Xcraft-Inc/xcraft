@@ -54,6 +54,6 @@ data:
         --remove Microsoft.Net.Component.4.7.2.SDK
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>
     other: {}
   embedded: true
