@@ -27,17 +27,24 @@ data:
   configure: ''
   rules:
     type: script
-    location: data/go/src
+    location: data/go
     args:
       postinst: ''
       prerm: ''
       makeall: |-
-        exp('CGO_ENABLED', '0');
-        yield exec(<PEON.OS=win? 'make.bat' : './make.bash' >);
+        !<PEON.OS=win?
+          set CGO_ENABLED=0
+            && cd src
+            && make.bat
+        :
+          export CGO_ENABLED=0
+            && cd src
+            && ./make.bash
+        >
       maketest: ''
       makeinstall: |-
         mkdir('<PEON.INSTALLDIR>/opt');
-        cp('../../go', '<PEON.INSTALLDIR>/opt/go-bootstrap');
+        cp('../go', '<PEON.INSTALLDIR>/opt/go-bootstrap');
     test: none
   deploy: ''
   env:
