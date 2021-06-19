@@ -50,7 +50,7 @@ data:
         !export PATH="$(pwd):$PATH"
           && make -j<PEON.CPUS.COUNT>
       maketest: ''
-      makeinstall: 'cp("dist/usr/bin/wpkg_static", "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr/bin/wpkg_static");'
+      makeinstall: 'cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr/bin/wpkg_static");'
     test: none
   deploy: ''
   env:
