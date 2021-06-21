@@ -17,12 +17,18 @@ dependency:
     gnu+glibc:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     vlasenko+busybox:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     unigw+wpkg:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
