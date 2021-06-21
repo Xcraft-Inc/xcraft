@@ -1,0 +1,104 @@
+subpackage:
+  - runtime*
+name: graphviz+graphviz
+version: 2.47.3-3
+$version: 2.47.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Graphviz is open source graph visualization software.
+  long: |-
+    Graph visualization is a way of representing structural information as
+    diagrams of abstract graphs and networks. It has important applications
+    in networking, bioinformatics, software engineering, database and
+    web design, machine learning, and in visual interfaces for other
+    technical domains.
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/<THIS.$VERSION>/graphviz-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --disable-man-pdfs
+                     --disable-debug
+                     --disable-ltdl-install
+                     --disable-ltdl
+                     --disable-swig
+                     --disable-sharp
+                     --disable-d
+                     --disable-go
+                     --disable-guile
+                     --disable-io
+                     --disable-java
+                     --disable-javascript
+                     --disable-lua
+                     --disable-ocaml
+                     --disable-perl
+                     --disable-php
+                     --disable-python
+                     --disable-python3
+                     --disable-r
+                     --disable-ruby
+                     --disable-tcl
+                     --without-webp
+                     --without-poppler
+                     --without-rsvg
+                     --without-ghostscript
+                     --without-visio
+                     --without-pangocairo
+                     --without-lasi
+                     --without-glitz
+                     --without-freetype2
+                     --without-fontconfig
+                     --without-gdk
+                     --without-gdk-pixbuf
+                     --without-gtk
+                     --without-gtkgl
+                     --without-gtkglext
+                     --without-gts
+                     --without-ann
+                     --without-glade
+                     --without-ming
+                     --without-qt
+                     --without-quartz
+                     --without-gdiplus
+                     --without-libgd
+                     --without-glut
+                     --with-sfdp
+                     --without-smyrna
+                     --without-ortho
+                     --without-digcola
+                     --without-ipsepcola
+  rules:
+    type: make
+    location: data/graphviz-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: 'mv(''<PEON.PREFIXDIR>/bin/dot_static'', ''<PEON.PREFIXDIR>/bin/dot'');'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
