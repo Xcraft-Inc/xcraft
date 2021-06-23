@@ -17,9 +17,13 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+sub-exporter-progressive:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''

@@ -27,9 +27,13 @@ dependency:
     perl+devel-globaldestruction:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+sub-quote:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
