@@ -17,27 +17,43 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+class-accessor:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+cgi:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+locale-gettext:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+timedate:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+test-pod:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+test-pod-coverage:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+pod-parser:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''

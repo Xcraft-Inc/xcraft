@@ -17,12 +17,18 @@ dependency:
     debian+fakeroot:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     wall+perl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     debian+debhelper:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''

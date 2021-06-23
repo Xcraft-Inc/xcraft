@@ -17,6 +17,8 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
