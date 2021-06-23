@@ -17,12 +17,18 @@ dependency:
     freedesktop+xcb-proto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     freedesktop+libpthread-stubs:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libxau:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
