@@ -17,9 +17,13 @@ dependency:
     wall+perl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+module-runtime:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     perl+devel-globaldestruction:
       - version: ''
         architecture: []
