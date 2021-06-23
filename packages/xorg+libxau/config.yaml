@@ -17,6 +17,8 @@ dependency:
     xorg+xproto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
