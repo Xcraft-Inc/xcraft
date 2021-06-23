@@ -1,0 +1,745 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\raggedright
+\definecolor{arsenic}{rgb}{0.23, 0.27, 0.29}
+\definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
+
+\usepackage{fontspec}
+\usepackage{titlesec}
+\newfontfamily\sectionfont[]{Ubuntu Condensed}
+\newfontfamily\subsectionfont[]{Ubuntu Condensed}
+\titleformat*{\section}{\LARGE\sectionfont}
+\titleformat*{\subsection}{\Large\subsectionfont}
+\end_preamble
+\use_default_options true
+\begin_modules
+linguistics
+\end_modules
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "Ubuntu Light"
+\font_sans "default" "Ubuntu Light"
+\font_typewriter "default" "Ubuntu Mono"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Xcraft CheatSheet"
+\pdf_author "Mathieu Schroeter"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification false
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 1.5cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 9 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\family sans
+\size huge
+Xcraft CheatSheet
+\end_layout
+
+\begin_layout Author
+\begin_inset Graphics
+	filename x-logo.png
+	lyxscale 20
+	scale 20
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size footnotesize
+Mathieu Schroeter, v1.2
+\end_layout
+
+\begin_layout Section*
+Pré-requis
+\end_layout
+
+\begin_layout Itemize
+System d'exploitation de type Linux (au moins de la génération des GNU/Linux
+\begin_inset space ~
+\end_inset
+
+Debian
+\begin_inset space ~
+\end_inset
+
+Jessie), Apple
+\begin_inset space ~
+\end_inset
+
+macOS
+\begin_inset space ~
+\end_inset
+
+10.9.5 ou Microsoft
+\begin_inset space ~
+\end_inset
+
+Windows
+\begin_inset space ~
+\end_inset
+
+7
+\begin_inset space ~
+\end_inset
+
+SP1
+\end_layout
+
+\begin_layout Itemize
+Espace disque d'au moins 
+\series bold
+60GB
+\series default
+, idéalement 
+\series bold
+100GB
+\series default
+ (cela dépend de ce qui sera construit)
+\end_layout
+
+\begin_layout Itemize
+Du bon hardware (CPU moyenne à haute gamme, 16GB de RAM pour être tranquille
+ et un SSD)
+\end_layout
+
+\begin_layout Paragraph*
+Linux
+\end_layout
+
+\begin_layout Standard
+Installer
+\series bold
+ 
+\series default
+git et un compilateur c/c++ de base (build-essential sous GNU/Linux
+\begin_inset space ~
+\end_inset
+
+Debian par exemple)
+\end_layout
+
+\begin_layout Paragraph*
+macOS
+\end_layout
+
+\begin_layout Standard
+L'exécution de git depuis un terminal va automatiquement demander et permettre
+ alors d'installer les outils de développement en ligne de commande
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+au besoin, installer Xcode
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph*
+Windows
+\end_layout
+
+\begin_layout Standard
+Installer Git pour Windows et contrairement à Linux et macOS, il ne faut
+ 
+\bar under
+surtout pas installer
+\bar default
+ de buildtools dans le système.
+ Les buildtools peuvent difficilement cohabiter en parallèle avec des versions
+ différentes.
+ Ici, Xcraft se chargera d'installer ce qui est nécessaire pour la compilation.
+ Cela implique qu'Xcraft doit être exécuté en administrateur sous Windows
+ contrairement à Linux et macOS où il s'exécute uniquement avec les droits
+ utilisateur.
+\end_layout
+
+\begin_layout Subsection*
+SSH
+\end_layout
+
+\begin_layout Standard
+Attention, les définitions de paquets Xcraft faisant référence à 
+\begin_inset CommandInset href
+LatexCommand href
+name "git.epsitec.ch"
+target "https://git.epsitec.ch"
+literal "false"
+
+\end_inset
+
+, utilisent 
+\bar under
+toujours
+\bar default
+ le protocole SSH pour accéder aux dépôts.
+ La raison est relativement évidente car une authentification par SSH ne
+ nécessite pas de devoir sauvegarder des credentials dans une valise.
+ Il suffit d'autoriser sa propre clef SSH pour le serveur GitLab et le tour
+ est joué.
+ Voir 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://git.epsitec.ch/-/profile/keys"
+
+\end_inset
+
+ et suivre les procédures très bien documentées par GitLab pour tous les
+ systèmes d'exploitations.
+\end_layout
+
+\begin_layout Section*
+Bootstrap
+\end_layout
+
+\begin_layout Standard
+L'étape de bootstrap se charge de mettre en place les outils de base pour
+ l'exploitation d'Xcraft.
+ Cela implique la compilation (sous *nix uniquement, pré-compilé sous Windows)
+ de nodejs, l'installation des dépendances node pour Xcraft, lancement de
+ la compilation de CMake puis compilation de wpkg.
+ C'est uniquement une fois que wpkg est compilé et déployé, qu'il est possible
+ de travailler avec Xcraft.
+\end_layout
+
+\begin_layout Subsection*
+Linux & macOS
+\end_layout
+
+\begin_layout Standard
+Depuis les systèmes de type Linux et Unix, tout le processus de bootstrap
+ doit se faire avec les droits d'un utilisateur courant.
+ L'utilisateur root n'est jamais requis.
+ Il faut commencer par cloner le dépôt Git de bootstrap pour *nix et exécuter
+ le script de bootstrap depuis un terminal.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "language=bash,basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	mkdir ~/xcraft
+\end_layout
+
+\begin_layout Plain Layout
+
+	cd ~/xcraft
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	# utiliser https://git.epsitec.ch/xcraft/nixdev.git pour HTTPS
+\end_layout
+
+\begin_layout Plain Layout
+
+	git clone git@git.epsitec.ch:xcraft/nixdev.git
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	cd nixdev
+\end_layout
+
+\begin_layout Plain Layout
+
+	.
+ ./bootstrap.sh
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+L'emplacement du dossier de déploiement d'Xcraft n'a aucune importance.
+ L'utilisation du chemin 
+\family typewriter
+~/xcraft
+\family default
+ n'est qu'une suggestion.
+ Il est possible que pendant le bootstrap, le système demande le login ainsi
+ que le mot de passe pour l'accès à GitLab.
+\end_layout
+
+\begin_layout Subsection*
+Windows
+\end_layout
+
+\begin_layout Standard
+Avec un système de type Windows, il est nécessaire d'effectuer le bootstrap
+ dans un emplacement pas trop éloigné de la lettre de lecteur ainsi qu'en
+ mode élevé (administrateur).
+ L'utilisation d'Xcraft devra se faire aussi en mode élevé afin que les
+ buildtools puissent être installés proprement dans le système.
+ Il faut commencer par ouvrir un command prompt 
+\family typewriter
+cmd.exe
+\family default
+ en mode 
+\bar under
+administrateur
+\bar default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+ce mode est indispensable pour pouvoir installer les buildtools Microsoft
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "language={command.com},basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	cd /d c:
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	mkdir xcraft
+\end_layout
+
+\begin_layout Plain Layout
+
+	cd xcraft
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	REM utiliser git@git.epsitec.ch:xcraft/windev.git pour SSH
+\end_layout
+
+\begin_layout Plain Layout
+
+	git clone https://git.epsitec.ch/xcraft/windev.git
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	cd windev
+\end_layout
+
+\begin_layout Plain Layout
+
+	bootstrap
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Zog SHell
+\end_layout
+
+\begin_layout Standard
+L'exploitation d'Xcraft se fait principalement par l'intermédiaire du Zog
+ SHell qui n'est rien de plus qu'un client aux bus Xcraft du toolchain.
+ Ce même client étant utilisable par les applications Westeros.
+ La différence avec les applications Westeros provient du fait que Zog est
+ utilisé ici, aussi pour démarrer le serveur Xcraft.
+\end_layout
+
+\begin_layout Paragraph*
+Linux & macOS
+\end_layout
+
+\begin_layout Standard
+Ouvrir un terminal (ne pas utiliser le compte root).
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "language=bash,basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	cd ~/xcraft/nixdev/sysroot/xcraft
+\end_layout
+
+\begin_layout Plain Layout
+
+	./zog
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Windows
+\end_layout
+
+\begin_layout Standard
+Ouvrir un command prompt 
+\family typewriter
+cmd.exe
+\family default
+ en mode administrateur.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "language={command.com},basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	cd /d c:
+\backslash
+xcraft
+\backslash
+windev
+\backslash
+sysroot
+\backslash
+xcraft	
+\end_layout
+
+\begin_layout Plain Layout
+
+	zog
+\end_layout
+
+\end_inset
+
+
+\lang french
+
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La compilation d'un produit peut prendre énormément de temps la première
+ fois.
+ Pour se faire il est nécessaire de générer l'ensemble des paquets (outils)
+ permettant de générer puis compiler le produit.
+ Quelques commandes impliquées sont brièvement présentées ici.
+\end_layout
+
+\begin_layout Description
+pacman.make permet de construire des paquets Xcraft à partir de définitions
+\end_layout
+
+\begin_layout Description
+pacman.build tente de compiler un paquet source en binaire tout en résolvant
+ les dépendances
+\end_layout
+
+\begin_layout Description
+pacman.install installe un paquet Xcraft dans un root (de développement ou
+ de distribution)
+\end_layout
+
+\begin_layout Description
+pacman.remove désinstalle un paquet Xcraft
+\end_layout
+
+\begin_layout Description
+pacman.upgrade met à jour un root en fonction des versions disponibles dans
+ les dépôts de paquets
+\end_layout
+
+\begin_layout Subsection*
+Exemple pour Linux & macOS
+\end_layout
+
+\begin_layout Standard
+Ces commandes permettent (si tout se passe comme prévu) de construire Crésus
+ Comptabilité pour Linux ou macOS en partant de zéro.
+ Cela implique la compilation de la majorité des outils nécessaires à la
+ création du produit.
+ Selon les caractéristiques de la machine utilisée, il faut compter certainement
+ plusieurs heures avant d'atteindre le résultat.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	pacman.make epsitec+crossover-crcompta,@deps
+\end_layout
+
+\begin_layout Plain Layout
+
+	pacman.build epsitec+crossover-crcompta
+\end_layout
+
+\begin_layout Plain Layout
+
+	pacman.install epsitec+crossover-crcompta
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Exemple pour Windows
+\end_layout
+
+\begin_layout Standard
+Ces commandes concernent la génération de la matrice Crésus pour Windows
+ ainsi que de différents sous-paquets qui seront impliqués à la génération
+ des templates CrossOver pour Linux et macOS.
+ Dans le cadre de Windows, tous les outils ne sont pas compilés pour divers
+ raisons comme l'absence de sources ou plus simplement à cause de procédures
+ de build quasiment inexistantes voir même complètement obsolètes ou 
+\begin_inset Quotes fld
+\end_inset
+
+magiques
+\begin_inset Quotes frd
+\end_inset
+
+.
+ Des installeurs vont être exécutés pendant ces phases de constructions.
+ Il est possible que des problèmes apparaissent car le système peut parfois
+ nécessiter un redémarrage.
+ Si tel est le cas, il suffit alors de recommencer avec la dernière commande
+ qui a échoué après un redémarrage de la machine.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},tabsize=4,columns=flexible,keywordstyle={\color{blue(pigment)}},commentstyle={\color{arsenic}}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+	pacman.make epsitec+cresus,@deps
+\end_layout
+
+\begin_layout Plain Layout
+
+	pacman.build epsitec+cresus
+\end_layout
+
+\begin_layout Plain Layout
+
+	pacman.install epsitec+cresus
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Exemple de problèmes courants
+\end_layout
+
+\begin_layout Itemize
+La création de certains paquets se terminent en erreur car les URLs pour
+ le téléchargement des sources ou des binaires ne sont plus valables (momentaném
+ent ou non)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A tenter dans cet ordre: re-exécuter le 
+\family typewriter
+pacman.make
+\family default
+, effacer le fichier en cache, changer l'URL
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+La compilation sous Windows avec MSVC provoque des erreurs comme quoi 
+\family typewriter
+new.h
+\family default
+ n'existe pas
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Dans ce cas il faut tenter un redémarrage de la machine pour finaliser une
+ des installation de buildtools
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+La commande 
+\family typewriter
+pacman.make
+\family default
+ semble complètement bloquée
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+C'est peut être juste que votre clef SSH n'est pas valable pour le téléchargemen
+t du dépôt et que Git attend sur une action
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Xcraft est un projet très complexe et nécessite une certaine expertise,
+ veuillez me communiquer les problèmes directement car ce document ne fait
+ que 
+\bar under
+survoler
+\bar default
+ le sujet.
+\end_layout
+
+\end_body
+\end_document
