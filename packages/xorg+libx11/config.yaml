@@ -17,12 +17,18 @@ dependency:
     xorg+xtrans:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+xproto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     freedesktop+libxcb:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
