@@ -43,7 +43,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      PROTOC: <OS.ROOTDIR>/usr/bin/protoc
   embedded: true
   runtime:
     configure: ''
