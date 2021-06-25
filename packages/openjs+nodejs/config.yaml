@@ -1,0 +1,63 @@
+subpackage:
+  - runtime*
+name: openjs+nodejs
+version: 8.17.0-6
+$version: 8.17.0
+distribution: westeros/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Node.js is a JS runtime built on Chrome's V8 JavaScript engine.
+  long: ''
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python2:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://nodejs.org/dist/latest-v8.x/node-v<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.INSTALLDIR>/opt/node8
+                     --enable-static
+                     --partly-static
+                     --without-dtrace
+                     --without-intl
+                     --without-snapshot
+                     --shared-openssl
+                     --shared-openssl-includes=<PEON.ROOTDIR>/usr/include
+                     --shared-openssl-libpath=<PEON.ROOTDIR>/usr/lib
+  rules:
+    type: make
+    location: data/node-v<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other:
+      NODE8: <OS.ROOTDIR>/opt/node8/bin
+  embedded: true
+  runtime:
+    configure: ''
