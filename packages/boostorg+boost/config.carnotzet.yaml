@@ -1,0 +1,18 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  rules:
+    args:
+      makeall: |-
+        !echo 'using gcc : aarch64 : aarch64-linux-g++ ;' > tools/build/src/user-config.jam
+        && ./b2 --prefix=<PEON.PREFIXDIR>
+                --build-type=minimal
+                --layout=system
+                  variant=release
+                  link=static
+                  runtime-link=static
+                  toolset=gcc-aarch64
+                install'
