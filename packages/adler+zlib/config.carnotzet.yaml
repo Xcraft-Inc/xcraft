@@ -1,0 +1,15 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --libdir=<PEON.PREFIXDIR.DEV>/lib
+                     --includedir=<PEON.PREFIXDIR.DEV>/include
+                     --static
+  rules:
+    env:
+      CC: aarch64-linux-gcc

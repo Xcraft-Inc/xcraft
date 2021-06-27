@@ -1,0 +1,20 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && CC="$CC $CFLAGS"
+         ./Configure linux-aarch64
+                     shared
+                     --prefix=<PEON.PREFIXDIR>
+                     --cross-compile-prefix=aarch64-linux-
+  rules:
+    args:
+      makeall: |-
+        !make -j<PEON.CPUS.COUNT>
+    env:
+      CC: gcc
+      CXX: g++
