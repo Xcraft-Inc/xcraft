@@ -329,7 +329,13 @@ class Action {
         : path.join(this._share, 'cache', extra.location);
 
     try {
-      yield xDevel.autoPatch(patchesDir, srcDir, this._resp, next);
+      yield xDevel.autoPatch(
+        patchesDir,
+        srcDir,
+        extra.distribution,
+        this._resp,
+        next
+      );
     } catch (ex) {
       if (ex.code !== 'ENOENT') {
         throw ex;
