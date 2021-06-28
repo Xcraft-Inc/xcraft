@@ -1,0 +1,11 @@
+--- a/src/Makefile.in	2021-06-08 16:11:49.000000000 +0200
++++ b/src/Makefile.in	2021-06-28 11:07:47.698154724 +0200
+@@ -1138,7 +1138,7 @@
+ CXXLD = $(CXX)
+ CXXLINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+-	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
++	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -all-static -o $@
+ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
+ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
+ am__v_CXXLD_0 = @echo "  CXXLD   " $@;
