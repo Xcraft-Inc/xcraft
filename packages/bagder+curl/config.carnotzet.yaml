@@ -1,8 +1,3 @@
-dependency:
-  build:
-    x-aarch64-linux+gnu-gcc-glibc-cross:
-      - version: ''
-        architecture: []
 data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
