@@ -6,7 +6,6 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - mswindows-i386
   - mswindows-amd64
 description:
   brief: Microsoft Windows SDK 8.1
@@ -45,6 +44,6 @@ data:
         /features OptionId.WindowsDesktopSoftwareDevelopmentKit
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk81/bin/x86
+      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk81/bin/x64
     other: {}
   embedded: true
