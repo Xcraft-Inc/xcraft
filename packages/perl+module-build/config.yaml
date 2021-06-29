@@ -25,8 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-<THIS.$VERSION>.tar.gz
+    uri: 'https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

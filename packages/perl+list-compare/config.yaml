@@ -25,8 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/List-Compare-<THIS.$VERSION>.tar.gz
+    uri: 'https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/List-Compare-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -42,8 +41,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: >-
-    rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
+  deploy: rm('<PEON.PREFIXDIR>/lib/perl5/<PEON.ENV.XCRAFT_PERL_VERSION>/x86_64-linux/perllocal.pod')
   env:
     path: []
     other: {}

@@ -28,8 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-<THIS.$VERSION>.tar.gz
+    uri: 'https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

@@ -28,8 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Module-Runtime-<THIS.$VERSION>.tar.gz
+    uri: 'https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Module-Runtime-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
