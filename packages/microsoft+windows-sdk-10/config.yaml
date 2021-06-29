@@ -1,0 +1,49 @@
+name: microsoft+windows-sdk-10
+version: 10.0.20348.0
+$version: 10.0.20348.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-amd64
+description:
+  brief: Microsoft Windows SDK 10
+  long: Microsoft Windows SDK 10
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/wWxMnXCdkTJq74p/download/microsoft+windows-sdk-10-<THIS.$VERSION>.zip'
+    ref: ''
+    out: microsoft+windows-sdk-10-<THIS.$VERSION>.zip
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+windows-sdk-10-<THIS.$VERSION>/winsdksetup.exe
+    args:
+      postinst: |-
+        <=0;1001
+        /quiet
+        /norestart
+        /ceip off
+        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk10
+        /features OptionId.DesktopCPPx64
+      prerm: |-
+        <=0;1001
+        /uninstall
+        /quiet
+        /norestart
+        /ceip off
+        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk10
+        /features OptionId.DesktopCPPx64
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/windows/sdk10/bin/x64
+    other: {}
+  embedded: true
