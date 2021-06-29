@@ -32,7 +32,6 @@ data:
         /quiet
         /norestart
         /ceip off
-        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk10
         /features OptionId.DesktopCPPx64
       prerm: |-
         <=0;1001
@@ -40,7 +39,6 @@ data:
         /quiet
         /norestart
         /ceip off
-        /installpath <PEON.ROOTDRIVE>/xcraft/microsoft/windows/sdk10
         /features OptionId.DesktopCPPx64
   env:
     path:
