@@ -25,7 +25,11 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: 'mv(''data/gcc-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/gcc'');'
+  configure: |-
+    mv('data/gcc-<THIS.$VERSION>', 'root/var/x-aarch64-linux/gcc');
+    sed('root/var/x-aarch64-linux/gcc/libsanitizer/asan/asan_linux.cpp',
+        /#include <unwind.h>/,
+        '#include <unwind.h>\n#ifndef PATH_MAX\n#define PATH_MAX 4096\n#endif\n');
   rules:
     type: move
     location: root
