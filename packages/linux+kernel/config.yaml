@@ -17,6 +17,8 @@ dependency:
     carnotzet+rootfs:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
