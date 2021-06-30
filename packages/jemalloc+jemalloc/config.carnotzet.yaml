@@ -3,7 +3,7 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --host=aarch64-linux
-                     --build=x86_64-pc-linux-gnu
+                     --build=$MACHTYPE
                      --enable-static
                      --disable-shared
                      --disable-autogen
