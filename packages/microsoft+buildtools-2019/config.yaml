@@ -1,0 +1,99 @@
+name: microsoft+buildtools-2019
+version: '16.10.3+31424.327'
+$version: '16.10.3+31424.327'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Microsoft Build Tools 2019
+  long: 'Build Windows desktop applications using the Microsoft C++ toolset, ATL, or MFC.'
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/WqmaZNkQxn5kMH3/download/microsoft+buildtools-2019-<THIS.$VERSION>.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/microsoft+buildtools-2019-<THIS.$VERSION>/vs_BuildTools.exe
+    args:
+      postinst: |-
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --nocache
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.VisualStudio.Component.Roslyn.Compiler
+        --add Microsoft.Component.MSBuild
+        --add Microsoft.VisualStudio.Component.CoreBuildTools
+        --add Microsoft.VisualStudio.Workload.MSBuildTools
+        --add Microsoft.VisualStudio.Component.Windows10SDK
+        --add Microsoft.VisualStudio.Component.VC.CoreBuildTools
+        --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+        --add Microsoft.VisualStudio.Component.VC.Redist.14.Latest
+        --add Microsoft.VisualStudio.Component.TestTools.BuildTools
+        --add Microsoft.VisualStudio.Component.VC.ATL
+        --add Microsoft.VisualStudio.Component.VC.ATLMFC
+        --add Microsoft.Net.Component.4.8.SDK
+        --add Microsoft.VisualStudio.Component.TextTemplating
+        --add Microsoft.VisualStudio.Component.VC.CoreIde
+        --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
+        --add Microsoft.Component.VC.Runtime.UCRTSDK
+        --add Microsoft.VisualStudio.Component.VC.140
+        --add Microsoft.VisualStudio.Workload.VCTools
+        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --add Microsoft.NetCore.Component.Runtime.5.0
+        --add Microsoft.NetCore.Component.Runtime.3.1
+        --add Microsoft.NetCore.Component.SDK
+        --add Microsoft.Net.Component.4.8.TargetingPack
+      prerm: |-
+        modify
+        --quiet
+        --norestart
+        --wait
+        --noWeb
+        --noUpdateInstaller
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.VisualStudio.Component.Roslyn.Compiler
+        --remove Microsoft.Component.MSBuild
+        --remove Microsoft.VisualStudio.Component.CoreBuildTools
+        --remove Microsoft.VisualStudio.Workload.MSBuildTools
+        --remove Microsoft.VisualStudio.Component.Windows10SDK
+        --remove Microsoft.VisualStudio.Component.VC.CoreBuildTools
+        --remove Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+        --remove Microsoft.VisualStudio.Component.VC.Redist.14.Latest
+        --remove Microsoft.VisualStudio.Component.TestTools.BuildTools
+        --remove Microsoft.VisualStudio.Component.VC.ATL
+        --remove Microsoft.VisualStudio.Component.VC.ATLMFC
+        --remove Microsoft.Net.Component.4.8.SDK
+        --remove Microsoft.VisualStudio.Component.TextTemplating
+        --remove Microsoft.VisualStudio.Component.VC.CoreIde
+        --remove Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
+        --remove Microsoft.Component.VC.Runtime.UCRTSDK
+        --remove Microsoft.VisualStudio.Component.VC.140
+        --remove Microsoft.VisualStudio.Workload.VCTools
+        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --remove Microsoft.NetCore.Component.Runtime.5.0
+        --remove Microsoft.NetCore.Component.Runtime.3.1
+        --remove Microsoft.NetCore.Component.SDK
+        --remove Microsoft.Net.Component.4.8.TargetingPack
+  env:
+    path:
+      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>
+    other: {}
+  embedded: true
