@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+glibc
-version: 2.32-7
-$version: '2.32'
+version: 2.33
+$version: '2.33'
 distribution: carnotzet/
 maintainer:
   name: Mathieu Schroeter
@@ -31,14 +31,14 @@ data:
   configure: |-
     !mkdir -p <THIS.DATA.RULES.LOCATION>
       && cd <THIS.DATA.RULES.LOCATION>
-      && unset CC CXX
       && ../configure --prefix=/usr
                       --build=$MACHTYPE
                       --host=aarch64-linux
                       --target=aarch64-linux
                       --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
                       --disable-multilib
-                      libc_cv_forced_unwind=yes
+                      --disable-werror
+                      --enable-kernel=3.2
   rules:
     type: script
     location: data/glibc-<THIS.$VERSION>/build
@@ -46,16 +46,17 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !unset CC CXX
-          && make -j<PEON.CPUS.COUNT>
+        !make -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
-        !unset CC CXX
-          && make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs
+        !make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs
           && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/etc"
           && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr"
           && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/var"
     test: none
+    env:
+      CC: ''
+      CXX: ''
   deploy: ''
   env:
     path: []

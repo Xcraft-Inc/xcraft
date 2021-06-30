@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-glibc-cross
-version: 10.2-2.32-15
-$version: 10.2-2.32
+version: 10.2.2.33
+$version: 10.2.2.33
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -157,6 +157,8 @@ data:
                         --target=aarch64-linux
                         --with-headers="<PEON.PREFIXDIR>/aarch64-linux/include"
                         --disable-multilib
+                        --disable-werror
+                        --enable-kernel=3.2
                         libc_cv_forced_unwind=yes
           && make install-bootstrap-headers=yes install-headers
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib'
