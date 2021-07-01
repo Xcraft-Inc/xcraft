@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-glibc-cross
-version: 10.2.2.33
-$version: 10.2.2.33
+version: 11.1.2.33-1
+$version: 11.1.2.33
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -191,14 +191,14 @@ data:
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-linux/10.2.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-linux/11.1.0/include-fixed/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-10.2.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-11.1.0');
     rm('<PEON.PREFIXDIR>/lib64');
     mkdir('<PEON.PREFIXDIR>/local/bin');
     const exp =

@@ -1,6 +1,6 @@
 name: x-aarch64-linux+gnu-gcc
-version: 10.2.0
-$version: 10.2.0
+version: 11.1.0
+$version: 11.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
