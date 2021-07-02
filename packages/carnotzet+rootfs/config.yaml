@@ -29,6 +29,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    rethinkdb+rethinkdb:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
