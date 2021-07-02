@@ -3,7 +3,7 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && CXXFLAGS="$CXXFLAGS $(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
          LDFLAGS="$LDFLAGS $(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
-         ./configure --prefix=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr
+         ./configure --prefix=/
                      --static=all
                      --dynamic=none
                      --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
@@ -11,10 +11,9 @@ data:
   rules:
     args:
       makeall: '-j<PEON.CPUS.COUNT>'
+      makeinstall: 'install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs'
     env:
       CC: aarch64-linux-gcc
       CXX: aarch64-linux-g++
   deploy: |-
-    !cp <PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr/bin/rethinkdb
-        <PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr/bin/rethinkdb_d
-       && aarch64-linux-strip -s <PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr/bin/rethinkdb
+    !aarch64-linux-strip -s <PEON.INSTALLDIR>/var/aarch64-linux/rootfs/bin/rethinkdb
