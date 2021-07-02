@@ -45,14 +45,9 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: |-
-        !make -j<PEON.CPUS.COUNT>
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: |-
-        !make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs
-          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/etc"
-          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/usr"
-          && rm -rf "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/var"
+      makeinstall: '!make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs'
     test: none
     env:
       CC: ''
