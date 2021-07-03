@@ -19,7 +19,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.$VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

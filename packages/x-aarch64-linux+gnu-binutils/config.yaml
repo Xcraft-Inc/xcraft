@@ -17,7 +17,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

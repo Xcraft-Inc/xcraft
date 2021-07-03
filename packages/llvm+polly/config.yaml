@@ -17,7 +17,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/polly-<THIS.$VERSION>.src.tar.xz'
+    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/polly-<THIS.$VERSION>.src.tar.gz'
     ref: ''
     out: ''
     externals: true

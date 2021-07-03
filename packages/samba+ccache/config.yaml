@@ -25,7 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.xz'
+    uri: 'https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

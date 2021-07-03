@@ -18,7 +18,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/libcxxabi-<THIS.$VERSION>.src.tar.xz
+      https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/libcxxabi-<THIS.$VERSION>.src.tar.gz
     ref: ''
     out: ''
     externals: true

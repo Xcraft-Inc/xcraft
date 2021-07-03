@@ -27,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://ftp.gnu.org/gnu/mpfr/mpfr-<THIS.$VERSION>.tar.xz'
+    uri: 'https://ftp.gnu.org/gnu/mpfr/mpfr-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

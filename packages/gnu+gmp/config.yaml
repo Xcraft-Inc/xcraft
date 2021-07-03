@@ -24,7 +24,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.xz'
+    uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

@@ -25,7 +25,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://isl.gforge.inria.fr/isl-<THIS.$VERSION>.tar.xz'
+    uri: 'http://isl.gforge.inria.fr/isl-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true

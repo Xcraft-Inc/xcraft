@@ -22,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/tar/tar-<THIS.$VERSION>.tar.xz'
+    uri: 'http://ftpmirror.gnu.org/tar/tar-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
