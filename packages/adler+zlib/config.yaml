@@ -29,7 +29,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://zlib.net/zlib-<THIS.$VERSION>.tar.xz'
+    uri: 'https://zlib.net/zlib-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
