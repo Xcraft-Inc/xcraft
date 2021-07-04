@@ -20,7 +20,7 @@ dependency:
 data:
   get:
     uri: >-
-      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.xz
+      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.gz
     ref: ''
     out: ''
     externals: true
