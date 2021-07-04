@@ -35,7 +35,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_<THIS.$VERSION>.tar.gz'
+    uri: 'http://ftp.debian.org/debian/pool/main/d/dpkg/dpkg_<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true

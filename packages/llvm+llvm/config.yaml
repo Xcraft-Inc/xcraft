@@ -43,7 +43,7 @@ dependency:
           - darwin-aarch64
 data:
   get:
-    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.gz'
+    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'
     ref: ''
     out: ''
     externals: true

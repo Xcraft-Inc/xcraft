@@ -24,7 +24,7 @@ dependency:
 data:
   get:
     uri: >-
-      http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.gz
+      http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.xz
     ref: ''
     out: ''
     externals: true
