@@ -19,7 +19,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.$VERSION>.tar.gz'
+    uri: 'https://downloads.sourceforge.net/project/lzmautils/xz-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
