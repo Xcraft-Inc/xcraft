@@ -22,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://downloads.sourceforge.net/project/boost/boost/<THIS.$VERSION>/boost_1_72_0.tar.gz'
+    uri: 'https://download.sourceforge.net/boost/boost/<THIS.$VERSION>/boost_1_72_0.tar.gz'
     ref: ''
     out: ''
     externals: true

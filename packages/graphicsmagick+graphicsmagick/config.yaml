@@ -29,7 +29,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz'
+    uri: 'https://download.sourceforge.net/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true

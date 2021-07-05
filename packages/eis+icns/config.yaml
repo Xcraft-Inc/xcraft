@@ -28,7 +28,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://downloads.sourceforge.net/project/icns/libicns-<THIS.$VERSION>.tar.gz'
+    uri: 'https://download.sourceforge.net/icns/libicns-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: false
