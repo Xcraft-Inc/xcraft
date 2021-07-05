@@ -19,7 +19,9 @@ dependency:
         architecture: []
     nixos+patchelf:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/make/make-<THIS.$VERSION>.tar.gz'
@@ -27,10 +29,13 @@ data:
     out: ''
     externals: true
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: data/make-<THIS.$VERSION>/
+    location: data/make-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
