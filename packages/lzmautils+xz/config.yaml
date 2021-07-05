@@ -26,18 +26,20 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --enable-static
-                --disable-shared
-                --disable-nls
-                --enable-xz
-                --disable-xzdec
-                --disable-lzmadec
-                --disable-lzmainfo
-                --disable-lzma-links
-                --disable-scripts
-                --disable-doc
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --disable-nls
+                     --enable-xz
+                     --disable-xzdec
+                     --disable-lzmadec
+                     --disable-lzmainfo
+                     --disable-lzma-links
+                     --disable-scripts
+                     --disable-doc
+    <PEON.OS=win?    --disable-threads :>
   rules:
     type: make
     location: data/xz-<THIS.$VERSION>/
