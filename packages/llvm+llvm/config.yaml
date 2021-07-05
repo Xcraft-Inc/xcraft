@@ -84,8 +84,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments'
-      CXXFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++'
+      CFLAGS: '-O2 -g0 -fPIC -fcolor-diagnostics -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments'
+      CXXFLAGS: '-O2 -g0 -fPIC -fcolor-diagnostics -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -Qunused-arguments -stdlib=libc++'
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -stdlib=libc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
