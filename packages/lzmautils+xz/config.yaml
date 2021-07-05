@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: lzmautils+xz
-version: 5.2.4
-$version: 5.2.4
+version: 5.2.5
+$version: 5.2.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
