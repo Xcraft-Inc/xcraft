@@ -22,6 +22,10 @@ dependency:
     gnu+make:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.xz'

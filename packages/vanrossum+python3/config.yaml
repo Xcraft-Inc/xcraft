@@ -24,6 +24,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz'

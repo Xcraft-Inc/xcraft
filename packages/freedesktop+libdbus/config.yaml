@@ -24,6 +24,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://dbus.freedesktop.org/releases/dbus/dbus-<THIS.$VERSION>.tar.xz'

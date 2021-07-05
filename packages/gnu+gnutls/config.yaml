@@ -27,6 +27,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-<THIS.$VERSION>.tar.xz'

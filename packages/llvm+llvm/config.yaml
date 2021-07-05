@@ -41,6 +41,10 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'

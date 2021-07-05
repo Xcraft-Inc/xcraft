@@ -15,6 +15,10 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'

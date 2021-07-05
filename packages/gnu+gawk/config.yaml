@@ -17,6 +17,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/gawk/gawk-<THIS.$VERSION>.tar.xz'

@@ -29,6 +29,10 @@ dependency:
     x-aarch64-linux+gnu-gcc-glibc-cross:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'

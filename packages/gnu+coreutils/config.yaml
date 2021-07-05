@@ -17,6 +17,10 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.$VERSION>.tar.xz'

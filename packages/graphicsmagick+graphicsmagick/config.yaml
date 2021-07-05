@@ -27,6 +27,10 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://download.sourceforge.net/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz'
