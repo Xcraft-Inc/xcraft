@@ -41,6 +41,9 @@ dependency:
         architecture:
           - mswindows-i386
           - mswindows-amd64
+    lzmautils+xz:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
