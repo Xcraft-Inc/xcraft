@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 10.3.0
-$version: 10.3.0
+version: 11.1.0
+$version: 11.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -99,8 +99,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
-      CXXFLAGS: '-O2 -g0 -fPIC -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
+      CFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
+      CXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>

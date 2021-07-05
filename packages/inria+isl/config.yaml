@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: inria+isl
-version: 0.22.1
-$version: 0.22.1
+version: 0.24
+$version: 0.24
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
