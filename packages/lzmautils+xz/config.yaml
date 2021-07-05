@@ -41,14 +41,14 @@ data:
                      --disable-doc
     <PEON.OS=win?    --disable-threads :>
   rules:
-    type: make
-    location: data/xz-<THIS.$VERSION>/
+    type: script
+    location: data/xz-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!<PEON.OS=win? mingw32-make : make > -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '!<PEON.OS=win? mingw32-make : make > install'
     test: none
   deploy: ''
   env:
