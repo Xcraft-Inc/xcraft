@@ -17,11 +17,6 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    gnu+make:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
 data:
   get:
     uri: 'https://download.sourceforge.net/lzmautils/xz-<THIS.$VERSION>.tar.gz'
