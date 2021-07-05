@@ -1,13 +1,12 @@
 name: xcraft+utils
-version: 0.3.0
-$version: 0.3.0
+version: 0.4.0
+$version: 0.4.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - linux-i386
-  - linux-amd64
+  - all
 description:
   brief: Standalonize executables with RPATH
   long: ''
@@ -18,16 +17,24 @@ dependency:
         architecture: []
     nixos+patchelf:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     debian+dpkg:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     debian+lintian:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
     debian+fakeroot:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
 data:
   get:
     uri: 'self:///root'
