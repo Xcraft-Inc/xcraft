@@ -24,10 +24,12 @@ dependency:
         architecture: []
     microsoft+dotnet-sdk-31-linux:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-amd64
     microsoft+dotnet-sdk-50-linux:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-amd64
 data:
   get:
     uri: ''
