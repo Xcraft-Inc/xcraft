@@ -54,8 +54,9 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !export KBUILD_BUILD_TIMESTAMP=''
-          && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
+        !make ARCH=arm64
+              CROSS_COMPILE=aarch64-linux-
+              -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
         !: /// disable module installation /// make ARCH=arm64
@@ -64,6 +65,8 @@ data:
             modules_install
           && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
     test: none
+    env:
+      KBUILD_BUILD_TIMESTAMP: ''
   deploy: ''
   env:
     path: []
