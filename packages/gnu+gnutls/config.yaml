@@ -17,12 +17,18 @@ dependency:
     gnu+nettle:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+libtasn1:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+libunistring:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
