@@ -17,6 +17,8 @@ dependency:
     clark+expat:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
