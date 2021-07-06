@@ -42,7 +42,7 @@ dependency:
           - darwin-amd64
           - darwin-aarch64
   make:
-    xcraft+base-make:
+    lzmautils+xz:
       - version: ''
         architecture: []
 data:
