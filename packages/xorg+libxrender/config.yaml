@@ -17,6 +17,8 @@ dependency:
     xorg+libx11:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''

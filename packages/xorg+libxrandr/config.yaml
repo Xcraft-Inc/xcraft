@@ -17,9 +17,13 @@ dependency:
     xorg+libxext:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libxrender:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
