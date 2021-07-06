@@ -193,7 +193,7 @@ data:
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-linux/11.1.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-linux/10.3.0/include-fixed/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
@@ -206,7 +206,7 @@ data:
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-11.1.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-10.3.0');
     rm('<PEON.PREFIXDIR>/lib64');
     mkdir('<PEON.PREFIXDIR>/local/bin');
     const exp =
