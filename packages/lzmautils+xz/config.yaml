@@ -19,7 +19,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://fossies.org/linux/misc/xz-<THIS.$VERSION>.tar.gz'
+    uri: 'https://fossies.org/linux/misc/xz-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
