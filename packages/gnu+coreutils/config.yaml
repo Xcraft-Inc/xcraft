@@ -18,7 +18,7 @@ dependency:
       - version: ''
         architecture: []
   make:
-    xcraft+base-make:
+    lzmautils+xz:
       - version: ''
         architecture: []
 data:
