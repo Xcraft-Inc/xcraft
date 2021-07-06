@@ -1,0 +1,74 @@
+subpackage:
+  - runtime*
+name: linux+kernel-pi4
+version: 1.20210527~1-6
+$version: 1.20210527-1
+distribution: carnotzet/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Linux Kernel for RASPBERRY Pi4
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    gnu+bc:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/raspberrypi/linux/archive/refs/tags/raspberrypi-kernel_<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- bcm2711_defconfig
+      && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/ext4"
+      && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/overlays"
+  rules:
+    type: script
+    location: data/linux-raspberrypi-kernel_<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !make ARCH=arm64
+              CROSS_COMPILE=aarch64-linux-
+              -j<PEON.CPUS.COUNT>
+          Image modules dtbs
+      maketest: ''
+      makeinstall: |-
+        !make ARCH=arm64
+              CROSS_COMPILE=aarch64-linux-
+              INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/mnt/ext4"
+            modules_install
+          && cp -a arch/arm64/boot/Image               "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/$KERNEL.img"
+          && cp -a arch/arm64/boot/dts/broadcom/*.dtb  "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/"
+          && cp -a arch/arm64/boot/dts/overlays/*.dtb* "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/overlays/"
+          && cp -a arch/arm64/boot/dts/overlays/README "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/overlays/"
+    test: none
+    env:
+      KERNEL: kernel8
+      KBUILD_BUILD_TIMESTAMP: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
