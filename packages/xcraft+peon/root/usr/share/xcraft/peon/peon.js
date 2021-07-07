@@ -407,37 +407,6 @@ class Action {
       }, {});
   }
 
-  /* This function is useful to generate a script that can be loaded
-   * in your shell in order to facilitate the debugging of a broken
-   * source package.
-   *
-   * Use the dot / source command:
-   *   . ./source-debug-env.sh
-   * or
-   *   source ./source-debug-env.sh
-   */
-  _generateDebugEnv(extra) {
-    const debugEnv = path.join(this._share, 'source-debug-env.sh');
-
-    let script = '#!/bin/bash\n\n';
-    for (const [key, value] of Object.entries(process.env)) {
-      script += `export ${key}='${value}'\n`;
-    }
-
-    script += `\n\necho '=================================== EXTRA ==================================='\n\n`;
-
-    const yaml = require('js-yaml');
-    const payload = yaml.safeDump(extra, {lineWidth: 999});
-
-    script += 'cat <<"EOF"\n';
-    script += payload;
-    script += '\nEOF\n';
-
-    script += `\n\necho '============================================================================='\n\n`;
-
-    fs.writeFileSync(debugEnv, script);
-  }
-
   *postinst() {
     const tarFile = path.join(
       this._root,
@@ -624,8 +593,6 @@ class Action {
       }
     }
 
-    this._generateDebugEnv(extra);
-
     fs.writeFileSync(controlFile, dataControl);
 
     yield this._peonRun(extra);
@@ -693,5 +660,9 @@ if (process.argv.length >= 4) {
   );
 
   const main = new Action(pkg, root, share, prefix, hook, resp);
-  main[action](wpkgAct);
+  main[action](wpkgAct, () => {
+    if (action === 'makeall' && process.env.PEON_DEBUG_ENV === '1') {
+      process.exit(100);
+    }
+  });
 }
