@@ -9,5 +9,8 @@ module.exports = {
     ['xcraft-core-server']: {
       useDevroot: true,
     },
+    ['xcraft-core-log']: {
+      journalize: true,
+    },
   },
 };
