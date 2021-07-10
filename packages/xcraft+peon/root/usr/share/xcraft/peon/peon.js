@@ -370,7 +370,7 @@ class Action {
         this._config.rules.type,
         this._config.type
       );
-      process.exit(1);
+      process.exitCode = 1;
     }
   }
 
@@ -501,7 +501,7 @@ class Action {
       yield this._peonRun(extra);
     } catch (ex) {
       this._resp.log.err(ex.stack || ex);
-      process.exit(1);
+      process.exitCode = 1;
     }
   }
 
@@ -662,7 +662,7 @@ if (process.argv.length >= 4) {
   const main = new Action(pkg, root, share, prefix, hook, resp);
   main[action](wpkgAct, () => {
     if (action === 'makeall' && process.env.PEON_DEBUG_ENV === '1') {
-      process.exit(100);
+      process.exitCode = 100;
     }
   });
 }
