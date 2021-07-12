@@ -35,7 +35,13 @@ dependency:
           - darwin-aarch64
     kaspar030+git-cache:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
     gnuwin32+patch:
       - version: ''
         architecture:
