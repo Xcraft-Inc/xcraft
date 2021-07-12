@@ -76,6 +76,8 @@
   "ranlib": "^darwin|freebsd|linux|sunos$",
   "read": "^darwin|freebsd|linux|sunos$",
   "readlink": "^darwin|freebsd|linux|sunos$",
+  "reg": "^win32$",
+  "regedit": "^win32$",
   "rm": "^darwin|freebsd|linux|sunos$",
   "rmdir": "^darwin|freebsd|linux|sunos$",
   "ruby": "^darwin$",
