@@ -29,6 +29,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    gnu+gmp:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
