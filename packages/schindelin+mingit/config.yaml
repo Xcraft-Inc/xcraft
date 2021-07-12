@@ -35,5 +35,6 @@ data:
   env:
     path:
       - opt/mingit/cmd
-    other: {}
+    other:
+      GIT_SSL_NO_VERIFY: 'true'
   embedded: true
