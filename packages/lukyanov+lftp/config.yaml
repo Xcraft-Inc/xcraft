@@ -21,20 +21,33 @@ dependency:
     adler+zlib-dev:
       - version: ''
         architecture: []
+    adler+zlib:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
     gnu+gnutls:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     clark+expat:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+readline:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+libncurses:
       - version: ''
         architecture:
           - linux-i386
           - linux-amd64
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
