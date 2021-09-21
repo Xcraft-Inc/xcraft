@@ -1,6 +1,6 @@
 {
   "name": "xcraft-contrib-gitlabci",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Xcraft gitlab-ci runner",
   "main": "./ci.runners.js",
   "repository": {
@@ -25,13 +25,11 @@
   "dependencies": {
     "async": "^1.4.0",
     "request": "^2.60.0",
-    "xcraft-core-busclient": "^1.0.0",
-    "xcraft-core-etc": "^1.0.0",
-    "xcraft-core-fs": "^1.0.0",
-    "xcraft-core-log": "^1.0.0",
-    "xcraft-core-platform": "^1.0.0",
-    "xcraft-core-utils": "^1.0.0",
-    "xcraft-core-wizard": "^1.0.0"
+    "xcraft-core-busclient": "^5.0.0",
+    "xcraft-core-etc": "^3.0.0",
+    "xcraft-core-fs": "^2.1.0",
+    "xcraft-core-utils": "^4.0.0",
+    "xcraft-core-wizard": "^1.0.1"
   },
   "devDependencies": {
     "prettier": "2.0.4",

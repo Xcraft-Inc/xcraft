@@ -12,15 +12,13 @@
     "chai-as-promised": "^5.1.0",
     "cli-color": "^1.0.0",
     "mocha": "^5.2.0",
-    "should": "^5.2.0",
+    "should": "^11.2.1",
     "unpm": "^1.4.0",
     "unpm-fs-backend": "^0.1.0",
     "which": "^2.0.2"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha node_modules/xcraft-*/test/*.js",
-    "postinstall": "startcraft",
-    "postshrinkwrap": "startcraft"
+    "test": "node_modules/.bin/mocha node_modules/xcraft-*/test/*.js"
   },
   "repository": {
     "type": "git",
@@ -32,11 +30,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "node-pre-gyp": "^0.14.0",
+    "node-pre-gyp": "^0.17.0",
     "prettier": "2.0.4",
-    "startcraft": "^2.1.0",
     "xcraft-dev-prettier": "^2.0.0",
     "xcraft-dev-rules": "^2.0.0"
   },
-  "prettier": "xcraft-dev-prettier"
+  "prettier": "xcraft-dev-prettier",
+  "workspaces": [
+    "lib/*"
+  ]
 }

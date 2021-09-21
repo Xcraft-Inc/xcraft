@@ -1,6 +1,6 @@
 {
   "name": "xcraft-contrib-xdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Xcraft Dev Kit",
   "main": "xdk.goblin.js",
   "scripts": {
@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "async": "^1.4.0",
-    "xcraft-core-busclient": "^1.0.0",
-    "xcraft-core-etc": "^1.0.0",
-    "xcraft-core-log": "^1.0.0",
+    "xcraft-core-busclient": "^5.0.0",
+    "xcraft-core-etc": "^3.0.0",
+    "xcraft-core-fs": "^2.1.0",
     "xcraft-core-platform": "^1.0.0",
     "xcraft-core-process": "^1.0.0"
   },

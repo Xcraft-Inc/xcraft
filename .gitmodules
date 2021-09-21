@@ -1,9 +1,6 @@
 [submodule "lib/xcraft-core-env"]
 	path = lib/xcraft-core-env
 	url = https://github.com/Xcraft-Inc/xcraft-core-env.git
-[submodule "lib/xcraft-core-eventstore"]
-	path = lib/xcraft-core-eventstore
-	url = https://github.com/Xcraft-Inc/xcraft-core-eventstore.git
 [submodule "lib/xcraft-core-etc"]
 	path = lib/xcraft-core-etc
 	url = https://github.com/Xcraft-Inc/xcraft-core-etc.git
@@ -139,6 +136,6 @@
 [submodule "lib/goblin-blacksmith"]
 	path = lib/goblin-blacksmith
 	url = https://github.com/Xcraft-Inc/goblin-blacksmith.git
-[submodule "lib/xcraft-dev-frontend-deps"]
-	path = lib/xcraft-dev-frontend-deps
-	url = https://github.com/Xcraft-Inc/xcraft-dev-frontend-deps.git
+[submodule "lib/xcraft-dev-fontawesome"]
+	path = lib/xcraft-dev-fontawesome
+	url = https://github.com/Xcraft-Inc/xcraft-dev-fontawesome.git
