@@ -32,6 +32,8 @@
   "devDependencies": {
     "node-pre-gyp": "^0.17.0",
     "prettier": "2.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "xcraft-dev-prettier": "^2.0.0",
     "xcraft-dev-rules": "^2.0.0"
   },
