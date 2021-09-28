@@ -660,7 +660,11 @@ if (process.argv.length >= 4) {
   );
 
   const main = new Action(pkg, root, share, prefix, hook, resp);
-  main[action](wpkgAct, () => {
+  main[action](wpkgAct, (err) => {
+    if (err) {
+      resp.log.err(err);
+      process.exitCode = 1;
+    }
     if (action === 'makeall' && process.env.PEON_DEBUG_ENV === '1') {
       process.exitCode = 100;
     }
