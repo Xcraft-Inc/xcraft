@@ -4,7 +4,6 @@
   "description": "Peon entry point",
   "main": "./peon.js",
   "dependencies": {
-    "tar-fs": "^2.1.1",
     "gigawatts": "^4.0.5",
     "xcraft-contrib-peon": "^0.2.0",
     "xcraft-core-busclient": "^5.0.1",

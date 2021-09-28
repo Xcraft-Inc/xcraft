@@ -374,23 +374,13 @@ class Action {
     }
   }
 
-  *_listFromTar(tarFile, next) {
-    const tar = require('tar-fs');
-    const list = [];
-
-    yield fs
-      .createReadStream(tarFile)
-      .pipe(
-        tar.extract('', {
-          ignore: (entry) => {
-            list.push(entry);
-            return true;
-          },
-        })
-      )
-      .on('finish', next);
-
-    return list;
+  _listFromMD5Sums(md5sumsFile) {
+    return fs
+      .readFileSync(md5sumsFile)
+      .toString()
+      .split('\n')
+      .filter((entry) => entry.trim().length)
+      .map((entry) => entry.substring(34));
   }
 
   /* See https://github.com/blinkdog/debian-control */
@@ -408,11 +398,11 @@ class Action {
   }
 
   *postinst() {
-    const tarFile = path.join(
+    const md5sumsFile = path.join(
       this._root,
       'var/lib/wpkg',
       this._pkg.name,
-      'data.tar'
+      'md5sums'
     );
 
     if (this._global) {
@@ -420,7 +410,7 @@ class Action {
         regex.test(newFile) ? newFile.replace(regex, pattern) : newFile;
 
       /* Restore the original filenames. */
-      const list = yield this._listFromTar(tarFile);
+      const list = this._listFromMD5Sums(md5sumsFile);
 
       /* No move here because the files are handled by wpkg. */
       list.forEach((file) => {
@@ -496,7 +486,7 @@ class Action {
     }
 
     try {
-      const list = yield this._listFromTar(tarFile);
+      const list = this._listFromMD5Sums(md5sumsFile);
       this._internalConfigure(list);
       yield this._peonRun(extra);
     } catch (ex) {
