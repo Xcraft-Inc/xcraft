@@ -19,10 +19,14 @@ dependency:
   make:
     microsoft+dotnet-sdk-31-win:
       - version: ''
-        architecture: []
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
     microsoft+dotnet-sdk-50-win:
       - version: ''
-        architecture: []
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
 data:
   get:
     uri: ''
