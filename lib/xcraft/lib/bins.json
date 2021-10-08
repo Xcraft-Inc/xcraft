@@ -61,6 +61,7 @@
   "make": "^darwin|freebsd|linux|sunos$",
   "mkdir": "^darwin|freebsd|linux|sunos$",
   "mktemp": "^darwin|freebsd|linux|sunos$",
+  "mount": "^linux$",
   "mv": "^darwin|freebsd|linux|sunos$",
   "net": "^win32$",
   "nm": "^darwin|freebsd|linux|sunos$",
