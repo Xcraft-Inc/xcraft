@@ -1,0 +1,55 @@
+subpackage:
+  - runtime*
+name: elastic+elasticsearch-5
+version: 5.6.16-12
+$version: 5.6.16
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Elasticsearch
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    adoptium+openjdk8-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    gradle+gradle:
+      - version: ''
+        architecture: []
+    gradle+caches-elasticsearch5:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/elastic/elasticsearch/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/elasticsearch-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!gradle --no-daemon --offline assemble'
+      maketest: ''
+      makeinstall: /*distribution/tar/build/distributions/elasticsearch-5.6.17-SNAPSHOT.tar.gz*/
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

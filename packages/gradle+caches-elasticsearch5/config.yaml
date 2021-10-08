@@ -1,0 +1,36 @@
+name: gradle+caches-elasticsearch5
+version: 5.6.16-9
+$version: 5.6.16
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: Gradle cache modules for Elasticsearch 5
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/8kNNFPbjga4dsmW/download'
+    ref: ''
+    out: gradle-caches-elasticsearch-5.6.16.tar.gz
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: exec
+    location: data/install.sh
+    args:
+      postinst: install <PEON.ROOTTEMP>/gradle
+      prerm: remove
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true

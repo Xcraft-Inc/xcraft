@@ -1,0 +1,38 @@
+name: adoptium+openjdk8-linux
+version: 8u302-b08
+$version: 8u302-b08
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: OpenJDK 8
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk<THIS.$VERSION>/OpenJDK8U-jdk_x64_linux_hotspot_8u302b08.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv('data/jdk<THIS.$VERSION>', 'root/opt/openjdk8');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path:
+      - <OS.ROOTDIR>/opt/openjdk8/bin
+    other:
+      JAVA_HOME: <OS.ROOTDIR>/opt/openjdk8
+  embedded: true

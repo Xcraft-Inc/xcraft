@@ -1,0 +1,42 @@
+name: gradle+gradle
+version: 4.4.1
+$version: 4.4.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Gradle Build Tool
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    adoptium+openjdk8-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+data:
+  get:
+    uri: 'https://downloads.gradle-dn.com/distributions/gradle-<THIS.$VERSION>-bin.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv ('data/gradle-<THIS.$VERSION>', 'root/opt/gradle');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path:
+      - <OS.ROOTDIR>/opt/gradle/bin
+    other:
+      GRADLE_USER_HOME: <OS.ROOTTEMP>/gradle
+  embedded: true
