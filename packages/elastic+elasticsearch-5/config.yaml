@@ -42,10 +42,11 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!gradle --no-daemon --offline assemble'
+      makeall: '!gradle --no-daemon --offline --parallel assemble'
       maketest: ''
       makeinstall: /*distribution/tar/build/distributions/elasticsearch-5.6.17-SNAPSHOT.tar.gz*/
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
