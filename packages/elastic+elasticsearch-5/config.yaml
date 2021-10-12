@@ -21,6 +21,10 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
+    adoptium+openjdk8-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
     gradle+gradle:
       - version: ''
         architecture: []
