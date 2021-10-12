@@ -11,4 +11,4 @@ if [%errorlevel%]==[0] (
   set exec=
 )
 
-%exec% .\node_modules\.bin\zog.cmd %*
+%exec% node .\node_modules\xcraft-zog\bin\zog %*
