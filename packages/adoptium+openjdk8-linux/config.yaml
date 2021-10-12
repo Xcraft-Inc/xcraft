@@ -22,7 +22,9 @@ data:
     out: ''
     externals: true
   type: bin
-  configure: "mv('data/jdk<THIS.$VERSION>', 'root/opt/openjdk8');"
+  configure: |-
+    rm('data/jdk<THIS.$VERSION>/src.zip');
+    mv('data/jdk<THIS.$VERSION>', 'root/opt/openjdk8');
   rules:
     type: move
     location: root
