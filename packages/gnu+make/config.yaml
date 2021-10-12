@@ -30,8 +30,7 @@ data:
     externals: true
   type: src
   configure: |-
-    !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
+    !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
