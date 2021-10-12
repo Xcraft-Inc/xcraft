@@ -26,7 +26,17 @@ dependency:
         architecture: []
     gnu+make:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
 data:
   get:
     uri: 'https://zlib.net/zlib-<THIS.$VERSION>.tar.gz'
