@@ -111,6 +111,5 @@
   "which": "^darwin|freebsd|linux|sunos$",
   "xargs": "^darwin|freebsd|linux|sunos$",
   "xcodebuild": "^darwin$",
-  "xcopy": "^win32$",
   "xcrun": "^darwin$"
 }
