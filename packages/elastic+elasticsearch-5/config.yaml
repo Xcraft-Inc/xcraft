@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: elastic+elasticsearch-5
-version: 5.6.16-12
+version: 5.6.16-15
 $version: 5.6.16
 distribution: toolchain/
 maintainer:
@@ -28,9 +28,14 @@ dependency:
     gradle+gradle:
       - version: ''
         architecture: []
-    gradle+caches-elasticsearch5:
+    gradle+caches-elasticsearch5-linux:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-amd64
+    gradle+caches-elasticsearch5-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
 data:
   get:
     uri: 'https://github.com/elastic/elasticsearch/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
