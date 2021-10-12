@@ -1,0 +1,40 @@
+name: adoptium+openjdk8-win
+version: 8u302-b08.1
+$version: 8u302-b08.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-amd64
+description:
+  brief: OpenJDK 8
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk<THIS.$VERSION>/OpenJDK8U-jdk_x64_windows_hotspot_8u302b08.zip'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    rm('data/jdk<THIS.$VERSION>/src.zip');
+    mv('data/jdk<THIS.$VERSION>', 'root/opt/openjdk8');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path:
+      - <OS.ROOTDIR>/opt/openjdk8/bin
+    other:
+      JAVA_HOME: <OS.ROOTDIR>/opt/openjdk8
+  embedded: true
