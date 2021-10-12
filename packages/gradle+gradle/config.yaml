@@ -19,6 +19,10 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
+    adoptium+openjdk8-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
 data:
   get:
     uri: 'https://downloads.gradle-dn.com/distributions/gradle-<THIS.$VERSION>-bin.zip'
