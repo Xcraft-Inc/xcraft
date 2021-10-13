@@ -56,13 +56,18 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION> &&
     CC="${CC:-cc} $CFLAGS"
     <PEON.OS=darwin?
       ./Configure darwin64-{PEON.OS.ARCH2}-cc
-    :
+    :>
+    <PEON.OS=win?
+      ./Configure mingw64
+    :>
+    <PEON.OS=linux?
       ./config
-    > shared --prefix=<PEON.PREFIXDIR>
+    :> shared --prefix=<PEON.PREFIXDIR>
   rules:
     type: script
     location: data/openssl-<THIS.$VERSION>/
