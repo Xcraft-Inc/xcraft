@@ -30,11 +30,18 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-nls
                      --without-libpsl
                      --with-ssl=openssl
+    <PEON.OS=win?
+                     --build=x86_64-w64-mingw32
+                     --host=x86_64-w64-mingw32
+                     --target=x86_64-w64-mingw32
+                     LIBS="-lole32 -lbcrypt"
+    :>
   rules:
     type: make
     location: data/wget-<THIS.$VERSION>
@@ -43,7 +50,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '<PEON.OS=win? install-exec : install >'
     test: none
     env:
       OPENSSL_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
