@@ -1,6 +1,7 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
+    !<PEON.OS=win? exit 0; :>
+    cd <THIS.DATA.RULES.LOCATION> &&
     <PEON.OS=darwin?
       SDKROOT="$MACOSSDK_1013"
       MACOSX_DEPLOYMENT_TARGET=10.10
@@ -14,4 +15,4 @@ data:
         !<PEON.OS=darwin?
           SDKROOT="$MACOSSDK_1013"
           MACOSX_DEPLOYMENT_TARGET=10.10
-        :> make -j<PEON.CPUS.COUNT>
+        :> make <PEON.OS=win? -f win32/Makefile.gcc :> -j<PEON.CPUS.COUNT>

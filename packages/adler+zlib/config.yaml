@@ -46,7 +46,7 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !<PEON.OS=win? exit 0 :>
+    !<PEON.OS=win? exit 0; :>
     cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --libdir=<PEON.PREFIXDIR.DEV>/lib
