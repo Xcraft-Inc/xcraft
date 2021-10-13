@@ -6,7 +6,7 @@ data:
       SDKROOT="$MACOSSDK_1013"
       MACOSX_DEPLOYMENT_TARGET=10.10
     :>
-    CC="$CC $CFLAGS"
+    CC="${CC:-cc} $CFLAGS"
     <PEON.OS=darwin?
       ./Configure darwin64-{PEON.OS.ARCH2}-cc
     :>
