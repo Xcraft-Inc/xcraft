@@ -1,16 +1,21 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION> &&
     <PEON.OS=darwin?
       SDKROOT="$MACOSSDK_1013"
       MACOSX_DEPLOYMENT_TARGET=10.10
     :>
     CC="$CC $CFLAGS"
     <PEON.OS=darwin?
-      ./Configure darwin64-x86_64-cc
-    :
+      ./Configure darwin64-{PEON.OS.ARCH2}-cc
+    :>
+    <PEON.OS=win?
+      ./Configure mingw64
+    :>
+    <PEON.OS=linux?
       ./config
-    > shared --prefix=<PEON.PREFIXDIR>
+    :> shared --prefix=<PEON.PREFIXDIR>
   rules:
     args:
       makeall: |-
