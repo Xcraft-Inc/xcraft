@@ -131,11 +131,12 @@ class Action {
     const prefixDir = {};
     let mainPackage = 0;
     const basePath = getBasePath(this._root, this._pkg);
+    const extra = this._getExtra();
 
     const srcDir = path.join(
       this._share,
       'cache',
-      this._getExtra().location.replace(/\/$/, '')
+      extra.location.replace(/\/$/, '')
     );
 
     const subPackages = control['Sub-Packages']
@@ -156,7 +157,7 @@ class Action {
     }
 
     const normalize = (location) => {
-      if (process.env.PEON_UNIX_PATH === '1') {
+      if (extra.env.PEON_UNIX_PATH === '1') {
         location = location.replace(/^([a-zA-Z]):/, '/$1');
       }
       return location.replace(/\\/g, '/');
