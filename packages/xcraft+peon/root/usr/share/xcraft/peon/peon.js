@@ -155,18 +155,25 @@ class Action {
       prefixDir[subPackage] = path.join(installDir[subPackage], 'usr');
     }
 
+    const normalize = (location) => {
+      if (process.env.PEON_UNIX_PATH === '1') {
+        location = location.replace(/^([a-zA-Z]):/, '/$1');
+      }
+      return location.replace(/\\/g, '/');
+    };
+
     xPh.global
-      .set('SRCDIR', srcDir.replace(/\\/g, '/'))
-      .set('PREFIXDIR', prefixDir.runtime.replace(/\\/g, '/'))
-      .set('INSTALLDIR', installDir.runtime.replace(/\\/g, '/'));
+      .set('SRCDIR', normalize(srcDir))
+      .set('PREFIXDIR', normalize(prefixDir.runtime))
+      .set('INSTALLDIR', normalize(installDir.runtime));
 
     subPackages
       .filter((subPackage) => subPackage !== 'runtime')
       .forEach((subPackage) => {
         const key = subPackage.toUpperCase();
         xPh.global
-          .set(`PREFIXDIR.${key}`, prefixDir[subPackage].replace(/\\/g, '/'))
-          .set(`INSTALLDIR.${key}`, installDir[subPackage].replace(/\\/g, '/'));
+          .set(`PREFIXDIR.${key}`, normalize(prefixDir[subPackage]))
+          .set(`INSTALLDIR.${key}`, normalize(installDir[subPackage]));
       });
 
     this._prefix = prefixDir;
