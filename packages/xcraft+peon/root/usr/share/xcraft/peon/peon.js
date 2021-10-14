@@ -266,7 +266,7 @@ class Action {
     );
 
     try {
-      if (xFs.sed(file, regex, `${this._root}$1`)) {
+      if (xFs.sed(file, regex, `${this._root.replace(/\\/g, '/')}$1`)) {
         this._resp.log.warn(`target root fixed for ${file}`);
       }
       return true;
