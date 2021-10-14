@@ -36,18 +36,41 @@ data:
     externals: true
     prepare: ''
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> ; ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !{bash}
+    mkdir -p <THIS.DATA.RULES.LOCATION>/../build
+      && cd <THIS.DATA.RULES.LOCATION>/../build
+    <PEON.OS=win?
+      && sed -i 's,BUILDPYTHON) -E,BUILDPYTHON),' ../Python-{THIS.$VERSION}/configure
+      && ../Python-{THIS.$VERSION}/configure --prefix={PEON.PREFIXDIR}
+                                             --host=x86_64-w64-mingw32
+                                             --build=x86_64-w64-mingw32
+                                             --enable-shared
+                                             --with-threads
+                                             OPT=""
+    :
+      && ../Python-{THIS.$VERSION}/configure --prefix={PEON.PREFIXDIR}
+    >
   rules:
     type: make
-    location: data/Python-<THIS.$VERSION>/
+    location: data/Python-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '-C ../build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '-C ../build install'
     test: none
-  deploy: rm('<PEON.PREFIXDIR>/bin/2to3')
+    env:
+      win/CFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
+      win/CXXFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
+      win/MSYSTEM: MINGW
+      win/BUILD_PYTHONHOME: <PEON.SRCDIR>
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/bin/2to3');
+    <PEON.OS=win?
+      cp('{PEON.PREFIXDIR}/bin/python2.exe', '{PEON.PREFIXDIR}/bin/python.exe');
+    :>
   env:
     path: []
     other: {}

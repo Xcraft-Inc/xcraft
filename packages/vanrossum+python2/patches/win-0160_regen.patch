@@ -1,0 +1,16 @@
+From 77c38be800031063e76413a9fda806b2881d6091 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Thu, 14 Oct 2021 08:44:31 +0200
+Subject: regen
+
+
+diff --git a/Lib/plat-generic/regen b/Lib/plat-generic/regen
+index 34b780f..31cdc07 100755
+--- a/Lib/plat-generic/regen
++++ b/Lib/plat-generic/regen
+@@ -6,4 +6,5 @@ if [ -n "$1" ]; then
+ else
+     REGENHEADER=/usr/include/netinet/in.h
+ fi
++[ ! -z "$BUILD_PYTHONHOME" ] && export PYTHONPATH="$PYTHONPATH:$(cygpath -u $BUILD_PYTHONHOME)/Lib"
+ eval $PYTHON_FOR_BUILD ../../Tools/scripts/h2py.py -i "'(u_long)'" $REGENHEADER

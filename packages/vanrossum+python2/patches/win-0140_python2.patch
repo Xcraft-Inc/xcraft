@@ -1,0 +1,28 @@
+From bda6fd52776bdef5c627e531ab0002ea591d2ba7 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Thu, 14 Oct 2021 00:02:24 +0200
+Subject: Fix for Python2
+
+
+diff --git a/setup.py b/setup.py
+index 6880ae9..bfef26a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -3,7 +3,7 @@
+ 
+ __version__ = "$Revision$"
+ 
+-import sys, os, imp, re, optparse
++import sys, os, imp, re, optparse, string
+ from glob import glob
+ from platform import machine as platform_machine
+ import sysconfig
+@@ -2222,7 +2222,7 @@ class PyBuildExt(build_ext):
+                     config_args.append("-q")
+ 
+                 if host_platform in ['mingw', 'win32']:
+-                    table = str.maketrans('\\', '/')
++                    table = string.maketrans('\\', '/')
+                     ffi_builddir = ffi_builddir.translate(table)
+                     ffi_srcdir = ffi_srcdir.translate(table)
+                 # Pass empty CFLAGS because we'll just append the resulting

@@ -1,0 +1,19 @@
+From d762f7456330606d9297e78868d3185bf61161cb Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Thu, 14 Oct 2021 07:54:10 +0200
+Subject: Fix asm for win64
+
+
+diff --git a/Modules/_ctypes/libffi/src/x86/win64.S b/Modules/_ctypes/libffi/src/x86/win64.S
+index fcdb270..45fe150 100644
+--- a/Modules/_ctypes/libffi/src/x86/win64.S
++++ b/Modules/_ctypes/libffi/src/x86/win64.S
+@@ -295,7 +295,7 @@ SYMBOL_NAME(ffi_closure_win64):
+ 	mov	%rax, %rcx	# context is first parameter
+ 	mov	%rsp, %rdx	# stack is second parameter
+ 	add	$48, %rdx	# point to start of arguments
+-	mov	$SYMBOL_NAME(ffi_closure_win64_inner), %rax
++	lea	SYMBOL_NAME(ffi_closure_win64_inner)(%rip), %rax
+ 	callq	*%rax		# call the real closure function
+ 	add	$40, %rsp
+ 	movq	%rax, %xmm0	# If the closure returned a float,

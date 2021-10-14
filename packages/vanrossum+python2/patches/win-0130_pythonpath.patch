@@ -1,0 +1,28 @@
+From 7459d867ac35045df3082aaebb10ba3191106f7e Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Wed, 13 Oct 2021 16:42:29 +0200
+Subject: Fix PYTHONPATH location when building
+
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 0e92782..eeb0dd2 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -512,7 +512,7 @@ platform: $(BUILDPYTHON) pybuilddir.txt
+ # or removed in case of failure.
+ pybuilddir.txt: $(BUILDPYTHON)
+ 	@echo "none" > ./pybuilddir.txt
+-	$(RUNSHARED) $(PYTHON_FOR_BUILD) -S -m sysconfig --generate-posix-vars ;\
++	PYTHONPATH="$$PYTHONPATH:$$(cygpath -u $$BUILD_PYTHONHOME)/Lib" $(RUNSHARED) $(PYTHON_FOR_BUILD) -S -m sysconfig --generate-posix-vars ;\
+ 	if test $$? -ne 0 ; then \
+ 		echo "generate-posix-vars failed" ; \
+ 		rm -f ./pybuilddir.txt ; \
+@@ -534,7 +534,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
+ 	esac; \
+ 	$(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' \
+ 		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
+-		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
++		PYTHONPATH="$$PYTHONPATH:$$(cygpath -u $$BUILD_PYTHONHOME)/Lib:$$(cygpath -u $$BUILD_PYTHONHOME)/../build/build/lib.mingw-2.7" $(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
+ 
+ # Build static library
+ # avoid long command lines, same as LIBRARY_OBJS
