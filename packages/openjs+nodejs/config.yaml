@@ -34,26 +34,64 @@ data:
   type: src
   configure: |-
     !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
-      && ./configure --prefix=<PEON.INSTALLDIR>/opt/node8
-                     --enable-static
-                     --partly-static
-                     --without-dtrace
-                     --without-intl
-                     --without-snapshot
-                     --shared-openssl
-                     --shared-openssl-includes=<PEON.ROOTDIR>/usr/include
-                     --shared-openssl-libpath=<PEON.ROOTDIR>/usr/lib
+    <PEON.OS=win?
+      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}/"
+        && cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
+    :
+      cd <THIS.DATA.RULES.LOCATION>
+    >
+        && ./configure --prefix=<PEON.INSTALLDIR>/opt/node8
+                       --enable-static
+                       --partly-static
+                       --without-dtrace
+                       --without-intl
+                       --without-snapshot
+                       --without-perfctr
+                       --without-etw
+                       --shared-openssl
+                       --shared-openssl-includes={PEON.ROOTDIR}/usr/include
+                       --shared-openssl-libpath={PEON.ROOTDIR}/usr/lib
+    <PEON.OS=win?
+                       --dest-os=win
+    :>
   rules:
-    type: make
+    type: script
     location: data/node-v<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: |-
+        !{bash}
+        <PEON.OS=win?
+          cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
+            && python2 tools/gyp_node.py -f make
+            && touch config.gypi
+            && make out/Release/obj/gen/src/inspector/protocol/Forward.h
+            && sed -i 's#-Wl,--whole-archive,$(builddir)/obj#-Wl,--whole-archive,$(builddir)/obj.target#g' node.target.mk
+            && sed -i 's#-Wl,--whole-archive,$(builddir)/obj#-Wl,--whole-archive,$(builddir)/obj.target#g' cctest.target.mk
+            && make -j{PEON.CPUS.COUNT}
+        :
+          make -j{PEON.CPUS.COUNT}
+        >
       maketest: ''
-      makeinstall: install
+      makeinstall: |-
+        !{bash}
+        <PEON.OS=win?
+          cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
+            && python2 tools/install.py install "{PEON.INSTALLDIR}/opt/node8" ""
+            && install -m755 "deps/npm/bin/npm.cmd" "{PEON.INSTALLDIR}/opt/node8/bin/npm.cmd"
+          ;
+        :
+          make install ;
+        >
+        <PEON.OS=win?
+          rm -rf "{PEON.ROOTTEMP}(node-v{THIS.$VERSION}"
+        :>
     test: none
+    env:
+      win/MSYSTEM: MINGW64
+      win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -D_WIN32_WINNT=0x0600
+      win/LDFLAGS: '-municode'
   deploy: ''
   env:
     path: []
