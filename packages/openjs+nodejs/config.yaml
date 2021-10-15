@@ -35,7 +35,7 @@ data:
   configure: |-
     !{bash}
     <PEON.OS=win?
-      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}/"
+      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}"
         && cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
     :
       cd <THIS.DATA.RULES.LOCATION>
@@ -85,7 +85,7 @@ data:
           make install ;
         >
         <PEON.OS=win?
-          rm -rf "{PEON.ROOTTEMP}(node-v{THIS.$VERSION}"
+          rm -rf "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
         :>
     test: none
     env:
