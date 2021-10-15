@@ -78,7 +78,7 @@ data:
         !{bash}
         <PEON.OS=win?
           cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
-            && python2 tools/install.py install "{PEON.INSTALLDIR}/opt/node8" ""
+            && python2 tools/install.py install "{PEON.INSTALLDIR}/opt/node8" "./"
             && install -m755 "deps/npm/bin/npm.cmd" "{PEON.INSTALLDIR}/opt/node8/bin/npm.cmd"
           ;
         :
