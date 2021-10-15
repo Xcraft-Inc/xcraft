@@ -1,0 +1,19 @@
+From dcdc165309cbf619f9c8c913bddc986c7b95641d Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Fri, 15 Oct 2021 11:21:52 +0200
+Subject: Do not include unavailable headers
+
+
+diff --git a/src/node_process.cc b/src/node_process.cc
+index 5f6e348..ee04551 100644
+--- a/src/node_process.cc
++++ b/src/node_process.cc
+@@ -15,7 +15,7 @@
+ #include <io.h>
+ #define umask _umask
+ typedef int mode_t;
+-#else
++#elif !defined(__MINGW64_VERSION_MAJOR)
+ #include <pthread.h>
+ #include <sys/resource.h>  // getrlimit, setrlimit
+ #include <termios.h>  // tcgetattr, tcsetattr

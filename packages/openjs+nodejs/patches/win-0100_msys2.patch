@@ -1,0 +1,1706 @@
+From 8fafc0215fd95c1dabd584c80b515a842999de08 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Thu, 14 Oct 2021 17:23:11 +0200
+Subject: msys2 patch
+
+
+diff --git a/common.gypi b/common.gypi
+index b423c9a..80b0f34 100644
+--- a/common.gypi
++++ b/common.gypi
+@@ -9,7 +9,7 @@
+     'library%': 'static_library',     # allow override to 'shared_library' for DLL/.so builds
+     'component%': 'static_library',   # NB. these names match with what V8 expects
+     'msvs_multi_core_compile': '0',   # we do enable multicore compiles, but not using the V8 way
+-    'python%': 'python',
++    'python%': 'python2',
+ 
+     'node_shared%': 'false',
+     'force_dynamic_crt%': 0,
+diff --git a/configure b/configure
+index ceb04f7..9f8bf5f 100755
+--- a/configure
++++ b/configure
+@@ -855,7 +855,7 @@ def configure_node(o):
+   o['variables']['node_install_npm'] = b(not options.without_npm)
+   o['default_configuration'] = 'Debug' if options.debug else 'Release'
+ 
+-  host_arch = host_arch_win() if os.name == 'nt' else host_arch_cc()
++  host_arch = host_arch_win() if (os.name == 'nt' and not ('GCC' in sys.version)) else host_arch_cc()
+   target_arch = options.dest_cpu or host_arch
+   # ia32 is preferred by the build tools (GYP) over x86 even if we prefer the latter
+   # the Makefile resets this to x86 afterward
+diff --git a/deps/cares/build/gcc_version.py b/deps/cares/build/gcc_version.py
+index da019e8..b4223af 100644
+--- a/deps/cares/build/gcc_version.py
++++ b/deps/cares/build/gcc_version.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ import os
+ import re
+diff --git a/deps/cares/common.gypi b/deps/cares/common.gypi
+index 609ad62..c187196 100644
+--- a/deps/cares/common.gypi
++++ b/deps/cares/common.gypi
+@@ -139,7 +139,7 @@
+ 
+       [ 'OS in "linux freebsd openbsd solaris android aix"', {
+         'variables': {
+-          'gcc_version%': '<!(python build/gcc_version.py)>)'
++          'gcc_version%': '<!(python2 build/gcc_version.py)>)'
+         },
+         'cflags': [ '-Wall' ],
+         'cflags_cc': [ '-fno-rtti', '-fno-exceptions' ],
+diff --git a/deps/cares/gyp_cares b/deps/cares/gyp_cares
+index d1f1640..ecd3f0a 100755
+--- a/deps/cares/gyp_cares
++++ b/deps/cares/gyp_cares
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ import glob
+ import platform
+diff --git a/deps/gtest/src/gtest_main.cc b/deps/gtest/src/gtest_main.cc
+index 4cf03e5..e71ff61 100644
+--- a/deps/gtest/src/gtest_main.cc
++++ b/deps/gtest/src/gtest_main.cc
+@@ -31,7 +31,68 @@
+ 
+ #include "gtest/gtest.h"
+ 
++#ifdef _WIN32
++#include <windows.h>
++#include <VersionHelpers.h>
++
++#if defined(__MINGW_VERSION_MAJOR)
++#extern "C" {
++#endif
++
++int wmain(int argc, wchar_t *wargv[]) {
++  if (!IsWindows7OrGreater()) {
++    fprintf(stderr, "This application is only supported on Windows 7, "
++                    "Windows Server 2008 R2, or higher.");
++    exit(1);
++  }
++
++  // Convert argv to to UTF8
++  char** argv = new char*[argc + 1];
++  for (int i = 0; i < argc; i++) {
++    // Compute the size of the required buffer
++    DWORD size = WideCharToMultiByte(CP_UTF8,
++                                     0,
++                                     wargv[i],
++                                     -1,
++                                     nullptr,
++                                     0,
++                                     nullptr,
++                                     nullptr);
++    if (size == 0) {
++      // This should never happen.
++      fprintf(stderr, "Could not convert arguments to utf8.");
++      exit(1);
++    }
++    // Do the actual conversion
++    argv[i] = new char[size];
++    DWORD result = WideCharToMultiByte(CP_UTF8,
++                                       0,
++                                       wargv[i],
++                                       -1,
++                                       argv[i],
++                                       size,
++                                       nullptr,
++                                       nullptr);
++    if (result == 0) {
++      // This should never happen.
++      fprintf(stderr, "Could not convert arguments to utf8.");
++      exit(1);
++    }
++  }
++  argv[argc] = nullptr;
++  testing::InitGoogleTest(&argc, argv);
++  return RUN_ALL_TESTS();
++}
++
++#if defined(__MINGW_VERSION_MAJOR)
++}
++#endif
++
++#else
++
+ GTEST_API_ int main(int argc, char **argv) {
+   testing::InitGoogleTest(&argc, argv);
+   return RUN_ALL_TESTS();
+ }
++
++#endif
+diff --git a/deps/npm/bin/npm b/deps/npm/bin/npm
+index 4183703..95f188a 100755
+--- a/deps/npm/bin/npm
++++ b/deps/npm/bin/npm
+@@ -15,12 +15,12 @@ if ! [ -x "$NODE_EXE" ]; then
+   NODE_EXE=node
+ fi
+ 
+-NPM_CLI_JS="$basedir/node_modules/npm/bin/npm-cli.js"
++NPM_CLI_JS="$basedir/../lib/node_modules/npm/bin/npm-cli.js"
+ 
+ case `uname` in
+   *MINGW*)
+     NPM_PREFIX=`"$NODE_EXE" "$NPM_CLI_JS" prefix -g`
+-    NPM_PREFIX_NPM_CLI_JS="$NPM_PREFIX/node_modules/npm/bin/npm-cli.js"
++    NPM_PREFIX_NPM_CLI_JS="$NPM_PREFIX/../lib/node_modules/npm/bin/npm-cli.js"
+     if [ -f "$NPM_PREFIX_NPM_CLI_JS" ]; then
+       NPM_CLI_JS="$NPM_PREFIX_NPM_CLI_JS"
+     fi
+diff --git a/deps/npm/bin/npm.cmd b/deps/npm/bin/npm.cmd
+index 880554d..12507ba 100644
+--- a/deps/npm/bin/npm.cmd
++++ b/deps/npm/bin/npm.cmd
+@@ -8,9 +8,9 @@ IF NOT EXIST "%NODE_EXE%" (
+   SET "NODE_EXE=node"
+ )
+ 
+-SET "NPM_CLI_JS=%~dp0\node_modules\npm\bin\npm-cli.js"
++SET "NPM_CLI_JS=%~dp0\..\lib\node_modules\npm\bin\npm-cli.js"
+ FOR /F "delims=" %%F IN ('CALL "%NODE_EXE%" "%NPM_CLI_JS%" prefix -g') DO (
+-  SET "NPM_PREFIX_NPM_CLI_JS=%%F\node_modules\npm\bin\npm-cli.js"
++  SET "NPM_PREFIX_NPM_CLI_JS=%%F\..\lib\node_modules\npm\bin\npm-cli.js"
+ )
+ IF EXIST "%NPM_PREFIX_NPM_CLI_JS%" (
+   SET "NPM_CLI_JS=%NPM_PREFIX_NPM_CLI_JS%"
+diff --git a/deps/npm/lib/config/defaults.js b/deps/npm/lib/config/defaults.js
+index e07da3a..e1ba857 100644
+--- a/deps/npm/lib/config/defaults.js
++++ b/deps/npm/lib/config/defaults.js
+@@ -81,8 +81,8 @@ var uidOrPid = process.getuid ? process.getuid() : process.pid
+ if (home) process.env.HOME = home
+ else home = path.resolve(temp, 'npm-' + uidOrPid)
+ 
+-var cacheExtra = process.platform === 'win32' ? 'npm-cache' : '.npm'
+-var cacheRoot = (process.platform === 'win32' && process.env.APPDATA) || home
++var cacheExtra = '.npm'
++var cacheRoot = home
+ var cache = path.resolve(cacheRoot, cacheExtra)
+ 
+ var globalPrefix
+@@ -91,9 +91,6 @@ Object.defineProperty(exports, 'defaults', {get: function () {
+ 
+   if (process.env.PREFIX) {
+     globalPrefix = process.env.PREFIX
+-  } else if (process.platform === 'win32') {
+-    // c:\node\node.exe --> prefix=c:\node\
+-    globalPrefix = path.dirname(process.execPath)
+   } else {
+     // /usr/local/bin/node --> prefix=/usr/local
+     globalPrefix = path.dirname(path.dirname(process.execPath))
+diff --git a/deps/npm/lib/npm.js b/deps/npm/lib/npm.js
+index 3585007..8da7e97 100644
+--- a/deps/npm/lib/npm.js
++++ b/deps/npm/lib/npm.js
+@@ -407,7 +407,7 @@
+     {
+       get: function () {
+         var b = npm.globalPrefix
+-        if (process.platform !== 'win32') b = path.resolve(b, 'bin')
++        b = path.resolve(b, 'bin')
+         return b
+       }
+     })
+@@ -424,9 +424,7 @@
+   Object.defineProperty(npm, 'globalDir',
+     {
+       get: function () {
+-        return (process.platform !== 'win32')
+-          ? path.resolve(npm.globalPrefix, 'lib', 'node_modules')
+-          : path.resolve(npm.globalPrefix, 'node_modules')
++        return path.resolve(npm.globalPrefix, 'lib', 'node_modules')
+       },
+       enumerable: true
+     })
+diff --git a/deps/npm/lib/unbuild.js b/deps/npm/lib/unbuild.js
+index 3e8d3e4..1aec49a 100644
+--- a/deps/npm/lib/unbuild.js
++++ b/deps/npm/lib/unbuild.js
+@@ -97,7 +97,6 @@ function rmBins (pkg, folder, parent, top, cb) {
+ function rmMans (pkg, folder, parent, top, cb) {
+   if (!pkg.man ||
+       !top ||
+-      process.platform === 'win32' ||
+       !npm.config.get('global')) {
+     return cb()
+   }
+diff --git a/deps/npm/node_modules/bin-links/index.js b/deps/npm/node_modules/bin-links/index.js
+index 4f6d3c0..0ceef74 100644
+--- a/deps/npm/node_modules/bin-links/index.js
++++ b/deps/npm/node_modules/bin-links/index.js
+@@ -126,7 +126,7 @@ function linkBin (from, to, opts) {
+ }
+ 
+ function linkMans (pkg, folder, parent, gtop, opts) {
+-  if (!pkg.man || !gtop || process.platform === 'win32') return
++  if (!pkg.man || !gtop) return
+ 
+   var manRoot = path.resolve(opts.prefix, 'share', 'man')
+   opts.log.verbose('linkMans', 'man files are', pkg.man, 'in', manRoot)
+diff --git a/deps/uv/gyp_uv.py b/deps/uv/gyp_uv.py
+index c2add5c..acbf507 100755
+--- a/deps/uv/gyp_uv.py
++++ b/deps/uv/gyp_uv.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ import os
+ import platform
+diff --git a/deps/v8/BUILD.gn b/deps/v8/BUILD.gn
+index 9d95036..9a8c48d 100644
+--- a/deps/v8/BUILD.gn
++++ b/deps/v8/BUILD.gn
+@@ -2537,10 +2537,10 @@ v8_component("v8_libbase") {
+     defines += [ "_CRT_RAND_S" ]  # for rand_s()
+ 
+     libs = [
+-      "dbghelp.lib",
+-      "shlwapi.lib",
+-      "winmm.lib",
+-      "ws2_32.lib",
++      "dbghelp",
++      "shlwapi",
++      "winmm",
++      "ws2_32",
+     ]
+   }
+ 
+diff --git a/deps/v8/DEPS b/deps/v8/DEPS
+index 4b64895..271892e 100644
+--- a/deps/v8/DEPS
++++ b/deps/v8/DEPS
+@@ -79,7 +79,7 @@ hooks = [
+     'name': 'landmines',
+     'pattern': '.',
+     'action': [
+-        'python',
++        'python2',
+         'v8/gypfiles/landmines.py',
+     ],
+   },
+@@ -121,7 +121,7 @@ hooks = [
+     'name': 'gcmole',
+     'pattern': '.',
+     'action': [
+-        'python',
++        'python2',
+         'v8/tools/gcmole/download_gcmole_tools.py',
+     ],
+   },
+@@ -129,7 +129,7 @@ hooks = [
+     'name': 'jsfunfuzz',
+     'pattern': '.',
+     'action': [
+-        'python',
++        'python2',
+         'v8/tools/jsfunfuzz/download_jsfunfuzz.py',
+     ],
+   },
+@@ -249,7 +249,7 @@ hooks = [
+     # Update the Windows toolchain if necessary.
+     'name': 'win_toolchain',
+     'pattern': '.',
+-    'action': ['python', 'v8/build/vs_toolchain.py', 'update'],
++    'action': ['python2', 'v8/build/vs_toolchain.py', 'update'],
+   },
+   # Pull binutils for linux, enabled debug fission for faster linking /
+   # debugging when used with clang on Ubuntu Precise.
+@@ -258,7 +258,7 @@ hooks = [
+     'name': 'binutils',
+     'pattern': 'v8/third_party/binutils',
+     'action': [
+-        'python',
++        'python2',
+         'v8/third_party/binutils/download.py',
+     ],
+   },
+@@ -267,11 +267,11 @@ hooks = [
+     # Note: On Win, this should run after win_toolchain, as it may use it.
+     'name': 'clang',
+     'pattern': '.',
+-    'action': ['python', 'v8/tools/clang/scripts/update.py', '--if-needed'],
++    'action': ['python2', 'v8/tools/clang/scripts/update.py', '--if-needed'],
+   },
+   {
+     # A change to a .gyp, .gypi, or to GYP itself should run the generator.
+     "pattern": ".",
+-    "action": ["python", "v8/gypfiles/gyp_v8", "--running-as-hook"],
++    "action": ["python2", "v8/gypfiles/gyp_v8", "--running-as-hook"],
+   },
+ ]
+diff --git a/deps/v8/Makefile b/deps/v8/Makefile
+index 167ebf8..5f031c3 100644
+--- a/deps/v8/Makefile
++++ b/deps/v8/Makefile
+@@ -318,7 +318,7 @@ $(ARCHES): $(addprefix $$@.,$(DEFAULT_MODES))
+ $(BUILDS): $(OUTDIR)/Makefile.$$@
+ 	@$(MAKE) -C "$(OUTDIR)" -f Makefile.$@ \
+ 	         BUILDTYPE=$(shell echo $(subst .,,$(suffix $@)) | \
+-	                     python -c "print \
++	                     python2 -c "print \
+ 	                     raw_input().replace('opt', '').capitalize()") \
+ 	         builddir="$(shell pwd)/$(OUTDIR)/$@"
+ 
+diff --git a/deps/v8/Makefile.android b/deps/v8/Makefile.android
+index 4171521..1f84adb 100644
+--- a/deps/v8/Makefile.android
++++ b/deps/v8/Makefile.android
+@@ -58,7 +58,7 @@ DEFINES += OS=android
+ $(ANDROID_BUILDS): $(OUTDIR)/Makefile.$$@
+ 	@$(MAKE) -C "$(OUTDIR)" -f Makefile.$@ \
+ 	          BUILDTYPE=$(shell echo $(subst .,,$(suffix $@)) | \
+-	                      python -c "print raw_input().capitalize()") \
++	                      python2 -c "print raw_input().capitalize()") \
+ 	          builddir="$(shell pwd)/$(OUTDIR)/$@"
+ 
+ # Android GYP file generation targets.
+diff --git a/deps/v8/gypfiles/coverage_wrapper.py b/deps/v8/gypfiles/coverage_wrapper.py
+index d5fdee4..ee26b8e 100755
+--- a/deps/v8/gypfiles/coverage_wrapper.py
++++ b/deps/v8/gypfiles/coverage_wrapper.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/gypfiles/detect_v8_host_arch.py b/deps/v8/gypfiles/detect_v8_host_arch.py
+index 89e8286..87ad379 100644
+--- a/deps/v8/gypfiles/detect_v8_host_arch.py
++++ b/deps/v8/gypfiles/detect_v8_host_arch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/gypfiles/get_landmines.py b/deps/v8/gypfiles/get_landmines.py
+index 6137648..69f2981 100755
+--- a/deps/v8/gypfiles/get_landmines.py
++++ b/deps/v8/gypfiles/get_landmines.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/gypfiles/gyp_v8 b/deps/v8/gypfiles/gyp_v8
+index b8b5f74..a871536 100755
+--- a/deps/v8/gypfiles/gyp_v8
++++ b/deps/v8/gypfiles/gyp_v8
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/gypfiles/isolate.gypi b/deps/v8/gypfiles/isolate.gypi
+index 149818c..ba25cdc 100644
+--- a/deps/v8/gypfiles/isolate.gypi
++++ b/deps/v8/gypfiles/isolate.gypi
+@@ -52,7 +52,7 @@
+         '<(PRODUCT_DIR)/<(RULE_INPUT_ROOT).isolated',
+       ],
+       'action': [
+-        'python',
++        'python2',
+         '<(DEPTH)/tools/isolate_driver.py',
+         '<(test_isolation_mode)',
+         '--isolated', '<(PRODUCT_DIR)/<(RULE_INPUT_ROOT).isolated',
+diff --git a/deps/v8/gypfiles/landmines.py b/deps/v8/gypfiles/landmines.py
+index 2a81c66..49901b1 100755
+--- a/deps/v8/gypfiles/landmines.py
++++ b/deps/v8/gypfiles/landmines.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/gypfiles/run-tests-legacy.py b/deps/v8/gypfiles/run-tests-legacy.py
+index f1ea478..4391c37 100755
+--- a/deps/v8/gypfiles/run-tests-legacy.py
++++ b/deps/v8/gypfiles/run-tests-legacy.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2017 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/gypfiles/shim_headers.gypi b/deps/v8/gypfiles/shim_headers.gypi
+index 940211c..7e21773 100644
+--- a/deps/v8/gypfiles/shim_headers.gypi
++++ b/deps/v8/gypfiles/shim_headers.gypi
+@@ -62,7 +62,7 @@
+       'outputs': [
+         '<!@pymod_do_main(generate_shim_headers <@(generator_args) --outputs)',
+       ],
+-      'action': ['python',
++      'action': ['python2',
+                  '<(generator_path)',
+                  '<@(generator_args)',
+                  '--generate',
+diff --git a/deps/v8/gypfiles/standalone.gypi b/deps/v8/gypfiles/standalone.gypi
+index 63930d8..595c0b6 100644
+--- a/deps/v8/gypfiles/standalone.gypi
++++ b/deps/v8/gypfiles/standalone.gypi
+@@ -78,7 +78,7 @@
+         'host_arch%': '<(host_arch)',
+         'target_arch%': '<(target_arch)',
+         'use_sysroot%': '<(use_sysroot)',
+-        'base_dir%': '<!(cd <(DEPTH) && python -c "import os; print os.getcwd()")',
++        'base_dir%': '<!(cd <(DEPTH) && python2 -c "import os; print os.getcwd()")',
+ 
+         # Instrument for code coverage and use coverage wrapper to exclude some
+         # files. Uses gcov if clang=0 is set explicitly. Otherwise,
+@@ -493,7 +493,7 @@
+         # (defines are passed via the command line, and build systems rebuild
+         # things when their commandline changes). Nothing should ever read this
+         # define.
+-        'defines': ['CR_CLANG_REVISION=<!(python <(DEPTH)/tools/clang/scripts/update.py --print-revision)'],
++        'defines': ['CR_CLANG_REVISION=<!(python2 <(DEPTH)/tools/clang/scripts/update.py --print-revision)'],
+       }],
+       ['clang==1 and target_arch=="ia32"', {
+         'cflags': ['-mstack-alignment=16', '-mstackrealign'],
+diff --git a/deps/v8/gypfiles/toolchain.gypi b/deps/v8/gypfiles/toolchain.gypi
+index 80844ce..74a4dcb 100644
+--- a/deps/v8/gypfiles/toolchain.gypi
++++ b/deps/v8/gypfiles/toolchain.gypi
+@@ -41,7 +41,7 @@
+     'has_valgrind%': 0,
+     'coverage%': 0,
+     'v8_target_arch%': '<(target_arch)',
+-    'v8_host_byteorder%': '<!(python -c "import sys; print sys.byteorder")',
++    'v8_host_byteorder%': '<!(python2 -c "import sys; print sys.byteorder")',
+     'force_dynamic_crt%': 0,
+ 
+     # Setting 'v8_can_use_vfp32dregs' to 'true' will cause V8 to use the VFP
+diff --git a/deps/v8/gypfiles/vs_toolchain.py b/deps/v8/gypfiles/vs_toolchain.py
+index d7676c8..cde9385 100644
+--- a/deps/v8/gypfiles/vs_toolchain.py
++++ b/deps/v8/gypfiles/vs_toolchain.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Copyright 2014 The Chromium Authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+diff --git a/deps/v8/src/base/atomicops.h b/deps/v8/src/base/atomicops.h
+index c4c28f7..3038430 100644
+--- a/deps/v8/src/base/atomicops.h
++++ b/deps/v8/src/base/atomicops.h
+@@ -36,6 +36,10 @@
+ #include "src/base/base-export.h"
+ #include "src/base/build_config.h"
+ 
++#if defined(_WIN32)
++#include "win32-headers.h"
++#endif
++
+ namespace v8 {
+ namespace base {
+ 
+diff --git a/deps/v8/src/base/debug/stack_trace_win.cc b/deps/v8/src/base/debug/stack_trace_win.cc
+index 64e6309..8110ef2 100644
+--- a/deps/v8/src/base/debug/stack_trace_win.cc
++++ b/deps/v8/src/base/debug/stack_trace_win.cc
+@@ -43,9 +43,9 @@ long WINAPI StackDumpExceptionFilter(EXCEPTION_POINTERS* info) {  // NOLINT
+ }
+ 
+ void GetExePath(wchar_t* path_out) {
+-  GetModuleFileName(NULL, path_out, MAX_PATH);
++  GetModuleFileNameW(NULL, path_out, MAX_PATH);
+   path_out[MAX_PATH - 1] = L'\0';
+-  PathRemoveFileSpec(path_out);
++  PathRemoveFileSpecW(path_out);
+ }
+ 
+ bool InitializeSymbols() {
+diff --git a/deps/v8/src/base/export-template.h b/deps/v8/src/base/export-template.h
+index 861cfe4..0211fd5 100644
+--- a/deps/v8/src/base/export-template.h
++++ b/deps/v8/src/base/export-template.h
+@@ -153,7 +153,6 @@
+ 
+ EXPORT_TEMPLATE_TEST(DEFAULT, );
+ EXPORT_TEMPLATE_TEST(DEFAULT, __attribute__((visibility("default"))));
+-EXPORT_TEMPLATE_TEST(MSVC_HACK, __declspec(dllexport));
+ EXPORT_TEMPLATE_TEST(DEFAULT, __declspec(dllimport));
+ 
+ #undef EXPORT_TEMPLATE_TEST
+diff --git a/deps/v8/src/base/format-macros.h b/deps/v8/src/base/format-macros.h
+index 5f5fe5d..13f240a 100644
+--- a/deps/v8/src/base/format-macros.h
++++ b/deps/v8/src/base/format-macros.h
+@@ -80,6 +80,16 @@
+ 
+ #else  // V8_OS_WIN
+ 
++#ifndef PRId64
++#define PRId64 "I64d"
++#endif
++#ifndef PRIu64
++#define PRIu64 "I64u"
++#endif
++#ifndef PRIx64
++#define PRIx64 "I64x"
++#endif
++
+ #if !defined(PRId64) || !defined(PRIu64) || !defined(PRIx64)
+ #error "inttypes.h provided by win toolchain should define these."
+ #endif
+diff --git a/deps/v8/src/base/platform/condition-variable.cc b/deps/v8/src/base/platform/condition-variable.cc
+index 6df8599..307263c 100644
+--- a/deps/v8/src/base/platform/condition-variable.cc
++++ b/deps/v8/src/base/platform/condition-variable.cc
+@@ -8,6 +8,7 @@
+ #include <time.h>
+ 
+ #include "src/base/platform/time.h"
++#include <windows.h>
+ 
+ namespace v8 {
+ namespace base {
+diff --git a/deps/v8/src/base/platform/platform-win32.cc b/deps/v8/src/base/platform/platform-win32.cc
+index 7ce0a0d..9453a67 100644
+--- a/deps/v8/src/base/platform/platform-win32.cc
++++ b/deps/v8/src/base/platform/platform-win32.cc
+@@ -42,8 +42,6 @@ inline void MemoryFence() {
+   __asm__ __volatile__("xchgl %%eax,%0 ":"=r" (barrier));
+ }
+ 
+-#endif  // __MINGW64_VERSION_MAJOR
+-
+ 
+ int localtime_s(tm* out_tm, const time_t* time) {
+   tm* posix_local_time_struct = localtime_r(time, out_tm);
+@@ -51,6 +49,7 @@ int localtime_s(tm* out_tm, const time_t* time) {
+   return 0;
+ }
+ 
++#endif  // __MINGW64_VERSION_MAJOR
+ 
+ int fopen_s(FILE** pFile, const char* filename, const char* mode) {
+   *pFile = fopen(filename, mode);
+diff --git a/deps/v8/src/base/platform/time.cc b/deps/v8/src/base/platform/time.cc
+index 09e3fd0..2055039 100644
+--- a/deps/v8/src/base/platform/time.cc
++++ b/deps/v8/src/base/platform/time.cc
+@@ -650,13 +650,13 @@ bool ThreadTicks::IsSupported() {
+ ThreadTicks ThreadTicks::Now() {
+ #if V8_OS_MACOSX
+   return ThreadTicks(ComputeThreadTicks());
++#elif V8_OS_WIN
++  return ThreadTicks::GetForThread(::GetCurrentThread());
+ #elif(defined(_POSIX_THREAD_CPUTIME) && (_POSIX_THREAD_CPUTIME >= 0)) || \
+   defined(V8_OS_ANDROID)
+   return ThreadTicks(ClockNow(CLOCK_THREAD_CPUTIME_ID));
+ #elif V8_OS_SOLARIS
+   return ThreadTicks(gethrvtime() / Time::kNanosecondsPerMicrosecond);
+-#elif V8_OS_WIN
+-  return ThreadTicks::GetForThread(::GetCurrentThread());
+ #else
+   UNREACHABLE();
+ #endif
+@@ -695,6 +695,12 @@ void ThreadTicks::WaitUntilInitializedWin() {
+     ::Sleep(10);
+ }
+ 
++#ifdef __MINGW64_VERSION_MAJOR
++extern "C" {
++	extern unsigned __int64 __rdtsc(void);
++}
++#endif
++
+ double ThreadTicks::TSCTicksPerSecond() {
+   DCHECK(IsSupported());
+ 
+diff --git a/deps/v8/src/d8.gyp b/deps/v8/src/d8.gyp
+index e6a4021..4a49c50 100644
+--- a/deps/v8/src/d8.gyp
++++ b/deps/v8/src/d8.gyp
+@@ -129,7 +129,7 @@
+             '<(SHARED_INTERMEDIATE_DIR)/d8-js.cc',
+           ],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<@(_outputs)',
+             'D8',
+diff --git a/deps/v8/src/v8.gyp b/deps/v8/src/v8.gyp
+index 1c56842..c4fb787 100644
+--- a/deps/v8/src/v8.gyp
++++ b/deps/v8/src/v8.gyp
+@@ -1818,11 +1818,6 @@
+             'runtime/runtime-intl.cc',
+           ],
+         }],
+-        ['OS=="win" and v8_enable_i18n_support==1', {
+-          'dependencies': [
+-            '<(icu_gyp_path):icudata',
+-          ],
+-        }],
+       ],
+     },
+     {
+@@ -2145,10 +2140,10 @@
+               'msvs_disabled_warnings': [4351, 4355, 4800],
+               'link_settings':  {
+                 'libraries': [
+-                  '-ldbghelp.lib',
+-                  '-lshlwapi.lib',
+-                  '-lwinmm.lib',
+-                  '-lws2_32.lib'
++                  '-ldbghelp',
++                  '-lshlwapi',
++                  '-lwinmm',
++                  '-lws2_32'
+                 ],
+               },
+             }],
+@@ -2265,14 +2260,14 @@
+                       '<(PRODUCT_DIR)/natives_blob_host.bin',
+                     ],
+                     'action': [
+-                      'python', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob_host.bin'
++                      'python2', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob_host.bin'
+                     ],
+                   }, {
+                     'outputs': [
+                       '<(PRODUCT_DIR)/natives_blob.bin',
+                     ],
+                     'action': [
+-                      'python', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob.bin'
++                      'python2', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob.bin'
+                     ],
+                   }],
+                 ],
+@@ -2281,7 +2276,7 @@
+                   '<(PRODUCT_DIR)/natives_blob.bin',
+                 ],
+                 'action': [
+-                  'python', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob.bin'
++                  'python2', '<@(_inputs)', '<(PRODUCT_DIR)/natives_blob.bin'
+                 ],
+               }],
+             ],
+@@ -2341,7 +2336,7 @@
+           ],
+           'outputs': ['<(SHARED_INTERMEDIATE_DIR)/libraries.cc'],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/libraries.cc',
+             'CORE',
+@@ -2356,7 +2351,7 @@
+           ],
+           'outputs': ['<@(libraries_bin_file)'],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/libraries.cc',
+             'CORE',
+@@ -2373,7 +2368,7 @@
+           ],
+           'outputs': ['<(SHARED_INTERMEDIATE_DIR)/extras-libraries.cc'],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/extras-libraries.cc',
+             'EXTRAS',
+@@ -2388,7 +2383,7 @@
+           ],
+           'outputs': ['<@(libraries_extras_bin_file)'],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/extras-libraries.cc',
+             'EXTRAS',
+@@ -2407,7 +2402,7 @@
+             '<(SHARED_INTERMEDIATE_DIR)/experimental-extras-libraries.cc',
+           ],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/experimental-extras-libraries.cc',
+             'EXPERIMENTAL_EXTRAS',
+@@ -2422,7 +2417,7 @@
+           ],
+           'outputs': ['<@(libraries_experimental_extras_bin_file)'],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/js2c.py',
+             '<(SHARED_INTERMEDIATE_DIR)/experimental-extras-libraries.cc',
+             'EXPERIMENTAL_EXTRAS',
+@@ -2461,7 +2456,7 @@
+               '<(SHARED_INTERMEDIATE_DIR)/debug-support.cc',
+             ],
+             'action': [
+-              'python',
++              'python2',
+               '../tools/gen-postmortem-metadata.py',
+               '<@(_outputs)',
+               '<@(heapobject_files)'
+@@ -2515,7 +2510,7 @@
+             '<(PRODUCT_DIR)/v8_build_config.json',
+           ],
+           'action': [
+-            'python',
++            'python2',
+             '../tools/testrunner/utils/dump_build_config_gyp.py',
+             '<(PRODUCT_DIR)/v8_build_config.json',
+             'dcheck_always_on=<(dcheck_always_on)',
+diff --git a/deps/v8/tools/android-run.py b/deps/v8/tools/android-run.py
+index 4765f86..ff06a47 100755
+--- a/deps/v8/tools/android-run.py
++++ b/deps/v8/tools/android-run.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/concatenate-files.py b/deps/v8/tools/concatenate-files.py
+index 8a9012c..4b6d154 100644
+--- a/deps/v8/tools/concatenate-files.py
++++ b/deps/v8/tools/concatenate-files.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/disasm.py b/deps/v8/tools/disasm.py
+index a91d0db..3865f9b 100644
+--- a/deps/v8/tools/disasm.py
++++ b/deps/v8/tools/disasm.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2011 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/eval_gc_nvp.py b/deps/v8/tools/eval_gc_nvp.py
+index 25afe8e..adc21c3 100755
+--- a/deps/v8/tools/eval_gc_nvp.py
++++ b/deps/v8/tools/eval_gc_nvp.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+diff --git a/deps/v8/tools/find-commit-for-patch.py b/deps/v8/tools/find-commit-for-patch.py
+index 657826c..a87b721 100755
+--- a/deps/v8/tools/find-commit-for-patch.py
++++ b/deps/v8/tools/find-commit-for-patch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/fuzz-harness.sh b/deps/v8/tools/fuzz-harness.sh
+index 01f0353..b9b875d 100755
+--- a/deps/v8/tools/fuzz-harness.sh
++++ b/deps/v8/tools/fuzz-harness.sh
+@@ -88,7 +88,7 @@ EOF
+ fi
+ 
+ flags='--expose-gc --verify-gc'
+-python -u "$jsfunfuzz_dir/jsfunfuzz/multi_timed_run.py" 300 \
++python2 -u "$jsfunfuzz_dir/jsfunfuzz/multi_timed_run.py" 300 \
+     "$d8" $flags "$jsfunfuzz_dir/jsfunfuzz/jsfunfuzz.js"
+ exit_code=$(cat w* | grep " looking good" -c)
+ exit_code=$((100-exit_code))
+diff --git a/deps/v8/tools/gc-nvp-to-csv.py b/deps/v8/tools/gc-nvp-to-csv.py
+index 26ed8e1..616e2d0 100755
+--- a/deps/v8/tools/gc-nvp-to-csv.py
++++ b/deps/v8/tools/gc-nvp-to-csv.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+diff --git a/deps/v8/tools/gc-nvp-trace-processor.py b/deps/v8/tools/gc-nvp-trace-processor.py
+index 21526ae..1bc3426 100755
+--- a/deps/v8/tools/gc-nvp-trace-processor.py
++++ b/deps/v8/tools/gc-nvp-trace-processor.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2010 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/gcmole/download_gcmole_tools.py b/deps/v8/tools/gcmole/download_gcmole_tools.py
+index 7183d28..ad0a841 100755
+--- a/deps/v8/tools/gcmole/download_gcmole_tools.py
++++ b/deps/v8/tools/gcmole/download_gcmole_tools.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/gcmole/gcmole.lua b/deps/v8/tools/gcmole/gcmole.lua
+index 862b7b0..226fff6 100644
+--- a/deps/v8/tools/gcmole/gcmole.lua
++++ b/deps/v8/tools/gcmole/gcmole.lua
+@@ -170,7 +170,7 @@ function InvokeClangPluginForEachFile(filenames, cfg, func)
+       end
+    else
+       log("** Parallel execution.")
+-      local action = "python tools/gcmole/parallel.py \""
++      local action = "python2 tools/gcmole/parallel.py \""
+          .. cmd_line .. "\" " .. table.concat(filenames, " ")
+       if FLAGS.verbose then print('popen ', action) end
+       local pipe = io.popen(action)
+diff --git a/deps/v8/tools/gcmole/parallel.py b/deps/v8/tools/gcmole/parallel.py
+index 0c045f4..505ddab 100755
+--- a/deps/v8/tools/gcmole/parallel.py
++++ b/deps/v8/tools/gcmole/parallel.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/gcmole/run-gcmole.py b/deps/v8/tools/gcmole/run-gcmole.py
+index 88799e3..97ca7ae 100755
+--- a/deps/v8/tools/gcmole/run-gcmole.py
++++ b/deps/v8/tools/gcmole/run-gcmole.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/gen-postmortem-metadata.py b/deps/v8/tools/gen-postmortem-metadata.py
+index c8cff79..94de029 100644
+--- a/deps/v8/tools/gen-postmortem-metadata.py
++++ b/deps/v8/tools/gen-postmortem-metadata.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+diff --git a/deps/v8/tools/generate-builtins-tests.py b/deps/v8/tools/generate-builtins-tests.py
+index 4e6961d..00dea5a 100755
+--- a/deps/v8/tools/generate-builtins-tests.py
++++ b/deps/v8/tools/generate-builtins-tests.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/generate_shim_headers/generate_shim_headers.py b/deps/v8/tools/generate_shim_headers/generate_shim_headers.py
+index d0e6d06..127e768 100755
+--- a/deps/v8/tools/generate_shim_headers/generate_shim_headers.py
++++ b/deps/v8/tools/generate_shim_headers/generate_shim_headers.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2013 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/grokdump.py b/deps/v8/tools/grokdump.py
+index 4d22333..0d4f3b7 100755
+--- a/deps/v8/tools/grokdump.py
++++ b/deps/v8/tools/grokdump.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/isolate_driver.py b/deps/v8/tools/isolate_driver.py
+index a6bcfbf..08c1ca4 100644
+--- a/deps/v8/tools/isolate_driver.py
++++ b/deps/v8/tools/isolate_driver.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Copyright 2014 The Chromium Authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+diff --git a/deps/v8/tools/js2c.py b/deps/v8/tools/js2c.py
+index 7c92a4e..7cebf57 100755
+--- a/deps/v8/tools/js2c.py
++++ b/deps/v8/tools/js2c.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/jsfunfuzz/download_jsfunfuzz.py b/deps/v8/tools/jsfunfuzz/download_jsfunfuzz.py
+index 19eff02..ad19b71 100644
+--- a/deps/v8/tools/jsfunfuzz/download_jsfunfuzz.py
++++ b/deps/v8/tools/jsfunfuzz/download_jsfunfuzz.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/jsfunfuzz/fuzz-harness.sh b/deps/v8/tools/jsfunfuzz/fuzz-harness.sh
+index 8d064b2..4072d60 100755
+--- a/deps/v8/tools/jsfunfuzz/fuzz-harness.sh
++++ b/deps/v8/tools/jsfunfuzz/fuzz-harness.sh
+@@ -66,7 +66,7 @@ EOF
+ fi
+ 
+ flags='--expose-gc --verify-gc'
+-python -u "$jsfunfuzz_dir/jsfunfuzz/multi_timed_run.py" 300 \
++python2 -u "$jsfunfuzz_dir/jsfunfuzz/multi_timed_run.py" 300 \
+     "$d8" $flags "$jsfunfuzz_dir/jsfunfuzz/jsfunfuzz.js"
+ exit_code=$(cat w* | grep " looking good" -c)
+ exit_code=$((100-exit_code))
+diff --git a/deps/v8/tools/jsmin.py b/deps/v8/tools/jsmin.py
+index 236f511..73b0129 100644
+--- a/deps/v8/tools/jsmin.py
++++ b/deps/v8/tools/jsmin.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python2.4
++#!/usr/bin/env python2
+ 
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/ll_prof.py b/deps/v8/tools/ll_prof.py
+index ca2cb00..811b437 100755
+--- a/deps/v8/tools/ll_prof.py
++++ b/deps/v8/tools/ll_prof.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/mingw-generate-makefiles.sh b/deps/v8/tools/mingw-generate-makefiles.sh
+index 67715fc..efed976 100755
+--- a/deps/v8/tools/mingw-generate-makefiles.sh
++++ b/deps/v8/tools/mingw-generate-makefiles.sh
+@@ -28,7 +28,7 @@
+ 
+ # Monkey-patch GYP.
+ cat > tools/gyp/gyp.mingw << EOF
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ # Copyright (c) 2009 Google Inc. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+diff --git a/deps/v8/tools/perf-to-html.py b/deps/v8/tools/perf-to-html.py
+index 7ec9c50..6c14287 100755
+--- a/deps/v8/tools/perf-to-html.py
++++ b/deps/v8/tools/perf-to-html.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/presubmit.py b/deps/v8/tools/presubmit.py
+index 99486cc..01973e4 100755
+--- a/deps/v8/tools/presubmit.py
++++ b/deps/v8/tools/presubmit.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/process-heap-prof.py b/deps/v8/tools/process-heap-prof.py
+index a26cbf1..c7a4e6e 100755
+--- a/deps/v8/tools/process-heap-prof.py
++++ b/deps/v8/tools/process-heap-prof.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2009 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/release/auto_push.py b/deps/v8/tools/release/auto_push.py
+index ca9e5e8..5b91dec 100755
+--- a/deps/v8/tools/release/auto_push.py
++++ b/deps/v8/tools/release/auto_push.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2013 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/auto_roll.py b/deps/v8/tools/release/auto_roll.py
+index da4cc7e..7b02e06 100755
+--- a/deps/v8/tools/release/auto_roll.py
++++ b/deps/v8/tools/release/auto_roll.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/auto_tag.py b/deps/v8/tools/release/auto_tag.py
+index a52a028..b71c19c 100755
+--- a/deps/v8/tools/release/auto_tag.py
++++ b/deps/v8/tools/release/auto_tag.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/check_clusterfuzz.py b/deps/v8/tools/release/check_clusterfuzz.py
+index 0fdffd9..213a2fc 100755
+--- a/deps/v8/tools/release/check_clusterfuzz.py
++++ b/deps/v8/tools/release/check_clusterfuzz.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/common_includes.py b/deps/v8/tools/release/common_includes.py
+index d295e37..6af4566 100644
+--- a/deps/v8/tools/release/common_includes.py
++++ b/deps/v8/tools/release/common_includes.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2013 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/create_release.py b/deps/v8/tools/release/create_release.py
+index e5c2114..48d713a 100755
+--- a/deps/v8/tools/release/create_release.py
++++ b/deps/v8/tools/release/create_release.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/git_recipes.py b/deps/v8/tools/release/git_recipes.py
+index d831aa3..de8d032 100644
+--- a/deps/v8/tools/release/git_recipes.py
++++ b/deps/v8/tools/release/git_recipes.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/merge_to_branch.py b/deps/v8/tools/release/merge_to_branch.py
+index 877d121..5fa337b 100755
+--- a/deps/v8/tools/release/merge_to_branch.py
++++ b/deps/v8/tools/release/merge_to_branch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/mergeinfo.py b/deps/v8/tools/release/mergeinfo.py
+index 1e29ece..b28f5e1 100755
+--- a/deps/v8/tools/release/mergeinfo.py
++++ b/deps/v8/tools/release/mergeinfo.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/push_to_candidates.py b/deps/v8/tools/release/push_to_candidates.py
+index 538b988..cf02a88 100755
+--- a/deps/v8/tools/release/push_to_candidates.py
++++ b/deps/v8/tools/release/push_to_candidates.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2013 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/releases.py b/deps/v8/tools/release/releases.py
+index 7b659cc..61b2eec 100755
+--- a/deps/v8/tools/release/releases.py
++++ b/deps/v8/tools/release/releases.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/script_test.py b/deps/v8/tools/release/script_test.py
+index b9a17e9..3e16eb6 100755
+--- a/deps/v8/tools/release/script_test.py
++++ b/deps/v8/tools/release/script_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/search_related_commits.py b/deps/v8/tools/release/search_related_commits.py
+index d27aa56..bf016d1 100755
+--- a/deps/v8/tools/release/search_related_commits.py
++++ b/deps/v8/tools/release/search_related_commits.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/release/test_scripts.py b/deps/v8/tools/release/test_scripts.py
+index 42bbd5a..10fd608 100755
+--- a/deps/v8/tools/release/test_scripts.py
++++ b/deps/v8/tools/release/test_scripts.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2013 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are
+diff --git a/deps/v8/tools/release/test_search_related_commits.py b/deps/v8/tools/release/test_search_related_commits.py
+index cf61236..3eca10e 100755
+--- a/deps/v8/tools/release/test_search_related_commits.py
++++ b/deps/v8/tools/release/test_search_related_commits.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/run-deopt-fuzzer.py b/deps/v8/tools/run-deopt-fuzzer.py
+index 1f50e02..befa7b3 100755
+--- a/deps/v8/tools/run-deopt-fuzzer.py
++++ b/deps/v8/tools/run-deopt-fuzzer.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/run-valgrind.py b/deps/v8/tools/run-valgrind.py
+index e3f84f5..de78300 100755
+--- a/deps/v8/tools/run-valgrind.py
++++ b/deps/v8/tools/run-valgrind.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2009 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/run.py b/deps/v8/tools/run.py
+index 5a656e1..c6fc589 100755
+--- a/deps/v8/tools/run.py
++++ b/deps/v8/tools/run.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/run_perf.py b/deps/v8/tools/run_perf.py
+index b22a4f1..76ee8c5 100755
+--- a/deps/v8/tools/run_perf.py
++++ b/deps/v8/tools/run_perf.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/sanitizers/sancov_formatter.py b/deps/v8/tools/sanitizers/sancov_formatter.py
+index 2e168fb..71fe8e6 100755
+--- a/deps/v8/tools/sanitizers/sancov_formatter.py
++++ b/deps/v8/tools/sanitizers/sancov_formatter.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/sanitizers/sancov_merger.py b/deps/v8/tools/sanitizers/sancov_merger.py
+index 867f8b4..7e25643 100755
+--- a/deps/v8/tools/sanitizers/sancov_merger.py
++++ b/deps/v8/tools/sanitizers/sancov_merger.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/sanitizers/sanitize_pcs.py b/deps/v8/tools/sanitizers/sanitize_pcs.py
+index 47f2715..df58ff6 100755
+--- a/deps/v8/tools/sanitizers/sanitize_pcs.py
++++ b/deps/v8/tools/sanitizers/sanitize_pcs.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2016 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/stats-viewer.py b/deps/v8/tools/stats-viewer.py
+index e8fc69e..89b0da6 100755
+--- a/deps/v8/tools/stats-viewer.py
++++ b/deps/v8/tools/stats-viewer.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2008 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/test-server.py b/deps/v8/tools/test-server.py
+index ab927de..a94b61a 100755
+--- a/deps/v8/tools/test-server.py
++++ b/deps/v8/tools/test-server.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ #
+ # Copyright 2012 the V8 project authors. All rights reserved.
+ # Redistribution and use in source and binary forms, with or without
+diff --git a/deps/v8/tools/testrunner/local/pool.py b/deps/v8/tools/testrunner/local/pool.py
+index 99996ee..4682378 100644
+--- a/deps/v8/tools/testrunner/local/pool.py
++++ b/deps/v8/tools/testrunner/local/pool.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/testrunner/local/pool_unittest.py b/deps/v8/tools/testrunner/local/pool_unittest.py
+index 235eca6..3b58415 100644
+--- a/deps/v8/tools/testrunner/local/pool_unittest.py
++++ b/deps/v8/tools/testrunner/local/pool_unittest.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/testrunner/server/daemon.py b/deps/v8/tools/testrunner/server/daemon.py
+index baa66fb..26a58c8 100644
+--- a/deps/v8/tools/testrunner/server/daemon.py
++++ b/deps/v8/tools/testrunner/server/daemon.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ # This code has been written by Sander Marechal and published at:
+ # http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
+diff --git a/deps/v8/tools/trace-maps-processor.py b/deps/v8/tools/trace-maps-processor.py
+index bf8c8a8..3397998 100755
+--- a/deps/v8/tools/trace-maps-processor.py
++++ b/deps/v8/tools/trace-maps-processor.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/try_perf.py b/deps/v8/tools/try_perf.py
+index 17eb070..10e8da4 100755
+--- a/deps/v8/tools/try_perf.py
++++ b/deps/v8/tools/try_perf.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/unittests/run_perf_test.py b/deps/v8/tools/unittests/run_perf_test.py
+index e7342e6..c43f2b0 100644
+--- a/deps/v8/tools/unittests/run_perf_test.py
++++ b/deps/v8/tools/unittests/run_perf_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2014 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/deps/v8/tools/verify_source_deps.py b/deps/v8/tools/verify_source_deps.py
+index c49d51a..7ddfe70 100755
+--- a/deps/v8/tools/verify_source_deps.py
++++ b/deps/v8/tools/verify_source_deps.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # Copyright 2015 the V8 project authors. All rights reserved.
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+diff --git a/node.gyp b/node.gyp
+index 91a0590..5dfc35e 100644
+--- a/node.gyp
++++ b/node.gyp
+@@ -439,7 +439,7 @@
+               ],
+             }],
+           ],
+-          'libraries': [ '-lpsapi.lib' ]
++          'libraries': [ '-lpsapi' ]
+         }, { # POSIX
+           'sources': [ 'src/backtrace_posix.cc' ],
+         }],
+@@ -907,7 +907,8 @@
+         '<(SHARED_INTERMEDIATE_DIR)', # for node_natives.h
+       ],
+ 
+-      'defines': [ 'NODE_WANT_INTERNALS=1' ],
++      'defines': [ 'NODE_WANT_INTERNALS=1', '_UNICODE=1', 'UNICODE' ],
++      'libraries': [ '-municode' ],
+ 
+       'sources': [
+         'test/cctest/node_test_fixture.cc',
+diff --git a/node.gypi b/node.gypi
+index 3faffdf..3ef9d22 100644
+--- a/node.gypi
++++ b/node.gypi
+@@ -25,6 +25,9 @@
+     'force_load%': '<(force_load)',
+   },
+   'conditions': [
++    [ 'OS=="win"', {
++      'defines': [ '_WIN32_WINNT=0x0600' ],
++    }],
+     [ 'node_shared=="false"', {
+       'msvs_settings': {
+         'VCManifestTool': {
+diff --git a/src/inspector_io.cc b/src/inspector_io.cc
+index 539cdb5..50f41a6 100644
+--- a/src/inspector_io.cc
++++ b/src/inspector_io.cc
+@@ -22,6 +22,9 @@ namespace {
+ using AsyncAndAgent = std::pair<uv_async_t, Agent*>;
+ using v8_inspector::StringBuffer;
+ using v8_inspector::StringView;
++using icu::UnicodeString;
++using icu::CheckedArrayByteSink;
++using icu::StringPiece;
+ 
+ template<typename Transport>
+ using TransportAndIo = std::pair<Transport*, InspectorIo*>;
+diff --git a/src/node.cc b/src/node.cc
+index 3d791f0..5f5207d 100644
+--- a/src/node.cc
++++ b/src/node.cc
+@@ -102,7 +102,7 @@
+ #include <io.h>
+ #define umask _umask
+ typedef int mode_t;
+-#else
++#elif !defined(__MINGW64_VERSION_MAJOR)
+ #include <pthread.h>
+ #include <sys/resource.h>  // getrlimit, setrlimit
+ #include <unistd.h>  // setuid, getuid
+diff --git a/src/node_i18n.cc b/src/node_i18n.cc
+index 1fbc3dc..4c056fe 100644
+--- a/src/node_i18n.cc
++++ b/src/node_i18n.cc
+@@ -94,6 +94,8 @@ using v8::ObjectTemplate;
+ using v8::String;
+ using v8::Value;
+ 
++using icu::TimeZone;
++
+ namespace i18n {
+ namespace {
+ 
+diff --git a/src/node_main.cc b/src/node_main.cc
+index 8907c47..02a5b80 100644
+--- a/src/node_main.cc
++++ b/src/node_main.cc
+@@ -27,6 +27,10 @@
+ #include <VersionHelpers.h>
+ #include <WinError.h>
+ 
++#if defined(__MINGW_VERSION_MAJOR)
++#extern "C" {
++#endif
++
+ int wmain(int argc, wchar_t *wargv[]) {
+   if (!IsWindows7OrGreater()) {
+     fprintf(stderr, "This application is only supported on Windows 7, "
+@@ -71,6 +75,11 @@ int wmain(int argc, wchar_t *wargv[]) {
+   // Now that conversion is done, we can finally start.
+   return node::Start(argc, argv);
+ }
++
++#if defined(__MINGW_VERSION_MAJOR)
++}
++#endif
++
+ #else
+ // UNIX
+ #ifdef __linux__
+diff --git a/test/parallel/test-debugger-pid.js b/test/parallel/test-debugger-pid.js
+index e11d231..857e6be 100644
+--- a/test/parallel/test-debugger-pid.js
++++ b/test/parallel/test-debugger-pid.js
+@@ -11,8 +11,9 @@ const interfacer = spawn(process.execPath, ['debug', '-p', '655555']);
+ 
+ interfacer.stdout.setEncoding('utf-8');
+ interfacer.stderr.setEncoding('utf-8');
++const newline = common.isMinGW ? '\r\n' : '\n';
+ const onData = (data) => {
+-  data = (buffer + data).split('\n');
++  data = (buffer + data).split(newline);
+   buffer = data.pop();
+   data.forEach(function(line) {
+     interfacer.emit('line', line);
+diff --git a/test/parallel/test-fs-symlink.js b/test/parallel/test-fs-symlink.js
+index 8914213..61ae9b5 100644
+--- a/test/parallel/test-fs-symlink.js
++++ b/test/parallel/test-fs-symlink.js
+@@ -32,6 +32,11 @@ const fs = require('fs');
+ let linkTime;
+ let fileTime;
+ 
++if (common.isMinGW) {
++  common.skip('MinGW does not support symlinks');
++  return;
++}
++
+ const tmpdir = require('../common/tmpdir');
+ tmpdir.refresh();
+ 
+diff --git a/test/parallel/test-https-foafssl.js b/test/parallel/test-https-foafssl.js
+index 2a22bda..6cf6dec 100644
+--- a/test/parallel/test-https-foafssl.js
++++ b/test/parallel/test-https-foafssl.js
+@@ -72,10 +72,6 @@ server.listen(0, function() {
+                 '-cert', fixtures.path('foafssl.crt'),
+                 '-key', fixtures.path('foafssl.key')];
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    args.push('-no_rand_screen');
+-
+   const client = spawn(common.opensslCli, args);
+ 
+   client.stdout.on('data', function(data) {
+@@ -85,7 +81,11 @@ server.listen(0, function() {
+     server.close();
+   });
+ 
+-  client.stdin.write('GET /\n\n');
++  if (common.isMinGW) {
++    client.stdin.write('GET /\r\n\r\n');
++  } else {
++    client.stdin.write('GET /\n\n');
++  }
+ 
+   client.on('error', function(error) {
+     throw error;
+diff --git a/test/parallel/test-npm-install.js b/test/parallel/test-npm-install.js
+index dc9f60b..5005e75 100644
+--- a/test/parallel/test-npm-install.js
++++ b/test/parallel/test-npm-install.js
+@@ -9,6 +9,11 @@ const assert = require('assert');
+ const fs = require('fs');
+ const fixtures = require('../common/fixtures');
+ 
++if(common.isMinGW) {
++  common.skip('npm is split into its own package');
++  return;
++}
++
+ const tmpdir = require('../common/tmpdir');
+ tmpdir.refresh();
+ const npmSandbox = path.join(tmpdir.path, 'npm-sandbox');
+diff --git a/test/parallel/test-tls-alert.js b/test/parallel/test-tls-alert.js
+index 8e78e74..5847f9c 100644
+--- a/test/parallel/test-tls-alert.js
++++ b/test/parallel/test-tls-alert.js
+@@ -46,10 +46,6 @@ const server = tls.Server({
+   const args = ['s_client', '-quiet', '-tls1_1',
+                 '-connect', `127.0.0.1:${this.address().port}`];
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    args.push('-no_rand_screen');
+-
+   const client = spawn(common.opensslCli, args);
+   let out = '';
+   client.stderr.setEncoding('utf8');
+diff --git a/test/parallel/test-tls-dhe.js b/test/parallel/test-tls-dhe.js
+index 177f6f2..8686863 100644
+--- a/test/parallel/test-tls-dhe.js
++++ b/test/parallel/test-tls-dhe.js
+@@ -71,10 +71,6 @@ function test(keylen, expectedCipher, cb) {
+     const args = ['s_client', '-connect', `127.0.0.1:${this.address().port}`,
+                   '-cipher', ciphers];
+ 
+-    // for the performance and stability issue in s_client on Windows
+-    if (common.isWindows)
+-      args.push('-no_rand_screen');
+-
+     const client = spawn(common.opensslCli, args);
+     let out = '';
+     client.stdout.setEncoding('utf8');
+diff --git a/test/parallel/test-tls-ecdh-disable.js b/test/parallel/test-tls-ecdh-disable.js
+index 835f6a7..bf2d863 100644
+--- a/test/parallel/test-tls-ecdh-disable.js
++++ b/test/parallel/test-tls-ecdh-disable.js
+@@ -48,10 +48,6 @@ server.listen(0, '127.0.0.1', common.mustCall(function() {
+   let cmd = `"${common.opensslCli}" s_client -cipher ${
+     options.ciphers} -connect 127.0.0.1:${this.address().port}`;
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    cmd += ' -no_rand_screen';
+-
+   exec(cmd, common.mustCall(function(err, stdout, stderr) {
+     // Old versions of openssl will still exit with 0 so we
+     // can't just check if err is not null.
+diff --git a/test/parallel/test-tls-ecdh.js b/test/parallel/test-tls-ecdh.js
+index 170031b..9cd5800 100644
+--- a/test/parallel/test-tls-ecdh.js
++++ b/test/parallel/test-tls-ecdh.js
+@@ -51,10 +51,6 @@ server.listen(0, '127.0.0.1', common.mustCall(function() {
+   let cmd = `"${common.opensslCli}" s_client -cipher ${
+     options.ciphers} -connect 127.0.0.1:${this.address().port}`;
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    cmd += ' -no_rand_screen';
+-
+   exec(cmd, common.mustCall(function(err, stdout, stderr) {
+     assert.ifError(err);
+     assert(stdout.includes(reply));
+diff --git a/test/parallel/test-tls-no-sslv3.js b/test/parallel/test-tls-no-sslv3.js
+index 92f8512..4cbb62e 100644
+--- a/test/parallel/test-tls-no-sslv3.js
++++ b/test/parallel/test-tls-no-sslv3.js
+@@ -23,10 +23,6 @@ server.listen(0, '127.0.0.1', function() {
+                 '-ssl3',
+                 '-connect', address];
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    args.push('-no_rand_screen');
+-
+   const client = spawn(common.opensslCli, args, { stdio: 'pipe' });
+   client.stdout.pipe(process.stdout);
+   client.stderr.pipe(process.stderr);
+diff --git a/test/parallel/test-tls-securepair-server.js b/test/parallel/test-tls-securepair-server.js
+index 056eebd..994e037 100644
+--- a/test/parallel/test-tls-securepair-server.js
++++ b/test/parallel/test-tls-securepair-server.js
+@@ -113,10 +113,6 @@ server.listen(0, common.mustCall(function() {
+ 
+   const args = ['s_client', '-connect', `127.0.0.1:${this.address().port}`];
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    args.push('-no_rand_screen');
+-
+   const client = spawn(common.opensslCli, args);
+ 
+ 
+diff --git a/test/parallel/test-tls-server-verify.js b/test/parallel/test-tls-server-verify.js
+index eeea8b0..2d05d8e 100644
+--- a/test/parallel/test-tls-server-verify.js
++++ b/test/parallel/test-tls-server-verify.js
+@@ -149,10 +149,6 @@ function runClient(prefix, port, options, cb) {
+ 
+   const args = ['s_client', '-connect', `127.0.0.1:${port}`];
+ 
+-  // for the performance issue in s_client on Windows
+-  if (common.isWindows)
+-    args.push('-no_rand_screen');
+-
+   console.log(`${prefix}  connecting with`, options.name);
+ 
+   switch (options.name) {
+diff --git a/test/parallel/test-tls-session-cache.js b/test/parallel/test-tls-session-cache.js
+index 7778dd0..55dd92e 100644
+--- a/test/parallel/test-tls-session-cache.js
++++ b/test/parallel/test-tls-session-cache.js
+@@ -105,10 +105,6 @@ function doTest(testOptions, callback) {
+       '-reconnect'
+     ].concat(testOptions.tickets ? [] : '-no_ticket');
+ 
+-    // for the performance and stability issue in s_client on Windows
+-    if (common.isWindows)
+-      args.push('-no_rand_screen');
+-
+     function spawnClient() {
+       const client = spawn(common.opensslCli, args, {
+         stdio: [ 0, 1, 'pipe' ]
+diff --git a/test/parallel/test-tls-set-ciphers.js b/test/parallel/test-tls-set-ciphers.js
+index abb5f21..04bfb83 100644
+--- a/test/parallel/test-tls-set-ciphers.js
++++ b/test/parallel/test-tls-set-ciphers.js
+@@ -54,10 +54,6 @@ server.listen(0, '127.0.0.1', function() {
+   let cmd = `"${common.opensslCli}" s_client -cipher ${
+     options.ciphers} -connect 127.0.0.1:${this.address().port}`;
+ 
+-  // for the performance and stability issue in s_client on Windows
+-  if (common.isWindows)
+-    cmd += ' -no_rand_screen';
+-
+   exec(cmd, function(err, stdout, stderr) {
+     assert.ifError(err);
+     response = stdout;
+diff --git a/tools/install.py b/tools/install.py
+index be2bab5..20dfee3 100755
+--- a/tools/install.py
++++ b/tools/install.py
+@@ -95,7 +95,17 @@ def npm_files(action):
+   if action == uninstall:
+     action([link_path], 'bin/npm')
+   elif action == install:
+-    try_symlink('../lib/node_modules/npm/bin/npm-cli.js', link_path)
++  # Use MSYS2 shell script wrapper.
++    if ((os.name == 'nt' and 'GCC' in sys.version) or
++        (os.name == 'posix' and 'NT' in platform.system())):
++      # Copy the wrapper shell script
++      try_copy('deps/npm/bin/npm', link_path)
++      # deps/npm/bin/npm is a shell script so the shebang must run sh, not node
++      s = open(link_path, 'r').read()
++      s = re.sub(r'#!.*\n', '#!' + '/usr/bin/env sh' + '\n', s)
++      open(link_path, 'w').write(s)
++    else:
++      try_symlink('../lib/node_modules/npm/bin/npm-cli.js', link_path)
+   else:
+     assert(0) # unhandled action type
+ 
+@@ -104,7 +114,17 @@ def npm_files(action):
+   if action == uninstall:
+     action([link_path], 'bin/npx')
+   elif action == install:
+-    try_symlink('../lib/node_modules/npm/bin/npx-cli.js', link_path)
++  # Use MSYS2 shell script wrapper.
++    if ((os.name == 'nt' and 'GCC' in sys.version) or
++        (os.name == 'posix' and 'NT' in platform.system())):
++      # Copy the wrapper shell script
++      try_copy('deps/npm/bin/npx', link_path)
++      # deps/npm/bin/npm is a shell script so the shebang must run sh, not node
++      s = open(link_path, 'r').read()
++      s = re.sub(r'#!.*\n', '#!' + '/usr/bin/env sh' + '\n', s)
++      open(link_path, 'w').write(s)
++    else:
++      try_symlink('../lib/node_modules/npm/bin/npx-cli.js', link_path)
+   else:
+     assert(0) # unhandled action type
+ 
