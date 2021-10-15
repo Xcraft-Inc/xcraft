@@ -157,7 +157,7 @@ class Action {
     }
 
     const normalize = (location) => {
-      if (extra.env.PEON_UNIX_PATH === '1') {
+      if (extra.env?.PEON_UNIX_PATH === '1') {
         location = location.replace(/^([a-zA-Z]):/, '/$1');
       }
       return location.replace(/\\/g, '/');
