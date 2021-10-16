@@ -29,7 +29,8 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --enable-static
                      --disable-shared
@@ -45,6 +46,8 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      win/MSYSTEM: MINGW64
   deploy: ''
   env:
     path: []
