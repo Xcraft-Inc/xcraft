@@ -29,7 +29,8 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && ./bootstrap.sh --prefix=<PEON.PREFIXDIR>
                         --without-icu
   rules:
@@ -39,16 +40,26 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !./b2 --prefix=<PEON.PREFIXDIR>
-              --build-type=minimal
-              --layout=system
-                variant=release
-                link=static
-                runtime-link=static
-              install'
+        !{bash}
+        ./b2 --prefix=<PEON.PREFIXDIR>
+             --build-type=minimal
+             --layout=system
+             --no-cmake-config
+             --without-mpi
+             --without-python
+              -j<PEON.CPUS.COUNT>
+        <PEON.OS=win?
+               address-model=64
+        :>
+               variant=release
+               link=static
+               runtime-link=static
+             install'
       maketest: ''
       makeinstall: ''
     test: none
+    env:
+      win/MSYSTEM: MINGW64
   deploy: ''
   env:
     path: []
