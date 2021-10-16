@@ -3,7 +3,7 @@ subpackage:
 name: openjs+nodejs
 version: 8.17.0-6
 $version: 8.17.0
-distribution: westeros/
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
