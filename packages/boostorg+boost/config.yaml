@@ -54,7 +54,7 @@ data:
                variant=release
                link=static
                runtime-link=static
-             install'
+             install
       maketest: ''
       makeinstall: ''
     test: none
