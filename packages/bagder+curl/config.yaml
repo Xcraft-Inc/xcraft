@@ -35,13 +35,14 @@ data:
     externals: true
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --disable-ldap
-                --disable-ldaps
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-ldap
+                     --disable-ldaps
   rules:
     type: script
-    location: data/curl-<THIS.$VERSION>/
+    location: data/curl-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -49,6 +50,9 @@ data:
       maketest: ''
       makeinstall: '!make install'
     test: none
+    env:
+      win/MSYSTEM: MINGW64
+      win/CPPFLAGS: '-D_WIN32_WINNT=0x0502'
   deploy: ''
   env:
     path: []
