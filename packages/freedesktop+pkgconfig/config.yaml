@@ -11,7 +11,7 @@ architecture:
   - source
 description:
   brief: helper tool used when compiling applications and libraries
-  long: >-
+  long: |-
     It helps you insert the correct compiler options on the command line so an
     application can use gcc -o test test.cpkg-config --libs --cflags glib-2.0
     for instance, rather than hard-coding values on where to find glib (or other
@@ -39,20 +39,22 @@ dependency:
           - darwin-aarch64
 data:
   get:
-    uri: >-
-      https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.$VERSION>.tar.gz
+    uri: 'https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && <PEON.OS=darwin?LDFLAGS="-framework
-    CoreFoundation -framework Carbon":> ./configure --prefix=<PEON.PREFIXDIR>
-    --with-internal-glib --disable-nls --disable-host-tool
-    --disable-maintainer-mode
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --with-internal-glib
+                     --disable-nls
+                     --disable-host-tool
+                     --disable-maintainer-mode
   rules:
     type: make
-    location: data/pkg-config-<THIS.$VERSION>/
+    location: data/pkg-config-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -60,12 +62,13 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      darwin/LDFLAGS: '-framework CoreFoundation -framework Carbon'
   deploy: ''
   env:
     path: []
     other:
-      PKG_CONFIG_PATH: >-
-        <OS.PROD.ROOTDIR>/usr/lib/pkgconfig:<OS.PROD.ROOTDIR>/usr/share/pkgconfig
+      PKG_CONFIG_PATH: '<OS.PROD.ROOTDIR>/usr/lib/pkgconfig:<OS.PROD.ROOTDIR>/usr/share/pkgconfig'
   embedded: true
   runtime:
     configure: ''
