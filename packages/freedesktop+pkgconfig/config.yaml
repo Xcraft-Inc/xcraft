@@ -62,6 +62,7 @@ data:
                      --disable-nls
                      --disable-host-tool
                      --disable-maintainer-mode
+                     --disable-indirect-deps
   rules:
     type: make
     location: data/pkg-config-<THIS.$VERSION>
@@ -73,6 +74,7 @@ data:
       makeinstall: install
     test: none
     env:
+      win/MSYSTEM: MINGW64
       darwin/LDFLAGS: '-framework CoreFoundation -framework Carbon'
   deploy: ''
   env:
