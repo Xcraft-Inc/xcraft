@@ -1,0 +1,900 @@
+From 0b24803a445c319bae0655c30b05fde2c9db3016 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Tue, 26 Oct 2021 11:07:10 +0200
+Subject: msys2-patch
+
+
+diff --git a/Makefile.am b/Makefile.am
+index 2417400..463015f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -9,19 +9,6 @@ endif
+ SUBDIRS = $(GLIB_SUBDIR) . check
+ DIST_SUBDIRS = $(SUBDIRS)
+ 
+-# Escape paths properly on windows
+-if NATIVE_WIN32
+-AM_CPPFLAGS = \
+-	-DPKG_CONFIG_PC_PATH="\"$(subst /,\/,$(pc_path))\"" \
+-	-DPKG_CONFIG_SYSTEM_INCLUDE_PATH="\"$(subst /,\/,$(system_include_path))\"" \
+-	-DPKG_CONFIG_SYSTEM_LIBRARY_PATH="\"$(subst /,\/,$(system_library_path))\""
+-else
+-AM_CPPFLAGS = \
+-	-DPKG_CONFIG_PC_PATH="\"$(pc_path)\"" \
+-	-DPKG_CONFIG_SYSTEM_INCLUDE_PATH="\"$(system_include_path)\"" \
+-	-DPKG_CONFIG_SYSTEM_LIBRARY_PATH="\"$(system_library_path)\""
+-endif
+-
+ AM_CFLAGS = \
+ 	$(WARN_CFLAGS) \
+ 	$(GCOV_CFLAGS) \
+diff --git a/check/check-path b/check/check-path
+index 2a6be75..d50f421 100755
+--- a/check/check-path
++++ b/check/check-path
+@@ -7,8 +7,7 @@ set -e
+ RESULT=""
+ PKG_CONFIG_PATH="$srcdir/sub" run_test --exists sub1
+ 
+-# default pkg-config path, making sure to resolve the variables fully
+-eval pc_path="$pc_path"
++# check default pkg-config path
+ if [ "$native_win32" = yes ]; then
+     # This is pretty hacky. On native win32 (MSYS/MINGW), pkg-config
+     # builds the default path from the installation directory. It
+diff --git a/check/check-sysroot b/check/check-sysroot
+index 7da415f..a53a76f 100755
+--- a/check/check-sysroot
++++ b/check/check-sysroot
+@@ -9,7 +9,7 @@ export PKG_CONFIG_SYSROOT_DIR=/sysroot
+ # MSYS mangles / paths to its own root in windows format. This probably
+ # means sysroot doesn't work there, but match what pkg-config passes
+ # back anyway.
+-[ "$OSTYPE" = msys ] && root=$(cd / && pwd -W) || root=
++[ "$OSTYPE" = msys ] && root=$(cd / && pwd -W) && root=${root%/} || root=
+ 
+ RESULT=""
+ run_test --cflags simple
+diff --git a/configure.ac b/configure.ac
+index 5f20721..b3cf668 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -39,6 +39,21 @@ AC_CHECK_PROG([LN], [ln], [ln], [cp -Rp])
+ dnl Check for headers
+ AC_CHECK_HEADERS([dirent.h unistd.h sys/wait.h malloc.h])
+ 
++AC_MSG_CHECKING([for Win32])
++case "$host" in
++  *-*-mingw*)
++    native_win32=yes
++    sep=";"
++  ;;
++  *)
++    native_win32=no
++    sep=":"
++  ;;
++esac
++AC_MSG_RESULT([$native_win32])
++AC_SUBST([native_win32])
++AM_CONDITIONAL(NATIVE_WIN32, [test "x$native_win32" = xyes])
++
+ dnl A POSIX shell is required for the tests. If TEST_SHELL hasn't been
+ dnl set on the command line then we try to find bash or ksh or sh from
+ dnl the path. If none of those are available, we just use whatever
+@@ -51,6 +66,36 @@ dnl The built pkg-config to use for testing. This allows it to be set
+ dnl from the make command line if necessary.
+ AC_SUBST([TESTS_PKG_CONFIG], ['${top_builddir}/pkg-config${EXEEXT}'])
+ 
++dnl
++dnl Macro to expand variables
++dnl
++AC_DEFUN([PKG_EXPAND_VAR],
++[m4_pushdef([var], [m4_default([$2], [$1])])
++var=[$]$1
++_prefix_save=$prefix
++_exec_prefix_save=$exec_prefix
++test "x$prefix" = xNONE && prefix=$ac_default_prefix
++test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
++_prev=
++while test "x$var" != "x$_prev"; do
++  _prev=$var
++  eval var=\"$var\"
++done
++prefix=$_prefix_save
++exec_prefix=$_exec_prefix_save
++m4_popdef([var])])
++
++dnl
++dnl Default prefix for hardcoded paths
++dnl
++AC_MSG_CHECKING([for default prefix for default paths])
++AC_ARG_WITH([default_prefix_for_default_paths],
++  [AS_HELP_STRING([--with-default-prefix-for-default-paths],
++    [default prefix for default paths])],
++  [defprefix="$withval"],
++  [defprefix="/usr"])
++AC_MSG_RESULT([$defprefix])
++
+ dnl
+ dnl Default pkg-config search path
+ dnl
+@@ -63,13 +108,16 @@ AC_ARG_WITH([pc_path],
+ # This is slightly wrong, but hopefully causes less confusion than
+ # people being unable to find their .pc files in the standard location.
+ if test "${prefix}" = "NONE"; then
+-	pc_path='${libdir}/pkgconfig:${datadir}/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig'
++	pc_path='${libdir}/pkgconfig${sep}${datadir}/pkgconfig${sep}${defprefix}/lib/pkgconfig${sep}${defprefix}/share/pkgconfig'
+ else
+-	pc_path='${libdir}/pkgconfig:${datadir}/pkgconfig'
++	pc_path='${libdir}/pkgconfig${sep}${datadir}/pkgconfig'
+ fi
+ ])
++PKG_EXPAND_VAR([pc_path])
+ AC_MSG_RESULT([$pc_path])
+ AC_SUBST([pc_path])
++AC_DEFINE_UNQUOTED([PKG_CONFIG_PC_PATH], ["$pc_path"],
++                   [Default pkg-config path])
+ 
+ dnl
+ dnl System default -I paths
+@@ -79,9 +127,12 @@ AC_ARG_WITH([system_include_path],
+   [AS_HELP_STRING([--with-system-include-path],
+     [avoid -I flags from the given path])],
+   [system_include_path="$withval"],
+-  [system_include_path="/usr/include"])
++  [system_include_path="${defprefix}/include"])
++PKG_EXPAND_VAR([system_include_path])
+ AC_MSG_RESULT([$system_include_path])
+ AC_SUBST([system_include_path])
++AC_DEFINE_UNQUOTED([PKG_CONFIG_SYSTEM_INCLUDE_PATH], ["$system_include_path"],
++                   [Default system include path])
+ 
+ dnl
+ dnl System default -L paths
+@@ -95,15 +146,18 @@ AC_ARG_WITH([system_library_path],
+ pc_lib_sfx=`echo "$libdir" | sed 's:.*/lib::'`
+ case "$pc_lib_sfx" in
+ */*|"")
+-  system_library_path="/usr/lib:/lib"
++  system_library_path="${defprefix}/lib${sep}/lib"
+   ;;
+ *)
+-  system_library_path="/usr/lib$pc_lib_sfx:/lib$pc_lib_sfx:/usr/lib:/lib"
++  system_library_path="${defprefix}/lib${pc_lib_sfx}${sep}/lib${pc_lib_sfx}${sep}${defprefix}/lib${sep}/lib"
+   ;;
+ esac
+ ])
++PKG_EXPAND_VAR([system_library_path])
+ AC_MSG_RESULT([$system_library_path])
+ AC_SUBST([system_library_path])
++AC_DEFINE_UNQUOTED([PKG_CONFIG_SYSTEM_LIBRARY_PATH], ["$system_library_path"],
++                   [Default system library path])
+ 
+ dnl Code taken from gtk+-2.0's configure.in.
+ dnl
+@@ -156,19 +210,6 @@ if test "${GCC}" = "yes" && test "${ac_env_CFLAGS_set}" != "set"; then
+ fi
+ AC_SUBST(WARN_CFLAGS)
+ 
+-AC_MSG_CHECKING([for Win32])
+-case "$host" in
+-  *-*-mingw*)
+-    native_win32=yes
+-  ;;
+-  *)
+-    native_win32=no
+-  ;;
+-esac
+-AC_MSG_RESULT([$native_win32])
+-AC_SUBST([native_win32])
+-AM_CONDITIONAL(NATIVE_WIN32, [test "x$native_win32" = xyes])
+-
+ dnl When cross compiling to Windows, Wine might be available to help
+ dnl for testing.
+ if test "$cross_compiling" = yes && test "$native_win32" = yes; then
+diff --git a/glib/configure.ac b/glib/configure.ac
+index 4ace471..d6e015c 100644
+--- a/glib/configure.ac
++++ b/glib/configure.ac
+@@ -573,7 +573,7 @@ else
+ ])
+ fi
+ 
+-AS_IF([test x$glib_native_win32 != xyes && test x$ac_cv_sizeof_long_long = x8], [
++AS_IF([test x$ac_cv_sizeof_long_long = x8], [
+ 	# long long is a 64 bit integer.
+ 	AC_MSG_CHECKING(for format to printf and scanf a guint64)
+ 	AC_CACHE_VAL(glib_cv_long_long_format,[
+@@ -595,8 +595,8 @@ AS_IF([test x$glib_native_win32 != xyes && test x$ac_cv_sizeof_long_long = x8],
+ 	AS_IF([ test -n "$glib_cv_long_long_format"], [
+ 	  AC_MSG_RESULT(%${glib_cv_long_long_format}u)
+ 	  AC_DEFINE(HAVE_LONG_LONG_FORMAT,1,[define if system printf can print long long])
+-	  if test x"$glib_cv_long_long_format" = xI64; then
+-	    AC_DEFINE(HAVE_INT64_AND_I64,1,[define to support printing 64-bit integers with format I64])
++	  if test x"$glib_cv_long_long_format" = xll; then
++	    AC_DEFINE(HAVE_INT64_AND_I64,1,[define to support printing 64-bit integers with format ll])
+           fi
+ 	], [AC_MSG_RESULT(none)])
+ ],[ test x$ac_cv_sizeof___int64 = x8], [
+@@ -3021,8 +3021,8 @@ long)
+   glib_msize_type='LONG'
+   ;;
+ "long long"|__int64)
+-  gsize_modifier='"I64"'
+-  gsize_format='"I64u"'
++  gsize_modifier='"z"'
++  gsize_format='"zu"'
+   glib_msize_type='INT64'
+   ;;
+ esac
+@@ -3044,8 +3044,8 @@ long)
+   glib_mssize_type='LONG'
+   ;;
+ "long long"|__int64)
+-  gssize_modifier='"I64"'
+-  gssize_format='"I64i"'
++  gssize_modifier='"z"'
++  gssize_format='"zi"'
+   glib_mssize_type='INT64'
+   ;;
+ esac
+@@ -3074,9 +3074,9 @@ $ac_cv_sizeof_long)
+   ;;
+ $ac_cv_sizeof_long_long)
+   glib_intptr_type_define='long long'
+-  gintptr_modifier='"I64"'
+-  gintptr_format='"I64i"'
+-  guintptr_format='"I64u"'
++  gintptr_modifier='"ll"'
++  gintptr_format='"lli"'
++  guintptr_format='"llu"'
+   glib_gpi_cast='(gint64)'
+   glib_gpui_cast='(guint64)'
+   ;;
+diff --git a/glib/glib/gbacktrace.c b/glib/glib/gbacktrace.c
+index 4d19d6f..bf06f99 100644
+--- a/glib/glib/gbacktrace.c
++++ b/glib/glib/gbacktrace.c
+@@ -259,7 +259,7 @@ g_on_error_stack_trace (const gchar *prg_name)
+   if (IsDebuggerPresent ())
+     G_BREAKPOINT ();
+   else
+-    abort ();
++    g_abort ();
+ #endif
+ }
+ 
+diff --git a/glib/glib/giowin32.c b/glib/glib/giowin32.c
+index 72cd84b..f1f50aa 100644
+--- a/glib/glib/giowin32.c
++++ b/glib/glib/giowin32.c
+@@ -800,7 +800,7 @@ g_io_win32_prepare (GSource *source,
+ 
+     default:
+       g_assert_not_reached ();
+-      abort ();
++      g_abort ();
+     }
+   if (channel->debug)
+     g_print ("\n");
+@@ -947,7 +947,7 @@ g_io_win32_check (GSource *source)
+ 
+     default:
+       g_assert_not_reached ();
+-      abort ();
++      g_abort ();
+     }
+ }
+ 
+@@ -1012,7 +1012,7 @@ g_io_win32_finalize (GSource *source)
+ 
+     default:
+       g_assert_not_reached ();
+-      abort ();
++      g_abort ();
+     }
+   if (channel->debug)
+     g_print ("\n");
+@@ -1297,7 +1297,7 @@ g_io_win32_fd_seek (GIOChannel *channel,
+     default:
+       whence = -1; /* Keep the compiler quiet */
+       g_assert_not_reached ();
+-      abort ();
++      g_abort ();
+     }
+ 
+   tmp_offset = offset;
+@@ -1692,7 +1692,7 @@ g_io_channel_new_file (const gchar  *filename,
+         break;
+       default:
+         g_assert_not_reached ();
+-	abort ();
++	g_abort ();
+     }
+ 
+   /* always open 'untranslated' */
+@@ -1738,7 +1738,7 @@ g_io_channel_new_file (const gchar  *filename,
+         break;
+       default:
+         g_assert_not_reached ();
+-	abort ();
++	g_abort ();
+     }
+ 
+   return channel;
+@@ -2227,7 +2227,7 @@ g_io_channel_win32_make_pollfd (GIOChannel   *channel,
+ 
+     default:
+       g_assert_not_reached ();
+-      abort ();
++      g_abort ();
+     }
+   
+   fd->events = condition;
+diff --git a/glib/glib/gmacros.h b/glib/glib/gmacros.h
+index f3f542b..009cfb6 100644
+--- a/glib/glib/gmacros.h
++++ b/glib/glib/gmacros.h
+@@ -77,9 +77,9 @@
+ 
+ #if     __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
+ #define G_GNUC_PRINTF( format_idx, arg_idx )    \
+-  __attribute__((__format__ (__printf__, format_idx, arg_idx)))
++  __attribute__((__format__ (gnu_printf, format_idx, arg_idx)))
+ #define G_GNUC_SCANF( format_idx, arg_idx )     \
+-  __attribute__((__format__ (__scanf__, format_idx, arg_idx)))
++  __attribute__((__format__ (gnu_scanf, format_idx, arg_idx)))
+ #define G_GNUC_FORMAT( arg_idx )                \
+   __attribute__((__format_arg__ (arg_idx)))
+ #define G_GNUC_NORETURN                         \
+diff --git a/glib/glib/gmessages.c b/glib/glib/gmessages.c
+index 928276f..dbf2495 100644
+--- a/glib/glib/gmessages.c
++++ b/glib/glib/gmessages.c
+@@ -252,7 +252,7 @@ _g_log_abort (void)
+   if (exit_on_fatal)
+     _exit (1);
+   else
+-    abort ();
++    g_abort ();
+ }
+ 
+ #ifdef G_OS_WIN32
+@@ -837,7 +837,7 @@ mklevel_prefix (gchar          level_prefix[STRING_BUFFER_SIZE],
+   if ((log_level & G_LOG_FLAG_FATAL) != 0 && !g_test_initialized ())
+     win32_keep_fatal_message = TRUE;
+ #endif
+-  return to_stdout ? 1 : 2;
++  return to_stdout ? fileno(stdout) : fileno(stderr);
+ }
+ 
+ typedef struct {
+@@ -983,12 +983,12 @@ g_logv (const gchar   *log_domain,
+ 	      if (IsDebuggerPresent () && !(test_level & G_LOG_FLAG_RECURSION))
+ 		G_BREAKPOINT ();
+ 	      else
+-		abort ();
++		g_abort ();
+ #else
+ 	      if (!(test_level & G_LOG_FLAG_RECURSION))
+ 		G_BREAKPOINT ();
+ 	      else
+-		abort ();
++		g_abort ();
+ #endif /* !G_OS_WIN32 */
+ 	    }
+ 	  
+diff --git a/glib/glib/gnulib/printf.c b/glib/glib/gnulib/printf.c
+index b339299..3a4dab5 100644
+--- a/glib/glib/gnulib/printf.c
++++ b/glib/glib/gnulib/printf.c
+@@ -90,16 +90,16 @@ int _g_gnulib_vprintf (char const *format, va_list args)
+ int _g_gnulib_vfprintf (FILE *file, char const *format, va_list args)
+ {
+   char *result;
+-  size_t length;
++  size_t length, rlength;
+ 
+   result = vasnprintf (NULL, &length, format, args);
+   if (result == NULL) 
+     return -1;
+ 
+-  fwrite (result, 1, length, file);
++  rlength = fwrite (result, 1, length, file);
+   free (result);
+   
+-  return length;
++  return rlength;
+ }
+ 
+ int _g_gnulib_vsprintf (char *string, char const *format, va_list args)
+diff --git a/glib/glib/gpoll.h b/glib/glib/gpoll.h
+index 3ba8420..d23ab9e 100644
+--- a/glib/glib/gpoll.h
++++ b/glib/glib/gpoll.h
+@@ -103,7 +103,7 @@ struct _GPollFD
+ 
+ #ifdef G_OS_WIN32
+ #if GLIB_SIZEOF_VOID_P == 8
+-#define G_POLLFD_FORMAT "%#I64x"
++#define G_POLLFD_FORMAT "%#llx"
+ #else
+ #define G_POLLFD_FORMAT "%#x"
+ #endif
+diff --git a/glib/glib/gslice.c b/glib/glib/gslice.c
+index e380b9f..d1d4e88 100644
+--- a/glib/glib/gslice.c
++++ b/glib/glib/gslice.c
+@@ -1094,7 +1094,7 @@ g_slice_free1 (gsize    mem_size,
+     return;
+   if (G_UNLIKELY (allocator->config.debug_blocks) &&
+       !smc_notify_free (mem_block, mem_size))
+-    abort();
++    g_abort();
+   if (G_LIKELY (acat == 1))             /* allocate through magazine layer */
+     {
+       ThreadMemory *tmem = thread_memory_from_self();
+@@ -1178,7 +1178,7 @@ g_slice_free_chain_with_offset (gsize    mem_size,
+           slice = *(gpointer*) (current + next_offset);
+           if (G_UNLIKELY (allocator->config.debug_blocks) &&
+               !smc_notify_free (current, mem_size))
+-            abort();
++            g_abort();
+           if (G_UNLIKELY (thread_memory_magazine2_is_full (tmem, ix)))
+             {
+               thread_memory_swap_magazines (tmem, ix);
+@@ -1199,7 +1199,7 @@ g_slice_free_chain_with_offset (gsize    mem_size,
+           slice = *(gpointer*) (current + next_offset);
+           if (G_UNLIKELY (allocator->config.debug_blocks) &&
+               !smc_notify_free (current, mem_size))
+-            abort();
++            g_abort();
+           if (G_UNLIKELY (g_mem_gc_friendly))
+             memset (current, 0, chunk_size);
+           slab_allocator_free_chunk (chunk_size, current);
+@@ -1213,7 +1213,7 @@ g_slice_free_chain_with_offset (gsize    mem_size,
+         slice = *(gpointer*) (current + next_offset);
+         if (G_UNLIKELY (allocator->config.debug_blocks) &&
+             !smc_notify_free (current, mem_size))
+-          abort();
++          g_abort();
+         if (G_UNLIKELY (g_mem_gc_friendly))
+           memset (current, 0, mem_size);
+         g_free (current);
+@@ -1452,7 +1452,7 @@ mem_error (const char *format,
+   vfprintf (stderr, format, args);
+   va_end (args);
+   fputs ("\n", stderr);
+-  abort();
++  g_abort();
+   _exit (1);
+ }
+ 
+diff --git a/glib/glib/gstdio.c b/glib/glib/gstdio.c
+index cca4ff5..9da2806 100644
+--- a/glib/glib/gstdio.c
++++ b/glib/glib/gstdio.c
+@@ -192,6 +192,11 @@ g_open (const gchar *filename,
+ 	int          mode)
+ {
+ #ifdef G_OS_WIN32
++  HANDLE hFile;
++  DWORD  dwDesiredAccess       = 0;
++  DWORD  dwFlagsAndAttributes  = 0;
++  DWORD  dwDisposition         = OPEN_EXISTING;
++  DWORD  dwSharedAccess        = FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE;
+   wchar_t *wfilename = g_utf8_to_utf16 (filename, -1, NULL, NULL, NULL);
+   int retval;
+   int save_errno;
+@@ -202,12 +207,114 @@ g_open (const gchar *filename,
+       return -1;
+     }
+ 
+-  retval = _wopen (wfilename, flags, mode);
+-  save_errno = errno;
++  /* Set up the access modes and other attributes */
++  if ((flags & _O_CREAT) && (mode & _S_IREAD))
++  {
++    if (! (mode & _S_IWRITE))
++      dwFlagsAndAttributes  = FILE_ATTRIBUTE_READONLY; /* Sets file to 'read only' after the file gets closed */
++  }
++  if ( !(flags & _O_ACCMODE))
++  {
++    /* Equates to _O_RDONLY */
++    if (flags & _O_TRUNC)
++    {
++      errno = EINVAL;
++      g_free (wfilename);
++      return -1;
++    }
+ 
+-  g_free (wfilename);
++    dwDesiredAccess |= GENERIC_READ;
++    dwSharedAccess  |= FILE_SHARE_WRITE;
++  }
++  if (flags & _O_WRONLY)
++  {
++    if (flags & _O_RDWR)
++    {
++      errno = EINVAL;
++      g_free (wfilename);
++      return -1;
++    }
++
++    dwDesiredAccess |= GENERIC_WRITE;
++  }
++  if (flags & _O_RDWR)
++  {
++    dwDesiredAccess |= GENERIC_READ;
++    dwDesiredAccess |= GENERIC_WRITE;
++  }
++  if (flags & _O_TRUNC)
++  {
++    if (flags & _O_CREAT)
++      dwDisposition = CREATE_ALWAYS;
++    else
++      dwDisposition = TRUNCATE_EXISTING;
++  }
++  if ((flags & _O_CREAT) && !(flags & _O_TRUNC))
++  {
++    if (flags & _O_EXCL)
++      dwDisposition = CREATE_NEW;
++    else
++      dwDisposition = OPEN_ALWAYS;
++  }
++  if (flags & _O_CREAT)
++  {
++    /* Handle the other flags that can be attached to _O_CREAT */
++    if ((flags & _O_TEMPORARY) || (flags & _O_SHORT_LIVED))
++      dwFlagsAndAttributes |= FILE_ATTRIBUTE_TEMPORARY;
++
++    if (flags & _O_TEMPORARY)
++      dwFlagsAndAttributes |= FILE_FLAG_DELETE_ON_CLOSE;
++  }
++  if ((flags & _O_SEQUENTIAL) || (flags & _O_APPEND))
++  {
++    dwFlagsAndAttributes |= FILE_FLAG_SEQUENTIAL_SCAN;
++  }
++  else if (flags & _O_RANDOM)
++  {
++    dwFlagsAndAttributes |= FILE_FLAG_RANDOM_ACCESS;
++  }
++
++  if (0 == dwFlagsAndAttributes)
++    dwFlagsAndAttributes = FILE_ATTRIBUTE_NORMAL;
++  hFile = CreateFileW(wfilename, dwDesiredAccess, dwSharedAccess, NULL, dwDisposition, dwFlagsAndAttributes, NULL);
++
++  if (INVALID_HANDLE_VALUE == hFile)
++  {
++    retval = (-1);
++
++    switch (GetLastError ())
++    {
++#define CASE(a,b) case ERROR_##a: errno = b; break
++      CASE (FILE_NOT_FOUND, ENOENT);
++      CASE (PATH_NOT_FOUND, ENOENT);
++      CASE (ACCESS_DENIED, EACCES);
++      CASE (NOT_SAME_DEVICE, EXDEV);
++      CASE (LOCK_VIOLATION, EACCES);
++      CASE (SHARING_VIOLATION, EACCES);
++      CASE (FILE_EXISTS, EEXIST);
++      CASE (ALREADY_EXISTS, EEXIST);
++#undef CASE
++      default: errno = EIO;
++    }
++  }
++  else
++    retval = _open_osfhandle((long)hFile, flags);
++
++  if ((-1) != retval)
++  {
++    /* We have a valid file handle. Set its translation mode to text or binary, as appropriate */
++    if ((!(flags & _O_TEXT)) && (_fmode == _O_BINARY))
++      _setmode(retval, _O_BINARY);
++    else if ((flags & _O_TEXT) || (_fmode == _O_TEXT))
++      _setmode(retval, _O_TEXT);
++    else
++      _setmode(retval, _O_BINARY);
++  }
+ 
++  save_errno = errno;
++  g_free (wfilename);
+   errno = save_errno;
++
+   return retval;
+ #else
+   int fd;
+@@ -253,6 +360,8 @@ g_creat (const gchar *filename,
+ 	 int          mode)
+ {
+ #ifdef G_OS_WIN32
++  HANDLE hFile;
++  DWORD  dwFlagsAndAttributes  = FILE_ATTRIBUTE_NORMAL;
+   wchar_t *wfilename = g_utf8_to_utf16 (filename, -1, NULL, NULL, NULL);
+   int retval;
+   int save_errno;
+@@ -263,12 +372,41 @@ g_creat (const gchar *filename,
+       return -1;
+     }
+ 
+-  retval = _wcreat (wfilename, mode);
+-  save_errno = errno;
++  if (mode & _S_IREAD)
++  {
++    if (! (mode & _S_IWRITE))
++      dwFlagsAndAttributes  = FILE_ATTRIBUTE_READONLY; /* Sets file to 'read only' after the file gets closed */
++  }
+ 
+-  g_free (wfilename);
++  hFile = CreateFileW(wfilename, (GENERIC_READ | GENERIC_WRITE), (FILE_SHARE_READ | FILE_SHARE_DELETE),
++                                  NULL, CREATE_ALWAYS, dwFlagsAndAttributes, NULL);
++
++  if (INVALID_HANDLE_VALUE == hFile)
++  {
++    retval = (-1);
++
++    switch (GetLastError ())
++    {
++#define CASE(a,b) case ERROR_##a: errno = b; break
++      CASE (FILE_NOT_FOUND, ENOENT);
++      CASE (PATH_NOT_FOUND, ENOENT);
++      CASE (ACCESS_DENIED, EACCES);
++      CASE (NOT_SAME_DEVICE, EXDEV);
++      CASE (LOCK_VIOLATION, EACCES);
++      CASE (SHARING_VIOLATION, EACCES);
++      CASE (FILE_EXISTS, EEXIST);
++      CASE (ALREADY_EXISTS, EEXIST);
++#undef CASE
++      default: errno = EIO;
++    }
++  }
++  else
++    retval = _open_osfhandle((long)hFile, _O_RDWR);
+ 
++  save_errno = errno;
++  g_free (wfilename);
+   errno = save_errno;
++
+   return retval;
+ #else
+   return creat (filename, mode);
+@@ -704,33 +842,102 @@ g_fopen (const gchar *filename,
+ 	 const gchar *mode)
+ {
+ #ifdef G_OS_WIN32
+-  wchar_t *wfilename = g_utf8_to_utf16 (filename, -1, NULL, NULL, NULL);
+-  wchar_t *wmode;
+-  FILE *retval;
+-  int save_errno;
+-
+-  if (wfilename == NULL)
++  int   hFile;
++  int   flags  = 0;
++  gchar priv_mode[4];
++  FILE *retval = NULL;
++
++  if ((NULL == filename) || (NULL == mode))
++  {
++    errno = EINVAL;
++    goto out;
++  }
++  if ((strlen(mode) < 1) || (strlen(mode) > 3))
++  {
++    errno = EINVAL;
++    goto out;
++  }
++
++  strncpy(priv_mode, mode, 3);
++  priv_mode[3] = '\0';
++
++  /* Set up any flags to pass to 'g_open()' */
++  if (3 == strlen(priv_mode))
++  {
++    if (('c' == priv_mode[2]) || ('n' == priv_mode[2]))
++      priv_mode[2] = '\0';
++    else
+     {
+-      errno = EINVAL;
+-      return NULL;
++      if (0 == strcmp(priv_mode, "a+b"))
++        flags = _O_RDWR | _O_CREAT | _O_APPEND | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "a+t"))
++        flags = _O_RDWR | _O_CREAT | _O_APPEND | _O_TEXT;
++      else if (0 == strcmp(priv_mode, "r+b"))
++        flags = _O_RDWR | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "r+t"))
++        flags = _O_RDWR | _O_TEXT;
++      else if (0 == strcmp(priv_mode, "w+b"))
++        flags = _O_RDWR | _O_CREAT |_O_TRUNC | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "w+t"))
++        flags = _O_RDWR | _O_CREAT |_O_TRUNC | _O_TEXT;
++      else
++      {
++        errno = EINVAL;
++        goto out;
++      }
+     }
+-
+-  wmode = g_utf8_to_utf16 (mode, -1, NULL, NULL, NULL);
+-
+-  if (wmode == NULL)
++  }
++  if (2 == strlen(priv_mode))
++  {
++    if (('c' == priv_mode[1]) || ('n' == priv_mode[1]))
++      priv_mode[1] = '\0';
++    else
++    {
++      if (0 == strcmp(priv_mode, "a+"))
++        flags = _O_RDWR | _O_CREAT | _O_APPEND;
++      else if (0 == strcmp(priv_mode, "ab"))
++        flags = _O_WRONLY | _O_CREAT | _O_APPEND | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "at"))
++        flags = _O_WRONLY | _O_CREAT | _O_APPEND | _O_TEXT;
++      else if (0 == strcmp(priv_mode, "rb"))
++        flags = _O_RDONLY | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "rt"))
++        flags = _O_RDONLY | _O_TEXT;
++      else if (0 == strcmp(priv_mode, "wb"))
++        flags = _O_WRONLY | _O_CREAT | _O_TRUNC | _O_BINARY;
++      else if (0 == strcmp(priv_mode, "wt"))
++        flags = _O_WRONLY | _O_CREAT | _O_TRUNC | _O_TEXT;
++      else
++      {
++        errno = EINVAL;
++        goto out;
++      }
++    }
++  }
++  if (1 == strlen(priv_mode))
++  {
++    if (0 == strcmp(priv_mode, "a"))
++      flags = _O_WRONLY | _O_CREAT | _O_APPEND;
++    else if (0 == strcmp(priv_mode, "r"))
++      flags = _O_RDONLY;
++    else if (0 == strcmp(priv_mode, "w"))
++      flags = _O_WRONLY | _O_CREAT | _O_TRUNC;
++    else if ( !((0 == strcmp(priv_mode, "c")) || (0 == strcmp(priv_mode, "n"))))
+     {
+-      g_free (wfilename);
+       errno = EINVAL;
+-      return NULL;
++      goto out;
+     }
++  }
+ 
+-  retval = _wfopen (wfilename, wmode);
+-  save_errno = errno;
++  hFile = g_open (filename, flags, (_S_IREAD | _S_IWRITE));
+ 
+-  g_free (wfilename);
+-  g_free (wmode);
++  if (INVALID_HANDLE_VALUE == (HANDLE)hFile)
++    /* 'errno' will have already been set by 'g_open()' */
++    retval = NULL;
++  else
++    retval = _fdopen(hFile, mode);
+ 
+-  errno = save_errno;
++out:
+   return retval;
+ #else
+   return fopen (filename, mode);
+diff --git a/glib/glib/gstdio.h b/glib/glib/gstdio.h
+index 90ee74e..e779f30 100644
+--- a/glib/glib/gstdio.h
++++ b/glib/glib/gstdio.h
+@@ -27,7 +27,7 @@
+ 
+ G_BEGIN_DECLS
+ 
+-#if defined (_MSC_VER) && !defined(_WIN64)
++#if (defined (__MINGW32__) || defined (_MSC_VER)) && !defined(_WIN64)
+ 
+ /* Make it clear that we mean the struct with 32-bit st_size and
+  * 32-bit st_*time fields as that is how the 32-bit GLib DLL normally
+diff --git a/glib/glib/gtestutils.c b/glib/glib/gtestutils.c
+index 353a2db..cfc4b09 100644
+--- a/glib/glib/gtestutils.c
++++ b/glib/glib/gtestutils.c
+@@ -751,7 +751,7 @@ g_test_log (GTestLogType lbit,
+         {
+           if (test_tap_log)
+             g_print ("Bail out!\n");
+-          abort();
++          g_abort();
+         }
+       break;
+     case G_TEST_LOG_MIN_RESULT:
+@@ -2292,7 +2292,7 @@ g_assertion_message_expr (const char     *domain,
+     s = g_strconcat ("assertion failed: (", expr, ")", NULL);
+   g_assertion_message (domain, file, line, func, s);
+   g_free (s);
+-  abort ();
++  g_abort();
+ }
+ 
+ void
+diff --git a/glib/glib/gthread-posix.c b/glib/glib/gthread-posix.c
+index c7b68a0..bf57d21 100644
+--- a/glib/glib/gthread-posix.c
++++ b/glib/glib/gthread-posix.c
+@@ -47,6 +47,7 @@
+ #include "gslice.h"
+ #include "gmessages.h"
+ #include "gstrfuncs.h"
++#include "gutils.h"
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
+@@ -76,7 +77,7 @@ g_thread_abort (gint         status,
+ {
+   fprintf (stderr, "GLib (gthread-posix.c): Unexpected error from C library during '%s': %s.  Aborting.\n",
+            function, strerror (status));
+-  abort ();
++  g_abort ();
+ }
+ 
+ /* {{{1 GMutex */
+diff --git a/glib/glib/gthread-win32.c b/glib/glib/gthread-win32.c
+index c54f2bd..f492fde 100644
+--- a/glib/glib/gthread-win32.c
++++ b/glib/glib/gthread-win32.c
+@@ -60,7 +60,7 @@ g_thread_abort (gint         status,
+ {
+   fprintf (stderr, "GLib (gthread-win32.c): Unexpected error from C library during '%s': %s.  Aborting.\n",
+            strerror (status), function);
+-  abort ();
++  g_abort ();
+ }
+ 
+ /* Starting with Vista and Windows 2008, we have access to the
+diff --git a/glib/glib/gutils.c b/glib/glib/gutils.c
+index 2620cb6..e3e8b40 100644
+--- a/glib/glib/gutils.c
++++ b/glib/glib/gutils.c
+@@ -2434,3 +2434,15 @@ g_check_setuid (void)
+   return FALSE;
+ #endif
+ }
++
++/* Crashes the program. */
++void
++g_abort (void)
++{
++#ifdef G_OS_WIN32
++  DebugBreak ();
++  ExitProcess (127);
++#else
++  abort ();
++#endif
++}
+diff --git a/glib/glib/gutils.h b/glib/glib/gutils.h
+index 472f3c2..f7da627 100644
+--- a/glib/glib/gutils.h
++++ b/glib/glib/gutils.h
+@@ -230,6 +230,9 @@ gchar *g_format_size        (guint64          size);
+ GLIB_DEPRECATED_FOR(g_format_size)
+ gchar *g_format_size_for_display (goffset size);
+ 
++GLIB_AVAILABLE_IN_2_30
++void g_abort (void);
++
+ #ifndef G_DISABLE_DEPRECATED
+ /**
+  * GVoidFunc:
+diff --git a/glib/m4macros/glib-gettext.m4 b/glib/m4macros/glib-gettext.m4
+index 5217fd8..9f39b5f 100644
+--- a/glib/m4macros/glib-gettext.m4
++++ b/glib/m4macros/glib-gettext.m4
+@@ -36,8 +36,8 @@ dnl We go to great lengths to make sure that aclocal won't
+ dnl try to pull in the installed version of these macros
+ dnl when running aclocal in the glib directory.
+ dnl
+-m4_copy([AC_DEFUN],[glib_DEFUN])
+-m4_copy([AC_REQUIRE],[glib_REQUIRE])
++m4_copy_force([AC_DEFUN],[glib_DEFUN])
++m4_copy_force([AC_REQUIRE],[glib_REQUIRE])
+ dnl
+ dnl At the end, if we're not within glib, we'll define the public
+ dnl definitions in terms of our private definitions.
