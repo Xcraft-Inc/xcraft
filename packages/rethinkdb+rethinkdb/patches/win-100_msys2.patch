@@ -1,11 +1,3 @@
-From 29011c121720ab19fe6ad056559a239cf34b6357 Mon Sep 17 00:00:00 2001
-From: "a@a.a" <a@a.a>
-Date: Tue, 26 Oct 2021 16:29:03 +0200
-Subject: msys2
-
-
-diff --git a/configure b/configure
-index a99d609..296fd21 100644
 --- a/configure
 +++ b/configure
 @@ -44,6 +44,7 @@ init () {
