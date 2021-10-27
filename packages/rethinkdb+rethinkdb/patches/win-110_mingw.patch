@@ -1,0 +1,200 @@
+From 20d9426bf1fe24068e66816583cdf3e8cbf941ae Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Wed, 27 Oct 2021 14:00:17 +0200
+Subject: mingw
+
+
+diff --git a/configure b/configure
+index 296fd21..0c41ef3 100755
+--- a/configure
++++ b/configure
+@@ -99,7 +99,7 @@ configure_unixlike () {
+             var PTHREAD_LIBS -pthread ;
+             var RT_LIBS -lrt ;;
+         *mingw32*)
+-            var OS "Msys2"
++            var OS "Mingw"
+             default_allocator=$default_allocator_msys2
+             var PTHREAD_LIBS -pthread ;
+             var RT_LIBS -lrt ;;
+diff --git a/src/arch/io/network.hpp b/src/arch/io/network.hpp
+index 7b962b5..8abca4f 100644
+--- a/src/arch/io/network.hpp
++++ b/src/arch/io/network.hpp
+@@ -1,3 +1,4 @@
++#include "utils.hpp"
+ // Copyright 2010-2012 RethinkDB, all rights reserved.
+ #ifndef ARCH_IO_NETWORK_HPP_
+ #define ARCH_IO_NETWORK_HPP_
+diff --git a/src/arch/runtime/thread_pool.cc b/src/arch/runtime/thread_pool.cc
+index 238b5b1..0eb7cfd 100644
+--- a/src/arch/runtime/thread_pool.cc
++++ b/src/arch/runtime/thread_pool.cc
+@@ -29,7 +29,7 @@ const int SIGNAL_HANDLER_STACK_SIZE = MINSIGSTKSZ + (128 * KILOBYTE);
+ #endif
+ 
+ #ifdef _WIN32
+-std::atomic<linux_thread_pool_t *> linux_thread_pool_t::global_thread_pool = nullptr;
++std::atomic<linux_thread_pool_t *> linux_thread_pool_t::global_thread_pool{nullptr};
+ 
+ linux_thread_pool_t *linux_thread_pool_t::get_global_thread_pool() {
+     return global_thread_pool.load();
+diff --git a/src/arch/windows_stub/pthread.cc b/src/arch/windows_stub/pthread.cc
+index 3fbc841..372c2fe 100644
+--- a/src/arch/windows_stub/pthread.cc
++++ b/src/arch/windows_stub/pthread.cc
+@@ -1,4 +1,5 @@
+-#ifdef _WIN32
++//#ifdef _WIN32
++#if 0
+ 
+ #include <pthread.h>
+ 
+diff --git a/src/arch/windows_stub/pthread.h b/src/arch/windows_stub/pthread.h
+index db0fe07..0a3135a 100644
+--- a/src/arch/windows_stub/pthread.h
++++ b/src/arch/windows_stub/pthread.h
+@@ -3,8 +3,9 @@
+ 
+ // An implementation of a subset of pthread for windows
+ 
++#include_next "pthread.h"
+ #include "windows.hpp"
+-
++#if 0
+ struct pthread_attr_t { };
+ int pthread_attr_init(pthread_attr_t*);
+ int pthread_attr_setstacksize(pthread_attr_t*, size_t);
+@@ -49,5 +50,5 @@ int pthread_cond_broadcast(pthread_cond_t*);
+ const bool PTHREAD_ONCE_INIT = false;
+ const bool PTHREAD_ONCE_COMPLETED = true;
+ int pthread_once(bool *, void(*)(void));
+-
++#endif
+ #endif
+diff --git a/src/arch/windows_stub/unistd.h b/src/arch/windows_stub/unistd.h
+index e01a777..d643eed 100644
+--- a/src/arch/windows_stub/unistd.h
++++ b/src/arch/windows_stub/unistd.h
+@@ -2,7 +2,7 @@
+ #define SRC_ARCH_WINDOWS_STUB_UNISTD_H_
+ 
+ // A stub for <unistd.h> on windows
+-
++//#include_next "unistd.h"
+ #include "windows.hpp"
+ #include <io.h>
+ #include <process.h>
+diff --git a/src/backtrace.cc b/src/backtrace.cc
+index 9ac88ee..ee544a7 100644
+--- a/src/backtrace.cc
++++ b/src/backtrace.cc
+@@ -315,7 +315,7 @@ std::string lazy_backtrace_formatter_t::lines() {
+ 
+ #ifdef _WIN32
+ void initialize_dbghelp() {
+-    static std::atomic<bool> initialised = false;
++    static std::atomic<bool> initialised{false};
+     if (!initialised.exchange(true)) {
+         DWORD options = SymGetOptions();
+         options |= SYMOPT_LOAD_LINES; // Load line information
+diff --git a/src/build.mk b/src/build.mk
+index 75d8a4f..fdd7997 100644
+--- a/src/build.mk
++++ b/src/build.mk
+@@ -21,6 +21,10 @@ endif
+ 
+ STATICFORCE := $(STATIC)
+ 
++ifeq ($(OS),Mingw)
++  RT_CXXFLAGS += -I./src/arch/windows_stub
++endif
++
+ ifeq ($(COMPILER),CLANG)
+ 
+   ifeq ($(OS),Darwin)
+@@ -95,7 +99,7 @@ RT_CXXFLAGS += "-D__STDC_LIMIT_MACROS"
+ RT_CXXFLAGS += "-D__STDC_FORMAT_MACROS"
+ RT_CXXFLAGS += -Wall -Wextra
+ 
+-RT_CXXFLAGS += -DENABLE_TLS
++#RT_CXXFLAGS += -DENABLE_TLS
+ 
+ # Enable RapidJSON std::string functions
+ RT_CXXFLAGS += "-DRAPIDJSON_HAS_STDSTRING"
+diff --git a/src/errors.cc b/src/errors.cc
+index 8ae68d2..ec6a34a 100644
+--- a/src/errors.cc
++++ b/src/errors.cc
+@@ -21,6 +21,10 @@
+ #include "arch/timing.hpp"
+ #include "arch/runtime/thread_pool.hpp"
+ 
++#ifdef __MINGW32__
++#include "arch/types.hpp"
++#endif
++
+ TLS_with_init(bool, crashed, false); // to prevent crashing within crashes
+ 
+ NOINLINE int get_errno() {
+@@ -174,6 +178,7 @@ LONG WINAPI windows_crash_handler(EXCEPTION_POINTERS *exception) {
+     std::string message;
+     EXCEPTION_RECORD *record = exception->ExceptionRecord;
+     switch (record->ExceptionCode) {
++#ifndef __MINGW32__
+     case 0xe06d7363:
+         try {
+             _CxxThrowException(reinterpret_cast<void*>(record->ExceptionInformation[1]),
+@@ -184,6 +189,7 @@ LONG WINAPI windows_crash_handler(EXCEPTION_POINTERS *exception) {
+             message = "Unhandled C++ exception";
+         }
+         break;
++#endif
+     case EXCEPTION_BREAKPOINT:
+         return EXCEPTION_EXECUTE_HANDLER;
+     case EXCEPTION_ACCESS_VIOLATION:
+diff --git a/src/extproc/extproc_spawner.cc b/src/extproc/extproc_spawner.cc
+index 9cba6f7..962b76e 100644
+--- a/src/extproc/extproc_spawner.cc
++++ b/src/extproc/extproc_spawner.cc
+@@ -234,7 +234,7 @@ void extproc_spawner_t::fork_spawner() {
+ // Spawns a new worker process and returns the fd of the socket used to communicate with it
+ scoped_fd_t extproc_spawner_t::spawn(process_id_t *pid_out) {
+ #ifdef _WIN32
+-    static std::atomic<uint64_t> unique = 0;
++    static std::atomic<uint64_t> unique{0};
+ 
+     char rethinkdb_path[MAX_PATH];
+     DWORD res = GetModuleFileName(NULL, rethinkdb_path, sizeof(rethinkdb_path));
+diff --git a/src/paths.cc b/src/paths.cc
+index bb14457..5c901dd 100644
+--- a/src/paths.cc
++++ b/src/paths.cc
+@@ -10,6 +10,8 @@
+ #include <direct.h> // NOLINT
+ #ifndef __MINGW32__
+ #include <filesystem>
++#else
++#include <ftw.h>
+ #endif
+ #else  // _WIN32
+ #include <ftw.h>
+diff --git a/src/windows.hpp b/src/windows.hpp
+index 16c1dc2..abd0b6d 100644
+--- a/src/windows.hpp
++++ b/src/windows.hpp
+@@ -13,13 +13,12 @@
+ #define NOGDI
+ 
+ #ifdef __MINGW32__
+-#define NOUSER  // this breaks mingw include files
++//#define NOUSER  // this breaks mingw include files
+ #endif
+ 
+ #ifndef NOMINMAX
+ #define NOMINMAX
+ #endif
+-
+ #include <winsock2.h>
+ #include <in6addr.h>
+ 

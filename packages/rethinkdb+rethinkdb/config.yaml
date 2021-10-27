@@ -73,14 +73,17 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
          LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
          ./configure --prefix=<PEON.PREFIXDIR>
                      --static=all
                      --dynamic=none
                      --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
+    <PEON.OS=win?:
                      --ccache
+    >
   rules:
     type: make
     location: data/rethinkdb-<THIS.$VERSION>
@@ -92,7 +95,8 @@ data:
       makeinstall: install
     test: none
     env:
-      PATH: '<PEON.ENV.NODE8>:<PEON.ENV.PATH>'
+      PATH: '<PEON.ENV.NODE8><PEON.OS=win?;::><PEON.ENV.PATH>'
+      win/MSYSTEM: MINGW64
   deploy: '!strip <PEON.OS=darwin? -x : -s > <PEON.PREFIXDIR>/bin/rethinkdb'
   env:
     path: []

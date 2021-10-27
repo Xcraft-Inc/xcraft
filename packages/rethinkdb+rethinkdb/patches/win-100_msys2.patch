@@ -1,0 +1,39 @@
+From 29011c121720ab19fe6ad056559a239cf34b6357 Mon Sep 17 00:00:00 2001
+From: "a@a.a" <a@a.a>
+Date: Tue, 26 Oct 2021 16:29:03 +0200
+Subject: msys2
+
+
+diff --git a/configure b/configure
+index a99d609..296fd21 100644
+--- a/configure
++++ b/configure
+@@ -44,6 +44,7 @@ init () {
+ 
+     default_allocator_linux=jemalloc
+     default_allocator_osx=system
++    default_allocator_msys2=system
+ 
+     allowed_arg_vars="CXXFLAGS LDFLAGS PLATFORM MSBUILD VCVARSALL NMAKE"
+ }
+@@ -97,6 +98,11 @@ configure_unixlike () {
+             default_allocator=$default_allocator_linux
+             var PTHREAD_LIBS -pthread ;
+             var RT_LIBS -lrt ;;
++        *mingw32*)
++            var OS "Msys2"
++            default_allocator=$default_allocator_msys2
++            var PTHREAD_LIBS -pthread ;
++            var RT_LIBS -lrt ;;
+         *) error "unsupported operating system: $MACHINE" ;;
+     esac
+     case "${MACHINE%%-*}" in
+@@ -1308,7 +1314,7 @@ check_vs_bin () {
+ }
+ 
+ check_windows () {
+-    if winver=`cmd /c ver 2>&1`; then
++    if [[ -z "$$MSYSTEM" ]] && winver=`cmd /c ver 2>&1`; then
+         require "Operating System"
+         show "$winver"
+         windows=true

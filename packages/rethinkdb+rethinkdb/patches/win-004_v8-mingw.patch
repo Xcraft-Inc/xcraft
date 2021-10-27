@@ -1,0 +1,23 @@
+--- /dev/null
++++ b/mk/support/pkg/patch/v8_5-mingw.patch
+@@ -0,0 +1,20 @@
++--- a/src/circular-queue-inl.h	2021-10-27 15:57:40.814319400 +0200
+++++ b/src/circular-queue-inl.h	2021-10-27 15:58:48.974595500 +0200
++@@ -24,7 +24,7 @@
++ 
++ template<typename T, unsigned L>
++ T* SamplingCircularQueue<T, L>::Peek() {
++-  base::MemoryBarrier();
+++  ::MemoryBarrier();
++   if (base::Acquire_Load(&dequeue_pos_->marker) == kFull) {
++     return &dequeue_pos_->record;
++   }
++@@ -41,7 +41,7 @@
++ 
++ template<typename T, unsigned L>
++ T* SamplingCircularQueue<T, L>::StartEnqueue() {
++-  base::MemoryBarrier();
+++  ::MemoryBarrier();
++   if (base::Acquire_Load(&enqueue_pos_->marker) == kEmpty) {
++     return &enqueue_pos_->record;
++   }
