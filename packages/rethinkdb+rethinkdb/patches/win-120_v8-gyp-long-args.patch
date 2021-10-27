@@ -1,8 +1,8 @@
 --- /dev/null
 +++ b/mk/support/pkg/patch/v8_6-gyp-long-args.patch
 @@ -0,0 +1,15 @@
-+--- external/v8_3.30.33.16-patched/build/gyp/pylib/gyp/generator/make.py
-++++ external/v8_3.30.33.16-patched/build/gyp/pylib/gyp/generator/make.py
++--- a/build/gyp/pylib/gyp/generator/make.py
+++++ b/build/gyp/pylib/gyp/generator/make.py
 +@@ -132,10 +132,10 @@ SPACE_REPLACEMENT = '?'
 + 
 + LINK_COMMANDS_LINUX = """\
