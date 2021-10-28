@@ -62,8 +62,10 @@ data:
       makeinstall: '-C ../build install'
     test: none
     env:
+      CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include'
+      LDFLAGS: <PEON.ENV.LDFLAGS> -L<PEON.ROOTDIR>/usr/lib
       win/CFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
-      win/CXXFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
+      win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
       win/MSYSTEM: MINGW64
       win/BUILD_PYTHONHOME: <PEON.SRCDIR>
   deploy: |-
