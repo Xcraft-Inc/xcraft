@@ -70,7 +70,7 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: ''
+    prepare: "mv('data/rethinkdb-<THIS.$VERSION>', 'data/rdb');"
   type: src
   configure: |-
     !{bash}
@@ -90,7 +90,7 @@ data:
     :>
   rules:
     type: make
-    location: data/rethinkdb-<THIS.$VERSION>
+    location: data/rdb
     args:
       postinst: ''
       prerm: ''
