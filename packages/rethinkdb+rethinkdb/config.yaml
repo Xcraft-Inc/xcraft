@@ -101,7 +101,7 @@ data:
     env:
       PATH: '<PEON.ENV.NODE8><PEON.OS=win?;::><PEON.ENV.PATH>'
       win/MSYSTEM: MINGW64
-  deploy: '!strip <PEON.OS=darwin? -x : -s > <PEON.PREFIXDIR>/bin/rethinkdb'
+  deploy: '!strip <PEON.OS=darwin? -x : -s > <PEON.PREFIXDIR>/bin/rethinkdb<PEON.OS=win?.exe:>'
   env:
     path: []
     other: {}
