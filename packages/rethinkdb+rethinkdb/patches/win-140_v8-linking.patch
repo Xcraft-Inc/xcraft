@@ -1,0 +1,14 @@
+--- /dev/null
++++ b/mk/support/pkg/patch/v8_8-link.patch
+@@ -0,0 +1,11 @@
++--- a/tools/gyp/v8.gyp
+++++ b/tools/gyp/v8.gyp
++@@ -1467,7 +1467,7 @@
++               ],
++               'msvs_disabled_warnings': [4351, 4355, 4800],
++               'link_settings':  {
++-                'libraries': [ '-lwinmm.lib', '-lws2_32.lib' ],
+++                'libraries': [ '-lwinmm', '-lws2_32' ],
++               },
++             }],
++           ],

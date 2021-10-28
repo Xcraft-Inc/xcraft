@@ -1,0 +1,30 @@
+--- /dev/null
++++ b/mk/support/pkg/patch/v8_7-mingw-2.patch
+@@ -0,0 +1,27 @@
++From 51e0ee3ee82cadd877f699735683b294a338e22c Mon Sep 17 00:00:00 2001
++From: Mathieu Schroeter <mathieu@schroetersa.ch>
++Date: Thu, 28 Oct 2021 13:31:38 +0200
++Subject: Remove duplicated functions when using newest mingw tools
++
++
++diff --git a/src/base/platform/platform-win32.cc b/src/base/platform/platform-win32.cc
++index 1c46cf6..48a97a6 100644
++--- a/src/base/platform/platform-win32.cc
+++++ b/src/base/platform/platform-win32.cc
++@@ -44,7 +44,7 @@ inline void MemoryBarrier() {
++ 
++ #endif  // __MINGW64_VERSION_MAJOR
++ 
++-
+++#if 0
++ int localtime_s(tm* out_tm, const time_t* time) {
++   tm* posix_local_time_struct = localtime(time);
++   if (posix_local_time_struct == NULL) return 1;
++@@ -90,6 +90,7 @@ int strncpy_s(char* dest, size_t dest_size, const char* source, size_t count) {
++   *dest = 0;
++   return 0;
++ }
+++#endif
++ 
++ #endif  // __MINGW32__
++ 
