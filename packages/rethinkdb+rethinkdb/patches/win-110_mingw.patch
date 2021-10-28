@@ -1,14 +1,3 @@
---- a/configure
-+++ b/configure
-@@ -99,7 +99,7 @@ configure_unixlike () {
-             var PTHREAD_LIBS -pthread ;
-             var RT_LIBS -lrt ;;
-         *mingw32*)
--            var OS "Msys2"
-+            var OS "Mingw"
-             default_allocator=$default_allocator_msys2
-             var PTHREAD_LIBS -pthread ;
-             var RT_LIBS -lrt ;;
 diff --git a/src/arch/io/network.hpp b/src/arch/io/network.hpp
 index 7b962b5..8abca4f 100644
 --- a/src/arch/io/network.hpp
