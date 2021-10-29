@@ -38,4 +38,5 @@ data:
       LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
+      MSYSTEM: MINGW64
   embedded: true

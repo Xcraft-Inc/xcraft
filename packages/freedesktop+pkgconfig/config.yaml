@@ -74,7 +74,6 @@ data:
       makeinstall: install
     test: none
     env:
-      win/MSYSTEM: MINGW64
       darwin/LDFLAGS: '-framework CoreFoundation -framework Carbon'
   deploy: ''
   env:

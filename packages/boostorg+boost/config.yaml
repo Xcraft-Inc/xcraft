@@ -58,8 +58,7 @@ data:
       maketest: ''
       makeinstall: ''
     test: none
-    env:
-      win/MSYSTEM: MINGW64
+    env: {}
   deploy: ''
   env:
     path: []

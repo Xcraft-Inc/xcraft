@@ -89,7 +89,6 @@ data:
         :>
     test: none
     env:
-      win/MSYSTEM: MINGW64
       win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -D_WIN32_WINNT=0x0600
       win/LDFLAGS: '-municode'
   deploy: ''

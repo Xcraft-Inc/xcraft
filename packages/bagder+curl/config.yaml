@@ -51,7 +51,6 @@ data:
       makeinstall: '!make install'
     test: none
     env:
-      win/MSYSTEM: MINGW64
       win/CPPFLAGS: '-D_WIN32_WINNT=0x0502'
   deploy: ''
   env:
