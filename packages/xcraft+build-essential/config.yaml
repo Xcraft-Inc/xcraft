@@ -45,6 +45,11 @@ dependency:
           - linux-i386
           - linux-amd64
           - linux-aarch64
+    msys2+mingw:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
     gnu+binutils:
       - version: ''
         architecture:

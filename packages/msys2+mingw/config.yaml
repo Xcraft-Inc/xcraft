@@ -1,0 +1,41 @@
+name: msys2+mingw
+version: 10.2.0
+$version: 10.2.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: MINGW env
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      CFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
+      CXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<OS.PROD.ROOTDIR>/usr/include -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
+      LDFLAGS: '-L<OS.PROD.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
+      CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
+      CCACHE_PATH: <OS.ENV.PATH>
+  embedded: true
