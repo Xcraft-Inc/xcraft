@@ -1,3 +1,15 @@
 @echo off
 
-bash -c "g++ %*"
+if not [%PEON_SHARE%]==[] (
+    set CCACHE_BASEDIR=%PEON_SHARE%
+) else (
+    set CCACHE_BASEDIR=%XCRAFT_DEVROOT%
+)
+
+set COMMAND=%~dp0%\..\..\bin\g++.exe
+if not exist %COMMAND% (
+    set COMMAND=g++.exe
+)
+
+set ARGS=%*
+ccache %COMMAND% %ARGS%
