@@ -35,6 +35,6 @@ data:
   env:
     path: []
     other:
-      CC: '<OS.ROOTDIR>/usr/local/bin/gcc.cmd'
-      CXX: '<OS.ROOTDIR>/usr/local/bin/g++.cmd'
+      CC: 'gcc.cmd'
+      CXX: 'g++.cmd'
   embedded: true
