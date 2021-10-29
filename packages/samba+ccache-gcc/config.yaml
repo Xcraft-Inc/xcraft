@@ -35,6 +35,6 @@ data:
   env:
     path: []
     other:
-      CC: <OS.ROOTDIR>/usr/local/bin/gcc<PEON.OS=win?.cmd:>
-      CXX: <OS.ROOTDIR>/usr/local/bin/g++<PEON.OS=win?.cmd:>
+      CC: <OS.ROOTDIR>/usr/local/bin/gcc<OS.NAME=win32?.cmd:>
+      CXX: <OS.ROOTDIR>/usr/local/bin/g++<OS.NAME=win32?.cmd:>
   embedded: true
