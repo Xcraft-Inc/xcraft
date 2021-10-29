@@ -64,6 +64,9 @@ dependency:
     openjs+nodejs:
       - version: ''
         architecture: []
+    bagder+curl:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://github.com/rethinkdb/rethinkdb/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
