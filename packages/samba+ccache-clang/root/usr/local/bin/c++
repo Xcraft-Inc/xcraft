@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -z "${PEON_SHARE}" ]; then
+if [ -n "${PEON_SHARE}" ]; then
     CCACHE_BASEDIR=${PEON_SHARE}
 else
     CCACHE_BASEDIR=${XCRAFT_DEVROOT}
