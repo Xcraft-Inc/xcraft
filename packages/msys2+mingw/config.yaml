@@ -15,7 +15,7 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    samba+ccache-gcc:
+    samba+ccache-msys2-mingw:
       - version: ''
         architecture: []
 data:

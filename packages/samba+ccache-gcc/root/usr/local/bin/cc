@@ -9,7 +9,7 @@ export CCACHE_BASEDIR
 
 COMMAND="$(dirname "$0")/../../bin/cc"
 if ! command -v "$COMMAND" >/dev/null; then
-    [ "$MSYSTEM" = MINGW64 ] && COMMAND="cc.exe" || COMMAND="cc"
+    COMMAND="cc"
 fi
 
 ccache "$COMMAND" "$@"

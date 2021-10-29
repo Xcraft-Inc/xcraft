@@ -75,8 +75,6 @@ dependency:
           - linux-i386
           - linux-amd64
           - linux-aarch64
-          - mswindows-i386
-          - mswindows-amd64
     samba+ccache-clang:
       - version: ''
         architecture:

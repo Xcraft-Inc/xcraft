@@ -9,7 +9,7 @@ export CCACHE_BASEDIR
 
 COMMAND="$(dirname "$0")/../../bin/g++"
 if ! command -v "$COMMAND" >/dev/null; then
-    [ "$MSYSTEM" = MINGW64 ] && COMMAND="g++.exe" || COMMAND="g++"
+    COMMAND="g++"
 fi
 
 ccache "$COMMAND" "$@"
