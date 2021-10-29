@@ -38,7 +38,7 @@ data:
     other:
       CFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
       CXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
-      LDFLAGS: '-static-libgcc -static-libstdc++'
+      LDFLAGS: '-static-libgcc -static-libstdc++ -lws2_32'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
       MSYSTEM: MINGW64
