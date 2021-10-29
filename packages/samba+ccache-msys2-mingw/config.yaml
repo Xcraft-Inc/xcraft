@@ -33,8 +33,9 @@ data:
       postinst: ''
       prerm: ''
   env:
-    path: []
+    path:
+      - <OS.ROOTDIR>/usr/local/bin
     other:
-      CC: '<OS.POSIX.ROOTDIR>/usr/local/bin/gcc.exe'
-      CXX: '<OS.POSIX.ROOTDIR>/usr/local/bin/g++.exe'
+      CC: 'gcc.exe'
+      CXX: 'g++.exe'
   embedded: true
