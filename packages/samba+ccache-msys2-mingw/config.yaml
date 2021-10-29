@@ -35,6 +35,6 @@ data:
   env:
     path: []
     other:
-      CC: 'gcc.cmd'
-      CXX: 'g++.cmd'
+      CC: gcc.cmd
+      CXX: g++.cmd
   embedded: true
