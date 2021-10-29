@@ -15,6 +15,9 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
