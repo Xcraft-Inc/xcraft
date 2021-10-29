@@ -56,7 +56,11 @@ data:
       makeinstall: install
     test: none
     env: {}
-  deploy: ''
+  deploy: |-
+    <PEON.OS=win?
+      cp('{PEON.PREFIXDIR}/bin/ccache.exe', '{PEON.PREFIXDIR}/local/bin/gcc.exe');
+      cp('{PEON.PREFIXDIR}/bin/ccache.exe', '{PEON.PREFIXDIR}/local/bin/g++.exe');
+    :>
   env:
     path: []
     other:
