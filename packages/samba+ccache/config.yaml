@@ -55,7 +55,8 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-    env: {}
+    env:
+      win/LDFLAGS: <PEON.ENV.LDFLAGS> -lws2_32
   deploy: ''
   env:
     path: []
