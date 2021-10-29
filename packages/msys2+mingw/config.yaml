@@ -36,8 +36,8 @@ data:
   env:
     path: []
     other:
-      CFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
-      CXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib -static-libstdc++'
+      CFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color'
+      CXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -static-libstdc++'
       LDFLAGS: '-static-libgcc -static-libstdc++ -lws2_32'
       CPPFLAGS: '-I<OS.PROD.ROOTDIR>/usr/include'
       CCACHE_PATH: <OS.ENV.PATH>
