@@ -21,7 +21,24 @@ int main(int argc, const char *const argv[]) {
   GetStartupInfo(&structStartupInfo);
 
   TCHAR cmdLine[1 << 15];
-  snprintf(cmdLine, _countof(cmdLine), "ccache.exe %s", GetCommandLine());
+  TCHAR compiler[64];
+
+  if (!strncmp(argv[0], "gcc", strlen(argv[0])) ||
+      !strncmp(argv[0], "gcc.exe", strlen(argv[0])) ||
+      !strncmp(argv[0], "cc", strlen(argv[0])) ||
+      !strncmp(argv[0], "cc.exe", strlen(argv[0]))) {
+    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-gcc.exe");
+  }
+
+  if (!strncmp(argv[0], "g++", strlen(argv[0])) ||
+      !strncmp(argv[0], "g++.exe", strlen(argv[0])) ||
+      !strncmp(argv[0], "c++", strlen(argv[0])) ||
+      !strncmp(argv[0], "c++.exe", strlen(argv[0]))) {
+    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-g++.exe");
+  }
+
+  snprintf(cmdLine, _countof(cmdLine), "ccache.exe -o compiler=%s %s", compiler,
+           strstr(GetCommandLine(), argv[1]));
 
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
                            &structProcInfo);
