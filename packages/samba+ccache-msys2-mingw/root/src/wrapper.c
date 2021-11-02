@@ -38,7 +38,7 @@ int main(int argc, const char *const argv[]) {
   }
 
   snprintf(cmdLine, _countof(cmdLine), "ccache.exe -o compiler=%s %s", compiler,
-           strstr(GetCommandLine(), argv[1]));
+           GetCommandLine());
 
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
                            &structProcInfo);
