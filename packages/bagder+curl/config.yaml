@@ -55,7 +55,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      CURL_CA_BUNDLE: '<OS.NAME=win32?/usr/ssl/certs/ca-bundle.crt:>'
   embedded: true
   runtime:
     configure: ''
