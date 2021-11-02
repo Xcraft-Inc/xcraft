@@ -1,21 +1,20 @@
+subpackage:
+  - runtime*
 name: samba+ccache-msys2-mingw
-version: 1.0.0
+version: 1.0.0-4
 $version: 1.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - all
+  - source
 description:
   brief: ccache for MSYS2 MINGW
   long: ''
 dependency:
-  install:
+  build:
     xcraft+peon:
-      - version: ''
-        architecture: []
-    samba+ccache:
       - version: ''
         architecture: []
 data:
@@ -24,17 +23,33 @@ data:
     ref: ''
     out: ''
     externals: false
-  type: bin
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/samba/ccache-msys2-mingw/cache');"
+  type: src
   configure: ''
   rules:
-    type: copy
-    location: ''
+    type: script
+    location: src
     args:
       postinst: ''
       prerm: ''
+      makeall: |-
+        !{bash}
+        ${CC:-cc} $CFLAGS $LDFLAGS wrapper.c -o wrapper.exe
+      maketest: ''
+      makeinstall: |-
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/local/bin/gcc.exe');
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/local/bin/cc.exe');
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/local/bin/g++.exe');
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/local/bin/c++.exe');
+    test: none
+    env:
+      win/MSYSTEM: MINGW64
+  deploy: ''
   env:
     path: []
     other:
-      CC: gcc.cmd
-      CXX: g++.cmd
+      CC: gcc.exe
+      CXX: g++.exe
   embedded: true
+  runtime:
+    configure: ''

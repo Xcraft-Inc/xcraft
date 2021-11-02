@@ -57,6 +57,7 @@ data:
     test: none
     env:
       win/LDFLAGS: <PEON.ENV.LDFLAGS> -lws2_32
+      win/MSYSTEM: MINGW64
   deploy: ''
   env:
     path: []
