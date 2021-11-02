@@ -37,9 +37,9 @@ int main(int argc, const char *const argv[]) {
     snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-g++.exe");
   }
 
-  snprintf(cmdLine, _countof(cmdLine), "ccache.exe -o compiler=%s %s", compiler,
-           GetCommandLine());
+  snprintf(cmdLine, _countof(cmdLine), "ccache.exe %s", GetCommandLine());
 
+  SetEnvironmentVariable("CCACHE_COMPILER", compiler);
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
                            &structProcInfo);
   if (bSuccess) {
