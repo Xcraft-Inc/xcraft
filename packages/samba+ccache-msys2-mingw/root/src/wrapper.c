@@ -1,5 +1,7 @@
 
+#define WIN32_LEAN_AND_MEAN
 #include <stdio.h>
+#include <stdlib.h>
 #include <windows.h>
 
 /* Trivial forwarding of arguments to ccache.
@@ -40,6 +42,8 @@ int main(int argc, const char *const argv[]) {
   snprintf(cmdLine, _countof(cmdLine), "ccache.exe %s", GetCommandLine());
 
   SetEnvironmentVariable("CCACHE_COMPILER", compiler);
+  SetEnvironmentVariable("CCACHE_PATH", getenv("XCRAFT_CCACHE_PATH"));
+
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
                            &structProcInfo);
   if (bSuccess) {
