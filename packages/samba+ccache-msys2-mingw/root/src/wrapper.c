@@ -22,8 +22,8 @@ int main(int argc, const char *const argv[]) {
 
   GetStartupInfo(&structStartupInfo);
 
-  TCHAR cmdLine[1 << 15];
-  TCHAR compiler[64];
+  TCHAR cmdLine[1 << 15] = {0};
+  TCHAR compiler[64] = {0};
 
   if (!strncmp(argv[0], "gcc", strlen(argv[0])) ||
       !strncmp(argv[0], "gcc.exe", strlen(argv[0])) ||
