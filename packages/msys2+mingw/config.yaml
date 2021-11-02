@@ -15,6 +15,9 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+    samba+ccache-msys2-mingw:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: ''
