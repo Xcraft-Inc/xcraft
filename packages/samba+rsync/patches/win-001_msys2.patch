@@ -1,0 +1,47 @@
+--- a/configure.sh
++++ b/configure.sh
+@@ -5370,7 +5370,7 @@ fi
+ if test x"$enable_ipv6" != x"no"; then
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking ipv6 stack type" >&5
+ $as_echo_n "checking ipv6 stack type... " >&6; }
+-	for i in inria kame linux-glibc linux-inet6 solaris toshiba v6d zeta cygwin TANDEM; do
++	for i in inria kame linux-glibc linux-inet6 solaris toshiba v6d zeta cygwin msys TANDEM; do
+ 		case $i in
+ 		inria)
+ 			# http://www.kame.net/
+@@ -5530,7 +5530,7 @@ fi
+ rm -f conftest*
+ 
+ 			;;
+-		cygwin)
++		cygwin|msys)
+ 			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -5648,7 +5648,7 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to call shutdown on all sockets" >&5
+ $as_echo_n "checking whether to call shutdown on all sockets... " >&6; }
+ case $host_os in
+-	*cygwin* ) { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++	*cygwin* | *msys*) { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+ 
+ $as_echo "#define SHUTDOWN_ALL_SOCKETS 1" >>confdefs.h
+@@ -8903,7 +8903,7 @@ if test x"$ac_cv_func_posix_fallocate" = x"yes"; then
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether posix_fallocate is efficient" >&5
+ $as_echo_n "checking whether posix_fallocate is efficient... " >&6; }
+     case $host_os in
+-    *cygwin*)
++    *cygwin* | *msys*)
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+ 
+@@ -9952,7 +9952,7 @@ if test x"$enable_xattr_support" = x"no"; then
+ $as_echo "no" >&6; }
+ else
+     case "$host_os" in
+-    *linux*|*netbsd*|*cygwin*)
++    *linux*|*netbsd*|*cygwin*|*msys*)
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: Using Linux xattrs" >&5
+ $as_echo "Using Linux xattrs" >&6; }
+ 
