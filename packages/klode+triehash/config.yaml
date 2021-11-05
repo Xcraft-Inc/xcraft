@@ -24,6 +24,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 289a0966c02c2008cd263d3913a8e3c84c97b8ded3e08373d63a382c71d2199c.tar.gz
   type: bin
   configure: |-
     mv('data/triehash-<THIS.$VERSION>', 'root/usr/share/triehash');

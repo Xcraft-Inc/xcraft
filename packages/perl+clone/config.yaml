@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+clone
-version: '0.43-2'
+version: 0.43-2
 $version: '0.43'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 99025344686535c1ded464fe126df900b645b858e6d8873635ba81b4882eeeda.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

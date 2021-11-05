@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+text-levenshtein
-version: '0.13-2'
+version: 0.13-2
 $version: '0.13'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 3a7cbf0bb79fca33d92618f6d8c2ae4b5e2ee5b43729142a9b8ad9d8a678d11f.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

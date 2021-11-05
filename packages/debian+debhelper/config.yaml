@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: debian+debhelper
-version: '12.3-1'
+version: 12.3-1
 $version: '12.3'
 distribution: toolchain/
 maintainer:
@@ -38,6 +38,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 73c95655c2e1f19a13dd992ce5356d846bc7e112d4f6506e12d346965f2cb931.tar.gz
   type: src
   configure: ''
   rules:

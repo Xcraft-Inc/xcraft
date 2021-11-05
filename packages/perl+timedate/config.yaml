@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+timedate
-version: '2.30-2'
+version: 2.30-2
 $version: '2.30'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 75bd254871cb5853a6aa0403ac0be270cdd75c9d1b6639f18ecba63c15298e86.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

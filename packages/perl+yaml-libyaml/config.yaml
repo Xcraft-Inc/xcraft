@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+yaml-libyaml
-version: '0.79-2'
+version: 0.79-2
 $version: '0.79'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 8405bacd21758ca828064b401c55e549dd7bfdda834aa993101b032cdc989573.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

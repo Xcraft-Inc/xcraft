@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+capture-tiny
-version: '0.48-2'
+version: 0.48-2
 $version: '0.48'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 6c23113e87bad393308c90a207013e505f659274736638d8c79bac9c67cc3e19.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

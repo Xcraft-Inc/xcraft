@@ -19,11 +19,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.gz
+    uri: 'https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    $hash: 4ca80dc6f9f23d14747e4b619fd9784434c570e24a7346f326c692784ed83a86.tar.gz
   type: src
   configure: ''
   rules:

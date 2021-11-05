@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+test-pod-coverage
-version: '1.10-1'
+version: 1.10-1
 $version: '1.10'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 48c9cca9f7d99eee741176445b431adf09c029e1aa57c4703c9f46f7601d40d4.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

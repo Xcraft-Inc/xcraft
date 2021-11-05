@@ -74,6 +74,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 7d002d7e049c1fb336a4b3f22637b26adeba8870ab3ddd6542a07a593bc837c5.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:

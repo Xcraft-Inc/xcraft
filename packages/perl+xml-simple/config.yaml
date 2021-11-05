@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+xml-simple
-version: '2.25-2'
+version: 2.25-2
 $version: '2.25'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 531fddaebea2416743eb5c4fdfab028f502123d9a220405a4100e68fc480dbf8.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

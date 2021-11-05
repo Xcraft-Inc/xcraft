@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+locale-gettext
-version: '1.07-2'
+version: 1.07-2
 $version: '1.07'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 909d47954697e7c04218f972915b787bd1244d75e3bd01620bc167d5bbc49c15.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

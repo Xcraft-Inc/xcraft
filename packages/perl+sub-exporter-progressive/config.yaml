@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+sub-exporter-progressive
-version: '0.001013-2'
+version: 0.001013-2
 $version: '0.001013'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: d535b7954d64da1ac1305b1fadf98202769e3599376854b2ced90c382beac056.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

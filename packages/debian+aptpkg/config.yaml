@@ -35,6 +35,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 83559eb7281e1cfbf0e3aaae48c27f8d542e3a1ddfe6c2bba3e38b22583b251a.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

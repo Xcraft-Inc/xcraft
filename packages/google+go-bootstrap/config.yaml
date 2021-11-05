@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: google+go-bootstrap
-version: 1.4
+version: '1.4'
 $version: '1.4'
 distribution: toolchain/
 maintainer:
@@ -23,6 +23,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: f4ff5b5eb3a3cae1c993723f3eab519c5bae18866b5e5f96fe1102f0cb5c3e52.tar.gz
   type: src
   configure: ''
   rules:

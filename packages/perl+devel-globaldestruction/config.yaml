@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+devel-globaldestruction
-version: '0.14-2'
+version: 0.14-2
 $version: '0.14'
 distribution: toolchain/
 maintainer:
@@ -34,6 +34,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 34b8a5f29991311468fe6913cadaba75fd5d2b0b3ee3bb41fe5b53efab9154ab.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

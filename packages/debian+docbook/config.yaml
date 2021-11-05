@@ -26,6 +26,7 @@ data:
     ref: ''
     out: docbook-1.0.0.tar.gz
     externals: true
+    $hash: 5053b868240f19617b1d4e72133ba7a5a8ba113d715102b9ac92040fb08316ef.tar.gz
   type: bin
   configure: ''
   rules:

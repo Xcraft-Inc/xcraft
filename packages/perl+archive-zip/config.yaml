@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+archive-zip
-version: '1.64-2'
+version: 1.64-2
 $version: '1.64'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: de5f84f2148038363d557b1fa33f58edc208111f789f7299fe3d8f6e11b4d17d.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

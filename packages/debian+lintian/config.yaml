@@ -100,6 +100,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: fbbbca3ba354b6fda09208feb0563a010f45a5a754105f9e97baeebe31a118e8.tar.gz
   type: bin
   configure: |-
     mv('data/lintian-<THIS.$VERSION>', 'root/usr/share/lintian');

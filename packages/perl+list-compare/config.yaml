@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+list-compare
-version: '0.53-2'
+version: 0.53-2
 $version: '0.53'
 distribution: toolchain/
 maintainer:
@@ -29,6 +29,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: fdbf4ff67b3135d44475fef7fcac0cd4706407d5720d26dca914860eb10f8550.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

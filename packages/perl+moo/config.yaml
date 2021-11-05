@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+moo
-version: '2.003004-2'
+version: 2.003004-2
 $version: '2.003004'
 distribution: toolchain/
 maintainer:
@@ -44,6 +44,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: f8bbb625f8e963eabe05cff9048fdd72bdd26777404ff2c40bc690f558be91e1.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Makefile.PL PREFIX=<PEON.PREFIXDIR>'
   rules:

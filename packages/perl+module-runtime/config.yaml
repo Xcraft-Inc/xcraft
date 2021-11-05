@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: perl+module-runtime
-version: '0.016-2'
+version: 0.016-2
 $version: '0.016'
 distribution: toolchain/
 maintainer:
@@ -32,6 +32,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 68302ec646833547d410be28e09676db75006f4aa58a11f3bdb44ffe99f0f024.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION>/ && perl Build.PL'
   rules:

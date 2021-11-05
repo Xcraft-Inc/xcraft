@@ -32,6 +32,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 49dc08339770acd5613312db8c141eaf61779995577b89d93b541ef83067e5b1.tar.gz
   type: src
   configure: ''
   rules:
