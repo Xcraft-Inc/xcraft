@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: tcpdump+libpcap
-version: '1.9.1'
-$version: '1.9.1'
+version: 1.9.1
+$version: 1.9.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -32,11 +32,9 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 635237637c5b619bcceba91900666b64d56ecb7be63f298f601ec786ce087094.tar.gz
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-remote --disable-usb --disable-netmap --disable-bluetooth
-    --enable-dbus --disable-rdma
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-remote --disable-usb --disable-netmap --disable-bluetooth --enable-dbus --disable-rdma'
   rules:
     type: make
     location: data/libpcap-<THIS.$VERSION>/
@@ -47,11 +45,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: >-
-    !mv '<PEON.PREFIXDIR>/lib/libpcap.so.1'
-    '<PEON.PREFIXDIR>/lib/libpcap.so.0.8' && ln -sf 'libpcap.so.0.8'
-    '<PEON.PREFIXDIR>/lib/libpcap.so' && patchelf --set-soname libpcap.so.0.8
-    '<PEON.PREFIXDIR>/lib/libpcap.so'
+  deploy: '!mv ''<PEON.PREFIXDIR>/lib/libpcap.so.1'' ''<PEON.PREFIXDIR>/lib/libpcap.so.0.8'' && ln -sf ''libpcap.so.0.8'' ''<PEON.PREFIXDIR>/lib/libpcap.so'' && patchelf --set-soname libpcap.so.0.8 ''<PEON.PREFIXDIR>/lib/libpcap.so'''
   env:
     path: []
     other: {}

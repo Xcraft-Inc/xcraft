@@ -19,15 +19,16 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'ftp://ftp.info-zip.org/pub/infozip/src/zip30.tgz'
+    uri: 'https://ftp.osuosl.org/pub/blfs/conglomeration/zip/zip30.tgz'
     ref: ''
     out: ''
     externals: true
+    $hash: f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369.tgz
   type: src
   configure: ''
   rules:
     type: make
-    location: data/zip30/
+    location: data/zip30
     args:
       postinst: ''
       prerm: ''

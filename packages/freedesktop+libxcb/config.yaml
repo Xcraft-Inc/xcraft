@@ -39,16 +39,9 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: a89fb7af7a11f43d2ce84a844a4b38df688c092bf4b67683aef179cdf2a647c4.tar.bz2
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-devel-docs --disable-composite --disable-damage --disable-dpms
-    --disable-dri2 --disable-dri3 --disable-ge --disable-glx --disable-present
-    --disable-randr --disable-record --disable-render --disable-resource
-    --disable-screensaver --disable-shape --disable-shm --disable-sync
-    --disable-xevie --disable-xfixes --disable-xfree86-dri --disable-xinerama
-    --disable-xinput --disable-xkb --disable-xprint --disable-selinux
-    --disable-xtest --disable-xv --disable-xvmc --without-doxygen
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-devel-docs --disable-composite --disable-damage --disable-dpms --disable-dri2 --disable-dri3 --disable-ge --disable-glx --disable-present --disable-randr --disable-record --disable-render --disable-resource --disable-screensaver --disable-shape --disable-shm --disable-sync --disable-xevie --disable-xfixes --disable-xfree86-dri --disable-xinerama --disable-xinput --disable-xkb --disable-xprint --disable-selinux --disable-xtest --disable-xv --disable-xvmc --without-doxygen'
   rules:
     type: make
     location: data/libxcb-<THIS.$VERSION>/

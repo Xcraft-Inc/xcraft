@@ -19,15 +19,13 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://www.x.org/archive/individual/proto/xorgproto-<THIS.$VERSION>.tar.bz2
+    uri: 'https://www.x.org/archive/individual/proto/xorgproto-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
+    $hash: 46ecd0156c561d41e8aa87ce79340910cdf38373b759e737fcbba5df508e7b8e.tar.bz2
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-specs --without-fop --without-xmlto --without-xsltproc
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-specs --without-fop --without-xmlto --without-xsltproc'
   rules:
     type: make
     location: data/xorgproto-<THIS.$VERSION>/

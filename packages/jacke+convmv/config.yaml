@@ -27,6 +27,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 53b6ac8ae4f9beaee5bc5628f6a5382bfd14f42a5bed3d881b829d7b52d81ca6.tar.gz
   type: src
   configure: ''
   rules:

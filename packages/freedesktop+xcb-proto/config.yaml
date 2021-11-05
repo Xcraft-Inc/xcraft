@@ -23,6 +23,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 7b98721e669be80284e9bbfeab02d2d0d54cd11172b72271e47a2fe875e2bde1.tar.bz2
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
