@@ -52,6 +52,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: ce8508e318a01a63d4e8b3090ab2ded3c598a50258cc49e2625b9120d4c03ea5.tar.xz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"

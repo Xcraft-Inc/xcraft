@@ -24,6 +24,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 2b737d6d120418c443c561cf4032c0141f9626f68f532b5d2c27ee8a191c996e.tar.gz
   type: src
   configure: |-
     !{bash}

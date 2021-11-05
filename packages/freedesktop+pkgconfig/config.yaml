@@ -53,6 +53,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591.tar.gz
   type: src
   configure: |-
     !{bash}

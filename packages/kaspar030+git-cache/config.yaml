@@ -42,6 +42,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: edafbeafd7b58e2a89e0eb41a37be6c582095a47d297bbaf9ef95fca283c05e7.zip
   type: bin
   configure: |-
     mv('data/git-cache-36e2d0a1ed6e7a1becfd3d5f03efae84c7d3ec46/git-cache',

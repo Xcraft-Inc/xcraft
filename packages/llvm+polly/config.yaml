@@ -25,6 +25,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 580fd3b0b9e1247c3e40afa3067ac5bea70e9815750c5bd448fb7428e310390c.tar.xz
   type: bin
   configure: ''
   rules:

@@ -19,12 +19,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://nixos.org/releases/patchelf/patchelf-<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2
+    uri: 'https://nixos.org/releases/patchelf/patchelf-<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2'
     ref: ''
     out: ''
     externals: true
     prepare: ''
+    $hash: 1d3221d87a2073c7d2fa0c5ee6aa53e2a808f7628832d3874468c1c8641cba9a.tar.bz2
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
