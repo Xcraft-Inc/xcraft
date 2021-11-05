@@ -21,6 +21,7 @@ data:
     ref: ''
     out: gradle-caches-elasticsearch-5.6.16.tar.gz
     externals: true
+    $hash: 75324d2539738bfe5a29247ad04260ca9fedd9d685e34ae824da594d68750e96.tar.gz
   type: bin
   configure: ''
   rules:
