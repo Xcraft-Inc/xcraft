@@ -25,6 +25,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 2e2556000e105dbd57f0b6b2a32ff2cf173bde4f0d85dffccfd8b7e51a0677ff.tar.xz
   type: bin
   configure: 'mv(''data/glibc-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/glibc'');'
   rules:

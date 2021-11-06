@@ -35,6 +35,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: dfab5ec723c218082fe3d5d7ae17ecbdebffa9a1aea4d64aa3a2ecdd2e795864.tar.xz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> ; ./configure --prefix=<PEON.PREFIXDIR>'
   rules:

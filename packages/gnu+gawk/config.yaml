@@ -27,6 +27,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: cf5fea4ac5665fd5171af4716baab2effc76306a9572988d5ba1078f196382bd.tar.xz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-nls --disable-mpfr'
   rules:

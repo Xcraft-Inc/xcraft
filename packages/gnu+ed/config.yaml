@@ -34,6 +34,7 @@ data:
       !mkdir data
         && tar xf ed-<THIS.$VERSION>.tar.lz -C data
         && rm -f ed-<THIS.$VERSION>.tar.lz
+    $hash: cfc07a14ab048a758473ce222e784fbf031485bcd54a76f74acfee1f390d8b2c.tar.lz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+glibc
-version: 2.33
+version: '2.33'
 $version: '2.33'
 distribution: carnotzet/
 maintainer:
@@ -31,6 +31,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 2e2556000e105dbd57f0b6b2a32ff2cf173bde4f0d85dffccfd8b7e51a0677ff.tar.xz
   type: src
   configure: |-
     !mkdir -p <THIS.DATA.RULES.LOCATION>
