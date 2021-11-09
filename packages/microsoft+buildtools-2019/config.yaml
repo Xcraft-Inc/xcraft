@@ -22,6 +22,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 7eb5dac9420ca3e38a27838d2fbe321b65ccbdbbe46593be8c72352e7d35cc18.zip
   type: bin
   configure: ''
   rules:
@@ -94,6 +95,6 @@ data:
         --remove Microsoft.Net.Component.4.8.TargetingPack
   env:
     path:
-      - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>
+      - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
     other: {}
   embedded: true

@@ -22,6 +22,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 2a3afe19c180f8373fa02ff00254d5394fec0349f5804e0ad2f6067854ff28ac.zip
   type: bin
   configure: 'mv (''data/7za.exe'', ''root/usr/bin/7za.exe'');'
   rules:

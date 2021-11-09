@@ -21,6 +21,7 @@ data:
     ref: ''
     out: microsoft+windows-sdk-<THIS.$VERSION>.zip
     externals: true
+    $hash: 3eccba0c6d613048408e6f9a7a43f42f61c85b2a55d93ed72096e68285e18048.zip
   type: bin
   configure: ''
   rules:
