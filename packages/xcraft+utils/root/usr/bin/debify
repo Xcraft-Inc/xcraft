@@ -31,15 +31,40 @@ if [ -z "${outputDir}" ];               then >&2 echo "The output directory is m
 
 shift 8
 
+# Check for systemd arguments
+useSystemd=0
+systemd="
+[Unit]
+Description=${projectShortDescription}
+Requires=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=${projectName}
+User=${projectName}
+"
+while [[ "$1" =~ ^systemd/ ]]; do
+  useSystemd=1
+  entry="${1#systemd/}"
+  systemd="${systemd}${entry}"$'\n'
+  shift
+done
+
 depends=("libc6 (>= 2.11)")
-while [ ! -z "$1" ]; do
+while [ -n "$1" ]; do
   depends+=("$1")
   shift
 done
 
 packageDepends=""
 for dep in "${depends[@]}"; do
-  if [ ! -z "$packageDepends" ]; then
+  if [ -n "$packageDepends" ]; then
     packageDepends="${packageDepends}, ${dep}"
   else
     packageDepends="${dep}"
@@ -59,6 +84,81 @@ trap cleanup EXIT
 cd "${WORK_DIR}" || exit 1
 
 mkdir -p debian/DEBIAN
+
+if [ "${useSystemd}" = 1 ]; then
+  # Debian package hooks
+  cat <<EOF > "debian/DEBIAN/postinst"
+#!/bin/bash
+set -e
+set -o pipefail
+
+adduser --system --no-create-home --shell /bin/false "${projectName}"
+
+start_service () {
+  if hash systemctl 2> /dev/null; then
+    {
+      systemctl enable "${projectName}.service" && \
+      systemctl start "${projectName}.service"
+    } || echo "${projectName} could not be registered or started"
+  else
+    echo 'Your system does not appear to use systemd, so the service could not be started'
+  fi
+}
+
+stop_service () {
+  if hash systemctl 2> /dev/null; then
+    systemctl disable "${projectName}.service" && \
+    systemctl stop "${projectName}.service" || \
+    echo "${projectName} wasn't even running!"
+  else
+    echo "Your system does not appear to use systemd, so ${projectName} could not be stopped"
+    echo 'Unless these systems were removed since install, no processes have been left running'
+  fi
+}
+
+stop_service '${projectName}'
+start_service '${projectName}'
+EOF
+
+  cat <<EOF > "debian/DEBIAN/postrm"
+#!/bin/bash
+set -e
+
+case "$1" in
+  upgrade|remove|failed-upgrade|abort-upgrade|abort-install|disappear)
+    ;;
+  purge)
+    deluser --system "${projectName}"
+    ;;
+  *)
+    ;;
+esac
+EOF
+
+  cat <<EOF > "debian/DEBIAN/prerm"
+#!/bin/bash
+set -e
+set -o pipefail
+
+if hash systemctl 2> /dev/null; then
+  systemctl disable "${projectName}.service" && \
+  systemctl stop "${projectName}.service" || \
+  echo "${projectName} wasn't even running!"
+else
+  echo "Your system does not appear to use systemd, so ${projectName} could not be stopped"
+  echo 'Unless these systems were removed since install, no processes have been left running'
+fi
+EOF
+
+  chmod 0755 debian/DEBIAN/postinst
+  chmod 0755 debian/DEBIAN/postrm
+  chmod 0755 debian/DEBIAN/prerm
+
+  # systemd service file
+  mkdir -p debian/lib/systemd/system
+  echo -e "${systemd}" > "debian/lib/systemd/system/${projectName}.service"
+  chmod 0644 "debian/lib/systemd/system/${projectName}.service"
+fi
 
 cat <<EOF > debian/DEBIAN/control
 Package: ${projectName}
