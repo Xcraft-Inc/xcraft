@@ -217,6 +217,11 @@ for f in debian/opt/**/*; do
   if [ "$st" = 744 ]; then chmod 644 "$f"; fi
 done
 
+# msd5sums
+find debian -path debian/DEBIAN -prune -o -type f -print0 | xargs -0 md5sum >> debian/DEBIAN/md5sums
+sed -i s/debian// debian/DEBIAN/md5sums
+sed -i s:/:: debian/DEBIAN/md5sums
+
 # Create the final binary package
 fakeroot dpkg-deb --build debian
 DEB_NAME="${projectName}_${projectVersion}_${ARCH}.deb"
