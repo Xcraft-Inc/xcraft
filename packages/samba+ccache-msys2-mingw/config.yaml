@@ -17,6 +17,9 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+  samba+ccache:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'self:///root'
