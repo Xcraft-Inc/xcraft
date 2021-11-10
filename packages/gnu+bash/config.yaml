@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+bash
-version: '5.1'
-$version: '5.1'
+version: 5.1.8-2
+$version: 5.1.8
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -24,7 +24,7 @@ data:
     out: ''
     externals: false
     prepare: ''
-    $hash: cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa.tar.gz
+    $hash: 0cfb5c9bb1a29f800a97bd242d19511c997a1013815b805e0fdd32214113d6be.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -57,7 +57,7 @@ data:
                      --disable-nls
   rules:
     type: make
-    location: data/bash-<THIS.$VERSION>/
+    location: data/bash-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -65,6 +65,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
