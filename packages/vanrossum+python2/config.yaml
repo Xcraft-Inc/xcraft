@@ -68,6 +68,7 @@ data:
       win/CFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
       win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
       win/BUILD_PYTHONHOME: <PEON.SRCDIR>
+      win/PYTHONPATH: <PEON.SRCDIR/Lib>
   deploy: |-
     rm('<PEON.PREFIXDIR>/bin/2to3');
     <PEON.OS=win?
