@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: linux+libcap
-version: '2.25'
-$version: '2.25'
+version: 2.60-1
+$version: '2.60'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,12 +23,13 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: 4ca80dc6f9f23d14747e4b619fd9784434c570e24a7346f326c692784ed83a86.tar.gz
+    prepare: ''
+    $hash: b112f716dc0407e06b8d775b3805eb22c5977950631b6477d212b8e3c1a75b05.tar.gz
   type: src
   configure: ''
   rules:
     type: make
-    location: data/libcap-<THIS.$VERSION>/
+    location: data/libcap-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -36,6 +37,7 @@ data:
       maketest: ''
       makeinstall: install RAISE_SETFCAP=no FAKEROOT=<PEON.INSTALLDIR>
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
