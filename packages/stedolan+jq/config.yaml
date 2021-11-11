@@ -19,15 +19,13 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://github.com/stedolan/jq/releases/download/jq-<THIS.$VERSION>/jq-<THIS.$VERSION>.tar.gz
+    uri: 'https://github.com/stedolan/jq/releases/download/jq-<THIS.$VERSION>/jq-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
+    $hash: c4d2bfec6436341113419debf479d833692cc5cdab7eb0326b5a4d4fbe9f493c.tar.gz
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>
-    --disable-maintainer-mode --disable-valgrind
+  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-maintainer-mode --disable-valgrind'
   rules:
     type: make
     location: data/jq-<THIS.$VERSION>/
