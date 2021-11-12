@@ -58,7 +58,7 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!make <PEON.OS=win? -f win32/Makefile.gcc :> -j<PEON.CPUS.COUNT>'
+      makeall: '!make <PEON.OS=win? -f win32/Makefile.gcc : -j{PEON.CPUS.COUNT}>'
       maketest: ''
       makeinstall: |-
         !make BINARY_PATH=<PEON.PREFIXDIR>/bin
