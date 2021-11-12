@@ -26,7 +26,7 @@ data:
     ref: ''
     out: ''
     externals: false
-    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/samba/ccache-msys2-mingw/cache');"
+    prepare: 'cp(''.'', ''<PEON.WPKG.STAG>/usr/share/samba/ccache-msys2-mingw/cache'');'
   type: src
   configure: ''
   rules:
