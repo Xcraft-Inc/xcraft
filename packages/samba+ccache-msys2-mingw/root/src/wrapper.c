@@ -20,11 +20,6 @@ int main(int argc, const char *const argv[]) {
   PROCESS_INFORMATION structProcInfo;
   BOOL bSuccess;
 
-  if (argc <= 1) {
-    fprintf(stderr, "Missing arguments for the wrapper\n");
-    return 1;
-  }
-
   GetStartupInfo(&structStartupInfo);
 
   TCHAR cmdLine[1 << 15] = {0};
@@ -38,7 +33,7 @@ int main(int argc, const char *const argv[]) {
       endsWith(argv[0], "\\gcc") || endsWith(argv[0], "\\gcc.exe") ||
       endsWith(argv[0], "/cc") || endsWith(argv[0], "/cc.exe") ||
       endsWith(argv[0], "\\cc") || endsWith(argv[0], "\\cc.exe")) {
-    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-gcc.exe");
+    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-gcc");
   }
 
   if (!strncmp(argv[0], "g++", strlen(argv[0])) ||
@@ -49,11 +44,14 @@ int main(int argc, const char *const argv[]) {
       endsWith(argv[0], "\\g++") || endsWith(argv[0], "\\g++.exe") ||
       endsWith(argv[0], "/c++") || endsWith(argv[0], "/c++.exe") ||
       endsWith(argv[0], "\\c++") || endsWith(argv[0], "\\c++.exe")) {
-    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-g++.exe");
+    snprintf(compiler, _countof(compiler), "x86_64-w64-mingw32-g++");
   }
 
-  snprintf(cmdLine, _countof(cmdLine), "ccache.exe %s %s", compiler,
-           strstr(GetCommandLine(), argv[1]));
+  if (argc <= 1)
+    snprintf(cmdLine, _countof(cmdLine), "ccache %s", compiler);
+  else
+    snprintf(cmdLine, _countof(cmdLine), "ccache %s %s", compiler,
+             strstr(GetCommandLine(), argv[1]));
 
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
                            &structProcInfo);
