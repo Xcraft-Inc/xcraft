@@ -1,0 +1,15 @@
+--- a/deps/v8/src/base/platform/time.cc	2021-11-12 16:45:40.044813100 +0100
++++ b/deps/v8/src/base/platform/time.cc	2021-11-12 16:55:19.471703200 +0100
+@@ -695,12 +695,6 @@
+     ::Sleep(10);
+ }
+ 
+-#ifdef __MINGW64_VERSION_MAJOR
+-extern "C" {
+-	extern unsigned __int64 __rdtsc(void);
+-}
+-#endif
+-
+ double ThreadTicks::TSCTicksPerSecond() {
+   DCHECK(IsSupported());
+ 
