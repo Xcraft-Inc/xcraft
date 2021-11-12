@@ -53,14 +53,14 @@ data:
       && ../Python-{THIS.$VERSION}/configure --prefix={PEON.PREFIXDIR}
     >
   rules:
-    type: make
+    type: script
     location: data/Python-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-C ../build -j<PEON.CPUS.COUNT>'
+      makeall: '!cd ../build && make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '-C ../build install'
+      makeinstall: '!cd ../build && make install'
     test: none
     env:
       CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include'
@@ -68,7 +68,6 @@ data:
       win/CFLAGS: <PEON.ENV.CFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
       win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -fwrapv -D__USE_MINGW_ANSI_STDIO=1
       win/BUILD_PYTHONHOME: <PEON.SRCDIR>
-      win/PYTHONPATH: <PEON.SRCDIR/Lib>
   deploy: |-
     rm('<PEON.PREFIXDIR>/bin/2to3');
     <PEON.OS=win?
