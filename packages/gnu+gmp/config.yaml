@@ -29,6 +29,8 @@ dependency:
 data:
   get:
     uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.xz'
+    mirrors:
+      - 'https://ftp.gnu.org/gnu/gmp/gmp-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
@@ -55,6 +57,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
