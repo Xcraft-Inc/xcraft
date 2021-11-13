@@ -79,8 +79,9 @@ data:
   configure: |-
     !{bash}
     <PEON.OS=win?
-      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}"
-        && cd "{PEON.ROOTTEMP}/rdb"
+      mkdir -p "{PEON.ROOTDRIVE}/xcraft/.tmp"
+        && cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTDRIVE}/xcraft/.tmp"
+        && cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb"
     :
       cd <THIS.DATA.RULES.LOCATION>
     >
@@ -104,18 +105,18 @@ data:
       makeall: |-
         !{bash}
         <PEON.OS=win?
-          cd "{PEON.ROOTTEMP}/rdb" &&
+          cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb" &&
         :>
           make -j{PEON.CPUS.COUNT}
       maketest: ''
       makeinstall: |-
         !{bash}
         <PEON.OS=win?
-          cd "{PEON.ROOTTEMP}/rdb" &&
+          cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb" &&
         :>
           make install ;
         <PEON.OS=win?
-          rm -rf "{PEON.ROOTTEMP}/rdb"
+          rm -rf "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb"
         :>
     test: none
     env:
