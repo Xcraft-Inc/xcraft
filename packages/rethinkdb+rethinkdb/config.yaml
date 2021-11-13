@@ -73,32 +73,50 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: 'mv(''data/rethinkdb-<THIS.$VERSION>'', ''data/rdb'');'
+    prepare: "mv('data/rethinkdb-<THIS.$VERSION>', 'data/rdb');"
     $hash: fd77bd1a5ba5db9597264765da25ce8dd2a215fc1fe407a4bf1be8e71d1e1aa5.tar.gz
   type: src
   configure: |-
     !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
-      && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
-         LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
-         ./configure --prefix=<PEON.PREFIXDIR>
-                     --static=all
-                     --dynamic=none
-                     --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
-                     --ccache
     <PEON.OS=win?
-      && mkdir -p build/external/v8_3.30.33.16-patched/lib
-      && touch build/external/v8_3.30.33.16-patched/lib/libicudata.a
+      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}"
+        && cd "{PEON.ROOTTEMP}/rdb"
+    :
+      cd <THIS.DATA.RULES.LOCATION>
+    >
+        && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
+           LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
+           ./configure --prefix=<PEON.PREFIXDIR>
+                       --static=all
+                       --dynamic=none
+                       --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
+                       --ccache
+    <PEON.OS=win?
+        && mkdir -p build/external/v8_3.30.33.16-patched/lib
+        && touch build/external/v8_3.30.33.16-patched/lib/libicudata.a
     :>
   rules:
-    type: make
+    type: script
     location: data/rdb
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: |-
+        !{bash}
+        <PEON.OS=win?
+          cd "{PEON.ROOTTEMP}/rdb" &&
+        :>
+          make -j{PEON.CPUS.COUNT}
       maketest: ''
-      makeinstall: install
+      makeinstall: |-
+        !{bash}
+        <PEON.OS=win?
+          cd "{PEON.ROOTTEMP}/rdb" &&
+        :>
+          make install ;
+        <PEON.OS=win?
+          rm -rf "{PEON.ROOTTEMP}/rdb"
+        :>
     test: none
     env:
       PATH: '<PEON.ENV.NODE8><PEON.OS=win?;::><PEON.ENV.PATH>'
