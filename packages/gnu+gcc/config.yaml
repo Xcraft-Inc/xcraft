@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 10.3.0
-$version: 10.3.0
+version: 11.2.0-1
+$version: 11.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -54,10 +54,10 @@ dependency:
       - version: '>= 4.3.2'
         architecture: []
     gnu+mpfr:
-      - version: '>= 2.4.2'
+      - version: '>= 3.1.0'
         architecture: []
     gnu+mpc:
-      - version: '>= 0.8.1'
+      - version: '>= 1.0.1'
         architecture: []
     inria+isl:
       - version: '>= 0.15'
@@ -69,7 +69,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 8fcf994811ad4e5c7ac908e8cf62af2c1982319e5551f62ae72016064dacdf16.tar.gz
+    $hash: f0837f1bf8244a5cc23bd96ff6366712a791cfae01df8e25b137698aca26efc1.tar.gz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"
