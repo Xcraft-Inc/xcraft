@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-50-linux
-version: 5.0.201
-$version: 5.0.201
+version: 5.0.403
+$version: 5.0.403
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,11 +21,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/73a9cb2a-1acd-4d20-b864-d12797ca3d40/075dbe1dc3bba4aa85ca420167b861b6/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/b77183fa-c045-4058-82c5-d37742ed5f2d/ddaccef3e448a6df348cae4d1d271339/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 9ff77087831e8ca32719566ec9ef537e136cfc02c5ff565e53f5509cc6e7b341.tar.gz
+    $hash: 62f2634d249f8cf62b1855e12905fd36def453c2af907c5e38fba00a20059d50.tar.gz
   type: bin
   configure: |-
     yield exec(
@@ -40,6 +41,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}
