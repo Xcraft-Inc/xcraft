@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+binutils
-version: '2.32'
-$version: '2.32'
+version: '2.37'
+$version: '2.37'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -38,11 +38,12 @@ dependency:
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 9b0d97b3d30df184d302bced12f976aa1e5fbf4b0be696cdebc6cca30411a46e.tar.gz
+    $hash: c44968b97cd86499efbc4b4ab7d98471f673e5414c554ef54afa930062dbbfcb.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
@@ -61,6 +62,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []

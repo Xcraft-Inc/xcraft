@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gnutls
-version: 3.6.9-2
-$version: 3.6.9
+version: 3.7.2
+$version: 3.7.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -44,12 +44,13 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-<THIS.$VERSION>.tar.xz'
+    uri: 'ftp://ftp.gnutls.org/gcrypt/gnutls/v3.7/gnutls-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 4331fca55817ecdd74450b908a6c29b4f05bb24dd13144c6284aa34d872e1fcb.tar.xz
+    $hash: 646e6c5a9a185faa4cea796d378a1ba8e1148dbb197ca6605f95986a25af2752.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> &&
@@ -74,6 +75,7 @@ data:
       maketest: ''
       makeinstall: '!make install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

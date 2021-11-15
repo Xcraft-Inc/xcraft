@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+nettle
-version: 3.5.1
-$version: 3.5.1
+version: 3.7.3
+$version: 3.7.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -24,11 +24,12 @@ dependency:
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/nettle/nettle-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 75cca1998761b02e16f2db56da52992aef622bf55a3b45ec538bc2eedadc9419.tar.gz
+    $hash: 661f5eb03f048a3b924c3a8ad2515d4068e40f67e774e8a26827658007e3bcf0.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
@@ -48,6 +49,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
