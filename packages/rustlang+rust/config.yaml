@@ -19,7 +19,13 @@ dependency:
         architecture: []
     vanrossum+python3:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
 data:
   get:
     uri: 'https://static.rust-lang.org/dist/rustc-<THIS.$VERSION>-src.tar.gz'
