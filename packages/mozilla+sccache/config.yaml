@@ -1,0 +1,53 @@
+subpackage:
+  - runtime*
+name: mozilla+sccache
+version: 0.2.15-5
+$version: 0.2.15
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: sccache is ccache with cloud storage
+  long: 'sccache is a ccache-like compiler caching tool. It is used as a compiler wrapper and avoids compilation when possible, storing cached results either on local disk or in one of several cloud storage backends.'
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    rustlang+rust:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/mozilla/sccache/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 7dbe71012f9b0b57d8475de6b36a9a3b4802e44a135e886f32c5ad1b0eb506e0.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/sccache-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !cargo build --release
+                     --no-default-features
+      maketest: ''
+      makeinstall: 'cp(''target/release/sccache'', ''<PEON.PREFIXDIR>/bin/sccache'')'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
