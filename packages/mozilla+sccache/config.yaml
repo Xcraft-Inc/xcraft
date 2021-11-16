@@ -47,7 +47,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      SCCACHE_DIR: <OS.ROOTDIR>/var/sccache
   embedded: true
   runtime:
     configure: ''
