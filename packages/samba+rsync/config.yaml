@@ -38,6 +38,7 @@ data:
                      --disable-xxhash
                      --disable-acl-support
                      --disable-xattr-support
+                     --disable-openssl
                      --with-included-zlib
                      --with-included-popt
                      --disable-maintainer-mode
