@@ -1,0 +1,62 @@
+subpackage:
+  - runtime*
+name: rustlang+rust
+version: 1.56.1-15
+$version: 1.56.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Language empowering everyone to build reliable and efficient software
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://static.rust-lang.org/dist/rustc-<THIS.$VERSION>-src.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: c3898dfaadaa193dc88ddbc5345946a163211b58621df1cfff70186b4fc79511.tar.gz
+  type: src
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && cp config.toml.example config.toml
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-full-bootstrap
+                     --enable-llvm-static-stdcpp
+                     --enable-ccache
+                     --disable-ninja
+  rules:
+    type: script
+    location: data/rustc-<THIS.$VERSION>-src
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!python3 x.py build'
+      maketest: ''
+      makeinstall: '!python3 x.py install'
+    test: none
+    env:
+      linux/CC: gcc
+      linux/CXX: g++
+      linux/AR: <PEON.ROOTDIR>/usr/bin/ar
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
