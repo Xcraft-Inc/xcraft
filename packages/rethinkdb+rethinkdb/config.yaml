@@ -73,18 +73,12 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: "mv('data/rethinkdb-<THIS.$VERSION>', 'data/rdb');"
+    prepare: ''
     $hash: fd77bd1a5ba5db9597264765da25ce8dd2a215fc1fe407a4bf1be8e71d1e1aa5.tar.gz
   type: src
   configure: |-
     !{bash}
-    <PEON.OS=win?
-      mkdir -p "{PEON.ROOTDRIVE}/xcraft/.tmp"
-        && cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTDRIVE}/xcraft/.tmp"
-        && cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb"
-    :
       cd <THIS.DATA.RULES.LOCATION>
-    >
         && CXXFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --cflags)"
            LDFLAGS="$(pkg-config jemalloc zlib protobuf openssl libcurl --static --libs)"
            ./configure --prefix=<PEON.PREFIXDIR>
@@ -97,27 +91,14 @@ data:
         && touch build/external/v8_3.30.33.16-patched/lib/libicudata.a
     :>
   rules:
-    type: script
-    location: data/rdb
+    type: make
+    location: data/rethinkdb-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: |-
-        !{bash}
-        <PEON.OS=win?
-          cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb" &&
-        :>
-          make -j{PEON.CPUS.COUNT}
+      makeall: '-j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: |-
-        !{bash}
-        <PEON.OS=win?
-          cd "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb" &&
-        :>
-          make install ;
-        <PEON.OS=win?
-          rm -rf "{PEON.ROOTDRIVE}/xcraft/.tmp/rdb"
-        :>
+      makeinstall: install
     test: none
     env:
       PATH: '<PEON.ENV.NODE8><PEON.OS=win?;::><PEON.ENV.PATH>'
