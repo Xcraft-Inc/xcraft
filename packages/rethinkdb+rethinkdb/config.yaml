@@ -73,7 +73,9 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: "mv('data/rethinkdb-<THIS.$VERSION>', 'data/rdb');"
+    prepare: |-
+      mv('data/rethinkdb-<THIS.$VERSION>', 'src');
+      rm('data');
     $hash: fd77bd1a5ba5db9597264765da25ce8dd2a215fc1fe407a4bf1be8e71d1e1aa5.tar.gz
   type: src
   configure: |-
@@ -92,7 +94,7 @@ data:
     :>
   rules:
     type: make
-    location: data/rdb
+    location: src
     args:
       postinst: ''
       prerm: ''
