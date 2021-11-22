@@ -72,6 +72,7 @@ data:
       win/CC: x86_64-w64-mingw32-gcc
       win/CXX: x86_64-w64-mingw32-g++
       win/MSYS2_ARG_CONV_EXCL: '--prefix;--sysconfdir;--localstatedir'
+      win/AR: ar
   deploy: ''
   env:
     path: []
