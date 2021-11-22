@@ -33,35 +33,45 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: ''
+    prepare: |-
+      mv('data/rustc-<THIS.$VERSION>-src', '<THIS.DATA.RULES.LOCATION>');
+      rm('data');
     $hash: c3898dfaadaa193dc88ddbc5345946a163211b58621df1cfff70186b4fc79511.tar.gz
   type: src
   configure: |-
     !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
-      && cp config.toml.example config.toml
-      && ./configure --prefix=<PEON.PREFIXDIR>
-                     --sysconfdir=etc
-                     --enable-full-bootstrap
-                     --enable-llvm-static-stdcpp
-                     --enable-ccache
-                     --disable-ninja
+      cd <THIS.DATA.RULES.LOCATION>
+        && ./configure --prefix=<PEON.PREFIXDIR>
+                       --sysconfdir=etc
+    <PEON.OS=win_?
+                       --build={PEON.OS.ARCH2}-pc-windows-gnu
+                       --host={PEON.OS.ARCH2}-pc-windows-gnu
+                       --target={PEON.OS.ARCH2}-pc-windows-gnu
+    :
+                       --enable-full-bootstrap
+    >
+                       --enable-llvm-static-stdcpp
+                       --enable-ccache
+                       --disable-ninja
+                       --release-channel=stable
+                       --disable-codegen-tests
   rules:
     type: script
-    location: data/rustc-<THIS.$VERSION>-src
+    location: src
     args:
       postinst: ''
       prerm: ''
       makeall: '!python3 x.py build'
       maketest: ''
-      makeinstall: |-
-        !python3 x.py install
-          && python3 x.py install cargo
+      makeinstall: '!python3 x.py install && python3 x.py install cargo'
     test: none
     env:
       linux/CC: gcc
       linux/CXX: g++
       linux/AR: <PEON.ROOTDIR>/usr/bin/ar
+      win/CC: x86_64-w64-mingw32-gcc
+      win/CXX: x86_64-w64-mingw32-g++
+      win/MSYS2_ARG_CONV_EXCL: '--prefix;--sysconfdir;--localstatedir'
   deploy: ''
   env:
     path: []
