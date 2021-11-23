@@ -54,8 +54,8 @@ data:
       makeinstall: install
     test: none
     env:
-      darwin/LIBS: '-lz'
-      darwin/CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include/openjpeg-1.5'
+      LIBS: '-lz'
+      CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include/openjpeg-1.5'
   deploy: ''
   env:
     path: []
