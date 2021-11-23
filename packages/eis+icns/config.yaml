@@ -29,10 +29,12 @@ dependency:
 data:
   get:
     uri: 'https://download.sourceforge.net/icns/libicns-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: false
     prepare: ''
+    $hash: 335f10782fc79855cf02beac4926c4bf9f800a742445afbbf7729dab384555c2.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
@@ -51,6 +53,9 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      darwin/LIBS: '-lz'
+      darwin/CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include/openjpeg-1.5'
   deploy: ''
   env:
     path: []
