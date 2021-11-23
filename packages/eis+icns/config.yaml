@@ -54,7 +54,7 @@ data:
       makeinstall: install
     test: none
     env:
-      LIBS: '-lz'
+      LIBS: '-lz <PEON.OS=linux?-lm:>'
       CPPFLAGS: '-I<PEON.ROOTDIR>/usr/include/openjpeg-1.5'
   deploy: ''
   env:
