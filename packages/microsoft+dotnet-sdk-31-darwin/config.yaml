@@ -1,0 +1,45 @@
+name: microsoft+dotnet-sdk-31-darwin
+version: 3.1.415
+$version: 3.1.415
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+description:
+  brief: .NET Core SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/7d663efa-2180-4562-8735-be11d8ba465d/605910e63a687d8c9e72ba108ffb1da4/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    yield exec(
+      'writefile',
+      '#!/bin/sh\ndotnet msbuild "$@"\n',
+      'data/sdk/<THIS.$VERSION>/msbuild'
+    );
+    yield exec('chmod', 'a+x', 'data/sdk/<THIS.$VERSION>/msbuild');
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

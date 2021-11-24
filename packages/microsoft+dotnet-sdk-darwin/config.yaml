@@ -1,0 +1,62 @@
+name: microsoft+dotnet-sdk-darwin
+version: 10.0.0
+$version: 10.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+description:
+  brief: .NET Core SDK 3.1 and 5.0
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    bagder+curl:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+    microsoft+dotnet-sdk-31-darwin:
+      - version: ''
+        architecture:
+          - darwin-amd64
+    microsoft+dotnet-sdk-50-darwin:
+      - version: ''
+        architecture:
+          - darwin-amd64
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    mkdir('root/opt/dotnet-sdk/bin');
+    yield exec(
+      'writefile',
+      '#!/bin/sh\nexport DYLD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+      'root/opt/dotnet-sdk/bin/dotnet'
+    );
+    yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-31-darwin/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-50-darwin/cache/data', 'root/opt/dotnet-sdk');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - opt/dotnet-sdk/bin
+    other:
+      DOTNET_ROOT: <OS.ROOTDIR>/opt/dotnet-sdk
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  embedded: true
