@@ -59,6 +59,7 @@
   "ls": "^darwin|freebsd|linux|sunos$",
   "lsattr": "^darwin|freebsd|linux|sunos$",
   "make": "^darwin|freebsd|linux|sunos$",
+  "mig": "^darwin$",
   "mkdir": "^darwin|freebsd|linux|sunos$",
   "mktemp": "^darwin|freebsd|linux|sunos$",
   "mount": "^linux$",
