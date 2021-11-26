@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: nixos+patchelf
-version: '0.11'
-$version: '0.11'
+version: 0.13-1
+$version: '0.13'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,17 +19,18 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://nixos.org/releases/patchelf/patchelf-<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://github.com/NixOS/patchelf/releases/download/<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 1d3221d87a2073c7d2fa0c5ee6aa53e2a808f7628832d3874468c1c8641cba9a.tar.bz2
+    $hash: 4c7ed4bcfc1a114d6286e4a0d3c1a90db147a4c3adda1814ee0eee0f9ee917ed.tar.bz2
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/patchelf-<THIS.$VERSION>.20200609.d6b2a72/
+    location: data/patchelf-<THIS.$VERSION>.20210805.a949ff2
     args:
       postinst: ''
       prerm: ''
@@ -37,6 +38,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
