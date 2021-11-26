@@ -16,6 +16,9 @@ description:
     also known as the IconFamily resource type.
 dependency:
   install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
     libpng+libpng:
       - version: ''
         architecture: []
