@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: google+go
-version: 1.17.1
-$version: 1.17.1
+version: 1.17.3
+$version: 1.17.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,11 +28,12 @@ dependency:
 data:
   get:
     uri: 'https://dl.google.com/go/go<THIS.$VERSION>.src.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 49dc08339770acd5613312db8c141eaf61779995577b89d93b541ef83067e5b1.tar.gz
+    $hash: 705c64251e5b25d5d55ede1039c6aa22bea40a7a931d14c370339853643c3df0.tar.gz
   type: src
   configure: ''
   rules:
@@ -52,6 +53,7 @@ data:
         mkdir('<PEON.INSTALLDIR>/opt');
         cp('../go', '<PEON.INSTALLDIR>/opt/go');
     test: none
+    env: {}
   deploy: ''
   env:
     path:
