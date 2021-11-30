@@ -41,7 +41,7 @@ data:
         !cargo build --release
                      --no-default-features
       maketest: ''
-      makeinstall: 'cp(''target/release/sccache'', ''<PEON.PREFIXDIR>/bin/sccache'')'
+      makeinstall: 'cp(''target/release/sccache<PEON.OS=win?.exe:>'', ''<PEON.PREFIXDIR>/bin/sccache<PEON.OS=win?.exe:>'')'
     test: none
     env: {}
   deploy: ''
@@ -49,6 +49,7 @@ data:
     path: []
     other:
       SCCACHE_DIR: <OS.ROOTDIR>/var/sccache
+      RUSTC_WRAPPER: <OS.ROOTDIR>/usr/bin/sccache
   embedded: true
   runtime:
     configure: ''
