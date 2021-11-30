@@ -43,13 +43,7 @@ data:
       cd <THIS.DATA.RULES.LOCATION>
         && ./configure --prefix=<PEON.PREFIXDIR>
                        --sysconfdir=etc
-    <PEON.OS=win_?
-                       --build={PEON.OS.ARCH2}-pc-windows-gnu
-                       --host={PEON.OS.ARCH2}-pc-windows-gnu
-                       --target={PEON.OS.ARCH2}-pc-windows-gnu
-    :
                        --enable-full-bootstrap
-    >
                        --enable-llvm-static-stdcpp
                        --enable-ccache
                        --disable-ninja
