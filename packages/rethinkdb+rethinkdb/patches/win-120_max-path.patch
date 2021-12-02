@@ -1,0 +1,13 @@
+diff --git a/mk/support/pkg/v8.sh b/mk/support/pkg/v8.sh
+index d1fd90c..4a847ea 100644
+--- a/mk/support/pkg/v8.sh
++++ b/mk/support/pkg/v8.sh
+@@ -48,7 +48,7 @@ elif [[ "$(uname -m)" = s390x ]]; then
+         pkg_remove_tmp_fetch_dir
+     }
+ else
+-    version=3.30.33.16-patched
++    version=3.30.33.16
+ 
+     src_url=http://commondatastorage.googleapis.com/chromium-browser-official/v8-${version/-patched/}.tar.bz2
+     src_url_sha1=e753b6671eecf565d96c1e5a83563535ee2fe24b
