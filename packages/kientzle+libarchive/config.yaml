@@ -1,0 +1,86 @@
+subpackage:
+  - runtime*
+name: kientzle+libarchive
+version: 3.5.2-1
+$version: 3.5.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Leightweight feature complete manager of a debian package
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+    lzmautils+xz:
+      - version: ''
+        architecture: []
+    facebook+zstd:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.libarchive.org/downloads/libarchive-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 5f245bd5176bc5f67428eb0aa497e09979264a153a074d35416521a5b8e86189.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --disable-bsdtar
+                     --disable-bsdcat
+                     --disable-bsdcpio
+                     --with-zlib
+                     --with-bz2lib
+                     --with-lzma
+                     --with-zstd
+                     --without-iconv
+                     --without-lz4
+                     --without-lzo2
+                     --without-cng
+                     --without-mbedtls
+                     --without-nettle
+                     --without-openssl
+                     --without-xml2
+                     --without-expat
+  rules:
+    type: make
+    location: data/libarchive-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
