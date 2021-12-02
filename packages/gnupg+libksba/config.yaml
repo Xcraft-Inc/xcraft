@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: gnupg+gpgme
-version: 1.16.0-3
-$version: 1.16.0
+name: gnupg+libksba
+version: 1.6.0-1
+$version: 1.6.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,45 +10,36 @@ maintainer:
 architecture:
   - source
 description:
-  brief: GnuPG Made Easy (GPGME)
+  brief: A library to make the tasks of working with X.509 certificates
   long: ''
 dependency:
   install:
-    gnupg+libassuan:
-      - version: ''
-        architecture: []
     gnupg+libgpg-error:
       - version: ''
         architecture: []
   build:
-    gnupg+gnupg:
-      - version: ''
-        architecture: []
     xcraft+base-build:
       - version: ''
         architecture: []
 data:
   get:
-    uri: 'https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://www.gnupg.org/ftp/gcrypt/libksba/libksba-<THIS.$VERSION>.tar.bz2'
     mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 6c8cc4aedb10d5d4c905894ba1d850544619ee765606ac43df7405865de29ed0.tar.bz2
+    $hash: dad683e6f2d915d880aa4bed5cea9a115690b8935b78a1bbe01669189307a48b.tar.bz2
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-shared
                      --enable-static
-                     --disable-languages
-                     --disable-gpgconf-test
-                     --disable-gpg-test
-                     --disable-gpgsm-test
+                     --disable-doc
   rules:
     type: make
-    location: data/gpgme-<THIS.$VERSION>
+    location: data/libksba-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

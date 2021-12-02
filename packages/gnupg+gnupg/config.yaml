@@ -1,0 +1,89 @@
+subpackage:
+  - runtime*
+name: gnupg+gnupg
+version: 2.3.3-7
+$version: 2.3.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Universal Crypto Engine
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    seward+bzip2:
+      - version: ''
+        architecture: []
+    gnu+gnutls:
+      - version: ''
+        architecture: []
+    gnupg+libgpg-error:
+      - version: ''
+        architecture: []
+    gnupg+libassuan:
+      - version: ''
+        architecture: []
+    gnupg+libgcrypt:
+      - version: ''
+        architecture: []
+    gnupg+libksba:
+      - version: ''
+        architecture: []
+    gnupg+npth:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 5789b86da6a1a6752efb38598f16a77af51170a8494039c3842b085032e8e937.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-nls
+                     --disable-doc
+                     --disable-scdaemon
+                     --disable-dirmngr
+                     --disable-keyboxd
+                     --disable-tpm2d
+                     --disable-gpgtar
+                     --disable-wks-tools
+                     --disable-sqlite
+                     --disable-ntbtls
+                     --disable-ldap
+                     --disable-tests
+  rules:
+    type: make
+    location: data/gnupg-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!echo "rootdir=<PEON.PREFIXDIR>" > "<PEON.PREFIXDIR>/bin/gpgconf.ctl"'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

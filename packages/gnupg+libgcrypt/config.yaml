@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: gnupg+gpgme
-version: 1.16.0-3
-$version: 1.16.0
+name: gnupg+libgcrypt
+version: 1.9.4
+$version: 1.9.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,45 +10,36 @@ maintainer:
 architecture:
   - source
 description:
-  brief: GnuPG Made Easy (GPGME)
+  brief: A general purpose cryptographic library
   long: ''
 dependency:
   install:
-    gnupg+libassuan:
-      - version: ''
-        architecture: []
     gnupg+libgpg-error:
       - version: ''
         architecture: []
   build:
-    gnupg+gnupg:
-      - version: ''
-        architecture: []
     xcraft+base-build:
       - version: ''
         architecture: []
 data:
   get:
-    uri: 'https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-<THIS.$VERSION>.tar.bz2'
     mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 6c8cc4aedb10d5d4c905894ba1d850544619ee765606ac43df7405865de29ed0.tar.bz2
+    $hash: ea849c83a72454e3ed4267697e8ca03390aee972ab421e7df69dfe42b65caaf7.tar.bz2
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-shared
                      --enable-static
-                     --disable-languages
-                     --disable-gpgconf-test
-                     --disable-gpg-test
-                     --disable-gpgsm-test
+                     --disable-doc
   rules:
     type: make
-    location: data/gpgme-<THIS.$VERSION>
+    location: data/libgcrypt-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
