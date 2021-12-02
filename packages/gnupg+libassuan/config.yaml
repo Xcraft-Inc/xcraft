@@ -1,0 +1,57 @@
+subpackage:
+  - runtime*
+name: gnupg+libassuan
+version: 2.5.5
+$version: 2.5.5
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Small library implementing the so-called Assuan protocol
+  long: ''
+dependency:
+  install:
+    gnupg+libgpg-error:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.gnupg.org/ftp/gcrypt/libassuan/libassuan-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 8e8c2fcc982f9ca67dcbb1d95e2dc746b1739a4668bc20b3a3c5be632edb34e4.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-shared
+                     --enable-static
+                     --disable-doc
+  rules:
+    type: make
+    location: data/libassuan-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

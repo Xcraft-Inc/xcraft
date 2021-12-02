@@ -1,0 +1,63 @@
+subpackage:
+  - runtime*
+name: gnupg+gpgme
+version: 1.16.0-3
+$version: 1.16.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GnuPG Made Easy (GPGME)
+  long: ''
+dependency:
+  install:
+    gnupg+libassuan:
+      - version: ''
+        architecture: []
+    gnupg+libgpg-error:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 6c8cc4aedb10d5d4c905894ba1d850544619ee765606ac43df7405865de29ed0.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-shared
+                     --enable-static
+                     --disable-languages
+                     --disable-gpgconf-test
+                     --disable-gpg-test
+                     --disable-gpgsm-test
+  rules:
+    type: make
+    location: data/gpgme-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

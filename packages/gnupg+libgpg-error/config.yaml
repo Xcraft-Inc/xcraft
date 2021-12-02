@@ -1,0 +1,52 @@
+subpackage:
+  - runtime*
+name: gnupg+libgpg-error
+version: 1.43-1
+$version: '1.43'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Small library that originally defined common error
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: a9ab83ca7acc442a5bd846a75b920285ff79bdb4e3d34aa382be88ed2c3aebaf.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-shared
+                     --enable-static
+  rules:
+    type: make
+    location: data/libgpg-error-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

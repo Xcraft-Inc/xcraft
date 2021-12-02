@@ -1,0 +1,71 @@
+subpackage:
+  - runtime*
+name: debian+reprepro
+version: 5.3.0-7
+$version: 5.3.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Leightweight feature complete manager of a debian package
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    berkleydb+libdb:
+      - version: ''
+        architecture: []
+    gnupg+gpgme:
+      - version: ''
+        architecture: []
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://salsa.debian.org/brlink/reprepro/-/archive/reprepro-upstream-<THIS.$VERSION>/reprepro-reprepro-upstream-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 055a7f8b670680df951a64d79f25fb5b3eb850fa7f3235b016c597178c51e1c7.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && export CFLAGS="$CFLAGGS $(pkg-config gpgme --static --cflags)"
+      && export LDFLAGS="$LDFLAGS $(pkg-config gpgme --static --libs-only-L)"
+      && export LIBS="-lpthread $(pkg-config gpgme --static --libs-only-l)"
+      && ./configure --prefix=<PEON.PREFIXDIR>
+  rules:
+    type: make
+    location: data/reprepro-reprepro-upstream-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

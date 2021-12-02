@@ -1,0 +1,52 @@
+subpackage:
+  - runtime*
+name: berkleydb+libdb
+version: 5.3.28-2
+$version: 5.3.28
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: This is Berkeley DB 11g Release 2 from Oracle
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/berkeleydb/libdb/releases/download/v<THIS.$VERSION>/db-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: e0a992d740709892e81f9d93f06daf305cf73fb81b545afe72478043172c3628.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ../dist/configure --prefix=<PEON.PREFIXDIR>
+                           --disable-shared
+                           --enable-static
+  rules:
+    type: make
+    location: data/db-<THIS.$VERSION>/build_unix
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
