@@ -31,6 +31,12 @@ dependency:
     seward+bzip2:
       - version: ''
         architecture: []
+    lzmautils+xz:
+      - version: ''
+        architecture: []
+    kientzle+libarchive:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -51,6 +57,10 @@ data:
       && export LDFLAGS="$LDFLAGS $(pkg-config gpgme --static --libs-only-L)"
       && export LIBS="-lpthread $(pkg-config gpgme --static --libs-only-l)"
       && ./configure --prefix=<PEON.PREFIXDIR>
+                     --with-libgpgme=yes
+                     --with-libbz2=yes
+                     --with-liblzma=yes
+                     --with-libarchive=yes
   rules:
     type: make
     location: data/reprepro-reprepro-upstream-<THIS.$VERSION>
