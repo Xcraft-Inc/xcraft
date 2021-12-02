@@ -89,8 +89,8 @@ data:
                        --lib-path=<PEON.PROD.ROOTDIR>/usr/lib
                        --ccache
     <PEON.OS=win?
-        && mkdir -p build/external/v8_3.30.33.16-patched/lib
-        && touch build/external/v8_3.30.33.16-patched/lib/libicudata.a
+        && mkdir -p build/external/v8_3.30.33.16/lib
+        && touch build/external/v8_3.30.33.16/lib/libicudata.a
     :>
   rules:
     type: make
