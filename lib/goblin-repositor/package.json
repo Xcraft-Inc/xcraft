@@ -14,7 +14,11 @@
   },
   "dependencies": {
     "fs-extra": "^9.1.0",
-    "xcraft-core-goblin": "^5.0.9"
+    "gigawatts": "^4.0.5",
+    "xcraft-contrib-pacman": "^0.4.1",
+    "xcraft-core-env": "^3.0.4",
+    "xcraft-core-goblin": "^5.0.9",
+    "xcraft-core-platform": "^1.1.0"
   },
   "devDependencies": {
     "prettier": "2.0.4",
