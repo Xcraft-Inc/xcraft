@@ -83,7 +83,8 @@ data:
   deploy: '!echo "rootdir=<PEON.PREFIXDIR>" > "<PEON.PREFIXDIR>/bin/gpgconf.ctl"'
   env:
     path: []
-    other: {}
+    other:
+      GNUPGHOME: <OS.PROD.ROOTDIR>/var/gnupg
   embedded: true
   runtime:
     configure: ''
