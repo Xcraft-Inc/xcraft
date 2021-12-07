@@ -1,0 +1,35 @@
+name: xcraft+node-gyp
+version: 0.1.0
+$version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Hack Windows SDK 8.1 detection with node-gyp
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'self:///root'
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: copy
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
