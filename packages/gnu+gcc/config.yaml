@@ -65,11 +65,10 @@ dependency:
 data:
   get:
     uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.gz'
-    mirrors: []
     ref: ''
     out: ''
     externals: true
-    prepare: rm("<THIS.DATA.RULES.LOCATION>/../gcc/testsuite/go.test/test/fixedbugs/issue27836.dir")
+    prepare: ''
     $hash: f0837f1bf8244a5cc23bd96ff6366712a791cfae01df8e25b137698aca26efc1.tar.gz
   type: src
   configure: |-
