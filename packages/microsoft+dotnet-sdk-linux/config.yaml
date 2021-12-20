@@ -46,7 +46,7 @@ data:
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-31-linux/cache/data', 'root/opt/dotnet-sdk');
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-50-linux/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-linux/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
