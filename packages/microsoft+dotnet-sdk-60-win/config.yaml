@@ -6,6 +6,7 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
+  - mswindows-i386
   - mswindows-amd64
 description:
   brief: .NET Core SDK
