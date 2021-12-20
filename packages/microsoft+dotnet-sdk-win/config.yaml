@@ -22,7 +22,7 @@ dependency:
         architecture:
           - mswindows-i386
           - mswindows-amd64
-    microsoft+dotnet-sdk-50-win:
+    microsoft+dotnet-sdk-60-win:
       - version: ''
         architecture:
           - mswindows-i386

@@ -26,7 +26,7 @@ dependency:
       - version: ''
         architecture:
           - darwin-amd64
-    microsoft+dotnet-sdk-50-darwin:
+    microsoft+dotnet-sdk-60-darwin:
       - version: ''
         architecture:
           - darwin-amd64

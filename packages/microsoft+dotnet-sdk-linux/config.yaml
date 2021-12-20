@@ -26,7 +26,7 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
-    microsoft+dotnet-sdk-50-linux:
+    microsoft+dotnet-sdk-60-linux:
       - version: ''
         architecture:
           - linux-amd64
