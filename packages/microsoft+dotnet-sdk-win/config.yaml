@@ -9,7 +9,7 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: .NET Core SDK 3.1 and 6.0
+  brief: .NET Core SDK 6.0
   long: ''
 dependency:
   install:
@@ -17,11 +17,6 @@ dependency:
       - version: ''
         architecture: []
   make:
-    microsoft+dotnet-sdk-31-win:
-      - version: ''
-        architecture:
-          - mswindows-i386
-          - mswindows-amd64
     microsoft+dotnet-sdk-60-win:
       - version: ''
         architecture:
@@ -35,7 +30,6 @@ data:
     externals: true
   type: bin
   configure: |-
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-31-win/cache/data', 'root/opt/dotnet-sdk');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-win/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
