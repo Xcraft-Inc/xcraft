@@ -9,7 +9,7 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: .NET Core SDK 3.1 and 5.0
+  brief: .NET Core SDK 3.1 and 6.0
   long: ''
 dependency:
   install:
