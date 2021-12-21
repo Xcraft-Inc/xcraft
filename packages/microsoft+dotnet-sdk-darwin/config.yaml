@@ -41,7 +41,7 @@ data:
     mkdir('root/opt/dotnet-sdk/bin');
     yield exec(
       'writefile',
-      '#!/bin/sh\nexport DYLD_LIBRARY_PATH=${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+      '#!/bin/sh\nexport DYLD_LIBRARY_PATH=/usr/lib:${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
       'root/opt/dotnet-sdk/bin/dotnet'
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
