@@ -26,6 +26,9 @@ dependency:
     adler+zlib-dev:
       - version: ''
         architecture: []
+    seward+bzip2:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
