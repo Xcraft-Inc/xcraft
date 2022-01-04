@@ -25,6 +25,12 @@ dependency:
     gnupg+gpgme:
       - version: ''
         architecture: []
+    gnupg+libassuan:
+      - version: ''
+        architecture: []
+    gnupg+libgpg-error:
+      - version: ''
+        architecture: []
     adler+zlib-dev:
       - version: ''
         architecture: []
