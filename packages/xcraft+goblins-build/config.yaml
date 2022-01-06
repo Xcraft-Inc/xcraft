@@ -1,0 +1,86 @@
+name: xcraft+goblins-build
+version: 0.1.0
+$version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+  - linux-aarch64
+  - darwin-i386
+  - darwin-amd64
+  - darwin-aarch64
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: Base development packages got Goblins.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+debify:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    eis+icns:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+    graphicsmagick+graphicsmagick:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+    vanrossum+python3:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
+    microsoft+buildtools-2019:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
+    microsoft+windows-sdk-81:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
+    epsitec+signtool:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
+    xcraft+node-gyp:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
