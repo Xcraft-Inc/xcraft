@@ -3,7 +3,7 @@ subpackage:
 name: wimlib+imagex
 version: 1.13.4-4
 $version: 1.13.4
-distribution: matrix/
+distribution: cresus/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch

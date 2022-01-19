@@ -3,7 +3,7 @@ subpackage:
 name: facebook+zstd
 version: 1.5.1
 $version: 1.5.1
-distribution: matrix/
+distribution: cresus/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
