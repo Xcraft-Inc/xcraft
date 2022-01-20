@@ -96,5 +96,6 @@ data:
   env:
     path:
       - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
-    other: {}
+    other:
+      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.29.30037/bin/Host<OS.ARCH=x32?x86:x64>/cl.exe'
   embedded: true
