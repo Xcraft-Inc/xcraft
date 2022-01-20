@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: mozilla+sccache
+name: mozilla+sccache-cl
 version: 0.2.15-5
 $version: 0.2.15
 distribution: toolchain/
@@ -13,50 +13,39 @@ description:
   brief: sccache is ccache with cloud storage
   long: 'sccache is a ccache-like compiler caching tool. It is used as a compiler wrapper and avoids compilation when possible, storing cached results either on local disk or in one of several cloud storage backends.'
 dependency:
-  install:
-    mozilla+sccache-cl:
-      - version: ''
-        architecture:
-          - mswindows-i386
-          - mswindows-amd64
   build:
     xcraft+peon:
       - version: ''
         architecture: []
-    rustlang+rust:
-      - version: ''
-        architecture: []
 data:
   get:
-    uri: 'https://github.com/mozilla/sccache/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
-    mirrors: []
+    uri: 'self:///root'
     ref: ''
     out: ''
     externals: true
-    prepare: ''
-    $hash: 7dbe71012f9b0b57d8475de6b36a9a3b4802e44a135e886f32c5ad1b0eb506e0.tar.gz
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/mozilla/sccache/cache');"
   type: src
   configure: ''
   rules:
     type: script
-    location: data/sccache-<THIS.$VERSION>
+    location: src
     args:
       postinst: ''
       prerm: ''
       makeall: |-
-        !cargo build --release
-                     --no-default-features
+        !{bash}
+        ${CC:-cc} $CFLAGS $LDFLAGS wrapper.c -o wrapper.exe
       maketest: ''
       makeinstall: |-
-        cp('target/release/sccache<PEON.OS=win?.exe:>', '<PEON.PREFIXDIR>/bin/sccache<PEON.OS=win?.exe:>');
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/bin/cl.exe');
     test: none
-    env: {}
+    env:
+      win/MSYSTEM: MINGW64
   deploy: ''
   env:
     path: []
     other:
-      SCCACHE_DIR: <OS.ROOTDIR>/var/sccache
-      RUSTC_WRAPPER: <OS.ROOTDIR>/usr/bin/sccache
+      SCCACHE_COMPILER: <OS.ENV.CL_TOOL_EXE>
   embedded: true
   runtime:
     configure: ''
