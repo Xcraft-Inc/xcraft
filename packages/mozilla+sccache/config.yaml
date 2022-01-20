@@ -38,16 +38,22 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !cargo build --release
-                     --no-default-features
+        !<PEON.OS=win32?{bash}
+          ${CC:-cc} $CFLAGS $LDFLAGS wrapper.c -o wrapper.exe &&
+        :>
+        cargo build --release
+                    --no-default-features
       maketest: ''
-      makeinstall: 'cp(''target/release/sccache<PEON.OS=win?.exe:>'', ''<PEON.PREFIXDIR>/bin/sccache<PEON.OS=win?.exe:>'')'
+      makeinstall: |-
+        cp('wrapper.exe', '<PEON.PREFIXDIR>/bin/cl.exe');
+        cp('target/release/sccache<PEON.OS=win?.exe:>', '<PEON.PREFIXDIR>/bin/sccache<PEON.OS=win?.exe:>');
     test: none
     env: {}
   deploy: ''
   env:
     path: []
     other:
+      SCCACHE_COMPILER: <OS.ENV.CL_TOOL_EXE>
       SCCACHE_DIR: <OS.ROOTDIR>/var/sccache
       RUSTC_WRAPPER: <OS.ROOTDIR>/usr/bin/sccache
   embedded: true
