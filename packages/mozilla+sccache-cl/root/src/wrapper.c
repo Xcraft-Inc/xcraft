@@ -17,7 +17,7 @@ int main(int argc, const char *const argv[]) {
   GetStartupInfo(&structStartupInfo);
 
   TCHAR cmdLine[1 << 15] = {0};
-  const TCHAR compiler[64] = getenv("SCCACHE_COMPILER");
+  const TCHAR *compiler = getenv("SCCACHE_COMPILER");
 
   if (argc <= 1)
     snprintf(cmdLine, _countof(cmdLine), "ccache %s", compiler);
