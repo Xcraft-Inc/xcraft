@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: mozilla+sccache-cl
-version: 0.2.15-5
-$version: 0.2.15
+version: 1.0.0
+$version: 1.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -13,6 +13,12 @@ description:
   brief: wrapper for sccache and cl
   long: ''
 dependency:
+  install:
+    mozilla+sccache:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''

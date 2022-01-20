@@ -13,13 +13,15 @@ description:
   brief: ccache for MSYS2 MINGW
   long: ''
 dependency:
-  build:
+  install:
     xcraft+peon:
       - version: ''
         architecture: []
     samba+ccache:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
 data:
   get:
     uri: 'self:///root'
