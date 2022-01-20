@@ -25,7 +25,7 @@ data:
     ref: ''
     out: ''
     externals: true
-    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/mozilla/sccache/cache');"
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/mozilla-cl/sccache/cache');"
   type: src
   configure: ''
   rules:
