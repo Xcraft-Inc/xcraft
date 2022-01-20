@@ -20,9 +20,9 @@ int main(int argc, const char *const argv[]) {
   const TCHAR *compiler = getenv("SCCACHE_COMPILER");
 
   if (argc <= 1)
-    snprintf(cmdLine, _countof(cmdLine), "ccache %s", compiler);
+    snprintf(cmdLine, _countof(cmdLine), "sccache %s", compiler);
   else
-    snprintf(cmdLine, _countof(cmdLine), "ccache %s %s", compiler,
+    snprintf(cmdLine, _countof(cmdLine), "sccache %s %s", compiler,
              strstr(GetCommandLine(), argv[1]));
 
   bSuccess = CreateProcess(0, cmdLine, 0, 0, TRUE, 0, 0, 0, &structStartupInfo,
