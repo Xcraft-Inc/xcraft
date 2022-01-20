@@ -14,9 +14,6 @@ description:
   long: ''
 dependency:
   install:
-    xcraft+peon:
-      - version: ''
-        architecture: []
     samba+ccache:
       - version: ''
         architecture: []

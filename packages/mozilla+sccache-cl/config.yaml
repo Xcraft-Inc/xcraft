@@ -19,10 +19,6 @@ dependency:
         architecture: []
         subpackage:
           - runtime
-  build:
-    xcraft+peon:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: 'self:///root'
