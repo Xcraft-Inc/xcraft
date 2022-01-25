@@ -42,7 +42,6 @@ data:
                      --enable-shared
                      --disable-readline
                      --disable-editline
-    <PEON.OS=win?    --host=x86_64-w64-mingw32 :>
   rules:
     type: make
     location: data/sqlite-autoconf-3370200
@@ -53,7 +52,8 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-    env: {}
+    env:
+      win/CC: x86_64-w64-mingw32-gcc
   deploy: ''
   env:
     path: []
