@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: torvalds+git
-version: 2.31.1
-$version: 2.31.1
+version: 2.35.0
+$version: 2.35.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -43,7 +43,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: b1c0e95e9861b5d1b9ad3d8deaa2d8c7f02304ffc1b5e8869dd9fb98f9a0d436.tar.gz
+    $hash: 3b315a7e051bf9c439965072e8d424ce1e4ccca23eb6e8588b58a29f257bb75a.tar.gz
   type: src
   configure: ''
   rules:
