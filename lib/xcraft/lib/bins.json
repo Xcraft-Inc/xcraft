@@ -74,6 +74,7 @@
   "pkgbuild": "^darwin$",
   "powershell": "^win32$",
   "printf": "^darwin|freebsd|linux|sunos$",
+  "productsign": "^darwin$",
   "ps": "^darwin|freebsd|linux|sunos$",
   "pwd": "^darwin|freebsd|linux|sunos$",
   "ranlib": "^darwin|freebsd|linux|sunos$",
