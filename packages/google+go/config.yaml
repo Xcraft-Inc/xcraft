@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: google+go
-version: 1.17.3
-$version: 1.17.3
+version: 1.17.6
+$version: 1.17.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -33,7 +33,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 705c64251e5b25d5d55ede1039c6aa22bea40a7a931d14c370339853643c3df0.tar.gz
+    $hash: 4dc1bbf3ff61f0c1ff2b19355e6d88151a70126268a47c761477686ef94748c8.tar.gz
   type: src
   configure: ''
   rules:
@@ -43,17 +43,15 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !<PEON.OS=darwin?
-          export SDKROOT="$MACOSSDK_1013" &&
-        :>
-        cd src &&
+        !cd src &&
         <PEON.OS=win? make.bat : ./make.bash >
       maketest: ''
       makeinstall: |-
         mkdir('<PEON.INSTALLDIR>/opt');
         cp('../go', '<PEON.INSTALLDIR>/opt/go');
     test: none
-    env: {}
+    env:
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
   deploy: ''
   env:
     path:
