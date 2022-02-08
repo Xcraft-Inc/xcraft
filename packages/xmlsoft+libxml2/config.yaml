@@ -45,6 +45,7 @@ data:
                                zlib=no
                                lzma=no
                                python=no
+                               http=no
     :
         && ./configure --prefix={PEON.PREFIXDIR}
                        --without-debug
@@ -56,6 +57,7 @@ data:
                        --without-zlib
                        --without-lzma
                        --without-python
+                       --without-http
     >
   rules:
     type: script
