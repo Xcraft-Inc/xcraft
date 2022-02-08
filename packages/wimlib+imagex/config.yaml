@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: wimlib+imagex
-version: 1.13.4-4
-$version: 1.13.4
+version: 1.13.5
+$version: 1.13.5
 distribution: cresus/
 maintainer:
   name: Mathieu Schroeter
@@ -29,10 +29,12 @@ dependency:
 data:
   get:
     uri: 'https://wimlib.net/downloads/wimlib-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
+    $hash: 32fcc9e9b144b7cb1db4c86e104ca78283cdc225e13fe82b273660586aefe323.tar.gz
   type: src
   configure: |-
     !{bash}
