@@ -3,4 +3,5 @@ data:
     !{bash}
     <PEON.OS=win?
       strip -s {PEON.PREFIXDIR}/bin/*.exe
-    :> && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex.exe" "<PEON.INSTALLDIR>/opt/cresus/monolith/"
+    :> && mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
+       && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex.exe" "<PEON.INSTALLDIR>/opt/cresus/monolith/"
