@@ -1,4 +1,5 @@
 data:
+  configure: mkdir('<PEON.INSTALLDIR>/opt/cresus/monolith')
   rules:
     args:
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.INSTALLDIR>/opt/cresus/monolith
