@@ -54,10 +54,15 @@ data:
     <PEON.OS=darwin?
                      --enable-shared
                      --disable-static
-    :
+    :>
+    <PEON.OS=linux?
                      --disable-shared
                      --enable-static
-    >
+    :>
+    <PEON.OS=win?
+                     --enable-shared
+                     --disable-static
+    :>
   rules:
     type: make
     location: data/gmp-<THIS.$VERSION>/
