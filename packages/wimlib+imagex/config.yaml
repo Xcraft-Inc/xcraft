@@ -21,6 +21,9 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
     apple+macos-sdk-1013:
       - version: ''
         architecture:
