@@ -27,10 +27,11 @@ data:
     $hash: a82e5b333339a88ea4608e4635479a1cfb2e01aafb925e1290b65710d43f610b.tar.gz
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --enable-static
-                --enable-shared
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --enable-shared
   rules:
     type: make
     location: data/libunistring-<THIS.$VERSION>/
