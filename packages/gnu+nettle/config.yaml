@@ -36,6 +36,11 @@ data:
     cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --libdir=<PEON.PREFIXDIR>/lib
+    <PEON.OS=win?
+                     --build=x86_64-w64-mingw32
+                     --host=x86_64-w64-mingw32
+                     --target=x86_64-w64-mingw32
+    :>
                      --enable-static
                      --enable-shared
                      --disable-openssl
