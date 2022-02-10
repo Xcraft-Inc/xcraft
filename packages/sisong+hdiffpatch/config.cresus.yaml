@@ -7,5 +7,5 @@ data:
     !{bash}
     strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*'
     <PEON.OS=win?
-      && encrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe" "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe.enc"
+      && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe" "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe.enc"
     :>
