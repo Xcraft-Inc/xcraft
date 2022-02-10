@@ -3,4 +3,9 @@ data:
   rules:
     args:
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.INSTALLDIR>/opt/cresus/monolith
-  deploy: '!strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*'
+  deploy: |-
+    !{bash}
+    strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*'
+    <PEON.OS=win?
+      && encrypt "<PEON.INSTALLDIR>/opt/cresus/monolith/hpatchz.exe" "<PEON.INSTALLDIR>/opt/cresus/monolith/hpatchz.exe.enc"
+    :>
