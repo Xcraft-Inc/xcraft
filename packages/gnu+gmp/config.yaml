@@ -48,14 +48,15 @@ data:
     $hash: fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2.tar.xz
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
     <PEON.OS=darwin?
-                --enable-shared
-                --disable-static
+                     --enable-shared
+                     --disable-static
     :
-                --disable-shared
-                --enable-static
+                     --disable-shared
+                     --enable-static
     >
   rules:
     type: make
