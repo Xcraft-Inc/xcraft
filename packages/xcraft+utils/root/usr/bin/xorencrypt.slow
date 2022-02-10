@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ] || [ -z "$2" ]; then
+  echo "usage: xorencrypt <inputFile> <outputFile>"
+  exit 0;
+fi
+
+inputFile="$1"
+outputFile="$2"
+
+hexaKey="$(md5sum "$inputFile" | cut -d' ' -f1)"
+hexaKeyLength="${#hexaKey}"
+
+[[ "$((hexaKeyLength % 2))" = 1 ]] && exit 1
+
+keyLength=$((hexaKeyLength / 2))
+contentLength="$(wc -c "$inputFile" | cut -d' ' -f1)"
+
+[[ "$keyLength" > "$contentLength" ]] && exit 2
+
+#  0. extract the file in octal
+#  1. remove address offsets (keep only data)
+#  2. remove line feeds
+#  3. remove traling whitespaces and leading 0
+#  4. read byte by byte (space is the separator)
+#  5. iterator for the hexadecimal key
+#  6. extract char from the key in hexadecimal
+#  7. ensure to compute in octal
+#  8. encrypt the char with XOR
+#  9. convert from decimal to octal
+# 10.write the new char in binary
+
+hexdump -b -v "$inputFile" | \
+  cut -s -d' ' -f2- | \
+  tr '\n' ' ' | \
+  sed -e 's/ *$//g' \
+      -e 's/0\([0-7]\{2\}\)/\1/g' \
+      -e 's/00\([0-7]\)/\1/g' | \
+  { \
+    i=0; \
+    while read -r -d' ' byte; do \
+      j="$(((i % keyLength) * 2))"; \
+      keyByte="0x${hexaKey:j:2}"; \
+      byte="0$byte"; \
+      byte=$((byte ^ keyByte)); \
+      byte=$(printf "%o" "$byte"); \
+      printf "%b" "\0$byte"; \
+      i=$((i + 1)); \
+    done \
+  } > "$outputFile"

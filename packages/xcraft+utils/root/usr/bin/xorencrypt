@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const fs = require('fs');
+const crypto = require('crypto');
+
+const inputFile = process.argv[2];
+const outputFile = process.argv[3];
+
+console.log(`encrypt ${inputFile} to ${outputFile}`);
+
+const content = fs.readFileSync(inputFile);
+
+const key = crypto.createHash('md5').update(content).digest();
+if (key.length % 2 === 1) {
+  process.exit(1);
+}
+
+console.log(`md5sum ${key.toString('hex')}`);
+console.log(`key length ${key.length}`);
+
+for (let i = 0; i < content.length; ++i) {
+  content[i] = content[i] ^ key[i % key.length];
+}
+
+fs.writeFileSync(outputFile, content);
