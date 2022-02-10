@@ -32,7 +32,10 @@ data:
     prepare: ''
     $hash: d9dc32efba7e74f788fcc4f212a43216fc37cf5f23f4c2339664d473353aedf6.tar.bz2
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/expat-<THIS.$VERSION>/
