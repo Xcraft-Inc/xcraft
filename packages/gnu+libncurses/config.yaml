@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+libncurses
-version: 6.2-2
-$version: '6.2'
+version: '6.3'
+$version: '6.3'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,10 +25,12 @@ dependency:
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/ncurses/ncurses-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
+    $hash: 97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059.tar.gz
   type: src
   configure: |-
     !{bash}
@@ -36,17 +38,17 @@ data:
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --enable-static
                      --enable-shared
-                     --without-ada
                      --disable-db-install
+                     --enable-pc-files
+                     --without-shared
+                     --without-ada
+                     --without-cxx-shared
                      --without-manpages
                      --without-progs
                      --without-tack
                      --without-tests
-                     --enable-pc-files
-                     --without-shared
                      --without-debug
                      --without-profile
-                     --without-cxx-shared
                      --without-termlib
                      --without-ticlib
                      --without-gpm
@@ -54,6 +56,14 @@ data:
                      --without-pcre2
                      --without-sysmouse
                      --without-develop
+    <PEON.OS=win?
+                     --without-libtool
+                     --disable-home-terminfo
+                     --disable-termcap
+                     --enable-sp-funcs
+                     --enable-term-driver
+                     --enable-interop
+    :>
   rules:
     type: make
     location: data/ncurses-<THIS.$VERSION>
@@ -64,6 +74,10 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      win/MSYSTEM: MSYS
+      win/CC: x86_64-pc-msys-gcc
+      win/CXX: x86_64-pc-msys-g++
   deploy: ''
   env:
     path: []

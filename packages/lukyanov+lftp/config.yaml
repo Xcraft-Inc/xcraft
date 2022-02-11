@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: lukyanov+lftp
-version: 4.9.1-2
-$version: 4.9.1
+version: 4.9.2
+$version: 4.9.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -46,6 +46,8 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+          - mswindows-i386
+          - mswindows-amd64
         subpackage:
           - runtime
   build:
@@ -59,21 +61,20 @@ dependency:
 data:
   get:
     uri: 'http://lftp.yar.ru/ftp/lftp-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
+    $hash: c517c4f4f9c39bd415d7313088a2b1e313b2d386867fe40b7692b83a20f0670d.tar.xz
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    <PEON.OS=linux?
-      export LIBS="-lreadline -lncurses" ;
-    :>
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --enable-static
-                --disable-shared
-                --without-openssl
-                --with-readline=<PEON.ROOTDIR>/usr
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --without-openssl
+                     --with-readline=<PEON.ROOTDIR>/usr
   rules:
     type: make
     location: data/lftp-<THIS.$VERSION>
@@ -84,6 +85,12 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env:
+      linux/LIBS: '-lreadline -lncurses'
+      win/MSYSTEM: MSYS
+      win/CC: x86_64-pc-msys-gcc
+      win/CXX: x86_64-pc-msys-g++
+      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include/ncurses'
   deploy: ''
   env:
     path: []
