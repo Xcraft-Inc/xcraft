@@ -88,10 +88,11 @@ data:
     test: none
     env:
       linux/LIBS: '-lreadline -lncurses'
+      win/LIBS: '-lreadline -lncurses'
       win/MSYSTEM: MSYS
       win/CC: x86_64-pc-msys-gcc
       win/CXX: x86_64-pc-msys-g++
-      win/LDFLAGS: <PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib
+      win/LDFLAGS: <PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib -Wl,--allow-multiple-definition
       win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include -I<PEON.PROD.ROOTDIR>/usr/include/ncurses'
   deploy: ''
   env:
