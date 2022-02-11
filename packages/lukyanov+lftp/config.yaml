@@ -91,7 +91,8 @@ data:
       win/MSYSTEM: MSYS
       win/CC: x86_64-pc-msys-gcc
       win/CXX: x86_64-pc-msys-g++
-      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include/ncurses'
+      win/LDFLAGS: <PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib
+      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include -I<PEON.PROD.ROOTDIR>/usr/include/ncurses'
   deploy: ''
   env:
     path: []
