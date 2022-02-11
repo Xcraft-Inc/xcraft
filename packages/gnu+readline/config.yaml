@@ -43,7 +43,10 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-    env: {}
+    env:
+      win/MSYSTEM: MSYS
+      win/CC: x86_64-pc-msys-gcc
+      win/CXX: x86_64-pc-msys-g++
   deploy: ''
   env:
     path: []
