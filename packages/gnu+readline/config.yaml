@@ -13,6 +13,12 @@ description:
   brief: The GNU Readline Library.
   long: ''
 dependency:
+  install:
+    gnu+libncurses:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
@@ -33,6 +39,7 @@ data:
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --enable-static
                      --disable-shared
+                     --with-curses
   rules:
     type: make
     location: data/readline-<THIS.$VERSION>/
