@@ -31,31 +31,32 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --enable-static
-                --enable-shared
-                --without-ada
-                --disable-db-install
-                --without-manpages
-                --without-progs
-                --without-tack
-                --without-tests
-                --enable-pc-files
-                --without-shared
-                --without-debug
-                --without-profile
-                --without-cxx-shared
-                --without-termlib
-                --without-ticlib
-                --without-gpm
-                --without-dlsym
-                --without-pcre2
-                --without-sysmouse
-                --without-develop
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --enable-shared
+                     --without-ada
+                     --disable-db-install
+                     --without-manpages
+                     --without-progs
+                     --without-tack
+                     --without-tests
+                     --enable-pc-files
+                     --without-shared
+                     --without-debug
+                     --without-profile
+                     --without-cxx-shared
+                     --without-termlib
+                     --without-ticlib
+                     --without-gpm
+                     --without-dlsym
+                     --without-pcre2
+                     --without-sysmouse
+                     --without-develop
   rules:
     type: make
-    location: data/ncurses-<THIS.$VERSION>/
+    location: data/ncurses-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
