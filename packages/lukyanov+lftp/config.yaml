@@ -92,8 +92,8 @@ data:
       win/MSYSTEM: MSYS
       win/CC: x86_64-pc-msys-gcc
       win/CXX: x86_64-pc-msys-g++
-      win/LDFLAGS: <PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib -Wl,--allow-multiple-definition
-      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include -I<PEON.PROD.ROOTDIR>/usr/include/ncurses'
+      win/LDFLAGS: '<PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib -Wl,--allow-multiple-definition'
+      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include -I<PEON.PROD.ROOTDIR>/usr/include/ncurses -DNCURSES_STATIC=1'
   deploy: ''
   env:
     path: []
