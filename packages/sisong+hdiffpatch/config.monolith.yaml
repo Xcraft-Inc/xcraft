@@ -3,6 +3,8 @@ data:
   rules:
     args:
       makeinstall: install LZMA=0 INSTALL_BIN=<PEON.INSTALLDIR>/opt/cresus/monolith
+    env:
+      CFLAGS: <PEON.ENV.CFLAGS> -Os
   deploy: |-
     !{bash}
     strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*
