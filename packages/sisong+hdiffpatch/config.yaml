@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: sisong+hdiffpatch
-version: 3.1.1-20
-$version: 3.1.1
+version: 4.1.2
+$version: 4.1.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -39,7 +39,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 6738dfb6f05f03a5322df9f0fdeb07f1cab259cee8740300d390238d75e196d1.tar.gz
+    $hash: c5ceb5f27c0e6f1e99be05f2abeebeca985f49021b248453cc6e4a9cfc57e12c.tar.gz
   type: src
   configure: mkdir('<PEON.PREFIXDIR>/bin')
   rules:
@@ -50,6 +50,9 @@ data:
       prerm: ''
       makeall: |-
         LZMA=0
+        ZSTD=0
+        BSD=0
+        MD5=0
         PATCH_LINK+=$(LDFLAGS)
         <PEON.OS=darwin?:
           PATCH_LINK+=-Wl,-Bstatic
@@ -65,7 +68,7 @@ data:
           PATCH_LINK+=-Wl,-Bdynamic
         >
       maketest: ''
-      makeinstall: install LZMA=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
+      makeinstall: install LZMA=0 ZSTD=0 BSD=0 MD5=0 INSTALL_BIN=<PEON.PREFIXDIR>/bin
     test: none
     env:
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
