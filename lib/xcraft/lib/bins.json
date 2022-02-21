@@ -54,6 +54,7 @@
   "ld": "^darwin|freebsd|linux|sunos$",
   "ld.gold": "^freebsd|linux|sunos$",
   "ldd": "^freebsd|linux|sunos$",
+  "libtool": "^darwin$",
   "lipo": "^darwin$",
   "ln": "^darwin|freebsd|linux|sunos$",
   "ls": "^darwin|freebsd|linux|sunos$",
