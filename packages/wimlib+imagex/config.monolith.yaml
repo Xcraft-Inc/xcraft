@@ -2,9 +2,12 @@ data:
   deploy: |-
     !{bash}
     <PEON.OS=win?
-      strip -s {PEON.PREFIXDIR}/bin/*.exe
-    :>  && mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
-        && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex.exe" "<PEON.INSTALLDIR>/opt/cresus/monolith/"
+      strip -s {PEON.PREFIXDIR}/bin/*.exe &&
+    :>
+      mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
+        && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex<PEON.OS=win?.exe:>"
+              "<PEON.INSTALLDIR>/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}<PEON.OS=win?.exe:>"
     <PEON.OS=win?
-        && xorencrypt "{PEON.PREFIXDIR}/bin/wimlib-imagex.exe" "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex.exe.enc"
+        && xorencrypt "{PEON.PREFIXDIR}/bin/wimlib-imagex.exe"
+                      "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}.exe.enc"
     :>

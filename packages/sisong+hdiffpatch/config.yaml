@@ -49,10 +49,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        LZMA=0
-        ZSTD=0
-        BSD=0
-        MD5=0
+        LZMA=0 ZSTD=0 BSD=0 MD5=0
         PATCH_LINK+=$(LDFLAGS)
         <PEON.OS=darwin?:
           PATCH_LINK+=-Wl,-Bstatic

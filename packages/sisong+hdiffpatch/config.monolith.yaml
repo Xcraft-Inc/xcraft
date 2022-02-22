@@ -2,12 +2,15 @@ data:
   configure: mkdir('<PEON.INSTALLDIR>/opt/cresus/monolith')
   rules:
     args:
-      makeinstall: install LZMA=0 INSTALL_BIN=<PEON.INSTALLDIR>/opt/cresus/monolith
+      makeinstall: install LZMA=0 ZSTD=0 BSD=0 MD5=0 INSTALL_BIN=<PEON.INSTALLDIR>/opt/cresus/monolith
     env:
       CFLAGS: <PEON.ENV.CFLAGS> -Os
   deploy: |-
     !{bash}
     strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*
+      && mv "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz<PEON.OS=win?.exe:>"
+            "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}<PEON.OS=win?.exe:>"
     <PEON.OS=win?
-      && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe" "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz.exe.enc"
+      && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}.exe"
+                    "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}.exe.enc"
     :>
