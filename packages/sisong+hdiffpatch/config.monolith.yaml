@@ -7,10 +7,13 @@ data:
       CFLAGS: <PEON.ENV.CFLAGS> -Os
   deploy: |-
     !{bash}
+    _BIN_EXT=<PEON.OS=win?.exe:>
     strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*
-      && mv "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz<PEON.OS=win?.exe:>"
-            "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}<PEON.OS=win?.exe:>"
-    <PEON.OS=win?
-      && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}.exe"
-                    "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}.exe.enc"
+      && mv "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz${_BIN_EXT}"
+            "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
+    <PEON.OS=darwin?:
+      && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
+                    "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.enc"
     :>
+      && writefile '{"Version": "{THIS.VERSION}"}'
+                   '{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}.release'
