@@ -1,16 +1,16 @@
 data:
   deploy: |-
     !{bash}
-    _BIN_EXT=<PEON.OS=win?.exe:>
+    export _BIN_EXT=<PEON.OS=win?.exe:>
     <PEON.OS=win?
-      strip -s {PEON.PREFIXDIR}/bin/*.exe &&
+      && strip -s {PEON.PREFIXDIR}/bin/*.exe
     :>
-      mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
-        && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex${_BIN_EXT}"
-              "<PEON.INSTALLDIR>/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
+      && mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
+      && cp "<PEON.PREFIXDIR>/bin/wimlib-imagex${_BIN_EXT}"
+            "<PEON.INSTALLDIR>/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
     <PEON.OS=darwin?:
-        && xorencrypt "{PEON.PREFIXDIR}/bin/wimlib-imagex${_BIN_EXT}"
-                      "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.enc"
+      && xorencrypt "{PEON.PREFIXDIR}/bin/wimlib-imagex${_BIN_EXT}"
+                    "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.enc"
     :>
-        && writefile '{"Version": "{THIS.VERSION}"}'
-                     '{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}.release'
+      && writefile '{"Version": "{THIS.VERSION}"}'
+                   '{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}.release'
