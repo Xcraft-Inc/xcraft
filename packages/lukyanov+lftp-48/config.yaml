@@ -1,0 +1,103 @@
+subpackage:
+  - runtime*
+name: lukyanov+lftp-48
+version: 4.8.4
+$version: 4.8.4
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A sophisticated file transfer program with command line interface.
+  long: |-
+    LFTP is a sophisticated file transfer program with command line interface.
+    It supports FTP, HTTP, FISH, SFTP, HTTPS and FTPS protocols. GNU Readline
+    library is used for input. BitTorrent protocol is supported as built-in
+    'torrent' command.
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    adler+zlib:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    gnu+gnutls:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    clark+expat:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    gnu+readline:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    gnu+libncurses:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - mswindows-i386
+          - mswindows-amd64
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://lftp.yar.ru/ftp/lftp-<THIS.$VERSION>.tar.xz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 4ebc271e9e5cea84a683375a0f7e91086e5dac90c5d51bb3f169f75386107a62.tar.xz
+  type: src
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --without-openssl
+                     --with-readline=<PEON.ROOTDIR>/usr
+  rules:
+    type: make
+    location: data/lftp-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env:
+      linux/LIBS: '-lreadline -lncurses'
+      win/LIBS: '-lreadline -lncurses'
+      win/MSYSTEM: MSYS
+      win/CC: x86_64-pc-msys-gcc
+      win/CXX: x86_64-pc-msys-g++
+      win/LDFLAGS: '<PEON.ENV.LDFLAGS> -L<PEON.PROD.ROOTDIR>/usr/lib -Wl,--allow-multiple-definition'
+      win/CPPFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include -I<PEON.PROD.ROOTDIR>/usr/include/ncurses -DNCURSES_STATIC=1'
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
