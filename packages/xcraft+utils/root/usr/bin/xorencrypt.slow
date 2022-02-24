@@ -8,7 +8,7 @@ fi
 inputFile="$1"
 outputFile="$2"
 
-hexaKey="$(md5sum "$inputFile" | cut -d' ' -f1)"
+hexaKey="$(sha256sum "$inputFile" | cut -d' ' -f1)"
 hexaKeyLength="${#hexaKey}"
 
 [[ "$((hexaKeyLength % 2))" = 1 ]] && exit 1

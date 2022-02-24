@@ -12,12 +12,12 @@ console.log(`encrypt ${inputFile} to ${outputFile}`);
 
 const content = fs.readFileSync(inputFile);
 
-const key = crypto.createHash('md5').update(content).digest();
+const key = crypto.createHash('sha256').update(content).digest();
 if (key.length % 2 === 1) {
   process.exit(1);
 }
 
-console.log(`md5sum ${key.toString('hex')}`);
+console.log(`sha256sum ${key.toString('hex')}`);
 console.log(`key length ${key.length}`);
 
 for (let i = 0; i < content.length; ++i) {
