@@ -1,0 +1,19 @@
+From c8ba9689fc8e9d3a3ffc2d72bdb117a849e6cfd0 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Sun, 27 Feb 2022 18:06:32 +0100
+Subject: Restore support of external link flags
+
+
+diff --git a/Makefile b/Makefile
+index 4f32732..e544942 100644
+--- a/Makefile
++++ b/Makefile
+@@ -167,7 +167,7 @@ else
+     -D_IS_USED_PTHREAD=1
+ endif
+ 
+-PATCH_LINK := -lz -lbz2
++PATCH_LINK += -lz -lbz2
+ DIFF_LINK  := $(PATCH_LINK)
+ ifeq ($(MT),0)
+ else
