@@ -56,6 +56,8 @@ data:
     test: none
     env:
       win/CPPFLAGS: '-D_WIN32_WINNT=0x0502'
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
   deploy: ''
   env:
     path: []
