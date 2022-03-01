@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: bagder+curl
-version: 7.50.3-6
-$version: 7.50.3
+version: 7.81.0
+$version: 7.81.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -30,10 +30,12 @@ dependency:
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 3991c2234986178af3b3f693e5afa35d49da2ab4ba61292e3817222446dca7e1.tar.gz
+    prepare: ''
+    $hash: ac8e1087711084548d788ef18b9b732c8de887457b81f616fc681d1044b32f98.tar.gz
   type: src
   configure: |-
     !{bash}
@@ -41,6 +43,7 @@ data:
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-ldap
                      --disable-ldaps
+                     --with-openssl
   rules:
     type: script
     location: data/curl-<THIS.$VERSION>

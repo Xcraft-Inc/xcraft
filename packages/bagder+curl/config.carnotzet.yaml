@@ -8,6 +8,7 @@ data:
                      --enable-static
                      --disable-ldap
                      --disable-ldaps
+                     --with-openssl
   rules:
     env:
       CC: aarch64-linux-gcc

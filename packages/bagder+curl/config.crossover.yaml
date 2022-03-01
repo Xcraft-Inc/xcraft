@@ -9,6 +9,7 @@ data:
                    --enable-static
                    --disable-ldap
                    --disable-ldaps
+                   --with-openssl
   rules:
     args:
       makeall: |-

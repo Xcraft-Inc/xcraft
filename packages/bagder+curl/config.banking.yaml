@@ -6,3 +6,4 @@ data:
                 --disable-static
                 --disable-ldap
                 --disable-ldaps
+                --with-openssl

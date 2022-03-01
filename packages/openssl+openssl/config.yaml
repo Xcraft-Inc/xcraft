@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.1a-7
-$version: 1.1.1a
+version: 1.1.1m
+$version: 1.1.1m
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -50,11 +50,12 @@ dependency:
 data:
   get:
     uri: 'https://www.openssl.org/source/openssl-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: fc20130f8b7cbd2fb918b2f14e2f429e109c31ddd0fb38fc5d71d9ffed3f9f41.tar.gz
+    $hash: f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96.tar.gz
   type: src
   configure: |-
     !{bash}
