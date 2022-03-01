@@ -24,7 +24,7 @@ dependency:
           - linux-amd64
           - linux-aarch64
           - mswindows-i386
-          - mswindows-amd6
+          - mswindows-amd64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
