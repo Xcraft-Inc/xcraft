@@ -1,0 +1,65 @@
+commit c7b93eb0a909f6e9e48afe3d0b9a24629d959440 (HEAD -> master)
+Author: WormCasting <wormcasting@epsitec.ch>
+Date:   Tue Mar 1 12:32:22 2022 +0100
+
+    Remove check for runtime
+
+diff --git a/configure b/configure
+index ec37ba3..65a8ed2 100755
+--- a/configure
++++ b/configure
+@@ -33989,54 +33989,6 @@ printf "%s\n" "#define HAVE_STRUCT_TIMEVAL 1" >>confdefs.h
+ 
+ 
+ 
+-    if test "x$cross_compiling" != xyes; then
+-
+-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking run-time libs availability" >&5
+-printf %s "checking run-time libs availability... " >&6; }
+-
+-   case $host_os in
+-     darwin*) library_path_var=DYLD_LIBRARY_PATH ;;
+-     *)       library_path_var=LD_LIBRARY_PATH ;;
+-   esac
+-
+-   eval "old=$$library_path_var"
+-   eval "$library_path_var=\$CURL_LIBRARY_PATH:\$old"
+-
+-   eval "export $library_path_var"
+-   if test "$cross_compiling" = yes
+-then :
+-  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run test program while cross compiling
+-See \`config.log' for more details" "$LINENO" 5; }
+-else $as_nop
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int main()
+-{
+-  return 0;
+-}
+-
+-_ACEOF
+-if ac_fn_c_try_run "$LINENO"
+-then :
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: fine" >&5
+-printf "%s\n" "fine" >&6; }
+-else $as_nop
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: failed" >&5
+-printf "%s\n" "failed" >&6; }
+-    as_fn_error $? "one or more libs available at link-time are not available run-time. Libs used at link-time: $LIBS" "$LINENO" 5
+-
+-fi
+-rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+-  conftest.$ac_objext conftest.beam conftest.$ac_ext
+-fi
+-
+-   eval "$library_path_var=\$old" # restore
+-
+-
+-      fi
+ 
+ 
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking size of size_t" >&5
