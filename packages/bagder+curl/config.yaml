@@ -19,16 +19,7 @@ dependency:
         architecture: []
     openssl+openssl:
       - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-          - linux-aarch64
-          - mswindows-i386
-          - mswindows-amd64
-          - solaris-i386
-          - solaris-amd64
-          - freebsd-i386
-          - freebsd-amd64
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -52,11 +43,7 @@ data:
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-ldap
                      --disable-ldaps
-    <PEON.OS=darwin?
-                     --with-secure-transport
-    :
                      --with-openssl
-    >
   rules:
     type: script
     location: data/curl-<THIS.$VERSION>
