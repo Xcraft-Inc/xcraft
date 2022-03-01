@@ -1,6 +1,7 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --host=aarch64-linux
                      --build=$MACHTYPE

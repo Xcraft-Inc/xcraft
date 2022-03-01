@@ -8,7 +8,4 @@ data:
                      --disable-ldap
                      --disable-ldaps
                      --with-openssl
-  rules:
-    env:
-      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
+                     

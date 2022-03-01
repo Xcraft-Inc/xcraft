@@ -1,19 +1,10 @@
 data:
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> &&
-    <PEON.OS=darwin?
-      SDKROOT="$MACOSSDK_1013"
-      MACOSX_DEPLOYMENT_TARGET=10.10
-    :> ./configure --prefix=<PEON.PREFIXDIR>
-                   --disable-shared
-                   --enable-static
-                   --disable-ldap
-                   --disable-ldaps
-                   --with-openssl
-  rules:
-    args:
-      makeall: |-
-        !<PEON.OS=darwin?
-          SDKROOT="$MACOSSDK_1013"
-          MACOSX_DEPLOYMENT_TARGET=10.10
-        :> make -j<PEON.CPUS.COUNT>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-shared
+                     --enable-static
+                     --disable-ldap
+                     --disable-ldaps
+                     --with-openssl
