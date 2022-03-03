@@ -1,0 +1,134 @@
+From 18a9842818f477ddf7ec7a61cabc98b360d908fb Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Thu, 3 Mar 2022 13:07:42 +0100
+Subject: Upstream patch for SFTP
+
+
+diff --git a/src/SFtp.cc b/src/SFtp.cc
+index 211257d..6c818df 100644
+--- a/src/SFtp.cc
++++ b/src/SFtp.cc
+@@ -824,7 +824,7 @@ void SFtp::HandleExpect(Expect *e)
+ 	    SetError(NO_FILE,strerror(ENOTDIR));
+ 	    break;
+ 	 }
+-	 if(mode==CHANGE_DIR && GetExpectCount(Expect::CWD)==0)
++	 if(mode==CHANGE_DIR && !HasExpect(Expect::CWD))
+ 	 {
+ 	    cwd.Set(file);
+ 	    eof=true;
+@@ -876,7 +876,7 @@ void SFtp::HandleExpect(Expect *e)
+ 	    d->GetData(&b,&s);
+ 	    LogNote(9,"data packet: pos=%lld, size=%d",(long long)r->pos,s);
+ 	    file_buf->Put(b,s);
+-	    if(d->Eof())
++	    if(d->Eof() || eof)
+ 	       goto eof;
+ 	    if(r->len > unsigned(s))   // received less than requested?
+ 	    {
+@@ -938,7 +938,7 @@ void SFtp::HandleExpect(Expect *e)
+ 	       file_set->Add(info);
+ 	    }
+ 	 }
+-	 if(r->Eof())
++	 if(r->Eof() || eof)
+ 	    goto eof;
+       }
+       else
+@@ -948,12 +948,13 @@ void SFtp::HandleExpect(Expect *e)
+ 	    if(((Reply_STATUS*)reply)->GetCode()==SSH_FX_EOF)
+ 	    {
+ 	    eof:
+-	       if(!eof)
+-		  LogNote(9,"eof");
+ 	       eof=true;
+ 	       state=DONE;
+-	       if(file_buf && ooo_chain.count()==0)
++	       if(file_buf && ooo_chain.count()==0 && !HasExpectBefore(reply->GetID(),Expect::DATA))
++	       {
++		  LogNote(9,"eof");
+ 		  file_buf->PutEOF();
++	       }
+ 	       break;
+ 	    }
+ 	 }
+@@ -1062,8 +1063,11 @@ int SFtp::HandleReplies()
+       }
+    }
+ 
+-   if(ooo_chain.count()==0 && eof && file_buf && !file_buf->Eof())
++   if(eof && file_buf && !file_buf->Eof() && ooo_chain.count()==0 && !HasExpect(Expect::DATA))
++   {
++      LogNote(9,"eof");
+       file_buf->PutEOF();
++   }
+ 
+    if(recv_buf->Size()<4)
+    {
+@@ -1118,6 +1122,7 @@ SFtp::Expect *SFtp::FindExpectExclusive(Packet *p)
+       e->reply=p;
+    return e;
+ }
++
+ void SFtp::CloseExpectQueue()
+ {
+    for(Expect *e=expect_queue.each_begin(); e; e=expect_queue.each_next())
+@@ -1144,12 +1149,26 @@ void SFtp::CloseExpectQueue()
+    }
+ }
+ 
+-int SFtp::GetExpectCount(Expect::expect_t tag)
++bool SFtp::HasExpect(Expect::expect_t tag)
++{
++   for(Expect *e=expect_queue.each_begin(); e; e=expect_queue.each_next())
++      if(e->tag==tag)
++	 return true;
++   return false;
++}
++
++static bool IsBefore(unsigned id1,unsigned id2)
++{
++   // order with wrap-around
++   return id2 - id1 < id1 - id2;
++}
++
++bool SFtp::HasExpectBefore(unsigned id,Expect::expect_t tag)
+ {
+-   int count=0;
+    for(Expect *e=expect_queue.each_begin(); e; e=expect_queue.each_next())
+-      count+=(e->tag==tag);
+-   return count;
++      if(e->tag==tag && IsBefore(e->request->GetID(),id))
++	 return true;
++   return false;
+ }
+ 
+ Glob *SFtp::MakeGlob(const char *pat)
+@@ -1167,7 +1186,7 @@ int SFtp::Read(Buffer *buf,int size)
+       return error_code;
+    if(mode==CLOSED)
+       return 0;
+-   if(state==DONE && !(file_buf && file_buf->Size()>0))
++   if(state==DONE && (!file_buf || (file_buf->Size()==0 && file_buf->Eof())))
+       return 0;	  // eof
+    if(state==FILE_RECV)
+    {
+diff --git a/src/SFtp.h b/src/SFtp.h
+index 8b748a7..50888b3 100644
+--- a/src/SFtp.h
++++ b/src/SFtp.h
+@@ -719,12 +719,12 @@ private:
+    int HandlePty();
+    void HandleExpect(Expect *);
+    void CloseExpectQueue();
+-   int GetExpectCount(Expect::expect_t tag);
++   bool HasExpect(Expect::expect_t tag);
++   bool HasExpectBefore(unsigned id,Expect::expect_t tag);
+    void CloseHandle(Expect::expect_t e);
+    int ReplyLogPriority(int);
+ 
+    xmap_p<Expect> expect_queue;
+-   const xstring& expect_key(unsigned id);
+ 
+    Expect *FindExpectExclusive(Packet *reply);
+    xarray_p<Expect> ooo_chain; 	// out of order replies buffered
