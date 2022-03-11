@@ -482,6 +482,13 @@ class Action {
       return;
     }
 
+    if (!this._config) {
+      this._resp.log.err(
+        `no config file, postinst seems running on a broken package, we skip the peon step`
+      );
+      return;
+    }
+
     const extra = this._getExtra();
     extra.args = {
       all: this._config.rules.args.postinst,
