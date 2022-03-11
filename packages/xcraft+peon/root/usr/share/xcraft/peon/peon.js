@@ -644,7 +644,7 @@ class Action {
 
     installedPackages = this._getInstalledPackages('toolchain/');
     if (installedPackages) {
-      dataControl += `X-Craft-Packages-toolchain}: ${installedPackages}\n`;
+      dataControl += `X-Craft-Packages-toolchain: ${installedPackages}\n`;
     }
 
     fs.writeFileSync(controlFile, dataControl);
