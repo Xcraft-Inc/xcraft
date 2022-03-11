@@ -11,6 +11,7 @@ const xPeon = require('xcraft-contrib-peon');
 const xPh = require('xcraft-core-placeholder');
 const xPlatform = require('xcraft-core-platform');
 const xEnv = require('xcraft-core-env');
+const xPacman = require('xcraft-contrib-pacman');
 
 function explodeName(name) {
   return {
@@ -528,6 +529,35 @@ class Action {
     }
   }
 
+  _getInstalledPackages(distribution) {
+    const arch = xPlatform.getToolchainArch();
+    const targetRoot = path.join(xPacman.getTargetRoot(distribution), arch);
+
+    return xFs
+      .lsall(path.join(targetRoot, 'var/lib/wpkg'), false, (file) =>
+        /^wpkg-status$/.test(file)
+      )
+      .filter((file) =>
+        fs
+          .readFileSync(file, 'utf8')
+          .split('\n')
+          .some((row) => row.startsWith('X-Status: Installed'))
+      )
+      .map((file) => {
+        const dirname = path.dirname(file);
+        const control = path.join(dirname, 'control');
+        const version = fs
+          .readFileSync(control, 'utf8')
+          .split('\n')
+          .filter((row) => row.startsWith('Version:'))[0]
+          .split(':')[1]
+          .trim();
+        const name = path.basename(dirname);
+        return `${name} (${version})`;
+      })
+      .join(', ');
+  }
+
   *makeall() {
     const basePath = getBasePath(this._root, this._pkg);
     const changelogFile = path.join(basePath, 'wpkg/changelog');
@@ -596,6 +626,25 @@ class Action {
       if (!/\nDepends: /.test(dataControl)) {
         dataControl += 'Depends: xcraft+peon\n';
       }
+    }
+
+    /* Inject the list of installed packages for this build. If the target
+     * distribution is not 'toolchain', then inject both lists.
+     */
+    let installedPackages;
+    if (this._distribution !== 'toolchain/') {
+      installedPackages = this._getInstalledPackages(this._distribution);
+      if (installedPackages) {
+        dataControl += `X-Craft-Packages-${this._distribution.replace(
+          /\/$/,
+          ''
+        )}: ${installedPackages}\n`;
+      }
+    }
+
+    installedPackages = this._getInstalledPackages('toolchain/');
+    if (installedPackages) {
+      dataControl += `X-Craft-Packages-toolchain}: ${installedPackages}\n`;
     }
 
     fs.writeFileSync(controlFile, dataControl);
