@@ -105,6 +105,7 @@ class Action {
 
   _getExtra() {
     const extra = {
+      name: this._pkg.name,
       distribution: this._distribution,
       configure: this._config.configure,
       location: this._config.rules.location,
