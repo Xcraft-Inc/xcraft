@@ -719,7 +719,7 @@ if (process.argv.length >= 4) {
       resp.log.err(err);
       process.exitCode = 1;
     }
-    if (action === 'makeall' && process.env.PEON_DEBUG_ENV === '1') {
+    if (action === 'makeall' && process.env.PEON_DEBUG_PKG === pkg.name) {
       process.exitCode = 100;
     }
   });
