@@ -22,7 +22,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/4ab00d3e27fe2f0ec938273672e021eaf379f637.tar.gz'
+    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/3fdfbb18093cc7d128f39ff0cf8e43841bbab1b9.tar.gz'
     ref: ''
     out: ''
     externals: true
@@ -43,7 +43,7 @@ data:
       && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
   rules:
     type: script
-    location: data/wpkg-4ab00d3e27fe2f0ec938273672e021eaf379f637/build
+    location: data/wpkg-3fdfbb18093cc7d128f39ff0cf8e43841bbab1b9/build
     args:
       postinst: ''
       prerm: ''
