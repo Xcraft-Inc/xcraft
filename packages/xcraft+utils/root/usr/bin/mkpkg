@@ -76,15 +76,15 @@ notarize()
   echo "RequestUUID: $uuid for $pkg"
   if [ -n "$uuid" ]; then
     while [ "$status" = "in progress" ] || [ -z "$status" ]; do
-    status=$(xcrun altool --notarization-info "$uuid" \
-                          --username "$username" \
-                          --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
-    if [ "$status" = "invalid" ]; then
-      echo "The package is invalid" >&2
-      return 1
-    fi
-    echo "Wait for status"
-    sleep 10
+      status=$(xcrun altool --notarization-info "$uuid" \
+                            --username "$username" \
+                            --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
+      if [ "$status" = "invalid" ]; then
+        echo "The package is invalid" >&2
+        return 1
+      fi
+      echo "Wait for status"
+      sleep 10
     done
   else \
     echo "No UUID returned for the notarization" >&2
