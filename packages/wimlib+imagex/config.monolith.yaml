@@ -21,8 +21,8 @@ data:
                "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
       && rm -f "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex${_BIN_EXT}"
     :
-      && mv -f "<PEON.INSTALLDIR>/opt/cresus/monolith/wimlib-imagex${_BIN_EXT}"
-               "<PEON.INSTALLDIR>/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
+      && mv -f "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex${_BIN_EXT}"
+               "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
       && xorencrypt "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
                     "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.enc"
     :>
