@@ -117,12 +117,12 @@ fi
 
 # Sign the package
 echo "Sign $package"
-mv -f "$package" "_$package"
-if ! sign_pkg "_$package" "$package" "$signInstId"; then
+mv -f "$package" "${package%.pkg}_.pkg"
+if ! sign_pkg "${package%.pkg}_.pkg" "$package" "$signInstId"; then
   >&2 echo "Signature of package $package has failed"
   exit 3
 fi
-rm -f "_$package"
+rm -f "${package%.pkg}_.pkg"
 
 # Notarize the package
 echo "Notarize $package"
