@@ -60,14 +60,15 @@ build()
 notarize()
 {
   local pkg="$1"
-  local username="$2"
-  local password="$3"
-  local provider="$4"
+  local id="$2"
+  local username="$3"
+  local password="$4"
+  local provider="$5"
   local uuid
   local status
 
   uuid="$(xcrun altool --notarize-app \
-                       --primary-bundle "$(ID)" \
+                       --primary-bundle "$id" \
                        --username "$username" \
                        --password "$password" \
                        --asc-provider "$provider" \
@@ -126,7 +127,7 @@ rm -f "${package%.pkg}_.pkg"
 
 # Notarize the package
 echo "Notarize $package"
-if ! notarize "$package" "$acUsername" "$acPassword" "$acProvider"; then
+if ! notarize "$package" "$id" "$acUsername" "$acPassword" "$acProvider"; then
   >&2 echo "Notarization of package $package has failed"
   exit 4
 fi
