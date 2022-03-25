@@ -1,0 +1,141 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: mkpkg <package> <id> <version> <root> <bin>"
+  echo "             <signAppId> <signInstId> [acUsername] [acPassword] [acProvider]"
+  exit 0
+fi
+
+package="$1"
+id="$2"
+version="$3"
+root="$4"
+bin="$5"
+signAppId="$6"
+signInstId="$7"
+acUsername="$8"
+acPassword="$9"
+acProvider="${10}"
+
+if [ -z "${package}" ];    then >&2 echo "The package path is missing"; exit 1; fi
+if [ -z "${id}" ];         then >&2 echo "The package ID is missing"; exit 1; fi
+if [ -z "${version}" ];    then >&2 echo "The package version is missing"; exit 1; fi
+if [ -z "${root}" ];       then >&2 echo "The root base tree is missing"; exit 1; fi
+if [ -z "${bin}" ];        then >&2 echo "The binary is missing"; exit 1; fi
+if [ -z "${signAppId}" ];  then >&2 echo "The developer ID application is missing"; exit 1; fi
+if [ -z "${signInstId}" ]; then >&2 echo "The developer ID installer is missing"; exit 1; fi
+
+shift 9
+
+sign_bin()
+{
+  local target="$1"
+  local signId="$2"
+
+  codesign --sign "$signId" --force --options runtime --timestamp "$target"
+  return $?
+}
+
+sign_pkg()
+{
+  local pkgIn="$1"
+  local pkgOut="$2"
+  local signId="$3"
+
+  productsign --sign "$signId" "$pkgIn" "$pkgOut"
+  return $?
+}
+
+build()
+{
+  local pkg="$1"
+  local id="$2"
+  local version="$3"
+  local root="$4"
+
+  pkgbuild --identifier "$id" --version "$version" --root "$root" "$pkg"
+  return $?
+}
+
+notarize()
+{
+  local pkg="$1"
+  local username="$2"
+  local password="$3"
+  local provider="$4"
+  local uuid
+  local status
+
+  uuid="$(xcrun altool --notarize-app \
+                       --primary-bundle "$(ID)" \
+                       --username "$username" \
+                       --password "$password" \
+                       --asc-provider "$provider" \
+                       --file "$pkg" | grep RequestUUID | cut -d= -f2 | sed 's,^[ \t]*,,')"
+  echo "RequestUUID: $uuid for $pkg"
+  if [ -n "$uuid" ]; then
+    while [ "$status" = "in progress" ] || [ -z "$status" ]; do
+    status=$(xcrun altool --notarization-info "$uuid" \
+                          --username "$username" \
+                          --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
+    if [ "$status" = "invalid" ]; then
+      echo "The package is invalid" >&2
+      return 1
+    fi
+    echo "Wait for status"
+    sleep 10
+    done
+  else \
+    echo "No UUID returned for the notarization" >&2
+    return 1
+  fi
+  return 0
+}
+
+staple()
+{
+  local pkg="$1"
+
+  echo "Staple ticket to $pkg"
+  xcrun stapler staple "$pkg"
+  return $?
+}
+
+# Sign the executable to wrap in a package
+echo "Sign $bin"
+if ! sign_bin "$bin" "$signAppId"; then
+  >&2 echo "Signature of $bin has failed"
+  exit 1
+fi
+
+# Build the pkg
+echo "Build package $package"
+if ! build "$package" "$id" "$version" "$root"; then
+  >&2 echo "build of package $package has failed"
+  exit 2
+fi
+
+# Sign the package
+echo "Sign $package"
+mv -f "$package" "_$package"
+if ! sign_pkg "_$package" "$package" "$signInstId"; then
+  >&2 echo "Signature of package $package has failed"
+  exit 3
+fi
+rm -f "_$package"
+
+# Notarize the package
+echo "Notarize $package"
+if ! notarize "$package" "$acUsername" "$acPassword" "$acProvider"; then
+  >&2 echo "Notarization of package $package has failed"
+  exit 4
+fi
+
+# Staple the ticket into the package
+echo "Staple ticket into $package"
+if ! staple "$package"; then
+  >&2 echo "Staple of the ticket into $package has failed"
+  exit 5
+fi
+
+echo "Package build done"
