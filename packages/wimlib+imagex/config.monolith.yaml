@@ -13,7 +13,7 @@ data:
                "_root/opt/Cresus/monolith/wimlib-imagex${_BIN_EXT}"
       && mkpkg "{PEON.INSTALLDIR}/opt/cresus/monolith/wimlib-imagex-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.pkg"
                "ch.cresus.wimlib-imagex"
-               "{THIS.VERSION}""
+               "{THIS.VERSION}"
                "_root"
                "_root/opt/Cresus/monolith/wimlib-imagex${_BIN_EXT}"
                "$SIGN_APP_ID" "$SIGN_INST_ID" "$MAC_AC_USERNAME" "$MAC_AC_PASSWORD" "$MAC_AC_PROVIDER"

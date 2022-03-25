@@ -32,7 +32,7 @@ data:
                "_root/opt/Cresus/monolith/hpatchz${_BIN_EXT}"
       && mkpkg "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}.pkg"
                "ch.cresus.hpatchz"
-               "{THIS.VERSION}""
+               "{THIS.VERSION}"
                "_root"
                "_root/opt/Cresus/monolith/hpatchz${_BIN_EXT}"
                "$SIGN_APP_ID" "$SIGN_INST_ID" "$MAC_AC_USERNAME" "$MAC_AC_PASSWORD" "$MAC_AC_PROVIDER"
