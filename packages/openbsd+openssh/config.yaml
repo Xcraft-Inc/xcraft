@@ -1,0 +1,59 @@
+subpackage:
+  - runtime*
+name: openbsd+openssh
+version: 8.9p1-1
+$version: 8.9p1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The premier connectivity tool for remote login with the SSH protocol.
+  long: 'OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.'
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://mirror.ungleich.ch/pub/OpenBSD/OpenSSH/portable/openssh-<THIS.$VERSION>.tar.gz'
+    mirrors:
+      - 'https://ftp.spline.de/pub/OpenBSD/OpenSSH/portable/openssh-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: fd497654b7ab1686dac672fb83dfb4ba4096e8b5ffcdaccd262380ae58bec5e7.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --with-privsep-path=<PEON.INSTALLDIR>/var/empty
+  rules:
+    type: make
+    location: data/openssh-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
