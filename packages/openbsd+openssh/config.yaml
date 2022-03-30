@@ -38,6 +38,7 @@ data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
+                     --with-ldflags="-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib"
                      --with-privsep-path=<PEON.INSTALLDIR>/var/empty
   rules:
     type: make
