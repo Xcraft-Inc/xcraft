@@ -36,7 +36,8 @@ data:
     $hash: fd497654b7ab1686dac672fb83dfb4ba4096e8b5ffcdaccd262380ae58bec5e7.tar.gz
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION>
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --with-ldflags="-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib"
                      --with-privsep-path=<PEON.INSTALLDIR>/var/empty
