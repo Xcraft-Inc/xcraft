@@ -1,0 +1,76 @@
+subpackage:
+  - runtime*
+name: openjs+nodejs14
+version: 14.19.1-1
+$version: 14.19.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Node.js is a JS runtime built on Chrome's V8 JavaScript engine.
+  long: ''
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://nodejs.org/dist/v<THIS.$VERSION>/node-v<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: cb5b094df5a59374014b131994314ccc5e390013f4e813a75491325f6eb7e1a2.tar.gz
+  type: src
+  configure: |-
+    !{bash}
+      cd <THIS.DATA.RULES.LOCATION>
+        && ./configure --prefix=<PEON.INSTALLDIR>/opt/node14
+                       --enable-static
+                       --partly-static
+                       --without-dtrace
+                       --without-intl
+                       --without-snapshot
+                       --without-etw
+                       --shared-openssl
+                       --shared-openssl-includes={PEON.ROOTDIR}/usr/include
+                       --shared-openssl-libpath={PEON.ROOTDIR}/usr/lib
+    <PEON.OS=win?
+                       --dest-os=win
+    :>
+  rules:
+    type: script
+    location: data/node-v<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !{bash}
+        make -j{PEON.CPUS.COUNT}
+      maketest: ''
+      makeinstall: |-
+        !{bash}
+        make install
+    test: none
+    env:
+      win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -D_WIN32_WINNT=0x0600
+      win/LDFLAGS: '-municode'
+  deploy: ''
+  env:
+    path: []
+    other:
+      NODE8: <OS.ROOTDIR>/opt/node8/bin
+  embedded: true
+  runtime:
+    configure: ''
