@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
-name: openjs+nodejs
-version: 8.17.0-6
+name: openjs+nodejs8
+version: 8.17.0-42
 $version: 8.17.0
 distribution: toolchain/
 maintainer:

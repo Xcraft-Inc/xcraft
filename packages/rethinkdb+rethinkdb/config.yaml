@@ -61,7 +61,7 @@ dependency:
     google+protobuf:
       - version: ''
         architecture: []
-    openjs+nodejs:
+    openjs+nodejs8:
       - version: ''
         architecture: []
     bagder+curl:
