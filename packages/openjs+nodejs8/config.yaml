@@ -26,7 +26,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://nodejs.org/dist/latest-v8.x/node-v<THIS.$VERSION>.tar.gz'
+    uri: 'https://nodejs.org/dist/v<THIS.$VERSION>/node-v<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
