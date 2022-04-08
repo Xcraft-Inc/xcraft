@@ -13,3 +13,11 @@ Where the distribution is what you want.
 ```
 repositor.publishPackage <distribution> <xcraftDistribution>
 ```
+
+## Import the repository on Debian
+
+Add a new entry in a source.list file
+
+```
+deb [signed-by=/xcraft/var/prodroot.<distribution>/linux-amd64/var/deb/public.gpg.key] file:/xcraft/var/prodroot.<distribution>/linux-amd64/var/deb/ <distribution> non-free
+```
