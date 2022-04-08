@@ -24,7 +24,7 @@ data:
     externals: true
     $hash: 3ce2f08716277ce3a7556893b0a39e5c2bf1dd6765afd54843700d4a35d7c058.exe
   type: bin
-  configure: 'mv (''nuget.exe'', ''root/usr/bin/nuget.exe'');'
+  configure: "mv ('nuget.exe', 'root/usr/bin/nuget.exe');"
   rules:
     type: move
     location: root
@@ -35,4 +35,5 @@ data:
     path: []
     other:
       NUGET_EXE_NO_PROMPT: '1'
+      NUGET_PACKAGES: <OS.ROOTTEMP>/nuget
   embedded: true
