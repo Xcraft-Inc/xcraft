@@ -39,8 +39,8 @@ data:
   type: src
   configure: |-
     !<PEON.OS=win?:
-      cd <THIS.DATA.RULES.LOCATION>
-        && ./configure --prefix=<PEON.INSTALLDIR>/opt/node14
+      cd {THIS.DATA.RULES.LOCATION}
+        && ./configure --prefix={PEON.INSTALLDIR}/opt/node14
                        --enable-static
                        --partly-static
                        --without-dtrace
