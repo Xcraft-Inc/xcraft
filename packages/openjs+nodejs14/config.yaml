@@ -23,7 +23,11 @@ dependency:
         architecture: []
     vanrossum+python3:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: 'https://nodejs.org/dist/v<THIS.$VERSION>/node-v<THIS.$VERSION>.tar.gz'
