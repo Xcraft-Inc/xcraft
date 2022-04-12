@@ -38,7 +38,7 @@ data:
     $hash: cb5b094df5a59374014b131994314ccc5e390013f4e813a75491325f6eb7e1a2.tar.gz
   type: src
   configure: |-
-    !{bash}
+    !<PEON.OS=win?:
       cd <THIS.DATA.RULES.LOCATION>
         && ./configure --prefix=<PEON.INSTALLDIR>/opt/node14
                        --enable-static
@@ -50,9 +50,7 @@ data:
                        --shared-openssl
                        --shared-openssl-includes={PEON.ROOTDIR}/usr/include
                        --shared-openssl-libpath={PEON.ROOTDIR}/usr/lib
-    <PEON.OS=win?
-                       --dest-os=win
-    :>
+    >
   rules:
     type: script
     location: data/node-v<THIS.$VERSION>
@@ -60,12 +58,16 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !{bash}
-        make -j{PEON.CPUS.COUNT}
+        !<PEON.OS=win?
+          vcbuild.bat release static noprojgen without-intl nosnapshot noetw x64 vs2019 no-cctest
+        :
+          make -j{PEON.CPUS.COUNT}
+        >
       maketest: ''
       makeinstall: |-
-        !{bash}
-        make install
+        !<PEON.OS=win?:
+          make install
+        >
     test: none
     env:
       win/CXXFLAGS: <PEON.ENV.CXXFLAGS> -D_WIN32_WINNT=0x0600
@@ -74,7 +76,7 @@ data:
   env:
     path: []
     other:
-      NODE8: <OS.ROOTDIR>/opt/node8/bin
+      NODE14: <OS.ROOTDIR>/opt/node14/bin
   embedded: true
   runtime:
     configure: ''
