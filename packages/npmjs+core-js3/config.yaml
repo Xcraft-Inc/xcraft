@@ -1,0 +1,44 @@
+name: npmjs+core-js3
+version: 3.21.1-1
+$version: 3.21.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Modular standard library for JavaScript.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: |-
+    !{bash}
+    mkdir node_modules
+      && npm install core-js@<THIS.$VERSION>
+      && mkdir -p <PEON.WPKG.STAG>/opt/packages/npm/
+      && mv node_modules/core-js <PEON.WPKG.STAG>/opt/packages/npm/
+      && rm -rf node_modules
+      && rm *
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
