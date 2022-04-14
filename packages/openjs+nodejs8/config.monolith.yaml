@@ -1,0 +1,23 @@
+data:
+  configure: |-
+    !{bash}
+    <PEON.OS=win?
+      cp -rf "{THIS.DATA.RULES.LOCATION}" "{PEON.ROOTTEMP}"
+        && cd "{PEON.ROOTTEMP}/node-v{THIS.$VERSION}"
+    :
+      cd <THIS.DATA.RULES.LOCATION>
+    >
+        && ./configure --prefix=<PEON.INSTALLDIR>/opt/node8
+                       --enable-static
+                       --fully-static
+                       --without-dtrace
+                       --without-intl
+                       --without-snapshot
+                       --without-perfctr
+                       --without-etw
+                       --without-npm
+                       --without-ssl
+    <PEON.OS=win?
+                       --dest-os=win
+    :>
+  deploy: !strip -s <PEON.INSTALLDIR>/opt/node8/bin/node.exe
