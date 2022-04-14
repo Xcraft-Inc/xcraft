@@ -20,4 +20,4 @@ data:
     <PEON.OS=win?
                        --dest-os=win
     :>
-  deploy: !strip -s <PEON.INSTALLDIR>/opt/node8/bin/node.exe
+  deploy: '!strip -s <PEON.INSTALLDIR>/opt/node8/bin/node.exe'
