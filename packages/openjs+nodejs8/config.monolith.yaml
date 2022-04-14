@@ -22,6 +22,6 @@ data:
     :>
   deploy: |-
     !{bash}
-    mkdir -p <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node8
+    mkdir -p <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node
       && cp <PEON.INSTALLDIR>/opt/node8/bin/node.exe <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node/node.exe
       && strip -s <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node/node.exe
