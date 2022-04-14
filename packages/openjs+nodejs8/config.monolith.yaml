@@ -20,4 +20,7 @@ data:
     <PEON.OS=win?
                        --dest-os=win
     :>
-  deploy: '!strip -s <PEON.INSTALLDIR>/opt/node8/bin/node.exe'
+  deploy: |-
+    !{bash}
+    cp <PEON.INSTALLDIR>/opt/node8/bin/node.exe <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node8/node.exe
+    strip -s <PEON.INSTALLDIR.BOTTLE>/opt/crossover/node8/node.exe
