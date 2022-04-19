@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gzip
-version: '1.10'
-$version: '1.10'
+version: '1.12'
+$version: '1.12'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,10 +27,12 @@ dependency:
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/gzip/gzip-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
+    $hash: ce5e03e519f637e1f814011ace35c4f87b33c0bbabeec35baf5fbd3479e91956.tar.xz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
@@ -43,6 +45,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
