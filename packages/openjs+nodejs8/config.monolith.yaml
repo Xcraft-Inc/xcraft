@@ -16,7 +16,9 @@ data:
                        --without-perfctr
                        --without-etw
                        --without-npm
-                       --without-ssl
+                       --shared-openssl
+                       --shared-openssl-includes={PEON.PROD.ROOTDIR}/usr/include
+                       --shared-openssl-libpath={PEON.PROD.ROOTDIR}/usr/lib
     <PEON.OS=win?
                        --dest-os=win
     :>
