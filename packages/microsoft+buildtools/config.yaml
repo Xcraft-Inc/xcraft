@@ -1,6 +1,6 @@
-name: microsoft+buildtools
-version: '16.10.3+31424.327'
-$version: '16.10.3+31424.327'
+name: microsoft+buildtools-2022
+version: 17.1.5+32414.318
+$version: 17.1.5+32414.318
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +9,7 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: Microsoft Build Tools 2019
+  brief: Microsoft Build Tools 2022
   long: 'Build Windows desktop applications using the Microsoft C++ toolset, ATL, or MFC.'
 dependency:
   install:
@@ -18,16 +18,16 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/WqmaZNkQxn5kMH3/download/microsoft+buildtools-2019-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/WqmaZNkQxn5kMH3/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 7eb5dac9420ca3e38a27838d2fbe321b65ccbdbbe46593be8c72352e7d35cc18.zip
   type: bin
   configure: ''
   rules:
     type: configure
-    location: data/microsoft+buildtools-2019-<THIS.$VERSION>
+    location: data/microsoft+buildtools-2022-<THIS.$VERSION>
     args:
       postinst: |-
         !vs_BuildTools.exe
@@ -50,7 +50,6 @@ data:
           --add Microsoft.VisualStudio.Component.TestTools.BuildTools
           --add Microsoft.VisualStudio.Component.VC.ATL
           --add Microsoft.VisualStudio.Component.VC.ATLMFC
-          --add Microsoft.Net.Component.4.8.SDK
           --add Microsoft.VisualStudio.Component.TextTemplating
           --add Microsoft.VisualStudio.Component.VC.CoreIde
           --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
@@ -58,18 +57,15 @@ data:
           --add Microsoft.VisualStudio.Component.VC.140
           --add Microsoft.VisualStudio.Workload.VCTools
           --add Microsoft.VisualStudio.Component.NuGet.BuildTools
-          --add Microsoft.NetCore.Component.Runtime.5.0
-          --add Microsoft.NetCore.Component.Runtime.3.1
-          --add Microsoft.NetCore.Component.SDK
-          --add Microsoft.Net.Component.4.8.TargetingPack
       prerm: |-
         !"C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
           /uninstall
           --quiet
           --locale En-us
+    env: {}
   env:
     path:
       - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
     other:
-      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.29.30037/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
+      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.31.31103/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
   embedded: true
