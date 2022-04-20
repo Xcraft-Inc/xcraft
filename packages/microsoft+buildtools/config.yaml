@@ -1,4 +1,4 @@
-name: microsoft+buildtools-2022
+name: microsoft+buildtools
 version: 17.1.5+32414.318
 $version: 17.1.5+32414.318
 distribution: toolchain/
