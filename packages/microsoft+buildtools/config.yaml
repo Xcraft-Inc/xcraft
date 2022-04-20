@@ -18,7 +18,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/WqmaZNkQxn5kMH3/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/P9S3LfP4sARjPto/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
     mirrors: []
     ref: ''
     out: ''
