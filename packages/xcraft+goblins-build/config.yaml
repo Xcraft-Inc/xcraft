@@ -48,7 +48,7 @@ dependency:
           - linux-amd64
           - darwin-i386
           - darwin-amd64
-    microsoft+buildtools-2019:
+    microsoft+buildtools:
       - version: ''
         architecture:
           - mswindows-i386

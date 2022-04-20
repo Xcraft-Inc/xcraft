@@ -1,6 +1,6 @@
 name: microsoft+buildtools
-version: '14'
-$version: '14'
+version: '16.10.3+31424.327'
+$version: '16.10.3+31424.327'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,35 +9,67 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: Microsoft Build Tools.
-  long: >-
-    Build Tools 2015 provides the essential tools for building managed
-    applications.
+  brief: Microsoft Build Tools 2019
+  long: 'Build Windows desktop applications using the Microsoft C++ toolset, ATL, or MFC.'
 dependency:
   install:
     xcraft+peon:
       - version: ''
         architecture: []
-    microsoft+ndp-45:
-      - version: ''
-        architecture: []
 data:
   get:
-    uri: >-
-      https://download.microsoft.com/download/E/E/D/EEDF18A8-4AED-4CE0-BEBE-70A83094FC5A/BuildTools_Full.exe
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/WqmaZNkQxn5kMH3/download/microsoft+buildtools-2019-<THIS.$VERSION>.zip'
     ref: ''
     out: ''
     externals: true
+    $hash: 7eb5dac9420ca3e38a27838d2fbe321b65ccbdbbe46593be8c72352e7d35cc18.zip
   type: bin
   configure: ''
   rules:
-    type: exec
-    location: BuildTools_Full.exe
+    type: configure
+    location: data/microsoft+buildtools-2019-<THIS.$VERSION>
     args:
-      postinst: /Q /S /Passive /NoRestart /NoWeb /Full
-      prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
+      postinst: |-
+        !vs_BuildTools.exe
+          --quiet
+          --norestart
+          --wait
+          --noWeb
+          --nocache
+          --noUpdateInstaller
+          --locale En-us
+          --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+          --add Microsoft.VisualStudio.Component.Roslyn.Compiler
+          --add Microsoft.Component.MSBuild
+          --add Microsoft.VisualStudio.Component.CoreBuildTools
+          --add Microsoft.VisualStudio.Workload.MSBuildTools
+          --add Microsoft.VisualStudio.Component.Windows10SDK
+          --add Microsoft.VisualStudio.Component.VC.CoreBuildTools
+          --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+          --add Microsoft.VisualStudio.Component.VC.Redist.14.Latest
+          --add Microsoft.VisualStudio.Component.TestTools.BuildTools
+          --add Microsoft.VisualStudio.Component.VC.ATL
+          --add Microsoft.VisualStudio.Component.VC.ATLMFC
+          --add Microsoft.Net.Component.4.8.SDK
+          --add Microsoft.VisualStudio.Component.TextTemplating
+          --add Microsoft.VisualStudio.Component.VC.CoreIde
+          --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
+          --add Microsoft.Component.VC.Runtime.UCRTSDK
+          --add Microsoft.VisualStudio.Component.VC.140
+          --add Microsoft.VisualStudio.Workload.VCTools
+          --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+          --add Microsoft.NetCore.Component.Runtime.5.0
+          --add Microsoft.NetCore.Component.Runtime.3.1
+          --add Microsoft.NetCore.Component.SDK
+          --add Microsoft.Net.Component.4.8.TargetingPack
+      prerm: |-
+        !"C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
+          /uninstall
+          --quiet
+          --locale En-us
   env:
     path:
-      - <OS.PROGRAMFILES.32>/MSBuild/<THIS.$VERSION>.0/Bin
-    other: {}
+      - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
+    other:
+      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.29.30037/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
   embedded: true
