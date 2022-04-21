@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-60-linux
-version: 6.0.101
-$version: 6.0.101
+version: 6.0.202
+$version: 6.0.202
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,12 +21,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/ede8a287-3d61-4988-a356-32ff9129079e/bdb47b6b510ed0c4f0b132f7f4ad9d5a/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/9d8c7137-2091-4fc6-a419-60ba59c8b9de/db0c5cda94f31d2260d369123de32d59/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 95a1b5360b234e926f12327d68c4a0d7b7206134dca1b570a66dc7a8a4aed705.tar.gz
   type: bin
   configure: |-
     yield exec(

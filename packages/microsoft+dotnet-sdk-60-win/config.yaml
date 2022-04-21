@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-60-win
-version: 6.0.101
-$version: 6.0.101
+version: 6.0.202
+$version: 6.0.202
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,11 +18,10 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/8e55ce37-9740-41b7-a758-f731043060da/4b8bfd4aad9d322bf501ca9e473e35c5/dotnet-sdk-<THIS.$VERSION>-win-x64.zip'
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/b1461027-6daa-467d-aebe-6326343e5840/01656d95b28f16c53cd947a8072d004b/dotnet-sdk-<THIS.$VERSION>-win-x64.zip'
     ref: ''
     out: ''
     externals: true
-    $hash: 2954575322680f5ab31998a9412af0a2a66b73c2cf5a5d8007221a96fbcf2e8d.zip
   type: bin
   configure: ''
   rules:
