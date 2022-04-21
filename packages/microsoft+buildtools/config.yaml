@@ -48,6 +48,7 @@ data:
           --add Microsoft.VisualStudio.Component.VC.Redist.14.Latest
           --add Microsoft.VisualStudio.Component.TestTools.BuildTools
           --add Microsoft.VisualStudio.Component.TextTemplating
+          --add Microsoft.Net.Component.4.8.SDK
           --add Microsoft.VisualStudio.Component.VC.CoreIde
           --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core
           --add Microsoft.VisualStudio.Component.Windows10SDK.18362
