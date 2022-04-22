@@ -13,19 +13,21 @@ shift 1
 
 if [ -z "${XCRAFT_ROOT}" ]; then >&2 echo "The XCRAFT_ROOT environment variable must be defined"; exit 1; fi
 
-if [ ! "$(uname -o)" = Msys ]; then echo "Skip on non-Windows OS"; exit 0; fi
+if [ ! "$(uname -o)" = Msys ]; then echo "Skip node-gyp patch on non-Windows OS"; exit 0; fi
 
 find_vs="${XCRAFT_ROOT}/../opt/nodejs/node_modules/npm/node_modules/node-gyp/lib/find-visualstudio.js" 
+sdk="8.1"
+toolset="v142"
 
 if [ "${action}" = patch ]; then
-  if [ -f "${find_vs}.patched" ]; then >&2 echo "Already patched"; exit 0; fi
+  if [ -f "${find_vs}.patched" ]; then >&2 echo "node-gyp is already patched"; exit 0; fi
   cp -f "${find_vs}" "${find_vs}.patched"
-  sed -i 's,\(function getSDK ([^)]*) {\),\1 return `8.1`;,' "${find_vs}"
-  sed -i 's,\(function getToolset ([^)]*) {\),\1 return `v142`;,' "${find_vs}"
-  echo "Patched"
+  sed -i "s,\(function getSDK ([^)]*) {\),\1 return \`$sdk\`;," "${find_vs}"
+  sed -i "s,\(function getToolset ([^)]*) {\),\1 return \`$toolset\`;," "${find_vs}"
+  echo "node-gyp patched for Windows SDK $sdk and Toolset $toolset"
 elif [ "${action}" = revert ]; then
   mv -f "${find_vs}.patched" "${find_vs}"
-  echo "Reverted"
+  echo "node-gyp patch reverted"
 else
   >&2 echo "Unknown action '${action}'"
   exit 1
