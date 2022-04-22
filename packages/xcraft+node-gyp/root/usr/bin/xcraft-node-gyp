@@ -20,7 +20,8 @@ find_vs="${XCRAFT_ROOT}/../opt/nodejs/node_modules/npm/node_modules/node-gyp/lib
 if [ "${action}" = patch ]; then
   if [ -f "${find_vs}.patched" ]; then >&2 echo "Already patched"; exit 0; fi
   cp -f "${find_vs}" "${find_vs}.patched"
-  sed -i 's,\(function getSDK (info) {\),\1 return `8.1`;,' "${find_vs}"
+  sed -i 's,\(function getSDK ([^)]*) {\),\1 return `8.1`;,' "${find_vs}"
+  sed -i 's,\(function getToolset ([^)]*) {\),\1 return `v142`;,' "${find_vs}"
   echo "Patched"
 elif [ "${action}" = revert ]; then
   mv -f "${find_vs}.patched" "${find_vs}"
