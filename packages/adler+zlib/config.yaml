@@ -70,7 +70,8 @@ data:
               -f win32/Makefile.gcc
         :>    install
     test: none
-    env: {}
+    env:
+      cc: <PEON.ENV.CC>
   deploy: |-
     mkdir("<PEON.PREFIXDIR>/lib");
     try { /* lib/ is not defined with pure --shared build */
