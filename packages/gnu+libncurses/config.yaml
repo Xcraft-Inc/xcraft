@@ -39,7 +39,12 @@ data:
                      --enable-static
                      --enable-shared
                      --disable-db-install
+    <PEON.OS=win?:
+                     --disable-database
+                     --enable-termcap
+    >
                      --enable-pc-files
+                     --enable-widec
                      --without-shared
                      --without-ada
                      --without-cxx-shared
