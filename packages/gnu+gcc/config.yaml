@@ -16,6 +16,22 @@ description:
     Fortran, Java, Ada, and Go, as well as libraries for these languages
     (libstdc++, libgcj,...).
 dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 3.1.0'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 1.0.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -49,18 +65,6 @@ dependency:
         architecture: []
     gnu+coreutils:
       - version: ''
-        architecture: []
-    gnu+gmp:
-      - version: '>= 4.3.2'
-        architecture: []
-    gnu+mpfr:
-      - version: '>= 3.1.0'
-        architecture: []
-    gnu+mpc:
-      - version: '>= 1.0.1'
-        architecture: []
-    inria+isl:
-      - version: '>= 0.15'
         architecture: []
 data:
   get:
