@@ -18,10 +18,6 @@ description:
     and should be able to run in any minimal POSIX-like environment with
     ncurses installed.
 dependency:
-  install:
-    gnu+libncurses:
-      - version: ''
-        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -43,7 +39,6 @@ data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
-                     --with-ncurses
   rules:
     type: make
     location: data/ncdu-<THIS.$VERSION>
