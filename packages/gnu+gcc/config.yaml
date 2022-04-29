@@ -20,6 +20,8 @@ dependency:
     adler+zlib:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+gmp:
       - version: '>= 4.3.2'
         architecture: []
