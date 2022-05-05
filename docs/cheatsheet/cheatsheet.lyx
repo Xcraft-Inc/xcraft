@@ -663,17 +663,17 @@ status open
 
 \begin_layout Plain Layout
 
-	pacman.make epsitec+cresus,@deps
+	pacman.make epsitec+cresus-win,@deps
 \end_layout
 
 \begin_layout Plain Layout
 
-	pacman.build epsitec+cresus
+	pacman.build epsitec+cresus-win
 \end_layout
 
 \begin_layout Plain Layout
 
-	pacman.install epsitec+cresus
+	pacman.install epsitec+cresus-win
 \end_layout
 
 \end_inset
