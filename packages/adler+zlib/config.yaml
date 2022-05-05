@@ -75,7 +75,7 @@ data:
   deploy: |-
     mkdir("<PEON.PREFIXDIR>/lib");
     try { /* lib/ is not defined with pure --shared build */
-      mv("<PEON.PREFIXDIR.DEV>/lib", "<PEON.PREFIXDIR>/lib", /.*[.]so.*/);
+      mv("<PEON.PREFIXDIR.DEV>/lib", "<PEON.PREFIXDIR>/lib", /.*[.](so|dylib).*/);
     } catch (ex) {}
   env:
     path: []
