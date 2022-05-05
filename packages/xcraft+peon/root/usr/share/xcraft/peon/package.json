@@ -6,7 +6,7 @@
   "dependencies": {
     "gigawatts": "^4.0.5",
     "xcraft-contrib-pacman": "^0.4.1",
-    "xcraft-contrib-peon": "^0.5.29",
+    "xcraft-contrib-peon": "^0.5.30",
     "xcraft-core-busclient": "^5.0.2",
     "xcraft-core-devel": "^1.1.0",
     "xcraft-core-env": "^3.0.4",
