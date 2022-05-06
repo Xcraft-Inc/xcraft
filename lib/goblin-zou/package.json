@@ -1,0 +1,26 @@
+{
+  "name": "goblin-zou",
+  "version": "0.0.1",
+  "description": "Crésus Zou",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "config": {
+    "xcraft": {
+      "commands": true
+    }
+  },
+  "dependencies": {
+    "fs-extra": "^9.1.0",
+    "gigawatts": "^4.0.5",
+    "xcraft-core-goblin": "^5.0.9"
+  },
+  "devDependencies": {
+    "prettier": "2.0.4",
+    "xcraft-dev-prettier": "^2.0.0",
+    "xcraft-dev-rules": "^2.0.0"
+  },
+  "prettier": "xcraft-dev-prettier"
+}
