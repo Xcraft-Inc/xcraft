@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+nettle
-version: 3.7.3
+version: 3.7.3-1
 $version: 3.7.3
 distribution: toolchain/
 maintainer:

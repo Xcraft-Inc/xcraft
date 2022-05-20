@@ -1,5 +1,5 @@
 name: samba+ccache-gcc
-version: 1.0.0
+version: 1.0.0-5
 $version: 1.0.0
 distribution: toolchain/
 maintainer:

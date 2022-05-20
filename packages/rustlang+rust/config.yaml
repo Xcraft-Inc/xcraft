@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: rustlang+rust
-version: 1.56.1-15
+version: 1.56.1-20
 $version: 1.56.1
 distribution: toolchain/
 maintainer:

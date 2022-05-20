@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+gnutls
-version: 3.7.2
+version: 3.7.2-3
 $version: 3.7.2
 distribution: toolchain/
 maintainer:

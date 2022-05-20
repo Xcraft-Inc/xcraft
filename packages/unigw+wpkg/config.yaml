@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: unigw+wpkg
-version: 1.0.2-30
+version: 1.0.2-34
 $version: 1.0.2
 distribution: carnotzet/
 maintainer:

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: clark+expat
-version: 2.2.5
+version: 2.2.5-4
 $version: 2.2.5
 distribution: toolchain/
 maintainer:

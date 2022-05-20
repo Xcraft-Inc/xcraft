@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+readline
-version: 8.1.2
+version: 8.1.2-1
 $version: 8.1.2
 distribution: toolchain/
 maintainer:

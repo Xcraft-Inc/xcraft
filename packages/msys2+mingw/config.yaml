@@ -1,5 +1,5 @@
 name: msys2+mingw
-version: 10.2.0
+version: 10.2.0-1
 $version: 10.2.0
 distribution: toolchain/
 maintainer:

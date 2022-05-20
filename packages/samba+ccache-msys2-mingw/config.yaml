@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: samba+ccache-msys2-mingw
-version: 1.0.0-4
+version: 1.0.0-7
 $version: 1.0.0
 distribution: toolchain/
 maintainer:

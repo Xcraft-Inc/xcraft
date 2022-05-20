@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: gnu+coreutils
-version: '8.30'
+version: 8.30-2
 $version: '8.30'
 distribution: toolchain/
 maintainer:

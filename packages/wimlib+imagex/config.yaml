@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: wimlib+imagex
-version: 1.13.5
+version: 1.13.5-7
 $version: 1.13.5
 distribution: toolchain/
 maintainer:

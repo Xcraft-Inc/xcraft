@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: boostorg+boost
-version: 1.72.0
+version: 1.72.0-2
 $version: 1.72.0
 distribution: westeros/
 maintainer:

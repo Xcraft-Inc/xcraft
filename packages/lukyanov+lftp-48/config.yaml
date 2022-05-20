@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: lukyanov+lftp-48
-version: 4.8.4
+version: 4.8.4-1
 $version: 4.8.4
 distribution: toolchain/
 maintainer:

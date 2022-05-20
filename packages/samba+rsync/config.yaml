@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: samba+rsync
-version: 3.2.3-2
+version: 3.2.3-3
 $version: 3.2.3
 distribution: toolchain/
 maintainer:

@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: openbsd+openssh
-version: 8.9p1-1
+version: 8.9p1-2
 $version: 8.9p1
 distribution: toolchain/
 maintainer:

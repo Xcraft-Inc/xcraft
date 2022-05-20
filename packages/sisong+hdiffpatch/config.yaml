@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: sisong+hdiffpatch
-version: 4.1.2
+version: 4.1.2-20
 $version: 4.1.2
 distribution: toolchain/
 maintainer:
