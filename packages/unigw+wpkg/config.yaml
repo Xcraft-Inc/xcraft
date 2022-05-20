@@ -27,6 +27,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 5337ee40212850aa9e0695c8b59b2af5239ad73649d93f809eef28a355dc3334.tar.gz
   type: src
   configure: |-
     !mkdir -p <THIS.DATA.RULES.LOCATION>
