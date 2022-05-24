@@ -59,7 +59,7 @@ data:
     env:
       win/LDFLAGS: <PEON.ENV.LDFLAGS> -lws2_32
       win/MSYSTEM: MINGW64
-      darwin/LDFLAGS: '-Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
+      darwin/LDFLAGS: '-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib'
   deploy: ''
   env:
     path: []
