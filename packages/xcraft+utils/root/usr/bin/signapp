@@ -1,0 +1,150 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: signapp <app> <id> <entitlements> <signAppId>"
+  echo "               [acUsername] [acPassword] [acProvider]"
+  exit 0
+fi
+
+app="$1"
+id="$2"
+entitlements="$3"
+signAppId="$4"
+acUsername="$5"
+acPassword="$6"
+acProvider="$7"
+
+if [ -z "${app}" ];          then >&2 echo "The app path is missing"; exit 1; fi
+if [ -z "${id}" ];           then >&2 echo "The app ID is missing"; exit 1; fi
+if [ -z "${entitlements}" ]; then >&2 echo "The entitlements path is missing"; exit 1; fi
+if [ -z "${signAppId}" ];    then >&2 echo "The developer ID application is missing"; exit 1; fi
+
+shift 6
+
+set -x
+case "$signAppId" in
+  "-")
+    ;;
+  "Developer ID"*)
+    # Figure out the Organizational Unit (OU) from the signing identity
+    ou=$(
+        set -x
+        security find-certificate -p -c "$signAppId" | \
+            openssl x509 -inform PEM -subject -noout -nameopt sname,sep_multiline,space_eq | \
+            awk '/ OU = / {print $3}'
+    )
+
+    if [ -z "$ou" ]; then
+      echo "error: Could not determine OU from signing identity '$signAppId'"
+      exit 1
+    fi
+    req="((cert leaf[field.1.2.840.113635.100.6.1.9] exists) or \
+          (certificate 1[field.1.2.840.113635.100.6.2.6] exists and \
+            certificate leaf[field.1.2.840.113635.100.6.1.13] exists and certificate leaf[subject.OU] = \"$ou\" \
+          ))"
+    ;;
+  *)
+    req="(cert leaf[subject.CN] = \"$signAppId\" and \
+          cert 1[field.1.2.840.113635.100.6.2.1] exists)"
+    ;;
+esac
+set +x
+
+sign_app()
+{
+  local app="$1"
+  local signId="$2"
+
+  codesign \
+    --sign "$signId" --identifier "$id" \
+    --force --options runtime --entitlements "$entitlements" \
+    --requirements "=designated => anchor apple generic and identifier \"$id\" and $req" \
+    "$app"
+  return $?
+}
+
+inflate()
+{
+  local app="$1"
+
+  cd "$app/.." || exit 1
+  ditto -c -k --sequesterRsrc --keepParent "$app", "$app.zip"
+  cd - || exit 1
+}
+
+notarize()
+{
+  local app="$1"
+  local id="$2"
+  local username="$3"
+  local password="$4"
+  local provider="$5"
+  local uuid
+  local status
+
+  uuid="$(xcrun altool --notarize-app \
+                       --primary-bundle "$id" \
+                       --username "$username" \
+                       --password "$password" \
+                       --asc-provider "$provider" \
+                       --file "$app.zip" | grep RequestUUID | cut -d= -f2 | sed 's,^[ \t]*,,')"
+  echo "RequestUUID: $uuid for $app"
+  if [ -n "$uuid" ]; then
+    while [ "$status" = "in progress" ] || [ -z "$status" ]; do
+      status=$(xcrun altool --notarization-info "$uuid" \
+                            --username "$username" \
+                            --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
+      if [ "$status" = "invalid" ]; then
+        echo "The app is invalid" >&2
+        return 1
+      fi
+      echo "Wait for status"
+      sleep 10
+    done
+  else \
+    echo "No UUID returned for the notarization" >&2
+    rm -f "$app.zip"
+    return 1
+  fi
+  rm -f "$app.zip"
+  return 0
+}
+
+staple()
+{
+  local app="$1"
+
+  echo "Staple ticket to $app"
+  xcrun stapler staple "$app"
+  return $?
+}
+
+# Sign the executable
+echo "Sign $app"
+if ! sign_app "$app" "$signAppId"; then
+  >&2 echo "Signature of $app has failed"
+  exit 1
+fi
+
+# Inflate
+echo "Inflate $app"
+if ! inflate "$app"; then
+  >&2 echo "Inflate of app $app has failed"
+  exit 2
+fi
+
+# Notarize the app
+echo "Notarize $app"
+if ! notarize "$app" "$id" "$acUsername" "$acPassword" "$acProvider"; then
+  >&2 echo "Notarization of app $app has failed"
+  exit 4
+fi
+
+# Staple the ticket into the app
+echo "Staple ticket into $app"
+if ! staple "$app"; then
+  >&2 echo "Staple of the ticket into $app has failed"
+  exit 5
+fi
+
+echo "App done"
