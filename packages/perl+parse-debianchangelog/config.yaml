@@ -69,7 +69,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'http://www.djpig.de/software/Parse-DebianChangelog-<THIS.$VERSION>.tar.gz'
+    uri: 'https://github.com/Xcraft-Inc/xcraft-dev/files/8954716/Parse-DebianChangelog-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
