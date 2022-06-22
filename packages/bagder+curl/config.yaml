@@ -27,6 +27,11 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
+    apple+macos-sdk-1013:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.$VERSION>.tar.gz'
