@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: wimlib+imagex
-version: 1.13.5-7
-$version: 1.13.5
+version: 1.13.6-rc1-2
+$version: 1.13.6-rc1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -29,9 +29,10 @@ dependency:
         architecture:
           - darwin-i386
           - darwin-amd64
+bump: []
 data:
   get:
-    uri: 'https://wimlib.net/downloads/wimlib-<THIS.$VERSION>.tar.gz'
+    uri: 'https://wimlib.net/downloads/wimlib-1.13.5.tar.gz'
     mirrors: []
     ref: ''
     out: ''
@@ -51,7 +52,7 @@ data:
       <PEON.OS=win?  --host=x86_64-w64-mingw32 :>
   rules:
     type: script
-    location: data/wimlib-<THIS.$VERSION>
+    location: data/wimlib-1.13.5
     args:
       postinst: ''
       prerm: ''
