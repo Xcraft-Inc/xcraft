@@ -1,0 +1,23 @@
+From 9cf9304ba14d4c31f8501c1683453753221ef849 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <mathieu@schroetersa.ch>
+Date: Mon, 11 Jul 2022 14:05:48 +0200
+Subject: Reduce MAX_OPEN_FILES to 128 on macOS where the default limit is 256
+
+
+diff --git a/include/wimlib/apply.h b/include/wimlib/apply.h
+index 2592fae6..7813aee1 100644
+--- a/include/wimlib/apply.h
++++ b/include/wimlib/apply.h
+@@ -81,7 +81,12 @@ struct apply_ctx {
+ /* Maximum number of UNIX file descriptors, NTFS attributes, or Windows file
+  * handles that can be opened simultaneously to extract a blob to multiple
+  * destinations.  */
++#ifndef __APPLE__
+ #define MAX_OPEN_FILES 512
++#else /* !__APPLE__ */
++/* With macOS, reduce to 128 because the default value for ulimit -n is 256 */
++#define MAX_OPEN_FILES 128
++#endif /* __APPLE__ */
+ 
+ static inline int
+ extract_progress(struct apply_ctx *ctx, enum wimlib_progress_msg msg)
