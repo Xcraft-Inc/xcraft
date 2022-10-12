@@ -38,9 +38,7 @@ data:
       && mkdir build
       && cd build
       && cmake -G "Unix Makefiles"
-    <PEON.OS=win?
-               -DCRYPTO_BACKEND=WinCNG
-    :>
+               -DCRYPTO_BACKEND=OpenSSL
                -DLINT=OFF
                -DBUILD_TESTING=OFF
                -DBUILD_EXAMPLES=OFF
