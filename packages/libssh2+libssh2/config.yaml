@@ -24,9 +24,6 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
-    kitware+cmake:
-      - version: ''
-        architecture: []
 data:
   get:
     uri: 'https://www.libssh2.org/download/libssh2-<THIS.$VERSION>.tar.gz'
