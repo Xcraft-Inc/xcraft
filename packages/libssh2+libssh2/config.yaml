@@ -38,7 +38,12 @@ data:
       && mkdir build
       && cd build
       && cmake -G "Unix Makefiles"
+    <PEON.OS=win?
+               -DCRYPTO_BACKEND=WinCNG
+    :>
                -DLINT=OFF
+               -DBUILD_TESTING=OFF
+               -DBUILD_EXAMPLES=OFF
                -DBUILD_SHARED_LIBS=OFF
                -DENABLE_ZLIB_COMPRESSION=ON
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
