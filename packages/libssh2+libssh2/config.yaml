@@ -1,0 +1,66 @@
+subpackage:
+  - runtime*
+name: libssh2+libssh2
+version: 1.10.0-2
+$version: 1.10.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A client-side C library implementing the SSH2 protocol.
+  long: ''
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://www.libssh2.org/download/libssh2-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 2d64e90f3ded394b91d3a2e774ca203a4179f69aebee03003e5a6fa621e41d51.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DLINT=OFF
+               -DBUILD_SHARED_LIBS=OFF
+               -DENABLE_ZLIB_COMPRESSION=ON
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/libssh2-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C build install'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
