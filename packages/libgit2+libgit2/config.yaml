@@ -44,12 +44,16 @@ data:
                -DBUILD_CLI=OFF
                -DBUILD_EXAMPLES=OFF
                -DBUILD_FUZZERS=OFF
-               -DBUILD_SHARED_LIBS=OFF
+               -DBUILD_SHARED_LIBS=ON
                -DUSE_SSH=ON
                -DUSE_HTTPS=ON
                -DUSE_SHA1=ON
                -DUSE_SHA256=ON
                -DUSE_BUNDLED_ZLIB=ON
+               -DUSE_WINHTTP=OFF
+    <PEON.OS=win?
+               -DCMAKE_RC_COMPILER=windres.exe
+    :>
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
@@ -63,7 +67,8 @@ data:
       maketest: ''
       makeinstall: '-C build install'
     test: none
-    env: {}
+    env:
+      win/CC: x86_64-w64-mingw32-gcc
   deploy: ''
   env:
     path: []
