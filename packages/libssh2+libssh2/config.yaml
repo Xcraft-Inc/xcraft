@@ -44,7 +44,7 @@ data:
                -DLINT=OFF
                -DBUILD_TESTING=OFF
                -DBUILD_EXAMPLES=OFF
-               -DBUILD_SHARED_LIBS=OFF
+               -DBUILD_SHARED_LIBS=ON
                -DENABLE_ZLIB_COMPRESSION=ON
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
@@ -60,7 +60,7 @@ data:
       makeinstall: '-C build install'
     test: none
     env: {}
-  deploy: ''
+  deploy: "mv('<PEON.PREFIXDIR>/lib/liblibssh2.dll.a', '<PEON.PREFIXDIR>/lib/libssh2.dll.a');"
   env:
     path: []
     other: {}
