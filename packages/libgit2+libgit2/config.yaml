@@ -50,8 +50,8 @@ data:
                -DUSE_SHA1=ON
                -DUSE_SHA256=ON
                -DUSE_BUNDLED_ZLIB=ON
-               -DUSE_WINHTTP=OFF
     <PEON.OS=win?
+               -DUSE_WINHTTP=ON
                -DCMAKE_RC_COMPILER=windres.exe
     :>
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
