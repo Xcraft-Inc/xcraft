@@ -60,7 +60,10 @@ data:
       makeinstall: '-C build install'
     test: none
     env: {}
-  deploy: "mv('<PEON.PREFIXDIR>/lib/liblibssh2.dll.a', '<PEON.PREFIXDIR>/lib/libssh2.dll.a');"
+  deploy: |-
+    <PEON.OS=win?
+      mv('{PEON.PREFIXDIR}/lib/liblibssh2.dll.a', '{PEON.PREFIXDIR}/lib/libssh2.dll.a');
+    :>
   env:
     path: []
     other: {}
