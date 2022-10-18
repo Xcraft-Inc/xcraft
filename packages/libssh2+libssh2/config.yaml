@@ -16,7 +16,18 @@ dependency:
   install:
     adler+zlib-dev:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+    adler+zlib:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
     openssl+openssl:
       - version: ''
         architecture:
