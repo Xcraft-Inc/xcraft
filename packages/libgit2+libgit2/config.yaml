@@ -60,7 +60,7 @@ data:
                -DUSE_WINHTTP=ON
                -DCMAKE_RC_COMPILER=windres.exe
     :>
-               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_PREFIX_PATH=<PEON.PROD.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
   rules:

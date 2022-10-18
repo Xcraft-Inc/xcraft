@@ -67,7 +67,7 @@ data:
                -DBUILD_EXAMPLES=OFF
                -DBUILD_SHARED_LIBS=ON
                -DENABLE_ZLIB_COMPRESSION=ON
-               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_PREFIX_PATH=<PEON.PROD.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
   rules:
