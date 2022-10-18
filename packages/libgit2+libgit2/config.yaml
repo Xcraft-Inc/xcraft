@@ -3,7 +3,7 @@ subpackage:
 name: libgit2+libgit2
 version: 1.5.0
 $version: 1.5.0
-distribution: toolchain/
+distribution: zou/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
@@ -19,7 +19,13 @@ dependency:
         architecture: []
     openssl+openssl:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
   build:
     xcraft+base-build:
       - version: ''
