@@ -28,6 +28,8 @@ dependency:
         architecture:
           - mswindows-i386
           - mswindows-amd64
+        subpackage:
+          - runtime
     openssl+openssl:
       - version: ''
         architecture:
@@ -37,6 +39,8 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
