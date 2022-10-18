@@ -39,7 +39,7 @@ dependency:
           - freebsd-amd64
 data:
   get:
-    uri: 'https://zlib.net/zlib-<THIS.$VERSION>.tar.gz'
+    uri: 'https://zlib.net/fossils/zlib-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
     out: ''
