@@ -1,10 +1,10 @@
---- a/libssh2.pc.in	2020-06-09 11:09:01.167808300 +0300
-+++ b/libssh2.pc.in	2020-06-09 11:09:05.525429400 +0300
+--- a/src/libssh2.pc.in	2020-06-09 11:09:01.167808300 +0300
++++ b/src/libssh2.pc.in	2020-06-09 11:09:05.525429400 +0300
 @@ -12,6 +12,6 @@
- Description: Library for SSH-based communication
- Version: @LIBSSH2VER@
- Requires.private: @LIBSREQUIRED@
--Libs: -L${libdir} -lssh2 @LIBS@
+ Description: @PROJECT_DESCRIPTION@
+ Version: @LIBSSH2_VERSION@
+ Requires.private: @PC_REQUIRES_PRIVATE@
+-Libs: -L${libdir} -lssh2 @PC_LIBS@
 +Libs: -L${libdir} -lssh2
- Libs.private: @LIBS@
+ Libs.private: @PC_LIBS@
  Cflags: -I${includedir}
