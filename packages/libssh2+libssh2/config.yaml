@@ -14,31 +14,14 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib-dev:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-          - linux-aarch64
-          - darwin-i386
-          - darwin-amd64
-          - darwin-aarch64
     adler+zlib:
       - version: ''
-        architecture:
-          - mswindows-i386
-          - mswindows-amd64
+        architecture: []
         subpackage:
           - runtime
     openssl+openssl:
       - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-          - linux-aarch64
-          - darwin-i386
-          - darwin-amd64
-          - darwin-aarch64
+        architecture: []
         subpackage:
           - runtime
   build:
@@ -61,11 +44,7 @@ data:
       && mkdir build
       && cd build
       && cmake -G "Unix Makefiles"
-    <PEON.OS=win?
-               -DCRYPTO_BACKEND=WinCNG
-    :
                -DCRYPTO_BACKEND=OpenSSL
-    >
                -DLINT=OFF
                -DBUILD_TESTING=OFF
                -DBUILD_EXAMPLES=OFF
