@@ -17,9 +17,11 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://fossies.org/linux/misc/xz-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://download.sourceforge.net/lzmautils/xz-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
@@ -51,6 +53,7 @@ data:
       maketest: ''
       makeinstall: '!<PEON.OS=win? mingw32-make : make > install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
