@@ -65,10 +65,10 @@ data:
       ./Configure darwin64-{PEON.OS.ARCH2}-cc
     :>
     <PEON.OS=win?
-      ./Configure --openssldir=/usr/ssl/certs mingw64
+      ./Configure --openssldir=/usr/ssl mingw64
     :>
     <PEON.OS=linux?
-      ./config    --openssldir=/etc/ssl/certs
+      ./config    --openssldir=/etc/ssl
     :>
                   --prefix=<PEON.PREFIXDIR>
                   shared
