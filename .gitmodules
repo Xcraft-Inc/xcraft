@@ -142,3 +142,6 @@
 [submodule "lib/xcraft-core-book"]
 	path = lib/xcraft-core-book
 	url = https://github.com/Xcraft-Inc/xcraft-core-book.git
+[submodule "lib/goblin-matrix"]
+	path = lib/goblin-matrix
+	url = ../../cresus-suite/goblin-matrix
