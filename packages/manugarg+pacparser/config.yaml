@@ -1,0 +1,55 @@
+subpackage:
+  - runtime*
+name: manugarg+pacparser
+version: 1.4.0-8
+$version: 1.4.0
+distribution: monolith/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A library to parse proxy auto-config (PAC) files
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/manugarg/pacparser/releases/download/v<THIS.$VERSION>/pacparser-v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 2e66c5fe635cd5dcb9bccca4aced925eca712632b81bada3b63682159c0f910e.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/pacparser-v<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        PREFIX=<PEON.PREFIXDIR>
+        VERSION=<THIS.$VERSION>
+        -C src
+      maketest: ''
+      makeinstall: |-
+        PREFIX=<PEON.PREFIXDIR>
+        VERSION=<THIS.$VERSION>
+        -C src install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
