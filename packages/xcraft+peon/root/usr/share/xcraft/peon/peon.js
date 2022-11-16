@@ -617,6 +617,8 @@ class Action {
         `Distribution: ${this._distribution}`
       );
 
+    /* FIXME: add a way to inject more dependencies which are not buildable */
+
     if (this._distribution === 'toolchain/') {
       if (/\nDepends(?:\/[a-z]+)?: /.test(dataControl)) {
         dataControl = dataControl.replace(
