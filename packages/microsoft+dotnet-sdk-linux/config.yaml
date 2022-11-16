@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-linux
-version: 10.0.0-3
-$version: 10.0.0
+version: 11.0.0-1
+$version: 11.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - linux-amd64
 description:
-  brief: .NET Core SDK 6.0
+  brief: .NET Core SDK 6.0 and 7.0
   long: ''
 dependency:
   install:
@@ -23,6 +23,10 @@ dependency:
       - version: ''
         architecture: []
     microsoft+dotnet-sdk-60-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    microsoft+dotnet-sdk-70-linux:
       - version: ''
         architecture:
           - linux-amd64
@@ -42,6 +46,7 @@ data:
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-linux/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-70-linux/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
