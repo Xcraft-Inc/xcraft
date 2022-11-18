@@ -26,6 +26,9 @@ data:
     !{bash}
     export _BIN_EXT=<PEON.OS=win?.exe:>
       && strip <PEON.OS=darwin?: -s > <PEON.INSTALLDIR>/opt/cresus/monolith/*
+    <PEON.OS=win?
+      && esign "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz${_BIN_EXT}"
+    :>
     <PEON.OS=darwin?
       && mkdir -p _root/opt/Cresus/monolith
       && cp -f "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz${_BIN_EXT}"

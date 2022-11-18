@@ -29,6 +29,11 @@ dependency:
         architecture:
           - darwin-i386
           - darwin-amd64
+    epsitec+signtool:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
 bump: []
 data:
   get:
