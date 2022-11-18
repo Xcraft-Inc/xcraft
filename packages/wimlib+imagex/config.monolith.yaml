@@ -4,7 +4,7 @@ data:
     export _BIN_EXT=<PEON.OS=win?.exe:>
     <PEON.OS=win?
       && strip -s {PEON.PREFIXDIR}/bin/*.exe
-      && esign "{PEON.PREFIXDIR}/bin/wimlib-imagex${_BIN_EXT}"
+      && esign -l "{PEON.PREFIXDIR}/bin/wimlib-imagex${_BIN_EXT}"
     :>
       && mkdir -p "<PEON.INSTALLDIR>/opt/cresus/monolith/"
       && cp -f "<PEON.PREFIXDIR>/bin/wimlib-imagex${_BIN_EXT}" "<PEON.INSTALLDIR>/opt/cresus/monolith/"
