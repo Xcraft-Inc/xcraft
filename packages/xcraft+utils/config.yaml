@@ -1,6 +1,6 @@
 name: xcraft+utils
-version: 0.5.1
-$version: 0.5.1
+version: 0.6.0
+$version: 0.6.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter

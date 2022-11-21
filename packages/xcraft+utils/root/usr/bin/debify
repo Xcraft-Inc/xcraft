@@ -31,6 +31,18 @@ if [ -z "${outputDir}" ];               then >&2 echo "The output directory is m
 
 shift 8
 
+ARCH=amd64
+WORK_DIR=$(mktemp -d)
+
+# Check for extra files
+while [[ "$1" =~ ^extra/ ]]; do
+  useExtra=1
+  entry="${1#extra/}"
+  # Copy the projects files to the final project directory
+  cp -a "${entry}" "${WORK_DIR}/debian/"
+  shift
+done
+
 # Check for systemd arguments
 useSystemd=0
 systemd="
@@ -70,9 +82,6 @@ for dep in "${depends[@]}"; do
     packageDepends="${dep}"
   fi
 done
-
-ARCH=amd64
-WORK_DIR=$(mktemp -d)
 
 cleanup()
 {
