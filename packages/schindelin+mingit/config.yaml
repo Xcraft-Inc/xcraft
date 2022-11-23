@@ -1,6 +1,6 @@
 name: schindelin+mingit
-version: 2.38.1.2
-$version: 2.38.1.2
+version: 2.38.1.1
+$version: 2.38.1.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,7 +20,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://github.com/git-for-windows/git/releases/download/v2.38.1.windows.2/MinGit-<THIS.$VERSION>-busybox-64-bit.zip'
+    uri: 'https://github.com/git-for-windows/git/releases/download/v2.38.1.windows.1/MinGit-<THIS.$VERSION>-busybox-64-bit.zip'
     ref: ''
     out: ''
     externals: true
