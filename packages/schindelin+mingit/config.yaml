@@ -35,5 +35,8 @@ data:
   env:
     path:
       - opt/mingit/cmd
-    other: {}
+    other:
+      GIT_CONFIG_KEY_0: 'core.longpaths'
+      GIT_CONFIG_VALUE_0: 'true',
+      GIT_CONFIG_COUNT: '1'
   embedded: true
