@@ -24,7 +24,6 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: aad8fe5975cb94bb550efbb0b4b696388de1d078296e1f31c268d144f6a6b0ea.zip
   type: bin
   configure: "mv('data', 'root/opt/mingit');"
   rules:
