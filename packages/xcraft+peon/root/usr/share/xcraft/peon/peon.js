@@ -33,7 +33,7 @@ function getBasePath(root, pkg) {
 }
 
 class Action {
-  constructor(pkg, root, currentDir, binaryDir, hook, resp) {
+  constructor(pkg, root, currentDir, binaryDir, hook, resp, action) {
     this._pkg = pkg;
     this._share = currentDir;
     this._root = root;
@@ -70,6 +70,11 @@ class Action {
     } catch (ex) {
       if (ex.code !== 'ENOENT') {
         throw ex;
+      }
+      if (action === 'makeall') {
+        throw new Error(
+          `this package cannot be built for ${this._distribution} because it looks like dedicated to one specific distribution`
+        );
       }
       this._resp.log.warn(`no config file, ensure that it's a postrm action`);
       this._config = null;
@@ -716,7 +721,7 @@ if (process.argv.length >= 4) {
     }\n - share: ${share || 'n/a'}`
   );
 
-  const main = new Action(pkg, root, share, prefix, hook, resp);
+  const main = new Action(pkg, root, share, prefix, hook, resp, action);
   main[action](wpkgAct, (err) => {
     if (err) {
       resp.log.err(err);
