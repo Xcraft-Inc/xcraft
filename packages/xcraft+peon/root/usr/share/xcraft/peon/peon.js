@@ -51,31 +51,36 @@ class Action {
 
     xEnv.devrootUpdate(this._distribution);
 
-    try {
-      let data;
+    const _distribution = this._distribution.replace('/', '');
+    const configFallback = ['config.json'];
+    const baseDistrib = _distribution.split('+')[0];
+    if (_distribution !== baseDistrib) {
+      configFallback.unshift(`config.${baseDistrib}.json`);
+    }
+    configFallback.unshift(`config.${_distribution}.json`);
+
+    let data = null;
+
+    for (const config of configFallback) {
       try {
-        data = fs.readFileSync(
-          path.join(
-            this._share,
-            `config.${this._distribution.replace('/', '')}.json`
-          )
-        );
+        data = fs.readFileSync(path.join(this._share, config));
+        break;
       } catch (ex) {
         if (ex.code !== 'ENOENT') {
           throw ex;
         }
-        data = fs.readFileSync(path.join(this._share, 'config.json'));
       }
+    }
+
+    if (data) {
       this._config = JSON.parse(data);
-    } catch (ex) {
-      if (ex.code !== 'ENOENT') {
-        throw ex;
-      }
+    } else {
       if (action === 'makeall') {
         throw new Error(
           `this package cannot be built for ${this._distribution} because it looks like dedicated to one specific distribution`
         );
       }
+
       this._resp.log.warn(`no config file, ensure that it's a postrm action`);
       this._config = null;
     }
