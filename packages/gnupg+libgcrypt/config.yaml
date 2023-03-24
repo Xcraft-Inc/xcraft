@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnupg+libgcrypt
-version: 1.9.4
-$version: 1.9.4
+version: 1.10.1-1
+$version: 1.10.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,6 +21,7 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-<THIS.$VERSION>.tar.bz2'
@@ -29,12 +30,12 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: ea849c83a72454e3ed4267697e8ca03390aee972ab421e7df69dfe42b65caaf7.tar.bz2
+    $hash: ef14ae546b0084cd84259f61a55e07a38c3b53afc0f546bffcef2f01baffe9de.tar.bz2
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
-                     --disable-shared
+                     --enable-shared
                      --enable-static
                      --disable-doc
   rules:

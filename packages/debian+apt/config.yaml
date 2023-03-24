@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: debian+apt
-version: 1.8.2-1
-$version: 1.8.2
+version: 2.6.0
+$version: 2.6.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -40,6 +40,15 @@ dependency:
     gnu+nettle:
       - version: ''
         architecture: []
+    berkleydb+libdb:
+      - version: ''
+        architecture: []
+    cyan4973+libxxhash:
+      - version: ''
+        architecture: []
+    gnupg+libgcrypt:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -53,20 +62,24 @@ dependency:
     kitware+cmake:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://salsa.debian.org/apt-team/apt/-/archive/<THIS.$VERSION>/apt-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 6ff2ede3ffc707ae51c80e5026199816ce7baab038e55aa96aa7eabe0e910bb6.tar.gz
+    $hash: 785ef1991c925d41f2fa076386b66a82df2ba7a7a98798d9ef6932c05ac2874d.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>/ ;
     cmake -G "Unix Makefiles"
           -DWITH_DOC=OFF
           -DUSE_NLS=OFF
+          -DWITH_TESTS=OFF
+          -DBERKELEY_INCLUDE_DIRS=<PEON.ROOTDIR>/usr/include
           -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
           -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
           -DCMAKE_INSTALL_LOCALSTATEDIR=<PEON.PREFIXDIR>/var
@@ -84,6 +97,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
