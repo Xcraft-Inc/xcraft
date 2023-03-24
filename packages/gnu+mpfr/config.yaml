@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+mpfr
-version: 4.1.0-1
-$version: 4.1.0
+version: 4.2.0
+$version: 4.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,14 +25,15 @@ dependency:
     gnu+gmp:
       - version: '>= 5'
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://ftp.gnu.org/gnu/mpfr/mpfr-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 3127fe813218f3a1f0adf4e8899de23df33b4cf4b4b3831a5314f78e65ffa2d6.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
@@ -49,6 +50,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []

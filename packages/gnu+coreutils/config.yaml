@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+coreutils
-version: 8.30-2
-$version: '8.30'
+version: '9.2'
+$version: '9.2'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,13 +21,15 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/coreutils/coreutils-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: e831b3a86091496cdba720411f9748de81507798f6130adeaef872d206e1b057.tar.xz
+    prepare: ''
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
@@ -40,6 +42,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []

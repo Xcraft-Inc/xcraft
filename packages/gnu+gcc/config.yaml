@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 11.3.0-3
-$version: 11.3.0
+version: 12.2.0
+$version: 12.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -68,6 +68,7 @@ dependency:
     gnu+coreutils:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.gz'
@@ -76,7 +77,6 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 98438e6cc7294298b474cf0da7655d9a8c8b796421bb0210531c294a950374ed.tar.gz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"
