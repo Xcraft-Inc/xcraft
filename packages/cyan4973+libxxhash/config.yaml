@@ -1,0 +1,49 @@
+subpackage:
+  - runtime*
+name: cyan4973+libxxhash
+version: 0.8.1
+$version: 0.8.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Extremely fast non-cryptographic hash algorithm
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/Cyan4973/xxHash/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 3bb6b7d6f30c591dd65aaaff1c8b7a5b94d81687998ca9400082c739a690436c.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data/xxHash-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install PREFIX=<PEON.PREFIXDIR>
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
