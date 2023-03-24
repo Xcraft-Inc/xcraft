@@ -71,6 +71,6 @@ data:
     path:
       - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
     other:
-      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.31.31103/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
+      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.29.30133/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
       MSBUILDDISABLENODEREUSE: '1'
   embedded: true
