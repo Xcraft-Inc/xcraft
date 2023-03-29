@@ -1,0 +1,64 @@
+subpackage:
+  - runtime*
+name: lttng+lttng-ust
+version: 2.13.5-1
+$version: 2.13.5
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: An open source tracing framework for Linux.
+  long: ''
+dependency:
+  install:
+    liburcu+userspace-rcu:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://lttng.org/files/lttng-ust/lttng-ust-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: f1d7bb4984a3dc5dacd3b7bcb4c10c04b041b0eecd7cba1fef3d8f86aff02bd6.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-numa
+                     --disable-jni-interface
+                     --disable-java-agent-jul
+                     --disable-java-agent-log4j
+                     --disable-java-agent-log4j2
+                     --disable-java-agent-all
+                     --disable-python-agent
+                     --disable-examples
+                     --disable-man-pages
+  rules:
+    type: make
+    location: data/lttng-ust-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
