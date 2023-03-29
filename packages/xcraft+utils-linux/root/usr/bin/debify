@@ -185,7 +185,18 @@ Description: ${projectShortDescription}
  ${projectLongDescription}
 EOF
 
+echo "## control file ##"
 cat debian/DEBIAN/control
+
+# list for conffiles
+if [ -d debian/etc ]; then
+  cd debian || exit 1
+  find etc -type f,l -print | sed 's,^,/,' >> DEBIAN/conffiles
+  cd - || exit 1
+
+  echo "## etc config file list ##"
+  cat debian/DEBIAN/conffiles
+fi
 
 # Prepare the final project directory
 mkdir -p "debian/opt/${projectName}"
