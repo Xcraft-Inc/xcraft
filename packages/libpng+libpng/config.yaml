@@ -27,7 +27,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://fossies.org/linux/misc/libpng-<THIS.$VERSION>.tar.xz'
+    uri: 'https://download.sourceforge.net/libpng/libpng16/<THIS.$VERSION>/libpng-<THIS.$VERSION>.tar.xz'
     ref: ''
     out: ''
     externals: true
