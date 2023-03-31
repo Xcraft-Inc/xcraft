@@ -56,7 +56,6 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 Restart=always
-SyslogIdentifier=${projectName}
 User=${projectName}
 "
 while [[ "$1" =~ ^systemd/ ]]; do
