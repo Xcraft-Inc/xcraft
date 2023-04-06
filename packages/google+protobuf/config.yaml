@@ -68,6 +68,7 @@ data:
     path: []
     other:
       PROTOC: <OS.ROOTDIR>/usr/bin/protoc
+      PROTOBUF_PROTOC: <OS.ROOTDIR>/usr/bin/protoc
   embedded: true
   runtime:
     configure: ''
