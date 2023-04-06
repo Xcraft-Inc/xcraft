@@ -17,7 +17,7 @@ dependency:
     gnupg+libgpg-error:
       - version: ''
         architecture: []
-        subpackages:
+        subpackage:
           - runtime
   build:
     xcraft+base-build:
