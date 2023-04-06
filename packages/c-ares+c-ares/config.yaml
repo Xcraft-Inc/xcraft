@@ -1,0 +1,66 @@
+subpackage:
+  - runtime*
+name: c-ares+c-ares
+version: 1.19.0
+$version: 1.19.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A C library for asynchronous DNS requests
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://c-ares.org/download/c-ares-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: bfceba37e23fd531293829002cac0401ef49a6dc55923f7f92236585b7ad1dd3.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DCARES_STATIC=ON
+               -DCARES_SHARED=ON
+               -DCARES_INSTALL=ON
+               -DCARES_STATIC_PIC=ON
+               -DCARES_BUILD_TESTS=OFF
+               -DCARES_BUILD_CONTAINER_TESTS=OFF
+               -DCARES_BUILD_TOOLS=OFF
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/c-ares-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C build install'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

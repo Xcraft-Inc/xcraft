@@ -1,0 +1,95 @@
+subpackage:
+  - runtime*
+name: grpc+grpc
+version: 1.53.0
+$version: 1.53.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'The C based gRPC (C++, Python, Ruby, Objective-C, PHP, C#)'
+  long: ''
+dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    google+re2:
+      - version: ''
+        architecture: []
+    google+protobuf:
+      - version: ''
+        architecture: []
+    abseil+abseil-cpp:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
+    c-ares+c-ares:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/grpc/grpc/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 9717ffc52120861136e478155c2ff3a9c21740e2244de52fa966f376d7471adf.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DgRPC_BUILD_TESTS=OFF
+               -DgRPC_BUILD_CODEGEN=ON
+               -DgRPC_BUILD_CSHARP_EXT=ON
+               -DgRPC_BACKWARDS_COMPATIBILITY_MODE=OFF
+               -DgRPC_BUILD_GRPC_CPP_PLUGIN=ON
+               -DgRPC_BUILD_GRPC_CSHARP_PLUGIN=ON
+               -DgRPC_BUILD_GRPC_NODE_PLUGIN=ON
+               -DgRPC_BUILD_GRPC_PHP_PLUGIN=ON
+               -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=OFF
+               -DgRPC_BUILD_GRPC_RUBY_PLUGIN=ON
+               -DgRPC_ABSL_PROVIDER=package
+               -DgRPC_PROTOBUF_PROVIDER=package
+               -DgRPC_ZLIB_PROVIDER=package
+               -DgRPC_SSL_PROVIDER=package
+               -DgRPC_CARES_PROVIDER=package
+               -DgRPC_RE2_PROVIDER=package
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/grpc-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C build install'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other:
+      GRPC_PROTOC_PLUGIN: <OS.ROOTDIR>/usr/bin/grpc_csharp_plugin
+  embedded: true
+  runtime:
+    configure: ''

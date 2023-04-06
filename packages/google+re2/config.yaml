@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
-name: google+protobuf
-version: '21.12'
-$version: '21.12'
+name: google+re2
+version: 2023-03-01-1
+$version: '2023-03-01'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,16 +10,9 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Protocol Buffers - Google's data interchange format.
+  brief: 'a fast, safe, thread-friendly alternative'
   long: ''
 dependency:
-  install:
-    adler+zlib:
-      - version: ''
-        architecture: []
-    abseil+abseil-cpp:
-      - version: ''
-        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -30,34 +23,30 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-all-<THIS.$VERSION>.tar.gz'
+    uri: 'https://github.com/google/re2/archive/refs/tags/<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09.tar.gz
+    $hash: 7a9a4824958586980926a300b4717202485c4b4115ac031822e29aa4ef207e48.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && mkdir build
       && cd build
       && cmake -G "Unix Makefiles"
-               -Dprotobuf_BUILD_TESTS=OFF
-               -Dprotobuf_BUILD_CONFORMANCE=OFF
-               -Dprotobuf_BUILD_EXAMPLES=OFF
-               -Dprotobuf_BUILD_PROTOBUF_BINARIES=ON
-               -Dprotobuf_BUILD_PROTOC_BINARIES=ON
-               -Dprotobuf_BUILD_LIBPROTOC=OFF
-               -Dprotobuf_ALLOW_CCACHE=ON
-               -Dprotobuf_ABSL_PROVIDER=package
                -DBUILD_SHARED_LIBS=ON
+               -DRE2_USE_ICU=OFF
+               -DUSEPCRE=OFF
+               -DRE2_BUILD_FRAMEWORK=OFF
+               -DRE2_BUILD_TESTING=OFF
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
-    location: data/protobuf-<THIS.$VERSION>
+    location: data/re2-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -69,9 +58,7 @@ data:
   deploy: ''
   env:
     path: []
-    other:
-      PROTOC: <OS.ROOTDIR>/usr/bin/protoc
-      PROTOBUF_PROTOC: <OS.ROOTDIR>/usr/bin/protoc
+    other: {}
   embedded: true
   runtime:
     configure: ''

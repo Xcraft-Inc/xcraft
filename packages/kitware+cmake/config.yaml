@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: kitware+cmake
-version: 3.20.4-2
-$version: 3.20.4
+version: 3.26.3-1
+$version: 3.26.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,14 +26,16 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://cmake.org/files/v3.20/cmake-<THIS.$VERSION>.tar.gz'
+    uri: 'https://github.com/Kitware/CMake/releases/download/v<THIS.$VERSION>/cmake-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 87a4060298f2c6bb09d479de1400bc78195a5b55a65622a7dceeb3d1090a1b16.tar.gz
+    $hash: bbd8d39217509d163cb544a40d6428ac666ddc83e22905d3e52c925781f0f659.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
@@ -53,6 +55,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
