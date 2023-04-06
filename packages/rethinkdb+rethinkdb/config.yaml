@@ -27,7 +27,7 @@ dependency:
     openssl+openssl:
       - version: ''
         architecture: []
-    google+protobuf:
+    google+protobuf-legacy:
       - version: ''
         architecture: []
     bagder+curl:
@@ -58,7 +58,7 @@ dependency:
     browserify+browserify13:
       - version: ''
         architecture: []
-    google+protobuf:
+    google+protobuf-legacy:
       - version: ''
         architecture: []
     openjs+nodejs8:

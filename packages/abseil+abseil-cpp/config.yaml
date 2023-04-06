@@ -1,0 +1,64 @@
+subpackage:
+  - runtime*
+name: abseil+abseil-cpp
+version: '20230125.2'
+$version: '20230125.2'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Abseil Common Libraries (C++)
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/abseil/abseil-cpp/archive/refs/tags/<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 9a2b5752d7bfade0bdeee2701de17c9480620f8b237e1964c1b9967c75374906.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DBUILD_TESTING=OFF
+               -DABSL_BUILD_TESTING=OFF
+               -DABSL_BUILD_TEST_HELPERS=OFF
+               -DABSL_USE_EXTERNAL_GOOGLETEST=OFF
+               -DABSL_USE_GOOGLETEST_HEAD=OFF
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/abseil-cpp-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C build install'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

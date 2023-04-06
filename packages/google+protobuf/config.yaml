@@ -1,9 +1,9 @@
 subpackage:
   - runtime*
 name: google+protobuf
-version: 3.15.8-2
-$version: 3.15.8
-distribution: westeros/
+version: '22.2'
+$version: '22.2'
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
@@ -13,34 +13,55 @@ description:
   brief: Protocol Buffers - Google's data interchange format.
   long: ''
 dependency:
+  install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    abseil+abseil-cpp:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
         architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-all-<THIS.$VERSION>.tar.gz'
+    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 2b737d6d120418c443c561cf4032c0141f9626f68f532b5d2c27ee8a191c996e.tar.gz
+    $hash: 1ff680568f8e537bb4be9813bac0c1d87848d5be9d000ebe30f0bc2d7aabe045.tar.gz
   type: src
   configure: |-
-    !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
-      && ./configure --prefix=<PEON.PREFIXDIR>
-                     --enable-static
-                     --disable-shared
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -Dprotobuf_BUILD_TESTS=OFF
+               -Dprotobuf_BUILD_CONFORMANCE=OFF
+               -Dprotobuf_BUILD_EXAMPLES=OFF
+               -Dprotobuf_BUILD_PROTOBUF_BINARIES=ON
+               -Dprotobuf_BUILD_PROTOC_BINARIES=ON
+               -Dprotobuf_BUILD_LIBPROTOC=OFF
+               -Dprotobuf_ALLOW_CCACHE=ON
+               -Dprotobuf_ABSL_PROVIDER=package
+               -DBUILD_SHARED_LIBS=OFF
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
     location: data/protobuf-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '-C build install'
     test: none
   deploy: ''
   env:

@@ -1,0 +1,52 @@
+subpackage:
+  - runtime*
+name: google+protobuf-legacy
+version: 3.15.8-2
+$version: 3.15.8
+distribution: westeros/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Protocol Buffers - Google's data interchange format.
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-all-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 2b737d6d120418c443c561cf4032c0141f9626f68f532b5d2c27ee8a191c996e.tar.gz
+  type: src
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+  rules:
+    type: make
+    location: data/protobuf-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other:
+      PROTOC: <OS.ROOTDIR>/usr/bin/protoc
+  embedded: true
+  runtime:
+    configure: ''
