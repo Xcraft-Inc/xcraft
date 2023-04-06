@@ -33,8 +33,8 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && mkdir build
-      && cd build
+      && mkdir _build
+      && cd _build
       && cmake -G "Unix Makefiles"
                -DBUILD_SHARED_LIBS=ON
                -DRE2_USE_ICU=OFF
@@ -50,9 +50,9 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '-C build -j<PEON.CPUS.COUNT>'
+      makeall: '-C _build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '-C build install'
+      makeinstall: '-C _build install'
     test: none
     env: {}
   deploy: ''
