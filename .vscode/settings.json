@@ -14,5 +14,9 @@
     "**/var/tmp": true,
     "**/var/wpkg*": true
   },
-  "search.followSymlinks": false
+  "search.followSymlinks": false,
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "testExplorer.useNativeTesting": true,
+  "mochaExplorer.files": "lib/*/test/*.spec.js",
+  "mochaExplorer.exit": true
 }
