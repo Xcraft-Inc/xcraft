@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: wimlib+imagex
-version: 1.13.6-rc1-2
-$version: 1.13.6-rc1
+version: 1.14.1-1
+$version: 1.14.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -38,13 +38,13 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://wimlib.net/downloads/wimlib-1.13.5.tar.gz'
+    uri: 'https://wimlib.net/downloads/wimlib-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 32fcc9e9b144b7cb1db4c86e104ca78283cdc225e13fe82b273660586aefe323.tar.gz
+    $hash: 494a15375616f2e0e9ab050245c3dc3286def21ac2002dc064bcc2b187636f42.tar.gz
   type: src
   configure: |-
     !{bash}
@@ -58,7 +58,7 @@ data:
       <PEON.OS=win?  --host=x86_64-w64-mingw32 :>
   rules:
     type: script
-    location: data/wimlib-1.13.5
+    location: data/wimlib-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
