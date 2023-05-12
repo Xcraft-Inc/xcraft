@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: libgit2+libgit2
-version: 1.5.0
-$version: 1.5.0
+version: 1.6.4
+$version: 1.6.4
 distribution: zou/
 maintainer:
   name: Mathieu Schroeter
@@ -43,7 +43,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 8de872a0f201b33d9522b817c92e14edb4efad18dae95cf156cf240b2efff93e.tar.gz
+    $hash: d25866a4ee275a64f65be2d9a663680a5cf1ed87b7ee4c534997562c828e500d.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
