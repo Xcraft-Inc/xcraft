@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: openssl+openssl
-version: 1.1.1m-2
-$version: 1.1.1m
+version: 1.1.1t
+$version: 1.1.1t
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -47,6 +47,7 @@ dependency:
           - solaris-amd64
           - freebsd-i386
           - freebsd-amd64
+bump: []
 data:
   get:
     uri: 'https://www.openssl.org/source/openssl-<THIS.$VERSION>.tar.gz'
@@ -55,7 +56,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: f89199be8b23ca45fc7cb9f1d8d3ee67312318286ad030f5316aca6462db6c96.tar.gz
+    $hash: 8dee9b24bdb1dcbf0c3d1e9b02fb8f6bf22165e807f45adeb7c9677536859d3b.tar.gz
   type: src
   configure: |-
     !{bash}
