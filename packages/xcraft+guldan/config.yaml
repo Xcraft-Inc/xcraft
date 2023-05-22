@@ -1,0 +1,42 @@
+name: xcraft+guldan
+version: 1.0.1-4
+$version: 1.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Gul'dan is a powerful orcish warlock in the Warcraft universe
+  long: ''
+dependency:
+  install:
+    xcraft+devrootfs:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'self:///root'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    cp('.', '<PEON.WPKG.STAG>');
+    cd('<PEON.WPKG.STAG>/usr/share/xcraft/guldan');
+    yield exec('npm', 'install', '--omit=dev');
+  rules:
+    type: configure
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path:
+      - usr/share/xcraft/guldan/node_modules/.bin
+    other: {}
+  embedded: true

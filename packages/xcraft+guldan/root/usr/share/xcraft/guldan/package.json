@@ -1,0 +1,13 @@
+{
+  "name": "xcraft-guldan-bin",
+  "version": "1.0.0",
+  "description": "Guldan entry point",
+  "dependencies": {
+    "xcraft-guldan": "1.0.1"
+  },
+  "keywords": [
+    "xcraft"
+  ],
+  "author": "",
+  "license": "MIT"
+}
