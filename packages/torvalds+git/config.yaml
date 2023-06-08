@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: torvalds+git
-version: 2.35.0
-$version: 2.35.0
+version: 2.41.0
+$version: 2.41.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -36,14 +36,16 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/git/git/archive/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 3b315a7e051bf9c439965072e8d424ce1e4ccca23eb6e8588b58a29f257bb75a.tar.gz
+    $hash: 4f0b74bbde2800b00d3a50a7f389bcf1d59f1265b6986c00048d8ba4892ab01a.tar.gz
   type: src
   configure: ''
   rules:
@@ -56,6 +58,7 @@ data:
       maketest: ''
       makeinstall: 'prefix=<PEON.PREFIXDIR> NO_GETTEXT=Yes NO_PERL=Yes NO_TCLTK=Yes CC:=$(CC) CFLAGS:=$(CFLAGS) LDFLAGS:=$(LDFLAGS) NO_APPLE_COMMON_CRYPTO=1 install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

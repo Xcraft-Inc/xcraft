@@ -1,6 +1,6 @@
 name: schindelin+mingit
-version: 2.38.1.1
-$version: 2.38.1.1
+version: 2.41.0
+$version: 2.41.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,25 +18,28 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://github.com/git-for-windows/git/releases/download/v2.38.1.windows.1/MinGit-2.38.1-busybox-64-bit.zip'
+    uri: 'https://github.com/git-for-windows/git/releases/download/v<THIS.$VERSION>.windows.1/MinGit-<THIS.$VERSION>-busybox-64-bit.zip'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
   type: bin
-  configure: "mv('data', 'root/opt/mingit');"
+  configure: 'mv(''data'', ''root/opt/mingit'');'
   rules:
     type: move
     location: root
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path:
       - opt/mingit/cmd
     other:
-      GIT_CONFIG_KEY_0: 'core.longpaths'
+      GIT_CONFIG_KEY_0: core.longpaths
       GIT_CONFIG_VALUE_0: 'true'
       GIT_CONFIG_COUNT: '1'
   embedded: true
