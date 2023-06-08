@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+wget
-version: 1.21.1-3
-$version: 1.21.1
+version: 1.21.4
+$version: 1.21.4
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,14 +21,16 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/wget/wget-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 59ba0bdade9ad135eda581ae4e59a7a9f25e3a4bde6a5419632b31906120e26e.tar.gz
+    $hash: 81542f5cefb8faacc39bbbc6c82ded80e3e4a88505ae72ea51df27525bcde04c.tar.gz
   type: src
   configure: |-
     !{bash}
