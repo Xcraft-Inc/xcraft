@@ -51,15 +51,6 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
-    kaspar030+git-cache:
-      - version: ''
-        architecture:
-          - linux-i386
-          - linux-amd64
-          - linux-aarch64
-          - darwin-i386
-          - darwin-amd64
-          - darwin-aarch64
     xcraft+build-essential:
       - version: ''
         architecture:
