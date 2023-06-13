@@ -1,6 +1,6 @@
 name: schindelin+mingit
-version: 2.39.2
-$version: 2.39.2
+version: 2.41.0
+$version: 2.41.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
