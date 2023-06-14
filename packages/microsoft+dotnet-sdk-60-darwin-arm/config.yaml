@@ -1,12 +1,12 @@
-name: microsoft+dotnet-sdk-70-darwin
-version: 7.0.304
-$version: 7.0.304
+name: microsoft+dotnet-sdk-60-darwin-arm
+version: 6.0.410
+$version: 6.0.410
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
-  - darwin-amd64
+  - darwin-aarch64
 description:
   brief: .NET SDK
   long: ''
@@ -21,7 +21,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/18e7fd79-48de-4ad9-a7a5-a659a485e3d7/fc0d190f90917587626fc8086ad6d2f2/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/c9f8cecc-df92-4720-bb4f-273c55762b68/7abd1ebeb6241949dae538dc72532190/dotnet-sdk-<THIS.$VERSION>-osx-arm64.tar.gz'
     mirrors: []
     ref: ''
     out: ''

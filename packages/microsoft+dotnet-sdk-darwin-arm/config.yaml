@@ -1,0 +1,63 @@
+name: microsoft+dotnet-sdk-darwin-arm
+version: 11.0.0
+$version: 11.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-aarch64
+description:
+  brief: .NET Core SDK 6.0 and 7.0
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    bagder+curl:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+    microsoft+dotnet-sdk-60-darwin-arm:
+      - version: ''
+        architecture:
+          - darwin-aarch64
+    microsoft+dotnet-sdk-70-darwin-arm:
+      - version: ''
+        architecture:
+          - darwin-aarch64
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    mkdir('root/opt/dotnet-sdk/bin');
+    yield exec(
+      'writefile',
+      '#!/bin/sh\nexport DYLD_LIBRARY_PATH=/usr/lib:${LIBRARY_PATH}\n"$(dirname "$0")/../dotnet" "$@"\n',
+      'root/opt/dotnet-sdk/bin/dotnet'
+    );
+    yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-darwin-arm/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-70-darwin-arm/cache/data', 'root/opt/dotnet-sdk');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - opt/dotnet-sdk/bin
+    other:
+      DOTNET_ROOT: <OS.ROOTDIR>/opt/dotnet-sdk
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      MSBUILDDISABLENODEREUSE: '1'
+  embedded: true

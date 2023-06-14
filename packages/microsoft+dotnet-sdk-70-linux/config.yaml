@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-70-linux
-version: 7.0.100
-$version: 7.0.100
+version: 7.0.304
+$version: 7.0.304
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,12 +21,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/253e5af8-41aa-48c6-86f1-39a51b44afdc/5bb2cb9380c5b1a7f0153e0a2775727b/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz '
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/9c86d7b4-acb2-4be4-8a89-d13bc3c3f28f/1d044c7c29df018e8f2837bb343e8a84/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 5d4a58eeca1a4ab095b55e6486b1278147b0ab121ce883b2bcde3d3626c9a81c.tar.gz
   type: bin
   configure: |-
     yield exec(
