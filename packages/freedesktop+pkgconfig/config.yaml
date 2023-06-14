@@ -76,6 +76,7 @@ data:
     test: none
     env:
       darwin/LDFLAGS: '-framework CoreFoundation -framework Carbon'
+      darwin/CFLAGS: '<PEON.ENV.CFLAGS> -Wno-int-conversion'
       win/MSYSTEM: MINGW64
   deploy: ''
   env:
