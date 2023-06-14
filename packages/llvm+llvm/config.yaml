@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: llvm+llvm
-version: 11.1.0-3
-$version: 11.1.0
+version: 16.0.6
+$version: 16.0.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,17 +17,23 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+    llvm+cmake:
+      - version: '= 16.6.0'
+        architecture: []
+    llvm+third-party:
+      - version: '= 16.6.0'
+        architecture: []
     llvm+clang:
-      - version: '= 11.1.0'
+      - version: '= 16.6.0'
         architecture: []
     llvm+polly:
-      - version: '= 11.1.0'
+      - version: '= 16.6.0'
         architecture: []
     llvm+libcxx:
-      - version: '= 11.1.0'
+      - version: '= 16.6.0'
         architecture: []
     llvm+libcxxabi:
-      - version: '= 11.1.0'
+      - version: '= 16.6.0'
         architecture: []
     samba+ccache-gcc:
       - version: ''
@@ -45,14 +51,16 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: ce8508e318a01a63d4e8b3090ab2ded3c598a50258cc49e2625b9120d4c03ea5.tar.xz
+    $hash: e91db44d1b3bb1c33fcea9a7d1f2423b883eaa9163d3d56ca2aa6d2f0711bc29.tar.xz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"
@@ -61,6 +69,8 @@ data:
       && ln -s clang++ "<PEON.PREFIXDIR>/bin/g++"
       && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++"
       && cd <THIS.DATA.RULES.LOCATION>
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/cmake/cache/data/cmake-<THIS.$VERSION>.src ../cmake
+      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/third-party/cache/data/third-party-<THIS.$VERSION>.src ../third-party
       && ln -sf <PEON.ROOTDIR>/usr/share/llvm/clang/cache/data/clang-<THIS.$VERSION>.src tools/clang
       && ln -sf <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src tools/polly
       && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
@@ -81,6 +91,7 @@ data:
       maketest: ''
       makeinstall: '-C BUILD install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

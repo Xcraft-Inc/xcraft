@@ -1,4 +1,4 @@
-name: llvm+clang
+name: llvm+third-party
 version: 16.0.6
 $version: 16.0.6
 distribution: toolchain/
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - all
 description:
-  brief: LLVM Clang
+  brief: LLVM CMake
   long: ''
 dependency:
   install:
@@ -22,12 +22,12 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/clang-<THIS.$VERSION>.src.tar.xz'
+    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/third-party-<THIS.$VERSION>.src.tar.xz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 1186b6e6eefeadd09912ed73b3729e85b59f043724bb2818a95a2ec024571840.tar.xz
+    $hash: 15f5b9aeeba938530af977d5f9205612737a091a7f0f6c8075df8723b7713f70.tar.xz
   type: bin
   configure: ''
   rules:
