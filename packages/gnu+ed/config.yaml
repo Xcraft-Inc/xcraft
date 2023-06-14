@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: An arbitrary precision numeric processing language.
+  brief: A line-oriented text editor.
   long: ''
 dependency:
   build:

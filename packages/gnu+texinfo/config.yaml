@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: An arbitrary precision numeric processing language.
+  brief: Official documentation format of the GNU project.
   long: ''
 dependency:
   build:
