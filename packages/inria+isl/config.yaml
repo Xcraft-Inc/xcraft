@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: inria+isl
-version: '0.25'
-$version: '0.25'
+version: '0.26'
+$version: '0.26'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -32,7 +32,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: acac270b41f6a533cbe5cf26463877ed5e4107051a5457b9d50b58576a59c6c5.tar.gz
+    $hash: b10473024cbf17d7db85323121eff0e50f03de14342a03738b4d384b587ce212.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;
