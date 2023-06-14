@@ -26,6 +26,8 @@ dependency:
     clark+expat:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     openssl+openssl:
       - version: ''
         architecture: []
