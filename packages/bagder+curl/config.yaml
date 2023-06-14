@@ -30,7 +30,6 @@ dependency:
     apple+macos-sdk-1013:
       - version: ''
         architecture:
-          - darwin-i386
           - darwin-amd64
 data:
   get:
@@ -61,8 +60,8 @@ data:
     test: none
     env:
       win/CPPFLAGS: '-D_WIN32_WINNT=0x0502'
-      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      darwin/MACOSX_DEPLOYMENT_TARGET: '10.13'
+      darwin-amd64/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin-amd64/MACOSX_DEPLOYMENT_TARGET: '10.13'
   deploy: ''
   env:
     path: []
