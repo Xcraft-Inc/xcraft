@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-70-darwin
-version: 7.0.100
-$version: 7.0.100
+version: 7.0.304
+$version: 7.0.304
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +21,7 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/09e4b839-c809-49b5-b424-86d8ca67b42e/54be2d3868ae49fa00b1cc59065d5e2e/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/18e7fd79-48de-4ad9-a7a5-a659a485e3d7/fc0d190f90917587626fc8086ad6d2f2/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
     mirrors: []
     ref: ''
     out: ''
