@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+binutils
-version: '2.37'
-$version: '2.37'
+version: '2.40'
+$version: '2.40'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -23,6 +23,9 @@ dependency:
     gnu+make:
       - version: ''
         architecture: []
+    gnu+texinfo:
+      - version: ''
+        architecture: []
     gnu+gmp:
       - version: ''
         architecture: []
@@ -35,6 +38,7 @@ dependency:
     inria+isl:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
@@ -43,7 +47,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: c44968b97cd86499efbc4b4ab7d98471f673e5414c554ef54afa930062dbbfcb.tar.gz
+    $hash: d7f82c4047decf43a6f769ac32456a92ddb6932409a585c633cdd4e9df23d956.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION> ;

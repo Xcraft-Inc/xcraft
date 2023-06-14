@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+texinfo
-version: 6.7-1
-$version: 6.7
+version: 7.0.3
+$version: 7.0.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -14,21 +14,25 @@ description:
   long: ''
 dependency:
   build:
-    xcraft+base-build:
+    xcraft+peon:
       - version: ''
         architecture: []
-  make:
-    xcraft+base-make:
+    gnu+gcc:
       - version: ''
         architecture: []
+    gnu+make:
+      - version: ''
+        architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/texinfo/texinfo-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 988403c1542d15ad044600b909997ba3079b10e03224c61188117f3676b02caa.tar.xz
+    $hash: 74b420d09d7f528e84f97aa330f0dd69a98a6053e7a4e01767eed115038807bf.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -44,6 +48,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
