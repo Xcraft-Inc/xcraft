@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: debian+fakeroot
-version: '1.23'
-$version: '1.23'
+version: '1.31'
+$version: '1.31'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,13 +25,16 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.xz'
+    uri: 'http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.gz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 009cd6696a931562cf1c212bb57ca441a4a2d45cd32c3190a35c7ae98506f4f6.tar.xz
+    prepare: ''
+    $hash: 63886d41e11c56c7170b9d9331cca086421b350d257338ef14daad98f77e202f.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
@@ -44,6 +47,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
