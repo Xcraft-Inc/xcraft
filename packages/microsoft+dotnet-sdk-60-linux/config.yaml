@@ -19,14 +19,16 @@ dependency:
     xcraft+utils:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://download.visualstudio.microsoft.com/download/pr/ac5809b0-7930-4ae9-9005-58f2fd7912f3/4cf0cb18d22a162b33149b1f28a8e045/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: e0e751e978d6024c8c75620e0f35f086534d2e81cd26f2fc0ed01423d5e99e19.tar.gz
+    $hash: 95c8afc880a448ab04e78f91aa40259c635a94337ba57097fb750dbb2ce0b6bf.tar.gz
   type: bin
   configure: |-
     yield exec(
