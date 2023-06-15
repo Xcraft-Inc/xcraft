@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: samba+ccache
-version: 3.7.12-5
-$version: 3.7.12
+version: 4.8.2-1
+$version: 4.8.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -33,33 +33,40 @@ dependency:
           - solaris-amd64
           - freebsd-i386
           - freebsd-amd64
+bump: []
 data:
   get:
     uri: 'https://github.com/ccache/ccache/releases/download/v<THIS.$VERSION>/ccache-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: d2abe88d4c283ce960e233583061127b156ffb027c6da3cf10770fc0c7244194.tar.gz
+    $hash: 75eef15b8b9da48db9c91e1d0ff58b3645fc70c0e4ca2ef1b6825a12f21f217d.tar.gz
   type: src
   configure: |-
-    !{bash}
-    cd <THIS.DATA.RULES.LOCATION>
-      && ./configure --prefix=<PEON.PREFIXDIR>
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir build
+      && cd build
+      && cmake -G "Unix Makefiles"
+               -DENABLE_DOCUMENTATION=OFF
+               -DENABLE_TESTING=OFF
+               -DREDIS_STORAGE_BACKEND=OFF
+               -DCMAKE_PREFIX_PATH=<PEON.PROD.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
   rules:
     type: make
     location: data/ccache-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '-C build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install
+      makeinstall: '-C build install'
     test: none
-    env:
-      win/LDFLAGS: <PEON.ENV.LDFLAGS> -lws2_32
-      win/MSYSTEM: MINGW64
-      darwin/LDFLAGS: '-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib'
+    env: {}
   deploy: ''
   env:
     path: []
