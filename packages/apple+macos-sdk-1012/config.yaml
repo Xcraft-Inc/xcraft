@@ -22,6 +22,7 @@ data:
     ref: ''
     out: MacOSX10.12.sdk.tar.gz
     externals: true
+    $hash: 610a21d867cdb7e91c85df592ee139f80f985991ac250222f71359843c628e3f.tar.gz
   type: bin
   configure: ''
   rules:

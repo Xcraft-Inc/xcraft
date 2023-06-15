@@ -18,11 +18,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      http://download.microsoft.com/download/9/6/0/96075294-6820-4F01-924A-474E0023E407/NDP451-KB2861696-x86-x64-DevPack.exe
+    uri: 'http://download.microsoft.com/download/9/6/0/96075294-6820-4F01-924A-474E0023E407/NDP451-KB2861696-x86-x64-DevPack.exe'
     ref: ''
     out: ''
     externals: true
+    $hash: 15d43aeb1e074e0dcb87e85084a3f6f543dccb51061154dc63b114924e65bf92.exe
   type: bin
   configure: ''
   rules:

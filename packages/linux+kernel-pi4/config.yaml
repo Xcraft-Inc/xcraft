@@ -34,6 +34,7 @@ data:
     out: ''
     externals: true
     prepare: ''
+    $hash: 1907b0a7d83668fa415903e33d5fb0d439660267e0f0ebb3d56749a9843a1e0e.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>

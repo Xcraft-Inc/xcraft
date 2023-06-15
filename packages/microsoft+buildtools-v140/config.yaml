@@ -22,6 +22,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: f96c0432a1f3051919638a45fddeb7575a1eac36bb5938f4588680e90cb74296.zip
   type: bin
   configure: ''
   rules:

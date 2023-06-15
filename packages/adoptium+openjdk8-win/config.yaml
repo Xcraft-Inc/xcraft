@@ -21,6 +21,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: 3df3ebee978f5c9e9b4e34a74ce8d4b0c8f5bb7dfa83f2b315129c1eee6b70c4.zip
   type: bin
   configure: |-
     rm('data/jdk<THIS.$VERSION>/src.zip');

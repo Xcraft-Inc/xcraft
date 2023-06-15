@@ -21,6 +21,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: f88305669a05657dbce32d5011d6d6d8d24f0dae925e6dac04905fecd6de0530.tar.bz2
   type: bin
   configure: |-
     mv (

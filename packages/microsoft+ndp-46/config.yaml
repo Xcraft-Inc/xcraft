@@ -18,11 +18,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://download.microsoft.com/download/F/1/D/F1DEB8DB-D277-4EF9-9F48-3A65D4D8F965/NDP461-DevPack-KB3105179-ENU.exe
+    uri: 'https://download.microsoft.com/download/F/1/D/F1DEB8DB-D277-4EF9-9F48-3A65D4D8F965/NDP461-DevPack-KB3105179-ENU.exe'
     ref: ''
     out: ''
     externals: true
+    $hash: 0c32151c7b29e7dcde9524db04ac6fa86f4532cb99c747639d05f7c335ee95ae.exe
   type: bin
   configure: ''
   rules:

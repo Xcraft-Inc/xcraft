@@ -25,6 +25,7 @@ data:
     ref: ''
     out: ''
     externals: true
+    $hash: cb75bd39092835cae008e1c62925af2fc24fafbe3f9658e67a876f1b03c87636.tar.gz
   type: bin
   configure: 'mv (''data'', ''root/opt/msysgit'');'
   rules:

@@ -20,11 +20,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: >-
-      https://download.microsoft.com/download/8/A/F/8AFFDD5A-53D9-46EB-98D7-B61BBCAF0DE6/vstf_testagent.exe
+    uri: 'https://download.microsoft.com/download/8/A/F/8AFFDD5A-53D9-46EB-98D7-B61BBCAF0DE6/vstf_testagent.exe'
     ref: ''
     out: ''
     externals: true
+    $hash: f89c60e57adcd7dd1e90dabd5dde400f5dab25a5ddfebbd0e831ce4cd719616b.exe
   type: bin
   configure: ''
   rules:
