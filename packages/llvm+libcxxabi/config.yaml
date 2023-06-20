@@ -1,6 +1,6 @@
 name: llvm+libcxxabi
-version: 11.1.0
-$version: 11.1.0
+version: 16.0.6
+$version: 16.0.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,13 +19,15 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/libcxxabi-<THIS.$VERSION>.src.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: 143193ed80f8fa4d85211d6704a90789fb36aa65b69fd0c382a9f05ec370ecab.tar.xz
+    $hash: fbecd1b511ab2459561d3f89d4e69e238970048635b87bac54a2e228c7e48dc7.tar.xz
   type: bin
   configure: ''
   rules:
@@ -34,6 +36,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

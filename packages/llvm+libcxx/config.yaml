@@ -1,6 +1,6 @@
 name: llvm+libcxx
-version: 11.1.0
-$version: 11.1.0
+version: 16.0.6
+$version: 16.0.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,13 +19,15 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/libcxx-<THIS.$VERSION>.src.tar.xz'
+    mirrors: []
     ref: ''
     out: ''
     externals: true
-    $hash: bb233d250ed7eaa05c73eaf81ef0f9ee3fac9d8fc0c3d38a7a7383f82ed6f8e5.tar.xz
+    $hash: e7045c26607fe91a3ebcfb2a40a5a7100ad693af562d31607a7be797268de6e0.tar.xz
   type: bin
   configure: ''
   rules:
@@ -34,6 +36,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}
