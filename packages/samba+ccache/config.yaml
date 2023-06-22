@@ -56,6 +56,7 @@ data:
                -DCMAKE_PREFIX_PATH=<PEON.PROD.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
+               -DCMAKE_CXX_FLAGS=-std=c++17
   rules:
     type: make
     location: data/ccache-<THIS.$VERSION>
