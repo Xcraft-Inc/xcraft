@@ -25,10 +25,17 @@ data:
     externals: true
     $hash: 53e37466b3d6d6d01ead029e3567d873a43a5d1c668ed2278e253b683136d948.tgz
   type: src
-  configure: >-
-    !cd <THIS.DATA.RULES.LOCATION> && ./configure  --prefix=<PEON.PREFIXDIR>
-    --enable-static --disable-shared --enable-release --disable-icuio
-    --disable-layoutex --enable-tools --disable-tests --disable-samples
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-static
+                     --disable-shared
+                     --enable-release
+                     --disable-icuio
+                     --disable-layoutex
+                     --enable-tools
+                     --disable-tests
+                     --disable-samples
   rules:
     type: make
     location: data/icu/source/

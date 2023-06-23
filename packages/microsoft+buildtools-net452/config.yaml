@@ -29,18 +29,25 @@ data:
     type: exec
     location: data/microsoft+buildtools-net452/vs_BuildTools.exe
     args:
-      postinst: >-
-        --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --add
-        Microsoft.Net.Component.4.5.2.TargetingPack --add
-        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart
-        --wait --nocache --noUpdateInstaller
-      prerm: >-
-        --locale En-us --installPath
-        <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools --remove
-        Microsoft.Net.Component.4.5.2.TargetingPack --remove
-        Microsoft.VisualStudio.Component.NuGet.BuildTools --quiet --norestart
-        --wait --noUpdateInstaller
+      postinst: |-
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --add Microsoft.Net.Component.4.5.2.TargetingPack
+        --add Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --quiet
+        --norestart
+        --wait
+        --nocache
+        --noUpdateInstaller
+      prerm: |-
+        --locale En-us
+        --installPath <PEON.ROOTDRIVE>/xcraft/microsoft/buildtools
+        --remove Microsoft.Net.Component.4.5.2.TargetingPack
+        --remove Microsoft.VisualStudio.Component.NuGet.BuildTools
+        --quiet
+        --norestart
+        --wait
+        --noUpdateInstaller
   env:
     path:
       - <OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/15.0/Bin

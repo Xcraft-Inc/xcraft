@@ -10,7 +10,7 @@ architecture:
   - mswindows-amd64
 description:
   brief: Agents for Microsoft Visual Studio 2015
-  long: >-
+  long: |-
     Agents for Visual Studio 2015 contains agents which you can use to run your
     automated tests on a remote machine.
 dependency:
@@ -35,8 +35,6 @@ data:
       prerm: /Q /S /Passive /NoRestart /NoWeb /Uninstall
   env:
     path:
-      - >-
-        <OS.PROGRAMFILES.32>/Microsoft Visual Studio
-        <THIS.$VERSION>.0/Common7/IDE/CommonExtensions/Microsoft/TestWindow
+      - <OS.PROGRAMFILES.32>/Microsoft Visual Studio <THIS.$VERSION>.0/Common7/IDE/CommonExtensions/Microsoft/TestWindow
     other: {}
   embedded: true

@@ -10,10 +10,9 @@ architecture:
   - mswindows-amd64
 description:
   brief: Git is a free and open source distributed version control system.
-  long: >-
+  long: |-
     Git is a free and open source distributed version control system designed to
-    handle everything from small to very large projects with speed and
-    efficiency.
+    handle everything from small to very large projects with speed and efficiency.
 dependency:
   install:
     xcraft+peon:
