@@ -18,22 +18,22 @@ dependency:
       - version: ''
         architecture: []
     llvm+cmake:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     llvm+third-party:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     llvm+clang:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     llvm+polly:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     llvm+libcxx:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     llvm+libcxxabi:
-      - version: '= 16.6.0'
+      - version: '= 16.0.6'
         architecture: []
     samba+ccache-gcc:
       - version: ''
