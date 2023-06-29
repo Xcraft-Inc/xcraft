@@ -23,6 +23,9 @@ dependency:
     estes+flex:
       - version: ''
         architecture: []
+    gnu+texinfo:
+      - version: ''
+        architecture: []
     gnu+m4:
       - version: ''
         architecture: []
