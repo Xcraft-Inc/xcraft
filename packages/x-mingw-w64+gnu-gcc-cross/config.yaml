@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: AARCH64 GCC/glibc cross-compiler
+  brief: Windows MingW GCC cross-compiler
   long: ''
 dependency:
   build:
