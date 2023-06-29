@@ -91,7 +91,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !_CC=$CC _CXX=$CXX
+        !_CC=$CC _CXX=$CXX _CFLAGS=$CFLAGS _CXXFLAGS=$CXXFLAGS _LDFLAGS=$LDFLAGS _CPPFLAGS=$CPPFLAGS
 
         && : /// binutils ///
           && cd binutils
@@ -148,7 +148,7 @@ data:
           && cd ..
 
         && : /// mingw - crt ///
-          && unset CC CXX
+          && unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
           && cd crt
           && CONFIGURE="<PEON.ROOTDIR>/var/x-mingw-w64/mingw/mingw-w64-crt/configure"
           && $CONFIGURE --prefix="<PEON.PREFIXDIR>/x86_64-w64-mingw32"
@@ -160,14 +160,14 @@ data:
 
         && : /// gcc - stage 1 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX
+          && export CC=$_CC CXX=$_CXX CFLAGS=$_CFLAGS CXXFLAGS=$_CXXFLAGS LDFLAGS=$_LDFLAGS CPPFLAGS=$_CPPFLAGS
           && make -j<PEON.CPUS.COUNT> all-target-libgcc
           && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// gcc - stage 2 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX
+          && export CC=$_CC CXX=$_CXX CFLAGS=$_CFLAGS CXXFLAGS=$_CXXFLAGS LDFLAGS=$_LDFLAGS CPPFLAGS=$_CPPFLAGS
           && make -j<PEON.CPUS.COUNT>
           && make install-strip DESTDIR="<PEON.PREFIXDIR>"
       maketest: ''
@@ -175,10 +175,6 @@ data:
     test: none
     env:
       PATH: '<PEON.PREFIXDIR>/bin:<PEON.ENV.PATH>'
-      CFLAGS: ''
-      CXXFLAGS: ''
-      LDFLAGS: ''
-      CPPFLAGS: ''
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
