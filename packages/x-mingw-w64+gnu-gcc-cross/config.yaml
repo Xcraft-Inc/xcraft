@@ -1,0 +1,166 @@
+subpackage:
+  - runtime*
+name: x-mingw-w64+gnu-gcc-cross
+version: 13.1.0-12
+$version: 13.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: AARCH64 GCC/glibc cross-compiler
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
+    estes+flex:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+    gnu+bison:
+      - version: ''
+        architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+    wall+perl:
+      - version: ''
+        architecture: []
+    gnu+coreutils:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 3.1.0'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 1.0.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
+    x-mingw-w64+gnu-binutils:
+      - version: ''
+        architecture: []
+    x-mingw-w64+mingw-w64:
+      - version: ''
+        architecture: []
+    x-mingw-w64+gnu-gcc:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: |-
+    mkdir('data/binutils');
+    mkdir('data/headers');
+    mkdir('data/gcc');
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !_CC=$CC _CXX=$CXX
+
+        && : /// binutils ///
+          && cd binutils
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-mingw-w64/binutils/configure"
+          && $CONFIGURE --prefix=
+                        --target=x86_64-w64-mingw32
+                        --disable-multilib
+                        --disable-nls
+                        --enable-targets=x86_64-w64-mingw32
+                        --with-sysroot=/x86_64-w64-mingw32
+                        --with-build-sysroot="<PEON.PREFIXDIR>/x86_64-w64-mingw32"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+          && make -j<PEON.CPUS.COUNT>
+          && make install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// mingw - headers ///
+          && cd headers
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-mingw-w64/mingw/mingw-w64-headers/configure"
+          && $CONFIGURE --prefix="<PEON.PREFIXDIR>/x86_64-w64-mingw32"
+                        --enable-sdk=no
+                        --host=x86_64-w64-mingw32
+          && make install
+          && cd ..
+
+        && : /// symlinks ///
+          && ln -s ./lib "<PEON.PREFIXDIR>/x86_64-w64-mingw32/lib64"
+          && ln -s ./ "<PEON.PREFIXDIR>/x86_64-w64-mingw32/mingw"
+
+        && : /// gcc - stage 0 ///
+          && cd gcc
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-mingw-w64/gcc/configure"
+          && $CONFIGURE --prefix=
+                        --enable-languages=c,c++
+                        --target=x86_64-w64-mingw32
+                        --disable-multilib
+                        --disable-nls
+                        --enable-fully-dynamic-string
+                        --enable-libssp
+                        --enable-lto
+                        --with-sysroot=/x86_64-w64-mingw32
+                        --with-build-sysroot="<PEON.PREFIXDIR>/x86_64-w64-mingw32"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+                        --with-dwarf
+          && make -j<PEON.CPUS.COUNT> all-gcc
+          && make install-strip-gcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env:
+      PATH: '<PEON.PREFIXDIR>/bin:<PEON.ENV.PATH>'
+      CFLAGS: ''
+      CXXFLAGS: ''
+      LDFLAGS: ''
+      CPPFLAGS: ''
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/share/info');
+    rm('<PEON.PREFIXDIR>/share/man/man7');
+    rm('<PEON.PREFIXDIR>/lib/bfd-plugins/libdep.so');
+  env:
+    path:
+      - usr/local/bin
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

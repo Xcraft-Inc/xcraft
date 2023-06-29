@@ -1,0 +1,43 @@
+name: x-mingw-w64+gnu-gcc
+version: 13.1.0
+$version: 13.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: 'GCC, the GNU Compiler Collection.'
+  long: |-
+    The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+    Fortran, Java, Ada, and Go, as well as libraries for these languages
+    (libstdc++, libgcj,...).
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: 61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86.tar.xz
+  type: bin
+  configure: 'mv(''data/gcc-<THIS.$VERSION>'', ''root/var/x-mingw-w64/gcc'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

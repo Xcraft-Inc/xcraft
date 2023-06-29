@@ -1,0 +1,40 @@
+name: x-mingw-w64+mingw-w64
+version: 11.0.0
+$version: 11.0.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: mingw-w64 (headers and more)
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.sourceforge.net/mingw-w64/mingw-w64/mingw-w64-release/mingw-w64-v<THIS.$VERSION>.tar.bz2'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: bd0ea1633bd830204cc23a696889335e9d4a32b8619439ee17f22188695fcc5f.tar.bz2
+  type: bin
+  configure: 'mv(''data/mingw-w64-v<THIS.$VERSION>'', ''root/var/x-mingw-w64/mingw'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
