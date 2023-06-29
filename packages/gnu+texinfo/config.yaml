@@ -19,7 +19,16 @@ dependency:
         architecture: []
     gnu+gcc:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+    llvm+llvm:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
     gnu+make:
       - version: ''
         architecture: []
