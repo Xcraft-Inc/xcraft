@@ -23,9 +23,6 @@ dependency:
     estes+flex:
       - version: ''
         architecture: []
-    gnu+texinfo:
-      - version: ''
-        architecture: []
     gnu+m4:
       - version: ''
         architecture: []
@@ -110,8 +107,8 @@ data:
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
                         --with-isl=<PEON.ROOTDIR>/usr
-          && make -j<PEON.CPUS.COUNT>
-          && make install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && make MAKEINFO=true -j<PEON.CPUS.COUNT>
+          && make MAKEINFO=true install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// mingw - headers ///
