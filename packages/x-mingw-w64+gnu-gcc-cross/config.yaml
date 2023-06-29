@@ -83,6 +83,7 @@ data:
     mkdir('data/binutils');
     mkdir('data/headers');
     mkdir('data/gcc');
+    mkdir('data/crt');
   rules:
     type: script
     location: data
@@ -143,6 +144,17 @@ data:
                         --with-dwarf
           && make -j<PEON.CPUS.COUNT> all-gcc
           && make install-strip-gcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// mingw - crt ///
+          && unset CC CXX
+          && cd crt
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-mingw-w64/mingw/mingw-w64-crt/configure"
+          && $CONFIGURE --prefix="<PEON.PREFIXDIR>/x86_64-w64-mingw32"
+                        --host=x86_64-w64-mingw32
+                        --enable-lib64
+          && make -j<PEON.CPUS.COUNT>
+          && make install
           && cd ..
       maketest: ''
       makeinstall: ''
