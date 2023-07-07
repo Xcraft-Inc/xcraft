@@ -102,7 +102,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !_CC=$CC _CXX=$CXX
+        !_CC="$CC" _CXX="$CXX" _CFLAGS="$CFLAGS" _CXXFLAGS="$CXXFLAGS" _LDFLAGS="$LDFLAGS" _CPPFLAGS="$CPPFLAGS"
 
         && : /// linux - headers ///
           && make -C "<PEON.ROOTDIR>/var/x-aarch64-linux/linux"
@@ -148,7 +148,7 @@ data:
 
         && : /// glibc - stage 0 ///
           && cd glibc
-          && unset CC CXX
+          && unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
           && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/glibc/configure"
           && $CONFIGURE --prefix=/usr
                         --build=$MACHTYPE
@@ -173,21 +173,21 @@ data:
 
         && : /// gcc - stage 1 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX
+          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
           && make -j<PEON.CPUS.COUNT> all-target-libgcc
           && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// glibc - stage 1 ///
           && cd glibc
-          && unset CC CXX
+          && unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
           && make -j<PEON.CPUS.COUNT>
           && make install DESTDIR="<PEON.PREFIXDIR>/aarch64-linux"
           && cd ..
 
         && : /// gcc - stage 2 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX
+          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
           && make -j<PEON.CPUS.COUNT>
           && make install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
