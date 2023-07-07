@@ -91,7 +91,7 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !_CC=$CC _CXX=$CXX _CFLAGS=$CFLAGS _CXXFLAGS=$CXXFLAGS _LDFLAGS=$LDFLAGS _CPPFLAGS=$CPPFLAGS
+        !_CC="$CC" _CXX="$CXX" _CFLAGS="$CFLAGS" _CXXFLAGS="$CXXFLAGS" _LDFLAGS="$LDFLAGS" _CPPFLAGS="$CPPFLAGS"
 
         && : /// binutils ///
           && cd binutils
@@ -160,14 +160,14 @@ data:
 
         && : /// gcc - stage 1 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX CFLAGS=$_CFLAGS CXXFLAGS=$_CXXFLAGS LDFLAGS=$_LDFLAGS CPPFLAGS=$_CPPFLAGS
+          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
           && make -j<PEON.CPUS.COUNT> all-target-libgcc
           && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// gcc - stage 2 ///
           && cd gcc
-          && export CC=$_CC CXX=$_CXX CFLAGS=$_CFLAGS CXXFLAGS=$_CXXFLAGS LDFLAGS=$_LDFLAGS CPPFLAGS=$_CPPFLAGS
+          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
           && make -j<PEON.CPUS.COUNT>
           && make install-strip DESTDIR="<PEON.PREFIXDIR>"
       maketest: ''
