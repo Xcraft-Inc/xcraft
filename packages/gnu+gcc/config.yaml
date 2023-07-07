@@ -88,7 +88,7 @@ data:
       && cd objdir
       && ../configure --prefix=<PEON.PREFIXDIR>
                       --enable-languages=c,c++,objc,obj-c++
-                      --disable-multilib
+                      --enable-multilib
                       --disable-nls
                       --with-gmp=<PEON.ROOTDIR>/usr
                       --with-mpfr=<PEON.ROOTDIR>/usr
