@@ -58,7 +58,7 @@ data:
     env:
       OPENSSL_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
       OPENSSL_LIBS: '-L<PEON.PROD.ROOTDIR>/usr/lib -lssl -lcrypto'
-  deploy: ''
+  deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
     other: {}
