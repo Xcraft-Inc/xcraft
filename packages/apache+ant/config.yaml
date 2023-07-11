@@ -1,0 +1,65 @@
+subpackage:
+  - runtime*
+name: apache+ant
+version: 1.10.13-1
+$version: 1.10.13
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Ant
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    adoptium+openjdk8-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    adoptium+openjdk8-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://downloads.apache.org/ant/source/apache-ant-<THIS.$VERSION>-src.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: da006f4c888d41d0f3f213565e48aeff73e4d8a6196e494121d8da1e567a8406.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/apache-ant-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !mkdir -p "<PEON.INSTALLDIR>/opt/ant"
+          && ./build.sh -Ddist.dir=<PEON.INSTALLDIR>/opt/ant dist
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path:
+      - opt/ant/bin
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
