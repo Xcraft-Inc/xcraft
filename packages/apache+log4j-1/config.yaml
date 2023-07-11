@@ -1,0 +1,69 @@
+subpackage:
+  - runtime*
+name: apache+log4j-1
+version: 1.2.17-3
+$version: 1.2.17
+distribution: odontos/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Log4j
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    adoptium+openjdk8-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    adoptium+openjdk8-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
+    apache+ant:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://dlcdn.apache.org/logging/log4j/<THIS.$VERSION>/log4j-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: a528e3771ee6234661b5eb0fa02e14faee89dfec38de94088c163ddf2a0a8663.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/apache-log4j-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !ant -Ddist.dir="<PEON.INSTALLDIR>/usr/share/java"
+             -f build.xml
+             jar
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env:
+      NO_JAVADOC: '1'
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
