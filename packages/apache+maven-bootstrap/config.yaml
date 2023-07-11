@@ -1,0 +1,41 @@
+name: apache+maven-bootstrap
+version: 3.5.4
+$version: 3.5.4
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: Apache Maven bootstrapper
+  long: ''
+dependency:
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://archive.apache.org/dist/maven/maven-3/<THIS.$VERSION>/binaries/apache-maven-<THIS.$VERSION>-bin.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    $hash: ce50b1c91364cb77efe3776f756a6d92b76d9038b0a0782f7d53acf1e997a14d.tar.gz
+  type: bin
+  configure: 'mv(''data/apache-maven-<THIS.$VERSION>'', ''root/opt/maven-bootstrap'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      MAVEN_BOOTSTRAP: <OS.ROOTDIR>/opt/maven-bootstrap/bin/mvn
+  embedded: true

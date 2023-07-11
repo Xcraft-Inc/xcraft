@@ -1,0 +1,66 @@
+subpackage:
+  - runtime*
+name: apache+maven
+version: 3.9.3-1
+$version: 3.9.3
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Apache Maven
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    adoptium+openjdk8-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    adoptium+openjdk8-win:
+      - version: ''
+        architecture:
+          - mswindows-amd64
+    apache+maven-bootstrap:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'http://archive.apache.org/dist/maven/maven-3/<THIS.$VERSION>/source/apache-maven-<THIS.$VERSION>-src.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 5f499a0c9263be556b03dd64002a1f99892eb50ee253aab81f1f338f3bc7abed.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/apache-maven-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!"$MAVEN_BOOTSTRAP" -DdistributionTargetDir="<PEON.INSTALLDIR>/opt/maven" install'
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path:
+      - opt/maven/bin
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
