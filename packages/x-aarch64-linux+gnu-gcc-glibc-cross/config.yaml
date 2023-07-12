@@ -163,7 +163,7 @@ data:
                         --enable-kernel=3.2
                         libc_cv_forced_unwind=yes
           && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/aarch64-linux"
-          && make -j<PEON.CPUS.COUNT> csu/subdir_lib'
+          && make -j<PEON.CPUS.COUNT> csu/subdir_lib
           && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/aarch64-linux/usr/lib"
           && aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null
                                -o "<PEON.PREFIXDIR>/aarch64-linux/usr/lib/libc.so"
