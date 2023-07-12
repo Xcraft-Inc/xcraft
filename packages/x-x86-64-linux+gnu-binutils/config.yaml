@@ -1,0 +1,36 @@
+name: x-x86-64-linux+gnu-binutils
+version: '2.40'
+$version: '2.40'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: GNU Bin Utils.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: d7f82c4047decf43a6f769ac32456a92ddb6932409a585c633cdd4e9df23d956.tar.gz
+  type: bin
+  configure: 'mv(''data/binutils-<THIS.$VERSION>'', ''root/var/x-x86-64-linux/binutils'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

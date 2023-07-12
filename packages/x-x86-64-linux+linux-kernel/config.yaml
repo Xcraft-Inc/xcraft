@@ -1,0 +1,40 @@
+name: x-x86-64-linux+linux-kernel
+version: 3.2.102
+$version: 3.2.102
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: The Linux Kernel
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: ad96d797571496c969aa71bf5d08e9d2a8c84458090d29a120f1b2981185a99e.tar.xz
+  type: bin
+  configure: 'mv(''data/linux-<THIS.$VERSION>'', ''root/var/x-x86-64-linux/linux'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

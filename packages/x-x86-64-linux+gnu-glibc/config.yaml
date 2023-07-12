@@ -1,0 +1,40 @@
+name: x-x86-64-linux+gnu-glibc
+version: '2.24'
+$version: '2.24'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: The GNU C Library
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: 99d4a3e8efd144d71488e478f62587578c0f4e1fa0b4eed47ee3d4975ebeb5d3.tar.xz
+  type: bin
+  configure: 'mv(''data/glibc-<THIS.$VERSION>'', ''root/var/x-x86-64-linux/glibc'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
