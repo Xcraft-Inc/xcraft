@@ -144,6 +144,7 @@ data:
                         --with-glibc-version=2.24
                         --with-sysroot=/x86_64-linux
                         --with-build-sysroot="<PEON.PREFIXDIR>/x86_64-linux"
+                        --with-boot-ldflags="--sysroot=<PEON.PREFIXDIR>/x86_64-linux -static-libstdc++ -static-libgcc"
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
@@ -196,6 +197,9 @@ data:
         && : /// gcc - stage 2 ///
           && cd gcc
           && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
+          && export LIBRARY_PATH="$LIBRARY_PATH:<PEON.PREFIXDIR>/x86_64-linux/usr/lib64:<PEON.PREFIXDIR>/x86_64-linux/lib64:<PEON.PREFIXDIR>/x86_64-linux"
+          && export C_INCLUDE_PATH="$C_INCLUDE_PATH:<PEON.PREFIXDIR>/x86_64-linux/usr/include"
+          && export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:<PEON.PREFIXDIR>/x86_64-linux/usr/include"
           && make -j<PEON.CPUS.COUNT>
           && make install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cat <PEON.ROOTDIR>/var/x-x86-64-linux/gcc/gcc/limitx.h
