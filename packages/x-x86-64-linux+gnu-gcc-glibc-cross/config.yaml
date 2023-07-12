@@ -128,6 +128,10 @@ data:
           && make MAKEINFO=true install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
+        && : /// symlinks ///
+          && ln -s ./lib "<PEON.PREFIXDIR>/x86_64-linux/lib64"
+          && ln -s ./lib "<PEON.PREFIXDIR>/x86_64-linux/usr/lib64"
+
         && : /// gcc - stage 0 ///
           && cd gcc
           && CONFIGURE="<PEON.ROOTDIR>/var/x-x86-64-linux/gcc/configure"
