@@ -209,6 +209,7 @@ data:
       makeinstall: ''
     test: none
     env:
+      PEON_NORPATH: '1'
       PATH: '<PEON.PREFIXDIR>/bin:<PEON.ENV.PATH>'
       CFLAGS: ''
       CXXFLAGS: ''
