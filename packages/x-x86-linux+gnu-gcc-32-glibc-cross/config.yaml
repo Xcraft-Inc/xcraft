@@ -154,6 +154,7 @@ data:
 
         && : /// glibc - stage 0 ///
           && cd glibc
+          && unset CC CXX
           && CONFIGURE="<PEON.ROOTDIR>/var/x-x86-linux/glibc/configure"
           && $CONFIGURE --prefix=/usr
                         --build=$MACHTYPE
@@ -169,7 +170,6 @@ data:
                         --enable-kernel=3.2
                         libc_cv_forced_unwind=yes
           && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
-          && unset CC CXX
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib
           && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/lib"
           && i686-xcraft-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null
@@ -215,6 +215,7 @@ data:
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
     rm('<PEON.PREFIXDIR>/share/gcc-13.1.0');
+    rm('<PEON.PREFIXDIR>/lib64');
     rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
 
     mkdir('<PEON.PREFIXDIR>/local/bin');
