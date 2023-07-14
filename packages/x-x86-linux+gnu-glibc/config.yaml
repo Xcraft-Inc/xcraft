@@ -1,4 +1,4 @@
-name: x-x86-64-linux+gnu-glibc
+name: x-x86-linux+gnu-glibc
 version: '2.24'
 $version: '2.24'
 distribution: toolchain/
@@ -27,7 +27,7 @@ data:
     externals: true
     $hash: 99d4a3e8efd144d71488e478f62587578c0f4e1fa0b4eed47ee3d4975ebeb5d3.tar.xz
   type: bin
-  configure: 'mv(''data/glibc-<THIS.$VERSION>'', ''root/var/x-x86-64-linux/glibc'');'
+  configure: "mv('data/glibc-<THIS.$VERSION>', 'root/var/x-x86-linux/glibc');"
   rules:
     type: move
     location: root

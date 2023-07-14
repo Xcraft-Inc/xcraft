@@ -1,0 +1,245 @@
+subpackage:
+  - runtime*
+name: x-x86-linux+gnu-gcc-32-glibc-cross
+version: 13.1.0
+$version: 13.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: i686 GCC/glibc cross-compiler
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
+    estes+flex:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+    gnu+bison:
+      - version: ''
+        architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+    wall+perl:
+      - version: ''
+        architecture: []
+    gnu+coreutils:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 3.1.0'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 1.0.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
+    gnu+gawk:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+    x-x86-linux+gnu-binutils:
+      - version: ''
+        architecture: []
+    x-x86-linux+linux-kernel:
+      - version: ''
+        architecture: []
+    x-x86-linux+gnu-gcc:
+      - version: ''
+        architecture: []
+    x-x86-linux+gnu-glibc:
+      - version: ''
+        architecture: []
+    samba+rsync:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: |-
+    mkdir('data/binutils');
+    mkdir('data/gcc');
+    mkdir('data/glibc');
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !_CC="$CC" _CXX="$CXX"
+
+        && : /// linux - headers ///
+          && make -C "<PEON.ROOTDIR>/var/x-x86-linux/linux"
+                  ARCH=x86
+                  INSTALL_HDR_PATH="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr"
+                  headers_install
+          && mkdir -p "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/lib"
+
+        && : /// binutils ///
+          && cd binutils
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-x86-linux/binutils/configure"
+          && $CONFIGURE --prefix=
+                        --target=i686-xcraft-linux-gnu
+                        --disable-multilib
+                        --disable-nls
+                        --disable-bootstrap
+                        --disable-gprofng
+                        --with-sysroot=/i686-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+          && make MAKEINFO=true -j<PEON.CPUS.COUNT>
+          && make MAKEINFO=true install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// gcc - stage 0 ///
+          && cd gcc
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-x86-linux/gcc/configure"
+          && $CONFIGURE --prefix=
+                        --enable-languages=c,c++
+                        --target=i686-xcraft-linux-gnu
+                        --disable-multilib
+                        --disable-nls
+                        --disable-bootstrap
+                        --disable-libsanitizer
+                        --enable-version-specific-runtime-libs
+                        --with-glibc-version=2.24
+                        --with-sysroot=/i686-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --with-isl=<PEON.ROOTDIR>/usr
+          && make -j<PEON.CPUS.COUNT> all-gcc
+          && make install-strip-gcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// glibc - stage 0 ///
+          && cd glibc
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-x86-linux/glibc/configure"
+          && $CONFIGURE --prefix=/usr
+                        --build=$MACHTYPE
+                        --host=i686-xcraft-linux-gnu
+                        --target=i686-xcraft-linux-gnu
+                        --with-sysroot=/i686-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
+                        --with-headers="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/include"
+                        --with-lib="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/lib"
+                        --without-selinux
+                        --disable-multilib
+                        --disable-werror
+                        --enable-kernel=3.2
+                        libc_cv_forced_unwind=yes
+          && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
+          && unset CC CXX
+          && make -j<PEON.CPUS.COUNT> csu/subdir_lib
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/lib"
+          && i686-xcraft-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null
+                                         -o "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/lib/libc.so"
+          && touch "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/include/gnu/stubs.h"
+          && touch "<PEON.PREFIXDIR>/i686-xcraft-linux-gnu/usr/include/bits/stdio_lim.h"
+          && cd ..
+
+        && : /// gcc - stage 1 ///
+          && cd gcc
+          && export CC="$_CC" CXX="$_CXX"
+          && make -j<PEON.CPUS.COUNT> all-target-libgcc
+          && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// glibc - stage 1 ///
+          && cd glibc
+          && unset CC CXX
+          && make -j<PEON.CPUS.COUNT>
+          && make install DESTDIR="<PEON.PREFIXDIR>/i686-xcraft-linux-gnu"
+          && cd ..
+
+        && : /// gcc - stage 2 ///
+          && cd gcc
+          && export CC="$_CC" CXX="$_CXX"
+          && make -j<PEON.CPUS.COUNT>
+          && make install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && cat <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/limitx.h
+                 <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/glimits.h
+                 <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/limity.h
+               >"<PEON.PREFIXDIR>/lib/gcc/i686-xcraft-linux-gnu/13.1.0/include-fixed/limits.h"
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env:
+      PATH: '<PEON.PREFIXDIR>/bin:<PEON.ENV.PATH>'
+      CFLAGS: ''
+      CXXFLAGS: ''
+      LDFLAGS: ''
+      CPPFLAGS: ''
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/share/info');
+    rm('<PEON.PREFIXDIR>/share/man/man7');
+    rm('<PEON.PREFIXDIR>/share/gcc-13.1.0');
+    rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
+
+    mkdir('<PEON.PREFIXDIR>/local/bin');
+    const exp =
+      'unset CPLUS_INCLUDE_PATH\n' +
+      'LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/i686-xcraft-linux-gnu/lib\n' +
+      'C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/i686-xcraft-linux-gnu/include\n' +
+      'if [ ! -z "${PEON_SHARE}" ]; then\n' +
+      '    CCACHE_BASEDIR=${PEON_SHARE}\n' +
+      'else\n' +
+      '    CCACHE_BASEDIR=${XCRAFT_TARGETROOT}\n' +
+      'fi\n' +
+      'export LIBRARY_PATH C_INCLUDE_PATH CCACHE_BASEDIR\n';
+    for (const bin of ['gcc', 'g++', 'ld']) {
+      const ccache = bin !== 'ld' ? 'CCACHE=\ncommand -v ccache >/dev/null 2>&1 && CCACHE=ccache\n$CCACHE ' : '';
+      yield exec(
+        'writefile',
+        `#!/bin/bash\n\n${exp}\n${ccache}"$(dirname "$0")/../../bin/i686-xcraft-linux-gnu-${bin}" "$@"\n`,
+        `<PEON.PREFIXDIR>/local/bin/i686-xcraft-linux-gnu-${bin}`
+      );
+      chmod(`<PEON.PREFIXDIR>/local/bin/i686-xcraft-linux-gnu-${bin}`, 0o755);
+    }
+  env:
+    path:
+      - usr/local/bin
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
