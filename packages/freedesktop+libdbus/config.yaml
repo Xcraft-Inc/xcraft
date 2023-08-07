@@ -36,10 +36,21 @@ data:
     externals: true
     $hash: 7588649b56dd257c6a5f85a8c45aa2dfdf9e99f4de3983710f452081ca43eca6.tar.xz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-xml-docs --disable-doxygen-docs --disable-ducktype-docs --disable-embedded-tests --disable-modular-tests --disable-tests --disable-installed-tests --disable-code-coverage --disable-stats'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-xml-docs
+                     --disable-doxygen-docs
+                     --disable-ducktype-docs
+                     --disable-embedded-tests
+                     --disable-modular-tests
+                     --disable-tests
+                     --disable-installed-tests
+                     --disable-code-coverage
+                     --disable-stats
   rules:
     type: make
-    location: data/dbus-<THIS.$VERSION>/
+    location: data/dbus-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
