@@ -17,6 +17,9 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
 data:
   get:
     uri: 'https://xcb.freedesktop.org/dist/xcb-proto-<THIS.$VERSION>.tar.bz2'
@@ -28,7 +31,7 @@ data:
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
   rules:
     type: make
-    location: data/xcb-proto-<THIS.$VERSION>/
+    location: data/xcb-proto-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
