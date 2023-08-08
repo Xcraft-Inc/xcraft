@@ -14,7 +14,16 @@ description:
   long: ''
 dependency:
   install:
+    adler+zlib:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
     xorg+libx11:
+      - version: ''
+        architecture: []
+    freedesktop+libdbus:
       - version: ''
         architecture: []
   build:
@@ -30,14 +39,14 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://download.qt.io/official_releases/qt/6.5/<THIS.$VERSION>/single/qt-everywhere-src-<THIS.$VERSION>.zip'
+    uri: 'https://download.qt.io/official_releases/qt/6.5/<THIS.$VERSION>/single/qt-everywhere-src-<THIS.$VERSION>.tar.xz'
     mirrors: []
     ref: ''
     $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 3716b34a7199608436c5b53900e42b0ea12366032a849b61186527cd8d277c4a.zip
+    $hash: cde57be663d0f875759797298bdc37a936d517c39f2013e4e6ece5e12edeed12.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -47,6 +56,47 @@ data:
                       -release
                       -shared
                       -ccache
+                      -dbus-linked
+                      -qt-doubleconversion
+                      -qt-freetype
+                      -qt-harfbuzz
+                      -no-glib
+                      -no-icu
+                      -no-pcre
+                      -no-inotify
+                      -no-eventfd
+                      -no-journald
+                      -no-syslog
+                      -no-slog2
+                      -no-cups
+                      -no-opengl
+                      -no-xkbcommon
+                      -no-linuxfb
+                      -skip qt5compat
+                      -skip qtactiveqt
+                      -skip qtcharts
+                      -skip qtcoap
+                      -skip qtdatavis3d
+                      -skip qthttpserver
+                      -skip qtimageformats
+                      -skip qtlanguageserver
+                      -skip qtmultimedia
+                      -skip qtquick3d
+                      -skip qtquicktimeline
+                      -skip qtsvg
+                      -skip qtwebsockets
+                      -skip qtdoc
+                      -skip qtquick3dphysics
+                      -skip qtquickeffectmaker
+                      -skip qtvirtualkeyboard
+                      -skip qttools
+                      -skip qttranslations
+                      -skip qtwebview
+                      -skip qt3d
+                      -skip qtgrpc
+                      -skip qtsensors
+                      -skip qtwebengine
+                      -skip qtpdf
   rules:
     type: script
     location: data/qt-everywhere-src-<THIS.$VERSION>
