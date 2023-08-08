@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: ninja+ninja
+version: 1.11.1
+$version: 1.11.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: 'a small build system with a focus on speed '
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    kitware+cmake:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/ninja-build/ninja/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 31747ae633213f1eda3842686f83c2aa1412e0f5691d1c14dbbcc67fe7400cea.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && mkdir _build
+      && cd _build
+      && cmake -G "Unix Makefiles"
+               -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
+               -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DCMAKE_BUILD_TYPE=Release ..
+  rules:
+    type: make
+    location: data/ninja-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-C _build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '-C _build install'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
