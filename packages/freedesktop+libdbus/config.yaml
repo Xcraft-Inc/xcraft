@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: freedesktop+libdbus
-version: 1.13.12
-$version: 1.13.12
+version: 1.15.6
+$version: 1.15.6
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,13 +28,20 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+    lzmautils+xz:
+      - version: ''
+        architecture: []
+bump: []
 data:
   get:
     uri: 'https://dbus.freedesktop.org/releases/dbus/dbus-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: 7588649b56dd257c6a5f85a8c45aa2dfdf9e99f4de3983710f452081ca43eca6.tar.xz
+    prepare: ''
+    $hash: f97f5845f9c4a5a1fb3df67dfa9e16b5a3fd545d348d6dc850cb7ccc9942bd8c.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -58,6 +65,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
