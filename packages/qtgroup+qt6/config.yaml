@@ -17,15 +17,53 @@ dependency:
     adler+zlib:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     openssl+openssl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libx11:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-image:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-keysyms:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-cursor:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-renderutil:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-wm:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
     freedesktop+libdbus:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
@@ -66,6 +104,7 @@ data:
                       -shared
                       -ccache
                       -dbus-linked
+                      -xcb
                       -qt-doubleconversion
                       -qt-freetype
                       -qt-harfbuzz
@@ -79,7 +118,6 @@ data:
                       -no-slog2
                       -no-cups
                       -no-opengl
-                      -no-xkbcommon
                       -no-linuxfb
   rules:
     type: script
