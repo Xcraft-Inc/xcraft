@@ -59,6 +59,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    xkbcommon+libxkbcommon:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
     freedesktop+libdbus:
       - version: ''
         architecture: []
