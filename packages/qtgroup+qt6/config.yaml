@@ -36,17 +36,26 @@ dependency:
     ninja+ninja:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture: []
 bump: []
 data:
   get:
-    uri: 'https://download.qt.io/official_releases/qt/6.5/<THIS.$VERSION>/single/qt-everywhere-src-<THIS.$VERSION>.tar.xz'
+    uri: 'https://code.qt.io/qt/qt5.git'
     mirrors: []
-    ref: ''
-    $ref: ''
-    out: ''
-    externals: true
-    prepare: ''
-    $hash: cde57be663d0f875759797298bdc37a936d517c39f2013e4e6ece5e12edeed12.tar.xz
+    ref: dev
+    out: qt6
+    externals: false
+    prepare: |-
+      !cd <THIS.DATA.RULES.LOCATION>
+        && git checkout v<THIS.$VERSION>
+        && perl init-repository --module-subset=qtbase,qtshadertools,qtdeclarative
+    $ref: 9a94ba93db09e595baca5b7a063e897774b159ba
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -60,9 +69,9 @@ data:
                       -qt-doubleconversion
                       -qt-freetype
                       -qt-harfbuzz
+                      -qt-pcre
                       -no-glib
                       -no-icu
-                      -no-pcre
                       -no-inotify
                       -no-eventfd
                       -no-journald
@@ -72,40 +81,15 @@ data:
                       -no-opengl
                       -no-xkbcommon
                       -no-linuxfb
-                      -skip qt5compat
-                      -skip qtactiveqt
-                      -skip qtcharts
-                      -skip qtcoap
-                      -skip qtdatavis3d
-                      -skip qthttpserver
-                      -skip qtimageformats
-                      -skip qtlanguageserver
-                      -skip qtmultimedia
-                      -skip qtquick3d
-                      -skip qtquicktimeline
-                      -skip qtsvg
-                      -skip qtwebsockets
-                      -skip qtdoc
-                      -skip qtquick3dphysics
-                      -skip qtquickeffectmaker
-                      -skip qtvirtualkeyboard
-                      -skip qttools
-                      -skip qttranslations
-                      -skip qtwebview
-                      -skip qt3d
-                      -skip qtgrpc
-                      -skip qtsensors
-                      -skip qtwebengine
-                      -skip qtpdf
   rules:
     type: script
-    location: data/qt-everywhere-src-<THIS.$VERSION>
+    location: data/qt6
     args:
       postinst: ''
       prerm: ''
-      makeall: cmake --build ./_build --parallel <PEON.CPUS.COUNT>
+      makeall: '!cmake --build ./_build --parallel <PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: cmake --install ./_build
+      makeinstall: '!cmake --install ./_build'
     test: none
     env: {}
   deploy: ''
