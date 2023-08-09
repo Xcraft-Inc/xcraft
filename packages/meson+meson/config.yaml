@@ -1,0 +1,69 @@
+subpackage:
+  - runtime*
+name: meson+meson
+version: 1.2.1-1
+$version: 1.2.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Meson Build System
+  long: ''
+dependency:
+  install:
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    ninja+ninja:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/mesonbuild/meson/releases/download/<THIS.$VERSION>/meson-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: b1db3a153087549497ee52b1c938d2134e0338214fe14f7efd16fecd57b639f5.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/meson-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !./packaging/create_zipapp.py --outfile meson.pyz
+                                      --interpreter "/usr/bin/env python3"
+                                      .
+      maketest: ''
+      makeinstall: |-
+        !mkdir -p <PEON.PREFIXDIR>/bin
+          && install meson.pyz <PEON.PREFIXDIR>/bin/
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
