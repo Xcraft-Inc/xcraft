@@ -27,8 +27,8 @@ data:
     $hash: a860c028996ca6e78dcc308b38278f87ce8b1eb54763b4f626c238f0f9769bf8.AppImage
   type: bin
   configure: |-
-    mv('linuxdeploy-x86_64.AppImage', 'root/usr/bin/linuxdeploy');
-    yield exec('chmod', 'a+x', 'root/usr/bin/linuxdeploy');
+    mv('linuxdeploy-x86_64.AppImage', 'root/usr/bin/linuxdeploy-x86_64.AppImage');
+    yield exec('chmod', 'a+x', 'root/usr/bin/linuxdeploy-x86_64.AppImage');
   rules:
     type: move
     location: root
