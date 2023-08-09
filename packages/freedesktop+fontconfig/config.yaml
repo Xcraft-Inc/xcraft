@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: freedesktop+fontconfig
-version: 2.13.92
-$version: 2.13.92
+version: 2.14.2
+$version: 2.14.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,12 +17,16 @@ dependency:
     clark+expat:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnu+libiconv:
       - version: ''
         architecture: []
     nongnu+freetype:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     adler+zlib-dev:
       - version: ''
         architecture: []
@@ -47,12 +51,17 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 506e61283878c1726550bc94f2af26168f1e9f2106eac77eaaf0b2cdfad66e4e.tar.xz
+    $hash: dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b.tar.xz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --enable-iconv --disable-docs --disable-nls'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --enable-iconv
+                     --disable-docs
+                     --disable-nls
   rules:
     type: make
-    location: data/fontconfig-<THIS.$VERSION>/
+    location: data/fontconfig-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
