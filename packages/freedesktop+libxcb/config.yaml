@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: XCB Proto
+  brief: XCB
   long: ''
 dependency:
   install:
@@ -49,37 +49,10 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
                      --disable-devel-docs
-                     --disable-composite
-                     --disable-damage
-                     --disable-dpms
-                     --disable-dri2
-                     --disable-dri3
-                     --disable-ge
-                     --disable-glx
-                     --disable-present
-                     --disable-randr
-                     --disable-record
-                     --disable-render
-                     --disable-resource
-                     --disable-screensaver
-                     --disable-shape
-                     --disable-shm
-                     --disable-sync
-                     --disable-xevie
-                     --disable-xfixes
-                     --disable-xfree86-dri
-                     --disable-xinerama
-                     --disable-xinput
-                     --disable-xkb
-                     --disable-xprint
-                     --disable-selinux
-                     --disable-xtest
-                     --disable-xv
-                     --disable-xvmc
                      --without-doxygen
   rules:
     type: make
-    location: data/libxcb-<THIS.$VERSION>/
+    location: data/libxcb-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -88,7 +61,7 @@ data:
       makeinstall: install
     test: none
     env: {}
-  deploy: ''
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
   env:
     path: []
     other: {}

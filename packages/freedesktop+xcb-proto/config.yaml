@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: XCB
+  brief: XCB Proto
   long: ''
 dependency:
   build:
