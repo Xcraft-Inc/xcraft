@@ -1,0 +1,69 @@
+subpackage:
+  - runtime*
+name: xkbcommon+libxkbcommon
+version: 1.5.0
+$version: 1.5.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: keymap handling library for toolkits and window systems
+  long: ''
+dependency:
+  install:
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
+    xmlsoft+libxml2:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    meson+meson:
+      - version: ''
+        architecture: []
+    ninja+ninja:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/xkbcommon-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 053e6a6a2c3179eba20c3ada827fb8833a6663b7ffd278fdb8530c3cbf924780.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && meson.pyz setup _build --prefix=<PEON.PREFIXDIR>
+                   -Denable-docs=false
+                   -Denable-x11=true
+                   -Denable-wayland=false
+  rules:
+    type: script
+    location: data/libxkbcommon-xkbcommon-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!meson.pyz compile -C _build'
+      maketest: ''
+      makeinstall: '!meson.pyz install -C _build'
+    test: none
+    env:
+      CFLAGS: '<PEON.ENV.CFLAGS> -lm' 
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
