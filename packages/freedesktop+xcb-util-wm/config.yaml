@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: freedesktop+xcb-util-wm
+version: 0.4.2
+$version: 0.4.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB util wm
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-util-core:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/xcb-util-wm-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: dcecaaa535802fd57c84cceeff50c64efe7f2326bf752e16d2b77945649c8cd7.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --without-doxygen
+  rules:
+    type: make
+    location: data/xcb-util-wm-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

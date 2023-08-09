@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: freedesktop+xcb-util-renderutil
+version: 0.3.10
+$version: 0.3.10
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB util renderutil
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-util-core:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/xcb-util-renderutil-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: e04143c48e1644c5e074243fa293d88f99005b3c50d1d54358954404e635128a.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --without-doxygen
+  rules:
+    type: make
+    location: data/xcb-util-renderutil-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

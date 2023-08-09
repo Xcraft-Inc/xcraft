@@ -1,0 +1,60 @@
+subpackage:
+  - runtime*
+name: freedesktop+xcb-util-keysyms
+version: 0.4.1
+$version: 0.4.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB util keysyms
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-util-core:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/xcb-util-keysyms-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 1fa21c0cea3060caee7612b6577c1730da470b88cbdf846fa4e3e0ff78948e54.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --without-doxygen
+  rules:
+    type: make
+    location: data/xcb-util-keysyms-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

@@ -1,0 +1,66 @@
+subpackage:
+  - runtime*
+name: freedesktop+xcb-util-cursor
+version: 0.1.4
+$version: 0.1.4
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB util cursor
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-util-core:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    freedesktop+xcb-util-renderutil:
+      - version: ''
+        architecture: []
+    freedesktop+xcb-util-image:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/xcb-util-cursor-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: cc8608ebb695742b6cf84712be29b2b66aa5f6768039528794fca0fa283022bf.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --without-doxygen
+  rules:
+    type: make
+    location: data/xcb-util-cursor-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

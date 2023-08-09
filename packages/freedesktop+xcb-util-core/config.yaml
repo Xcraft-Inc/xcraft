@@ -1,0 +1,61 @@
+subpackage:
+  - runtime*
+name: freedesktop+xcb-util-core
+version: 0.4.1-1
+$version: 0.4.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: XCB util
+  long: ''
+dependency:
+  install:
+    freedesktop+xcb-proto:
+      - version: ''
+        architecture: []
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xcb.freedesktop.org/dist/xcb-util-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 21c6e720162858f15fe686cef833cf96a3e2a79875f84007d76f6d00417f593a.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --without-doxygen
+  rules:
+    type: make
+    location: data/xcb-util-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
