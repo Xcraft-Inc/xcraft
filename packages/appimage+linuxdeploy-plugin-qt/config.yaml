@@ -1,0 +1,42 @@
+name: appimage+linuxdeploy-plugin-qt
+version: 0.0.1
+$version: 0.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - linux-amd64
+description:
+  brief: Qt plugin for linuxdeploy
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    $hash: 96cdac7476dbab94b268fb4ed1d08495931110f53bae1cc944d7c0cf4597b181.AppImage
+  type: bin
+  configure: |-
+    mv('linuxdeploy-plugin-qt-x86_64.AppImage', 'root/usr/bin/linuxdeploy-plugin-qt-x86_64.AppImage');
+    yield exec('chmod', 'a+x', 'root/usr/bin/linuxdeploy-plugin-qt-x86_64.AppImage');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
