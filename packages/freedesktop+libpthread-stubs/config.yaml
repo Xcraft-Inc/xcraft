@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: freedesktop+libpthread-stubs
-version: '0.4'
-$version: '0.4'
+version: '0.5'
+$version: '0.5'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,16 +19,18 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://xcb.freedesktop.org/dist/libpthread-stubs-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://xcb.freedesktop.org/dist/libpthread-stubs-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
-    $hash: e4d05911a3165d3b18321cc067fdd2f023f06436e391c6a28dff618a78d2e733.tar.bz2
+    $hash: 593196cc746173d1e25cb54a93a87fd749952df68699aab7e02c085530e87747.tar.gz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: data/libpthread-stubs-<THIS.$VERSION>/
+    location: data/libpthread-stubs-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

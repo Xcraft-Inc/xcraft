@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: freedesktop+libxcb
-version: 1.13.1
-$version: 1.13.1
+version: '1.15'
+$version: '1.15'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -33,15 +33,50 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://xcb.freedesktop.org/dist/libxcb-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://xcb.freedesktop.org/dist/libxcb-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: a89fb7af7a11f43d2ce84a844a4b38df688c092bf4b67683aef179cdf2a647c4.tar.bz2
+    prepare: ''
+    $hash: 1cb65df8543a69ec0555ac696123ee386321dfac1964a3da39976c9a05ad724d.tar.gz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-devel-docs --disable-composite --disable-damage --disable-dpms --disable-dri2 --disable-dri3 --disable-ge --disable-glx --disable-present --disable-randr --disable-record --disable-render --disable-resource --disable-screensaver --disable-shape --disable-shm --disable-sync --disable-xevie --disable-xfixes --disable-xfree86-dri --disable-xinerama --disable-xinput --disable-xkb --disable-xprint --disable-selinux --disable-xtest --disable-xv --disable-xvmc --without-doxygen'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-devel-docs
+                     --disable-composite
+                     --disable-damage
+                     --disable-dpms
+                     --disable-dri2
+                     --disable-dri3
+                     --disable-ge
+                     --disable-glx
+                     --disable-present
+                     --disable-randr
+                     --disable-record
+                     --disable-render
+                     --disable-resource
+                     --disable-screensaver
+                     --disable-shape
+                     --disable-shm
+                     --disable-sync
+                     --disable-xevie
+                     --disable-xfixes
+                     --disable-xfree86-dri
+                     --disable-xinerama
+                     --disable-xinput
+                     --disable-xkb
+                     --disable-xprint
+                     --disable-selinux
+                     --disable-xtest
+                     --disable-xv
+                     --disable-xvmc
+                     --without-doxygen
   rules:
     type: make
     location: data/libxcb-<THIS.$VERSION>/
@@ -52,6 +87,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

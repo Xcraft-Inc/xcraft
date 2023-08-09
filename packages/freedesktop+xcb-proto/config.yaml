@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: freedesktop+xcb-proto
-version: '1.13'
-$version: '1.13'
+version: 1.15.2
+$version: 1.15.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,15 +20,21 @@ dependency:
     vanrossum+python3:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://xcb.freedesktop.org/dist/xcb-proto-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://xcb.freedesktop.org/dist/xcb-proto-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: 7b98721e669be80284e9bbfeab02d2d0d54cd11172b72271e47a2fe875e2bde1.tar.bz2
+    prepare: ''
+    $hash: 6b1ed9cd7cf35e37913eeecca37e5b85b14903002942b3e332f321335c27a8eb.tar.gz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
     location: data/xcb-proto-<THIS.$VERSION>
@@ -39,6 +45,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
