@@ -60,7 +60,8 @@ data:
     test: none
     env:
       CFLAGS: '<PEON.ENV.CFLAGS> -lm' 
-  deploy: ''
+  deploy: |-
+    !mv <PEON.PREFIXDIR>/lib64 <PEON.PREFIXDIR>/lib
   env:
     path: []
     other: {}
