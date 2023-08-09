@@ -14,11 +14,6 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib:
-      - version: ''
-        architecture: []
-        subpackage:
-          - runtime
     openssl+openssl:
       - version: ''
         architecture: []
@@ -69,6 +64,16 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    freedesktop+fontconfig:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    nongnu+freetype:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
@@ -106,14 +111,18 @@ data:
       && cd _build
       && ../configure -prefix <PEON.PREFIXDIR>
                       -release
+                      -optimize-size
                       -shared
                       -ccache
                       -dbus-linked
                       -xcb
+                      -xcb-xlib
+                      -fontconfig
+                      -system-freetype
                       -qt-doubleconversion
-                      -qt-freetype
                       -qt-harfbuzz
                       -qt-pcre
+                      -qt-zlib
                       -no-glib
                       -no-icu
                       -no-inotify
