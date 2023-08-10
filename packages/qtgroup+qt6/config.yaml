@@ -96,14 +96,14 @@ data:
   get:
     uri: 'https://code.qt.io/qt/qt5.git'
     mirrors: []
-    ref: dev
+    ref: <THIS.DATA.GET.$REF>
     out: qt6
     externals: false
     prepare: |-
       !cd <THIS.DATA.RULES.LOCATION>
         && git checkout v<THIS.$VERSION>
         && perl init-repository --module-subset=qtbase,qtshadertools,qtdeclarative
-    $ref: 9a94ba93db09e595baca5b7a063e897774b159ba
+    $ref: 54eb300535a828ea6778a882319a7cf691cde2e7
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -114,7 +114,7 @@ data:
                       -optimize-size
                       -shared
                       -ccache
-                      -dbus-linked
+                      -dbus-runtime
                       -xcb
                       -xcb-xlib
                       -fontconfig
@@ -123,6 +123,8 @@ data:
                       -qt-harfbuzz
                       -qt-pcre
                       -qt-zlib
+                      -qt-libjpeg
+                      -qt-libpng
                       -no-glib
                       -no-icu
                       -no-inotify
