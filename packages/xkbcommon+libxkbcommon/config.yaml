@@ -61,7 +61,7 @@ data:
     env:
       CFLAGS: '<PEON.ENV.CFLAGS> -lm' 
   deploy: |-
-    !mv "<PEON.PREFIXDIR>/lib/x86_64-linux-gnu" "<PEON.PREFIXDIR>/lib64" || :
+    !mv "<PEON.PREFIXDIR>/lib/x86_64-linux-gnu" "<PEON.PREFIXDIR>/lib64" && rm -rf "<PEON.PREFIXDIR>/lib" || :
     ;mv "<PEON.PREFIXDIR>/lib64" "<PEON.PREFIXDIR>/lib" || :
   env:
     path: []
