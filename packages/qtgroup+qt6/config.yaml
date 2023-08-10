@@ -134,6 +134,9 @@ data:
                       -no-cups
                       -no-opengl
                       -no-linuxfb
+                      --
+                      -DCMAKE_INCLUDE_PATH=<PEON.PROD.ROOTDIR>/usr/include
+                      -DCMAKE_LIBRARY_PATH=<PEON.PROD.ROOTDIR>/usr/lib
   rules:
     type: script
     location: data/qt6
