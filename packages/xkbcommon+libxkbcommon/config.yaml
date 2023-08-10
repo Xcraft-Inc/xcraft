@@ -44,7 +44,9 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && meson.pyz setup _build --prefix=<PEON.PREFIXDIR>
+      && meson.pyz setup _build
+                   --prefix=<PEON.PREFIXDIR>
+                   --libdir=lib
                    -Denable-docs=false
                    -Denable-x11=true
                    -Denable-wayland=false
@@ -59,10 +61,8 @@ data:
       makeinstall: '!meson.pyz install -C _build'
     test: none
     env:
-      CFLAGS: '<PEON.ENV.CFLAGS> -lm' 
-  deploy: |-
-    !mv "<PEON.PREFIXDIR>/lib/x86_64-linux-gnu" "<PEON.PREFIXDIR>/lib64" && rm -rf "<PEON.PREFIXDIR>/lib" || :
-    ;mv "<PEON.PREFIXDIR>/lib64" "<PEON.PREFIXDIR>/lib" || :
+      CFLAGS: <PEON.ENV.CFLAGS> -lm
+  deploy: ''
   env:
     path: []
     other: {}
