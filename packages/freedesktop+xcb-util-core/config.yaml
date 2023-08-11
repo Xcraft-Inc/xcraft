@@ -14,10 +14,10 @@ description:
   long: ''
 dependency:
   install:
-    freedesktop+xcb-proto:
+    freedesktop+libxcb:
       - version: ''
         architecture: []
-    freedesktop+libxcb:
+    freedesktop+xcb-proto:
       - version: ''
         architecture: []
   build:
