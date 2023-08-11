@@ -1,6 +1,6 @@
 name: kaspar030+git-cache
-version: 0.2.1
-$version: 0.2.1
+version: 0.2.2
+$version: 0.2.2
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -39,15 +39,16 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/kaspar030/git-cache/archive/2a3d0e00d010cd1d7ff3d29c41b5c5178e816d1f.zip'
+    uri: 'https://github.com/kaspar030/git-cache/archive/36e2d0a1ed6e7a1becfd3d5f03efae84c7d3ec46.zip'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: 7fdb905de4349ef86444fffd350809b704541fd6e1ab53d4e08e7881acd54ec2.zip
+    $hash: edafbeafd7b58e2a89e0eb41a37be6c582095a47d297bbaf9ef95fca283c05e7.zip
   type: bin
   configure: |-
-    mv('data/git-cache-2a3d0e00d010cd1d7ff3d29c41b5c5178e816d1f/git-cache',
+    mv('data/git-cache-36e2d0a1ed6e7a1becfd3d5f03efae84c7d3ec46/git-cache',
        'root/usr/bin/git-cache'); chmod('root/usr/bin/git-cache', 0o755);
   rules:
     type: move
