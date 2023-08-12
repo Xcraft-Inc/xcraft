@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-x86-linux+gnu-gcc-32-glibc-cross
-version: 13.1.0
-$version: 13.1.0
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -200,7 +200,7 @@ data:
           && cat <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-x86-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/i686-xcraft-linux-gnu/13.1.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/i686-xcraft-linux-gnu/13.2.0/include-fixed/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
@@ -214,7 +214,7 @@ data:
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-13.1.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-13.2.0');
     rm('<PEON.PREFIXDIR>/lib64');
     rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
 

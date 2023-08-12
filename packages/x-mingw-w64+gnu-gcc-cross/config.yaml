@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-mingw-w64+gnu-gcc-cross
-version: 13.1.0-12
-$version: 13.1.0
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -178,7 +178,7 @@ data:
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-13.1.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-13.2.0');
     rm('<PEON.PREFIXDIR>/lib64');
     rm('<PEON.PREFIXDIR>/lib/bfd-plugins/libdep.so');
   env:

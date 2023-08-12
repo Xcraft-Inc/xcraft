@@ -1,6 +1,6 @@
 name: x-mingw-w64+gnu-gcc
-version: 13.1.0
-$version: 13.1.0
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,7 +28,7 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: 61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86.tar.xz
+    $hash: e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da.tar.xz
   type: bin
   configure: 'mv(''data/gcc-<THIS.$VERSION>'', ''root/var/x-mingw-w64/gcc'');'
   rules:

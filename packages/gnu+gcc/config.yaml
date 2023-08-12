@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gcc
-version: 13.1.0
-$version: 13.1.0
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -78,7 +78,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: bacd4c614d8bd5983404585e53478d467a254249e0f1bb747c8bc6d787bd4fa2.tar.gz
+    $hash: 8cb4be3796651976f94b9356fa08d833524f62420d6292c5033a9a26af315078.tar.gz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"
