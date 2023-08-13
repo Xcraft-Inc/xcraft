@@ -1,6 +1,6 @@
 name: x-aarch64-linux+gnu-gcc
-version: 10.3.0
-$version: 10.3.0
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,7 +28,7 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: 64f404c1a650f27fc33da242e1f2df54952e3963a49e06e73f6940f3223ac344.tar.xz
+    $hash: e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da.tar.xz
   type: bin
   configure: |-
     mv('data/gcc-<THIS.$VERSION>', 'root/var/x-aarch64-linux/gcc');

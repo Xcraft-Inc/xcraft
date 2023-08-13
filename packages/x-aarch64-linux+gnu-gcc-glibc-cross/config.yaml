@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-glibc-cross
-version: 11.1.2.33-1
-$version: 11.1.2.33
+version: 13.2.0
+$version: 13.2.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -54,10 +54,10 @@ dependency:
       - version: '>= 4.3.2'
         architecture: []
     gnu+mpfr:
-      - version: '>= 2.4.2'
+      - version: '>= 3.1.0'
         architecture: []
     gnu+mpc:
-      - version: '>= 0.8.1'
+      - version: '>= 1.0.1'
         architecture: []
     inria+isl:
       - version: '>= 0.15'
@@ -102,24 +102,24 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !_CC="$CC" _CXX="$CXX" _CFLAGS="$CFLAGS" _CXXFLAGS="$CXXFLAGS" _LDFLAGS="$LDFLAGS" _CPPFLAGS="$CPPFLAGS"
+        !_CC="$CC" _CXX="$CXX"
 
         && : /// linux - headers ///
           && make -C "<PEON.ROOTDIR>/var/x-aarch64-linux/linux"
                   ARCH=arm64
-                  INSTALL_HDR_PATH="<PEON.PREFIXDIR>/aarch64-linux/usr"
+                  INSTALL_HDR_PATH="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr"
                   headers_install
-          && mkdir -p "<PEON.PREFIXDIR>/aarch64-linux/usr/lib"
+          && mkdir -p "<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/lib"
 
         && : /// binutils ///
           && cd binutils
           && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/binutils/configure"
           && $CONFIGURE --prefix=
-                        --target=aarch64-linux
+                        --target=aarch64-xcraft-linux-gnu
                         --disable-multilib
                         --disable-nls
-                        --with-sysroot=/aarch64-linux
-                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-linux"
+                        --with-sysroot=/aarch64-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
@@ -133,11 +133,13 @@ data:
           && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/gcc/configure"
           && $CONFIGURE --prefix=
                         --enable-languages=c,c++
-                        --target=aarch64-linux
+                        --target=aarch64-xcraft-linux-gnu
                         --disable-multilib
                         --disable-nls
-                        --with-sysroot=/aarch64-linux
-                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-linux"
+                        --disable-bootstrap
+                        --disable-libsanitizer
+                        --with-sysroot=/aarch64-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
@@ -148,52 +150,52 @@ data:
 
         && : /// glibc - stage 0 ///
           && cd glibc
-          && unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
+          && unset CC CXX
           && CONFIGURE="<PEON.ROOTDIR>/var/x-aarch64-linux/glibc/configure"
           && $CONFIGURE --prefix=/usr
                         --build=$MACHTYPE
-                        --host=aarch64-linux
-                        --target=aarch64-linux
-                        --with-sysroot=/aarch64-linux
-                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-linux"
-                        --with-headers="<PEON.PREFIXDIR>/aarch64-linux/usr/include"
-                        --with-lib="<PEON.PREFIXDIR>/aarch64-linux/usr/lib"
+                        --host=aarch64-xcraft-linux-gnu
+                        --target=aarch64-xcraft-linux-gnu
+                        --with-sysroot=/aarch64-xcraft-linux-gnu
+                        --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
+                        --with-headers="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/include"
+                        --with-lib="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/lib"
                         --disable-multilib
                         --disable-werror
                         --enable-kernel=3.2
                         libc_cv_forced_unwind=yes
-          && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/aarch64-linux"
+          && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib
-          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/aarch64-linux/usr/lib"
-          && aarch64-linux-gcc -nostdlib -nostartfiles -shared -x c /dev/null
-                               -o "<PEON.PREFIXDIR>/aarch64-linux/usr/lib/libc.so"
-          && touch "<PEON.PREFIXDIR>/aarch64-linux/usr/include/gnu/stubs.h"
-          && touch "<PEON.PREFIXDIR>/aarch64-linux/usr/include/bits/stdio_lim.h"
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/lib"
+          && aarch64-xcraft-linux-gnu-gcc -nostdlib -nostartfiles -shared -x c /dev/null
+                               -o "<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/lib/libc.so"
+          && touch "<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/include/gnu/stubs.h"
+          && touch "<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/include/bits/stdio_lim.h"
           && cd ..
 
         && : /// gcc - stage 1 ///
           && cd gcc
-          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
+          && export CC="$_CC" CXX="$_CXX"
           && make -j<PEON.CPUS.COUNT> all-target-libgcc
           && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// glibc - stage 1 ///
           && cd glibc
-          && unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
+          && unset CC CXX
           && make -j<PEON.CPUS.COUNT>
-          && make install DESTDIR="<PEON.PREFIXDIR>/aarch64-linux"
+          && make install DESTDIR="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
           && cd ..
 
         && : /// gcc - stage 2 ///
           && cd gcc
-          && export CC="$_CC" CXX="$_CXX" CFLAGS="$_CFLAGS" CXXFLAGS="$_CXXFLAGS" LDFLAGS="$_LDFLAGS" CPPFLAGS="$_CPPFLAGS"
+          && export CC="$_CC" CXX="$_CXX"
           && make -j<PEON.CPUS.COUNT>
           && make install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-linux/10.3.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.2.0/include-fixed/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
@@ -206,13 +208,15 @@ data:
   deploy: |-
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-10.3.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-13.2.0');
+    mv('<PEON.PREFIXDIR>/lib64', '<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.2.0');
     rm('<PEON.PREFIXDIR>/lib64');
+
     mkdir('<PEON.PREFIXDIR>/local/bin');
     const exp =
       'unset CPLUS_INCLUDE_PATH\n' +
-      'LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/lib\n' +
-      'C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/aarch64-linux/include\n' +
+      'LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/aarch64-xcraft-linux-gnu/lib\n' +
+      'C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/aarch64-xcraft-linux-gnu/include\n' +
       'if [ ! -z "${PEON_SHARE}" ]; then\n' +
       '    CCACHE_BASEDIR=${PEON_SHARE}\n' +
       'else\n' +
@@ -223,10 +227,10 @@ data:
       const ccache = bin !== 'ld' ? 'CCACHE=\ncommand -v ccache >/dev/null 2>&1 && CCACHE=ccache\n$CCACHE ' : '';
       yield exec(
         'writefile',
-        `#!/bin/bash\n\n${exp}\n${ccache}"$(dirname "$0")/../../bin/aarch64-linux-${bin}" "$@"\n`,
-        `<PEON.PREFIXDIR>/local/bin/aarch64-linux-${bin}`
+        `#!/bin/bash\n\n${exp}\n${ccache}"$(dirname "$0")/../../bin/aarch64-xcraft-linux-gnu-${bin}" "$@"\n`,
+        `<PEON.PREFIXDIR>/local/bin/aarch64-xcraft-linux-gnu-${bin}`
       );
-      chmod(`<PEON.PREFIXDIR>/local/bin/aarch64-linux-${bin}`, 0o755);
+      chmod(`<PEON.PREFIXDIR>/local/bin/aarch64-xcraft-linux-gnu-${bin}`, 0o755);
     }
   env:
     path:

@@ -1,6 +1,6 @@
 name: x-aarch64-linux+gnu-binutils
-version: '2.32'
-$version: '2.32'
+version: '2.40'
+$version: '2.40'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,7 +21,7 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: 9b0d97b3d30df184d302bced12f976aa1e5fbf4b0be696cdebc6cca30411a46e.tar.gz
+    $hash: d7f82c4047decf43a6f769ac32456a92ddb6932409a585c633cdd4e9df23d956.tar.gz
   type: bin
   configure: 'mv(''data/binutils-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/binutils'');'
   rules:
