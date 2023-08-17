@@ -101,6 +101,7 @@ data:
     externals: false
     prepare: |-
       !cd <THIS.DATA.RULES.LOCATION>
+        && git submodule deinit --all
         && git checkout v<THIS.$VERSION>
         && perl init-repository --module-subset=qtbase,qtshadertools,qtdeclarative,qtsvg
     $ref: 54eb300535a828ea6778a882319a7cf691cde2e7
