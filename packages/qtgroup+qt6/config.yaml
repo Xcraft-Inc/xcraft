@@ -147,8 +147,7 @@ data:
       maketest: ''
       makeinstall: '!cmake --install ./_build'
     test: none
-    env:
-      GIT_CACHE_DIR: ''
+    env: {}
   deploy: ''
   env:
     path: []
