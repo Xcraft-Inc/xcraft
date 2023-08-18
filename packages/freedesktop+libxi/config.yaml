@@ -1,0 +1,71 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxi
+version: 1.8.1
+$version: 1.8.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xi
+  long: ''
+dependency:
+  install:
+    xorg+xproto:
+      - version: ''
+        architecture: []
+    xorg+libx11:
+      - version: ''
+        architecture: []
+    freedesktop+libxext:
+      - version: ''
+        architecture: []
+    freedesktop+libxfixes:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xorg.freedesktop.org/releases/individual/lib/libXi-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 3b5f47c223e4b63d7f7fe758886b8bf665b20a7edb6962c423892fd150e326ea.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-docs
+                     --disable-specs
+                     --without-xmlto
+                     --without-fop
+                     --without-xsltproc
+                     --without-asciidoc
+  rules:
+    type: make
+    location: data/libXi-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

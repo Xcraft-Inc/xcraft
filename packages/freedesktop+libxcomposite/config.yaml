@@ -1,0 +1,63 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxcomposite
+version: 0.4.6
+$version: 0.4.6
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xcomposite
+  long: ''
+dependency:
+  install:
+    xorg+xproto:
+      - version: ''
+        architecture: []
+    xorg+libx11:
+      - version: ''
+        architecture: []
+    freedesktop+libxfixes:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xorg.freedesktop.org/releases/individual/lib/libXcomposite-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 3599dfcd96cd48d45e6aeb08578aa27636fa903f480f880c863622c2b352d076.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --without-xmlto
+  rules:
+    type: make
+    location: data/libXcomposite-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
