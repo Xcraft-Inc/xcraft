@@ -3,7 +3,7 @@ subpackage:
 name: facebook+zstd
 version: 1.5.4
 $version: 1.5.4
-distribution: monolith/
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
