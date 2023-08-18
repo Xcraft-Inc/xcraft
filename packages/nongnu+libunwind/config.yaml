@@ -1,0 +1,63 @@
+subpackage:
+  - runtime*
+name: nongnu+libunwind
+version: 1.7.2
+$version: 1.7.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: curl
+  long: ''
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/libunwind/libunwind/releases/download/v<THIS.$VERSION>/libunwind-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: a18a6a24307443a8ace7a8acc2ce79fbbe6826cd0edf98d6326d0225d6a5d6e6.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --disable-documentation
+                     --disable-tests
+                     --enable-cxx-exceptions
+                     --enable-msabi-support
+                     --enable-zlibdebuginfo
+                     --without-testdriver
+  rules:
+    type: make
+    location: data/libunwind-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
