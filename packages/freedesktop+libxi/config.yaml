@@ -20,7 +20,7 @@ dependency:
     xorg+libx11:
       - version: ''
         architecture: []
-    freedesktop+libxext:
+    xorg+libxext:
       - version: ''
         architecture: []
     freedesktop+libxfixes:
