@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: Xlib-based library for common extensions to the X11 protocol
+  brief: Xext
   long: ''
 dependency:
   install:
