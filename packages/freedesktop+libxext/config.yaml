@@ -1,0 +1,62 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxext
+version: 1.3.5
+$version: 1.3.5
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xlib-based library for common extensions to the X11 protocol
+  long: ''
+dependency:
+  install:
+    xorg+xproto:
+      - version: ''
+        architecture: []
+    xorg+libx11:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xorg.freedesktop.org/releases/individual/lib/libXext-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 1a3dcda154f803be0285b46c9338515804b874b5ccc7a2b769ab7fd76f1035bd.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --without-fop
+                     --without-xsltproc
+                     --without-lint
+  rules:
+    type: make
+    location: data/libXext-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
