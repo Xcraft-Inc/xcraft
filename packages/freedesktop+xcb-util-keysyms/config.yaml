@@ -17,6 +17,8 @@ dependency:
     freedesktop+libxcb:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     freedesktop+xcb-util-core:
       - version: ''
         architecture: []

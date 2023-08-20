@@ -17,12 +17,18 @@ dependency:
     xorg+xproto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libx11:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libxext:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''

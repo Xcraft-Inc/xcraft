@@ -17,15 +17,23 @@ dependency:
     xorg+xproto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libx11:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     xorg+libxrender:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     freedesktop+libxfixes:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
