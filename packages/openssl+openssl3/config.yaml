@@ -1,0 +1,94 @@
+subpackage:
+  - runtime*
+name: openssl+openssl3
+version: 3.1.2
+$version: 3.1.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: OpenSSL v3
+  long: ''
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    gnu+make:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
+    wall+perl:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
+bump: []
+data:
+  get:
+    uri: 'https://www.openssl.org/source/openssl-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539.tar.gz
+  type: src
+  configure: |-
+    !{bash}
+    cd <THIS.DATA.RULES.LOCATION> &&
+    CC="${CC:-cc} $CFLAGS"
+    <PEON.OS=darwin?
+      ./Configure darwin64-{PEON.OS.ARCH2}-cc
+    :>
+    <PEON.OS=win?
+      ./Configure --openssldir=/usr/ssl mingw64
+    :>
+    <PEON.OS=linux?
+      ./config    --openssldir=/etc/ssl
+    :>
+                  --prefix=<PEON.PREFIXDIR>
+                  shared
+  rules:
+    type: script
+    location: data/openssl-<THIS.$VERSION>/
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make CFLAGS= LDFLAGS= -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '!make CFLAGS= LDFLAGS= install_sw'
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other:
+      SSL_CERT_DIR: '<OS.NAME=win32?/usr/ssl/certs:/etc/ssl/certs>'
+  embedded: true
+  runtime:
+    configure: ''
