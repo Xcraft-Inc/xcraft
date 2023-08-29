@@ -42,6 +42,36 @@ while [[ "$1" =~ ^extra/ ]]; do
   shift
 done
 
+mkdir -p "${WORK_DIR}/debian/DEBIAN"
+
+# Check for chown list
+postinst_cmd=""
+while [[ "$1" =~ ^chown/ ]]; do
+  useChown=1
+  entry="${1#chown/}"
+  step=0
+  file=""
+  owner=""
+  IFS=":"
+  NL=$'\n'
+  for it in ${entry}; do
+    case $step in
+    0)
+      file="$it";;
+    1)
+      postinst_cmd="$postinst_cmd${NL}chmod -R $it $file";;
+    2)
+      owner="$it";;
+    3)
+      [ -n "$it" ] && owner="$owner:$it"
+      postinst_cmd="$postinst_cmd${NL}chown -R $owner $file";;
+    esac
+    step=$((step + 1))
+  done
+  unset IFS
+  shift
+done
+
 # Check for systemd arguments
 useSystemd=0
 systemd="
@@ -92,8 +122,6 @@ trap cleanup EXIT
 
 cd "${WORK_DIR}" || exit 1
 
-mkdir -p debian/DEBIAN
-
 if [ "${useSystemd}" = 1 ]; then
   # Debian package hooks
   cat <<EOF > "debian/DEBIAN/postinst"
@@ -102,6 +130,8 @@ set -e
 set -o pipefail
 
 adduser --system --no-create-home --home /nonexistent --shell /bin/false "${projectName}"
+
+${postinst_cmd}
 
 start_service () {
   if hash systemctl 2> /dev/null; then
