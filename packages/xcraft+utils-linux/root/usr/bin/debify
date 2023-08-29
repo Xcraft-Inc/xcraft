@@ -26,7 +26,6 @@ if [ -z "${projectShortDescription}" ]; then >&2 echo "The project short descrip
 if [ -z "${projectLongDescription}" ];  then >&2 echo "The project long description is missing"; exit 1; fi
 if [ -z "${maintainerName}" ];          then >&2 echo "The maintainer name is missing"; exit 1; fi
 if [ -z "${maintainerEmail}" ];         then >&2 echo "The maintainer email is missing"; exit 1; fi
-if [ -z "${projectDir}" ];              then >&2 echo "The project directory is missing"; exit 1; fi
 if [ -z "${outputDir}" ];               then >&2 echo "The output directory is missing"; exit 1; fi
 
 shift 8
@@ -195,11 +194,12 @@ if [ -d debian/etc ]; then
   cat debian/DEBIAN/conffiles
 fi
 
-# Prepare the final project directory
-mkdir -p "debian/opt/${projectName}"
-
-# Copy the projects files to the final project directory
-cp -a "${projectDir}/." "debian/opt/${projectName}/"
+if [ -n "$projectDir" ]; then
+  # Prepare the final project directory
+  mkdir -p "debian/opt/${projectName}"
+  # Copy the projects files to the final project directory
+  cp -a "${projectDir}/." "debian/opt/${projectName}/"
+fi
 
 # Ensure that all directories are using 0755
 find debian -type d -print0 | xargs -0 chmod 755
