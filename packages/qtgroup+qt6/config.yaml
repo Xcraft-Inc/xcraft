@@ -19,6 +19,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    khronos+libvulkan:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
     xorg+libx11:
       - version: ''
         architecture: []
