@@ -15,6 +15,7 @@
   "cmd": "^win32$",
   "cmp": "^darwin|freebsd|linux|sunos$",
   "codesign": "^darwin$",
+  "command": "^darwin$",
   "cp": "^darwin|freebsd|linux|sunos$",
   "cscript": "^win32$",
   "cut": "^darwin|freebsd|linux|sunos$",
