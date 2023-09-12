@@ -59,7 +59,11 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/share/info/dir');
+    <PEON.OS=darwin?
+      cp('{PEON.PREFIXDIR}/bin/glibtoolize', '{PEON.PREFIXDIR}/bin/libtoolize');
+    :>
   env:
     path: []
     other: {}
