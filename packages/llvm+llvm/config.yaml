@@ -35,6 +35,9 @@ dependency:
     llvm+libcxxabi:
       - version: '= 16.0.6'
         architecture: []
+    llvm+compiler-rt:
+      - version: '= 16.0.6'
+        architecture: []
     samba+ccache-gcc:
       - version: ''
         architecture:
@@ -75,6 +78,7 @@ data:
       && ln -sf <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src tools/polly
       && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
       && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src projects/libcxxabi
+      && cp -a <PEON.ROOTDIR>/usr/share/llvm/compiler-rt/cache/data/compiler-rt-<THIS.$VERSION>.src projects/compiler-rt
       && mkdir -p BUILD
       && cd BUILD
       && cmake -G "Unix Makefiles"
