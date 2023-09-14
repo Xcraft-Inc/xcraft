@@ -83,6 +83,7 @@ data:
       && cd BUILD
       && cmake -G "Unix Makefiles"
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DLLVM_ENABLE_RUNTIMES=compiler-rt
                -DLLVM_CCACHE_BUILD=ON
                -DCMAKE_BUILD_TYPE=Release ..
   rules:
