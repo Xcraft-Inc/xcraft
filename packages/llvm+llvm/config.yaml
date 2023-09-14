@@ -55,6 +55,8 @@ data:
       && cd ./BUILD
       && cmake -G "Unix Makefiles"
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;compiler-rt;libc;lld;openmp;polly;pstl
+               -DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx
                -DLLVM_CCACHE_BUILD=ON
                -DCMAKE_BUILD_TYPE=Release ../llvm
   rules:
