@@ -38,7 +38,7 @@ data:
                "{THIS.VERSION}"
                "_root"
                "_root/opt/Cresus/monolith/hpatchz${_BIN_EXT}"
-               "$SIGN_APP_ID" "$SIGN_INST_ID" "$MAC_AC_USERNAME" "$MAC_AC_PASSWORD" "$MAC_AC_PROVIDER"
+               "$SIGN_APP_ID" "$SIGN_INST_ID" "$MAC_AC_USERNAME" "$MAC_AC_PASSWORD" "$MAC_AC_TEAM"
       && cp -f "_root/opt/Cresus/monolith/hpatchz${_BIN_EXT}"
                "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz-{PEON.OS}-{PEON.OS.ARCH2}${_BIN_EXT}"
       && rm -f "{PEON.INSTALLDIR}/opt/cresus/monolith/hpatchz${_BIN_EXT}"

@@ -2,7 +2,7 @@
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
   echo "usage: signapp <app> <id> <entitlements> <signAppId>"
-  echo "               [acUsername] [acPassword] [acProvider]"
+  echo "               [acUsername] [acPassword] [acTeamId]"
   exit 0
 fi
 
@@ -12,7 +12,7 @@ entitlements="$3"
 signAppId="$4"
 acUsername="$5"
 acPassword="$6"
-acProvider="$7"
+acTeamId="$7"
 
 if [ -z "${app}" ];          then >&2 echo "The app path is missing"; exit 1; fi
 if [ -z "${id}" ];           then >&2 echo "The app ID is missing"; exit 1; fi
@@ -75,37 +75,16 @@ inflate()
 notarize()
 {
   local app="$1"
-  local id="$2"
-  local username="$3"
-  local password="$4"
-  local provider="$5"
-  local uuid
-  local status
+  local username="$2"
+  local password="$3"
+  local team_id="$4"
 
-  uuid="$(xcrun altool --notarize-app \
-                       --primary-bundle "$id" \
-                       --username "$username" \
-                       --password "$password" \
-                       --asc-provider "$provider" \
-                       --file "$app.zip" | grep RequestUUID | cut -d= -f2 | sed 's,^[ \t]*,,')"
-  echo "RequestUUID: $uuid for $app"
-  if [ -n "$uuid" ]; then
-    while [ "$status" = "in progress" ] || [ -z "$status" ]; do
-      status=$(xcrun altool --notarization-info "$uuid" \
-                            --username "$username" \
-                            --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
-      if [ "$status" = "invalid" ]; then
-        echo "The app is invalid" >&2
-        return 1
-      fi
-      echo "Wait for status"
-      sleep 10
-    done
-  else \
-    echo "No UUID returned for the notarization" >&2
-    rm -f "$app.zip"
-    return 1
-  fi
+  xcrun notarytool submit "$app.zip" \
+    --apple-id "$username" \
+    --password "$password" \
+    --team-id "$team_id" \
+    --wait
+
   rm -f "$app.zip"
   return 0
 }
@@ -135,7 +114,7 @@ fi
 
 # Notarize the app
 echo "Notarize $app"
-if ! notarize "$app" "$id" "$acUsername" "$acPassword" "$acProvider"; then
+if ! notarize "$app" "$acUsername" "$acPassword" "$acTeamId"; then
   >&2 echo "Notarization of app $app has failed"
   exit 4
 fi

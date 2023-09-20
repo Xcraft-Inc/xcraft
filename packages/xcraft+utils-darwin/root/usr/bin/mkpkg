@@ -2,7 +2,7 @@
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
   echo "usage: mkpkg <package> <id> <version> <root> <bin>"
-  echo "             <signAppId> <signInstId> [acUsername] [acPassword] [acProvider]"
+  echo "             <signAppId> <signInstId> [acUsername] [acPassword] [acTeamId]"
   exit 0
 fi
 
@@ -15,7 +15,7 @@ signAppId="$6"
 signInstId="$7"
 acUsername="$8"
 acPassword="$9"
-acProvider="${10}"
+acTeamId="${10}"
 
 if [ -z "${package}" ];    then >&2 echo "The package path is missing"; exit 1; fi
 if [ -z "${id}" ];         then >&2 echo "The package ID is missing"; exit 1; fi
@@ -60,36 +60,16 @@ build()
 notarize()
 {
   local pkg="$1"
-  local id="$2"
-  local username="$3"
-  local password="$4"
-  local provider="$5"
-  local uuid
-  local status
+  local username="$2"
+  local password="$3"
+  local team_id="$4"
 
-  uuid="$(xcrun altool --notarize-app \
-                       --primary-bundle "$id" \
-                       --username "$username" \
-                       --password "$password" \
-                       --asc-provider "$provider" \
-                       --file "$pkg" | grep RequestUUID | cut -d= -f2 | sed 's,^[ \t]*,,')"
-  echo "RequestUUID: $uuid for $pkg"
-  if [ -n "$uuid" ]; then
-    while [ "$status" = "in progress" ] || [ -z "$status" ]; do
-      status=$(xcrun altool --notarization-info "$uuid" \
-                            --username "$username" \
-                            --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
-      if [ "$status" = "invalid" ]; then
-        echo "The package is invalid" >&2
-        return 1
-      fi
-      echo "Wait for status"
-      sleep 10
-    done
-  else \
-    echo "No UUID returned for the notarization" >&2
-    return 1
-  fi
+  xcrun notarytool submit "$pkg.zip" \
+    --apple-id "$username" \
+    --password "$password" \
+    --team-id "$team_id" \
+    --wait
+
   return 0
 }
 
@@ -127,7 +107,7 @@ rm -f "${package%.pkg}_.pkg"
 
 # Notarize the package
 echo "Notarize $package"
-if ! notarize "$package" "$id" "$acUsername" "$acPassword" "$acProvider"; then
+if ! notarize "$package" "$acUsername" "$acPassword" "$acTeamId"; then
   >&2 echo "Notarization of package $package has failed"
   exit 4
 fi
