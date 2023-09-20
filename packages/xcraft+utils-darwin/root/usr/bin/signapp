@@ -79,11 +79,16 @@ notarize()
   local password="$3"
   local team_id="$4"
 
-  xcrun notarytool submit "$app.zip" \
+  if ! xcrun notarytool submit "$app.zip" \
+    --team-id "$team_id" \
     --apple-id "$username" \
     --password "$password" \
-    --team-id "$team_id" \
-    --wait
+    --progress \
+    --wait \
+    --timeout 15m
+  then
+    return 1
+  fi
 
   rm -f "$app.zip"
   return 0
