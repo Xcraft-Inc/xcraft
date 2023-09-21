@@ -64,7 +64,7 @@ notarize()
   local password="$3"
   local team_id="$4"
 
-  if ! xcrun notarytool submit "$pkg.zip" \
+  if ! xcrun notarytool submit "$pkg" \
     --team-id "$team_id" \
     --apple-id "$username" \
     --password "$password" \
