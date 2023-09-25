@@ -24,6 +24,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
