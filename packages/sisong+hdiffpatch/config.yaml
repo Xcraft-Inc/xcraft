@@ -92,7 +92,7 @@ data:
     test: none
     env:
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
+      darwin/MACOSX_DEPLOYMENT_TARGET: '10.13'
   deploy: '!strip <PEON.OS=darwin?: -s > <PEON.PREFIXDIR>/bin/*'
   env:
     path: []
