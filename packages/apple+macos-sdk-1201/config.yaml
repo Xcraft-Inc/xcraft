@@ -1,0 +1,37 @@
+name: apple+macos-sdk-1201
+version: '1201'
+$version: '1201'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-i386
+  - darwin-amd64
+description:
+  brief: macOS SDK 1201 (Big Sur)
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/N8mTrAZiW3Z34LX/download'
+    ref: ''
+    out: MacOSX1201.sdk.zip
+    externals: true
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      MACOSSDK_1201: <OS.ROOTDIR>/usr/share/apple/macos-sdk-1203/cache/data/MacOSX1201.sdk
+  embedded: true
