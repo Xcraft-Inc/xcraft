@@ -9,7 +9,7 @@ architecture:
   - darwin-i386
   - darwin-amd64
 description:
-  brief: macOS SDK 1201 (Big Sur)
+  brief: macOS SDK 1201 (Monterey)
   long: ''
 dependency:
   install:
