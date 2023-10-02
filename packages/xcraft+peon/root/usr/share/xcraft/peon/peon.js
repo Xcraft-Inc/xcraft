@@ -449,6 +449,7 @@ class Action {
         newFile = regexReplace(newFile, /__peon_space__/g, ' ');
         newFile = regexReplace(newFile, /__peon_quote__/g, '"');
         newFile = regexReplace(newFile, /__peon_colon__/g, ':');
+        newFile = regexReplace(newFile, /__peon_tilde__/g, '~');
 
         if (/__peon_symlink__/.test(newFile)) {
           const target = fs.readFileSync(file).toString();
