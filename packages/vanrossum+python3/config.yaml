@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: vanrossum+python3
-version: 3.8.3
-$version: 3.8.3
+version: 3.11.5
+$version: 3.11.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -28,19 +28,24 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://www.python.org/ftp/python/<THIS.$VERSION>/Python-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: dfab5ec723c218082fe3d5d7ae17ecbdebffa9a1aea4d64aa3a2ecdd2e795864.tar.xz
+    $hash: 85cd12e9cf1d6d5a45f17f7afe1cebe7ee628d3282281c492e86adf636defa3f.tar.xz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> ; ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
   rules:
     type: make
-    location: data/Python-<THIS.$VERSION>/
+    location: data/Python-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -48,6 +53,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
