@@ -1,6 +1,6 @@
 name: apple+macos-sdk-1201
-version: '1201'
-$version: '1201'
+version: '12.01'
+$version: '12.01'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
