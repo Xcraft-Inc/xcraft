@@ -51,7 +51,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT> zstd-release HAVE_ZLIB=false HAVE_LZMA=false HAVE_LZ4=false'
       maketest: ''
-      makeinstall: 'install PREFIX=<PEON.PREFIXDIR>'
+      makeinstall: '<PEON.OS=win?-C programs:> install PREFIX=<PEON.PREFIXDIR>'
     test: none
     env:
       CFLAGS: <PEON.ENV.CFLAGS> -Os
