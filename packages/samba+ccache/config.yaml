@@ -16,6 +16,10 @@ description:
     compilations and detecting when the same compilation is being done again.
     Supported languages are C, C++, Objective-C and Objective-C++.
 dependency:
+  install:
+    facebook+zstd:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
