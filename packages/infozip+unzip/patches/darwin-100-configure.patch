@@ -1,0 +1,27 @@
+From 0086a7759b94a98fef98c3ad3558f7b52b2dda61 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <schroeter@epsitec.ch>
+Date: Tue, 10 Oct 2023 14:32:33 +0200
+Subject: [PATCH] 2
+
+---
+ unix/configure | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/unix/configure b/unix/configure
+index 785d8dd..c26a3a0 100755
+--- a/unix/configure
++++ b/unix/configure
+@@ -432,8 +432,8 @@ if [ $? -ne 0 ]; then
+   done
+   if [ ${OPT} ]; then
+     LFLAGS2="${LFLAGS2} ${OPT}"
+-  else
+-    CFLAGSR="${CFLAGSR} -DNO_DIR"
++# else
++#   CFLAGSR="${CFLAGSR} -DNO_DIR"
+   fi
+ fi
+ 
+-- 
+2.23.0
+
