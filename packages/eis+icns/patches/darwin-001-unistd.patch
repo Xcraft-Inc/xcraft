@@ -1,0 +1,24 @@
+From 5a41393a7ac8f659d35e8b47a0877078df256c18 Mon Sep 17 00:00:00 2001
+From: Mathieu Schroeter <schroeter@epsitec.ch>
+Date: Tue, 10 Oct 2023 15:20:19 +0200
+Subject: [PATCH] e
+
+---
+ icnsutils/png2icns.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/icnsutils/png2icns.c b/icnsutils/png2icns.c
+index 93bb863..e72df4c 100644
+--- a/icnsutils/png2icns.c
++++ b/icnsutils/png2icns.c
+@@ -22,6 +22,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdint.h>
++#include <unistd.h>
+ 
+ #include <errno.h>
+ 
+-- 
+2.23.0
+
