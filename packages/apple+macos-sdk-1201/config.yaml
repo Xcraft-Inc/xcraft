@@ -22,6 +22,7 @@ data:
     ref: ''
     out: MacOSX1201.sdk.zip
     externals: true
+    $hash: f0afded1e3347cbda9147fd7bd5b7dee7699a42c49ff83544d440359123f79b9.zip
   type: bin
   configure: ''
   rules:
