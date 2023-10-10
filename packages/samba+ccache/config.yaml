@@ -20,6 +20,8 @@ dependency:
     facebook+zstd:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
