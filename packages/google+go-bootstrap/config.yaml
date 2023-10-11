@@ -19,16 +19,16 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://dl.google.com/go/go<THIS.$VERSION>-bootstrap-20171003.tar.gz'
+    uri: 'https://go.googlesource.com/go/+archive/ceb95ea6aef52c1fb472d3539c6ef68670778b5b.tar.gz'
     ref: ''
     out: ''
     externals: true
-    $hash: f4ff5b5eb3a3cae1c993723f3eab519c5bae18866b5e5f96fe1102f0cb5c3e52.tar.gz
+    $hash: 9063840d4b2af05d051ff7099e995fd64c7e2e2b0aaf2d4c6b5bdcd6698f8093.tar.gz
   type: src
   configure: ''
   rules:
     type: script
-    location: data/go
+    location: data
     args:
       postinst: ''
       prerm: ''
@@ -45,7 +45,7 @@ data:
       maketest: ''
       makeinstall: |-
         mkdir('<PEON.INSTALLDIR>/opt');
-        cp('../go', '<PEON.INSTALLDIR>/opt/go-bootstrap');
+        cp('../data', '<PEON.INSTALLDIR>/opt/go-bootstrap');
     test: none
   deploy: ''
   env:
