@@ -1,0 +1,37 @@
+name: google+go-bootstrap-darwin
+version: 1.11.13
+$version: 1.11.13
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+  - darwin-aarch64
+description:
+  brief: GO for darwin bootstrap
+  long: ''
+dependency: {}
+bump: []
+data:
+  get:
+    uri: 'https://go.dev/dl/go<THIS.$VERSION>.darwin-amd64.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv('data/go', 'root/opt/go-bootstrap-darwin');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      GOROOT_BOOTSTRAP: <OS.ROOTDIR>/opt/go-bootstrap-darwin
+  embedded: true
