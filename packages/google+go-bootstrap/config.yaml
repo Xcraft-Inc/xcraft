@@ -19,11 +19,11 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://go.googlesource.com/go/+archive/ceb95ea6aef52c1fb472d3539c6ef68670778b5b.tar.gz'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/kCbkeAcn4YMZBEN/download/go-bootstrap-ceb95ea6.tar.gz'
     ref: ''
     out: ''
     externals: true
-    $hash: 01797f528cd4aaf350bb581a7982c35abb7f3fef6c6311ee6eb190cb285a26c2.tar.gz
+    $hash: c4b7563a09e07035435fc20c7b2aa799a452413d7c65fc955331d4cf1909ffd3.tar.gz
   type: src
   configure: ''
   rules:
