@@ -19,7 +19,17 @@ dependency:
         architecture: []
     google+go-bootstrap:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - mswindows-i386
+          - mswindows-amd64
+    google+go-bootstrap-darwin:
+      - version: ''
+        architecture:
+          - darwin-amd64
+          - darwin-aarch64
     apple+macos-sdk-1013:
       - version: ''
         architecture:
