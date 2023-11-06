@@ -17,6 +17,8 @@ dependency:
     xmlsoft+libxml2:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
