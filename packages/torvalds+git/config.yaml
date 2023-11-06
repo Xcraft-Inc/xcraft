@@ -20,6 +20,8 @@ dependency:
     bagder+curl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     adler+zlib:
       - version: ''
         architecture: []
