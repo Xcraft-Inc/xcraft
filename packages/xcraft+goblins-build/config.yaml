@@ -53,11 +53,6 @@ dependency:
         architecture:
           - mswindows-i386
           - mswindows-amd64
-    microsoft+windows-sdk-81:
-      - version: ''
-        architecture:
-          - mswindows-i386
-          - mswindows-amd64
     epsitec+signtool:
       - version: ''
         architecture:
