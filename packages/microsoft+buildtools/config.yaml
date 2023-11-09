@@ -19,7 +19,7 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/PqEfj652NRcYWxB/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/7naJWz9JXR8NYZn/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
     mirrors: []
     ref: ''
     $ref: ''
@@ -49,6 +49,7 @@ data:
           --add Microsoft.VisualStudio.Component.VC.CoreBuildTools
           --add Microsoft.Net.Component.4.8.SDK
           --add Microsoft.Net.Component.4.7.2.TargetingPack
+          --add Microsoft.VisualStudio.Component.VC.CoreIde
           --add Microsoft.VisualStudio.Component.Windows10SDK.18362
           --add Microsoft.Component.VC.Runtime.UCRTSDK
           --add Microsoft.VisualStudio.Component.NuGet.BuildTools
