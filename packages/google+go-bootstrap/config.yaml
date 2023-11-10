@@ -10,19 +10,23 @@ maintainer:
 architecture:
   - source
 description:
-  brief: GO bootstrap
+  brief: GO bootstrap 4
   long: ''
 dependency:
   build:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/kCbkeAcn4YMZBEN/download/go-bootstrap-ceb95ea6.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: c4b7563a09e07035435fc20c7b2aa799a452413d7c65fc955331d4cf1909ffd3.tar.gz
   type: src
   configure: ''
@@ -47,11 +51,12 @@ data:
         mkdir('<PEON.INSTALLDIR>/opt');
         cp('../data', '<PEON.INSTALLDIR>/opt/go-bootstrap');
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
     other:
-      GOROOT_BOOTSTRAP: <OS.ROOTDIR>/opt/go-bootstrap
+      GOROOT_BOOTSTRAP_4: <OS.ROOTDIR>/opt/go-bootstrap
   embedded: true
   runtime:
     configure: ''

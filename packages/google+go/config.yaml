@@ -17,7 +17,7 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
-    google+go-bootstrap:
+    google+go-bootstrap-17:
       - version: ''
         architecture:
           - mswindows-i386
@@ -25,11 +25,8 @@ dependency:
           - linux-i386
           - linux-amd64
           - linux-aarch64
-    google+go-bootstrap-darwin:
-      - version: ''
-        architecture:
+          - darwin-i386
           - darwin-amd64
-          - darwin-aarch64
     apple+macos-sdk-1013:
       - version: ''
         architecture:
@@ -64,6 +61,7 @@ data:
     test: none
     env:
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_17>
   deploy: ''
   env:
     path:
