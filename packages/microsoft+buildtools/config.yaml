@@ -19,7 +19,7 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/7naJWz9JXR8NYZn/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/odb8eQaJb9FknSb/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
     mirrors: []
     ref: ''
     $ref: ''
