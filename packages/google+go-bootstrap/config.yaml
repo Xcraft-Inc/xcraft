@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: google+go-bootstrap
-version: '1.4'
+version: 1.4-1
 $version: '1.4'
 distribution: toolchain/
 maintainer:
