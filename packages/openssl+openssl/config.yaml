@@ -53,6 +53,7 @@ data:
     uri: 'https://www.openssl.org/source/openssl-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

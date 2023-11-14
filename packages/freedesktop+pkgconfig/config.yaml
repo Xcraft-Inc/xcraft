@@ -47,12 +47,16 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
+bump: []
 data:
   get:
     uri: 'https://pkg-config.freedesktop.org/releases/pkg-config-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: 6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591.tar.gz
   type: src
   configure: |-
@@ -76,7 +80,7 @@ data:
     test: none
     env:
       darwin/LDFLAGS: '-framework CoreFoundation -framework Carbon'
-      darwin/CFLAGS: '<PEON.ENV.CFLAGS> -Wno-int-conversion'
+      darwin/CFLAGS: <PEON.ENV.CFLAGS> -Wno-int-conversion
       win/MSYSTEM: MINGW64
   deploy: ''
   env:

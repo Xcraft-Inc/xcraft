@@ -32,6 +32,7 @@ data:
     uri: 'https://github.com/Kitware/CMake/releases/download/v<THIS.$VERSION>/cmake-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

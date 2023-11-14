@@ -6,14 +6,14 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
+  - mswindows-i386
+  - mswindows-amd64
   - linux-i386
   - linux-amd64
   - linux-aarch64
   - darwin-i386
   - darwin-amd64
   - darwin-aarch64
-  - mswindows-i386
-  - mswindows-amd64
 description:
   brief: Base development packages.
   long: ''
@@ -63,23 +63,26 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture:
+          - mswindows-i386
+          - mswindows-amd64
           - linux-i386
           - linux-amd64
           - linux-aarch64
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
-          - mswindows-i386
-          - mswindows-amd64
     pavlov+7z:
       - version: ''
         architecture:
           - mswindows-i386
           - mswindows-amd64
+bump: []
 data:
   get:
     uri: ''
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
   type: bin
@@ -90,6 +93,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

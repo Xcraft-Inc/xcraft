@@ -11,10 +11,13 @@ description:
   brief: Base directories tree for devroot FS
   long: ''
 dependency: {}
+bump: []
 data:
   get:
     uri: 'self:///root'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
   type: bin
@@ -25,6 +28,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

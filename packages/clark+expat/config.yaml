@@ -23,10 +23,13 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/libexpat/libexpat/releases/download/R_2_2_5/expat-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
@@ -46,6 +49,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

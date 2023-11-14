@@ -37,6 +37,7 @@ data:
     uri: 'https://github.com/facebook/zstd/releases/download/v<THIS.$VERSION>/zstd-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

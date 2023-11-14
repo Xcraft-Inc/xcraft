@@ -31,6 +31,7 @@ data:
     uri: 'https://ftp.gnu.org/gnu/mpfr/mpfr-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

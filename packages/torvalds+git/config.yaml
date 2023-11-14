@@ -51,6 +51,7 @@ data:
     uri: 'https://github.com/git/git/archive/v<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
