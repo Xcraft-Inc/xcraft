@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-  echo "usage: xcraft-node-gyp [patch|revert]"
+  echo "usage: xcraft-node-gyp <patch|revert> [sdk=8.1] [toolkit=v142]"
   exit 0;
 fi
 
