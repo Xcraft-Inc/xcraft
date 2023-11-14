@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: xmlsoft+libxml2
-version: 2.9.9-2
-$version: 2.9.9
+version: 2.11.5
+$version: 2.11.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,14 +20,17 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'ftp://xmlsoft.org/libxml2/libxml2-<THIS.$VERSION>.tar.gz'
+    uri: 'https://download.gnome.org/sources/libxml2/2.11/libxml2-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871.tar.gz
+    $hash: 3727b078c360ec69fa869de14bd6f75d7ee8d36987b071e6928d4720a28df3a6.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -49,7 +52,6 @@ data:
     :
         && ./configure --prefix={PEON.PREFIXDIR}
                        --without-debug
-                       --without-docbook
                        --without-ftp
                        --with-html
                        --without-http
@@ -83,6 +85,7 @@ data:
           make install
         >
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
