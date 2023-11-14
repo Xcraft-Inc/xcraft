@@ -41,7 +41,6 @@ data:
                                include="{PEON.ROOTDIR}/usr/include"
                                lib="{PEON.ROOTDIR}/usr/lib"
                                debug=no
-                               docb=no
                                ftp=no
                                html=yes
                                iconv=no
