@@ -63,7 +63,7 @@ data:
         cp('../go', '<PEON.INSTALLDIR>/opt/go-bootstrap-17');
     test: none
     env:
-      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1201>
       win/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_4>
       linux/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_4>
       darwin/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_DARWIN>
