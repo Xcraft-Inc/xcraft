@@ -31,10 +31,13 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://download.sourceforge.net/graphicsmagick/graphicsmagick/<THIS.$VERSION>/GraphicsMagick-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
@@ -74,6 +77,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

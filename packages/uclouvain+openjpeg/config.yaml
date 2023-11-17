@@ -30,10 +30,13 @@ dependency:
     kitware+cmake:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/uclouvain/openjpeg/archive/version.<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
@@ -57,6 +60,7 @@ data:
       maketest: ''
       makeinstall: '-C build install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

@@ -29,11 +29,13 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://download.sourceforge.net/icns/libicns-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
     prepare: ''
