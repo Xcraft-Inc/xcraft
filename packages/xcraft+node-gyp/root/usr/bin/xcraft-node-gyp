@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-  echo "usage: xcraft-node-gyp [patch|revert]"
+  echo "usage: xcraft-node-gyp <patch|revert> [sdk=8.1] [toolkit=v142]"
   exit 0;
 fi
 
@@ -11,13 +11,23 @@ if [ -z "${action}" ]; then >&2 echo "The action is missing"; exit 1; fi
 
 shift 1
 
+sdk="8.1"
+if [ -n "$1" ]; then
+  sdk="$1"
+  shift 1
+fi
+
+toolset="v142"
+if [ -n "$1" ]; then
+  toolset="$1"
+  shift 1
+fi
+
 if [ -z "${XCRAFT_ROOT}" ]; then >&2 echo "The XCRAFT_ROOT environment variable must be defined"; exit 1; fi
 
 if [ ! "$(uname -o)" = Msys ]; then echo "Skip node-gyp patch on non-Windows OS"; exit 0; fi
 
 find_vs="${XCRAFT_ROOT}/../opt/nodejs/node_modules/npm/node_modules/node-gyp/lib/find-visualstudio.js" 
-sdk="8.1"
-toolset="v142"
 
 if [ "${action}" = patch ]; then
   if [ -f "${find_vs}.patched" ]; then >&2 echo "node-gyp is already patched"; exit 0; fi

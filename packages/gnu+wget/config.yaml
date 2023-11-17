@@ -27,6 +27,7 @@ data:
     uri: 'http://ftpmirror.gnu.org/wget/wget-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

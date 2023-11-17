@@ -44,6 +44,7 @@ data:
     uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

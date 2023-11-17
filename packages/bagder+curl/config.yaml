@@ -31,11 +31,13 @@ dependency:
       - version: ''
         architecture:
           - darwin-amd64
+bump: []
 data:
   get:
     uri: 'http://curl.haxx.se/download/curl-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

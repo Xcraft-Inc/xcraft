@@ -18,10 +18,13 @@ dependency:
     samba+ccache:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'self:///root'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
   type: bin
@@ -32,6 +35,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other:

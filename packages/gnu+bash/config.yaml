@@ -17,10 +17,13 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/bash/bash-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
     prepare: ''

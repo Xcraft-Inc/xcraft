@@ -23,6 +23,7 @@ data:
     uri: 'https://download.sourceforge.net/lzmautils/xz-<THIS.$VERSION>.tar.bz2'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

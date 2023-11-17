@@ -22,12 +22,16 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/make/make-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7.tar.gz
   type: src
   configure: |-
@@ -43,6 +47,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []

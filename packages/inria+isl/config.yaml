@@ -29,6 +29,7 @@ data:
     uri: 'https://download.sourceforge.net/libisl/isl-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

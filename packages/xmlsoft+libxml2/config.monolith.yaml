@@ -9,7 +9,6 @@ data:
                                lib={PEON.ROOTDIR}/usr/lib
                                static=yes
                                debug=no
-                               docb=no
                                ftp=no
                                html=no
                                iconv=no
@@ -22,7 +21,6 @@ data:
                        --enable-static
                        --disable-shared
                        --without-debug
-                       --without-docbook
                        --without-ftp
                        --without-html
                        --without-http
