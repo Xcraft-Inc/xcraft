@@ -17,10 +17,13 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

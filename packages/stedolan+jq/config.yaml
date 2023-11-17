@@ -17,12 +17,16 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/stedolan/jq/releases/download/jq-<THIS.$VERSION>/jq-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: c4d2bfec6436341113419debf479d833692cc5cdab7eb0326b5a4d4fbe9f493c.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-maintainer-mode --disable-valgrind'
@@ -36,6 +40,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
