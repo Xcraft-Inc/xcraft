@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-darwin-arm
-version: 11.0.0
-$version: 11.0.0
+version: 14.0.0
+$version: 14.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - darwin-aarch64
 description:
-  brief: .NET Core SDK 6.0 and 7.0
+  brief: .NET Core SDK 6.0 and 8.0
   long: ''
 dependency:
   install:
@@ -26,7 +26,7 @@ dependency:
       - version: ''
         architecture:
           - darwin-aarch64
-    microsoft+dotnet-sdk-70-darwin-arm:
+    microsoft+dotnet-sdk-80-darwin-arm:
       - version: ''
         architecture:
           - darwin-aarch64
@@ -46,7 +46,7 @@ data:
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-darwin-arm/cache/data', 'root/opt/dotnet-sdk');
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-70-darwin-arm/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-80-darwin-arm/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root

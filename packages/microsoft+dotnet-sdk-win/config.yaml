@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-win
-version: 11.0.0
-$version: 11.0.0
+version: 14.0.0
+$version: 14.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -9,7 +9,7 @@ architecture:
   - mswindows-i386
   - mswindows-amd64
 description:
-  brief: .NET Core SDK 6.0 and 7.0
+  brief: .NET Core SDK 6.0 and 8.0
   long: ''
 dependency:
   install:
@@ -22,7 +22,7 @@ dependency:
         architecture:
           - mswindows-i386
           - mswindows-amd64
-    microsoft+dotnet-sdk-70-win:
+    microsoft+dotnet-sdk-80-win:
       - version: ''
         architecture:
           - mswindows-i386
@@ -36,7 +36,7 @@ data:
   type: bin
   configure: |-
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-win/cache/data', 'root/opt/dotnet-sdk');
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-70-win/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-80-win/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
