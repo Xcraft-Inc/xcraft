@@ -72,7 +72,8 @@ data:
   deploy: ''
   env:
     path: []
-    other: {}
+    other:
+      RUSTFLAGS: '-C link-args=-Wl,-rpath,<OS.PROD.ROOTDIR>/usr/lib'
   embedded: true
   runtime:
     configure: ''
