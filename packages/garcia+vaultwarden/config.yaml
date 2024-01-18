@@ -79,41 +79,53 @@ data:
           '<PEON.PROD.ROOTDIR>/usr/lib/libcrypto.so.1.1',
           '<PEON.INSTALLDIR>/opt/vaultwarden/lib/libcrypto.so.1.1'
         );
-        cp('.env.template', '<PEON.INSTALLDIR>/extra/etc/vaultwarden.env');
+        cp('.env.template', '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env');
         mkdir('<PEON.INSTALLDIR>/opt/vaultwarden/var/data');
     test: none
     env: {}
   deploy: |-
+    const dataFolderPath = '/opt/vaultwarden/var/data';
+
     yield rpath(
       '<PEON.INSTALLDIR>/opt/vaultwarden',
       '<PEON.INSTALLDIR>/opt/vaultwarden/lib',
       '<PEON.INSTALLDIR>/opt/vaultwarden/bin'
     );
-    <PEON.OS=linux?
-      yield exec(
-        'debify',
-        'vaultwarden',
-        '{THIS.VERSION}',
-        '{THIS.DESCRIPTION.BRIEF}',
-        '{THIS.DESCRIPTION.BRIEF}',
-        '{THIS.MAINTAINER.NAME}',
-        '{THIS.MAINTAINER.EMAIL}',
-        '{PEON.INSTALLDIR}/opt/vaultwarden',
-        '{PEON.INSTALLDIR}/opt/packages/deb',
-        'extra/{PEON.INSTALLDIR}/extra/',
-        'systemd/EnvironmentFile=/etc/vaultwarden.env',
-        'systemd/WorkingDirectory=/opt/vaultwarden/var',
-        'systemd/ReadWriteDirectories=/opt/vaultwarden/var',
-        'systemd/ExecStart=/opt/vaultwarden/bin/vaultwarden',
-        'systemd/LimitNOFILE=1048576',
-        'systemd/LimitNPROC=64',
-        'systemd/PrivateTmp=true',
-        'systemd/PrivateDevices=true',
-        'systemd/ProtectHome=true',
-        'systemd/ProtectSystem=strict'
-      );
-      rm('{PEON.INSTALLDIR}/opt/vaultwarden');
-    :>
+    sed(
+      '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env',
+      /.*DATA_FOLDER=.*/,
+      `DATA_FOLDER=${dataFolderPath}`
+    );
+    sed(
+      '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env',
+      /.*WEB_VAULT_ENABLED=.*/,
+      `WEB_VAULT_ENABLED=false`
+    );
+
+    yield exec(
+      'debify',
+      'vaultwarden',
+      '{THIS.VERSION}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.MAINTAINER.NAME}',
+      '{THIS.MAINTAINER.EMAIL}',
+      '{PEON.INSTALLDIR}/opt/vaultwarden',
+      '{PEON.INSTALLDIR}/opt/packages/deb',
+      'extra/{PEON.INSTALLDIR}/extra/',
+      `chown/${dataFolderPath}:755:vaultwarden:root`,
+      'systemd/EnvironmentFile=/etc/vaultwarden/env',
+      'systemd/WorkingDirectory=/opt/vaultwarden/var',
+      'systemd/ReadWriteDirectories=/opt/vaultwarden/var',
+      'systemd/ExecStart=/opt/vaultwarden/bin/vaultwarden',
+      'systemd/LimitNOFILE=1048576',
+      'systemd/LimitNPROC=64',
+      'systemd/PrivateTmp=true',
+      'systemd/PrivateDevices=true',
+      'systemd/ProtectHome=true',
+      'systemd/ProtectSystem=strict'
+    );
+    rm('{PEON.INSTALLDIR}/opt/vaultwarden');
   env:
     path: []
     other: {}
