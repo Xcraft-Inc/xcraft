@@ -112,6 +112,7 @@ data:
         'systemd/ProtectHome=true',
         'systemd/ProtectSystem=strict'
       );
+      rm('{PEON.INSTALLDIR}/opt/vaultwarden');
     :>
   env:
     path: []
