@@ -11,8 +11,16 @@ architecture:
   - source
 description:
   brief: Unofficial Bitwarden compatible server written in Rust
-  long: 'Alternative implementation of the Bitwarden server API written in Rust and compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.'
+  long: |-
+    Alternative implementation of the Bitwarden server API written in Rust
+    and compatible with upstream Bitwarden clients, perfect for self-hosted
+    deployment where running the official resource-heavy service might
+    not be ideal.
 dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -20,6 +28,21 @@ dependency:
     rustlang+rust:
       - version: ''
         architecture: []
+    xcraft+utils-linux:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    debian+dpkg:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    debian+lintian:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
 bump: []
 data:
   get:
@@ -43,10 +66,53 @@ data:
         !cargo build --release
                      --features sqlite
       maketest: ''
-      makeinstall: "cp('target/release/vaultwarden<PEON.OS=win?.exe:>', '<PEON.PREFIXDIR>/bin/vaultwarden<PEON.OS=win?.exe:>');"
+      makeinstall: |-
+        cp(
+          'target/release/vaultwarden<PEON.OS=win?.exe:>',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/bin/vaultwarden<PEON.OS=win?.exe:>'
+        );
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/lib/libssl.so.1.1',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/lib/libssl.so.1.1'
+        );
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/lib/libcrypto.so.1.1',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/lib/libcrypto.so.1.1'
+        );
+        cp('.env.template', '<PEON.INSTALLDIR>/extra/etc/vaultwarden.env');
+        mkdir('<PEON.INSTALLDIR>/opt/vaultwarden/var/data');
     test: none
     env: {}
-  deploy: ''
+  deploy: |-
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/vaultwarden',
+      '<PEON.INSTALLDIR>/opt/vaultwarden/lib',
+      '<PEON.INSTALLDIR>/opt/vaultwarden/bin'
+    );
+    <PEON.OS=linux?
+      yield exec(
+        'debify',
+        'vaultwarden',
+        '{THIS.VERSION}',
+        '{THIS.DESCRIPTION.BRIEF}',
+        '{THIS.DESCRIPTION.BRIEF}',
+        '{THIS.MAINTAINER.NAME}',
+        '{THIS.MAINTAINER.EMAIL}',
+        '{PEON.INSTALLDIR}/opt/vaultwarden',
+        '{PEON.INSTALLDIR}/opt/packages/deb',
+        'extra/{PEON.INSTALLDIR}/extra/',
+        'systemd/EnvironmentFile=/etc/vaultwarden.env',
+        'systemd/WorkingDirectory=/opt/vaultwarden/var',
+        'systemd/ReadWriteDirectories=/opt/vaultwarden/var',
+        'systemd/ExecStart=/opt/vaultwarden/bin/vaultwarden',
+        'systemd/LimitNOFILE=1048576',
+        'systemd/LimitNPROC=64',
+        'systemd/PrivateTmp=true',
+        'systemd/PrivateDevices=true',
+        'systemd/ProtectHome=true',
+        'systemd/ProtectSystem=strict'
+      );
+    :>
   env:
     path: []
     other: {}
