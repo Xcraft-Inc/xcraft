@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: garcia+vaultwarden
-version: 1.30.1
-$version: 1.30.1
+version: 1.30.3-1
+$version: 1.30.3
 distribution: epsitec/
 maintainer:
   name: Mathieu Schroeter
@@ -19,6 +19,9 @@ description:
 dependency:
   install:
     openssl+openssl:
+      - version: ''
+        architecture: []
+    garcia+bw-web-builds:
       - version: ''
         architecture: []
   build:
@@ -53,7 +56,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 152214d7a2ef496fea5b722414c50fb4d514e5f67c3d42d32c7c0e0e251eaec8.tar.gz
+    $hash: 98bd80e3a1eb6488406b3b2633446545a500d6f61b369eb62c0f5f203a31032c.tar.gz
   type: src
   configure: ''
   rules:
@@ -81,6 +84,11 @@ data:
         );
         cp('.env.template', '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env');
         mkdir('<PEON.INSTALLDIR>/opt/vaultwarden/var/data');
+
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/share/vaultwarden/web-vault',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/var/web-vault'
+        );
     test: none
     env: {}
   deploy: |-
@@ -95,11 +103,6 @@ data:
       '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env',
       /.*DATA_FOLDER=.*/,
       `DATA_FOLDER=${dataFolderPath}`
-    );
-    sed(
-      '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env',
-      /.*WEB_VAULT_ENABLED=.*/,
-      `WEB_VAULT_ENABLED=false`
     );
 
     yield exec(
