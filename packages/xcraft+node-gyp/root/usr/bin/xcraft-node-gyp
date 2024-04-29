@@ -32,8 +32,8 @@ find_vs="${XCRAFT_ROOT}/../opt/nodejs/node_modules/npm/node_modules/node-gyp/lib
 if [ "${action}" = patch ]; then
   if [ -f "${find_vs}.patched" ]; then >&2 echo "node-gyp is already patched"; exit 0; fi
   cp -f "${find_vs}" "${find_vs}.patched"
-  sed -i "s,\(function getSDK ([^)]*) {\),\1 return \`$sdk\`;," "${find_vs}"
-  sed -i "s,\(function getToolset ([^)]*) {\),\1 return \`$toolset\`;," "${find_vs}"
+  sed -i "s,\(\s*getSDK\s*([^)]*)\s*{\),\1 return \`$sdk\`;," "${find_vs}"
+  sed -i "s,\(\s*getToolset\s*([^)]*)\s*{\),\1 return \`$toolset\`;," "${find_vs}"
   echo "node-gyp patched for Windows SDK $sdk and Toolset $toolset"
 elif [ "${action}" = revert ]; then
   mv -f "${find_vs}.patched" "${find_vs}"
