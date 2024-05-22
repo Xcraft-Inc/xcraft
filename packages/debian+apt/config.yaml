@@ -46,6 +46,8 @@ dependency:
     cyan4973+libxxhash:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     gnupg+libgcrypt:
       - version: ''
         architecture: []
