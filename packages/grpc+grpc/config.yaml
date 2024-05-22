@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     google+re2:
