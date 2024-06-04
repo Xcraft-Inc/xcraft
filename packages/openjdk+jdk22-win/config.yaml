@@ -32,6 +32,5 @@ data:
   env:
     path:
       - <OS.ROOTDIR>/opt/openjdk/bin
-    other:
-      JAVA_HOME: <OS.ROOTDIR>/opt/openjdk
+    other: {}
   embedded: true
