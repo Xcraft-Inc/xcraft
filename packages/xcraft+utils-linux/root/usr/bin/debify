@@ -74,10 +74,20 @@ done
 
 # Check for systemd arguments
 useSystemd=0
+
+unit=""
+while [[ "$1" =~ ^systemd/unit/ ]]; do
+  useSystemd=1
+  entry="${1#systemd/unit/}"
+  unit="${unit}${entry}"$'\n'
+  shift
+done
+
 systemd="
 [Unit]
 Description=${projectShortDescription}
 Requires=network.target
+${unit}
 
 [Install]
 WantedBy=multi-user.target
