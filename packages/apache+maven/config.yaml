@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: apache+maven
-version: 3.9.3-1
-$version: 3.9.3
+version: 3.9.7
+$version: 3.9.7
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,11 +17,11 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
-    adoptium+openjdk8-linux:
+    openjdk+jdk22-linux:
       - version: ''
         architecture:
           - linux-amd64
-    adoptium+openjdk8-win:
+    openjdk+jdk22-win:
       - version: ''
         architecture:
           - mswindows-amd64
@@ -42,7 +42,7 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 5f499a0c9263be556b03dd64002a1f99892eb50ee253aab81f1f338f3bc7abed.tar.gz
+    $hash: 469580a1f25b998f294a07391412f4ec6eefdd05c328c0068f44588e438e702d.tar.gz
   type: src
   configure: ''
   rules:
