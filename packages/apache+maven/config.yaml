@@ -51,9 +51,17 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!"$MAVEN_BOOTSTRAP" -DdistributionTargetDir="<PEON.INSTALLDIR>/opt/maven" install'
+      makeall: |-
+        !"$MAVEN_BOOTSTRAP" -Dmaven.repo.local="<PEON.ROOTTEMP>/maven"
+                            -DdistributionTargetDir="<PEON.INSTALLDIR>/opt/maven"
+                            install
       maketest: ''
-      makeinstall: ''
+      makeinstall: |-
+        sed(
+          '<PEON.INSTALLDIR>/opt/maven/conf/settings.xml',
+          /<localRepository>.*<\/localRepository>/,
+          '--><localRepository><PEON.ROOTTEMP>/maven<\/localRepository><!--'
+        );
     test: none
     env: {}
   deploy: ''
