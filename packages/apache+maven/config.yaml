@@ -60,7 +60,8 @@ data:
   env:
     path:
       - opt/maven/bin
-    other: {}
+    other:
+      M2_HOME: <OS.ROOTTEMP>/maven
   embedded: true
   runtime:
     configure: ''
