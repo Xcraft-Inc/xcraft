@@ -21,6 +21,10 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
+    openjdk+jdk22-darwin:
+      - version: ''
+        architecture:
+          - darwin-amd64
     openjdk+jdk22-win:
       - version: ''
         architecture:
