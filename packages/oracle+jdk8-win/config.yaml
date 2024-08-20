@@ -35,5 +35,5 @@ data:
   env:
     path: []
     other:
-      ORACLE_JAVA_HOME: <OS.ROOTDIR>/opt/oraclejdk8
+      JAVA_HOME_ORACLE_8: <OS.ROOTDIR>/opt/oraclejdk8
   embedded: true
