@@ -1,0 +1,38 @@
+name: openjdk+jdk22-darwin
+version: 22.0.2-1
+$version: 22.0.2
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+description:
+  brief: OpenJDK 22
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.java.net/java/GA/jdk<THIS.$VERSION>/c9ecb94cd31b495da20a27d4581645e8/9/GPL/openjdk-<THIS.$VERSION>_macos-x64_bin.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: e8b3ec7a7077711223d31156e771f11723cd7af31c2017f1bd2eda20855940fb.tar.gz
+  type: bin
+  configure: 'mv (''data/jdk-<THIS.$VERSION>.jdk'', ''root/opt/openjdk'');'
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - <OS.ROOTDIR>/opt/openjdk/Contents/Home/bin
+    other:
+      JAVA_HOME_22: <OS.ROOTDIR>/opt/openjdk/Contents/Home
+  embedded: true
