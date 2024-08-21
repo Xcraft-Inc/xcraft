@@ -30,11 +30,12 @@ if [ -z "${mainJar}" ];    then >&2 echo "The main JAR is missing"; exit 1; fi
 shift 9
 
 runtime="$JAVA_HOME"
-srcfiles=$(cd "$srcdir" && stat -n -f '%N:' ./*)
+# srcfiles=$(cd "$srcdir" && stat -n -f '%N:' ./*)
+srcfiles=$(cd "$srcdir" && stat --printf=%n: ./*)
 
 cd "$srcdir" || exit
 
-javapackager \
+"$JAVA_HOME/bin/javapackager" \
   -deploy \
   -native image \
   -srcdir "$srcdir" \
