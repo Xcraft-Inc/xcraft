@@ -2,7 +2,7 @@
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
   echo "usage: signapp <app> <id> <entitlements> <signAppId>"
-  echo "               [acUsername] [acPassword] [acTeamId]"
+  echo "               [acUsername] [acPassword] [acTeamId] [zip=y]"
   exit 0
 fi
 
@@ -13,13 +13,14 @@ signAppId="$4"
 acUsername="$5"
 acPassword="$6"
 acTeamId="$7"
+zip="$8"
 
 if [ -z "${app}" ];          then >&2 echo "The app path is missing"; exit 1; fi
 if [ -z "${id}" ];           then >&2 echo "The app ID is missing"; exit 1; fi
 if [ -z "${entitlements}" ]; then >&2 echo "The entitlements path is missing"; exit 1; fi
 if [ -z "${signAppId}" ];    then >&2 echo "The developer ID application is missing"; exit 1; fi
 
-shift 6
+shift 8
 
 set -x
 case "$signAppId" in
@@ -129,6 +130,16 @@ echo "Staple ticket into $app"
 if ! staple "$app"; then
   >&2 echo "Staple of the ticket into $app has failed"
   exit 5
+fi
+
+if [ "$zip" = "y" ]; then
+  echo "Generate the final zip file for $app"
+  echo "Inflate $app"
+  if ! inflate "$app"; then
+    >&2 echo "Inflate of app $app has failed"
+    exit 6
+  fi
+  rm -rf "$app"
 fi
 
 echo "App done"
