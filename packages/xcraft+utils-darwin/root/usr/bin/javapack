@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: javapack <appName> <appVersion> <appId> <vendor>"
+  echo "                <srcdir> <outdir> <appClass> <classPath>"
+  echo "                [extra...]"
+  exit 0
+fi
+
+appName="$1"
+appVersion="$2"
+appId="$3"
+vendor="$4"
+srcdir="$5"
+outdir="$6"
+appClass="$7"
+classPath="$8"
+mainJar="$9"
+
+if [ -z "${appName}" ];    then >&2 echo "The application name is missing"; exit 1; fi
+if [ -z "${appVersion}" ]; then >&2 echo "The application version is missing"; exit 1; fi
+if [ -z "${appId}" ];      then >&2 echo "The application ID is missing"; exit 1; fi
+if [ -z "${vendor}" ];     then >&2 echo "The vendor is missing"; exit 1; fi
+if [ -z "${srcdir}" ];     then >&2 echo "The input directory is missing"; exit 1; fi
+if [ -z "${outdir}" ];     then >&2 echo "The output directory is missing"; exit 1; fi
+if [ -z "${appClass}" ];   then >&2 echo "The application class is missing"; exit 1; fi
+if [ -z "${classPath}" ];  then >&2 echo "The class path is missing"; exit 1; fi
+if [ -z "${mainJar}" ];    then >&2 echo "The main JAR is missing"; exit 1; fi
+
+shift 9
+
+runtime="$JAVA_HOME"
+srcfiles=$(cd "$srcdir" && stat -n -f '%N:' ./*)
+
+cd "$srcdir" || exit
+
+javapackager \
+  -deploy \
+  -native image \
+  -srcdir "$srcdir" \
+  -srcfiles "$srcfiles" \
+  -outdir "$outdir" \
+  -outfile "$appName.app" \
+  -appclass "$appClass" \
+  -name "$appName" \
+  -title "$appName" \
+  -vendor "$vendor" \
+  -v \
+  -Bmac.CFBundleIdentifier="$appId" \
+  -BappVersion="$appVersion" \
+  -Bicon="$srcdir/package/macosx/$appName.icns" \
+  -BlicenseType=Proprietary \
+  -Bclasspath="$classPath" \
+  -Bruntime="$runtime" \
+  -BmainJar="$mainJar" \
+  "$@"
+  
