@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-  echo "usage: mkpkg <package> <id> <version> <root> [bin]"
+  echo "usage: mkpkg <package> <id> <version> <root> [bin] [scripts]"
   echo "             [signAppId] [signInstId]"
   echo "             [acUsername] [acPassword] [acTeamId]"
   exit 0
@@ -12,11 +12,12 @@ id="$2"
 version="$3"
 root="$4"
 bin="$5"
-signAppId="$6"
-signInstId="$7"
-acUsername="$8"
-acPassword="$9"
-acTeamId="${10}"
+scripts="$6"
+signAppId="$7"
+signInstId="$8"
+acUsername="$9"
+acPassword="${10}"
+acTeamId="${11}"
 
 if [ -z "${package}" ];    then >&2 echo "The package path is missing"; exit 1; fi
 if [ -z "${id}" ];         then >&2 echo "The package ID is missing"; exit 1; fi
@@ -26,7 +27,7 @@ if [ -z "${root}" ];       then >&2 echo "The root base tree is missing"; exit 1
 # if [ -z "${signAppId}" ];  then >&2 echo "The developer ID application is missing"; exit 1; fi
 # if [ -z "${signInstId}" ]; then >&2 echo "The developer ID installer is missing"; exit 1; fi
 
-shift 10
+shift 11
 
 sign_bin()
 {
@@ -53,8 +54,13 @@ build()
   local id="$2"
   local version="$3"
   local root="$4"
+  local scripts=()
 
-  pkgbuild --identifier "$id" --version "$version" --root "$root" "$pkg"
+  if [ -n "$5" ]; then
+    scripts=(--scripts "$5")
+  fi
+
+  pkgbuild --identifier "$id" --version "$version" --root "$root" "${scripts[@]}" "$pkg"
   return $?
 }
 
