@@ -54,13 +54,13 @@ build()
   local id="$2"
   local version="$3"
   local root="$4"
-  local scripts=()
+  local hooks=()
 
   if [ -n "$5" ]; then
-    scripts=(--scripts "$5")
+    hooks=(--scripts "$5")
   fi
 
-  pkgbuild --identifier "$id" --version "$version" --root "$root" "${scripts[@]}" "$pkg"
+  pkgbuild --identifier "$id" --version "$version" --root "$root" "${hooks[@]}" "$pkg"
   return $?
 }
 
@@ -105,7 +105,7 @@ fi
 
 # Build the pkg
 echo "Build package $package"
-if ! build "$package" "$id" "$version" "$root"; then
+if ! build "$package" "$id" "$version" "$root" "$scripts"; then
   >&2 echo "build of package $package has failed"
   exit 2
 fi
