@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
-  echo "usage: mkpkg <package> <id> <version> <root> <bin>"
-  echo "             <signAppId> <signInstId> [acUsername] [acPassword] [acTeamId]"
+  echo "usage: mkpkg <package> <id> <version> <root> [bin]"
+  echo "             [signAppId] [signInstId]"
+  echo "             [acUsername] [acPassword] [acTeamId]"
   exit 0
 fi
 
@@ -21,11 +22,11 @@ if [ -z "${package}" ];    then >&2 echo "The package path is missing"; exit 1; 
 if [ -z "${id}" ];         then >&2 echo "The package ID is missing"; exit 1; fi
 if [ -z "${version}" ];    then >&2 echo "The package version is missing"; exit 1; fi
 if [ -z "${root}" ];       then >&2 echo "The root base tree is missing"; exit 1; fi
-if [ -z "${bin}" ];        then >&2 echo "The binary is missing"; exit 1; fi
-if [ -z "${signAppId}" ];  then >&2 echo "The developer ID application is missing"; exit 1; fi
-if [ -z "${signInstId}" ]; then >&2 echo "The developer ID installer is missing"; exit 1; fi
+# if [ -z "${bin}" ];        then >&2 echo "The binary is missing"; exit 1; fi
+# if [ -z "${signAppId}" ];  then >&2 echo "The developer ID application is missing"; exit 1; fi
+# if [ -z "${signInstId}" ]; then >&2 echo "The developer ID installer is missing"; exit 1; fi
 
-shift 9
+shift 10
 
 sign_bin()
 {
@@ -87,11 +88,13 @@ staple()
   return $?
 }
 
-# Sign the executable to wrap in a package
-echo "Sign $bin"
-if ! sign_bin "$bin" "$signAppId"; then
-  >&2 echo "Signature of $bin has failed"
-  exit 1
+if [ -n "$bin" ]; then
+  # Sign the executable to wrap in a package
+  echo "Sign $bin"
+  if ! sign_bin "$bin" "$signAppId"; then
+    >&2 echo "Signature of $bin has failed"
+    exit 1
+  fi
 fi
 
 # Build the pkg
@@ -101,27 +104,31 @@ if ! build "$package" "$id" "$version" "$root"; then
   exit 2
 fi
 
-# Sign the package
-echo "Sign $package"
-mv -f "$package" "${package%.pkg}_.pkg"
-if ! sign_pkg "${package%.pkg}_.pkg" "$package" "$signInstId"; then
-  >&2 echo "Signature of package $package has failed"
-  exit 3
-fi
-rm -f "${package%.pkg}_.pkg"
-
-# Notarize the package
-echo "Notarize $package"
-if ! notarize "$package" "$acUsername" "$acPassword" "$acTeamId"; then
-  >&2 echo "Notarization of package $package has failed"
-  exit 4
+if [ -n "$signInstId" ]; then
+  # Sign the package
+  echo "Sign $package"
+  mv -f "$package" "${package%.pkg}_.pkg"
+  if ! sign_pkg "${package%.pkg}_.pkg" "$package" "$signInstId"; then
+    >&2 echo "Signature of package $package has failed"
+    exit 3
+  fi
+  rm -f "${package%.pkg}_.pkg"
 fi
 
-# Staple the ticket into the package
-echo "Staple ticket into $package"
-if ! staple "$package"; then
-  >&2 echo "Staple of the ticket into $package has failed"
-  exit 5
+if [ -n "$acUsername" ]; then
+  # Notarize the package
+  echo "Notarize $package"
+  if ! notarize "$package" "$acUsername" "$acPassword" "$acTeamId"; then
+    >&2 echo "Notarization of package $package has failed"
+    exit 4
+  fi
+
+  # Staple the ticket into the package
+  echo "Staple ticket into $package"
+  if ! staple "$package"; then
+    >&2 echo "Staple of the ticket into $package has failed"
+    exit 5
+  fi
 fi
 
 echo "Package build done"
