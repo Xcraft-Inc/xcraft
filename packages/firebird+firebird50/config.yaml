@@ -82,7 +82,7 @@ data:
     mkdir('<PEON.INSTALLDIR>/opt/firebird50');
     yield exec(
       'tar',
-      '-cvf', '<PEON.INSTALLDIR>/opt/firebird50/firebird50.tar.gz',
+      '-czvf', '<PEON.INSTALLDIR>/opt/firebird50/firebird50.tar.gz',
       '-C', '<PEON.INSTALLDIR>/opt/.firebird50',
       './usr');
     rm('<PEON.INSTALLDIR>/opt/.firebird50');
