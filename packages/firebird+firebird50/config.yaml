@@ -38,7 +38,7 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && ./configure --prefix=/usr
+      && ./configure --prefix=/opt/odontos-firebird50
                      --disable-shared
                      --enable-static
                      --with-builtin-tommath
@@ -61,25 +61,25 @@ data:
   deploy: |-
     /* Deploy Firebird stuff in a dedicated directory */
     cp(
-      '<THIS.DATA.RULES.LOCATION>/gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>',
+      '<THIS.DATA.RULES.LOCATION>/gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>/opt/odontos-firebird50',
       '<PEON.INSTALLDIR>/opt/firebird50'
     );
-    mv('<PEON.INSTALLDIR>/opt/firebird50/usr/lib/.tm', '<PEON.INSTALLDIR>/opt/firebird50/usr/lib');
+    mv('<PEON.INSTALLDIR>/opt/firebird50/lib/.tm', '<PEON.INSTALLDIR>/opt/firebird50/lib');
 
     /* Fix RPATH for all executables and libraries */
     yield rpath(
-      '<PEON.INSTALLDIR>/opt/firebird50/usr',
-      '<PEON.INSTALLDIR>/opt/firebird50/usr/lib',
-      '<PEON.INSTALLDIR>/opt/firebird50/usr/bin'
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/lib',
+      '<PEON.INSTALLDIR>/opt/firebird50/bin'
     );
     yield rpath(
-      '<PEON.INSTALLDIR>/opt/firebird50/usr',
-      '<PEON.INSTALLDIR>/opt/firebird50/usr/lib',
-      '<PEON.INSTALLDIR>/opt/firebird50/usr/intl'
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/lib',
+      '<PEON.INSTALLDIR>/opt/firebird50/intl'
     );
     yield rpath(
-      '<PEON.INSTALLDIR>/opt/firebird50/usr',
-      '<PEON.INSTALLDIR>/opt/firebird50/usr/plugins',
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/plugins',
       null
     );
 
@@ -89,7 +89,7 @@ data:
       'tar',
       '-czvf', '<PEON.INSTALLDIR>/opt/packages/tar/firebird50.tar.gz',
       '-C', '<PEON.INSTALLDIR>/opt/firebird50',
-      './usr');
+      '.');
 
     /* Generate a Debian package */
     yield exec(
@@ -100,8 +100,9 @@ data:
       '{THIS.DESCRIPTION.LONG}',
       '{THIS.MAINTAINER.NAME}',
       '{THIS.MAINTAINER.EMAIL}',
-      '{PEON.INSTALLDIR}/opt/firebird50/usr',
+      '{PEON.INSTALLDIR}/opt/firebird50',
       '{PEON.INSTALLDIR}/opt/packages/deb',
+      'chown//opt/odontos-firebird50:755:odontos-firebird50:root',
       'systemd/Type=forking',
       'systemd/ExecStart=/opt/odontos-firebird50/bin/fbguard -daemon -forever'
     );
