@@ -79,7 +79,12 @@ data:
       '<PEON.INSTALLDIR>/opt/.firebird50/usr/plugins',
       null
     );
-    mv('<PEON.INSTALLDIR>/opt/.firebird50/usr', '<PEON.INSTALLDIR>/opt/firebird50');
+    mkdir('<PEON.INSTALLDIR>/opt/firebird50');
+    yield exec(
+      'tar',
+      '-cvf', '<PEON.INSTALLDIR>/opt/firebird50/firebird50.tar.gz',
+      '-C', '<PEON.INSTALLDIR>/opt/.firebird50',
+      './usr');
     rm('<PEON.INSTALLDIR>/opt/.firebird50');
   env:
     path: []
