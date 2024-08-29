@@ -59,14 +59,18 @@ data:
     env:
       CXXFLAGS: <PEON.ENV.CXXFLAGS> -Wno-narrowing
   deploy: |-
+    /**************************************************/
     /* Deploy Firebird stuff in a dedicated directory */
+    /**************************************************/
     cp(
       '<THIS.DATA.RULES.LOCATION>/gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>/opt/odontos-firebird50',
       '<PEON.INSTALLDIR>/opt/firebird50'
     );
     mv('<PEON.INSTALLDIR>/opt/firebird50/lib/.tm', '<PEON.INSTALLDIR>/opt/firebird50/lib');
 
+    /***********************************************/
     /* Fix RPATH for all executables and libraries */
+    /***********************************************/
     yield rpath(
       '<PEON.INSTALLDIR>/opt/firebird50',
       '<PEON.INSTALLDIR>/opt/firebird50/lib',
@@ -83,7 +87,9 @@ data:
       null
     );
 
+    /**********************/
     /* Generate a tarball */
+    /**********************/
     mkdir('<PEON.INSTALLDIR>/opt/packages/tar');
     yield exec(
       'tar',
@@ -91,7 +97,9 @@ data:
       '-C', '<PEON.INSTALLDIR>/opt/firebird50',
       '.');
 
+    /*****************************/
     /* Generate a Debian package */
+    /*****************************/
     yield exec(
       'debify',
       'odontos-firebird50',
