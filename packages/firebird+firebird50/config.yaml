@@ -1,0 +1,89 @@
+subpackage:
+  - runtime*
+name: firebird+firebird50
+version: 5.0.1.1469-0-7
+$version: 5.0.1.1469-0
+distribution: odontos/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Firebird 5.0
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    debian+fakeroot:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/FirebirdSQL/firebird/releases/download/v5.0.1/Firebird-<THIS.$VERSION>-source.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: e62d719d1d1898d777a7888b75ddbf67df8872c7a755c35d3736cbde4d57809a.tar.xz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=/usr
+                     --disable-shared
+                     --enable-static
+                     --with-builtin-tommath
+                     --with-builtin-tomcrypt
+  rules:
+    type: script
+    location: data/Firebird-<THIS.$VERSION>-source
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: |-
+        !fakeroot make -C gen -f Makefile.install tarfile
+          && cd "gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>"
+          && tar xvf buildroot.tar.gz
+    test: none
+    env:
+      CXXFLAGS: <PEON.ENV.CXXFLAGS> -Wno-narrowing
+  deploy: |-
+    cp(
+      '<THIS.DATA.RULES.LOCATION>/gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>',
+      '<PEON.INSTALLDIR>/opt/.firebird50'
+    );
+    mv('<PEON.INSTALLDIR>/opt/.firebird50/usr/lib/.tm', '<PEON.INSTALLDIR>/opt/.firebird50/usr/lib');
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr',
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr/lib',
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr/bin'
+    );
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr',
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr/lib',
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr/intl'
+    );
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr',
+      '<PEON.INSTALLDIR>/opt/.firebird50/usr/plugins',
+      null
+    );
+    mv('<PEON.INSTALLDIR>/opt/.firebird50/usr', '<PEON.INSTALLDIR>/opt/firebird50');
+    rm('<PEON.INSTALLDIR>/opt/.firebird50');
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
