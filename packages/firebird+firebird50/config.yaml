@@ -114,6 +114,15 @@ data:
       /#WireCrypt =.*/,
       `WireCrypt = Disabled\nAuthServer = Legacy_Auth\nUserManager = Legacy_UserManager\n`
     );
+    mkdir('{PEON.INSTALLDIR}/opt/firebird50/script');
+    yield exec(
+      'writefile',
+      '#!/bin/sh\n' +
+      '/opt/odontos-firebird50/bin/gsec -user SYSDBA -password masterkey -modify SYSDBA -pw ynos99\n' +
+      '/opt/odontos-firebird50/bin/gsec -user SYSDBA -password ynos99 -add DEV -pw DEV\n',
+      '{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh'
+    );
+    chmod('{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh', 0o755);
 
     yield exec(
       'debify',
