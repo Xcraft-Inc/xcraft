@@ -108,18 +108,14 @@ data:
       `/etc/odontos/firebird.conf`,
       `{PEON.INSTALLDIR}/opt/firebird50/firebird.conf`,
     );
-    /* Legacy auth for Odontos */
-    sed(
-      `{PEON.INSTALLDIR}/extra/etc/odontos/firebird.conf`,
-      /#WireCrypt =.*/,
-      `WireCrypt = Disabled\nAuthServer = Legacy_Auth\nUserManager = Legacy_UserManager\n`
-    );
     mkdir('{PEON.INSTALLDIR}/opt/firebird50/script');
     yield exec(
       'writefile',
       '#!/bin/sh\n' +
-      '/opt/odontos-firebird50/bin/gsec -user SYSDBA -password masterkey -modify SYSDBA -pw ynos99\n' +
-      '/opt/odontos-firebird50/bin/gsec -user SYSDBA -password ynos99 -add DEV -pw DEV\n',
+      `echo "connect security.db user SYSDBA; ` +
+      `CREATE OR ALTER USER SYSDBA PASSWORD 'ynos99'; ` +
+      `CREATE OR ALTER USER DEV PASSWORD 'DEV';" ` +
+      `| sudo -u odontos-firebird50 /opt/odontos-firebird50/bin/isql -q\n`,
       '{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh'
     );
     chmod('{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh', 0o755);
@@ -135,7 +131,7 @@ data:
       '{PEON.INSTALLDIR}/opt/firebird50',
       '{PEON.INSTALLDIR}/opt/packages/deb',
       'extra/{PEON.INSTALLDIR}/extra/',
-      'chown//opt/odontos-firebird50:751:odontos-firebird50:root',
+      'chown//opt/odontos-firebird50:755:odontos-firebird50:root',
       'systemd/Type=forking',
       'systemd/ExecStart=/opt/odontos-firebird50/bin/fbguard -daemon -forever'
     );
