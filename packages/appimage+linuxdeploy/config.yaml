@@ -1,6 +1,6 @@
 name: appimage+linuxdeploy
-version: 1-alpha-20230713-1-3
-$version: 1-alpha-20230713-1
+version: 2.0.0-alpha-1-20241106-0
+$version: 2.0.0-alpha-1-20241106
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -18,16 +18,16 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/linuxdeploy/linuxdeploy/releases/download/<THIS.$VERSION>/linuxdeploy-x86_64.AppImage'
+    uri: 'https://github.com/linuxdeploy/linuxdeploy/releases/download/<THIS.$VERSION>/linuxdeploy-static-x86_64.AppImage'
     mirrors: []
     ref: ''
     $ref: ''
     out: ''
     externals: true
-    $hash: a860c028996ca6e78dcc308b38278f87ce8b1eb54763b4f626c238f0f9769bf8.AppImage
+    $hash: 55ae71e6004eafc537b5f266f3cb611ea821c9a1a1571843ee41c777ff813456.AppImage
   type: bin
   configure: |-
-    mv('linuxdeploy-x86_64.AppImage', 'root/usr/bin/linuxdeploy-x86_64.AppImage');
+    mv('linuxdeploy-static-x86_64.AppImage', 'root/usr/bin/linuxdeploy-x86_64.AppImage');
     yield exec('chmod', 'a+x', 'root/usr/bin/linuxdeploy-x86_64.AppImage');
   rules:
     type: move
