@@ -38,5 +38,6 @@ data:
     env: {}
   env:
     path: []
-    other: {}
+    other:
+      FUSERMOUNT_PROG: /bin/fusermount
   embedded: true
