@@ -20,6 +20,9 @@ dependency:
     unicode+icu:
       - version: ''
         architecture: []
+    gnu+libncurses:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
@@ -50,7 +53,6 @@ data:
                      --enable-static
                      --with-builtin-tommath
                      --with-builtin-tomcrypt
-                     --without-termlib
   rules:
     type: script
     location: data/Firebird-<THIS.$VERSION>-source
