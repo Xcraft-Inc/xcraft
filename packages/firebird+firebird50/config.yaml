@@ -17,6 +17,9 @@ dependency:
     adler+zlib-dev:
       - version: ''
         architecture: []
+    unicode+icu:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
