@@ -13,6 +13,7 @@ description:
   brief: Firebird 5.0
   long: The true open source database
 dependency:
+  install:
     adler+zlib-dev:
       - version: ''
         architecture: []
