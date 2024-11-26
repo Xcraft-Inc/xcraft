@@ -1,0 +1,20 @@
+data:
+  configure: |-
+    !<PEON.OS=win? exit 0; :>
+    cd <THIS.DATA.RULES.LOCATION> &&
+       ./configure --prefix=<PEON.PREFIXDIR>
+                   --libdir=<PEON.PREFIXDIR.DEV>/lib
+                   --includedir=<PEON.PREFIXDIR.DEV>/include
+                   --static
+  rules:
+    args:
+      makeall: |-
+        make <PEON.OS=win? -f win32/Makefile.gcc : -j{PEON.CPUS.COUNT}>
+      makeinstall: |-
+        !make BINARY_PATH=<PEON.PREFIXDIR>/bin
+              INCLUDE_PATH=<PEON.PREFIXDIR.DEV>/include
+              LIBRARY_PATH=<PEON.PREFIXDIR.DEV>/lib
+        <PEON.OS=win?
+              SHARED_MODE=0
+              -f win32/Makefile.gcc
+        :>    install

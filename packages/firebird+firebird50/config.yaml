@@ -13,6 +13,9 @@ description:
   brief: Firebird 5.0
   long: The true open source database
 dependency:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
   build:
     xcraft+base-build:
       - version: ''
