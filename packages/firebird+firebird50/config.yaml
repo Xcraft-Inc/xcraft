@@ -53,6 +53,7 @@ data:
                      --enable-static
                      --with-builtin-tommath
                      --with-builtin-tomcrypt
+                     --without-atomiclib
   rules:
     type: script
     location: data/Firebird-<THIS.$VERSION>-source
