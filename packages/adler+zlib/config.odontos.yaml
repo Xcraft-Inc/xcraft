@@ -9,7 +9,7 @@ data:
   rules:
     args:
       makeall: |-
-        make <PEON.OS=win? -f win32/Makefile.gcc : -j{PEON.CPUS.COUNT}>
+        !make <PEON.OS=win? -f win32/Makefile.gcc : -j{PEON.CPUS.COUNT}>
       makeinstall: |-
         !make BINARY_PATH=<PEON.PREFIXDIR>/bin
               INCLUDE_PATH=<PEON.PREFIXDIR.DEV>/include
