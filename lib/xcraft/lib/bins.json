@@ -71,6 +71,7 @@
   "nmedit": "^darwin$",
   "objdump": "^linux$",
   "od": "^darwin|freebsd|linux|sunos$",
+  "osacompile": "^darwin$",
   "otool": "^darwin$",
   "patch": "^darwin|freebsd|linux|sunos$",
   "pkgbuild": "^darwin$",
