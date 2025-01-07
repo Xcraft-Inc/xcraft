@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - darwin-amd64
 description:
-  brief: .NET Core SDK 6.0, 8.0 and 9.0
+  brief: .NET Core SDK 6.0, 8.0
   long: ''
 dependency:
   install:
@@ -27,10 +27,6 @@ dependency:
         architecture:
           - darwin-amd64
     microsoft+dotnet-sdk-80-darwin:
-      - version: ''
-        architecture:
-          - darwin-amd64
-    microsoft+dotnet-sdk-90-darwin:
       - version: ''
         architecture:
           - darwin-amd64
@@ -54,7 +50,6 @@ data:
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-darwin/cache/data', 'root/opt/dotnet-sdk');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-80-darwin/cache/data', 'root/opt/dotnet-sdk');
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-90-darwin/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
