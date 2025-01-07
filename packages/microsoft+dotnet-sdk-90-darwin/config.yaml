@@ -1,0 +1,49 @@
+name: microsoft+dotnet-sdk-90-darwin
+version: 9.0.101
+$version: 9.0.101
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+description:
+  brief: .NET SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+utils:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/330381bd-72dc-47ba-b5fb-884bd8b0bb44/8f1eef9415fc29a806fbf80a54e28c0e/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    yield exec(
+      'writefile',
+      '#!/bin/sh\ndotnet msbuild "$@"\n',
+      'data/sdk/<THIS.$VERSION>/msbuild'
+    );
+    yield exec('chmod', 'a+x', 'data/sdk/<THIS.$VERSION>/msbuild');
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
