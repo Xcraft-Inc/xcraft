@@ -13,8 +13,6 @@
     "cli-color": "^1.0.0",
     "mocha": "^5.2.0",
     "should": "^11.2.1",
-    "unpm": "^1.4.0",
-    "unpm-fs-backend": "^0.1.0",
     "which": "^2.0.2"
   },
   "scripts": {

@@ -39,24 +39,6 @@ to add to the PATH environment variable.
 ? Xcraft> init /mysysroot/bin /mysysroot/usr/bin
 ```
 
-#### prepare
-
-This command is mandatory for the other commands which are using the local
-NPM registry. It should be used in order to install the `unpm` package.
-
-```shell
-? Xcraft> prepare unpm unpm-fs-backend
-```
-
-#### deploy
-
-The uNPM registry server can be configured by this command. You must just pass
-the hostname and the port to use.
-
-```shell
-? Xcraft> deploy localhost:8485
-```
-
 #### defaults
 
 Some Xcraft packages have they own configuration file. This command provides a
@@ -74,37 +56,6 @@ files, you can edit these values with this command.
 ```shell
 ? Xcraft> configure
 ```
-
-#### publish
-
-The Xcraft packages are not usable directly. This command offers a way in order
-to publish the packages in a registry. Then it will publish the packages in
-the registry deployed (uNPM).
-
-```shell
-? Xcraft> publish [packages...]
-```
-
-#### unpublish
-
-This command offers a way in order to unpublish a packages in a registry. The
-version must be specified explicitly.
-
-```shell
-? Xcraft> unpublish <package>@<version>
-```
-
-#### install
-
-The packages available in the registry can be installed by this command.
-
-```
-? Xcraft> install [packages...]
-```
-
-#### verify
-
-It checks the versions between `lib/` and `node_modules/`.
 
 ### Zog shell
 
