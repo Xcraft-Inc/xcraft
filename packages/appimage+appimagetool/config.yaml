@@ -1,0 +1,41 @@
+name: appimage+appimagetool
+version: 866
+$version: 866
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - linux-amd64
+description:
+  brief: Go implementation of AppImage tools
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-<THIS.$VERSION>-x86_64.AppImage'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    mv('appimagetool-<THIS.$VERSION>-x86_64.AppImage', 'root/usr/bin/appimagetool-x86_64.AppImage');
+    yield exec('chmod', 'a+x', 'root/usr/bin/appimagetool-x86_64.AppImage');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
