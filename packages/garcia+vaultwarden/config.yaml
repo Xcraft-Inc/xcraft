@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: garcia+vaultwarden
-version: 1.30.5
-$version: 1.30.5
+version: 1.33.0
+$version: 1.33.0
 distribution: epsitec/
 maintainer:
   name: Mathieu Schroeter
@@ -56,7 +56,6 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: 6a5b1792fc53e94445033390f594dd1075390bf1339daa54ae92569ca902391d.tar.gz
   type: src
   configure: ''
   rules:
