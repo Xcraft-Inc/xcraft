@@ -36,7 +36,8 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        !rm -rf /tmp/xcraft-415a7b5f
+        !export LD_LIBRARY_PATH=
+          && rm -rf /tmp/xcraft-415a7b5f
           && mkdir /tmp/xcraft-415a7b5f
           && cp -r . /tmp/xcraft-415a7b5f
           && cd /tmp/xcraft-415a7b5f
