@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: rustlang+rust
-version: 1.75.0
-$version: 1.75.0
+version: 1.84.0
+$version: 1.84.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -26,10 +26,14 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 bump: []
 data:
   get:
-    uri: 'https://static.rust-lang.org/dist/rustc-<THIS.$VERSION>-src.tar.gz'
+    uri: 'https://static.rust-lang.org/dist/rustc-<THIS.$VERSION>-src.tar.xz'
     mirrors: []
     ref: ''
     $ref: ''
@@ -38,7 +42,6 @@ data:
     prepare: |-
       mv('data/rustc-<THIS.$VERSION>-src', '<THIS.DATA.RULES.LOCATION>');
       rm('data');
-    $hash: 5b739f45bc9d341e2d1c570d65d2375591e22c2d23ef5b8a37711a0386abc088.tar.gz
   type: src
   configure: |-
     !{bash}

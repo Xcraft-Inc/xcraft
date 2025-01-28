@@ -38,6 +38,8 @@ dependency:
     openssl+openssl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
