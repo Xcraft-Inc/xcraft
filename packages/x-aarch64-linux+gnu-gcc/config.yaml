@@ -1,6 +1,6 @@
 name: x-aarch64-linux+gnu-gcc
-version: 13.2.0
-$version: 13.2.0
+version: 13.3.0
+$version: 13.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -22,13 +22,15 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da.tar.xz
   type: bin
   configure: |-
     mv('data/gcc-<THIS.$VERSION>', 'root/var/x-aarch64-linux/gcc');
@@ -41,6 +43,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: x-aarch64-linux+gnu-gcc-glibc-cross
-version: 13.2.0
-$version: 13.2.0
+version: 13.3.0
+$version: 13.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -83,10 +83,13 @@ dependency:
     samba+rsync:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: ''
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
     prepare: ''
@@ -195,7 +198,7 @@ data:
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.2.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/include-fixed/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
@@ -206,10 +209,16 @@ data:
       LDFLAGS: ''
       CPPFLAGS: ''
   deploy: |-
+    rm('<PEON.PREFIXDIR>/etc');
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
-    rm('<PEON.PREFIXDIR>/share/gcc-13.2.0');
-    mv('<PEON.PREFIXDIR>/lib64', '<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.2.0');
+    rm('<PEON.PREFIXDIR>/share/gcc-13.3.0');
+
+    rm('<PEON.PREFIXDIR>/include');
+    rm('<PEON.PREFIXDIR>/lib/gprofng');
+    rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
+
+    mv('<PEON.PREFIXDIR>/lib64', '<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0');
     rm('<PEON.PREFIXDIR>/lib64');
 
     mkdir('<PEON.PREFIXDIR>/local/bin');
