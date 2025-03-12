@@ -1,0 +1,62 @@
+subpackage:
+  - runtime*
+name: garcia+bw-web-builds
+version: 2025.1.1
+$version: 2025.1.1
+distribution: epsitec/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Patched Bitwarden web UI for Vaultwarden
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/dani-garcia/bw_web_builds/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/bw_web_builds-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export LD_LIBRARY_PATH=
+          && rm -rf /tmp/xcraft-415a7b5f
+          && mkdir /tmp/xcraft-415a7b5f
+          && cp -r . /tmp/xcraft-415a7b5f
+          && cd /tmp/xcraft-415a7b5f
+          && make full
+      maketest: ''
+      makeinstall: |-
+        mv(
+          '/tmp/xcraft-415a7b5f/builds/bw_web_v<THIS.$VERSION>',
+          '<PEON.PREFIXDIR>/share/vaultwarden/web-vault'
+        );
+        rm('/tmp/xcraft-415a7b5f');
+    test: none
+    env:
+      VAULT_VERSION: <THIS.$VERSION>
+      NODE_ENV: development
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

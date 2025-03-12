@@ -1,0 +1,40 @@
+name: oracle+jdk8-linux
+version: 8u411-1
+$version: 8u411
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: Oracle JDK 8
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/pf34xw7Z9AF8RNP/download/jdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: 6210799322de9316e16ec884e6904eab14017bc98725a85a5b66071be1dc1596.tar.gz
+  type: bin
+  configure: |-
+    rm('data/jdk1.8.0_411/src.zip');
+    mv('data/jdk1.8.0_411', 'root/opt/oraclejdk8');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      JAVA_HOME_ORACLE_8: <OS.ROOTDIR>/opt/oraclejdk8
+  embedded: true

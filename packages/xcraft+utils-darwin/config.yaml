@@ -1,6 +1,6 @@
 name: xcraft+utils-darwin
-version: 0.7.0
-$version: 0.7.0
+version: 0.10.0
+$version: 0.10.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter

@@ -6,6 +6,8 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
+  - mswindows-i386
+  - mswindows-amd64
   - linux-i386
   - linux-amd64
   - linux-aarch64
@@ -16,8 +18,6 @@ architecture:
   - solaris-amd64
   - freebsd-i386
   - freebsd-amd64
-  - mswindows-i386
-  - mswindows-amd64
 description:
   brief: Essential tools for building.
   long: ''
@@ -90,6 +90,9 @@ dependency:
           - linux-i386
           - linux-amd64
           - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
           - solaris-i386
           - solaris-amd64
           - freebsd-i386
@@ -126,10 +129,13 @@ dependency:
           - solaris-amd64
           - freebsd-i386
           - freebsd-amd64
+bump: []
 data:
   get:
     uri: ''
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
   type: bin
@@ -140,6 +146,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

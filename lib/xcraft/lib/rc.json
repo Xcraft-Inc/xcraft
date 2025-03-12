@@ -1,20 +1,4 @@
 {
-  "unpm": {
-    "desc": "start/stop/restart a unpm instance",
-    "options": {
-      "params": {
-        "required": "cmd"
-      }
-    }
-  },
-  "watcher": {
-    "desc": "start/stop/restart the watcher for lib/",
-    "options": {
-      "params": {
-        "required": "cmd"
-      }
-    }
-  },
   "init": {
     "desc": "create main config file in etc",
     "options": {
@@ -28,14 +12,6 @@
     "options": {
       "params": {
         "optional": "bins..."
-      }
-    }
-  },
-  "deploy": {
-    "desc": "configure uNPM with backend",
-    "options": {
-      "params": {
-        "required": "ip:port"
       }
     }
   },
@@ -56,57 +32,6 @@
       }
     }
   },
-  "cache": {
-    "desc": "cache third packages in the local registry"
-  },
-  "install": {
-    "desc": "install module(s) from local registry",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
-  "upi": {
-    "desc": "unpublish -> publish -> install (tempory workaround to alias)",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
-  "publish": {
-    "desc": "npm publish xcraft-core in local registry",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
-  "unpublish": {
-    "desc": "npm unpublish xcraft-core in local registry",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
-  "verify": {
-    "desc": "check for outdated modules (our)",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
-  "ncu": {
-    "desc": "check for updatable modules (dependencies)",
-    "options": {
-      "params": {
-        "optional": "modules..."
-      }
-    }
-  },
   "modprefix": {
     "desc": "prefix for node_modules directory",
     "options": {
@@ -114,8 +39,5 @@
         "required": "location"
       }
     }
-  },
-  "ncu-ua": {
-    "desc": "upgrade the package.json versions for all dependencies"
   }
 }

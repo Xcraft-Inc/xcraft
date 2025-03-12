@@ -37,11 +37,13 @@ dependency:
           - solaris-amd64
           - freebsd-i386
           - freebsd-amd64
+bump: []
 data:
   get:
     uri: 'https://zlib.net/fossils/zlib-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

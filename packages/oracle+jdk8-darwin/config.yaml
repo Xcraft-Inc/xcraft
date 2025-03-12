@@ -1,0 +1,40 @@
+name: oracle+jdk8-darwin
+version: 8u411
+$version: 8u411
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-amd64
+description:
+  brief: Oracle JDK 8
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/zDMnfMKopiCFPpy/download/jdk-<THIS.$VERSION>-macosx-x64.zip'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: 30563a117cf8b9f65ef4f56a35e553867e739e9b3c80937f8baeec5bcda94580.zip
+  type: bin
+  configure: |-
+    rm('data/jdk-1.8.jdk/Coontents/Home/src.zip');
+    mv('data/jdk-1.8.jdk', 'root/opt/oraclejdk8');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      JAVA_HOME_ORACLE_8: <OS.ROOTDIR>/opt/oraclejdk8/Contents/Home
+  embedded: true

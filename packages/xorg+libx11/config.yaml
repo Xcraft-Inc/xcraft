@@ -58,7 +58,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: ''
+  deploy: '!rm -f <PEON.PREFIXDIR>/lib/*.la'
   env:
     path: []
     other: {}

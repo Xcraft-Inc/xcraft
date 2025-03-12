@@ -1,0 +1,11 @@
+--- a/extern/cloop/Makefile	2024-08-29 11:30:21.884308586 +0200
++++ b/extern/cloop/Makefile	2024-08-29 11:30:31.196641715 +0200
+@@ -98,7 +98,7 @@
+ 	$(OBJ_DIR)/cloop/Main.o \
+ 	| $(BIN_DIR)
+ 
+-	$(LD) $^ -o $@ $(LIBS)
++	$(LD) $(LDFLAGS) $^ -o $@ $(LIBS)
+ 
+ $(SRC_DIR)/tests/test1/CalcCApi.h: $(BIN_DIR)/cloop $(SRC_DIR)/tests/test1/Interface.idl
+ 	$(BIN_DIR)/cloop $(SRC_DIR)/tests/test1/Interface.idl c-header $@ CALC_C_API_H CALC_I

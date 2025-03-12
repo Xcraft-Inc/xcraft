@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: google+go-bootstrap
-version: '1.4'
+version: 1.4-1
 $version: '1.4'
 distribution: toolchain/
 maintainer:
@@ -10,25 +10,29 @@ maintainer:
 architecture:
   - source
 description:
-  brief: GO bootstrap
+  brief: GO bootstrap 4
   long: ''
 dependency:
   build:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://dl.google.com/go/go<THIS.$VERSION>-bootstrap-20171003.tar.gz'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/kCbkeAcn4YMZBEN/download/go-bootstrap-ceb95ea6.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: f4ff5b5eb3a3cae1c993723f3eab519c5bae18866b5e5f96fe1102f0cb5c3e52.tar.gz
+    prepare: ''
+    $hash: c4b7563a09e07035435fc20c7b2aa799a452413d7c65fc955331d4cf1909ffd3.tar.gz
   type: src
   configure: ''
   rules:
     type: script
-    location: data/go
+    location: data
     args:
       postinst: ''
       prerm: ''
@@ -45,13 +49,14 @@ data:
       maketest: ''
       makeinstall: |-
         mkdir('<PEON.INSTALLDIR>/opt');
-        cp('../go', '<PEON.INSTALLDIR>/opt/go-bootstrap');
+        cp('../data', '<PEON.INSTALLDIR>/opt/go-bootstrap');
     test: none
+    env: {}
   deploy: ''
   env:
     path: []
     other:
-      GOROOT_BOOTSTRAP: <OS.ROOTDIR>/opt/go-bootstrap
+      GOROOT_BOOTSTRAP_4: <OS.ROOTDIR>/opt/go-bootstrap
   embedded: true
   runtime:
     configure: ''

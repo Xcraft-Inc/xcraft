@@ -31,6 +31,7 @@ data:
     uri: 'http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_<THIS.$VERSION>.orig.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

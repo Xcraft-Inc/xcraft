@@ -1,0 +1,136 @@
+subpackage:
+  - runtime*
+name: garcia+vaultwarden
+version: 1.33.0
+$version: 1.33.0
+distribution: epsitec/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Unofficial Bitwarden compatible server written in Rust
+  long: |-
+    Alternative implementation of the Bitwarden server API written in Rust
+    and compatible with upstream Bitwarden clients, perfect for self-hosted
+    deployment where running the official resource-heavy service might
+    not be ideal.
+dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
+    garcia+bw-web-builds:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    rustlang+rust:
+      - version: ''
+        architecture: []
+    xcraft+utils-linux:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    debian+dpkg:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    debian+lintian:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+bump: []
+data:
+  get:
+    uri: 'https://github.com/dani-garcia/vaultwarden/archive/refs/tags/<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/vaultwarden-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !cargo build --release
+                     --features sqlite
+      maketest: ''
+      makeinstall: |-
+        cp(
+          'target/release/vaultwarden<PEON.OS=win?.exe:>',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/bin/vaultwarden<PEON.OS=win?.exe:>'
+        );
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/lib/libssl.so.1.1',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/lib/libssl.so.1.1'
+        );
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/lib/libcrypto.so.1.1',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/lib/libcrypto.so.1.1'
+        );
+        cp('.env.template', '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env');
+        mkdir('<PEON.INSTALLDIR>/opt/vaultwarden/var/data');
+
+        cp(
+          '<PEON.PROD.ROOTDIR>/usr/share/vaultwarden/web-vault',
+          '<PEON.INSTALLDIR>/opt/vaultwarden/var/web-vault'
+        );
+    test: none
+    env: {}
+  deploy: |-
+    const dataFolderPath = '/opt/vaultwarden/var/data';
+
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/vaultwarden',
+      '<PEON.INSTALLDIR>/opt/vaultwarden/lib',
+      '<PEON.INSTALLDIR>/opt/vaultwarden/bin'
+    );
+    sed(
+      '<PEON.INSTALLDIR>/extra/etc/vaultwarden/env',
+      /.*DATA_FOLDER=.*/,
+      `DATA_FOLDER=${dataFolderPath}`
+    );
+
+    yield exec(
+      'debify',
+      'vaultwarden',
+      '{THIS.VERSION}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.MAINTAINER.NAME}',
+      '{THIS.MAINTAINER.EMAIL}',
+      '{PEON.INSTALLDIR}/opt/vaultwarden',
+      '{PEON.INSTALLDIR}/opt/packages/deb',
+      'extra/{PEON.INSTALLDIR}/extra/',
+      `chown/${dataFolderPath}:755:vaultwarden:root`,
+      'systemd/EnvironmentFile=/etc/vaultwarden/env',
+      'systemd/WorkingDirectory=/opt/vaultwarden/var',
+      'systemd/ReadWriteDirectories=/opt/vaultwarden/var',
+      'systemd/ExecStart=/opt/vaultwarden/bin/vaultwarden',
+      'systemd/LimitNOFILE=1048576',
+      'systemd/LimitNPROC=64',
+      'systemd/PrivateTmp=true',
+      'systemd/PrivateDevices=true',
+      'systemd/ProtectHome=true',
+      'systemd/ProtectSystem=strict'
+    );
+    rm('{PEON.INSTALLDIR}/opt/vaultwarden');
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

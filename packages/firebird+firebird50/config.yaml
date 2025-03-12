@@ -1,0 +1,156 @@
+subpackage:
+  - runtime*
+name: firebird+firebird50
+version: 5.0.1.1469-0-7
+$version: 5.0.1.1469-0
+distribution: odontos/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Firebird 5.0
+  long: The true open source database
+dependency:
+  install:
+    adler+zlib-dev:
+      - version: ''
+        architecture: []
+    unicode+icu:
+      - version: ''
+        architecture: []
+    gnu+libncurses:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    debian+fakeroot:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/FirebirdSQL/firebird/releases/download/v5.0.1/Firebird-<THIS.$VERSION>-source.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: e62d719d1d1898d777a7888b75ddbf67df8872c7a755c35d3736cbde4d57809a.tar.xz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=/opt/odontos-firebird50
+                     --disable-shared
+                     --enable-static
+                     --with-builtin-tommath
+                     --with-builtin-tomcrypt
+                     --without-atomiclib
+  rules:
+    type: script
+    location: data/Firebird-<THIS.$VERSION>-source
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: |-
+        !fakeroot make -C gen -f Makefile.install tarfile
+          && cd "gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>"
+          && tar xvf buildroot.tar.gz
+    test: none
+    env:
+      CXXFLAGS: <PEON.ENV.CXXFLAGS> -Wno-narrowing
+  deploy: |-
+    /**************************************************/
+    /* Deploy Firebird stuff in a dedicated directory */
+    /**************************************************/
+    cp(
+      '<THIS.DATA.RULES.LOCATION>/gen/Firebird-<THIS.$VERSION>-<PEON.OS>-<PEON.OS.ARCH>/opt/odontos-firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50'
+    );
+    mv('<PEON.INSTALLDIR>/opt/firebird50/lib/.tm', '<PEON.INSTALLDIR>/opt/firebird50/lib');
+
+    /***********************************************/
+    /* Fix RPATH for all executables and libraries */
+    /***********************************************/
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/lib',
+      '<PEON.INSTALLDIR>/opt/firebird50/bin'
+    );
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/lib',
+      '<PEON.INSTALLDIR>/opt/firebird50/intl'
+    );
+    yield rpath(
+      '<PEON.INSTALLDIR>/opt/firebird50',
+      '<PEON.INSTALLDIR>/opt/firebird50/plugins',
+      null
+    );
+
+    /**********************/
+    /* Generate a tarball */
+    /**********************/
+    mkdir('<PEON.INSTALLDIR>/opt/packages/tar');
+    yield exec(
+      'tar',
+      '-czvf', '<PEON.INSTALLDIR>/opt/packages/tar/firebird50.tar.gz',
+      '-C', '<PEON.INSTALLDIR>/opt/firebird50',
+      '.');
+
+    /*****************************/
+    /* Generate a Debian package */
+    /*****************************/
+    mv(
+      '{PEON.INSTALLDIR}/opt/firebird50/firebird.conf',
+      `{PEON.INSTALLDIR}/extra/etc/odontos/firebird.conf`
+    );
+    ln(
+      `/etc/odontos/firebird.conf`,
+      `{PEON.INSTALLDIR}/opt/firebird50/firebird.conf`,
+    );
+    mkdir('{PEON.INSTALLDIR}/opt/firebird50/script');
+    yield exec(
+      'writefile',
+      '#!/bin/sh\n' +
+      `echo "connect security.db user SYSDBA; ` +
+      `CREATE OR ALTER USER SYSDBA PASSWORD 'ynos99'; ` +
+      `CREATE OR ALTER USER DEV PASSWORD 'DEV';" ` +
+      `| sudo -u odontos-firebird50 /opt/odontos-firebird50/bin/isql -q\n`,
+      '{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh'
+    );
+    chmod('{PEON.INSTALLDIR}/opt/firebird50/script/init_users.sh', 0o755);
+
+    yield exec(
+      'debify',
+      'odontos-firebird50',
+      '{THIS.VERSION}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.DESCRIPTION.LONG}',
+      '{THIS.MAINTAINER.NAME}',
+      '{THIS.MAINTAINER.EMAIL}',
+      '{PEON.INSTALLDIR}/opt/firebird50',
+      '{PEON.INSTALLDIR}/opt/packages/deb',
+      'extra/{PEON.INSTALLDIR}/extra/',
+      'chown//opt/odontos-firebird50:755:odontos-firebird50:root',
+      'systemd/Type=forking',
+      'systemd/ExecStart=/opt/odontos-firebird50/bin/fbguard -daemon -forever'
+    );
+
+    rm('<PEON.INSTALLDIR>/opt/firebird50');
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

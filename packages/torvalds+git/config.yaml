@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: torvalds+git
-version: 2.41.0
-$version: 2.41.0
+version: 2.42.1
+$version: 2.42.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -20,6 +20,8 @@ dependency:
     bagder+curl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     adler+zlib:
       - version: ''
         architecture: []
@@ -36,6 +38,8 @@ dependency:
     openssl+openssl:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
@@ -49,10 +53,11 @@ data:
     uri: 'https://github.com/git/git/archive/v<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 4f0b74bbde2800b00d3a50a7f389bcf1d59f1265b6986c00048d8ba4892ab01a.tar.gz
+    $hash: 59222171748cafe549821b9ce9926face769ce058e5f4b90c32c9b708bb797b5.tar.gz
   type: src
   configure: ''
   rules:

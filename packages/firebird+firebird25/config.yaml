@@ -1,0 +1,66 @@
+subpackage:
+  - runtime*
+name: firebird+firebird25
+version: 2.5.9.27139-0-2
+$version: 2.5.9.27139-0
+distribution: odontos/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Firebird 2.5
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    debian+fakeroot:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/FirebirdSQL/firebird/releases/download/R2_5_9/Firebird-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 46ee37b14b44f3e45cd286b739f92e9366643f52bef51a131cc973a6980d9481.tar.bz2
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=/usr
+                     --disable-shared
+                     --enable-static
+  rules:
+    type: script
+    location: data/Firebird-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make'
+      maketest: ''
+      makeinstall: '!fakeroot make -C gen -f Makefile.install tarfile'
+    test: none
+    env:
+      CXXFLAGS: <PEON.ENV.CXXFLAGS> -Wno-narrowing
+  deploy: |-
+    cp(
+      '<THIS.DATA.RULES.LOCATION>/gen/FirebirdCS-<THIS.$VERSION>.<PEON.OS.ARCH=x64?amd64:{PEON.OS.ARCH}>',
+      '<PEON.INSTALLDIR>/opt/firebird25'
+    )
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

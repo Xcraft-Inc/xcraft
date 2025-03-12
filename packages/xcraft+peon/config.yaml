@@ -1,6 +1,6 @@
 name: xcraft+peon
-version: 1.6.0-2
-$version: 1.6.0
+version: 1.6.3
+$version: 1.6.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,7 +27,7 @@ data:
   configure: |-
     cp('.', '<PEON.WPKG.STAG>');
     cd('<PEON.WPKG.STAG>/usr/share/xcraft/peon');
-    yield exec('npm', 'install', '--omit=dev');
+    yield exec('npm<PEON.OS=win?.cmd:>', 'install', '--omit=dev');
   rules:
     type: configure
     location: ''

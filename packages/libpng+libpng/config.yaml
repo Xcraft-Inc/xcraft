@@ -25,10 +25,13 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://download.sourceforge.net/libpng/libpng16/<THIS.$VERSION>/libpng-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
@@ -49,6 +52,7 @@ data:
       maketest: ''
       makeinstall: '!make install'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

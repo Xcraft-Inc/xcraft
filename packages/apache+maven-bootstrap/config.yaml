@@ -1,6 +1,6 @@
 name: apache+maven-bootstrap
-version: 3.5.4
-$version: 3.5.4
+version: 3.6.3
+$version: 3.6.3
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -24,7 +24,7 @@ data:
     $ref: ''
     out: ''
     externals: true
-    $hash: ce50b1c91364cb77efe3776f756a6d92b76d9038b0a0782f7d53acf1e997a14d.tar.gz
+    $hash: 26ad91d751b3a9a53087aefa743f4e16a17741d3915b219cf74112bf87a438c5.tar.gz
   type: bin
   configure: 'mv(''data/apache-maven-<THIS.$VERSION>'', ''root/opt/maven-bootstrap'');'
   rules:

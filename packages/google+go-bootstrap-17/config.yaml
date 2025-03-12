@@ -1,0 +1,77 @@
+subpackage:
+  - runtime*
+name: google+go-bootstrap-17
+version: 1.17.13
+$version: 1.17.13
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: GO bootstrap 17
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    google+go-bootstrap:
+      - version: ''
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+    google+go-bootstrap-darwin:
+      - version: ''
+        architecture:
+          - darwin-amd64
+          - darwin-aarch64
+    apple+macos-sdk-1013:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+bump: []
+data:
+  get:
+    uri: 'https://dl.google.com/go/go<THIS.$VERSION>.src.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: a1a48b23afb206f95e7bbaa9b898d965f90826f6f1d1fc0c1d784ada0cd300fd.tar.gz
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/go
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !cd src &&
+        <PEON.OS=win? make.bat : ./make.bash >
+      maketest: ''
+      makeinstall: |-
+        mkdir('<PEON.INSTALLDIR>/opt');
+        cp('../go', '<PEON.INSTALLDIR>/opt/go-bootstrap-17');
+    test: none
+    env:
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1201>
+      win/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_4>
+      linux/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_4>
+      darwin/GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_DARWIN>
+  deploy: ''
+  env:
+    path: []
+    other:
+      GOROOT_BOOTSTRAP_17: <OS.ROOTDIR>/opt/go-bootstrap-17
+  embedded: true
+  runtime:
+    configure: ''

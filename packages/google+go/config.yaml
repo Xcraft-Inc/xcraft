@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: google+go
-version: 1.17.6-1
-$version: 1.17.6
+version: 1.20.11
+$version: 1.20.11
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,23 +17,32 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
-    google+go-bootstrap:
+    google+go-bootstrap-17:
       - version: ''
-        architecture: []
+        architecture:
+          - mswindows-i386
+          - mswindows-amd64
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
     apple+macos-sdk-1013:
       - version: ''
         architecture:
           - darwin-i386
           - darwin-amd64
+bump: []
 data:
   get:
     uri: 'https://dl.google.com/go/go<THIS.$VERSION>.src.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 4dc1bbf3ff61f0c1ff2b19355e6d88151a70126268a47c761477686ef94748c8.tar.gz
+    $hash: d355c5ae3a8f7763c9ec9dc25153aae373958cbcb60dd09e91a8b56c7621b2fc.tar.gz
   type: src
   configure: ''
   rules:
@@ -51,7 +60,8 @@ data:
         cp('../go', '<PEON.INSTALLDIR>/opt/go');
     test: none
     env:
-      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
+      darwin/SDKROOT: <PEON.ENV.MACOSSDK_1201>
+      GOROOT_BOOTSTRAP: <PEON.ENV.GOROOT_BOOTSTRAP_17>
   deploy: ''
   env:
     path:

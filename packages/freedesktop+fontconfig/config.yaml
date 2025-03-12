@@ -22,6 +22,8 @@ dependency:
     gnu+libiconv:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     nongnu+freetype:
       - version: ''
         architecture: []

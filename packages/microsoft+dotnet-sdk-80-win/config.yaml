@@ -1,0 +1,37 @@
+name: microsoft+dotnet-sdk-80-win
+version: 8.0.100
+$version: 8.0.100
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-i386
+  - mswindows-amd64
+description:
+  brief: .NET Core SDK
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.visualstudio.microsoft.com/download/pr/2b2d6133-c4f9-46dd-9ab6-86443a7f5783/340054e2ac7de2bff9eea73ec9d4995a/dotnet-sdk-<THIS.$VERSION>-win-x64.zip'
+    ref: ''
+    out: ''
+    externals: true
+    $hash: fc225bcce6b54385580a16216e484b6119452ff6febac7da4e2a7e1fdee09921.zip
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

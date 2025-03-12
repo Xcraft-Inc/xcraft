@@ -35,18 +35,27 @@ dependency:
           - darwin-i386
           - darwin-amd64
           - darwin-aarch64
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/libtool/libtool-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3.tar.gz
   type: src
-  configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR>'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+    <PEON.OS=darwin?
+                     --program-prefix=g
+    :>
   rules:
     type: make
-    location: data/libtool-<THIS.$VERSION>/
+    location: data/libtool-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
@@ -54,7 +63,12 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: rm ('<PEON.PREFIXDIR>/share/info/dir');
+    env: {}
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/share/info/dir');
+    <PEON.OS=darwin?
+      cp('{PEON.PREFIXDIR}/bin/glibtoolize', '{PEON.PREFIXDIR}/bin/libtoolize');
+    :>
   env:
     path: []
     other: {}

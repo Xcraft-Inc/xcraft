@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: libgit2+libgit2
-version: 1.6.4
-$version: 1.6.4
+version: 1.7.1
+$version: 1.7.1
 distribution: zou/
 maintainer:
   name: Mathieu Schroeter
@@ -40,10 +40,11 @@ data:
     uri: 'https://github.com/libgit2/libgit2/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: d25866a4ee275a64f65be2d9a663680a5cf1ed87b7ee4c534997562c828e500d.tar.gz
+    $hash: 17d2b292f21be3892b704dddff29327b3564f96099a1c53b00edc23160c71327.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>

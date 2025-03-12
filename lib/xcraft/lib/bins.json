@@ -15,6 +15,7 @@
   "cmd": "^win32$",
   "cmp": "^darwin|freebsd|linux|sunos$",
   "codesign": "^darwin$",
+  "command": "^darwin$",
   "cp": "^darwin|freebsd|linux|sunos$",
   "cscript": "^win32$",
   "cut": "^darwin|freebsd|linux|sunos$",
@@ -70,6 +71,7 @@
   "nmedit": "^darwin$",
   "objdump": "^linux$",
   "od": "^darwin|freebsd|linux|sunos$",
+  "osacompile": "^darwin$",
   "otool": "^darwin$",
   "patch": "^darwin|freebsd|linux|sunos$",
   "pkgbuild": "^darwin$",
@@ -92,6 +94,7 @@
   "setfile": "^darwin$",
   "sh": "^darwin|freebsd|linux|sunos$",
   "shlock": "^darwin$",
+  "sips": "^darwin$",
   "sleep": "^darwin|freebsd|linux|sunos$",
   "sort": "^darwin|freebsd|linux|sunos$",
   "ssh": "^darwin|freebsd|linux|sunos|win32$",
@@ -116,5 +119,6 @@
   "which": "^darwin|freebsd|linux|sunos$",
   "xargs": "^darwin|freebsd|linux|sunos$",
   "xcodebuild": "^darwin$",
+  "xcode-select": "^darwin$",
   "xcrun": "^darwin$"
 }

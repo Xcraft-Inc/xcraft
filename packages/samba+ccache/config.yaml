@@ -16,6 +16,12 @@ description:
     compilations and detecting when the same compilation is being done again.
     Supported languages are C, C++, Objective-C and Objective-C++.
 dependency:
+  install:
+    facebook+zstd:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+peon:
       - version: ''
@@ -56,7 +62,11 @@ data:
                -DCMAKE_PREFIX_PATH=<PEON.PROD.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..
-               -DCMAKE_CXX_FLAGS=-std=c++17
+               -DCMAKE_CXX_FLAGS="<PEON.ENV.CXXFLAGS> -std=c++17"
+               -DCMAKE_INSTALL_RPATH="<PEON.PROD.ROOTDIR>/usr/lib"
+    <PEON.OS=darwin?
+               -DCMAKE_MACOSX_RPATH=ON
+    :>
   rules:
     type: make
     location: data/ccache-<THIS.$VERSION>

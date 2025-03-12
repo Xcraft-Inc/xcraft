@@ -6,14 +6,14 @@ maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
 architecture:
+  - mswindows-i386
+  - mswindows-amd64
   - linux-i386
   - linux-amd64
   - linux-aarch64
   - darwin-i386
   - darwin-amd64
   - darwin-aarch64
-  - mswindows-i386
-  - mswindows-amd64
 description:
   brief: Base development packages got Goblins.
   long: ''
@@ -48,12 +48,8 @@ dependency:
           - linux-amd64
           - darwin-i386
           - darwin-amd64
+          - darwin-aarch64
     microsoft+buildtools:
-      - version: ''
-        architecture:
-          - mswindows-i386
-          - mswindows-amd64
-    microsoft+windows-sdk-81:
       - version: ''
         architecture:
           - mswindows-i386
@@ -66,10 +62,13 @@ dependency:
     xcraft+node-gyp:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: ''
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: false
   type: bin
@@ -80,6 +79,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

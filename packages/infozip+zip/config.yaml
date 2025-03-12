@@ -17,12 +17,16 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://ftp.osuosl.org/pub/blfs/conglomeration/zip/zip30.tgz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
+    prepare: ''
     $hash: f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369.tgz
   type: src
   configure: ''
@@ -36,6 +40,7 @@ data:
       maketest: ''
       makeinstall: '-f unix/Makefile install prefix=<PEON.PREFIXDIR>'
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

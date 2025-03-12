@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  echo "usage: signone <bin> <id> <entitlements> <signAppId>"
+  exit 0
+fi
+
+bin="$1"
+id="$2"
+entitlements="$3"
+signAppId="$4"
+
+if [ -z "${bin}" ];          then >&2 echo "The bin path is missing"; exit 1; fi
+if [ -z "${id}" ];           then >&2 echo "The bin ID is missing"; exit 1; fi
+if [ -z "${entitlements}" ]; then >&2 echo "The entitlements path is missing"; exit 1; fi
+if [ -z "${signAppId}" ];    then >&2 echo "The developer ID application is missing"; exit 1; fi
+
+shift 4
+
+sign_one()
+{
+  local bin="$1"
+  local signId="$2"
+
+  codesign \
+    --sign "$signId" --identifier "$id" \
+    --force --options runtime --entitlements "$entitlements" \
+    "$bin"
+  return $?
+}
+
+# Sign the binary
+echo "Sign $bin"
+if ! sign_one "$bin" "$signAppId"; then
+  >&2 echo "Signature of $bin has failed"
+  exit 1
+fi
+
+echo "Sign done"

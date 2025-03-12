@@ -1,0 +1,36 @@
+name: openjdk+jdk22-win
+version: 22.0.1
+$version: 22.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-amd64
+description:
+  brief: OpenJDK 22
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://download.java.net/java/GA/jdk<THIS.$VERSION>/c7ec1332f7bb44aeba2eb341ae18aca4/8/GPL/openjdk-<THIS.$VERSION>1_windows-x64_bin.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv ('data/jdk-<THIS.$VERSION>', 'root/opt/openjdk');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path:
+      - <OS.ROOTDIR>/opt/openjdk/bin
+    other: {}
+  embedded: true

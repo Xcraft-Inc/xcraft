@@ -26,7 +26,6 @@ if [ -z "${projectShortDescription}" ]; then >&2 echo "The project short descrip
 if [ -z "${projectLongDescription}" ];  then >&2 echo "The project long description is missing"; exit 1; fi
 if [ -z "${maintainerName}" ];          then >&2 echo "The maintainer name is missing"; exit 1; fi
 if [ -z "${maintainerEmail}" ];         then >&2 echo "The maintainer email is missing"; exit 1; fi
-if [ -z "${projectDir}" ];              then >&2 echo "The project directory is missing"; exit 1; fi
 if [ -z "${outputDir}" ];               then >&2 echo "The output directory is missing"; exit 1; fi
 
 shift 8
@@ -43,12 +42,52 @@ while [[ "$1" =~ ^extra/ ]]; do
   shift
 done
 
+mkdir -p "${WORK_DIR}/debian/DEBIAN"
+
+# Check for chown list
+postinst_cmd=""
+while [[ "$1" =~ ^chown/ ]]; do
+  useChown=1
+  entry="${1#chown/}"
+  step=0
+  file=""
+  owner=""
+  IFS=":"
+  NL=$'\n'
+  for it in ${entry}; do
+    case $step in
+    0)
+      file="$it";;
+    1)
+      postinst_cmd="$postinst_cmd${NL}chmod -R $it $file";;
+    2)
+      owner="$it";;
+    3)
+      [ -n "$it" ] && owner="$owner:$it"
+      postinst_cmd="$postinst_cmd${NL}chown -R $owner $file";;
+    esac
+    step=$((step + 1))
+  done
+  unset IFS
+  shift
+done
+
 # Check for systemd arguments
 useSystemd=0
+
+unit=""
+while [[ "$1" =~ ^systemd/unit/ ]]; do
+  useSystemd=1
+  entry="${1#systemd/unit/}"
+  unit="${unit}${entry}"$'\n'
+  shift
+done
+
 systemd="
 [Unit]
 Description=${projectShortDescription}
 Requires=network.target
+${unit}
 
 [Install]
 WantedBy=multi-user.target
@@ -93,8 +132,6 @@ trap cleanup EXIT
 
 cd "${WORK_DIR}" || exit 1
 
-mkdir -p debian/DEBIAN
-
 if [ "${useSystemd}" = 1 ]; then
   # Debian package hooks
   cat <<EOF > "debian/DEBIAN/postinst"
@@ -103,6 +140,8 @@ set -e
 set -o pipefail
 
 adduser --system --no-create-home --home /nonexistent --shell /bin/false "${projectName}"
+
+${postinst_cmd}
 
 start_service () {
   if hash systemctl 2> /dev/null; then
@@ -195,11 +234,12 @@ if [ -d debian/etc ]; then
   cat debian/DEBIAN/conffiles
 fi
 
-# Prepare the final project directory
-mkdir -p "debian/opt/${projectName}"
-
-# Copy the projects files to the final project directory
-cp -a "${projectDir}/." "debian/opt/${projectName}/"
+if [ -n "$projectDir" ]; then
+  # Prepare the final project directory
+  mkdir -p "debian/opt/${projectName}"
+  # Copy the projects files to the final project directory
+  cp -a "${projectDir}/." "debian/opt/${projectName}/"
+fi
 
 # Ensure that all directories are using 0755
 find debian -type d -print0 | xargs -0 chmod 755

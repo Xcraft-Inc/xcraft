@@ -21,6 +21,9 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
     xcraft+utils-darwin:
       - version: ''
         architecture:
@@ -74,7 +77,7 @@ data:
     env:
       CFLAGS: <PEON.ENV.CFLAGS> -Os
       darwin/SDKROOT: <PEON.ENV.MACOSSDK_1013>
-      darwin/MACOSX_DEPLOYMENT_TARGET: '10.10'
+      darwin/MACOSX_DEPLOYMENT_TARGET: '10.13'
       win/LDFLAGS: '<PEON.ENV.LDFLAGS> -Wl,-Bstatic'
       win/LIBXML2_CFLAGS: '-I<PEON.PROD.ROOTDIR>/usr/include'
       win/LIBXML2_LIBS: '-L<PEON.PROD.ROOTDIR>/usr/lib -lxml2'

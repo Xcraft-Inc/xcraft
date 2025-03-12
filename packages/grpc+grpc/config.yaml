@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: grpc+grpc
-version: 1.53.0
-$version: 1.53.0
+version: 1.59.1
+$version: 1.59.1
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -14,7 +14,7 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib:
+    adler+zlib-dev:
       - version: ''
         architecture: []
     google+re2:
@@ -45,10 +45,11 @@ data:
     uri: 'https://github.com/grpc/grpc/archive/refs/tags/v<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 9717ffc52120861136e478155c2ff3a9c21740e2244de52fa966f376d7471adf.tar.gz
+    $hash: 916f88a34f06b56432611aaa8c55befee96d0a7b7d7457733b9deeacbc016f99.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
@@ -71,6 +72,7 @@ data:
                -DgRPC_SSL_PROVIDER=package
                -DgRPC_CARES_PROVIDER=package
                -DgRPC_RE2_PROVIDER=package
+               -DCMAKE_CXX_STANDARD=17
                -DCMAKE_PREFIX_PATH=<PEON.ROOTDIR>/usr
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
                -DCMAKE_BUILD_TYPE=Release ..

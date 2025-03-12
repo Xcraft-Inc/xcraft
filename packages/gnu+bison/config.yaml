@@ -32,6 +32,7 @@ data:
     uri: 'http://ftpmirror.gnu.org/bison/bison-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

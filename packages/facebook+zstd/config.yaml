@@ -3,7 +3,7 @@ subpackage:
 name: facebook+zstd
 version: 1.5.4
 $version: 1.5.4
-distribution: monolith/
+distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
@@ -18,15 +18,26 @@ description:
     It's backed by a very fast entropy stage, provided by Huff0 and FSE library.
 dependency:
   build:
-    xcraft+base-build:
+    gnu+make:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+          - darwin-i386
+          - darwin-amd64
+          - darwin-aarch64
+          - solaris-i386
+          - solaris-amd64
+          - freebsd-i386
+          - freebsd-amd64
 bump: []
 data:
   get:
     uri: 'https://github.com/facebook/zstd/releases/download/v<THIS.$VERSION>/zstd-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
@@ -41,7 +52,7 @@ data:
       prerm: ''
       makeall: '-j<PEON.CPUS.COUNT> zstd-release HAVE_ZLIB=false HAVE_LZMA=false HAVE_LZ4=false'
       maketest: ''
-      makeinstall: '-C programs install PREFIX=<PEON.PREFIXDIR>'
+      makeinstall: '<PEON.OS=win?-C programs:> install PREFIX=<PEON.PREFIXDIR>'
     test: none
     env:
       CFLAGS: <PEON.ENV.CFLAGS> -Os

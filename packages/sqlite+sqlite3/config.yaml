@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: sqlite+sqlite3
-version: 3.37.2-8
-$version: 3.37.2
+version: 3.45.0
+$version: 3.45.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -27,12 +27,12 @@ dependency:
         architecture: []
 data:
   get:
-    uri: 'https://sqlite.org/2022/sqlite-autoconf-3370200.tar.gz'
+    uri: 'https://sqlite.org/2024/sqlite-autoconf-3450000.tar.gz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 4089a8d9b467537b3f246f217b84cd76e00b1d1a971fe5aca1e30e230e46b2d8.tar.gz
+    $hash: 72887d57a1d8f89f52be38ef84a6353ce8c3ed55ada7864eb944abd9a495e436.tar.gz
   type: src
   configure: |-
     !{bash}
@@ -44,7 +44,7 @@ data:
                      --disable-editline
   rules:
     type: make
-    location: data/sqlite-autoconf-3370200
+    location: data/sqlite-autoconf-3450000
     args:
       postinst: ''
       prerm: ''

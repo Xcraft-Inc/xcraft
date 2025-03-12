@@ -1,0 +1,39 @@
+name: oracle+jdk8-win
+version: 8u411
+$version: 8u411
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - mswindows-amd64
+description:
+  brief: Oracle JDK 8
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: ''
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    rm('data/jdk1.8.0_411/src.zip');
+    mv('data/jdk1.8.0_411', 'root/opt/oraclejdk8');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other:
+      JAVA_HOME_ORACLE_8: <OS.ROOTDIR>/opt/oraclejdk8
+  embedded: true

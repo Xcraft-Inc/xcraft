@@ -1,15 +1,20 @@
 #!/bin/bash
 
+COMMAND="$(dirname "$0")/../../bin/gcc"
+if ! command -v "$COMMAND" >/dev/null; then
+    COMMAND="gcc"
+fi
+
+if ! command -v ccache >/dev/null; then
+    "$COMMAND" "$@"
+    exit
+fi
+
 if [ -n "${PEON_SHARE}" ]; then
     CCACHE_BASEDIR=${PEON_SHARE}
 else
     CCACHE_BASEDIR=${XCRAFT_DEVROOT}
 fi
 export CCACHE_BASEDIR
-
-COMMAND="$(dirname "$0")/../../bin/gcc"
-if ! command -v "$COMMAND" >/dev/null; then
-    COMMAND="gcc"
-fi
 
 ccache "$COMMAND" "$@"

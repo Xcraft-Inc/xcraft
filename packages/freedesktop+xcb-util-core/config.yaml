@@ -17,9 +17,13 @@ dependency:
     freedesktop+libxcb:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
     freedesktop+xcb-proto:
       - version: ''
         architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''

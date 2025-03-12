@@ -17,11 +17,13 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://github.com/NixOS/patchelf/releases/download/<THIS.$VERSION>/patchelf-<THIS.$VERSION>.tar.bz2'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''

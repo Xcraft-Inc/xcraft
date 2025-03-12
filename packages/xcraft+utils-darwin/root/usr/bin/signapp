@@ -2,7 +2,7 @@
 
 if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
   echo "usage: signapp <app> <id> <entitlements> <signAppId>"
-  echo "               [acUsername] [acPassword] [acProvider]"
+  echo "               [acUsername] [acPassword] [acTeamId] [zip=y]"
   exit 0
 fi
 
@@ -12,14 +12,15 @@ entitlements="$3"
 signAppId="$4"
 acUsername="$5"
 acPassword="$6"
-acProvider="$7"
+acTeamId="$7"
+zip="$8"
 
 if [ -z "${app}" ];          then >&2 echo "The app path is missing"; exit 1; fi
 if [ -z "${id}" ];           then >&2 echo "The app ID is missing"; exit 1; fi
 if [ -z "${entitlements}" ]; then >&2 echo "The entitlements path is missing"; exit 1; fi
 if [ -z "${signAppId}" ];    then >&2 echo "The developer ID application is missing"; exit 1; fi
 
-shift 6
+shift 8
 
 set -x
 case "$signAppId" in
@@ -75,37 +76,21 @@ inflate()
 notarize()
 {
   local app="$1"
-  local id="$2"
-  local username="$3"
-  local password="$4"
-  local provider="$5"
-  local uuid
-  local status
+  local username="$2"
+  local password="$3"
+  local team_id="$4"
 
-  uuid="$(xcrun altool --notarize-app \
-                       --primary-bundle "$id" \
-                       --username "$username" \
-                       --password "$password" \
-                       --asc-provider "$provider" \
-                       --file "$app.zip" | grep RequestUUID | cut -d= -f2 | sed 's,^[ \t]*,,')"
-  echo "RequestUUID: $uuid for $app"
-  if [ -n "$uuid" ]; then
-    while [ "$status" = "in progress" ] || [ -z "$status" ]; do
-      status=$(xcrun altool --notarization-info "$uuid" \
-                            --username "$username" \
-                            --password "$password" | grep "Status:" | cut -d: -f2 | sed 's,^[ \t]*,,')
-      if [ "$status" = "invalid" ]; then
-        echo "The app is invalid" >&2
-        return 1
-      fi
-      echo "Wait for status"
-      sleep 10
-    done
-  else \
-    echo "No UUID returned for the notarization" >&2
-    rm -f "$app.zip"
+  if ! xcrun notarytool submit "$app.zip" \
+    --team-id "$team_id" \
+    --apple-id "$username" \
+    --password "$password" \
+    --progress \
+    --wait \
+    --timeout 15m
+  then
     return 1
   fi
+
   rm -f "$app.zip"
   return 0
 }
@@ -135,7 +120,7 @@ fi
 
 # Notarize the app
 echo "Notarize $app"
-if ! notarize "$app" "$id" "$acUsername" "$acPassword" "$acProvider"; then
+if ! notarize "$app" "$acUsername" "$acPassword" "$acTeamId"; then
   >&2 echo "Notarization of app $app has failed"
   exit 4
 fi
@@ -145,6 +130,16 @@ echo "Staple ticket into $app"
 if ! staple "$app"; then
   >&2 echo "Staple of the ticket into $app has failed"
   exit 5
+fi
+
+if [ "$zip" = "y" ]; then
+  echo "Generate the final zip file for $app"
+  echo "Inflate $app"
+  if ! inflate "$app"; then
+    >&2 echo "Inflate of app $app has failed"
+    exit 6
+  fi
+  rm -rf "$app"
 fi
 
 echo "App done"

@@ -1,0 +1,38 @@
+name: apple+macos-sdk-1201
+version: '12.01'
+$version: '12.01'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - darwin-i386
+  - darwin-amd64
+description:
+  brief: macOS SDK 1201 (Monterey)
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/N8mTrAZiW3Z34LX/download'
+    ref: ''
+    out: MacOSX1201.sdk.zip
+    externals: true
+    $hash: f0afded1e3347cbda9147fd7bd5b7dee7699a42c49ff83544d440359123f79b9.zip
+  type: bin
+  configure: ''
+  rules:
+    type: configure
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other:
+      MACOSSDK_1201: <OS.ROOTDIR>/usr/share/apple/macos-sdk-1201/cache/data/MacOSX12.1.sdk
+  embedded: true

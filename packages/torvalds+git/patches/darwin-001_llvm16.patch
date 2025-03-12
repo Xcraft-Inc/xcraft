@@ -1,0 +1,10 @@
+--- a/config.mak.uname	2023-11-02 08:59:16
++++ b/config.mak.uname	2023-11-16 14:10:09
+@@ -147,7 +147,6 @@
+ 	FREAD_READS_DIRECTORIES = UnfortunatelyYes
+ 	HAVE_NS_GET_EXECUTABLE_PATH = YesPlease
+ 	CSPRNG_METHOD = arc4random
+-	USE_ENHANCED_BASIC_REGULAR_EXPRESSIONS = YesPlease
+ 
+ 	# Workaround for `gettext` being keg-only and not even being linked via
+ 	# `brew link --force gettext`, should be obsolete as of

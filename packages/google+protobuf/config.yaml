@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: google+protobuf
-version: '21.12'
-$version: '21.12'
+version: '24.4'
+$version: '24.4'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -30,13 +30,14 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-all-<THIS.$VERSION>.tar.gz'
+    uri: 'https://github.com/protocolbuffers/protobuf/releases/download/v<THIS.$VERSION>/protobuf-<THIS.$VERSION>.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 2c6a36c7b5a55accae063667ef3c55f2642e67476d96d355ff0acb13dbb47f09.tar.gz
+    $hash: 616bb3536ac1fff3fb1a141450fa28b875e985712170ea7f1bfe5e5fc41e2cd8.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>

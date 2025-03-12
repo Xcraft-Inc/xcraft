@@ -1,0 +1,68 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxinerama
+version: 1.1.5
+$version: 1.1.5
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xinerama
+  long: ''
+dependency:
+  install:
+    xorg+libx11:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    xorg+libxext:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xorg.freedesktop.org/releases/individual/lib/libXinerama-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: 2efa855cb42dc620eff3b77700d8655695e09aaa318f791f201fa60afa72b95c.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --without-lint
+  rules:
+    type: make
+    location: data/libXinerama-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: xorg+libxext
-version: 1.3.3
-$version: 1.3.3
+version: 1.3.5
+$version: 1.3.5
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -10,7 +10,7 @@ maintainer:
 architecture:
   - source
 description:
-  brief: lib Xext
+  brief: Xext
   long: ''
 dependency:
   install:
@@ -24,27 +24,37 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    freedesktop+libxcb:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
   build:
     xcraft+base-build:
       - version: ''
         architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
 data:
   get:
-    uri: 'https://www.x.org/releases/individual/lib/libXext-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://www.x.org/releases/individual/lib/libXext-<THIS.$VERSION>.tar.gz'
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: b518d4d332231f313371fdefac59e3776f4f0823bcb23cf7c7305bfb57b16e35.tar.bz2
+    $hash: 1a3dcda154f803be0285b46c9338515804b874b5ccc7a2b769ab7fd76f1035bd.tar.gz
   type: src
   configure: |-
-    !cd <THIS.DATA.RULES.LOCATION> ;
-    ./configure --prefix=<PEON.PREFIXDIR>
-                --without-xmlto
-                --without-xsltproc
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --without-fop
+                     --without-xsltproc
+                     --without-lint
   rules:
     type: make
-    location: data/libXext-<THIS.$VERSION>/
+    location: data/libXext-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''

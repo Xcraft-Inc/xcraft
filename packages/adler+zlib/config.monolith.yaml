@@ -4,7 +4,7 @@ data:
     cd <THIS.DATA.RULES.LOCATION> &&
     <PEON.OS=darwin?
       SDKROOT="$MACOSSDK_1013"
-      MACOSX_DEPLOYMENT_TARGET=10.10
+      MACOSX_DEPLOYMENT_TARGET=10.13
     :> ./configure --prefix=<PEON.PREFIXDIR>
                    --libdir=<PEON.PREFIXDIR.DEV>/lib
                    --includedir=<PEON.PREFIXDIR.DEV>/include
@@ -14,7 +14,7 @@ data:
       makeall: |-
         !<PEON.OS=darwin?
           SDKROOT="$MACOSSDK_1013"
-          MACOSX_DEPLOYMENT_TARGET=10.10
+          MACOSX_DEPLOYMENT_TARGET=10.13
         :> make <PEON.OS=win? -f win32/Makefile.gcc : -j{PEON.CPUS.COUNT}>
       makeinstall: |-
         !make BINARY_PATH=<PEON.PREFIXDIR>/bin

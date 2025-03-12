@@ -17,24 +17,6 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    llvm+cmake:
-      - version: '= 16.0.6'
-        architecture: []
-    llvm+third-party:
-      - version: '= 16.0.6'
-        architecture: []
-    llvm+clang:
-      - version: '= 16.0.6'
-        architecture: []
-    llvm+polly:
-      - version: '= 16.0.6'
-        architecture: []
-    llvm+libcxx:
-      - version: '= 16.0.6'
-        architecture: []
-    llvm+libcxxabi:
-      - version: '= 16.0.6'
-        architecture: []
     samba+ccache-gcc:
       - version: ''
         architecture:
@@ -54,13 +36,13 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-<THIS.$VERSION>.src.tar.xz'
+    uri: 'https://github.com/llvm/llvm-project/releases/download/llvmorg-<THIS.$VERSION>/llvm-project-<THIS.$VERSION>.src.tar.xz'
     mirrors: []
     ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: e91db44d1b3bb1c33fcea9a7d1f2423b883eaa9163d3d56ca2aa6d2f0711bc29.tar.xz
+    $hash: ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e.tar.xz
   type: src
   configure: |-
     !mkdir -p "<PEON.PREFIXDIR>/bin"
@@ -69,21 +51,18 @@ data:
       && ln -s clang++ "<PEON.PREFIXDIR>/bin/g++"
       && ln -s clang++ "<PEON.PREFIXDIR>/bin/c++"
       && cd <THIS.DATA.RULES.LOCATION>
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/cmake/cache/data/cmake-<THIS.$VERSION>.src ../cmake
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/third-party/cache/data/third-party-<THIS.$VERSION>.src ../third-party
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/clang/cache/data/clang-<THIS.$VERSION>.src tools/clang
-      && ln -sf <PEON.ROOTDIR>/usr/share/llvm/polly/cache/data/polly-<THIS.$VERSION>.src tools/polly
-      && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxx/cache/data/libcxx-<THIS.$VERSION>.src projects/libcxx
-      && cp -a <PEON.ROOTDIR>/usr/share/llvm/libcxxabi/cache/data/libcxxabi-<THIS.$VERSION>.src projects/libcxxabi
-      && mkdir -p BUILD
-      && cd BUILD
+      && mkdir -p ./BUILD
+      && cd ./BUILD
       && cmake -G "Unix Makefiles"
                -DCMAKE_INSTALL_PREFIX=<PEON.PREFIXDIR>
+               -DLLVM_ENABLE_PROJECTS='clang;clang-tools-extra;compiler-rt;lld;openmp;polly;pstl'
+               -DLLVM_ENABLE_RUNTIMES='libunwind;libcxxabi;libcxx'
+               -DLLVM_TARGETS_TO_BUILD='X86;AArch64'
                -DLLVM_CCACHE_BUILD=ON
-               -DCMAKE_BUILD_TYPE=Release ..
+               -DCMAKE_BUILD_TYPE=Release ../llvm
   rules:
     type: make
-    location: data/llvm-<THIS.$VERSION>.src/
+    location: data/llvm-project-<THIS.$VERSION>.src/
     args:
       postinst: ''
       prerm: ''

@@ -3,6 +3,7 @@
 /etc/xcraft
 /etc/xcraft-contrib*
 /etc/xcraft-core*
+/packages/*/.*.yaml
 /node_modules
 npm-debug.log
 .directory

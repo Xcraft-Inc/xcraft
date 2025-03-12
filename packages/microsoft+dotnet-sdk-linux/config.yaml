@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-linux
-version: 11.0.0-1
-$version: 11.0.0
+version: 23.0.0
+$version: 23.0.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - linux-amd64
 description:
-  brief: .NET Core SDK 6.0 and 7.0
+  brief: .NET Core SDK 6.0, 8.0
   long: ''
 dependency:
   install:
@@ -26,16 +26,23 @@ dependency:
       - version: ''
         architecture:
           - linux-amd64
-    microsoft+dotnet-sdk-70-linux:
+    microsoft+dotnet-sdk-80-linux:
       - version: ''
         architecture:
           - linux-amd64
+    microsoft+dotnet-sdk-90-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+bump: []
 data:
   get:
     uri: ''
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
-    externals: true
+    externals: false
   type: bin
   configure: |-
     mkdir('root/opt/dotnet-sdk/bin');
@@ -46,13 +53,15 @@ data:
     );
     yield exec('chmod', 'a+x', 'root/opt/dotnet-sdk/bin/dotnet');
     cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-60-linux/cache/data', 'root/opt/dotnet-sdk');
-    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-70-linux/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-80-linux/cache/data', 'root/opt/dotnet-sdk');
+    cp('<PEON.ROOTDIR>/usr/share/microsoft/dotnet-sdk-90-linux/cache/data', 'root/opt/dotnet-sdk');
   rules:
     type: move
     location: root
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path:
       - opt/dotnet-sdk/bin

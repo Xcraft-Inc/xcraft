@@ -1,0 +1,72 @@
+subpackage:
+  - runtime*
+name: freedesktop+libxfixes
+version: 6.0.1
+$version: 6.0.1
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Xfixes
+  long: ''
+dependency:
+  install:
+    xorg+xproto:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    xorg+libx11:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+    xorg+libxext:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://xorg.freedesktop.org/releases/individual/lib/libXfixes-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+    $hash: e69eaa321173c748ba6e2f15c7cf8da87f911d3ea1b6af4b547974aef6366bec.tar.gz
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+  rules:
+    type: make
+    location: data/libXfixes-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

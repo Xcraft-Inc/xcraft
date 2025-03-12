@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: xorg+xproto
-version: '2019.2'
-$version: '2019.2'
+version: '2023.2'
+$version: '2023.2'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -17,13 +17,17 @@ dependency:
     xcraft+base-build:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://www.x.org/archive/individual/proto/xorgproto-<THIS.$VERSION>.tar.bz2'
+    uri: 'https://www.x.org/archive/individual/proto/xorgproto-<THIS.$VERSION>.tar.gz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: 46ecd0156c561d41e8aa87ce79340910cdf38373b759e737fcbba5df508e7b8e.tar.bz2
+    prepare: ''
+    $hash: c791aad9b5847781175388ebe2de85cb5f024f8dabf526d5d699c4f942660cc3.tar.gz
   type: src
   configure: '!cd <THIS.DATA.RULES.LOCATION> && ./configure --prefix=<PEON.PREFIXDIR> --disable-specs --without-fop --without-xmlto --without-xsltproc'
   rules:
@@ -36,6 +40,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
+    env: {}
   deploy: ''
   env:
     path: []

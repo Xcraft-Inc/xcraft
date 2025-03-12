@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+gmp
-version: 6.2.1-5
-$version: 6.2.1
+version: 6.3.0
+$version: 6.3.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -36,16 +36,18 @@ dependency:
     lzmautils+xz:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://gmplib.org/download/gmp/gmp-<THIS.$VERSION>.tar.xz'
     mirrors:
       - 'https://ftp.gnu.org/gnu/gmp/gmp-<THIS.$VERSION>.tar.xz'
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2.tar.xz
+    $hash: a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898.tar.xz
   type: src
   configure: |-
     !{bash}
