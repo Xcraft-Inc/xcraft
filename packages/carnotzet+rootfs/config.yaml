@@ -29,11 +29,6 @@ dependency:
         architecture: []
         subpackage:
           - runtime
-    rethinkdb+rethinkdb:
-      - version: ''
-        architecture: []
-        subpackage:
-          - runtime
   build:
     xcraft+peon:
       - version: ''
@@ -47,7 +42,7 @@ data:
     ref: ''
     out: ''
     externals: false
-    prepare: 'cp(''.'', ''<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data'');'
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data');"
   type: src
   configure: ''
   rules:
@@ -58,7 +53,7 @@ data:
       prerm: ''
       makeall: ''
       maketest: ''
-      makeinstall: 'cp(''.'', ''<PEON.INSTALLDIR>'');'
+      makeinstall: "cp('.', '<PEON.INSTALLDIR>');"
     test: none
   deploy: ''
   env:
