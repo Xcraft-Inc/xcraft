@@ -49,7 +49,7 @@ data:
       maketest: ''
       makeinstall: install
     test: none
-  deploy: ''
+  deploy: rm('<PEON.PREFIXDIR>/share/info/dir');
   env:
     path: []
     other: {}

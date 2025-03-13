@@ -7,4 +7,4 @@ data:
                      --static
   rules:
     env:
-      CC: aarch64-linux-gcc
+      CC: aarch64-xcraft-linux-gnu-gcc

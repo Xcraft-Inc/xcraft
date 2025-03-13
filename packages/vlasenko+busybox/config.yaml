@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: vlasenko+busybox
-version: 1.32.0-7
-$version: 1.32.0
+version: 1.37.0
+$version: 1.37.0
 distribution: carnotzet/
 maintainer:
   name: Mathieu Schroeter
@@ -20,18 +20,20 @@ dependency:
     x-aarch64-linux+gnu-gcc-glibc-cross:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://www.busybox.net/downloads/busybox-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: c35d87f1d04b2b153d33c275c2632e40d388a88f19a9e71727e0bbbff51fe689.tar.bz2
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
+      && make CFLAGS=-D_XOPEN_SOURCE ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- defconfig
       && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
       && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
   rules:
@@ -40,10 +42,11 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- -j<PEON.CPUS.COUNT>
+      makeall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- -j<PEON.CPUS.COUNT>
       maketest: ''
-      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-linux- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
+      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
     test: none
+    env: {}
   deploy: rm("<PEON.INSTALLDIR>/var/aarch64-linux/rootfs/linuxrc");
   env:
     path: []

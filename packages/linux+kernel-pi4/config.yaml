@@ -38,7 +38,7 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- bcm2711_defconfig
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- bcm2711_defconfig
       && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/ext4"
       && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/overlays"
   rules:
@@ -49,13 +49,13 @@ data:
       prerm: ''
       makeall: |-
         !make ARCH=arm64
-              CROSS_COMPILE=aarch64-linux-
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
               -j<PEON.CPUS.COUNT>
           Image modules dtbs
       maketest: ''
       makeinstall: |-
         !make ARCH=arm64
-              CROSS_COMPILE=aarch64-linux-
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
               INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/mnt/ext4"
             modules_install
           && cp -a arch/arm64/boot/Image               "<PEON.INSTALLDIR>/var/aarch64-linux/mnt/fat32/$KERNEL.img"

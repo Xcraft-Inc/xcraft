@@ -5,7 +5,7 @@ data:
          ./Configure linux-aarch64
                      shared
                      --prefix=<PEON.PREFIXDIR>
-                     --cross-compile-prefix=aarch64-linux-
+                     --cross-compile-prefix=aarch64-xcraft-linux-gnu-
   rules:
     args:
       makeall: |-

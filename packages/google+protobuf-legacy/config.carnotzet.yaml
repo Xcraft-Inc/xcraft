@@ -2,11 +2,11 @@ data:
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
       && ./configure --prefix=<PEON.PREFIXDIR>
-                     --host=aarch64-linux
+                     --host=aarch64-xcraft-linux-gnu
                      --build=$MACHTYPE
                      --enable-static
                      --disable-shared
   rules:
     env:
-      CC: aarch64-linux-gcc
-      CXX: aarch64-linux-g++
+      CC: aarch64-xcraft-linux-gnu-gcc
+      CXX: aarch64-xcraft-linux-gnu-g++

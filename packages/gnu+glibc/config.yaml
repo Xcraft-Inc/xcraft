@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+glibc
-version: '2.33'
-$version: '2.33'
+version: '2.38'
+$version: '2.38'
 distribution: carnotzet/
 maintainer:
   name: Mathieu Schroeter
@@ -24,22 +24,24 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: 2e2556000e105dbd57f0b6b2a32ff2cf173bde4f0d85dffccfd8b7e51a0677ff.tar.xz
   type: src
   configure: |-
     !mkdir -p <THIS.DATA.RULES.LOCATION>
       && cd <THIS.DATA.RULES.LOCATION>
       && ../configure --prefix=/usr
                       --build=$MACHTYPE
-                      --host=aarch64-linux
-                      --target=aarch64-linux
+                      --host=aarch64-xcraft-linux-gnu
+                      --target=aarch64-xcraft-linux-gnu
                       --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
                       --disable-multilib
                       --disable-werror

@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: linux+kernel
-version: 5.8.13-1
-$version: 5.8.13
+version: 5.10.234
+$version: 5.10.234
 distribution: carnotzet/
 maintainer:
   name: Mathieu Schroeter
@@ -33,20 +33,22 @@ dependency:
     xcraft+base-make:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
     uri: 'https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-<THIS.$VERSION>.tar.xz'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
     prepare: ''
-    $hash: f25936177edd183dd0645dce1d81873bcfc0bab1ff1586df75d95cd12723320d.tar.xz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
-      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- defconfig
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- defconfig
       && sed -i 's,^CONFIG_INITRAMFS_SOURCE="",CONFIG_INITRAMFS_SOURCE="<PEON.PROD.ROOTDIR>/var/aarch64-linux/rootfs <PEON.PROD.ROOTDIR>/var/aarch64-linux/root-files"\nCONFIG_INITRAMFS_COMPRESSION_GZIP=y,' .config
-      && make ARCH=arm64 CROSS_COMPILE=aarch64-linux- olddefconfig
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- olddefconfig
       && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
   rules:
     type: script
@@ -56,12 +58,12 @@ data:
       prerm: ''
       makeall: |-
         !make ARCH=arm64
-              CROSS_COMPILE=aarch64-linux-
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
               -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
         !: /// disable module installation /// make ARCH=arm64
-              CROSS_COMPILE=aarch64-linux-
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
               INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
             modules_install
           && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
