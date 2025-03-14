@@ -22,5 +22,3 @@ data:
               INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
             modules_install
           && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
-  get:
-    $hash: 9597c4fee2f1ce452acfec516f4325ad342155872052fd5f0d9ce2ddcc26ebe5.tar.xz

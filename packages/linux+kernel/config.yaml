@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: linux+kernel
-version: 5.10.234
+version: 5.10.234-3
 $version: 5.10.234
 distribution: carnotzet/
 maintainer:
