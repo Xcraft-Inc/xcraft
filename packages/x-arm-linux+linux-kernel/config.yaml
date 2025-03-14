@@ -1,0 +1,39 @@
+name: x-arm-linux+linux-kernel
+version: 6.4.10
+$version: 6.4.10
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: The Linux Kernel
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-<THIS.$VERSION>.tar.xz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv('data/linux-<THIS.$VERSION>', 'root/var/x-arm-linux/linux');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
