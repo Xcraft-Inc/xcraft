@@ -403,6 +403,17 @@ class Action {
       .map((entry) => entry.substring(34));
   }
 
+  _listFromSymlinks(symlinksFile) {
+    return fs.existsSync(symlinksFile)
+      ? fs
+          .readFileSync(symlinksFile)
+          .toString()
+          .split('\n')
+          .filter((entry) => entry.trim().length)
+          .map((entry) => entry.split('->')[0].trim())
+      : [];
+  }
+
   /* See https://github.com/blinkdog/debian-control */
   _controlParser(controlFile) {
     return fs
@@ -424,13 +435,21 @@ class Action {
       this._pkg.name,
       'md5sums'
     );
+    const symlinksFile = path.join(
+      this._root,
+      'var/lib/wpkg',
+      this._pkg.name,
+      'symlinks'
+    );
 
     if (this._global) {
       const regexReplace = (newFile, regex, pattern) =>
         regex.test(newFile) ? newFile.replace(regex, pattern) : newFile;
 
       /* Restore the original filenames. */
-      const list = this._listFromMD5Sums(md5sumsFile);
+      const listMD5 = this._listFromMD5Sums(md5sumsFile);
+      const listSym = this._listFromSymlinks(symlinksFile);
+      const list = listMD5.concat(listSym);
 
       /* No move here because the files are handled by wpkg. */
       list.forEach((file) => {
