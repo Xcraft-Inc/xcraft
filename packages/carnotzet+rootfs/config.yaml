@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
 name: carnotzet+rootfs
-version: 0.1.0-13
+version: 0.1.0-23
 $version: 0.1.0
 distribution: carnotzet/
 maintainer:
@@ -33,7 +33,7 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
-    x-aarch64-linux+gnu-gcc-glibc-cross:
+    xcraft+build-essential:
       - version: ''
         architecture: []
 data:
@@ -42,7 +42,7 @@ data:
     ref: ''
     out: ''
     externals: false
-    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data');"
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data/var/linux');"
   type: src
   configure: ''
   rules:
@@ -53,7 +53,7 @@ data:
       prerm: ''
       makeall: ''
       maketest: ''
-      makeinstall: "cp('.', '<PEON.INSTALLDIR>');"
+      makeinstall: "cp('<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data', '<PEON.INSTALLDIR>');"
     test: none
   deploy: ''
   env:

@@ -1,0 +1,8 @@
+dependency:
+  build:
+    x-arm-linux+gnueabi-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  get:
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data/var/arm-linux');"

@@ -1,0 +1,20 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && cd <THIS.DATA.RULES.LOCATION>
+      && ../configure --prefix=/usr
+                      --build=$MACHTYPE
+                      --host=aarch64-xcraft-linux-gnu
+                      --target=aarch64-xcraft-linux-gnu
+                      --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
+                      --disable-multilib
+                      --disable-werror
+                      --enable-kernel=3.2
+  rules:
+    args:
+      makeinstall: '!make install DESTDIR=<PEON.INSTALLDIR>/var/aarch64-linux/rootfs'

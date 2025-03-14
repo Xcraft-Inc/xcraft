@@ -1,0 +1,8 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  get:
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data/var/aarch64-linux');"

@@ -1,0 +1,26 @@
+dependency:
+  build:
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- defconfig
+      && sed -i 's,^CONFIG_INITRAMFS_SOURCE="",CONFIG_INITRAMFS_SOURCE="<PEON.PROD.ROOTDIR>/var/aarch64-linux/rootfs <PEON.PROD.ROOTDIR>/var/aarch64-linux/root-files"\nCONFIG_INITRAMFS_COMPRESSION_GZIP=y,' .config
+      && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- olddefconfig
+      && mkdir -p "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
+  rules:
+    args:
+      makeall: |-
+        !make ARCH=arm64
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
+              -j<PEON.CPUS.COUNT>
+      makeinstall: |-
+        !: /// disable module installation /// make ARCH=arm64
+              CROSS_COMPILE=aarch64-xcraft-linux-gnu-
+              INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/aarch64-linux/rootfs"
+            modules_install
+          && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR>/var/aarch64-linux/kernel"
+  get:
+    $hash: 9597c4fee2f1ce452acfec516f4325ad342155872052fd5f0d9ce2ddcc26ebe5.tar.xz

@@ -1,0 +1,20 @@
+dependency:
+  build:
+    x-arm-linux+gnueabi-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && cd <THIS.DATA.RULES.LOCATION>
+      && ../configure --prefix=/usr
+                      --build=$MACHTYPE
+                      --host=arm-xcraft-linux-gnueabi
+                      --target=arm-xcraft-linux-gnueabi
+                      --with-sysroot="<PEON.ROOTDIR>/usr/arm-linux"
+                      --disable-multilib
+                      --disable-werror
+                      --enable-kernel=3.2
+  rules:
+    args:
+      makeinstall: '!make install DESTDIR=<PEON.INSTALLDIR>/var/arm-linux/rootfs'

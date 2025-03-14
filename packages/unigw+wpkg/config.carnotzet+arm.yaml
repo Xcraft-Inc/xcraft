@@ -1,0 +1,23 @@
+dependency:
+  build:
+    x-arm-linux+gnueabi-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cd <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cmake ..
+      && make
+      && cd -
+      && cd <THIS.DATA.RULES.LOCATION>
+      && cmake -G "Unix Makefiles"
+              -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-arm-linux.cmake
+              ..
+      && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
+  rules:
+    args:
+      makeinstall: 'cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/arm-linux/rootfs/usr/bin/wpkg_static");'
+  get:
+    $hash: 5ef195a55a0f1a8056ec3f1cbf917fcb65fb042b5c9839369068492d35d25203.tar.gz
