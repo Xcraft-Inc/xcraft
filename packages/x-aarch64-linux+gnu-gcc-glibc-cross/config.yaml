@@ -121,14 +121,16 @@ data:
                         --target=aarch64-xcraft-linux-gnu
                         --disable-multilib
                         --disable-nls
+                        --disable-bootstrap
+                        --disable-gprofng
                         --with-sysroot=/aarch64-xcraft-linux-gnu
                         --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-gmp=<PEON.ROOTDIR>/usr
                         --with-mpfr=<PEON.ROOTDIR>/usr
                         --with-mpc=<PEON.ROOTDIR>/usr
                         --with-isl=<PEON.ROOTDIR>/usr
-          && make -j<PEON.CPUS.COUNT>
-          && make install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && make MAKEINFO=true -j<PEON.CPUS.COUNT>
+          && make MAKEINFO=true install-strip DESTDIR="<PEON.PREFIXDIR>"
           && cd ..
 
         && : /// gcc - stage 0 ///
@@ -141,6 +143,8 @@ data:
                         --disable-nls
                         --disable-bootstrap
                         --disable-libsanitizer
+                        --enable-version-specific-runtime-libs
+                        --with-glibc-version=2.38
                         --with-sysroot=/aarch64-xcraft-linux-gnu
                         --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-gmp=<PEON.ROOTDIR>/usr
@@ -163,6 +167,7 @@ data:
                         --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-headers="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/include"
                         --with-lib="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu/usr/lib"
+                        --without-selinux
                         --disable-multilib
                         --disable-werror
                         --enable-kernel=3.2
@@ -213,11 +218,7 @@ data:
     rm('<PEON.PREFIXDIR>/share/info');
     rm('<PEON.PREFIXDIR>/share/man/man7');
     rm('<PEON.PREFIXDIR>/share/gcc-13.3.0');
-
-    rm('<PEON.PREFIXDIR>/include');
-    rm('<PEON.PREFIXDIR>/lib/gprofng');
     rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
-
     mv('<PEON.PREFIXDIR>/lib64', '<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0');
     rm('<PEON.PREFIXDIR>/lib64');
 
