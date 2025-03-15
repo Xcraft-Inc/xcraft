@@ -143,6 +143,7 @@ data:
                         --disable-nls
                         --disable-bootstrap
                         --disable-libsanitizer
+                        --disable-plugin
                         --enable-version-specific-runtime-libs
                         --with-glibc-version=2.38
                         --with-sysroot=/arm-xcraft-linux-gnueabi
