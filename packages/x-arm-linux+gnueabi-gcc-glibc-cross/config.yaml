@@ -219,8 +219,6 @@ data:
     rm('<PEON.PREFIXDIR>/share/man/man7');
     rm('<PEON.PREFIXDIR>/share/gcc-13.3.0');
     rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
-    mv('<PEON.PREFIXDIR>/lib64', '<PEON.PREFIXDIR>/lib/gcc/arm-xcraft-linux-gnueabi/13.3.0');
-    rm('<PEON.PREFIXDIR>/lib64');
 
     mkdir('<PEON.PREFIXDIR>/local/bin');
     const exp =
