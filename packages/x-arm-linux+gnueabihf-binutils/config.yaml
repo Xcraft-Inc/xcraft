@@ -1,0 +1,35 @@
+name: x-arm-linux+gnueabihf-binutils
+version: '2.40'
+$version: '2.40'
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: GNU Bin Utils.
+  long: ''
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/binutils/binutils-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: "mv('data/binutils-<THIS.$VERSION>', 'root/var/x-arm-linux/binutils');"
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+  env:
+    path: []
+    other: {}
+  embedded: true

@@ -1,0 +1,50 @@
+name: x-arm-linux+gnueabihf-gcc
+version: 13.3.0
+$version: 13.3.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - all
+description:
+  brief: 'GCC, the GNU Compiler Collection.'
+  long: |-
+    The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+    Fortran, Java, Ada, and Go, as well as libraries for these languages
+    (libstdc++, libgcj,...).
+dependency:
+  install:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    mv('data/gcc-<THIS.$VERSION>', 'root/var/x-arm-linux/gcc');
+    sed('root/var/x-arm-linux/gcc/libsanitizer/asan/asan_linux.cpp',
+        /#include <unwind.h>/,
+        '#include <unwind.h>\n#ifndef PATH_MAX\n#define PATH_MAX 4096\n#endif\n');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true

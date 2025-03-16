@@ -1,0 +1,16 @@
+dependency:
+  build:
+    x-arm-linux+gnueabihf-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make CFLAGS=-D_XOPEN_SOURCE ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- defconfig
+      && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
+      && mkdir -p "<PEON.INSTALLDIR>/var/arm-linux/rootfs"
+  rules:
+    args:
+      makeall: ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT>
+      makeinstall: ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/arm-linux/rootfs"
+  deploy: rm("<PEON.INSTALLDIR>/var/arm-linux/rootfs/linuxrc");
