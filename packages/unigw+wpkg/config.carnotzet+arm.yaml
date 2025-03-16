@@ -19,5 +19,3 @@ data:
   rules:
     args:
       makeinstall: 'cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/arm-linux/rootfs/usr/bin/wpkg_static");'
-  get:
-    $hash: 5ef195a55a0f1a8056ec3f1cbf917fcb65fb042b5c9839369068492d35d25203.tar.gz
