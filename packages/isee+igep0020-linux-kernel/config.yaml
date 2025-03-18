@@ -1,0 +1,59 @@
+subpackage:
+  - runtime*
+name: isee+igep0020-linux-kernel
+version: '4.9'
+$version: '4.9'
+distribution: carnotzet+armhf/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Linux Kernel for IGEPv2
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/Xcraft-Inc/isee-linux-omap.git'
+    mirrors: []
+    ref: isee-linux-v.4.9.y
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: '!make -C <THIS.DATA.RULES.LOCATION> ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- omap3plus_defconfig'
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> zImage dtbs modules'
+      maketest: ''
+      makeinstall: |-
+        !mkdir -p <PEON.INSTALLDIR>/var/igep0020/linux
+          && cp -a arch/arm/boot/zImage <PEON.INSTALLDIR>/var/igep0020/linux
+          && cp -a arch/arm/boot/dts/omap3-igep0020-rev-f.dts <PEON.INSTALLDIR>/var/igep0020/linux
+          && make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/arm-linux/rootfs" modules_install
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
