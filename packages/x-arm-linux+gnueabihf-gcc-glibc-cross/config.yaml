@@ -123,6 +123,9 @@ data:
                         --disable-nls
                         --disable-bootstrap
                         --disable-gprofng
+                        --with-arch=armv6
+                        --with-fpu=vfp
+                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-gmp=<PEON.ROOTDIR>/usr
@@ -146,6 +149,9 @@ data:
                         --disable-plugin
                         --enable-version-specific-runtime-libs
                         --with-glibc-version=2.38
+                        --with-arch=armv6
+                        --with-fpu=vfp
+                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-gmp=<PEON.ROOTDIR>/usr
@@ -172,6 +178,9 @@ data:
                         --disable-multilib
                         --disable-werror
                         --enable-kernel=3.2
+                        --with-arch=armv6
+                        --with-fpu=vfp
+                        --with-float=hard
                         libc_cv_forced_unwind=yes
           && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib
