@@ -510,6 +510,9 @@ class Action {
           }
         }
       });
+
+      const extra = this._getExtra();
+      yield this._patchApply(extra);
       return;
     }
 
