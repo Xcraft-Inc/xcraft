@@ -1,0 +1,250 @@
+subpackage:
+  - runtime*
+name: x-arm-linux+gnueabihf-gcc5-glibc-cross
+version: 5.5.0
+$version: 5.5.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: ARM GCC/glibc cross-compiler
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    xcraft+utils:
+      - version: ''
+        architecture: []
+    estes+flex:
+      - version: ''
+        architecture: []
+    gnu+m4:
+      - version: ''
+        architecture: []
+    gnu+bison:
+      - version: ''
+        architecture: []
+    gnu+wget:
+      - version: ''
+        architecture: []
+    samba+ccache-gcc:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-arm
+    samba+ccache-clang:
+      - version: ''
+        architecture:
+          - darwin-i386
+          - darwin-amd64
+          - darwin-arm
+    wall+perl:
+      - version: ''
+        architecture: []
+    gnu+coreutils:
+      - version: ''
+        architecture: []
+    gnu+gmp:
+      - version: '>= 4.3.2'
+        architecture: []
+    gnu+mpfr:
+      - version: '>= 3.1.0'
+        architecture: []
+    gnu+mpc:
+      - version: '>= 1.0.1'
+        architecture: []
+    inria+isl:
+      - version: '>= 0.15'
+        architecture: []
+    gnu+gawk:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-binutils:
+      - version: ''
+        architecture: []
+    x-arm-linux+linux-kernel:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-gcc5:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-glibc5:
+      - version: ''
+        architecture: []
+    samba+rsync:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: false
+    prepare: ''
+  type: src
+  configure: |-
+    mkdir('data/binutils');
+    mkdir('data/gcc');
+    mkdir('data/glibc');
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !_CC="$CC" _CXX="$CXX"
+
+        && : /// linux - headers ///
+          && make -C "<PEON.ROOTDIR>/var/x-arm-linux/linux"
+                  ARCH=arm
+                  INSTALL_HDR_PATH="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr"
+                  headers_install
+          && mkdir -p "<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/lib"
+
+        && : /// binutils ///
+          && cd binutils
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-arm-linux/binutils/configure"
+          && $CONFIGURE --prefix=
+                        --target=arm-xcraft-linux-gnueabihf
+                        --disable-multilib
+                        --disable-nls
+                        --disable-bootstrap
+                        --disable-gprofng
+                        --with-sysroot=/arm-xcraft-linux-gnueabihf
+                        --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --without-isl
+          && make MAKEINFO=true -j<PEON.CPUS.COUNT>
+          && make MAKEINFO=true install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// gcc - stage 0 ///
+          && cd gcc
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-arm-linux/gcc5/configure"
+          && $CONFIGURE --prefix=
+                        --enable-languages=c,c++
+                        --target=arm-xcraft-linux-gnueabihf
+                        --disable-multilib
+                        --disable-nls
+                        --disable-bootstrap
+                        --disable-libsanitizer
+                        --disable-plugin
+                        --enable-version-specific-runtime-libs
+                        --with-glibc-version=2.24
+                        --with-sysroot=/arm-xcraft-linux-gnueabihf
+                        --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
+                        --with-gmp=<PEON.ROOTDIR>/usr
+                        --with-mpfr=<PEON.ROOTDIR>/usr
+                        --with-mpc=<PEON.ROOTDIR>/usr
+                        --without-isl
+          && make -j<PEON.CPUS.COUNT> all-gcc
+          && make install-strip-gcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// glibc - stage 0 ///
+          && cd glibc
+          && unset CC CXX
+          && CONFIGURE="<PEON.ROOTDIR>/var/x-arm-linux/glibc5/configure"
+          && $CONFIGURE --prefix=/usr
+                        --build=$MACHTYPE
+                        --host=arm-xcraft-linux-gnueabihf
+                        --target=arm-xcraft-linux-gnueabihf
+                        --with-sysroot=/arm-xcraft-linux-gnueabihf
+                        --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
+                        --with-headers="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/include"
+                        --with-lib="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/lib"
+                        --without-selinux
+                        --disable-multilib
+                        --disable-werror
+                        --enable-kernel=3.2
+                        libc_cv_forced_unwind=yes
+          && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
+          && make -j<PEON.CPUS.COUNT> csu/subdir_lib
+          && install csu/crt1.o csu/crti.o csu/crtn.o -t "<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/lib"
+          && arm-xcraft-linux-gnueabihf-gcc -nostdlib -nostartfiles -shared -x c /dev/null
+                                            -o "<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/lib/libc.so"
+          && touch "<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/include/gnu/stubs.h"
+          && touch "<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/include/bits/stdio_lim.h"
+          && cd ..
+
+        && : /// gcc - stage 1 ///
+          && cd gcc
+          && export CC="$_CC" CXX="$_CXX"
+          && make -j<PEON.CPUS.COUNT> all-target-libgcc
+          && make install-target-libgcc DESTDIR="<PEON.PREFIXDIR>"
+          && cd ..
+
+        && : /// glibc - stage 1 ///
+          && cd glibc
+          && unset CC CXX
+          && make -j<PEON.CPUS.COUNT>
+          && make install DESTDIR="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
+          && cd ..
+
+        && : /// gcc - stage 2 ///
+          && cd gcc
+          && export CC="$_CC" CXX="$_CXX"
+          && make -j<PEON.CPUS.COUNT>
+          && make install-strip DESTDIR="<PEON.PREFIXDIR>"
+          && cat <PEON.ROOTDIR>/var/x-arm-linux/gcc5/gcc/limitx.h
+                 <PEON.ROOTDIR>/var/x-arm-linux/gcc5/gcc/glimits.h
+                 <PEON.ROOTDIR>/var/x-arm-linux/gcc5/gcc/limity.h
+               >"<PEON.PREFIXDIR>/lib/gcc/arm-xcraft-linux-gnueabihf/5.5.0/include-fixed/limits.h"
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env:
+      PATH: '<PEON.PREFIXDIR>/bin:<PEON.ENV.PATH>'
+      CFLAGS: ''
+      CXXFLAGS: '-std=c++14'
+      LDFLAGS: ''
+      CPPFLAGS: ''
+  deploy: |-
+    rm('<PEON.PREFIXDIR>/etc');
+    rm('<PEON.PREFIXDIR>/share/info');
+    rm('<PEON.PREFIXDIR>/share/man/man7');
+    rm('<PEON.PREFIXDIR>/share/gcc-5.5.0');
+    rm('<PEON.PREFIXDIR>/lib/bfd-plugins');
+
+    mkdir('<PEON.PREFIXDIR>/local/bin');
+    const exp =
+      'unset CPLUS_INCLUDE_PATH\n' +
+      'LIBRARY_PATH=${XCRAFT_DEVROOT}/usr/arm-xcraft-linux-gnueabihf/lib\n' +
+      'C_INCLUDE_PATH=${XCRAFT_DEVROOT}/usr/arm-xcraft-linux-gnueabihf/include\n' +
+      'if [ ! -z "${PEON_SHARE}" ]; then\n' +
+      '    CCACHE_BASEDIR=${PEON_SHARE}\n' +
+      'else\n' +
+      '    CCACHE_BASEDIR=${XCRAFT_TARGETROOT}\n' +
+      'fi\n' +
+      'export LIBRARY_PATH C_INCLUDE_PATH CCACHE_BASEDIR\n';
+    for (const bin of ['gcc', 'g++', 'ld']) {
+      const ccache = bin !== 'ld' ? 'CCACHE=\ncommand -v ccache >/dev/null 2>&1 && CCACHE=ccache\n$CCACHE ' : '';
+      yield exec(
+        'writefile',
+        `#!/bin/bash\n\n${exp}\n${ccache}"$(dirname "$0")/../../bin/arm-xcraft-linux-gnueabihf-${bin}" "$@"\n`,
+        `<PEON.PREFIXDIR>/local/bin/arm-xcraft-linux-gnueabihf-${bin}`
+      );
+      chmod(`<PEON.PREFIXDIR>/local/bin/arm-xcraft-linux-gnueabihf-${bin}`, 0o755);
+    }
+  env:
+    path:
+      - usr/local/bin
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
