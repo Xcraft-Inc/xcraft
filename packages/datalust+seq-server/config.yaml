@@ -1,0 +1,48 @@
+name: datalust+seq-server
+version: 2023.1.9162
+$version: 2023.1.9162
+distribution: epsitec/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - linux-amd64
+description:
+  brief: Datalust Seq server
+  long: ''
+dependency:
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+    openssl+openssl:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/dnyTYiNLfX63BLm/download/seq-server-2023.1.9162.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+  type: bin
+  configure: |-
+    rm('data/seq-server-<THIS.$VERSION>/Client');
+    mv('data/seq-server-<THIS.$VERSION>', 'root/opt/seq-server');
+
+    exp('LD_LIBRARY_PATH', '{PEON.PROD.ROOTDIR}/usr/lib');
+    yield exec('standalonize', 'root/opt/seq-server');
+    yield exec('standalonize', 'root/opt/seq-server/Native');
+  rules:
+    type: move
+    location: root
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
