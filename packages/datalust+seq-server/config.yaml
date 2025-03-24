@@ -9,7 +9,7 @@ architecture:
   - linux-amd64
 description:
   brief: Datalust Seq server
-  long: ''
+  long: 'The self-hosted search, analysis, and alerting server built for structured logs and traces'
 dependency:
   make:
     xcraft+base-make:
@@ -29,12 +29,31 @@ data:
     externals: true
   type: bin
   configure: |-
+    const serverPath = 'opt/seq-server';
+    const storagePath = '/var/lib/seq-server/data';
+    const stagingPath = `{PEON.WPKG.STAG}/usr/share/datalust/seq-server/cache`;
+
     rm('data/seq-server-<THIS.$VERSION>/Client');
-    mv('data/seq-server-<THIS.$VERSION>', 'root/opt/seq-server');
+    mv('data/seq-server-<THIS.$VERSION>', `tmp/${serverPath}`);
 
     exp('LD_LIBRARY_PATH', '{PEON.PROD.ROOTDIR}/usr/lib');
-    yield exec('standalonize', 'root/opt/seq-server');
-    yield exec('standalonize', 'root/opt/seq-server/Native');
+    yield exec('standalonize', `tmp/${serverPath}`);
+    yield exec('standalonize', `tmp/${serverPath}/Native`);
+
+    yield exec(
+      'debify',
+      'seq-server',
+      '{THIS.VERSION}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.DESCRIPTION.LONG}',
+      '{THIS.MAINTAINER.NAME}',
+      '{THIS.MAINTAINER.EMAIL}',
+      `${stagingPath}/tmp/${serverPath}`,
+      `${stagingPath}/root/opt/packages/deb`,
+      `systemd/WorkingDirectory=/${serverPath}`,
+      `systemd/ExecStart=/${serverPath}/Seq run --storage=${storagePath}`,
+      'systemd/KillSignal=SIGINT'
+    );
   rules:
     type: move
     location: root
