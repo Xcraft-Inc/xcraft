@@ -515,7 +515,7 @@ class Action {
       const hasPostinst =
         fs.existsSync(path.join(wpkgPkg, 'postinst')) ||
         fs.existsSync(path.join(wpkgPkg, 'postinst.bat'));
-      if (!hasPostinst) {
+      if (!hasPostinst && this._config.type !== 'src') {
         const extra = this._getExtra();
         yield this._patchApply(extra);
       }
