@@ -77,6 +77,8 @@ data:
     mkdir(`{PEON.INSTALLDIR}/extra/${storagePath}`);
     ln('/etc/datalust-seq/seq-server.json', `{PEON.INSTALLDIR}/extra/${storagePath}/Seq.json`);
 
+    mkdir(`{PEON.INSTALLDIR}/extra/var/log/datalust-seq-server`);
+
     /* Server */
     yield exec(
       'debify',
@@ -89,6 +91,7 @@ data:
       '{PEON.INSTALLDIR}/opt/datalust-seq-server',
       `{PEON.INSTALLDIR}/opt/packages/deb`,
       'extra/{PEON.INSTALLDIR}/extra/',
+      `chown//var/log/datalust-seq-server:755:datalust-seq-server:root`,
       `systemd/WorkingDirectory=/opt/datalust-seq-server`,
       `systemd/ExecStart=/opt/datalust-seq-server/Seq run --storage=/${storagePath}`,
       'systemd/KillSignal=SIGINT'

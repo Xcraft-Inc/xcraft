@@ -24,7 +24,7 @@
     "defaultPassword": null
   },
   "diagnostics": {
-    "internalLogPath": "/data/Logs",
+    "internalLogPath": "/var/log/datalust-seq-server",
     "internalLoggingLevel": "Information",
     "internalLogServerApiKey": null,
     "internalLogServerUrl": null,
