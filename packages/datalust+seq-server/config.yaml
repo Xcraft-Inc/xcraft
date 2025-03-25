@@ -2,8 +2,8 @@ subpackage:
   - runtime*
   - cli
 name: datalust+seq-server
-version: 2023.1.9162
-$version: 2023.1.9162
+version: 2024.3
+$version: 2024.3
 distribution: epsitec/
 maintainer:
   name: Mathieu Schroeter
@@ -40,21 +40,41 @@ dependency:
         architecture:
           - linux-i386
           - linux-amd64
+  make:
+    4allsecure+rootfs-builder:
+      - version: ''
+        architecture: []
 bump: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/dnyTYiNLfX63BLm/download/seq-server-2023.1.9162.tar.gz'
+    uri: ''
     mirrors: []
     ref: ''
     $ref: ''
     out: ''
     externals: true
-    prepare: ''
+    prepare: |-
+      const container = {
+        Name: 'datalust/seq:<THIS.$VERSION>',
+        Retries: 3,
+        Spec: {
+          Dest: 'rootfs'
+        }
+      };
+      const fs = require('node:fs');
+      fs.mkdirSync('rootfs');
+      fs.writeFileSync('container.json', JSON.stringify(container));
+
+      yield exec('rootfs_builder', 'container.json');
+
+      fs.mkdirSync('data');
+      mv('rootfs/rootfs/seqsvr', 'data');
+      rm('rootfs');
   type: src
   configure: ''
   rules:
     type: script
-    location: data/seq-server-<THIS.$VERSION>
+    location: data
     args:
       postinst: ''
       prerm: ''
