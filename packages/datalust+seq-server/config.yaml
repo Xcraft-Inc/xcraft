@@ -59,50 +59,55 @@ data:
       postinst: ''
       prerm: ''
       makeall: |-
-        mv('Client', '<PEON.INSTALLDIR.CLI>/opt/seq-client');
-        mv('.',      '<PEON.INSTALLDIR>/opt/seq-server');
+        mv('Client', '<PEON.INSTALLDIR.CLI>/opt/datalust-seq-cli');
+        mv('.',      '<PEON.INSTALLDIR>/opt/datalust-seq-server');
       maketest: ''
       makeinstall: ''
     test: none
     env: {}
   deploy: |-
-    const storagePath = '/var/lib/seq-server/data';
+    const storagePath = 'var/lib/datalust-seq-server/data';
 
     exp('LD_LIBRARY_PATH', '{PEON.PROD.ROOTDIR}/usr/lib');
-    yield exec('standalonize', `{PEON.INSTALLDIR}/opt/seq-server`);
-    yield exec('standalonize', `{PEON.INSTALLDIR}/opt/seq-server/Native`);
-    yield exec('standalonize', `{PEON.INSTALLDIR.CLI}/opt/seq-client`);
+    yield exec('standalonize', '{PEON.INSTALLDIR}/opt/datalust-seq-server');
+    yield exec('standalonize', '{PEON.INSTALLDIR}/opt/datalust-seq-server/Native');
+    yield exec('standalonize', '{PEON.INSTALLDIR.CLI}/opt/datalust-seq-cli');
+
+    cp('{PEON.ASSETS}/Seq.json', '{PEON.INSTALLDIR}/extra/etc/datalust-seq/seq-server.json');
+    mkdir(`{PEON.INSTALLDIR}/extra/${storagePath}`);
+    ln('/etc/datalust-seq/seq-server.json', `{PEON.INSTALLDIR}/extra/${storagePath}/Seq.json`);
 
     /* Server */
     yield exec(
       'debify',
-      'seq-server',
+      'datalust-seq-server',
       '{THIS.VERSION}',
       '{THIS.DESCRIPTION.BRIEF}',
       '{THIS.DESCRIPTION.LONG}',
       '{THIS.MAINTAINER.NAME}',
       '{THIS.MAINTAINER.EMAIL}',
-      '{PEON.INSTALLDIR}/opt/seq-server',
+      '{PEON.INSTALLDIR}/opt/datalust-seq-server',
       `{PEON.INSTALLDIR}/opt/packages/deb`,
-      `systemd/WorkingDirectory=/opt/seq-server`,
-      `systemd/ExecStart=/opt/seq-server/Seq run --storage=${storagePath}`,
+      'extra/{PEON.INSTALLDIR}/extra/',
+      `systemd/WorkingDirectory=/opt/datalust-seq-server`,
+      `systemd/ExecStart=/opt/datalust-seq-server/Seq run --storage=/${storagePath}`,
       'systemd/KillSignal=SIGINT'
     );
-    rm('{PEON.INSTALLDIR}/opt/seq-server');
+    rm('{PEON.INSTALLDIR}/opt/datalust-seq-server');
 
     /* CLI */
     yield exec(
       'debify',
-      'seq-client',
+      'datalust-seq-cli',
       '{THIS.VERSION}',
       '{THIS.DESCRIPTION.BRIEF}',
       '{THIS.DESCRIPTION.LONG}',
       '{THIS.MAINTAINER.NAME}',
       '{THIS.MAINTAINER.EMAIL}',
-      '{PEON.INSTALLDIR.CLI}/opt/seq-client',
+      '{PEON.INSTALLDIR.CLI}/opt/datalust-seq-cli',
       `{PEON.INSTALLDIR.CLI}/opt/packages/deb`
     );
-    rm('{PEON.INSTALLDIR.CLI}/opt/seq-client');
+    rm('{PEON.INSTALLDIR.CLI}/opt/datalust-seq-cli');
   env:
     path: []
     other: {}
