@@ -47,7 +47,7 @@ data:
       makeinstall: ''
     test: none
     env: {}
-  deploy: 'cp(''<THIS.DATA.RULES.LOCATION>/rootfs_builder'', ''<PEON.PREFIXDIR>/usr/bin'');'
+  deploy: "cp('<THIS.DATA.RULES.LOCATION>/rootfs_builder', '<PEON.PREFIXDIR>/bin/rootfs_builder');"
   env:
     path: []
     other: {}
