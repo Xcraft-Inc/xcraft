@@ -27,7 +27,7 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'ssh+git://git@github.com:Xcraft-Inc/rootfs_builder.git'
+    uri: 'https://github.com/Xcraft-Inc/rootfs_builder.git'
     mirrors: []
     ref: 93b037ddf0e46b98da0057cbdf5a0ff5f78dea50
     $ref: ''
