@@ -1,0 +1,56 @@
+subpackage:
+  - runtime*
+name: 4allsecure+rootfs-builder
+version: 0.1.0
+$version: 0.1.0
+distribution: toolchain/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Extract rootfs from a Docker image
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    google+go:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'ssh+git://git@github.com:Xcraft-Inc/rootfs_builder.git'
+    mirrors: []
+    ref: 93b037ddf0e46b98da0057cbdf5a0ff5f78dea50
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: make
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: local_static
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env: {}
+  deploy: 'cp(''<THIS.DATA.RULES.LOCATION>/rootfs_builder'', ''<PEON.PREFIXDIR>/usr/bin'');'
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
