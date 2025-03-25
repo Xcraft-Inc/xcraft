@@ -66,7 +66,7 @@ data:
     test: none
     env: {}
   deploy: |-
-    const storagePath = 'var/lib/datalust-seq-server/data';
+    const storagePath = 'var/lib/datalust-seq-server';
 
     exp('LD_LIBRARY_PATH', '{PEON.PROD.ROOTDIR}/usr/lib');
     yield exec('standalonize', '{PEON.INSTALLDIR}/opt/datalust-seq-server');
@@ -92,6 +92,7 @@ data:
       `{PEON.INSTALLDIR}/opt/packages/deb`,
       'extra/{PEON.INSTALLDIR}/extra/',
       `chown//var/log/datalust-seq-server:755:datalust-seq-server:root`,
+      `chown//${storagePath}:755:datalust-seq-server:root`,
       `systemd/WorkingDirectory=/opt/datalust-seq-server`,
       `systemd/ExecStart=/opt/datalust-seq-server/Seq run --storage=/${storagePath}`,
       'systemd/KillSignal=SIGINT'
