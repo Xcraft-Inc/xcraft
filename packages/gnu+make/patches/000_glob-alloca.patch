@@ -13,5 +13,5 @@ index 8c72568..4710832 100644
 +# if _GNU_GLOB_INTERFACE_VERSION == 1 || _GNU_GLOB_INTERFACE_VERSION == 2
     gnu glob
  # endif
- #endif],
+ #endif
  
