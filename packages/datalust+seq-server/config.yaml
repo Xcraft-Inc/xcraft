@@ -1,3 +1,6 @@
+subpackage:
+  - runtime*
+  - cli
 name: datalust+seq-server
 version: 2023.1.9162
 $version: 2023.1.9162
@@ -6,18 +9,37 @@ maintainer:
   name: Mathieu Schroeter
   email: mathieu@schroetersa.ch
 architecture:
-  - linux-amd64
+  - source
 description:
   brief: Datalust Seq server
   long: 'The self-hosted search, analysis, and alerting server built for structured logs and traces'
 dependency:
-  make:
-    xcraft+base-make:
+  install:
+    adler+zlib:
       - version: ''
-        architecture: []
+        architecture:
+          - linux-amd64
     openssl+openssl:
       - version: ''
         architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    xcraft+utils-linux:
+      - version: ''
+        architecture:
+          - linux-amd64
+    debian+dpkg:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    debian+lintian:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
 bump: []
 data:
   get:
@@ -27,19 +49,31 @@ data:
     $ref: ''
     out: ''
     externals: true
-  type: bin
-  configure: |-
-    const serverPath = 'opt/seq-server';
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/seq-server-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        mv('Client', '<PEON.INSTALLDIR.CLI>/opt/seq-client');
+        mv('.',      '<PEON.INSTALLDIR>/opt/seq-server');
+      maketest: ''
+      makeinstall: ''
+    test: none
+    env: {}
+  deploy: |-
     const storagePath = '/var/lib/seq-server/data';
-    const stagingPath = `{PEON.WPKG.STAG}/usr/share/datalust/seq-server/cache`;
-
-    rm('data/seq-server-<THIS.$VERSION>/Client');
-    mv('data/seq-server-<THIS.$VERSION>', `tmp/${serverPath}`);
 
     exp('LD_LIBRARY_PATH', '{PEON.PROD.ROOTDIR}/usr/lib');
-    yield exec('standalonize', `tmp/${serverPath}`);
-    yield exec('standalonize', `tmp/${serverPath}/Native`);
+    yield exec('standalonize', `{PEON.INSTALLDIR}/opt/seq-server`);
+    yield exec('standalonize', `{PEON.INSTALLDIR}/opt/seq-server/Native`);
+    yield exec('standalonize', `{PEON.INSTALLDIR.CLI}/opt/seq-client`);
 
+    /* Server */
     yield exec(
       'debify',
       'seq-server',
@@ -48,20 +82,30 @@ data:
       '{THIS.DESCRIPTION.LONG}',
       '{THIS.MAINTAINER.NAME}',
       '{THIS.MAINTAINER.EMAIL}',
-      `${stagingPath}/tmp/${serverPath}`,
-      `${stagingPath}/root/opt/packages/deb`,
-      `systemd/WorkingDirectory=/${serverPath}`,
-      `systemd/ExecStart=/${serverPath}/Seq run --storage=${storagePath}`,
+      '{PEON.INSTALLDIR}/opt/seq-server',
+      `{PEON.INSTALLDIR}/opt/packages/deb`,
+      `systemd/WorkingDirectory=/opt/seq-server`,
+      `systemd/ExecStart=/opt/seq-server/Seq run --storage=${storagePath}`,
       'systemd/KillSignal=SIGINT'
     );
-  rules:
-    type: move
-    location: root
-    args:
-      postinst: ''
-      prerm: ''
-    env: {}
+    rm('{PEON.INSTALLDIR}/opt/seq-server');
+
+    /* CLI */
+    yield exec(
+      'debify',
+      'seq-client',
+      '{THIS.VERSION}',
+      '{THIS.DESCRIPTION.BRIEF}',
+      '{THIS.DESCRIPTION.LONG}',
+      '{THIS.MAINTAINER.NAME}',
+      '{THIS.MAINTAINER.EMAIL}',
+      '{PEON.INSTALLDIR.CLI}/opt/seq-client',
+      `{PEON.INSTALLDIR.CLI}/opt/packages/deb`
+    );
+    rm('{PEON.INSTALLDIR.CLI}/opt/seq-client');
   env:
     path: []
     other: {}
   embedded: true
+  runtime:
+    configure: ''
