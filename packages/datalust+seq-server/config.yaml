@@ -93,7 +93,7 @@ data:
       'extra/{PEON.INSTALLDIR}/extra/',
       `chown//var/log/datalust-seq-server:755:datalust-seq-server:root`,
       `chown//${storagePath}:755:datalust-seq-server:root`,
-      `systemd/LANG=C`,
+      `systemd/Environment="LANG=C"`,
       `systemd/WorkingDirectory=/opt/datalust-seq-server`,
       `systemd/ExecStart=/opt/datalust-seq-server/Seq run --storage=/${storagePath}`,
       'systemd/KillSignal=SIGINT'
