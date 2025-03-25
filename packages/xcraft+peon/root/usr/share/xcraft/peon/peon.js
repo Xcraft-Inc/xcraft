@@ -511,8 +511,10 @@ class Action {
         }
       });
 
-      const extra = this._getExtra();
-      yield this._patchApply(extra);
+      if (this._config.type !== 'src') {
+        const extra = this._getExtra();
+        yield this._patchApply(extra);
+      }
       return;
     }
 
