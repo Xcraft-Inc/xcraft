@@ -511,7 +511,11 @@ class Action {
         }
       });
 
-      if (this._config.type !== 'src') {
+      const wpkgPkg = path.join(this._root, 'var/lib/wpkg', this._pkg.name);
+      const hasPostinst =
+        fs.existsSync(path.join(wpkgPkg, 'postinst')) ||
+        fs.existsSync(path.join(wpkgPkg, 'postinst.bat'));
+      if (!hasPostinst) {
         const extra = this._getExtra();
         yield this._patchApply(extra);
       }
