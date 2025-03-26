@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - tools
 name: isee+igep0020-uboot
 version: '2017.03'
 $version: '2017.03'
@@ -20,7 +21,7 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
-    x-arm-linux+gnueabihf-gcc-glibc-cross:
+    x-arm-linux+gnueabihf-gcc5-glibc-cross:
       - version: ''
         architecture: []
 bump: []
@@ -46,6 +47,27 @@ data:
       makeinstall: |-
         cp("MLO", "<PEON.INSTALLDIR>/var/igep0020/uboot/MLO");
         cp("u-boot.img", "<PEON.INSTALLDIR>/var/igep0020/uboot/u-boot.img");
+        cp("tools/mkimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkimage");
+        cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
+        cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
+
+        yield exec(
+          'writefile',
+          '# Set bootargs for MMC boot\nsetenv bootcmd "mmc init; fatload mmc 0:1 0x80300000 uImage; bootm 0x80300000"\nsetenv bootargs "console=ttyS2,115200n8 console=tty0 root=/dev/mmcblk0p2 rootwait rootfstype=ext3 ro omapfb.mode=dvi:1280x720MR-16@60"\nboot',
+          'boot.cfg'
+        );
+        yield exec(
+          'tools/mkimage',
+          '-A', 'arm',
+          '-O', 'linux',
+          '-T', 'script',
+          '-C', 'none',
+          '-a', '0',
+          '-e', '0',
+          '-n', 'Boot setup script',
+          '-d', 'boot.cfg',
+          '<PEON.INSTALLDIR>/var/igep0020/uboot/boot.ini'
+        );
     test: none
     env: {}
   deploy: ''

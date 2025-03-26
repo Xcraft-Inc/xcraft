@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: isee+igep0020-linux-kernel
-version: '4.9'
-$version: '4.9'
+version: 3.10.108
+$version: 3.10.108
 distribution: carnotzet+armhf/
 maintainer:
   name: Mathieu Schroeter
@@ -13,6 +13,10 @@ description:
   brief: Linux Kernel for IGEPv2
   long: ''
 dependency:
+  install:
+    isee+igep0020-uboot-tools:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -20,36 +24,45 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
-    x-arm-linux+gnueabihf-gcc-glibc-cross:
+    x-arm-linux+gnueabihf-gcc5-glibc-cross:
       - version: ''
         architecture: []
 bump: []
 data:
   get:
-    uri: 'https://github.com/Xcraft-Inc/isee-linux-omap.git'
+    uri: 'https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git'
     mirrors: []
-    ref: isee-linux-v.4.9.y
+    ref: v<THIS.$VERSION>
     $ref: ''
     out: ''
     externals: true
     prepare: ''
   type: src
-  configure: '!make -C <THIS.DATA.RULES.LOCATION> ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- omap3plus_defconfig'
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- omap2plus_defconfig
+      && sed -i 's,^CONFIG_FB_CFB_FILLRECT=m,CONFIG_FB_CFB_FILLRECT=y,' .config
+      && sed -i 's,^CONFIG_FB_CFB_COPYAREA=m,CONFIG_FB_CFB_COPYAREA=y,' .config
+      && sed -i 's,^CONFIG_FB_CFB_IMAGEBLIT=m,CONFIG_FB_CFB_IMAGEBLIT=y,' .config
+      && sed -i 's,^CONFIG_OMAP2_DSS=m,CONFIG_OMAP2_DSS=y,' .config
+      && sed -i 's,^CONFIG_FB_OMAP2=m,CONFIG_FB_OMAP2=y,' .config
+      && sed -i 's,^CONFIG_PANEL_GENERIC_DPI=m,CONFIG_PANEL_GENERIC_DPI=y,' .config
+      && sed -i 's,^CONFIG_PANEL_TFP410=m,CONFIG_PANEL_TFP410=y,' .config
+      && make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- olddefconfig
   rules:
     type: script
     location: data
     args:
       postinst: ''
       prerm: ''
-      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> zImage dtbs modules'
+      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> LOADADDR=0x80008000 uImage'
       maketest: ''
       makeinstall: |-
         !mkdir -p <PEON.INSTALLDIR>/var/igep0020/linux
-          && cp -a arch/arm/boot/zImage <PEON.INSTALLDIR>/var/igep0020/linux
-          && cp -a arch/arm/boot/dts/omap3-igep0020-rev-f.dts <PEON.INSTALLDIR>/var/igep0020/linux
-          && make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/arm-linux/rootfs" modules_install
+          && cp -a arch/arm/boot/uImage <PEON.INSTALLDIR>/var/igep0020/linux
     test: none
-    env: {}
+    env:
+      PATH: '<PEON.PROD.ROOTDIR>/usr/bin:<PEON.ENV.PATH>'
   deploy: ''
   env:
     path: []
