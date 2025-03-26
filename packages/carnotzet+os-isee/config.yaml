@@ -17,6 +17,12 @@ dependency:
     carnotzet+rootfs-isee:
       - version: ''
         architecture: []
+    isee+igep0020-linux-kernel:
+      - version: ''
+        architecture: []
+    isee+igep0020-uboot:
+      - version: ''
+        architecture: []
 bump: []
 data:
   get:
