@@ -1,0 +1,71 @@
+subpackage:
+  - runtime*
+name: gnu+glibc-isee
+version: '2.24'
+$version: '2.24'
+distribution: carnotzet+armhf/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU C Library
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-gcc5-glibc-cross:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>/build
+      && cd <THIS.DATA.RULES.LOCATION>/build
+      && ../configure --prefix=/usr
+                      --build=$MACHTYPE
+                      --host=arm-xcraft-linux-gnueabihf
+                      --target=arm-xcraft-linux-gnueabihf
+                      --with-sysroot="<PEON.ROOTDIR>/usr/arm-linux"
+                      --disable-multilib
+                      --disable-werror
+                      --enable-kernel=3.2
+  rules:
+    type: script
+    location: data/glibc-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -C build -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '!make -C build install DESTDIR=<PEON.INSTALLDIR>/var/arm-linux/rootfs'
+    test: none
+    env:
+      CC: ''
+      CXX: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''

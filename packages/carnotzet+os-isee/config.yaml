@@ -1,0 +1,41 @@
+name: carnotzet+os-isee
+version: 0.1.0
+$version: 0.1.0
+distribution: carnotzet+armhf/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+  - linux-aarch64
+description:
+  brief: Carnotzet Operating System
+  long: ''
+dependency:
+  install:
+    carnotzet+rootfs-isee:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
