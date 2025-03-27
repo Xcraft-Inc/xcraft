@@ -145,7 +145,7 @@ data:
                         --disable-libsanitizer
                         --disable-plugin
                         --enable-version-specific-runtime-libs
-                        --with-glibc-version=2.24
+                        --with-glibc-version=2.26
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-gmp=<PEON.ROOTDIR>/usr

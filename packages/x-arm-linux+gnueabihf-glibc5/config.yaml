@@ -1,6 +1,6 @@
 name: x-arm-linux+gnueabihf-glibc5
-version: '2.24'
-$version: '2.24'
+version: '2.26'
+$version: '2.26'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
