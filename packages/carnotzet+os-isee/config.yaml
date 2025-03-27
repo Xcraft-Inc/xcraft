@@ -1,7 +1,7 @@
 name: carnotzet+os-isee
-version: 0.1.0
+version: 0.1.0-1
 $version: 0.1.0
-distribution: carnotzet+armhf/
+distribution: isee/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch

@@ -2,9 +2,9 @@ subpackage:
   - runtime*
   - tools
 name: isee+igep0020-uboot
-version: '2017.03'
+version: '2017.03-1'
 $version: '2017.03'
-distribution: carnotzet+armhf/
+distribution: isee/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch

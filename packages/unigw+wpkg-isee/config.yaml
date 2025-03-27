@@ -3,7 +3,7 @@ subpackage:
 name: unigw+wpkg-isee
 version: 1.0.2-37
 $version: 1.0.2
-distribution: carnotzet+armhf/
+distribution: isee/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch

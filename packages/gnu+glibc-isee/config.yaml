@@ -3,7 +3,7 @@ subpackage:
 name: gnu+glibc-isee
 version: '2.24'
 $version: '2.24'
-distribution: carnotzet+armhf/
+distribution: isee/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
