@@ -1,0 +1,15 @@
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && CC="$CC $CFLAGS"
+         ./Configure linux-armv4
+                     shared
+                     --prefix=<PEON.PREFIXDIR>
+                     --cross-compile-prefix=arm-xcraft-linux-gnueabihf-
+  rules:
+    args:
+      makeall: |-
+        !make -j<PEON.CPUS.COUNT>
+    env:
+      CC: gcc
+      CXX: g++
