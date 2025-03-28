@@ -41,7 +41,7 @@ dependency:
     xcraft+build-essential:
       - version: ''
         architecture: []
-    x-arm-linux+gnueabihf-gcc5-glibc-cross:
+    x-arm-linux+gnueabihf-gcc10-glibc-cross:
       - version: ''
         architecture: []
 data:
