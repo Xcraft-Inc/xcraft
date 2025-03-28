@@ -50,7 +50,7 @@ data:
     ref: ''
     out: ''
     externals: false
-    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data/var/arm-linux');"
+    prepare: "cp('.', '<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data/var/carnotzet');"
   type: src
   configure: ''
   rules:

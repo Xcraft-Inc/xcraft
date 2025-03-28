@@ -58,7 +58,7 @@ data:
       prerm: ''
       makeall: '!make -C build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '!make -C build install DESTDIR=<PEON.INSTALLDIR>/var/arm-linux/rootfs'
+      makeinstall: '!make -C build install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs'
     test: none
     env:
       CC: ''

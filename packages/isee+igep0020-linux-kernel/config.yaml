@@ -58,8 +58,8 @@ data:
       makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> LOADADDR=0x80008000 uImage'
       maketest: ''
       makeinstall: |-
-        !mkdir -p <PEON.INSTALLDIR>/var/igep0020/linux
-          && cp -a arch/arm/boot/uImage <PEON.INSTALLDIR>/var/igep0020/linux
+        !mkdir -p <PEON.INSTALLDIR>/var/carnotzet/linux
+          && cp -a arch/arm/boot/uImage <PEON.INSTALLDIR>/var/carnotzet/linux
     test: none
     env:
       PATH: '<PEON.PROD.ROOTDIR>/usr/bin:<PEON.ENV.PATH>'

@@ -45,8 +45,8 @@ data:
       makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT>'
       maketest: ''
       makeinstall: |-
-        cp("MLO", "<PEON.INSTALLDIR>/var/igep0020/uboot/MLO");
-        cp("u-boot.img", "<PEON.INSTALLDIR>/var/igep0020/uboot/u-boot.img");
+        cp("MLO", "<PEON.INSTALLDIR>/var/carnotzet/uboot/MLO");
+        cp("u-boot.img", "<PEON.INSTALLDIR>/var/carnotzet/uboot/u-boot.img");
         cp("tools/mkimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkimage");
         cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
         cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
@@ -66,7 +66,7 @@ data:
           '-e', '0',
           '-n', 'Boot setup script',
           '-d', 'boot.cfg',
-          '<PEON.INSTALLDIR>/var/igep0020/uboot/boot.ini'
+          '<PEON.INSTALLDIR>/var/carnotzet/uboot/boot.ini'
         );
     test: none
     env: {}
