@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+glibc-isee
-version: '2.24'
-$version: '2.24'
+version: '2.26'
+$version: '2.26'
 distribution: isee/
 maintainer:
   name: Mathieu Schroeter
