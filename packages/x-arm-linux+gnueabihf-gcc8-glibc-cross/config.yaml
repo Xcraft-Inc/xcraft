@@ -119,6 +119,7 @@ data:
           && CONFIGURE="<PEON.ROOTDIR>/var/x-arm-linux/binutils/configure"
           && $CONFIGURE --prefix=
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --disable-multilib
                         --disable-nls
                         --disable-bootstrap
@@ -142,6 +143,7 @@ data:
           && $CONFIGURE --prefix=
                         --enable-languages=c,c++
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --disable-multilib
                         --disable-nls
                         --disable-bootstrap
@@ -170,6 +172,7 @@ data:
                         --build=$MACHTYPE
                         --host=arm-xcraft-linux-gnueabihf
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-headers="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/include"

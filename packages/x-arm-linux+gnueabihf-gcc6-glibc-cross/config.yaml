@@ -119,13 +119,11 @@ data:
           && CONFIGURE="<PEON.ROOTDIR>/var/x-arm-linux/binutils/configure"
           && $CONFIGURE --prefix=
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --disable-multilib
                         --disable-nls
                         --disable-bootstrap
                         --disable-gprofng
-                        --with-arch=armv6
-                        --with-fpu=vfp
-                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-gmp=<PEON.ROOTDIR>/usr
@@ -142,6 +140,7 @@ data:
           && $CONFIGURE --prefix=
                         --enable-languages=c,c++
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --disable-multilib
                         --disable-nls
                         --disable-bootstrap
@@ -149,9 +148,6 @@ data:
                         --disable-plugin
                         --enable-version-specific-runtime-libs
                         --with-glibc-version=2.38
-                        --with-arch=armv6
-                        --with-fpu=vfp
-                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-gmp=<PEON.ROOTDIR>/usr
@@ -170,6 +166,7 @@ data:
                         --build=$MACHTYPE
                         --host=arm-xcraft-linux-gnueabihf
                         --target=arm-xcraft-linux-gnueabihf
+                        --with-float=hard
                         --with-sysroot=/arm-xcraft-linux-gnueabihf
                         --with-build-sysroot="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
                         --with-headers="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf/usr/include"
@@ -178,9 +175,6 @@ data:
                         --disable-multilib
                         --disable-werror
                         --enable-kernel=3.2
-                        --with-arch=armv6
-                        --with-fpu=vfp
-                        --with-float=hard
                         libc_cv_forced_unwind=yes
           && make install-bootstrap-headers=yes install-headers DESTDIR="<PEON.PREFIXDIR>/arm-xcraft-linux-gnueabihf"
           && make -j<PEON.CPUS.COUNT> csu/subdir_lib
