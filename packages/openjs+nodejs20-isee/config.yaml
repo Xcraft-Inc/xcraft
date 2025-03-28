@@ -38,7 +38,7 @@ data:
   type: src
   configure: |-
     !cd {THIS.DATA.RULES.LOCATION}
-       && ./configure --prefix={PEON.INSTALLDIR}/var/carnotzet/rootfs
+       && ./configure --prefix={PEON.INSTALLDIR}/var/carnotzet/rootfs/usr
                       --cross-compiling
                       --dest-cpu=arm
                       --dest-os=linux
@@ -56,8 +56,8 @@ data:
       makeall: '!make -j{PEON.CPUS.COUNT}'
       maketest: ''
       makeinstall: |-
-        !arm-xcraft-linux-gnueabihf-strip -s out/Release/node
-          && make install
+        !make install
+          && arm-xcraft-linux-gnueabihf-strip -s {PEON.INSTALLDIR}/var/carnotzet/rootfs/usr/bin/node
     test: none
     env:
       CC: arm-xcraft-linux-gnueabihf-gcc
