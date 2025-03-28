@@ -1,0 +1,85 @@
+subpackage:
+  - runtime*
+name: openjs+nodejs20-isee
+version: 20.19.0
+$version: 20.19.0
+distribution: isee/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: Node.js is a JS runtime built on Chrome's V8 JavaScript engine.
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    x-arm-linux+gnueabihf-gcc10-glibc-cross:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://nodejs.org/dist/v<THIS.$VERSION>/node-v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd {THIS.DATA.RULES.LOCATION}
+       && ./configure --prefix={PEON.INSTALLDIR}/var/carnotzet/rootfs
+                      --cross-compiling
+                      --dest-cpu=arm
+                      --dest-os=linux
+                      --with-arm-float-abi=hard
+                      --with-arm-fpu=neon
+                      --enable-static
+                      --partly-static
+                      --without-intl
+  rules:
+    type: script
+    location: data/node-v<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -j{PEON.CPUS.COUNT}'
+      maketest: ''
+      makeinstall: '!make install'
+    test: none
+    env:
+      CC: arm-xcraft-linux-gnueabihf-gcc
+      CXX: arm-xcraft-linux-gnueabihf-g++
+      AR: arm-xcraft-linux-gnueabihf-ar
+      LINK: arm-xcraft-linux-gnueabihf-g++
+      CC_host: gcc
+      CXX_host: g++
+      AR_host: ar
+      LINK_host: g++
+      CFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv8-a+crc'
+      CFLAGS_host: ''
+      CXXFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv8-a+crc'
+      CPPFLAGS: ''
+      LDFLAGS: ''
+      C_INCLUDE_PATH: ''
+      CPLUS_INCLUDE_PATH: ''
+      LIBRARY_PATH: ''
+      LD_LIBRARY_PATH: ''
+      PKG_CONFIG_PATH: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
