@@ -68,9 +68,9 @@ data:
       CXX_host: g++
       AR_host: ar
       LINK_host: g++
-      CFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv8-a+crc'
+      CFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv7-a -mtune=cortex-a8'
       CFLAGS_host: ''
-      CXXFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv8-a+crc'
+      CXXFLAGS: '-mfpu=neon -mfloat-abi=hard -march=armv7-a -mtune=cortex-a8'
       CPPFLAGS: ''
       LDFLAGS: ''
       C_INCLUDE_PATH: ''
