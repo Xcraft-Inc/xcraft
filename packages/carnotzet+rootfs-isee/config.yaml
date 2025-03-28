@@ -19,6 +19,11 @@ dependency:
         architecture: []
         subpackage:
           - runtime
+    gnu+libstdcxx-isee:
+      - version: ''
+        architecture: []
+        subpackage:
+          - runtime
     vlasenko+busybox-isee:
       - version: ''
         architecture: []
