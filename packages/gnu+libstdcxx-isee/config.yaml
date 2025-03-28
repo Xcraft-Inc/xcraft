@@ -1,0 +1,81 @@
+subpackage:
+  - runtime*
+name: gnu+libstdcxx-isee
+version: '10.5.0'
+$version: '10.5.0'
+distribution: isee/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The GNU libstdc++ Library
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-gcc10-glibc-cross:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'ftp://ftp.fu-berlin.de/unix/languages/gcc/releases/gcc-<THIS.$VERSION>/gcc-<THIS.$VERSION>.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>/build-libstdcxx
+      && cd <THIS.DATA.RULES.LOCATION>/build-libstdcxx
+      && ../libstdc++-v3/configure --prefix=/usr
+                                   --build=$MACHTYPE
+                                   --host=arm-xcraft-linux-gnueabihf
+                                   --target=arm-xcraft-linux-gnueabihf
+                                   --disable-multilib
+                                   --disable-libstdcxx-pch
+      && cd -
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/build-libatomic
+      && cd <THIS.DATA.RULES.LOCATION>/build-libatomic
+      && ../libatomic/configure --prefix=/usr
+                                --build=$MACHTYPE
+                                --host=arm-xcraft-linux-gnueabihf
+                                --target=arm-xcraft-linux-gnueabihf
+                                --disable-multilib
+  rules:
+    type: script
+    location: data/gcc-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !    make -C build-libstdcxx -j<PEON.CPUS.COUNT>
+          && make -C build-libatomic -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: |-
+        !    make -C build-libstdcxx install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
+          && make -C build-libatomic install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
+    test: none
+    env:
+      CC: ''
+      CXX: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
