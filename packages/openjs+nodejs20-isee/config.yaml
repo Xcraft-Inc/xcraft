@@ -55,7 +55,9 @@ data:
       prerm: ''
       makeall: '!make -j{PEON.CPUS.COUNT}'
       maketest: ''
-      makeinstall: '!make install'
+      makeinstall: |-
+        !arm-xcraft-linux-gnueabihf-strip -s out/Release/node
+          && make install
     test: none
     env:
       CC: arm-xcraft-linux-gnueabihf-gcc
