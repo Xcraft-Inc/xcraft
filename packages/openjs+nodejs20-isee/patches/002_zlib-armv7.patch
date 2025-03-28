@@ -1,0 +1,20 @@
+--- a/deps/zlib/zlib.gyp
++++ b/deps/zlib/zlib.gyp
+@@ -49,7 +49,7 @@
+                 ],
+               }],
+               ['arm_fpu=="neon"', {
+-                'defines': [ 'ADLER32_SIMD_NEON' ],
++                'defines': [ 'NO_ADLER32_SIMD_NEON' ],
+               }],
+             ],
+             'include_dirs': [ '<(ZLIB_ROOT)' ],
+@@ -62,7 +62,7 @@
+           'target_name': 'zlib_arm_crc32',
+           'type': 'static_library',
+           'conditions': [
+-            ['OS!="ios"', {
++            ['"0"!="0"', {
+               'conditions': [
+                 ['OS!="win" and clang==0', {
+                   'cflags': [ '-march=armv8-a+aes+crc' ],
