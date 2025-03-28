@@ -3,7 +3,7 @@ subpackage:
 name: vlasenko+busybox-isee
 version: 1.37.0-3
 $version: 1.37.0
-distribution: carnotzet/
+distribution: isee/
 maintainer:
   name: Mathieu Schroeter
   email: schroeter@epsitec.ch
