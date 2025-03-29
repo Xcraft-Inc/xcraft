@@ -19,6 +19,6 @@ mkfs.ext4 /dev/sde2 -L rootfs
 ```
 # TFTP /srv/tftp 192.168.254.10
 setenv bootcmd "mmc init; tftp 0x80000000 uImage; bootm 0x80000000"
-setenv bootargs "console=ttyO2,115200n8 root=/dev/mmcblk0p2 init=init rootwait omapfb.mode=dvi:1280x720MR-32@60 omapfb.vram=0:8M,1:4M mem=442M"
+setenv bootargs "console=ttyO2,115200n8 root=/dev/mmcblk0p2 rootwait omapfb.mode=dvi:1280x720MR-32@60 omapfb.vram=0:8M,1:4M mem=442M"
 boot
 ```
