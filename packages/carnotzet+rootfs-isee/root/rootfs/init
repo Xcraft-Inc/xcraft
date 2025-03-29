@@ -1,20 +1,18 @@
 #!/bin/sh
  
-mount -t tmpfs none /dev
 mount -t proc none /proc
 mount -t sysfs none /sys
 mount -t debugfs none /sys/kernel/debug
 
-mknod -m 622 /dev/console c 5 1
-mknod -m 666 /dev/null c 1 3
-mknod -m 666 /dev/zero c 1 5
-mknod -m 666 /dev/ptmx c 5 2
-mknod -m 666 /dev/tty c 5 0
-mknod -m 444 /dev/random c 1 8
-mknod -m 444 /dev/urandom c 1 9
+echo '/bin/mdev' > /proc/sys/kernel/hotplug
+mdev -s
 
-chmod 700 /root
- 
+stty -F /dev/ttyO2 115200
+
 echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
- 
-exec /bin/sh
+
+# With login
+exec setsid cttyhack /bin/sh -c 'exec /sbin/getty -L ttyO2 115200 vt100'
+
+# Without login
+#setsid cttyhack /bin/sh < /dev/ttyO2 > /dev/ttyO2 2>&1
