@@ -8,6 +8,8 @@ mdev -s
 
 stty -F /dev/ttyO2 115200
 
-swapon /swapfile
+if [ -f /swapfile ]; then
+  swapon /swapfile
+fi
 
 echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
