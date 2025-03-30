@@ -55,10 +55,14 @@ data:
     args:
       postinst: ''
       prerm: ''
-      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> LOADADDR=0x80008000 uImage'
+      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT> LOADADDR=0x80008000 uImage modules'
       maketest: ''
       makeinstall: |-
         !mkdir -p <PEON.INSTALLDIR>/var/carnotzet/linux
+          && make ARCH=arm
+                  CROSS_COMPILE=arm-xcraft-linux-gnueabihf-
+                  INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+                  modules_install
           && cp -a arch/arm/boot/uImage <PEON.INSTALLDIR>/var/carnotzet/linux
     test: none
     env:
