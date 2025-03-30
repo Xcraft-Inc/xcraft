@@ -8,8 +8,14 @@ mdev -s
 
 stty -F /dev/ttyO2 115200
 
+echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
+
+# Configure swap
 if [ -f /swapfile ]; then
   swapon /swapfile
 fi
 
-echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
+# Configure network with DHCP (see /usr/share/udhcpc/default.script)
+ip link set eth0 up
+udhcpc -q -b -i eth0
+#ifconfig eth0 192.168.1.100 netmask 255.255.255.0 up
