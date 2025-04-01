@@ -1,8 +1,8 @@
 subpackage:
   - runtime*
 name: gnu+make
-version: 4.2.1-1
-$version: 4.2.1
+version: '4.3'
+$version: '4.3'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -32,7 +32,6 @@ data:
     out: ''
     externals: true
     prepare: ''
-    $hash: e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7.tar.gz
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
