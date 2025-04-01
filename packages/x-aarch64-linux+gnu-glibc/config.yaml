@@ -1,6 +1,6 @@
 name: x-aarch64-linux+gnu-glibc
-version: '2.38'
-$version: '2.38'
+version: '2.41'
+$version: '2.41'
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,9 +25,8 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: fb82998998b2b29965467bc1b69d152e9c307d2cf301c9eafb4555b770ef3fd2.tar.xz
   type: bin
-  configure: 'mv(''data/glibc-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/glibc'');'
+  configure: "mv('data/glibc-<THIS.$VERSION>', 'root/var/x-aarch64-linux/glibc');"
   rules:
     type: move
     location: root

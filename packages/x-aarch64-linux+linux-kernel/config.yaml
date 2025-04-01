@@ -1,6 +1,6 @@
 name: x-aarch64-linux+linux-kernel
-version: 6.4.10
-$version: 6.4.10
+version: 6.12.21
+$version: 6.12.21
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -25,9 +25,8 @@ data:
     ref: ''
     out: ''
     externals: true
-    $hash: 980b3fb2a97788fd885cbd85ba4520980f76c7ae1d62bfc2e7477ee04df5f239.tar.xz
   type: bin
-  configure: 'mv(''data/linux-<THIS.$VERSION>'', ''root/var/x-aarch64-linux/linux'');'
+  configure: "mv('data/linux-<THIS.$VERSION>', 'root/var/x-aarch64-linux/linux');"
   rules:
     type: move
     location: root

@@ -144,7 +144,7 @@ data:
                         --disable-bootstrap
                         --disable-libsanitizer
                         --enable-version-specific-runtime-libs
-                        --with-glibc-version=2.38
+                        --with-glibc-version=2.41
                         --with-sysroot=/aarch64-xcraft-linux-gnu
                         --with-build-sysroot="<PEON.PREFIXDIR>/aarch64-xcraft-linux-gnu"
                         --with-gmp=<PEON.ROOTDIR>/usr
