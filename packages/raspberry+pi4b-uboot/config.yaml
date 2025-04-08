@@ -1,0 +1,61 @@
+subpackage:
+  - runtime*
+  - tools
+name: isee+igep0020-uboot
+version: 2014.07~rc4
+$version: 2014.07-rc4
+distribution: isee/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: U-boot Texas Instruments for IGEPv2
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-arm-linux+gnueabihf-gcc5-glibc-cross:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://source.denx.de/u-boot/u-boot.git'
+    mirrors: []
+    ref: a176ff0705351bf6d993a8f15e081bfa2ba2e1af
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: '!make -C <THIS.DATA.RULES.LOCATION> ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- igep0020_config'
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make ARCH=arm CROSS_COMPILE=arm-xcraft-linux-gnueabihf- -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: |-
+        cp("MLO", "<PEON.INSTALLDIR>/var/carnotzet/uboot/MLO");
+        cp("u-boot.img", "<PEON.INSTALLDIR>/var/carnotzet/uboot/u-boot.img");
+        cp("tools/mkimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkimage");
+        cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
+        cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
