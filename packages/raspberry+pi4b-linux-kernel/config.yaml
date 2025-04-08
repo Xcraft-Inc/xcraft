@@ -6,7 +6,7 @@ $version: 20250127
 distribution: raspberry/
 maintainer:
   name: Mathieu Schroeter
-  email: schroeter@epsitec.ch
+  email: mathieu@schroetersa.ch
 architecture:
   - source
 description:
