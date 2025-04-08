@@ -1,0 +1,10 @@
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=<PEON.PREFIXDIR>
+                     --libdir=<PEON.PREFIXDIR.DEV>/lib
+                     --includedir=<PEON.PREFIXDIR.DEV>/include
+                     --static
+  rules:
+    env:
+      cc: aarch64-xcraft-linux-gnu-gcc

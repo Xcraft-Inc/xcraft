@@ -1,0 +1,15 @@
+data:
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && CC="$CC $CFLAGS"
+         ./Configure linux-aarch64
+                     shared
+                     --prefix=<PEON.PREFIXDIR>
+                     --cross-compile-prefix=aarch64-xcraft-linux-gnu-
+  rules:
+    args:
+      makeall: |-
+        !make -j<PEON.CPUS.COUNT>
+    env:
+      CC: gcc
+      CXX: g++
