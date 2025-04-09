@@ -92,21 +92,21 @@ data:
       cp(`${prefixProdDir}/lib/libssl.so.1.1`,         `${installDir}/libssl.so.1.1`);
       cp(`${prefixProdDir}/lib/libcrypto.so.1.1`,      `${installDir}/libcrypto.so.1.1`);
       cp(`${prefixProdDir}/lib/libssh2.so.1.0.1`,      `${installDir}/libssh2.so.1`);
-      cp(`${prefixProdDir}/lib/libgit2.so.${ver}`,     `${installDir}/libgit2-${hash}.so`);
+      cp(`{PEON.PREFIXDIR}/lib/libgit2.so.${ver}`,     `${installDir}/libgit2-${hash}.so`);
     :>
     <PEON.OS=win?
       cp(`${prefixProdDir}/bin/zlib1.dll`,             `${installDir}/zlib1.dll`);
       cp(`${prefixProdDir}/bin/libssl-1_1-x64.dll`,    `${installDir}/libssl-1_1-x64.dll`);
       cp(`${prefixProdDir}/bin/libcrypto-1_1-x64.dll`, `${installDir}/libcrypto-1_1-x64.dll`);
       cp(`${prefixProdDir}/bin/libssh2.dll`,           `${installDir}/libssh2.dll`);
-      cp(`${prefixProdDir}/bin/libgit2.dll`,           `${installDir}/libgit2-${hash}.dll`);
+      cp(`{PEON.PREFIXDIR}/bin/libgit2.dll`,           `${installDir}/libgit2-${hash}.dll`);
     :>
     <PEON.OS=darwin?
       cp(`${prefixProdDir}/lib/libz.1.2.12.dylib`,     `${installDir}/zlib1.dll`);
       cp(`${prefixProdDir}/lib/libssl.1.1.dylib`,      `${installDir}/libssl.1.1.dylib`);
       cp(`${prefixProdDir}/lib/libcrypto.1.1.dylib`,   `${installDir}/libcrypto.1.1.dylib`);
       cp(`${prefixProdDir}/lib/libssh2.1.0.1.dylib`,   `${installDir}/libssh2.1.0.1.dylib`);
-      cp(`${prefixProdDir}/lib/libgit2.${ver}.dylib`,  `${installDir}/libgit2-${hash}.dylib`);
+      cp(`{PEON.PREFIXDIR}/lib/libgit2.${ver}.dylib`,  `${installDir}/libgit2-${hash}.dylib`);
     :>
   env:
     path: []
