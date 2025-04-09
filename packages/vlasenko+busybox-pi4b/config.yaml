@@ -1,0 +1,59 @@
+subpackage:
+  - runtime*
+name: vlasenko+busybox-pi4b
+version: 1.37.0
+$version: 1.37.0
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The Swiss Army Knife of Embedded Linux
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://www.busybox.net/downloads/busybox-<THIS.$VERSION>.tar.bz2'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && make CFLAGS=-D_XOPEN_SOURCE ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- defconfig
+      && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
+      && mkdir -p "<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+  rules:
+    type: make
+    location: data/busybox-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+    test: none
+    env: {}
+  deploy: rm("<PEON.INSTALLDIR>/var/carnotzet/rootfs/linuxrc");
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
