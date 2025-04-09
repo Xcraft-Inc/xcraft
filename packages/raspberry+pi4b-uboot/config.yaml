@@ -14,10 +14,6 @@ description:
   brief: U-boot Texas Instruments for RASPBERRY Pi4 model B
   long: ''
 dependency:
-  install:
-    openssl+openssl3:
-      - version: ''
-        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -26,6 +22,9 @@ dependency:
       - version: ''
         architecture: []
     x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+    openssl+openssl:
       - version: ''
         architecture: []
 bump: []
@@ -41,7 +40,8 @@ data:
   type: src
   configure: |-
     !make -C <THIS.DATA.RULES.LOCATION>
-          CROSS_COMPILE=aarch64-xcraft-linux-gnu- rpi_4_defconfig
+          CROSS_COMPILE=aarch64-xcraft-linux-gnu-
+          rpi_4_defconfig
   rules:
     type: script
     location: data
@@ -58,7 +58,10 @@ data:
         cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
         cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
     test: none
-    env: {}
+    env:
+      HOSTCFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<PEON.ROOTDIR>/usr/include -Wl,-rpath,<PEON.ROOTDIR>/usr/lib'
+      HOSTCXXFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<PEON.ROOTDIR>/usr/include -Wl,-rpath,<PEON.ROOTDIR>/usr/lib -static-libstdc++'
+      HOSTLDFLAGS: '-L<PEON.ROOTDIR>/usr/lib -static-libgcc -static-libstdc++'
   deploy: ''
   env:
     path: []
