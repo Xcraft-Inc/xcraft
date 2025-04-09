@@ -1,0 +1,56 @@
+subpackage:
+  - runtime*
+name: raspberry+pi4b-firmware
+version: '1.20250326'
+$version: '1.20250326'
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - source
+description:
+  brief: Firmware for RASPBERRY Pi4 model B
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://github.com/raspberrypi/firmware/releases/download/<THIS.$VERSION>/raspi-firmware_<THIS.$VERSION>.orig.tar.xz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: ''
+  rules:
+    type: script
+    location: data/raspi-firmware-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: ''
+      maketest: ''
+      makeinstall: |-
+        cp('boot/bootcode.bin', '<PEON.INSTALLDIR>/var/carnotzet/boot/bootcode.bin');
+        cp('boot/start4.elf', '<PEON.INSTALLDIR>/var/carnotzet/boot/start4.elf');
+        cp('<PEON.ASSETS>/config.txt', '<PEON.INSTALLDIR>/var/carnotzet/boot/config.txt');
+    test: none
+    env: {}
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
