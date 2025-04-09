@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-  - zou:all
+  - 'zou:all'
 name: libgit2+libgit2
 version: 1.8.4
 $version: 1.8.4
