@@ -1,0 +1,64 @@
+subpackage:
+  - runtime*
+name: unigw+wpkg-pi4b
+version: 1.0.2
+$version: 1.0.2
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: A Unix Packager For MS-Windows Systems
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://github.com/Xcraft-Inc/wpkg/archive/4cf8df638a7608cf310fd5167627a2f3861e3510.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !mkdir -p <THIS.DATA.RULES.LOCATION>
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cd <THIS.DATA.RULES.LOCATION>/../wpkg/controlled_vars/build
+      && cmake ..
+      && make
+      && cd -
+      && cd <THIS.DATA.RULES.LOCATION>
+      && cmake -G "Unix Makefiles"
+              -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-aarch64-linux.cmake
+              ..
+      && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
+  rules:
+    type: script
+    location: data/wpkg-4cf8df638a7608cf310fd5167627a2f3861e3510/build
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !export PATH="$(pwd):$PATH"
+          && make -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: 'cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/bin/wpkg");'
+    test: none
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
