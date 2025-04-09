@@ -23,6 +23,9 @@ dependency:
     x-aarch64-linux+gnu-gcc-glibc-cross:
       - version: ''
         architecture: []
+    x-aarch64-linux+gnu-glibc:
+      - version: ''
+        architecture: []
   make:
     xcraft+base-make:
       - version: ''
@@ -30,7 +33,7 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'http://ftpmirror.gnu.org/glibc/glibc-<THIS.$VERSION>.tar.xz'
+    uri: ''
     mirrors: []
     ref: ''
     $ref: ''
@@ -39,16 +42,17 @@ data:
     prepare: ''
   type: src
   configure: |-
-    !mkdir -p <THIS.DATA.RULES.LOCATION>/build
+    !GLIBC="<PEON.ROOTDIR>/var/x-aarch64-linux/glibc"
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/build
       && cd <THIS.DATA.RULES.LOCATION>/build
-      && ../configure --prefix=/usr
-                      --build=$MACHTYPE
-                      --host=aarch64-xcraft-linux-gnu
-                      --target=aarch64-xcraft-linux-gnu
-                      --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
-                      --disable-multilib
-                      --disable-werror
-                      --enable-kernel=3.2
+      && $GLIBC/configure --prefix=/usr
+                          --build=$MACHTYPE
+                          --host=aarch64-xcraft-linux-gnu
+                          --target=aarch64-xcraft-linux-gnu
+                          --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
+                          --disable-multilib
+                          --disable-werror
+                          --enable-kernel=3.2
   rules:
     type: script
     location: data/glibc-<THIS.$VERSION>
