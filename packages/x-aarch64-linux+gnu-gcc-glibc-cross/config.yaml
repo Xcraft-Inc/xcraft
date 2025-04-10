@@ -203,7 +203,7 @@ data:
           && cat <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limitx.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/glimits.h
                  <PEON.ROOTDIR>/var/x-aarch64-linux/gcc/gcc/limity.h
-               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/include-fixed/limits.h"
+               >"<PEON.PREFIXDIR>/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/include/limits.h"
       maketest: ''
       makeinstall: ''
     test: none
