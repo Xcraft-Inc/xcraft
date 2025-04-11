@@ -1,0 +1,86 @@
+subpackage:
+  - runtime*
+name: openjs+nodejs20-pi4b
+version: 20.19.0
+$version: 20.19.0
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - source
+description:
+  brief: Node.js is a JS runtime built on Chrome's V8 JavaScript engine.
+  long: ''
+dependency:
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    vanrossum+python3:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: 'https://nodejs.org/dist/v<THIS.$VERSION>/node-v<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd {THIS.DATA.RULES.LOCATION}
+       && ./configure --prefix={PEON.INSTALLDIR}/var/carnotzet/rootfs/usr
+                      --cross-compiling
+                      --dest-cpu=arm64
+                      --dest-os=linux
+                      --with-arm-float-abi=hard
+                      --with-arm-fpu=neon
+                      --enable-static
+                      --without-intl
+  rules:
+    type: script
+    location: data/node-v<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -j{PEON.CPUS.COUNT}'
+      maketest: ''
+      makeinstall: |-
+        !make install
+          && aarch64-xcraft-linux-gnu-strip -s {PEON.INSTALLDIR}/var/carnotzet/rootfs/usr/bin/node
+    test: none
+    env:
+      CC: aarch64-xcraft-linux-gnu-gcc
+      CXX: aarch64-xcraft-linux-gnu-g++
+      AR: aarch64-xcraft-linux-gnu-ar
+      LINK: aarch64-xcraft-linux-gnu-g++
+      CC_host: gcc
+      CXX_host: g++
+      AR_host: ar
+      LINK_host: g++
+      CFLAGS: ''
+      CFLAGS_host: ''
+      CXXFLAGS: ''
+      CPPFLAGS: ''
+      LDFLAGS: ''
+      C_INCLUDE_PATH: ''
+      CPLUS_INCLUDE_PATH: ''
+      LIBRARY_PATH: ''
+      LD_LIBRARY_PATH: ''
+      PKG_CONFIG_PATH: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
