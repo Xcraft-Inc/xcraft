@@ -1,0 +1,47 @@
+name: carnotzet+os-pi4b
+version: 0.1.0
+$version: 0.1.0
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+  - linux-aarch64
+description:
+  brief: Carnotzet Operating System
+  long: ''
+dependency:
+  install:
+    carnotzet+rootfs-pi4b:
+      - version: ''
+        architecture: []
+    raspberry+pi4b-linux-kernel:
+      - version: ''
+        architecture: []
+    raspberry+pi4b-uboot:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
