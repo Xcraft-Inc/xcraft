@@ -148,3 +148,6 @@
 [submodule "lib/xcraft-contrib-bootstrap"]
 	path = lib/xcraft-contrib-bootstrap
 	url = https://github.com/Xcraft-Inc/xcraft-contrib-bootstrap.git
+[submodule "lib/goblin-zou"]
+	path = lib/goblin-zou
+	url = https://github.com/Xcraft-Inc/goblin-zou.git
