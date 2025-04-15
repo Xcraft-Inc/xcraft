@@ -1,0 +1,2 @@
+::sysinit:/etc/init.d/rcS
+ttyO2::respawn:/sbin/getty -L ttyO2 115200 vt100 /bin/login
