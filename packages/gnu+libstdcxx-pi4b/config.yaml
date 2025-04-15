@@ -1,0 +1,92 @@
+subpackage:
+  - runtime*
+name: gnu+libstdcxx-pi4b
+version: '13.3.0'
+$version: '13.3.0'
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - source
+description:
+  brief: The GNU libstdc++ Library
+  long: ''
+dependency:
+  build:
+    xcraft+peon:
+      - version: ''
+        architecture: []
+    xcraft+build-essential:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc:
+      - version: ''
+        architecture: []
+  make:
+    xcraft+base-make:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !GCC="<PEON.ROOTDIR>/var/x-aarch64-linux/gcc"
+     CXXCONFIG="aarch64-xcraft-linux-gnu/bits/c++config.h"
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/build-libstdcxx
+      && cd <THIS.DATA.RULES.LOCATION>/build-libstdcxx
+      && $GCC/libstdc++-v3/configure --prefix=/usr
+                                     --build=$MACHTYPE
+                                     --host=aarch64-xcraft-linux-gnu
+                                     --target=aarch64-xcraft-linux-gnu
+                                     --disable-multilib
+                                     --disable-nls
+                                     --disable-libstdcxx-pch
+      && cp <PEON.ROOTDIR>/usr/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/include/c++/$CXXCONFIG include/$CXXCONFIG
+      && cd -
+      && mkdir -p <THIS.DATA.RULES.LOCATION>/build-libatomic
+      && cd <THIS.DATA.RULES.LOCATION>/build-libatomic
+      && $GCC/libatomic/configure --prefix=/usr
+                                  --build=$MACHTYPE
+                                  --host=aarch64-xcraft-linux-gnu
+                                  --target=aarch64-xcraft-linux-gnu
+                                  --disable-multilib
+  rules:
+    type: script
+    location: data
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: |-
+        !    make -C build-libstdcxx -j<PEON.CPUS.COUNT>
+          && make -C build-libatomic -j<PEON.CPUS.COUNT>
+      maketest: ''
+      makeinstall: |-
+        !    make -C build-libstdcxx install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
+          && make -C build-libatomic install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
+    test: none
+    env:
+      CC: ''
+      CXX: ''
+      CFLAGS: ''
+      CXXFLAGS: ''
+      LDFLAGS: ''
+      CPPFLAGS: ''
+  deploy: ''
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
