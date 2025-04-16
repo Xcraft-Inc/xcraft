@@ -1,6 +1,6 @@
 name: microsoft+buildtools
-version: 17.7.6+34221.43
-$version: 17.7.6+34221.43
+version: 17.13.6+35931.197
+$version: 17.13.6+35931.197
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,13 +19,12 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/odb8eQaJb9FknSb/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
+    uri: 'https://owncloud.epsitec.ch/owncloud/index.php/s/SFkbCPfZ7n9ocJX/download/microsoft+buildtools-2022-<THIS.$VERSION>.zip'
     mirrors: []
     ref: ''
     $ref: ''
     out: ''
     externals: true
-    $hash: 0cf46bcbcf4d18bbc77bb153c13de9ca1068068bc4f9254b482aee81def2b651.zip
   type: bin
   configure: ''
   rules:
@@ -54,14 +53,15 @@ data:
           --add Microsoft.VisualStudio.Component.Windows10SDK.18362
           --add Microsoft.Component.VC.Runtime.UCRTSDK
           --add Microsoft.VisualStudio.Component.NuGet.BuildTools
-          --add Microsoft.NetCore.Component.Runtime.6.0
-          --add Microsoft.NetCore.Component.Runtime.7.0
+          --add Microsoft.NetCore.Component.Runtime.9.0
+          --add Microsoft.NetCore.Component.Runtime.8.0
           --add Microsoft.NetCore.Component.SDK
           --add Microsoft.Net.Component.4.6.1.TargetingPack
-          --add Microsoft.VisualStudio.Component.VC.14.37.17.7.x86.x64
-          --add Microsoft.VisualStudio.Component.VC.14.37.17.7.ATL
-          --add Microsoft.VisualStudio.Component.VC.14.37.17.7.CLI.Support
-          --add Microsoft.VisualStudio.Component.VC.14.37.17.7.MFC
+          --add Microsoft.NetCore.Component.Runtime.6.0
+          --add Microsoft.VisualStudio.Component.VC.14.42.17.12.x86.x64
+          --add Microsoft.VisualStudio.Component.VC.14.42.17.12.ATL
+          --add Microsoft.VisualStudio.Component.VC.14.42.17.12.CLI.Support
+          --add Microsoft.VisualStudio.Component.VC.14.42.17.12.MFC
       prerm: |-
         !"C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
           /uninstall
@@ -72,6 +72,6 @@ data:
     path:
       - '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/MSBuild/Current/Bin<OS.ARCH=x64?/amd64:>'
     other:
-      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.37.34221/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
+      CL_TOOL_EXE: '<OS.ROOTDRIVE>/xcraft/microsoft/buildtools/VC/Tools/MSVC/14.42.34433/bin/Host<OS.ARCH=x32?x86:x64>/<OS.ARCH=x32?x86:x64>/cl.exe'
       MSBUILDDISABLENODEREUSE: '1'
   embedded: true
