@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-80-darwin
-version: 8.0.100
-$version: 8.0.100
+version: 8.0.408
+$version: 8.0.408
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,14 +19,15 @@ dependency:
     xcraft+utils:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/e59acfc2-5987-43f9-bd03-0cbe446679e1/7db7313c1c99104279a69ccd47d160a1/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
+    uri: 'https://builds.dotnet.microsoft.com/dotnet/Sdk/<THIS.$VERSION>/dotnet-sdk-<THIS.$VERSION>-osx-x64.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: cfbde9f7ef322332bcd0749fc5da843c09cf78e1cc4d10d3358d3ae4dc655c24.tar.gz
   type: bin
   configure: |-
     yield exec(

@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-80-linux
-version: 8.0.100
-$version: 8.0.100
+version: 8.0.408
+$version: 8.0.408
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -19,14 +19,15 @@ dependency:
     xcraft+utils:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/5226a5fa-8c0b-474f-b79a-8984ad7c5beb/3113ccbf789c9fd29972835f0f334b7a/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
+    uri: 'https://builds.dotnet.microsoft.com/dotnet/Sdk/<THIS.$VERSION>/dotnet-sdk-<THIS.$VERSION>-linux-x64.tar.gz'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: 550692ae3233e69692822b8be31bb01c5a2b60c3cfa59e9bfce8278b99f36211.tar.gz
   type: bin
   configure: |-
     yield exec(

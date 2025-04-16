@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-80-win
-version: 8.0.100
-$version: 8.0.100
+version: 8.0.408
+$version: 8.0.408
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -16,13 +16,15 @@ dependency:
     xcraft+peon:
       - version: ''
         architecture: []
+bump: []
 data:
   get:
-    uri: 'https://download.visualstudio.microsoft.com/download/pr/2b2d6133-c4f9-46dd-9ab6-86443a7f5783/340054e2ac7de2bff9eea73ec9d4995a/dotnet-sdk-<THIS.$VERSION>-win-x64.zip'
+    uri: 'https://builds.dotnet.microsoft.com/dotnet/Sdk/<THIS.$VERSION>/dotnet-sdk-<THIS.$VERSION>-win-x64.zip'
+    mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
-    $hash: fc225bcce6b54385580a16216e484b6119452ff6febac7da4e2a7e1fdee09921.zip
   type: bin
   configure: ''
   rules:
@@ -31,6 +33,7 @@ data:
     args:
       postinst: ''
       prerm: ''
+    env: {}
   env:
     path: []
     other: {}

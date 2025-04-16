@@ -1,6 +1,6 @@
 name: microsoft+dotnet-sdk-darwin-arm
-version: 23.0.0
-$version: 23.0.0
+version: 23.1.0
+$version: 23.1.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -8,7 +8,7 @@ maintainer:
 architecture:
   - darwin-aarch64
 description:
-  brief: .NET Core SDK 6.0, 8.0
+  brief: .NET Core SDK 6.0, 8.0 and 9.0
   long: ''
 dependency:
   install:
