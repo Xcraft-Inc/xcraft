@@ -49,7 +49,6 @@ data:
                           --build=$MACHTYPE
                           --host=aarch64-xcraft-linux-gnu
                           --target=aarch64-xcraft-linux-gnu
-                          --with-sysroot="<PEON.ROOTDIR>/usr/aarch64-linux"
                           --disable-multilib
                           --disable-werror
                           --enable-kernel=3.2
