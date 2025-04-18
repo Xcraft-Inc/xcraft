@@ -50,7 +50,7 @@ data:
       makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/carnotzet/rootfs"
     test: none
     env: {}
-  deploy: rm("<PEON.INSTALLDIR>/var/carnotzet/rootfs/linuxrc");
+  deploy: cp('<PEON.ASSETS>', '<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/kmap');
   env:
     path: []
     other: {}

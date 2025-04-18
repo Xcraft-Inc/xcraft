@@ -66,9 +66,7 @@ data:
       prerm: ''
       makeall: ''
       maketest: ''
-      makeinstall: |-
-        cp('<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data', '<PEON.INSTALLDIR>');
-        yield exec('ln', '-s', 'bin/busybox', '<PEON.INSTALLDIR>/var/carnotzet/rootfs/linuxrc');
+      makeinstall: cp('<PEON.WPKG.STAG>/usr/share/carnotzet/rootfs/data', '<PEON.INSTALLDIR>');
     test: none
   deploy: ''
   env:
