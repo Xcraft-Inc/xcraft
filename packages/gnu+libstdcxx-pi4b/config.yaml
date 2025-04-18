@@ -75,6 +75,8 @@ data:
       makeinstall: |-
         !    make -C build-libstdcxx install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
           && make -C build-libatomic install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
+          && mkdir -p <PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/lib64
+          && cp <PEON.ROOTDIR>/usr/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/libgcc_s.* <PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/lib64
     test: none
     env:
       CC: ''
