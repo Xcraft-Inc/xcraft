@@ -57,6 +57,16 @@ data:
         cp("tools/mkimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkimage");
         cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
         cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
+
+        yield exec(
+          'tools/mkimage',
+          '-A', 'arm64',
+          '-O', 'linux',
+          '-T', 'script',
+          '-C', 'none',
+          '-d', '<PEON.ASSETS>/boot_cmd.txt',
+          '<PEON.INSTALLDIR>/var/carnotzet/boot/boot.scr'
+        );
     test: none
     env:
       HOSTCFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<PEON.ROOTDIR>/usr/include -Wl,-rpath,<PEON.ROOTDIR>/usr/lib'
