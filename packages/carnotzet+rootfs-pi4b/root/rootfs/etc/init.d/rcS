@@ -6,7 +6,7 @@ mount -t debugfs none /sys/kernel/debug
 echo '/bin/mdev' > /proc/sys/kernel/hotplug
 mdev -s
 
-stty -F /dev/ttyO2 115200
+#stty -F /dev/ttyO2 115200
 
 echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
 
