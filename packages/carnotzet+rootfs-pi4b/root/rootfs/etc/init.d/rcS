@@ -19,3 +19,6 @@ fi
 ip link set eth0 up
 udhcpc -q -b -i eth0
 #ifconfig eth0 192.168.1.100 netmask 255.255.255.0 up
+
+# Import fr-CH keyboard map
+busybox loadkmap < /usr/share/kmap/fr_CH.kmap
