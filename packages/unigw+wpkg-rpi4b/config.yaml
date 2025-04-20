@@ -56,6 +56,7 @@ data:
       makeinstall: |-
         cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/bin/wpkg");
         cp("<PEON.ASSETS>/admindir.control", "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/wpkg/admindir.control");
+        cp("<PEON.ASSETS>/sources.list",     "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/wpkg/sources.list");
     test: none
   deploy: ''
   env:
