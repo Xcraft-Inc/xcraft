@@ -1,9 +1,9 @@
 subpackage:
-  - runtime*:linux-aarch64
+  - runtime*
 name: openjs+nodejs20-pi4b
 version: 20.19.0
 $version: 20.19.0
-distribution: raspberry.bare/
+distribution: raspberry/
 maintainer:
   name: Mathieu Schroeter
   email: mathieu@schroetersa.ch
@@ -38,7 +38,7 @@ data:
   type: src
   configure: |-
     !cd {THIS.DATA.RULES.LOCATION}
-       && ./configure --prefix=/usr
+       && ./configure --prefix={PEON.INSTALLDIR}/var/carnotzet/rootfs/usr
                       --cross-compiling
                       --dest-cpu=arm64
                       --dest-os=linux
@@ -55,8 +55,8 @@ data:
       makeall: '!make -j{PEON.CPUS.COUNT}'
       maketest: ''
       makeinstall: |-
-        !make install DESTDIR={PEON.INSTALLDIR}
-          && aarch64-xcraft-linux-gnu-strip -s {PEON.INSTALLDIR}/usr/bin/node
+        !make install
+          && aarch64-xcraft-linux-gnu-strip -s {PEON.INSTALLDIR}/var/carnotzet/rootfs/usr/bin/node
     test: none
     env:
       CC: aarch64-xcraft-linux-gnu-gcc
