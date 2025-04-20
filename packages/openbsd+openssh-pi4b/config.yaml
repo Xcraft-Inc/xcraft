@@ -1,0 +1,72 @@
+subpackage:
+  - runtime*
+  - x+bin:linux-aarch64
+name: openbsd+openssh-pi4b
+version: 10.0p1
+$version: 10.0p1
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: The premier connectivity tool for remote login with the SSH protocol.
+  long: 'OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.'
+dependency:
+  install:
+    openssl+openssl3-pi4b:
+      - version: ''
+        architecture: []
+    adler+zlib-pi4b:
+      - version: ''
+        architecture: []
+        subpackage:
+          - x+bin
+    adler+zlib-pi4b-dev:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+data:
+  get:
+    uri: 'https://mirror.ungleich.ch/pub/OpenBSD/OpenSSH/portable/openssh-<THIS.$VERSION>.tar.gz'
+    mirrors:
+      - 'https://ftp.spline.de/pub/OpenBSD/OpenSSH/portable/openssh-<THIS.$VERSION>.tar.gz'
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && ./configure --prefix=/usr
+                     --build=$MACHTYPE
+                     --host=aarch64-xcraft-linux-gnu
+                     --with-libs
+                     --with-ldflags="-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib"
+                     --with-privsep-path=<PEON.INSTALLDIR>/var/empty
+                     --disable-etc-default-login
+  rules:
+    type: make
+    location: data/openssh-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '-j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR>
+    test: none
+    env:
+      CC: ''
+      CXX: ''
+  deploy: |-
+    !make -C <THIS.DATA.RULES.LOCATION> install DESTDIR=<PEON.INSTALLDIR.X+BIN> STRIP_OPT=
+  env:
+    path: []
+    other: {}
+  embedded: true
+  runtime:
+    configure: ''
