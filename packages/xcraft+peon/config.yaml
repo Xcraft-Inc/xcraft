@@ -1,6 +1,6 @@
 name: xcraft+peon
-version: 1.6.3
-$version: 1.6.3
+version: 1.7.0
+$version: 1.7.0
 distribution: toolchain/
 maintainer:
   name: Mathieu Schroeter
@@ -21,6 +21,7 @@ data:
     uri: 'self:///root'
     mirrors: []
     ref: ''
+    $ref: ''
     out: ''
     externals: true
   type: bin

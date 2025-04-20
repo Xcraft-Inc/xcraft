@@ -191,6 +191,13 @@ class Action {
 
     this._prefix = prefixDir;
 
+    if (this._distribution.endsWith('.bare/')) {
+      this._resp.log.dbg(
+        `Don't deploy scripts, ${control.Package} is using a bare distribution`
+      );
+      return;
+    }
+
     const etcPath = path.join(basePath, 'etc');
     const hasEtc = fs.existsSync(etcPath);
     const etcDirList = hasEtc ? xFs.lsdir(etcPath) : [];
