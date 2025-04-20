@@ -50,20 +50,21 @@ data:
                      --with-privsep-path=<PEON.INSTALLDIR>/var/empty
                      --disable-etc-default-login
   rules:
-    type: make
+    type: script
     location: data/openssh-<THIS.$VERSION>
     args:
       postinst: ''
       prerm: ''
-      makeall: '-j<PEON.CPUS.COUNT>'
+      makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR>
+      makeinstall: |-
+        !  make install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR>
+        && make install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR.X+BIN>
     test: none
     env:
       CC: ''
       CXX: ''
-  deploy: |-
-    !make -C <THIS.DATA.RULES.LOCATION> install DESTDIR=<PEON.INSTALLDIR.X+BIN> STRIP_OPT=
+  deploy: ''
   env:
     path: []
     other: {}

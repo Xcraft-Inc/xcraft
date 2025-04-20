@@ -56,13 +56,14 @@ data:
       prerm: ''
       makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '!make install_sw DESTDIR=<PEON.INSTALLDIR>'
+      makeinstall: |-
+        !  make install_sw DESTDIR=<PEON.INSTALLDIR>
+        && make install_sw DESTDIR=<PEON.INSTALLDIR.X+BIN>
     test: none
     env:
       CC: gcc
       CXX: g++
-  deploy: |-
-    !make -C <THIS.DATA.RULES.LOCATION> install_sw DESTDIR=<PEON.INSTALLDIR.X+BIN>
+  deploy: ''
   env:
     path: []
     other:
