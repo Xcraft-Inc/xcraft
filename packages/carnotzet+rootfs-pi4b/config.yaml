@@ -34,11 +34,6 @@ dependency:
         architecture: []
         subpackage:
           - runtime
-    openjs+nodejs20-pi4b:
-      - version: ''
-        architecture: []
-        subpackage:
-          - runtime
   build:
     xcraft+peon:
       - version: ''
