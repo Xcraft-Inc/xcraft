@@ -198,13 +198,22 @@ class Action {
 
     for (let i = 0; i < subPackages.length; ++i) {
       const subPackage = subPackages[i];
-      if (subPackage.startsWith('x+')) {
-        continue;
-      }
 
       /* Copy postinst and prerm scripts for the binary package. */
       const installWpkgDir = path.join(installDir[subPackage], 'WPKG');
       xFs.mkdir(installWpkgDir);
+
+      /* Generate the config.json file. */
+      this._genConfig(
+        mainPackage !== i ? subPackage : null,
+        prefixDir[subPackage],
+        this._config.runtime
+      );
+
+      if (subPackage.startsWith('x+')) {
+        continue;
+      }
+
       const ph = new xPh.Placeholder();
       ['postinst', 'prerm'].forEach((script) => {
         script = script + xPlatform.getShellExt();
@@ -216,13 +225,6 @@ class Action {
         ph.set('DISTRIBUTION', this._distribution) //
           .injectFile('PACMAN', input, output);
       });
-
-      /* Generate the config.json file. */
-      this._genConfig(
-        mainPackage !== i ? subPackage : null,
-        prefixDir[subPackage],
-        this._config.runtime
-      );
 
       const cp = (src, dst) => {
         this._resp.log.verb(`Copy ${src} to ${dst}`);
