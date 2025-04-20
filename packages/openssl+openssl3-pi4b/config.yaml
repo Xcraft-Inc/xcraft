@@ -1,0 +1,73 @@
+subpackage:
+  - runtime*
+  - x+bin:linux-aarch64
+name: openssl+openssl3-pi4b
+version: 3.5.0
+$version: 3.5.0
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: schroeter@epsitec.ch
+architecture:
+  - source
+description:
+  brief: OpenSSL v3
+  long: ''
+dependency:
+  install:
+    adler+zlib-pi4b-dev:
+      - version: ''
+        architecture: []
+  build:
+    xcraft+base-build:
+      - version: ''
+        architecture: []
+    x-aarch64-linux+gnu-gcc-glibc-cross:
+      - version: ''
+        architecture: []
+    wall+perl:
+      - version: ''
+        architecture:
+          - linux-i386
+          - linux-amd64
+          - linux-aarch64
+bump: []
+data:
+  get:
+    uri: 'https://www.openssl.org/source/openssl-<THIS.$VERSION>.tar.gz'
+    mirrors: []
+    ref: ''
+    out: ''
+    externals: true
+    prepare: ''
+  type: src
+  configure: |-
+    !cd <THIS.DATA.RULES.LOCATION>
+      && CC="$CC $CFLAGS"
+         ./Configure linux-aarch64
+                     shared
+                     --prefix=<PEON.PREFIXDIR>
+                     --cross-compile-prefix=aarch64-xcraft-linux-gnu-
+  rules:
+    type: script
+    location: data/openssl-<THIS.$VERSION>
+    args:
+      postinst: ''
+      prerm: ''
+      makeall: '!make -j<PEON.CPUS.COUNT>'
+      maketest: ''
+      makeinstall: '!make install_sw'
+    test: none
+    env:
+      CC: gcc
+      CXX: g++
+  deploy: |-
+    cp("<PEON.PREFIXDIR>/bin", "<PEON.PREFIXDIR.X+BIN>/bin");
+    cp("<PEON.PREFIXDIR>/lib", "<PEON.PREFIXDIR.X+BIN>/lib");
+  env:
+    path: []
+    other:
+      SSL_CERT_DIR: '/etc/ssl/certs'
+  embedded: true
+  runtime:
+    configure: ''
