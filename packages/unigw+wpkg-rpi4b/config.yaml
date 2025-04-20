@@ -40,8 +40,8 @@ data:
       && cd -
       && cd <THIS.DATA.RULES.LOCATION>
       && cmake -G "Unix Makefiles"
-              -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-aarch64-linux.cmake
-              ..
+               -DCMAKE_TOOLCHAIN_FILE=../cmake/Toolchain-cross-aarch64-linux.cmake
+               ..
       && cp ../wpkg/controlled_vars/build/controlled_vars ./controlled_vars
   rules:
     type: script
