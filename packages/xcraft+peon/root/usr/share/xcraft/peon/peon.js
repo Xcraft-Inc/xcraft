@@ -191,13 +191,6 @@ class Action {
 
     this._prefix = prefixDir;
 
-    if (this._distribution.endsWith('.bare/')) {
-      this._resp.log.dbg(
-        `Don't deploy scripts, ${control.Package} is using a bare distribution`
-      );
-      return;
-    }
-
     const etcPath = path.join(basePath, 'etc');
     const hasEtc = fs.existsSync(etcPath);
     const etcDirList = hasEtc ? xFs.lsdir(etcPath) : [];
@@ -205,6 +198,9 @@ class Action {
 
     for (let i = 0; i < subPackages.length; ++i) {
       const subPackage = subPackages[i];
+      if (subPackage.startsWith('x+')) {
+        continue;
+      }
 
       /* Copy postinst and prerm scripts for the binary package. */
       const installWpkgDir = path.join(installDir[subPackage], 'WPKG');
