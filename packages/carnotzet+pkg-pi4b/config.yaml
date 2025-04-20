@@ -1,0 +1,50 @@
+name: carnotzet+pkg-pi4b
+version: 0.1.0
+$version: 0.1.0
+distribution: raspberry/
+maintainer:
+  name: Mathieu Schroeter
+  email: mathieu@schroetersa.ch
+architecture:
+  - linux-i386
+  - linux-amd64
+  - linux-aarch64
+description:
+  brief: Packages for the Carnotzet Operating System
+  long: ''
+dependency:
+  install:
+    adler+zlib-pi4b:
+      - version: ''
+        architecture: []
+    openssl+openssl3-pi4b:
+      - version: ''
+        architecture: []
+    openbsd+openssh-pi4b:
+      - version: ''
+        architecture: []
+    openjs+nodejs20-pi4b:
+      - version: ''
+        architecture: []
+bump: []
+data:
+  get:
+    uri: ''
+    mirrors: []
+    ref: ''
+    $ref: ''
+    out: ''
+    externals: false
+  type: bin
+  configure: ''
+  rules:
+    type: meta
+    location: ''
+    args:
+      postinst: ''
+      prerm: ''
+    env: {}
+  env:
+    path: []
+    other: {}
+  embedded: true
