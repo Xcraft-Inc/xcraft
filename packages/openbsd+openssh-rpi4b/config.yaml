@@ -18,7 +18,7 @@ dependency:
     openssl+openssl3-rpi4b:
       - version: ''
         architecture: []
-    adler+zlib-rpi4b:
+    adler+zlib-rpi4b-x+bin:
       - version: ''
         architecture: []
         subpackage:
