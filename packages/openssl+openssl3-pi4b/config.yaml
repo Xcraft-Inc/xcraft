@@ -46,7 +46,7 @@ data:
       && CC="$CC $CFLAGS"
          ./Configure linux-aarch64
                      shared
-                     --prefix=<PEON.PREFIXDIR>
+                     --prefix=/usr
                      --cross-compile-prefix=aarch64-xcraft-linux-gnu-
   rules:
     type: script
@@ -56,14 +56,13 @@ data:
       prerm: ''
       makeall: '!make -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '!make install_sw'
+      makeinstall: '!make install_sw DESTDIR=<PEON.INSTALLDIR>'
     test: none
     env:
       CC: gcc
       CXX: g++
   deploy: |-
-    cp("<PEON.PREFIXDIR>/bin", "<PEON.PREFIXDIR.X+BIN>/bin");
-    cp("<PEON.PREFIXDIR>/lib", "<PEON.PREFIXDIR.X+BIN>/lib");
+    !make -C <THIS.DATA.RULES.LOCATION> install_sw DESTDIR=<PEON.INSTALLDIR.X+BIN>
   env:
     path: []
     other:
