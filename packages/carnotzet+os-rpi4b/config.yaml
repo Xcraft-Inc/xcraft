@@ -1,4 +1,4 @@
-name: carnotzet+os-pi4b
+name: carnotzet+os-rpi4b
 version: 0.1.0
 $version: 0.1.0
 distribution: raspberry/
@@ -14,13 +14,16 @@ description:
   long: ''
 dependency:
   install:
-    carnotzet+rootfs-pi4b:
+    carnotzet+rootfs-rpi4b:
       - version: ''
         architecture: []
-    raspberry+pi4b-linux-kernel:
+    raspberry+rpi4b-linux-kernel:
       - version: ''
         architecture: []
-    raspberry+pi4b-uboot:
+    raspberry+rpi4b-uboot:
+      - version: ''
+        architecture: []
+    raspberry+rpi4b-firmware:
       - version: ''
         architecture: []
 bump: []

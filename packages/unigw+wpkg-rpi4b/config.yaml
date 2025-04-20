@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: unigw+wpkg-pi4b
+name: unigw+wpkg-rpi4b
 version: 1.0.2
 $version: 1.0.2
 distribution: raspberry/

@@ -1,4 +1,4 @@
-name: carnotzet+pkg-pi4b
+name: carnotzet+pkg-rpi4b
 version: 0.1.0
 $version: 0.1.0
 distribution: raspberry/
@@ -14,16 +14,16 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib-pi4b:
+    adler+zlib-rpi4b:
       - version: ''
         architecture: []
-    openssl+openssl3-pi4b:
+    openssl+openssl3-rpi4b:
       - version: ''
         architecture: []
-    openbsd+openssh-pi4b:
+    openbsd+openssh-rpi4b:
       - version: ''
         architecture: []
-    openjs+nodejs20-pi4b:
+    openjs+nodejs20-rpi4b:
       - version: ''
         architecture: []
 bump: []

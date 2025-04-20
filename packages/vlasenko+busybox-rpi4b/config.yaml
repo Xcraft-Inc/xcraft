@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: vlasenko+busybox-pi4b
+name: vlasenko+busybox-rpi4b
 version: 1.37.0
 $version: 1.37.0
 distribution: raspberry/

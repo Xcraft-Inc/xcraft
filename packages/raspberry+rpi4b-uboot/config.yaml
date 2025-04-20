@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
   - tools
-name: raspberry+pi4b-uboot
+name: raspberry+rpi4b-uboot
 version: '2025.04'
 $version: '2025.04'
 distribution: raspberry/

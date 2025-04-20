@@ -2,7 +2,7 @@ subpackage:
   - runtime*
   - dev
   - x+bin:linux-aarch64
-name: adler+zlib-pi4b
+name: adler+zlib-rpi4b
 version: 1.3.1
 $version: 1.3.1
 distribution: raspberry/
@@ -16,7 +16,7 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib-pi4b:
+    adler+zlib-rpi4b:
       - version: ''
         architecture: []
         subpackage:

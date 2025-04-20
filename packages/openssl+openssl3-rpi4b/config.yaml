@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
   - x+bin:linux-aarch64
-name: openssl+openssl3-pi4b
+name: openssl+openssl3-rpi4b
 version: 3.5.0
 $version: 3.5.0
 distribution: raspberry/
@@ -15,7 +15,7 @@ description:
   long: ''
 dependency:
   install:
-    adler+zlib-pi4b-dev:
+    adler+zlib-rpi4b-dev:
       - version: ''
         architecture: []
   build:

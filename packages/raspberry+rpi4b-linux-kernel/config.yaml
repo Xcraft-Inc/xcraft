@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: raspberry+pi4b-linux-kernel
+name: raspberry+rpi4b-linux-kernel
 version: 20250127
 $version: 20250127
 distribution: raspberry/

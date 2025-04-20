@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
   - x+bin:linux-aarch64
-name: openjs+nodejs20-pi4b
+name: openjs+nodejs20-rpi4b
 version: 20.19.0
 $version: 20.19.0
 distribution: raspberry/

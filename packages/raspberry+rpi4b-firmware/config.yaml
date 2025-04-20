@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: raspberry+pi4b-firmware
+name: raspberry+rpi4b-firmware
 version: '1.20250326'
 $version: '1.20250326'
 distribution: raspberry/

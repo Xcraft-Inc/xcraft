@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: gnu+libstdcxx-pi4b
+name: gnu+libstdcxx-rpi4b
 version: '13.3.0'
 $version: '13.3.0'
 distribution: raspberry/

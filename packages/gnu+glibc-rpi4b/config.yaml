@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: gnu+glibc-pi4b
+name: gnu+glibc-rpi4b
 version: '2.41'
 $version: '2.41'
 distribution: raspberry/

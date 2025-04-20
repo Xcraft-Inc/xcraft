@@ -1,7 +1,7 @@
 subpackage:
   - runtime*
   - x+bin:linux-aarch64
-name: openbsd+openssh-pi4b
+name: openbsd+openssh-rpi4b
 version: 10.0p1
 $version: 10.0p1
 distribution: raspberry/
@@ -15,15 +15,15 @@ description:
   long: 'OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.'
 dependency:
   install:
-    openssl+openssl3-pi4b:
+    openssl+openssl3-rpi4b:
       - version: ''
         architecture: []
-    adler+zlib-pi4b:
+    adler+zlib-rpi4b:
       - version: ''
         architecture: []
         subpackage:
           - x+bin
-    adler+zlib-pi4b-dev:
+    adler+zlib-rpi4b-dev:
       - version: ''
         architecture: []
   build:

@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-name: carnotzet+rootfs-pi4b
+name: carnotzet+rootfs-rpi4b
 version: 0.1.0
 $version: 0.1.0
 distribution: raspberry/
@@ -14,27 +14,22 @@ description:
   long: ''
 dependency:
   install:
-    gnu+glibc-pi4b:
+    gnu+glibc-rpi4b:
       - version: ''
         architecture: []
         subpackage:
           - runtime
-    gnu+libstdcxx-pi4b:
+    gnu+libstdcxx-rpi4b:
       - version: ''
         architecture: []
         subpackage:
           - runtime
-    vlasenko+busybox-pi4b:
+    vlasenko+busybox-rpi4b:
       - version: ''
         architecture: []
         subpackage:
           - runtime
-    unigw+wpkg-pi4b:
-      - version: ''
-        architecture: []
-        subpackage:
-          - runtime
-    openjs+nodejs20-pi4b:
+    unigw+wpkg-rpi4b:
       - version: ''
         architecture: []
         subpackage:
