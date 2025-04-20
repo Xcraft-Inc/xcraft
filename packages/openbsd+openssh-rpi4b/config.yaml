@@ -15,15 +15,20 @@ description:
   long: 'OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.'
 dependency:
   install:
-    openssl+openssl3-rpi4b:
-      - version: ''
-        architecture: []
     adler+zlib-rpi4b-x+bin:
       - version: ''
         architecture: []
         subpackage:
           - x+bin
+    openssl+openssl3-rpi4b-x+bin:
+      - version: ''
+        architecture: []
+        subpackage:
+          - x+bin
     adler+zlib-rpi4b-dev:
+      - version: ''
+        architecture: []
+    openssl+openssl3-rpi4b:
       - version: ''
         architecture: []
   build:
