@@ -59,7 +59,7 @@ data:
               install
     test: none
     env:
-      cc: aarch64-xcraft-linux-gnu-gcc
+      CC: aarch64-xcraft-linux-gnu-gcc
   deploy: |-
     mkdir("<PEON.PREFIXDIR>/lib");
     try { /* lib/ is not defined with pure --shared build */
