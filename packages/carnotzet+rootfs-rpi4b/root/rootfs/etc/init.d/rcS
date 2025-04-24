@@ -6,19 +6,12 @@ mount -t debugfs none /sys/kernel/debug
 echo '/bin/mdev' > /proc/sys/kernel/hotplug
 mdev -s
 
+# Mount the vfat boot partition
+mount /dev/mmcblk0p1 /boot
+
 #stty -F /dev/ttyO2 115200
 
 echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
 
-# Configure swap
-if [ -f /swapfile ]; then
-  swapon /swapfile
-fi
-
-# Configure network with DHCP (see /usr/share/udhcpc/default.script)
-ip link set eth0 up
-udhcpc -q -b -i eth0
-#ifconfig eth0 192.168.1.100 netmask 255.255.255.0 up
-
-# Import fr-CH keyboard map
-busybox loadkmap < /usr/share/kmap/fr_CH.kmap
+# shellcheck source=/dev/null
+/etc/init.d/base &

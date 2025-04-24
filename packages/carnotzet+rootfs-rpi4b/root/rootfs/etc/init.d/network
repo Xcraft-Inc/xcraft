@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ -f /boot/carnotzet.cfg ]; then
+  # shellcheck source=/dev/null
+  . /boot/carnotzet.cfg
+else
+  exit 0
+fi
+
+[ -z "$network_wire" ] && exit 0
+if [ "$network_wire_dhcp" = off ]; then
+  ip addr add "$network_wire_ip/$network_wire_mask" dev "$network_wire"
+  ip link set dev "$network_wire" up
+  ip route add default via "$network_wire_gw" dev "$network_wire"
+fi
+if [ "$network_wire_dhcp" = on ]; then
+  # Configure network with DHCP (see /usr/share/udhcpc/default.script)
+  ip link set "$network_wire" up
+  udhcpc -q -b -i "$network_wire"
+fi
