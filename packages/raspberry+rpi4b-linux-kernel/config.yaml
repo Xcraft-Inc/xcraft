@@ -37,6 +37,7 @@ data:
   type: src
   configure: |-
     !cd <THIS.DATA.RULES.LOCATION>
+      && cp <PEON.ASSETS>/logo_linux_clut224.ppm drivers/video/logo
       && make ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- bcm2711_defconfig
   rules:
     type: script
