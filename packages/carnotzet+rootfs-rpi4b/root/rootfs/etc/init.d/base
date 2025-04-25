@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sysctl -p >/dev/null
+
 # Configure swap
 if [ -f /swapfile ]; then
   swapon /swapfile
