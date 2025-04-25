@@ -1,6 +1,8 @@
 #!/bin/sh
 
 sysctl -p >/dev/null
+syslogd >/dev/null
+crond >/dev/null
 
 # Configure swap
 if [ -f /swapfile ]; then
