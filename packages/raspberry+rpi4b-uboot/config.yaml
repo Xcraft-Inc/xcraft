@@ -67,6 +67,9 @@ data:
           '-d', '<PEON.ASSETS>/boot_cmd.txt',
           '<PEON.INSTALLDIR>/var/carnotzet/boot/boot.scr'
         );
+
+        /* Specific Carnotzet OS settings (not u-boot related) */
+        cp('<PEON.ASSETS>/carnotzet.cfg', '<PEON.INSTALLDIR>/var/carnotzet/boot/carnotzet.cfg');
     test: none
     env:
       HOSTCFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<PEON.ROOTDIR>/usr/include -Wl,-rpath,<PEON.ROOTDIR>/usr/lib'
