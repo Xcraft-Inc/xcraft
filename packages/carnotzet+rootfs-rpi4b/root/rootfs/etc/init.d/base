@@ -11,3 +11,4 @@ fi
 busybox loadkmap < /usr/share/kmap/fr_CH.kmap
 
 /etc/init.d/network
+/etc/init.d/ntp

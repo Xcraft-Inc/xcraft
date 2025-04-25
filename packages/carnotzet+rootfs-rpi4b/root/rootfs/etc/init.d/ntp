@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -f /boot/carnotzet.cfg ]; then
+  # shellcheck source=/dev/null
+  . /boot/carnotzet.cfg
+else
+  exit 0
+fi
+
+ntpd -q
