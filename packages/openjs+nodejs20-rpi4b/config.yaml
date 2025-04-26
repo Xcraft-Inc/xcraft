@@ -55,8 +55,7 @@ data:
       makeall: '!make -j{PEON.CPUS.COUNT}'
       maketest: ''
       makeinstall: |-
-        !  make install DESTDIR=<PEON.INSTALLDIR>
-        && make install DESTDIR=<PEON.INSTALLDIR.X+BIN>
+        !make install DESTDIR=<PEON.INSTALLDIR.X+BIN>
     test: none
     env:
       CC: aarch64-xcraft-linux-gnu-gcc
