@@ -67,7 +67,6 @@ data:
       AR_host: ar
       LINK_host: g++
       CFLAGS: ''
-      CFLAGS_host: ''
       CXXFLAGS: ''
       CPPFLAGS: ''
       LDFLAGS: ''
