@@ -46,7 +46,6 @@ data:
                       --with-arm-float-abi=hard
                       --with-arm-fpu=neon
                       --enable-static
-                      --without-intl
   rules:
     type: script
     location: data/node-v<THIS.$VERSION>
