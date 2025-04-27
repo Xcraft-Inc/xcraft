@@ -14,6 +14,9 @@ description:
   long: ''
 dependency:
   install:
+    carnotzet+rootfs-rpi4b:
+      - version: ''
+        architecture: []
     raspberry+rpi4b-linux-kernel:
       - version: ''
         architecture: []
@@ -38,42 +41,44 @@ dependency:
 bump: []
 data:
   get:
-    uri: 'self:///root'
+    uri: ''
     mirrors: []
     ref: ''
     $ref: ''
     out: ''
     externals: false
   type: bin
-  configure: "cp('.', '<PEON.WPKG.STAG>/var/carnotzet');"
+  configure: ''
   rules:
     type: configure
     location: ''
     args:
       postinst: |-
+        mkdir('<PEON.PROD.ROOTDIR>/var/carnotzet');
         /* Prepare the WPKG admin directory */
         yield exec(
           'wpkg',
-          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--create-admindir', '<PEON.ASSETS>/admindir.control'
         );
         /* Add the Xcraft Raspberry WPKG source */
         yield exec(
           'wpkg',
-          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--add-sources', 'wpkg http://127.0.0.1:12321/ raspberry/'
         );
         /* Update the WPKG indices */
         yield exec(
           'wpkg',
-          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--update'
         );
         /* Deploy the base packages */
         yield exec(
           'wpkg',
-          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs',
-          '--install', 'raspberry+rpi4b-linux-kernel-x+bin',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
+          '--install', 'carnotzet+rootfs-rpi4b-x+bin',
+                       'raspberry+rpi4b-linux-kernel-x+bin',
                        'raspberry+rpi4b-uboot-x+bin',
                        'raspberry+rpi4b-firmware-x+bin',
                        'gnu+glibc-rpi4b-x+bin',
@@ -85,8 +90,9 @@ data:
         /* Remove the base packages */
         yield exec(
           'wpkg',
-          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs',
-          '--remove', 'raspberry+rpi4b-linux-kernel-x+bin',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
+          '--remove', 'carnotzet+rootfs-rpi4b-x+bin',
+                      'raspberry+rpi4b-linux-kernel-x+bin',
                       'raspberry+rpi4b-uboot-x+bin',
                       'raspberry+rpi4b-firmware-x+bin',
                       'gnu+glibc-rpi4b-x+bin',
@@ -95,7 +101,7 @@ data:
                       'unigw+wpkg-rpi4b-x+bin'
         );
         /* Remove the WPKG admin directory */
-        rm('<PEON.PROD.ROOTDIR>/var/carnotzet/rootfs/var/lib/wpkg');
+        rm('<PEON.PROD.ROOTDIR>/var/carnotzet/var/lib/wpkg');
     env: {}
   env:
     path: []
