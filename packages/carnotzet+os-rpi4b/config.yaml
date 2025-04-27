@@ -101,7 +101,7 @@ data:
                       'unigw+wpkg-rpi4b-x+bin'
         );
         /* Remove the WPKG admin directory */
-        rm('<PEON.PROD.ROOTDIR>/var/carnotzet/var/lib/wpkg');
+        rm('<PEON.PROD.ROOTDIR>/var/carnotzet');
     env: {}
   env:
     path: []
