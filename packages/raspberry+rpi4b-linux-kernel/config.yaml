@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: raspberry+rpi4b-linux-kernel
 version: 20250127
 $version: 20250127
@@ -52,14 +53,13 @@ data:
               Image modules dtbs
       maketest: ''
       makeinstall: |-
-        !    mkdir -p "<PEON.INSTALLDIR>/var/carnotzet/boot"
-          && mkdir -p "<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+        !    mkdir -p "<PEON.INSTALLDIR.X+BIN>/boot"
           && make ARCH=arm64
                   CROSS_COMPILE=aarch64-xcraft-linux-gnu-
-                  INSTALL_MOD_PATH="<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+                  INSTALL_MOD_PATH="<PEON.INSTALLDIR.X+BIN>"
                   modules_install
-          && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR>/var/carnotzet/boot/"
-          && cp -a arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb "<PEON.INSTALLDIR>/var/carnotzet/boot/"
+          && cp -a arch/arm64/boot/Image "<PEON.INSTALLDIR.X+BIN>/boot/"
+          && cp -a arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb "<PEON.INSTALLDIR.X+BIN>/boot/"
     test: none
     env:
       KBUILD_BUILD_TIMESTAMP: ''

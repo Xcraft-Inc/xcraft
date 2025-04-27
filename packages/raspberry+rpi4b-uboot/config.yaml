@@ -1,6 +1,6 @@
 subpackage:
   - runtime*
-  - tools
+  - x+bin:linux-aarch64
 name: raspberry+rpi4b-uboot
 version: '2025.04'
 $version: '2025.04'
@@ -53,10 +53,10 @@ data:
               -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
-        cp("u-boot.bin", "<PEON.INSTALLDIR>/var/carnotzet/boot/u-boot.bin");
-        cp("tools/mkimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkimage");
-        cp("tools/mkenvimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/mkenvimage");
-        cp("tools/dumpimage", "<PEON.INSTALLDIR.TOOLS>/usr/bin/dumpimage");
+        cp("u-boot.bin", "<PEON.INSTALLDIR.X+BIN>/boot/u-boot.bin");
+        cp("tools/mkimage", "<PEON.INSTALLDIR>/usr/bin/mkimage");
+        cp("tools/mkenvimage", "<PEON.INSTALLDIR>/usr/bin/mkenvimage");
+        cp("tools/dumpimage", "<PEON.INSTALLDIR>/usr/bin/dumpimage");
 
         yield exec(
           'tools/mkimage',
@@ -65,11 +65,11 @@ data:
           '-T', 'script',
           '-C', 'none',
           '-d', '<PEON.ASSETS>/boot_cmd.txt',
-          '<PEON.INSTALLDIR>/var/carnotzet/boot/boot.scr'
+          '<PEON.INSTALLDIR.X+BIN>/boot/boot.scr'
         );
 
         /* Specific Carnotzet OS settings (not u-boot related) */
-        cp('<PEON.ASSETS>/carnotzet.cfg', '<PEON.INSTALLDIR>/var/carnotzet/boot/carnotzet.cfg');
+        cp('<PEON.ASSETS>/carnotzet.cfg', '<PEON.INSTALLDIR.X+BIN>/boot/carnotzet.cfg');
     test: none
     env:
       HOSTCFLAGS: '-O2 -g0 -fPIC -fdiagnostics-color -I<PEON.ROOTDIR>/usr/include -Wl,-rpath,<PEON.ROOTDIR>/usr/lib'

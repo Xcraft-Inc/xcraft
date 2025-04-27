@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: raspberry+rpi4b-firmware
 version: '1.20250326'
 $version: '1.20250326'
@@ -42,9 +43,9 @@ data:
       makeall: ''
       maketest: ''
       makeinstall: |-
-        cp('boot/bootcode.bin', '<PEON.INSTALLDIR>/var/carnotzet/boot/bootcode.bin');
-        cp('boot/start4.elf', '<PEON.INSTALLDIR>/var/carnotzet/boot/start4.elf');
-        cp('<PEON.ASSETS>/config.txt', '<PEON.INSTALLDIR>/var/carnotzet/boot/config.txt');
+        cp('boot/bootcode.bin', '<PEON.INSTALLDIR.X+BIN>/boot/bootcode.bin');
+        cp('boot/start4.elf', '<PEON.INSTALLDIR.X+BIN>/boot/start4.elf');
+        cp('<PEON.ASSETS>/config.txt', '<PEON.INSTALLDIR.X+BIN>/boot/config.txt');
     test: none
     env: {}
   deploy: ''
