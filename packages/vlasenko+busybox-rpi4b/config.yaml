@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: vlasenko+busybox-rpi4b
 version: 1.37.0
 $version: 1.37.0
@@ -38,7 +39,6 @@ data:
     !cd <THIS.DATA.RULES.LOCATION>
       && make CFLAGS=-D_XOPEN_SOURCE ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- defconfig
       && sed -i 's,^# CONFIG_STATIC.*,CONFIG_STATIC=y,' .config
-      && mkdir -p "<PEON.INSTALLDIR>/var/carnotzet/rootfs"
   rules:
     type: make
     location: data/busybox-<THIS.$VERSION>
@@ -47,10 +47,10 @@ data:
       prerm: ''
       makeall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- -j<PEON.CPUS.COUNT>
       maketest: ''
-      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- install CONFIG_PREFIX="<PEON.INSTALLDIR>/var/carnotzet/rootfs"
+      makeinstall: ARCH=arm64 CROSS_COMPILE=aarch64-xcraft-linux-gnu- install CONFIG_PREFIX="<PEON.INSTALLDIR.X+BIN>"
     test: none
     env: {}
-  deploy: cp('<PEON.ASSETS>', '<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/kmap');
+  deploy: cp('<PEON.ASSETS>', '<PEON.INSTALLDIR.X+BIN>/usr/share/kmap');
   env:
     path: []
     other: {}

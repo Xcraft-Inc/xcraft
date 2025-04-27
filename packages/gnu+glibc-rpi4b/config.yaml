@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: gnu+glibc-rpi4b
 version: '2.41'
 $version: '2.41'
@@ -60,7 +61,7 @@ data:
       prerm: ''
       makeall: '!make -C build -j<PEON.CPUS.COUNT>'
       maketest: ''
-      makeinstall: '!make -C build install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs'
+      makeinstall: '!make -C build install DESTDIR=<PEON.INSTALLDIR.X+BIN>'
     test: none
     env:
       CC: ''

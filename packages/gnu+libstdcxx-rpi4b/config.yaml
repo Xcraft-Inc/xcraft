@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: gnu+libstdcxx-rpi4b
 version: '13.3.0'
 $version: '13.3.0'
@@ -73,10 +74,10 @@ data:
           && make -C build-libatomic -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
-        !    make -C build-libstdcxx install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
-          && make -C build-libatomic install DESTDIR=<PEON.INSTALLDIR>/var/carnotzet/rootfs
-          && mkdir -p <PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/lib64
-          && cp <PEON.ROOTDIR>/usr/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/libgcc_s.* <PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/lib64
+        !    make -C build-libstdcxx install DESTDIR=<PEON.INSTALLDIR.X+BIN>
+          && make -C build-libatomic install DESTDIR=<PEON.INSTALLDIR.X+BIN>
+          && mkdir -p <PEON.INSTALLDIR.X+BIN>/usr/lib64
+          && cp <PEON.ROOTDIR>/usr/lib/gcc/aarch64-xcraft-linux-gnu/13.3.0/libgcc_s.* <PEON.INSTALLDIR.X+BIN>/usr/lib64
     test: none
     env:
       CC: ''

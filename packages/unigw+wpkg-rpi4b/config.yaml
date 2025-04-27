@@ -1,5 +1,6 @@
 subpackage:
   - runtime*
+  - x+bin:linux-aarch64
 name: unigw+wpkg-rpi4b
 version: 1.0.2
 $version: 1.0.2
@@ -54,9 +55,7 @@ data:
           && make -j<PEON.CPUS.COUNT>
       maketest: ''
       makeinstall: |-
-        cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/bin/wpkg");
-        cp("<PEON.ASSETS>/admindir.control", "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/wpkg/admindir.control");
-        cp("<PEON.ASSETS>/sources.list",     "<PEON.INSTALLDIR>/var/carnotzet/rootfs/usr/share/wpkg/sources.list");
+        cp("wpkg-Release/tools/wpkg_static", "<PEON.INSTALLDIR.X+BIN>/usr/bin/wpkg");
     test: none
   deploy: ''
   env:
