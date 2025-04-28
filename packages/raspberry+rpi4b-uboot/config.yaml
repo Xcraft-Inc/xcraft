@@ -14,6 +14,10 @@ description:
   brief: U-boot Texas Instruments for RASPBERRY Pi4 model B
   long: ''
 dependency:
+  install:
+    openssl+openssl:
+      - version: ''
+        architecture: []
   build:
     xcraft+peon:
       - version: ''
@@ -22,9 +26,6 @@ dependency:
       - version: ''
         architecture: []
     x-aarch64-linux+gnu-gcc-glibc-cross:
-      - version: ''
-        architecture: []
-    openssl+openssl:
       - version: ''
         architecture: []
 bump: []
