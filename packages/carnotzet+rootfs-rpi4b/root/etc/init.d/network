@@ -19,5 +19,5 @@ fi
 if [ "$network_wire_dhcp" = on ]; then
   # Configure network with DHCP (see /usr/share/udhcpc/default.script)
   ip link set dev "$network_wire" up
-  udhcpc -q -b -i "$network_wire"
+  udhcpc -q -b -i "$network_wire" 2>&1 | logger -p udhcpc.notice
 fi
