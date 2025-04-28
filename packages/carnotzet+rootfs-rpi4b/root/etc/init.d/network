@@ -7,6 +7,9 @@ else
   exit 0
 fi
 
+# Add loopback interface
+ip addr add 127.0.0.1/8 dev lo
+
 [ -z "$network_wire" ] && exit 0
 if [ "$network_wire_dhcp" = off ]; then
   ip addr add "$network_wire_ip/$network_wire_mask" dev "$network_wire"
