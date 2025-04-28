@@ -57,25 +57,26 @@ data:
         mkdir('<PEON.PROD.ROOTDIR>/var/carnotzet');
         /* Prepare the WPKG admin directory */
         yield exec(
-          'wpkg',
+          'wpkg_static',
           '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--create-admindir', '<PEON.ASSETS>/admindir.control'
         );
         /* Add the Xcraft Raspberry WPKG source */
         yield exec(
-          'wpkg',
+          'wpkg_static',
           '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--add-sources', 'wpkg http://127.0.0.1:12321/ raspberry/'
         );
         /* Update the WPKG indices */
         yield exec(
-          'wpkg',
+          'wpkg_static',
           '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--update'
         );
         /* Deploy the base packages */
         yield exec(
-          'wpkg',
+          'wpkg_static',
+          '--keep-original-symlink-target',
           '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--install', 'carnotzet+rootfs-rpi4b-x+bin',
                        'raspberry+rpi4b-linux-kernel-x+bin',
@@ -89,7 +90,8 @@ data:
       prerm: |-
         /* Remove the base packages */
         yield exec(
-          'wpkg',
+          'wpkg_static',
+          '--keep-original-symlink-target',
           '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
           '--remove', 'carnotzet+rootfs-rpi4b-x+bin',
                       'raspberry+rpi4b-linux-kernel-x+bin',
