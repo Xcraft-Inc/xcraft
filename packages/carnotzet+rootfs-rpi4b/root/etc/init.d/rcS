@@ -10,8 +10,6 @@ mdev -s
 # Mount all filesystems
 mount -a
 
-#stty -F /dev/ttyO2 115200
-
 echo -e "Carnotzet OS booted in $(cut -d' ' -f1 /proc/uptime) seconds\\n"
 
 # shellcheck source=/dev/null
