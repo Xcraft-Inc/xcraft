@@ -65,6 +65,10 @@ data:
       makeinstall: |-
         !  make install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR>
         && make install STRIP_OPT= DESTDIR=<PEON.INSTALLDIR.X+BIN>
+        && mkdir -p <PEON.INSTALLDIR.X+BIN>/etc/init.d
+        && cp <PEON.ASSETS>/S10_sshd <PEON.INSTALLDIR.X+BIN>/etc/init.d/S10_sshd
+        && cp <PEON.ASSETS>/postinst <PEON.INSTALLDIR.X+BIN>/WPKG/postinst
+        && cp <PEON.ASSETS>/prerm    <PEON.INSTALLDIR.X+BIN>/WPKG/prerm
     test: none
     env:
       CC: ''
