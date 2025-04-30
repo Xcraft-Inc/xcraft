@@ -4,7 +4,7 @@ mount -t sysfs none /sys
 mount -t devpts none /dev/pts # sshd
 mount -t debugfs none /sys/kernel/debug
 
-echo '/bin/mdev' > /proc/sys/kernel/hotplug
+echo /bin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 
 # Mount all filesystems
