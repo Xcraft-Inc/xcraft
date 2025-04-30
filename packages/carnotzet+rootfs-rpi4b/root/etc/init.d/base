@@ -9,8 +9,6 @@ if [ -f /swapfile ]; then
   swapon /swapfile
 fi
 
-# Import fr-CH keyboard map
-busybox loadkmap < /usr/share/kmap/fr_CH.kmap
-
-/etc/init.d/network
-/etc/init.d/ntp
+for service in /etc/init.d/S*; do
+  $service
+done
