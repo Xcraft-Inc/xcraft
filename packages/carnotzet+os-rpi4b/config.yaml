@@ -114,7 +114,7 @@ data:
                       'vlasenko+busybox-rpi4b-x+bin',
                       'unigw+wpkg-rpi4b-x+bin'
         );
-        /* Remove the WPKG admin directory */
+        /* Remove the WPKG root directory */
         rm('<PEON.PROD.ROOTDIR>/var/carnotzet');
     env: {}
   env:
