@@ -87,7 +87,19 @@ data:
                        'vlasenko+busybox-rpi4b-x+bin',
                        'unigw+wpkg-rpi4b-x+bin'
         );
+        /* Deploy base hooks */
+        yield exec(
+          'wpkg_static',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
+          '--add-hooks', '<PEON.ASSETS>/postinst'
+        );
       prerm: |-
+        /* Remove base hooks */
+        yield exec(
+          'wpkg_static',
+          '--root', '<PEON.PROD.ROOTDIR>/var/carnotzet',
+          '--remove-hooks', 'postinst'
+        );
         /* Remove the base packages */
         yield exec(
           'wpkg_static',
