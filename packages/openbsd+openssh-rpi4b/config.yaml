@@ -52,7 +52,7 @@ data:
                      --host=aarch64-xcraft-linux-gnu
                      --with-libs
                      --with-ldflags="-Wl,-rpath,<PEON.PROD.ROOTDIR>/usr/lib"
-                     --with-privsep-path=<PEON.INSTALLDIR>/var/empty
+                     --with-privsep-path=/var/empty
                      --disable-etc-default-login
   rules:
     type: script
