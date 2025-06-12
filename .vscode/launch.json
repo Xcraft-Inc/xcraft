@@ -27,6 +27,20 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Run Xcraft Shell",
+      "runtimeExecutable": "${workspaceFolder}/.node",
+      "program": "${workspaceFolder}/lib/xcraft/bin/xcraft",
+      "console": "integratedTerminal",
+      "autoAttachChildProcesses": true,
+      "env": {
+        "XCRAFT_LOGS": "1",
+        "XCRAFT_LOG": "2",
+        "XCRAFT_DEBUG": "1"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": ":: test current file (mocha)",
       "runtimeExecutable": "${workspaceFolder}/.node",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
