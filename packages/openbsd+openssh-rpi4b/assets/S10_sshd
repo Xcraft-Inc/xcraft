@@ -1,5 +1,0 @@
-#!/bin/sh
-
-chown root:root -R /var/empty
-
-/usr/sbin/sshd

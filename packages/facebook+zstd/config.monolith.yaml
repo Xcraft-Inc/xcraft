@@ -1,4 +1,0 @@
-data:
-  rules:
-    args:
-      makeinstall: install PREFIX=<PEON.PREFIXDIR>

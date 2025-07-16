@@ -1,6 +1,0 @@
-#!/bin/sh
-
-ssh-keygen -A
-if ! id -u sshd; then
-  adduser sshd -SH
-fi

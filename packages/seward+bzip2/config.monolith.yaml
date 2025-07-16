@@ -1,4 +1,0 @@
-data:
-  rules:
-    env:
-      CFLAGS: <PEON.ENV.CFLAGS> -Os
