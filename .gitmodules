@@ -151,3 +151,9 @@
 [submodule "lib/goblin-zou"]
 	path = lib/goblin-zou
 	url = https://github.com/Xcraft-Inc/goblin-zou.git
+[submodule "packages"]
+	path = packages
+	url = https://github.com/Xcraft-Inc/packages.git
+[submodule "packages.epsitec"]
+	path = packages.epsitec
+	url = ../packages.git
