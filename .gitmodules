@@ -157,3 +157,9 @@
 [submodule "packages.epsitec"]
 	path = packages.epsitec
 	url = ../packages.git
+[submodule "lib/xcraft-contrib-portal"]
+	path = lib/xcraft-contrib-portal
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-portal.git
+[submodule "lib/xcraft-contrib-chest"]
+	path = lib/xcraft-contrib-chest
+	url = https://github.com/Xcraft-Inc/xcraft-contrib-chest.git
