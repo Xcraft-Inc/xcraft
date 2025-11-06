@@ -114,6 +114,7 @@
   "uniq": "^darwin|freebsd|linux|sunos$",
   "update-desktop-database": "^linux$",
   "update-mime-database": "^linux$",
+  "vm_stat": "^darwin$",
   "wc": "^darwin|freebsd|linux|sunos$",
   "where": "^win32$",
   "which": "^darwin|freebsd|linux|sunos$",
