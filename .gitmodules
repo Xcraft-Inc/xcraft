@@ -157,3 +157,6 @@
 [submodule "lib/xcraft-contrib-chest"]
 	path = lib/xcraft-contrib-chest
 	url = ../xcraft-contrib-chest.git
+[submodule "lib/xcraft"]
+	path = lib/xcraft
+	url = https://github.com/Xcraft-Inc/xcraft-init.git
